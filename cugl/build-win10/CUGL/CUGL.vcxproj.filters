@@ -1,0 +1,1075 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files\math">
+      <UniqueIdentifier>{a7455a15-6916-419f-a049-00cb57463986}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\math\polygon">
+      <UniqueIdentifier>{aa971255-002a-44f7-ad2e-e9e37de6ef70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\io">
+      <UniqueIdentifier>{9013fc17-5d16-4193-8fda-012c3b9bc014}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\input">
+      <UniqueIdentifier>{ee70d2dd-f06a-489a-ac54-ca6a835270a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\input\gestures">
+      <UniqueIdentifier>{a95e9e2a-0d85-417b-a179-ccad21359d58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\base">
+      <UniqueIdentifier>{9b022dc0-a963-48bf-8b14-c803270bb393}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\base\platform">
+      <UniqueIdentifier>{e9a7fbac-8d48-47f0-a4c6-480d040d34b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\audio">
+      <UniqueIdentifier>{270593b9-5ca9-4de0-80e0-74f3f56d9227}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\assets">
+      <UniqueIdentifier>{9516626b-9fee-4e3b-86a6-f7f6020d4f30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\util">
+      <UniqueIdentifier>{6b01080a-199d-44ba-aebc-d39cfca059d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\assets">
+      <UniqueIdentifier>{0b2faaba-ca88-4e31-86c0-d7e83248ab53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\audio">
+      <UniqueIdentifier>{4d335f28-d050-4e1a-b61a-b31d8c1bdcd3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\base">
+      <UniqueIdentifier>{95d447ad-8c6e-4acb-8b23-de64a3af90a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\input">
+      <UniqueIdentifier>{ac6db87b-b557-42f5-8629-d8241611ab81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\io">
+      <UniqueIdentifier>{8e28ba13-f745-473f-a510-769166c07b78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\math">
+      <UniqueIdentifier>{a62b38ba-28f9-492a-a81c-027f7eff5d23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\util">
+      <UniqueIdentifier>{7c454f68-cc77-483c-98b8-5b63ca202bcd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\base\platform">
+      <UniqueIdentifier>{c85920c5-a920-43ad-84e4-da0fc7e8371f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\input\gestures">
+      <UniqueIdentifier>{1a13cd1f-ebdb-4da6-8441-f77086999c12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\math\polygon">
+      <UniqueIdentifier>{5645eb08-ab3d-4bb1-bdec-cacde703d9b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\external">
+      <UniqueIdentifier>{43c0328b-d80f-43a8-90f8-bf8f67e57d9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\external\cJSON">
+      <UniqueIdentifier>{7c21dd1d-3305-437d-866e-5ba4b97c9f52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\audio\graph">
+      <UniqueIdentifier>{103128ca-e515-4318-8895-391357c82510}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\audio\codecs">
+      <UniqueIdentifier>{446d3929-dfa4-4e75-a134-5434cb9993fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\math\dsp">
+      <UniqueIdentifier>{0ab46909-788f-4b20-a5b1-2679871273ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\audio\graph">
+      <UniqueIdentifier>{ee868c0c-916d-4896-9c75-cfed0cbc768b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\audio\codecs">
+      <UniqueIdentifier>{7c1c3138-cca5-4d58-86fe-579b6d26b983}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\math\dsp">
+      <UniqueIdentifier>{fe025e73-b39c-437a-8ab6-9e9f87200c68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\scene2">
+      <UniqueIdentifier>{30d5b104-2690-4739-9bba-e4e2059904e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\scene2\ui">
+      <UniqueIdentifier>{034e3623-7a96-44ad-b52f-e5dbbf6abc1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\external\clipper">
+      <UniqueIdentifier>{d482b1e6-53dd-4dd4-86d9-97b4f4d4fc4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\external\poly2tri">
+      <UniqueIdentifier>{e4080b3e-e2bf-4cc4-9135-d3383c67ec2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\external\poly2tri\common">
+      <UniqueIdentifier>{c7046c11-855b-4ba0-bc30-2458dde7df84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\external\poly2tri\sweep">
+      <UniqueIdentifier>{e6e898b0-5675-4c93-8a68-2d2ffd06b106}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\render">
+      <UniqueIdentifier>{f45c677c-84ad-4a91-9fb1-2985c47228bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\scene2\graph">
+      <UniqueIdentifier>{52cb9850-2052-4dd8-a5c5-a608e4d57c67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\scene2\layout">
+      <UniqueIdentifier>{2ffcb5ef-eb7b-4e4a-be28-9b859fc55d3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\physics2">
+      <UniqueIdentifier>{7eab16ac-7cf6-4f11-84eb-ef1a6eadc65f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\render">
+      <UniqueIdentifier>{f945aeaf-8c04-45b6-86ba-7d48c7b93b68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\render\shaders">
+      <UniqueIdentifier>{1d7c3470-2747-435c-bad7-4aaed2309342}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\scene2">
+      <UniqueIdentifier>{829c413f-395a-40c6-af26-acf0dffb2fdb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\scene2\ui">
+      <UniqueIdentifier>{60f2ab14-2697-48ad-82f0-cd0d77583009}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\scene2\graph">
+      <UniqueIdentifier>{a6c1953b-e694-46a1-9be9-b783e0b35d63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\scene2\layout">
+      <UniqueIdentifier>{3d007b8a-7393-4870-b7b0-b8b144ca6c20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\physics2">
+      <UniqueIdentifier>{09883f63-8773-4f9f-b513-69e859b474c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\external">
+      <UniqueIdentifier>{1b21bc06-eedc-4ab6-8b9e-26706bd54bc8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\external\clipper">
+      <UniqueIdentifier>{8d4b9b53-be38-433e-9677-b00b6692e40f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\external\poly2tri">
+      <UniqueIdentifier>{777a4f99-2747-4176-a9c9-9c9fc52b0633}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\cugl\math\cu_math.h">
+      <Filter>Header Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\math\CUAffine2.h">
+      <Filter>Header Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\math\CUColor4.h">
+      <Filter>Header Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\math\CUFrustum.h">
+      <Filter>Header Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\math\CUMat4.h">
+      <Filter>Header Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\math\CUMathBase.h">
+      <Filter>Header Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\math\CUPlane.h">
+      <Filter>Header Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\math\CUPoly2.h">
+      <Filter>Header Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\math\CUPolynomial.h">
+      <Filter>Header Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\math\CUQuaternion.h">
+      <Filter>Header Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\math\CURay.h">
+      <Filter>Header Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\math\CURect.h">
+      <Filter>Header Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\math\CUSize.h">
+      <Filter>Header Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\math\CUVec2.h">
+      <Filter>Header Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\math\CUVec3.h">
+      <Filter>Header Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\math\CUVec4.h">
+      <Filter>Header Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\math\polygon\cu_polygon.h">
+      <Filter>Header Files\math\polygon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\math\polygon\CUSimpleTriangulator.h">
+      <Filter>Header Files\math\polygon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\assets\cu_assets.h">
+      <Filter>Header Files\assets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\assets\CUAsset.h">
+      <Filter>Header Files\assets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\assets\CUAssetManager.h">
+      <Filter>Header Files\assets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\assets\CUFontLoader.h">
+      <Filter>Header Files\assets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\assets\CUGenericLoader.h">
+      <Filter>Header Files\assets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\assets\CUJsonLoader.h">
+      <Filter>Header Files\assets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\assets\CUJsonValue.h">
+      <Filter>Header Files\assets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\assets\CULoader.h">
+      <Filter>Header Files\assets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\assets\CUSoundLoader.h">
+      <Filter>Header Files\assets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\assets\CUTextureLoader.h">
+      <Filter>Header Files\assets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\audio\cu_audio.h">
+      <Filter>Header Files\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\base\cu_platform.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\base\CUApplication.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\base\CUBase.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\base\CUDisplay.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\base\CUEndian.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\base\platform\CUDisplay-impl.h">
+      <Filter>Header Files\base\platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\input\cu_input.h">
+      <Filter>Header Files\input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\input\CUAccelerometer.h">
+      <Filter>Header Files\input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\input\CUInput.h">
+      <Filter>Header Files\input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\input\CUKeyboard.h">
+      <Filter>Header Files\input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\input\CUMouse.h">
+      <Filter>Header Files\input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\input\CUTextInput.h">
+      <Filter>Header Files\input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\input\CUTouchscreen.h">
+      <Filter>Header Files\input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\input\gestures\cu_gesture.h">
+      <Filter>Header Files\input\gestures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\input\gestures\CUPanInput.h">
+      <Filter>Header Files\input\gestures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\input\gestures\CUPinchInput.h">
+      <Filter>Header Files\input\gestures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\input\gestures\CURotationInput.h">
+      <Filter>Header Files\input\gestures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\io\cu_io.h">
+      <Filter>Header Files\io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\io\CUBinaryReader.h">
+      <Filter>Header Files\io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\io\CUBinaryWriter.h">
+      <Filter>Header Files\io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\io\CUJsonReader.h">
+      <Filter>Header Files\io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\io\CUJsonWriter.h">
+      <Filter>Header Files\io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\io\CUTextReader.h">
+      <Filter>Header Files\io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\io\CUTextWriter.h">
+      <Filter>Header Files\io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\util\cu_util.h">
+      <Filter>Header Files\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\util\CUDebug.h">
+      <Filter>Header Files\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\util\CUFreeList.h">
+      <Filter>Header Files\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\util\CUGreedyFreeList.h">
+      <Filter>Header Files\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\util\CUStrings.h">
+      <Filter>Header Files\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\util\CUThreadPool.h">
+      <Filter>Header Files\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\util\CUTimestamp.h">
+      <Filter>Header Files\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\cugl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\base\platform\CUDisplay-impl.h">
+      <Filter>Source Files\base\platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\audio\codecs\cu_codecs.h">
+      <Filter>Header Files\audio\codecs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\audio\codecs\CUAudioDecoder.h">
+      <Filter>Header Files\audio\codecs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\audio\codecs\CUFLACDecoder.h">
+      <Filter>Header Files\audio\codecs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\audio\codecs\CUMP3Decoder.h">
+      <Filter>Header Files\audio\codecs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\audio\codecs\CUOGGDecoder.h">
+      <Filter>Header Files\audio\codecs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\audio\codecs\CUWAVDecoder.h">
+      <Filter>Header Files\audio\codecs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\audio\graph\cu_audio_graph.h">
+      <Filter>Header Files\audio\graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\audio\graph\CUAudioFader.h">
+      <Filter>Header Files\audio\graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\audio\graph\CUAudioInput.h">
+      <Filter>Header Files\audio\graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\audio\graph\CUAudioMixer.h">
+      <Filter>Header Files\audio\graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\audio\graph\CUAudioNode.h">
+      <Filter>Header Files\audio\graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\audio\graph\CUAudioOutput.h">
+      <Filter>Header Files\audio\graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\audio\graph\CUAudioPanner.h">
+      <Filter>Header Files\audio\graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\audio\graph\CUAudioPlayer.h">
+      <Filter>Header Files\audio\graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\audio\graph\CUAudioScheduler.h">
+      <Filter>Header Files\audio\graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\audio\graph\CUAudioSpinner.h">
+      <Filter>Header Files\audio\graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\audio\CUAudioSample.h">
+      <Filter>Header Files\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\audio\CUAudioWaveform.h">
+      <Filter>Header Files\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\audio\CUSound.h">
+      <Filter>Header Files\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\math\dsp\cu_dsp.h">
+      <Filter>Header Files\math\dsp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\math\dsp\CUBiquadIIR.h">
+      <Filter>Header Files\math\dsp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\math\dsp\CUDSPMath.h">
+      <Filter>Header Files\math\dsp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\math\dsp\CUFIRFilter.h">
+      <Filter>Header Files\math\dsp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\math\dsp\CUIIRFilter.h">
+      <Filter>Header Files\math\dsp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\math\dsp\CUOnePoleIIR.h">
+      <Filter>Header Files\math\dsp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\math\dsp\CUOneZeroFIR.h">
+      <Filter>Header Files\math\dsp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\math\dsp\CUPoleZeroIIR.h">
+      <Filter>Header Files\math\dsp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\math\dsp\CUTwoPoleIIR.h">
+      <Filter>Header Files\math\dsp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\math\dsp\CUTwoZeroFIR.h">
+      <Filter>Header Files\math\dsp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\math\CUEasingBezier.h">
+      <Filter>Header Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\math\CUEasingFunction.h">
+      <Filter>Header Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\util\CUAligned.h">
+      <Filter>Header Files\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\assets\CUWidgetLoader.h">
+      <Filter>Header Files\assets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\assets\CUWidgetValue.h">
+      <Filter>Header Files\assets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\audio\graph\CUAudioResampler.h">
+      <Filter>Header Files\audio\graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\audio\graph\CUAudioSynchronizer.h">
+      <Filter>Header Files\audio\graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\assets\CUScene2Loader.h">
+      <Filter>Header Files\assets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\audio\CUAudioDevices.h">
+      <Filter>Header Files\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\audio\CUAudioEngine.h">
+      <Filter>Header Files\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\audio\CUAudioQueue.h">
+      <Filter>Header Files\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\clipper\clipper.hpp">
+      <Filter>Header Files\external\clipper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\poly2tri\poly2tri.h">
+      <Filter>Header Files\external\poly2tri</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\poly2tri\common\shapes.h">
+      <Filter>Header Files\external\poly2tri\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\poly2tri\common\utils.h">
+      <Filter>Header Files\external\poly2tri\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\poly2tri\sweep\advancing_front.h">
+      <Filter>Header Files\external\poly2tri\sweep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\poly2tri\sweep\cdt.h">
+      <Filter>Header Files\external\poly2tri\sweep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\poly2tri\sweep\sweep.h">
+      <Filter>Header Files\external\poly2tri\sweep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\poly2tri\sweep\sweep_context.h">
+      <Filter>Header Files\external\poly2tri\sweep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\math\CUGeometry.h">
+      <Filter>Header Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\math\CUSpline2.h">
+      <Filter>Header Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\math\polygon\CUComplexExtruder.h">
+      <Filter>Header Files\math\polygon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\math\polygon\CUComplexTriangulator.h">
+      <Filter>Header Files\math\polygon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\math\polygon\CUPathSmoother.h">
+      <Filter>Header Files\math\polygon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\math\polygon\CUPolyEnums.h">
+      <Filter>Header Files\math\polygon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\math\polygon\CUPolyFactory.h">
+      <Filter>Header Files\math\polygon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\math\polygon\CUPolySplineFactory.h">
+      <Filter>Header Files\math\polygon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\math\polygon\CUSimpleExtruder.h">
+      <Filter>Header Files\math\polygon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\scene2\cu_scene2.h">
+      <Filter>Header Files\scene2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\scene2\CUScene2.h">
+      <Filter>Header Files\scene2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\scene2\CUScene2Texture.h">
+      <Filter>Header Files\scene2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\scene2\graph\CUAnimationNode.h">
+      <Filter>Header Files\scene2\graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\scene2\graph\CUPathNode.h">
+      <Filter>Header Files\scene2\graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\scene2\graph\CUPolygonNode.h">
+      <Filter>Header Files\scene2\graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\scene2\graph\CUSceneNode.h">
+      <Filter>Header Files\scene2\graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\scene2\graph\CUTexturedNode.h">
+      <Filter>Header Files\scene2\graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\scene2\graph\CUWireNode.h">
+      <Filter>Header Files\scene2\graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\scene2\layout\cu_layout.h">
+      <Filter>Header Files\scene2\layout</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\scene2\layout\CUAnchoredLayout.h">
+      <Filter>Header Files\scene2\layout</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\scene2\layout\CUFloatLayout.h">
+      <Filter>Header Files\scene2\layout</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\scene2\layout\CUGridLayout.h">
+      <Filter>Header Files\scene2\layout</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\scene2\layout\CULayout.h">
+      <Filter>Header Files\scene2\layout</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\scene2\ui\CUButton.h">
+      <Filter>Header Files\scene2\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\scene2\ui\CULabel.h">
+      <Filter>Header Files\scene2\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\scene2\ui\CUNinePatch.h">
+      <Filter>Header Files\scene2\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\scene2\ui\CUProgressBar.h">
+      <Filter>Header Files\scene2\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\scene2\ui\CUSlider.h">
+      <Filter>Header Files\scene2\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\scene2\ui\CUTextField.h">
+      <Filter>Header Files\scene2\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\render\cu_render.h">
+      <Filter>Header Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\render\CUCamera.h">
+      <Filter>Header Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\render\CUFont.h">
+      <Filter>Header Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\render\CUGradient.h">
+      <Filter>Header Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\render\CUMesh.h">
+      <Filter>Header Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\render\CUOrthographicCamera.h">
+      <Filter>Header Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\render\CUPerspectiveCamera.h">
+      <Filter>Header Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\render\CURenderTarget.h">
+      <Filter>Header Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\render\CUScissor.h">
+      <Filter>Header Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\render\CUShader.h">
+      <Filter>Header Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\render\CUSpriteBatch.h">
+      <Filter>Header Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\render\CUSpriteVertex.h">
+      <Filter>Header Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\render\CUTexture.h">
+      <Filter>Header Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\render\CUUniformBuffer.h">
+      <Filter>Header Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\render\CUVertexBuffer.h">
+      <Filter>Header Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\util\CUFiletools.h">
+      <Filter>Header Files\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\physics2\cu_physics2.h">
+      <Filter>Header Files\physics2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\physics2\CUBoxObstacle.h">
+      <Filter>Header Files\physics2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\physics2\CUCapsuleObstacle.h">
+      <Filter>Header Files\physics2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\physics2\CUComplexObstacle.h">
+      <Filter>Header Files\physics2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\physics2\CUObstacle.h">
+      <Filter>Header Files\physics2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\physics2\CUObstacleSelector.h">
+      <Filter>Header Files\physics2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\physics2\CUObstacleWorld.h">
+      <Filter>Header Files\physics2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\physics2\CUPolygonObstacle.h">
+      <Filter>Header Files\physics2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\physics2\CUSimpleObstacle.h">
+      <Filter>Header Files\physics2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cugl\physics2\CUWheelObstacle.h">
+      <Filter>Header Files\physics2</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\assets\CUFontLoader.cpp">
+      <Filter>Source Files\assets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\assets\CUJsonLoader.cpp">
+      <Filter>Source Files\assets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\assets\CUJsonValue.cpp">
+      <Filter>Source Files\assets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\assets\CUSoundLoader.cpp">
+      <Filter>Source Files\assets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\assets\CUTextureLoader.cpp">
+      <Filter>Source Files\assets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\audio\CUSound.cpp">
+      <Filter>Source Files\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\base\CUApplication.cpp">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\base\CUDisplay.cpp">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\base\platform\CUDisplay-SDL.cpp">
+      <Filter>Source Files\base\platform</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\input\CUAccelerometer.cpp">
+      <Filter>Source Files\input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\input\CUInput.cpp">
+      <Filter>Source Files\input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\input\CUKeyboard.cpp">
+      <Filter>Source Files\input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\input\CUMouse.cpp">
+      <Filter>Source Files\input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\input\CUTextInput.cpp">
+      <Filter>Source Files\input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\input\CUTouchscreen.cpp">
+      <Filter>Source Files\input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\input\gestures\CUPanInput.cpp">
+      <Filter>Source Files\input\gestures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\input\gestures\CUPinchInput.cpp">
+      <Filter>Source Files\input\gestures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\input\gestures\CURotationInput.cpp">
+      <Filter>Source Files\input\gestures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\io\CUBinaryReader.cpp">
+      <Filter>Source Files\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\io\CUBinaryWriter.cpp">
+      <Filter>Source Files\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\io\CUJsonReader.cpp">
+      <Filter>Source Files\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\io\CUJsonWriter.cpp">
+      <Filter>Source Files\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\io\CUTextReader.cpp">
+      <Filter>Source Files\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\io\CUTextWriter.cpp">
+      <Filter>Source Files\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\math\CUAffine2.cpp">
+      <Filter>Source Files\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\math\CUColor4.cpp">
+      <Filter>Source Files\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\math\CUFrustum.cpp">
+      <Filter>Source Files\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\math\CUMat4.cpp">
+      <Filter>Source Files\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\math\CUMathBase.cpp">
+      <Filter>Source Files\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\math\CUPlane.cpp">
+      <Filter>Source Files\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\math\CUPoly2.cpp">
+      <Filter>Source Files\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\math\CUPolynomial.cpp">
+      <Filter>Source Files\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\math\CUQuaternion.cpp">
+      <Filter>Source Files\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\math\CURay.cpp">
+      <Filter>Source Files\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\math\CURect.cpp">
+      <Filter>Source Files\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\math\CUSize.cpp">
+      <Filter>Source Files\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\math\CUVec2.cpp">
+      <Filter>Source Files\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\math\CUVec3.cpp">
+      <Filter>Source Files\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\math\CUVec4.cpp">
+      <Filter>Source Files\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\math\polygon\CUSimpleTriangulator.cpp">
+      <Filter>Source Files\math\polygon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\util\CUDebug.cpp">
+      <Filter>Source Files\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\util\CUStrings.cpp">
+      <Filter>Source Files\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\util\CUThreadPool.cpp">
+      <Filter>Source Files\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\cJSON\cJSON.c">
+      <Filter>Header Files\external\cJSON</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\audio\codecs\CUAudioDecoder.cpp">
+      <Filter>Source Files\audio\codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\audio\codecs\CUFLACDecoder.cpp">
+      <Filter>Source Files\audio\codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\audio\codecs\CUMP3Decoder.cpp">
+      <Filter>Source Files\audio\codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\audio\codecs\CUOGGDecoder.cpp">
+      <Filter>Source Files\audio\codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\audio\codecs\CUWAVDecoder.cpp">
+      <Filter>Source Files\audio\codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\audio\graph\CUAudioFader.cpp">
+      <Filter>Source Files\audio\graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\audio\graph\CUAudioInput.cpp">
+      <Filter>Source Files\audio\graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\audio\graph\CUAudioMixer.cpp">
+      <Filter>Source Files\audio\graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\audio\graph\CUAudioNode.cpp">
+      <Filter>Source Files\audio\graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\audio\graph\CUAudioOutput.cpp">
+      <Filter>Source Files\audio\graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\audio\graph\CUAudioPanner.cpp">
+      <Filter>Source Files\audio\graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\audio\graph\CUAudioPlayer.cpp">
+      <Filter>Source Files\audio\graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\audio\graph\CUAudioScheduler.cpp">
+      <Filter>Source Files\audio\graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\audio\graph\CUAudioSpinner.cpp">
+      <Filter>Source Files\audio\graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\audio\CUAudioSample.cpp">
+      <Filter>Source Files\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\audio\CUAudioWaveform.cpp">
+      <Filter>Source Files\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\math\CUEasingBezier.cpp">
+      <Filter>Source Files\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\math\CUEasingFunction.cpp">
+      <Filter>Source Files\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\math\dsp\CUBiquadIIR.cpp">
+      <Filter>Source Files\math\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\math\dsp\CUDSPMath.cpp">
+      <Filter>Source Files\math\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\math\dsp\CUFIRFilter.cpp">
+      <Filter>Source Files\math\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\math\dsp\CUIIRFilter.cpp">
+      <Filter>Source Files\math\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\math\dsp\CUOnePoleIIR.cpp">
+      <Filter>Source Files\math\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\math\dsp\CUOneZeroFIR.cpp">
+      <Filter>Source Files\math\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\math\dsp\CUPoleZeroIIR.cpp">
+      <Filter>Source Files\math\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\math\dsp\CUTwoPoleIIR.cpp">
+      <Filter>Source Files\math\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\math\dsp\CUTwoZeroFIR.cpp">
+      <Filter>Source Files\math\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\assets\CUWidgetLoader.cpp">
+      <Filter>Source Files\assets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\audio\graph\CUAudioResampler.cpp">
+      <Filter>Source Files\audio\graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\audio\graph\CUAudioSynchronizer.cpp">
+      <Filter>Source Files\audio\graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\assets\CUScene2Loader.cpp">
+      <Filter>Source Files\assets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\audio\CUAudioDevices.cpp">
+      <Filter>Source Files\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\audio\CUAudioEngine.cpp">
+      <Filter>Source Files\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\audio\CUAudioQueue.cpp">
+      <Filter>Source Files\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\math\CUGeometry.cpp">
+      <Filter>Source Files\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\math\CUSpline2.cpp">
+      <Filter>Source Files\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\math\polygon\CUComplexExtruder.cpp">
+      <Filter>Source Files\math\polygon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\math\polygon\CUComplexTriangulator.cpp">
+      <Filter>Source Files\math\polygon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\math\polygon\CUPathSmoother.cpp">
+      <Filter>Source Files\math\polygon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\math\polygon\CUPolyFactory.cpp">
+      <Filter>Source Files\math\polygon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\math\polygon\CUPolySplineFactory.cpp">
+      <Filter>Source Files\math\polygon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\math\polygon\CUSimpleExtruder.cpp">
+      <Filter>Source Files\math\polygon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\util\CUFiletools.cpp">
+      <Filter>Source Files\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\render\CUCamera.cpp">
+      <Filter>Source Files\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\render\CUFont.cpp">
+      <Filter>Source Files\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\render\CUGradient.cpp">
+      <Filter>Source Files\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\render\CUOrthographicCamera.cpp">
+      <Filter>Source Files\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\render\CUPerspectiveCamera.cpp">
+      <Filter>Source Files\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\render\CURenderTarget.cpp">
+      <Filter>Source Files\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\render\CUScissor.cpp">
+      <Filter>Source Files\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\render\CUShader.cpp">
+      <Filter>Source Files\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\render\CUSpriteBatch.cpp">
+      <Filter>Source Files\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\render\CUTexture.cpp">
+      <Filter>Source Files\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\render\CUUniformBuffer.cpp">
+      <Filter>Source Files\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\render\CUVertexBuffer.cpp">
+      <Filter>Source Files\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\scene2\CUScene2.cpp">
+      <Filter>Source Files\scene2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\scene2\CUScene2Texture.cpp">
+      <Filter>Source Files\scene2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\scene2\graph\CUAnimationNode.cpp">
+      <Filter>Source Files\scene2\graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\scene2\graph\CUPathNode.cpp">
+      <Filter>Source Files\scene2\graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\scene2\graph\CUPolygonNode.cpp">
+      <Filter>Source Files\scene2\graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\scene2\graph\CUSceneNode.cpp">
+      <Filter>Source Files\scene2\graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\scene2\graph\CUTexturedNode.cpp">
+      <Filter>Source Files\scene2\graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\scene2\graph\CUWireNode.cpp">
+      <Filter>Source Files\scene2\graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\scene2\layout\CUAnchoredLayout.cpp">
+      <Filter>Source Files\scene2\layout</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\scene2\layout\CUFloatLayout.cpp">
+      <Filter>Source Files\scene2\layout</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\scene2\layout\CUGridLayout.cpp">
+      <Filter>Source Files\scene2\layout</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\scene2\layout\CULayout.cpp">
+      <Filter>Source Files\scene2\layout</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\scene2\ui\CUButton.cpp">
+      <Filter>Source Files\scene2\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\scene2\ui\CULabel.cpp">
+      <Filter>Source Files\scene2\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\scene2\ui\CUNinePatch.cpp">
+      <Filter>Source Files\scene2\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\scene2\ui\CUProgressBar.cpp">
+      <Filter>Source Files\scene2\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\scene2\ui\CUSlider.cpp">
+      <Filter>Source Files\scene2\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\scene2\ui\CUTextField.cpp">
+      <Filter>Source Files\scene2\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\physics2\CUBoxObstacle.cpp">
+      <Filter>Source Files\physics2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\physics2\CUCapsuleObstacle.cpp">
+      <Filter>Source Files\physics2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\physics2\CUComplexObstacle.cpp">
+      <Filter>Source Files\physics2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\physics2\CUObstacle.cpp">
+      <Filter>Source Files\physics2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\physics2\CUObstacleSelector.cpp">
+      <Filter>Source Files\physics2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\physics2\CUObstacleWorld.cpp">
+      <Filter>Source Files\physics2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\physics2\CUPolygonObstacle.cpp">
+      <Filter>Source Files\physics2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\physics2\CUSimpleObstacle.cpp">
+      <Filter>Source Files\physics2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\physics2\CUWheelObstacle.cpp">
+      <Filter>Source Files\physics2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\clipper\clipper.cpp">
+      <Filter>Source Files\external\clipper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\poly2tri\common\shapes.cc">
+      <Filter>Source Files\external\poly2tri</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\poly2tri\sweep\advancing_front.cc">
+      <Filter>Source Files\external\poly2tri</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\poly2tri\sweep\cdt.cc">
+      <Filter>Source Files\external\poly2tri</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\poly2tri\sweep\sweep.cc">
+      <Filter>Source Files\external\poly2tri</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\poly2tri\sweep\sweep_context.cc">
+      <Filter>Source Files\external\poly2tri</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\assets\CUAssetManager.cpp">
+      <Filter>Source Files\assets</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\src\math\cuACC128.inl">
+      <Filter>Source Files\math</Filter>
+    </None>
+    <None Include="..\..\src\math\dsp\cuDSP128.inl">
+      <Filter>Source Files\math\dsp</Filter>
+    </None>
+    <None Include="..\..\src\render\shaders\ColorTexture.frag">
+      <Filter>Source Files\render\shaders</Filter>
+    </None>
+    <None Include="..\..\src\render\shaders\ColorTexture.vert">
+      <Filter>Source Files\render\shaders</Filter>
+    </None>
+    <None Include="..\..\src\render\shaders\SpriteShader.frag">
+      <Filter>Source Files\render\shaders</Filter>
+    </None>
+    <None Include="..\..\src\render\shaders\SpriteShader.vert">
+      <Filter>Source Files\render\shaders</Filter>
+    </None>
+  </ItemGroup>
+</Project>
