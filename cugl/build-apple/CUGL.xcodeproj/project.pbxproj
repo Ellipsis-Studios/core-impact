@@ -1708,7 +1708,7 @@
 		EBFFD7041CFCA12A00E047D2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1250;
+				LastUpgradeCheck = 1240;
 				ORGANIZATIONNAME = "Game Design Initiative at Cornell";
 				TargetAttributes = {
 					EB22BE7525D0E5DA002ACE41 = {
@@ -2298,7 +2298,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/lib",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_CFLAGS = (
 					"-mfma",
 					"-msse4.2",
@@ -2319,7 +2319,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/lib",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_CFLAGS = (
 					"-mfma",
 					"-msse4.2",
@@ -2380,11 +2380,11 @@
 				GCC_WARN_UNUSED_FUNCTION = NO;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(LIB_INCLUDES)";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LIBRARY_SEARCH_PATHS = "$(LIB_STATIC)";
 				LIB_INCLUDES = "\"$(SRCROOT)/../include\"";
 				LIB_STATIC = "\"$(SRCROOT)/lib\"";
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -2437,11 +2437,11 @@
 				GCC_WARN_UNUSED_FUNCTION = NO;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(LIB_INCLUDES)";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LIBRARY_SEARCH_PATHS = "$(LIB_STATIC)";
 				LIB_INCLUDES = "\"$(SRCROOT)/../include\"";
 				LIB_STATIC = "\"$(SRCROOT)/lib\"";
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 			};
