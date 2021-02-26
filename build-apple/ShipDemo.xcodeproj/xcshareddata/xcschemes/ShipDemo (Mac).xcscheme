@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1250"
+   LastUpgradeVersion = "1240"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EB0FF5FB2016EF4F00517030"
-               BuildableName = "Core Impact (Sim).app"
-               BlueprintName = "Core Impact (Sim)"
-               ReferencedContainer = "container:Core Impact.xcodeproj">
+               BlueprintIdentifier = "EBBF18901D74904A008E2001"
+               BuildableName = "ShipDemo (Mac).app"
+               BlueprintName = "ShipDemo (Mac)"
+               ReferencedContainer = "container:ShipDemo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -30,10 +30,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EB0FF5FB2016EF4F00517030"
-            BuildableName = "Core Impact (Sim).app"
-            BlueprintName = "Core Impact (Sim)"
-            ReferencedContainer = "container:Core Impact.xcodeproj">
+            BlueprintIdentifier = "EBBF18901D74904A008E2001"
+            BuildableName = "ShipDemo (Mac).app"
+            BlueprintName = "ShipDemo (Mac)"
+            ReferencedContainer = "container:ShipDemo.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <Testables>
@@ -53,10 +53,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EB0FF5FB2016EF4F00517030"
-            BuildableName = "Core Impact (Sim).app"
-            BlueprintName = "Core Impact (Sim)"
-            ReferencedContainer = "container:Core Impact.xcodeproj">
+            BlueprintIdentifier = "EBBF18901D74904A008E2001"
+            BuildableName = "ShipDemo (Mac).app"
+            BlueprintName = "ShipDemo (Mac)"
+            ReferencedContainer = "container:ShipDemo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -70,10 +70,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EB0FF5FB2016EF4F00517030"
-            BuildableName = "Core Impact (Sim).app"
-            BlueprintName = "Core Impact (Sim)"
-            ReferencedContainer = "container:Core Impact.xcodeproj">
+            BlueprintIdentifier = "EBBF18901D74904A008E2001"
+            BuildableName = "ShipDemo (Mac).app"
+            BlueprintName = "ShipDemo (Mac)"
+            ReferencedContainer = "container:ShipDemo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

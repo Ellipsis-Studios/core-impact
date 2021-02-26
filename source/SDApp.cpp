@@ -29,7 +29,7 @@ static std::shared_ptr<OrthographicCamera> cam = nullptr;
  * very last line.  This ensures that the state will transition to FOREGROUND,
  * causing the application to run.
  */
-void CoreApp::onStartup() {
+void ShipApp::onStartup() {
     _assets = AssetManager::alloc();
     _batch  = SpriteBatch::alloc();
     cam = OrthographicCamera::alloc(getDisplaySize());
@@ -66,7 +66,7 @@ void CoreApp::onStartup() {
  * very last line.  This ensures that the state will transition to NONE,
  * causing the application to be deleted.
  */
-void CoreApp::onShutdown() {
+void ShipApp::onShutdown() {
     _loading.dispose();
     _gameplay.dispose();
     _assets = nullptr;
@@ -93,7 +93,7 @@ void CoreApp::onShutdown() {
  *
  * @param timestep  The amount of time (in seconds) since the last frame
  */
-void CoreApp::update(float timestep) {
+void ShipApp::update(float timestep) {
     if (!_loaded && _loading.isActive()) {
         _loading.update(0.01f);
     } else if (!_loaded) {
@@ -114,7 +114,7 @@ void CoreApp::update(float timestep) {
  * When overriding this method, you do not need to call the parent method
  * at all. The default implmentation does nothing.
  */
-void CoreApp::draw() {
+void ShipApp::draw() {
     if (!_loaded) {
         _loading.render(_batch);
     } else {
