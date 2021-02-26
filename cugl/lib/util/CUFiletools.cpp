@@ -90,13 +90,11 @@ std::string to_absolute(std::string path) {
     }
     
     std::string prefix;
-#if defined (__ANDROID__)
-#elif defined (__WINDOWS__)
+#if defined (__WINDOWS__)
     char currDir[255];
     GetCurrentDirectoryA(255, currDir);
     prefix = currDir;
     prefix.push_back(path_sep);
-    prefix.append(path);
 #else
     char* base = SDL_GetBasePath();
     if (base) {
@@ -202,9 +200,19 @@ bool is_absolute(const std::string path) {
  * @return true if the file or directory denoted by this path name exists.
  */
 bool file_exists(const std::string path) {
-    const std::string fullpath = to_absolute(path);
+#if defined (__ANDROID__)
+    std::string fullpath = to_absolute(path);
+    SDL_RWops *file = SDL_RWFromFile(fullpath.c_str(), "r");
+    if (file != NULL) {
+        SDL_RWclose(file);
+        return true;
+    }
+    return false;
+#else
+    std::string fullpath = to_absolute(path);
     struct stat status;
     return stat(fullpath.c_str(), &status) == 0;
+#endif
 }
 
 /**

@@ -38,6 +38,7 @@
 #include <cugl/audio/CUAudioSample.h>
 #include <cugl/audio/graph/CUAudioPlayer.h>
 #include <cugl/util/CUDebug.h>
+#include <cugl/util/CUFiletools.h>
 #include <cugl/audio/codecs/cu_codecs.h>
 
 using namespace cugl;
@@ -70,10 +71,10 @@ _buffer(nullptr) {
  * @return true if the sound source was initialized successfully
  */
 bool AudioSample::init(const char* file, bool stream) {
+    CUAssertLog(filetool::file_exists(file), "Cannot find file %s",file);
     _file = file;
     _type = guessType(file);
     _stream = stream;
-    
     std::shared_ptr<audio::AudioDecoder> decoder = getDecoder();
     if (decoder == nullptr) {
         CULogError("Could not open '%s': %s\n", file, SDL_GetError());

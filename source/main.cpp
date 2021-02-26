@@ -43,11 +43,11 @@ using namespace cugl;
  */
 int main(int argc, char * argv[]) {
     // Change this to your application class
-    CoreApp app;
+    ShipApp app;
     
     // Set the properties of your application
-    app.setName("Core Impact");
-    app.setOrganization("Elipsis");
+    app.setName("Ship Demo");
+    app.setOrganization("GDIAC");
     app.setHighDPI(true);
     
     // Set the window properties (Only applies to OS X/Windows Desktop)
