@@ -56,10 +56,17 @@ cugl::Rect cugl::impl::DisplayBounds() {
 	SDL_GetDisplayBounds(0,&bounds);
 	Vec2 scale = DisplayPixelDensity();
 	
+#if (__WINDOWS__)
+	result.origin.x = bounds.x;
+	result.origin.y = bounds.y;
+	result.size.width  = bounds.w;
+	result.size.height = bounds.h;
+#else
 	result.origin.x = bounds.x/scale.x;
 	result.origin.y = bounds.y/scale.x;
 	result.size.width  = bounds.w/scale.x;
 	result.size.height = bounds.h/scale.x;
+#endif
 
 	return result;
 }
