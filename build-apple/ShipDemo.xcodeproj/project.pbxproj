@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CA9A2DCE25EDBD6A0048D02F /* CIColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA9A2DCB25EDBD6A0048D02F /* CIColor.cpp */; };
+		CA9A2DCF25EDBD6A0048D02F /* CIColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA9A2DCB25EDBD6A0048D02F /* CIColor.cpp */; };
+		CA9A2DD025EDBD6A0048D02F /* CIColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA9A2DCB25EDBD6A0048D02F /* CIColor.cpp */; };
+		CA9A2DD125EDBD6A0048D02F /* CIDotModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA9A2DCC25EDBD6A0048D02F /* CIDotModel.cpp */; };
+		CA9A2DD225EDBD6A0048D02F /* CIDotModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA9A2DCC25EDBD6A0048D02F /* CIDotModel.cpp */; };
+		CA9A2DD325EDBD6A0048D02F /* CIDotModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA9A2DCC25EDBD6A0048D02F /* CIDotModel.cpp */; };
 		EB0FF6172016EFB200517030 /* iOS.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB7454A71D74D846002FBAE6 /* iOS.xcassets */; };
 		EB0FF6182016EFB200517030 /* Landscape.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB7454A81D74D846002FBAE6 /* Landscape.storyboard */; };
 		EB0FF6192016EFB200517030 /* Portrait.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB7454A91D74D846002FBAE6 /* Portrait.storyboard */; };
@@ -116,6 +122,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CA9A2DC725EDBD6A0048D02F /* CIDotModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIDotModel.h; sourceTree = "<group>"; };
+		CA9A2DCB25EDBD6A0048D02F /* CIColor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CIColor.cpp; sourceTree = "<group>"; };
+		CA9A2DCC25EDBD6A0048D02F /* CIDotModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CIDotModel.cpp; sourceTree = "<group>"; };
+		CA9A2DCD25EDBD6A0048D02F /* CIColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIColor.h; sourceTree = "<group>"; };
 		EB0FF5FC2016EF4F00517030 /* ShipDemo (Sim).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ShipDemo (Sim).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB2BE9B41D74952A002FE78B /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		EB2BE9B81D7498C9002FE78B /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
@@ -353,6 +363,10 @@
 		EBBF18B11D749176008E2001 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				CA9A2DCD25EDBD6A0048D02F /* CIColor.h */,
+				CA9A2DCB25EDBD6A0048D02F /* CIColor.cpp */,
+				CA9A2DC725EDBD6A0048D02F /* CIDotModel.h */,
+				CA9A2DCC25EDBD6A0048D02F /* CIDotModel.cpp */,
 				EB2BE9B41D74952A002FE78B /* main.cpp */,
 				EBFA528821FA5AAB00CCC2C5 /* SDApp.h */,
 				EBFA528421FA5AAB00CCC2C5 /* SDApp.cpp */,
@@ -546,9 +560,11 @@
 				EBFA529C21FA5D0C00CCC2C5 /* SDApp.cpp in Sources */,
 				EB0FF61D2016F06000517030 /* main.cpp in Sources */,
 				EBFA52A421FA5D1A00CCC2C5 /* SDShipModel.cpp in Sources */,
+				CA9A2DD325EDBD6A0048D02F /* CIDotModel.cpp in Sources */,
 				EBFA52A221FA5D1700CCC2C5 /* SDInput.cpp in Sources */,
 				EBFA529E21FA5D1000CCC2C5 /* SDLoadingScene.cpp in Sources */,
 				EBFA52A021FA5D1300CCC2C5 /* SDGameScene.cpp in Sources */,
+				CA9A2DD025EDBD6A0048D02F /* CIColor.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -559,9 +575,11 @@
 				EBFA529821FA5D0C00CCC2C5 /* SDApp.cpp in Sources */,
 				EB7454AE1D74D891002FBAE6 /* main.cpp in Sources */,
 				EBFA52A321FA5D1A00CCC2C5 /* SDShipModel.cpp in Sources */,
+				CA9A2DD225EDBD6A0048D02F /* CIDotModel.cpp in Sources */,
 				EBFA52A121FA5D1700CCC2C5 /* SDInput.cpp in Sources */,
 				EBFA529D21FA5D0F00CCC2C5 /* SDLoadingScene.cpp in Sources */,
 				EBFA529F21FA5D1300CCC2C5 /* SDGameScene.cpp in Sources */,
+				CA9A2DCF25EDBD6A0048D02F /* CIColor.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -572,9 +590,11 @@
 				EBFA528F21FA5AAC00CCC2C5 /* SDGameScene.cpp in Sources */,
 				EBFA529021FA5AAC00CCC2C5 /* SDInput.cpp in Sources */,
 				EBFA528E21FA5AAC00CCC2C5 /* SDShipModel.cpp in Sources */,
+				CA9A2DD125EDBD6A0048D02F /* CIDotModel.cpp in Sources */,
 				EBFA528D21FA5AAC00CCC2C5 /* SDApp.cpp in Sources */,
 				EBFA528C21FA5AAC00CCC2C5 /* SDLoadingScene.cpp in Sources */,
 				EB2BE9B61D74952A002FE78B /* main.cpp in Sources */,
+				CA9A2DCE25EDBD6A0048D02F /* CIColor.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
