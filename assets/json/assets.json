@@ -8,6 +8,9 @@
             "wrapS": "repeat",
             "wrapT": "repeat"
         },
+        "photon": {
+            "file":  "textures/photon.png"
+        },
         "planet1": {
             "file":   "textures/planet1.png"
         },

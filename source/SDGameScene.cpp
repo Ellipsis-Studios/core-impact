@@ -38,6 +38,9 @@ using namespace std;
 #define SHIP_IMG_FLAT   9   // Neutral frame
 #define SHIP_IMG_RIGHT 17   // Right bank frame
 
+/** Maximum number of dots allowed on screen at a time. */
+#define MAX_DOTS 512
+
 #pragma mark -
 #pragma mark Constructors
 
@@ -83,8 +86,19 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     Vec2 shipPos = _shipNode->getPosition();
     _shipModel = ShipModel::alloc(shipPos);
     _shipModel->setSprite(_shipNode);
+    
+    _dotsContainer = DotsQueue::alloc(MAX_DOTS);
+    _dotsContainer->setTexture(_assets->get<Texture>("photon"));
+    std::shared_ptr<DotsNode> _dotsNode = DotsNode::alloc();
+    _dotsNode->setDotsQueue(_dotsContainer);
+    
+    _dotsContainer->addDot();
+    _dotsContainer->addDot();
+    _dotsContainer->addDot();
+    _dotsContainer->addDot();
 
     addChild(scene);
+    addChild(_dotsNode);
     return true;
 }
 
@@ -146,6 +160,7 @@ void GameScene::update(float timestep) {
     _shipModel->setForward(thrust.y);
     _shipModel->setTurning(thrust.x);
     _shipModel->update(timestep);
+    _dotsContainer->update();
     
     // "Drawing" code.  Move everything BUT the ship
     // Update the HUD
