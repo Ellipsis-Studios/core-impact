@@ -19,8 +19,8 @@
 #define __SD_GAME_SCENE_H__
 #include <cugl/cugl.h>
 #include <vector>
-#include "SDShipModel.h"
-#include "SDInput.h"
+#include "CIShipModel.h"
+#include "CIInput.h"
 #include "CIDotsNode.hpp"
 #include "CIDotsQueue.h"
 

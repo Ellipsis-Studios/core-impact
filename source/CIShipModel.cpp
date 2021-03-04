@@ -30,7 +30,7 @@
 //  Author: Walker White
 //  Version: 1/10/17
 //
-#include "SDShipModel.h"
+#include "CIShipModel.h"
 
 
 using namespace cugl;

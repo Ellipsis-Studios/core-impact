@@ -13,8 +13,8 @@
 #ifndef __SD_APP_H__
 #define __SD_APP_H__
 #include <cugl/cugl.h>
-#include "SDGameScene.h"
-#include "SDLoadingScene.h"
+#include "CIGameScene.h"
+#include "CILoadingScene.h"
 
 /**
  * This class represents the application root for the ship demo.

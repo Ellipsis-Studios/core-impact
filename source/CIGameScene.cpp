@@ -19,7 +19,7 @@
 #include <iostream>
 #include <sstream>
 
-#include "SDGameScene.h"
+#include "CIGameScene.h"
 
 using namespace cugl;
 using namespace std;

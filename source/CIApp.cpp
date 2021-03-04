@@ -10,7 +10,7 @@
 //  Author: Walker White
 //  Version: 1/10/17
 //
-#include "SDApp.h"
+#include "CIApp.h"
 
 using namespace cugl;
 

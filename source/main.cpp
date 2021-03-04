@@ -28,7 +28,7 @@
 //  Version: 7/1/16
 
 // Include your application class
-#include "SDApp.h"
+#include "CIApp.h"
 
 using namespace cugl;
 
@@ -46,8 +46,8 @@ int main(int argc, char * argv[]) {
     ShipApp app;
     
     // Set the properties of your application
-    app.setName("Ship Demo");
-    app.setOrganization("GDIAC");
+    app.setName("Core Impact");
+    app.setOrganization("Elipsis");
     app.setHighDPI(true);
     
     // Set the window properties (Only applies to OS X/Windows Desktop)
