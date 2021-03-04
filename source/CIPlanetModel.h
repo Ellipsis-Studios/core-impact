@@ -16,19 +16,21 @@ private:
     /** Current color code of this planet */
     CIColor::Value _color;
     
-    std::vector<CIColor::Value> _prevLayerColors
+    std::vector<CIColor::Value> _prevLayerColors;
     
     /** The number of layers this planet has */
     int _numLayers;
     /** The number of dots the player has put in for the current layer */
     int _currLayerProgress;
     /** The total number of dots the player need to put in to lock in the current layer  */
-    int _layerLockinTotal
+    int _layerLockinTotal;
     
     /** Radius of the planet in pixels */
     float _radius;
     /** Mass/weight of the planet. Used in collisions and physics. */
     float _mass;
+    /** Position of the planet in world space */
+    cugl::Vec2 _position;
 
 public:
 #pragma mark Properties
@@ -38,7 +40,7 @@ public:
      * @return the color of the planet
      */
     const CIColor::Value getColor() const {
-        return _color
+        return _color;
     }
 
     /**
@@ -90,7 +92,7 @@ public:
     /**
      * Creates a new planet at the center of the screen
      */
-    PlanetModel();
+    PlanetModel() {}
 
     /**
      * Destroys this planet, releasing all resources.
@@ -111,11 +113,14 @@ public:
      * This method does NOT create a scene graph node for this dot.  You
      * must call setTexture for that.
      *
+     * @param x The initial x-coordinate of the center
+     * @param y The initial y-coordinate of the center
      * @param c The initial color code of the planet
+     * @param maxLayers The maximum number of layers the planet can have
      *
      * @return true if the initialization was successful
      */
-    bool init(CIColor::Value c);
+    bool init(float x, float y, CIColor::Value c, int maxLayers);
         
     /**
      * Returns a newly allocated planet with the given color
@@ -123,14 +128,16 @@ public:
      * This method does NOT create a scene graph node for this dot.  You
      * must call setTextures for that.
      *
-     * @param c The color code of the dot
-     * @param ang The initial angle of rotation
+     * @param x The initial x-coordinate of the center
+     * @param y The initial y-coordinate of the center
+     * @param c The initial color code of the planet
+     * @param maxLayers The maximum number of layers the planet can have
      *
      * @return a newly allocated dot at the given location with the given color.
      */
-    static std::shared_ptr<PlanetModel> PlanetModel(CIColor::Value c) {
+    static std::shared_ptr<PlanetModel> alloc(float x, float y, CIColor::Value c, int maxLayers) {
         std::shared_ptr<PlanetModel> result = std::make_shared<PlanetModel>();
-        return (result->init(c) ? result : nullptr);
+        return (result->init(x, y, c, maxLayers) ? result : nullptr);
     }
 
 #pragma mark Interactions
@@ -145,9 +152,11 @@ public:
     void increaseLayerSize();
     
     /**
-     * Locks in the current layer and adds a new one
+     * Locks in the current layer and adds a new layer if the current layer is able to be locked in.
+     *
+     * @return true if the layer lock in was successful
      */
-    void lockInLayer();
+    bool lockInLayer();
     
 };
 
