@@ -9,7 +9,9 @@
 #include "CIPlanetModel.h"
 
 #define PLANET_RADIUS_INCREASE          5
+#define INITIAL_PLANET_RADIUS           10
 #define PLANET_MASS_INCREASE            10
+#define INITIAL_PLANET_MASS             25
 #define INIT_LAYER_LOCKIN_TOTAL         5
 #define LAYER_LOCKIN_TOTAL_INCREASE     1
 
@@ -38,7 +40,13 @@ bool PlanetModel::init(float x, float y, CIColor::Value c, int maxLayers) {
     _position.set(x, y);
     _color = c;
     _prevLayerColors.resize(maxLayers);
+    
+    _numLayers = 0;
+    _currLayerProgress = 0;
     _layerLockinTotal = INIT_LAYER_LOCKIN_TOTAL;
+    
+    _radius = INITIAL_PLANET_RADIUS;
+    _mass = INITIAL_PLANET_MASS;
     return true;
 }
 
