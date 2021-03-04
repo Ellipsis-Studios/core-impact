@@ -128,7 +128,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0A5AFAD225F0B5320003669C /* CIDotsNode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CIDotsNode.hpp; sourceTree = "<group>"; };
+		0A5AFAD225F0B5320003669C /* CIDotsNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIDotsNode.h; sourceTree = "<group>"; };
 		0A5AFAD625F0B5320003669C /* CIDotsNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CIDotsNode.cpp; sourceTree = "<group>"; };
 		0A5AFAD725F0B5320003669C /* CIDotsQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIDotsQueue.h; sourceTree = "<group>"; };
 		0A5AFAD825F0B5320003669C /* CIDotsQueue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CIDotsQueue.cpp; sourceTree = "<group>"; };
@@ -374,7 +374,7 @@
 			isa = PBXGroup;
 			children = (
 				0A5AFAD625F0B5320003669C /* CIDotsNode.cpp */,
-				0A5AFAD225F0B5320003669C /* CIDotsNode.hpp */,
+				0A5AFAD225F0B5320003669C /* CIDotsNode.h */,
 				0A5AFAD825F0B5320003669C /* CIDotsQueue.cpp */,
 				0A5AFAD725F0B5320003669C /* CIDotsQueue.h */,
 				CA9A2DCD25EDBD6A0048D02F /* CIColor.h */,

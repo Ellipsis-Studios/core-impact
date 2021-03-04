@@ -24,7 +24,7 @@ private:
     float _mass;
 
 protected:
-    /** Position of the ship in world space */
+    /** Position of the dot in world space */
     cugl::Vec2 _position;
     /** Current dot velocity */
     cugl::Vec2 _velocity;

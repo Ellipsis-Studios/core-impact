@@ -6,7 +6,7 @@
 //  Copyright © 2021 Game Design Initiative at Cornell. All rights reserved.
 //
 
-#include "CIDotsNode.hpp"
+#include "CIDotsNode.h"
 
 void DotsNode::draw(const std::shared_ptr<cugl::SpriteBatch>& batch,
                       const cugl::Mat4& transform, cugl::Color4 tint) {

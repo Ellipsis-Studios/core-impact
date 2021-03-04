@@ -52,7 +52,7 @@ bool DotModel::init(float x, float y, CIColor::Value c) {
 }
 
 /**
- * Disposes the photon queue, releasing all resources.
+ * Disposes the dot in queue, releasing all resources.
  */
 void DotModel::dispose() {
     _mass = 0;

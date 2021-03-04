@@ -21,7 +21,7 @@
 #include <vector>
 #include "CIShipModel.h"
 #include "CIInput.h"
-#include "CIDotsNode.hpp"
+#include "CIDotsNode.h"
 #include "CIDotsQueue.h"
 
 /**
