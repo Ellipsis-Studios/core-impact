@@ -13,7 +13,7 @@
 
 class PlanetModel {
 private:
-    /** Current color code of this planet */
+    /** Current color code of the outermost layer of this planet */
     CIColor::Value _color;
     
     std::vector<CIColor::Value> _prevLayerColors;
