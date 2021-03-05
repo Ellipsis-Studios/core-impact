@@ -152,9 +152,9 @@ void GameScene::update(float timestep) {
     _input.update(timestep);
     
     // Reset the game if necessary
-    if (_input.didReset()) { reset(); }
+//    if (_input.didReset()) { reset(); }
 
-    Vec2 thrust = _input.getThrust();
+    Vec2 thrust = Vec2::ZERO;
     
     // Move the ship (MODEL ONLY)
     _shipModel->setForward(thrust.y);
@@ -164,7 +164,8 @@ void GameScene::update(float timestep) {
     
     // "Drawing" code.  Move everything BUT the ship
     // Update the HUD
-    _coordHUD->setText(positionText(_shipModel->getPosition()));
+//    _coordHUD->setText(positionText(_shipModel->getPosition()));
+    _coordHUD->setText(positionText(_input.getPosition()));
     
     Vec2 offset = _shipModel->getPosition()-_farSpace->getPosition();
     
