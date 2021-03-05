@@ -185,21 +185,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\source\CIApp.h" />
+    <ClInclude Include="..\..\source\CIColor.h" />
+    <ClInclude Include="..\..\source\CIDotModel.h" />
+    <ClInclude Include="..\..\source\CIDotsNode.h" />
+    <ClInclude Include="..\..\source\CIDotsQueue.h" />
+    <ClInclude Include="..\..\source\CIGameScene.h" />
+    <ClInclude Include="..\..\source\CIInput.h" />
+    <ClInclude Include="..\..\source\CILoadingScene.h" />
+    <ClInclude Include="..\..\source\CIPlanetModel.h" />
+    <ClInclude Include="..\..\source\CIShipModel.h" />
     <ClInclude Include="..\..\source\HelloApp.h" />
-    <ClInclude Include="..\..\source\SDApp.h" />
-    <ClInclude Include="..\..\source\SDGameScene.h" />
-    <ClInclude Include="..\..\source\SDInput.h" />
-    <ClInclude Include="..\..\source\SDLoadingScene.h" />
-    <ClInclude Include="..\..\source\SDShipModel.h" />
     <ClInclude Include="resource.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\source\main.cpp" />
-    <ClCompile Include="..\..\source\SDApp.cpp" />
-    <ClCompile Include="..\..\source\SDGameScene.cpp" />
-    <ClCompile Include="..\..\source\SDInput.cpp" />
-    <ClCompile Include="..\..\source\SDLoadingScene.cpp" />
-    <ClCompile Include="..\..\source\SDShipModel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ShipDemo.rc" />
@@ -211,6 +208,19 @@
     <ProjectReference Include="..\..\cugl\build-win10\CUGL\CUGL.vcxproj">
       <Project>{60c028a4-977f-44e9-a709-d79a153d6f69}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\source\CIApp.cpp" />
+    <ClCompile Include="..\..\source\CIColor.cpp" />
+    <ClCompile Include="..\..\source\CIDotModel.cpp" />
+    <ClCompile Include="..\..\source\CIDotsNode.cpp" />
+    <ClCompile Include="..\..\source\CIDotsQueue.cpp" />
+    <ClCompile Include="..\..\source\CIGameScene.cpp" />
+    <ClCompile Include="..\..\source\CIInput.cpp" />
+    <ClCompile Include="..\..\source\CILoadingScene.cpp" />
+    <ClCompile Include="..\..\source\CIPlanetModel.cpp" />
+    <ClCompile Include="..\..\source\CIShipModel.cpp" />
+    <ClCompile Include="..\..\source\main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
