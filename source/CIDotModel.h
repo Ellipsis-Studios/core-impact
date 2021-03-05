@@ -1,6 +1,6 @@
 //
 //  CIDotModel.h
-//  Core Impact
+//  CoreImpact
 //
 //  This model class represents all the information for a single dot.
 //

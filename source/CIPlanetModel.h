@@ -2,6 +2,8 @@
 //  CIPlanetModel.h
 //  CoreImpact
 //
+//  This model class represents all the information for the planet.
+//
 //  Created by William Long on 3/4/21.
 //  Copyright © 2021 Game Design Initiative at Cornell. All rights reserved.
 //

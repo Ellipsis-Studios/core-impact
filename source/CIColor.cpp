@@ -1,6 +1,6 @@
 //
 //  CIColor.cpp
-//  Core Impact
+//  CoreImpact
 //
 //  This class represents the colors that are used by dots and the planet.
 //  It maps from a custom enum to cugl Color4 colors.

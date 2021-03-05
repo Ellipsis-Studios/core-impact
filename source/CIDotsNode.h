@@ -2,6 +2,8 @@
 //  CIPhotonNode.h
 //  CoreImpact
 //
+//  This node class is used to draw all of the dots to the screen.
+//
 //  Created by Kevin Sun on 3/1/21.
 //  Copyright © 2021 Game Design Initiative at Cornell. All rights reserved.
 //

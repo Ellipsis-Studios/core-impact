@@ -1,5 +1,5 @@
 //
-//  CIGameScene.h
+//  CIGameScene.cpp
 //  CoreImpact
 //
 //  This is the most important class in this demo.  This class manages the
