@@ -1,23 +1,5 @@
 //
-//  PhotonQueue.cpp
-//
-//  This class implements a "particle system" that manages the photons fired
-//  by either ship in the game.  When a ship fires a photon, it adds it to this
-//  particle system.  The particle system is responsible for moving (and drawing)
-//  the photon particle.  It also keeps track of the age of the photon.  Photons
-//  that are too old are deleted, so that they are not bouncing about the game
-//  forever.
-//
-//  The PhotonQueue is exactly what it sounds like: a queue. In this implementation
-//  we use the circular array implementation of a queue (which you may have learned
-//  in CS 2110). If you notice, all the Photon objects are declared and initialized
-//  in the constructor; we just reassign the fields
-//
-//  Author: Walker M. White
-//
-//  Author: Walker White
-//  Based on original GameX Ship Demo by Rama C. Hoetzlein, 2002
-//  Version: 2/21/21
+//  CIDotsQueue.cpp
 //
 #include "CIDotsQueue.h"
 
