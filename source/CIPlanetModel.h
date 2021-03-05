@@ -1,6 +1,6 @@
 //
 //  CIPlanetModel.h
-//  ShipDemo
+//  CoreImpact
 //
 //  Created by William Long on 3/4/21.
 //  Copyright © 2021 Game Design Initiative at Cornell. All rights reserved.

@@ -1,6 +1,6 @@
 //
-//  SDInput.h
-//  Ship Demo
+//  CIInput.h
+//  CoreImpact
 //
 //  This input controller is primarily designed for keyboard control.  On mobile
 //  you will notice that we use gestures to emulate keyboard commands. They even

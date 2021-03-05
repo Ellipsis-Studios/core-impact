@@ -1,6 +1,6 @@
 //
-//  SDInput.h
-//  Ship Demo
+//  CIInput.h
+//  CoreImpact
 //
 //  This input controller is primarily designed for keyboard control.  On mobile
 //  you will notice that we use gestures to emulate keyboard commands. They even
@@ -10,8 +10,8 @@
 //  Author: Walker White
 //  Version: 1/10/17
 //
-#ifndef __SD_INPUT_H__
-#define __SD_INPUT_H__
+#ifndef __CI_INPUT_H__
+#define __CI_INPUT_H__
 #include <cugl/cugl.h>
 
 /**
@@ -239,4 +239,4 @@ public:
     void mouseReleasedCB(const cugl::MouseEvent& event, Uint8 clicks, bool focus);
 };
 
-#endif /* __SD_INPUT_H__ */
+#endif /* __CI_INPUT_H__ */

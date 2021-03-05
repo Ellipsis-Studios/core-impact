@@ -9,8 +9,8 @@
 //  Copyright © 2021 Game Design Initiative at Cornell. All rights reserved.
 //
 
-#ifndef CIColor_h
-#define CIColor_h
+#ifndef __CI_COLOR_H__
+#define __CI_COLOR_H__
 #include <cugl/cugl.h>
 
 class CIColor {
@@ -39,4 +39,4 @@ public:
     }
 };
 
-#endif /* CIColor_h */
+#endif /* __CI_COLOR_H__ */

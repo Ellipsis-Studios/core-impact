@@ -1,6 +1,6 @@
 //
-//  SDShipModel.cpp
-//  Ship Demo
+//  CIShipModel.cpp
+//  CoreImpact
 //
 //  This model encapsulates all of the information for the ship demo. As there
 //  are no collisions in ship demo, this class is pretty simple.

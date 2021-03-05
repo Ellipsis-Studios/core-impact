@@ -8,8 +8,8 @@
 //  Copyright © 2021 Game Design Initiative at Cornell. All rights reserved.
 //
 
-#ifndef CIDotModel_hpp
-#define CIDotModel_hpp
+#ifndef __CI_DOT_MODEL_H__
+#define __CI_DOT_MODEL_H__
 #include "CIColor.h"
 
 class DotModel {
@@ -170,4 +170,4 @@ public:
     void update(float timestep=0.0f);
 };
 
-#endif /* CIDotModel_hpp */
+#endif /* __CI_DOT_MODEL_H__ */

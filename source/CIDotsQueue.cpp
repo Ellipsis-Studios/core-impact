@@ -1,5 +1,9 @@
 //
 //  CIDotsQueue.cpp
+//  Core Impact
+//
+//  Created by Kevin Sun on 3/1/21.
+//  Copyright © 2021 Game Design Initiative at Cornell. All rights reserved.
 //
 #include "CIDotsQueue.h"
 

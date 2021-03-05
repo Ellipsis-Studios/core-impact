@@ -1,6 +1,6 @@
 //
-//  GLPhotonNode.cpp
-//  GameLab
+//  CIPhotonNode.cpp
+//  CoreImpact
 //
 //  Created by Kevin Sun on 3/1/21.
 //  Copyright © 2021 Game Design Initiative at Cornell. All rights reserved.

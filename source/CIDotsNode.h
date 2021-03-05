@@ -1,13 +1,13 @@
 //
-//  GLPhotonNode.hpp
-//  GameLab
+//  CIPhotonNode.h
+//  CoreImpact
 //
 //  Created by Kevin Sun on 3/1/21.
 //  Copyright © 2021 Game Design Initiative at Cornell. All rights reserved.
 //
 
-#ifndef CIDotsNode_h
-#define CIDotsNode_h
+#ifndef __CI_DOTS_NODE_H__
+#define __CI_DOTS_NODE_H__
 #include <cugl/cugl.h>
 #include "CIDotsQueue.h"
 
@@ -33,4 +33,4 @@ public:
               const cugl::Mat4& transform, cugl::Color4 tint) override;
 };
 
-#endif /* CIDotsNode_h */
+#endif /* __CI_DOTS_NODE_H__ */

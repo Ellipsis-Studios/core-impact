@@ -1,6 +1,6 @@
 //
-//  SDGameScene.h
-//  Ship Demo
+//  CIGameScene.h
+//  CoreImpact
 //
 //  This is the most important class in this demo.  This class manages the
 //  gameplay for this demo.  It is a relativeluy simple class as we are not
@@ -15,8 +15,8 @@
 //  Author: Walker White
 //  Version: 1/10/18
 //
-#ifndef __SD_GAME_SCENE_H__
-#define __SD_GAME_SCENE_H__
+#ifndef __CI_GAME_SCENE_H__
+#define __CI_GAME_SCENE_H__
 #include <cugl/cugl.h>
 #include <vector>
 #include "CIPlanetModel.h"
@@ -127,4 +127,4 @@ public:
 
 };
 
-#endif /* __SD_GAME_SCENE_H__ */
+#endif /* __CI_GAME_SCENE_H__ */

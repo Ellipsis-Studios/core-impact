@@ -1,6 +1,6 @@
 //
-//  SDGameScene.h
-//  Ship Demo
+//  CIGameScene.h
+//  CoreImpact
 //
 //  This is the most important class in this demo.  This class manages the
 //  gameplay for this demo.  It is a relativeluy simple class as we are not

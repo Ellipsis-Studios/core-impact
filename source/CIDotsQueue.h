@@ -1,5 +1,9 @@
 //
 //  CIDotsQueue.h
+//  Core Impact
+//
+//  Created by Kevin Sun on 3/1/21.
+//  Copyright © 2021 Game Design Initiative at Cornell. All rights reserved.
 //
 #ifndef __CI_DOTS_QUEUE_H__
 #define __CI_DOTS_QUEUE_H__

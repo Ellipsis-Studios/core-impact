@@ -1,6 +1,6 @@
 //
-//  SDShipModel.h
-//  Ship Demo
+//  CIShipModel.h
+//  CoreImpact
 //
 //  This model encapsulates all of the information for the ship demo. As there
 //  are no collisions in ship demo, this class is pretty simple.
@@ -30,8 +30,8 @@
 //  Author: Walker White
 //  Version: 1/10/17
 //
-#ifndef __SD_SHIP_MODEL_H__
-#define __SD_SHIP_MODEL_H__
+#ifndef __CI_SHIP_MODEL_H__
+#define __CI_SHIP_MODEL_H__
 #include <cugl/cugl.h>
 
 /** Ship Frame Sprite numbers */
@@ -274,4 +274,4 @@ public:
 
 };
 
-#endif /* __SD_SHIP_MODEL_H__ */
+#endif /* __CI_SHIP_MODEL_H__ */
