@@ -1,22 +1,21 @@
 //
 //  CIDotsQueue.h
 //
-#ifndef __GL_DOTS_QUEUE_H__
-#define __GL_DOTS_QUEUE_H__
+#ifndef __CI_DOTS_QUEUE_H__
+#define __CI_DOTS_QUEUE_H__
 #include <cugl/cugl.h>
-#include <vector>
 #include "CIDotModel.h"
 
 /**
- * Model class representing an "particle system" of photons.
+ * Model class representing an "particle system" of dots.
  *
  * Note that the graphics resources in this class are static.  That
  * is because all photons share the same image file, and it would waste
- * memory to load the same image file for each photon.
+ * memory to load the same image file for each dots.
  */
 class DotsQueue {
 private:
-    /** Graphic asset representing a single photon. */
+    /** Graphic asset representing a single dots. */
     std::shared_ptr<cugl::Texture> _texture;
 
     // QUEUE DATA STRUCTURES
@@ -50,7 +49,7 @@ public:
     void dispose();
     
     /**
-     *  Initialies a new (empty) PhotonQueue.
+     *  Initialies a new (empty) DotsQueue.
      *
      *  @param max  The maximum number of photons to support
      *
@@ -59,11 +58,11 @@ public:
     bool init(size_t max);
 
     /**
-     *  Returns a newly allocated (empty) PhotonQueue
+     *  Returns a newly allocated (empty) DotsQueue
      *
      *  @param max  The maximum number of photons to support
      *
-     *  @return a newly allocated (empty) PhotonQueue
+     *  @return a newly allocated (empty) DotsQueue
      */
     static std::shared_ptr<DotsQueue> alloc(size_t max) {
         std::shared_ptr<DotsQueue> result = std::make_shared<DotsQueue>();
@@ -71,54 +70,52 @@ public:
     }
 
     /**
-     * Returns the image for a single photon; reused by all photons.
+     * Returns the image for a single dot; reused by all dots.
      *
      * This value should be loaded by the GameMode and set there. However, we
      * have to be prepared for this to be null at all times
      *
-     * @return the image for a single photon; reused by all photons.
+     * @return the image for a single dot; reused by all dots.
      */
     const std::shared_ptr<cugl::Texture>& getTexture() const {
         return _texture;
     }
 
     /**
-     * Sets the image for a single photon; reused by all photons.
+     * Sets the image for a single dot; reused by all dots.
      *
      * This value should be loaded by the GameMode and set there. However, we
      * have to be prepared for this to be null at all times
      *
-     * @param value the image for a single photon; reused by all photons.
+     * @param value the image for a single dot; reused by all dots.
      */
     void setTexture(const std::shared_ptr<cugl::Texture>& value) {
         _texture = value;
     }
 
     /**
-     * Adds a photon to the active queue.
+     * Adds a dot to the active queue.
      *
-     * As all Photons are predeclared, this involves moving the head and the tail,
+     * As all dots are predeclared, this involves moving the head and the tail,
      * and reseting the values of the object in place.  This is a simple implementation
      * of a memory pool. It works because we delete objects in the same order that
      * we allocate them.
-     *
-     * @param ship  The ship that fired.
      */
     void addDot();
     
     /**
-     * Returns the number of active photons
+     * Returns the number of active dots
      *
-     * @return the number of active photons
+     * @return the number of active dots
      */
     size_t size() const {
         return _qsize;
     }
     
     /**
-     * Returns the index of the first photon
+     * Returns the index of the first dot
      *
-     * @return the index of the first photon
+     * @return the index of the first dot
      */
     int headIndex() const {
         return _qhead;
@@ -127,7 +124,7 @@ public:
     /**
      * Returns the queue
      *
-     * @return the queue of photons
+     * @return the queue of dots
      */
     std::vector<DotModel> getQueue() const {
         return _queue;
@@ -136,23 +133,23 @@ public:
     /**
      * Returns the (reference to the) photon at the given position.
      *
-     * If the position is not a valid photon, then the result is null.
+     * If the position is not a valid dot, then the result is null.
      *
-     * @param pos   The photon position in the queue
+     * @param pos   The dot position in the queue
      *
-     * @return the (reference to the) photon at the given position.
+     * @return the (reference to the) dot at the given position.
      */
     DotModel* get(size_t pos);
     
     /**
-     * Moves all the photons in the active queue.
+     * Moves all the dots in the active queue.
      *
-     * Each photon is advanced according to its velocity. Photons which are too old
+     * Each photon is advanced according to its velocity. Dots which are too old
      * are deleted.  This method does not bounce off walls.  We moved all collisions
      * to the collision controller where they belong.
      */
     void update();
 };
 
-#endif /* __GL_DOTS_QUEUE_H__ */
+#endif /* __CI_DOTS_QUEUE_H__ */
 

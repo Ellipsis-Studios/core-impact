@@ -6,8 +6,8 @@
 //  Copyright © 2021 Game Design Initiative at Cornell. All rights reserved.
 //
 
-#ifndef GLPhotonNode_hpp
-#define GLPhotonNode_hpp
+#ifndef CIDotsNode_h
+#define CIDotsNode_h
 #include <cugl/cugl.h>
 #include "CIDotsQueue.h"
 
@@ -33,4 +33,4 @@ public:
               const cugl::Mat4& transform, cugl::Color4 tint) override;
 };
 
-#endif /* GLPhotonNode_hpp */
+#endif /* CIDotsNode_h */

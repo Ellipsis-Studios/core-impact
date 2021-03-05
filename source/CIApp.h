@@ -10,8 +10,8 @@
 //  Author: Walker White
 //  Version: 1/10/17
 //
-#ifndef __SD_APP_H__
-#define __SD_APP_H__
+#ifndef __CI_APP_H__
+#define __CI_APP_H__
 #include <cugl/cugl.h>
 #include "CIGameScene.h"
 #include "CILoadingScene.h"
@@ -106,4 +106,4 @@ public:
     virtual void draw() override;
 };
 
-#endif /* __SD_APP_H__ */
+#endif /* __CI_APP_H__ */

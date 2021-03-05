@@ -147,7 +147,7 @@ public:
     }
     
 #pragma mark -
-#pragma mark Animation
+#pragma mark Movement
     /**
      * Updates the state of the model
      *
