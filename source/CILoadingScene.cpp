@@ -14,7 +14,7 @@
 //  Author: Walker White
 //  Version: 1/10/18
 //
-#include "SDLoadingScene.h"
+#include "CILoadingScene.h"
 
 using namespace cugl;
 

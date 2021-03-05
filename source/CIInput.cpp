@@ -10,7 +10,7 @@
 //  Author: Walker White
 //  Version: 1/10/17
 //
-#include "SDInput.h"
+#include "CIInput.h"
 
 using namespace cugl;
 

@@ -25,6 +25,11 @@ void DotModel::setPosition(cugl::Vec2 value) {
 
 #pragma mark Constructors
 
+DotModel::DotModel() {
+    _position.set(0,0);
+    _color = CIColor::blue;
+}
+
 /**
  * Initializes a new dot at the given location
  *
@@ -40,7 +45,17 @@ void DotModel::setPosition(cugl::Vec2 value) {
 bool DotModel::init(float x, float y, CIColor::Value c) {
     _position.set(x,y);
     _color = c;
+    _mass = 1;
+    _radius = 1;
+    _velocity = cugl::Vec2((rand() % 10 - 5), (rand() % 10 - 5));
     return true;
+}
+
+/**
+ * Disposes the dot in queue, releasing all resources.
+ */
+void DotModel::dispose() {
+    _mass = 0;
 }
 
 #pragma mark Movement
@@ -48,6 +63,7 @@ bool DotModel::init(float x, float y, CIColor::Value c) {
 /**
  * Moves the dot one animation frame
  */
-void DotModel::update() {
+void DotModel::update(float timestep) {
     _position += _velocity;
+    _velocity *= 0.99;
 }

@@ -16,17 +16,19 @@ class DotModel {
 private:
     /** Color code of this dot */
     CIColor::Value _color;
-    /** Position of the ship in world space */
-    cugl::Vec2 _position;
-    /** Current dot velocity */
-    cugl::Vec2 _velocity;
-    
+    /** Player ID of the player that last interacted with it */
+    int _player;
     /** Radius of the dot in pixels */
     float _radius;
     /** Mass/weight of the dot. Used in collisions and physics. */
     float _mass;
 
-
+protected:
+    /** Position of the dot in world space */
+    cugl::Vec2 _position;
+    /** Current dot velocity */
+    cugl::Vec2 _velocity;
+    
 public:
 #pragma mark Properties
     /**
@@ -143,13 +145,17 @@ public:
         std::shared_ptr<DotModel> result = std::make_shared<DotModel>();
         return (result->init(x,y,c) ? result : nullptr);
     }
-
+    
+#pragma mark -
 #pragma mark Movement
     /**
-     * Moves the dot one animation frame
+     * Updates the state of the model
+     *
+     * This method moves the dot in accordance with the forces applied.
+     *
+     * @param timestep  Time elapsed since last called.
      */
-    void update();
-    
+    void update(float timestep=0.0f);
 };
 
 #endif /* CIDotModel_hpp */

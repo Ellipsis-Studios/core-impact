@@ -19,9 +19,10 @@
 #define __SD_GAME_SCENE_H__
 #include <cugl/cugl.h>
 #include <vector>
-#include "SDShipModel.h"
-#include "SDInput.h"
-
+#include "CIShipModel.h"
+#include "CIInput.h"
+#include "CIDotsNode.h"
+#include "CIDotsQueue.h"
 
 /**
  * This class is the primary gameplay constroller for the demo.
@@ -50,6 +51,8 @@ protected:
     std::shared_ptr<cugl::scene2::SceneNode> _farSpace;
     /** Foreground in animation parallax. Stores the planets. */
     std::shared_ptr<cugl::scene2::SceneNode> _nearSpace;
+    /** Shared memory pool for dots. (MODEL CLASS) */
+    std::shared_ptr<DotsQueue> _dotsContainer;
 
     // MODEL
     // A page-out could dispose of the view as long as it just has this.
