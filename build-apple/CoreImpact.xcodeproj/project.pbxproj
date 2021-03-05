@@ -13,6 +13,9 @@
 		0A5AFADC25F0B5320003669C /* CIDotsQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A5AFAD825F0B5320003669C /* CIDotsQueue.cpp */; };
 		0A5AFADD25F0B5320003669C /* CIDotsQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A5AFAD825F0B5320003669C /* CIDotsQueue.cpp */; };
 		0A5AFADE25F0B5320003669C /* CIDotsQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A5AFAD825F0B5320003669C /* CIDotsQueue.cpp */; };
+		3D563B9D25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D563B9C25F0AF01006641B1 /* CIPlanetModel.cpp */; };
+		3D563B9E25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D563B9C25F0AF01006641B1 /* CIPlanetModel.cpp */; };
+		3D563B9F25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D563B9C25F0AF01006641B1 /* CIPlanetModel.cpp */; };
 		CA9A2DCE25EDBD6A0048D02F /* CIColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA9A2DCB25EDBD6A0048D02F /* CIColor.cpp */; };
 		CA9A2DCF25EDBD6A0048D02F /* CIColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA9A2DCB25EDBD6A0048D02F /* CIColor.cpp */; };
 		CA9A2DD025EDBD6A0048D02F /* CIColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA9A2DCB25EDBD6A0048D02F /* CIColor.cpp */; };
@@ -132,6 +135,8 @@
 		0A5AFAD625F0B5320003669C /* CIDotsNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CIDotsNode.cpp; sourceTree = "<group>"; };
 		0A5AFAD725F0B5320003669C /* CIDotsQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIDotsQueue.h; sourceTree = "<group>"; };
 		0A5AFAD825F0B5320003669C /* CIDotsQueue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CIDotsQueue.cpp; sourceTree = "<group>"; };
+		3D563B9825F0AEE8006641B1 /* CIPlanetModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIPlanetModel.h; sourceTree = "<group>"; };
+		3D563B9C25F0AF01006641B1 /* CIPlanetModel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CIPlanetModel.cpp; sourceTree = "<group>"; };
 		CA9A2DC725EDBD6A0048D02F /* CIDotModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIDotModel.h; sourceTree = "<group>"; };
 		CA9A2DCB25EDBD6A0048D02F /* CIColor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CIColor.cpp; sourceTree = "<group>"; };
 		CA9A2DCC25EDBD6A0048D02F /* CIDotModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CIDotModel.cpp; sourceTree = "<group>"; };
@@ -392,6 +397,8 @@
 				EBFA528B21FA5AAC00CCC2C5 /* CIInput.cpp */,
 				EBFA528221FA5AAB00CCC2C5 /* CIShipModel.h */,
 				EBFA528621FA5AAB00CCC2C5 /* CIShipModel.cpp */,
+				3D563B9825F0AEE8006641B1 /* CIPlanetModel.h */,
+				3D563B9C25F0AF01006641B1 /* CIPlanetModel.cpp */,
 			);
 			name = Source;
 			path = ../source;
@@ -574,6 +581,7 @@
 				EBFA529C21FA5D0C00CCC2C5 /* CIApp.cpp in Sources */,
 				EB0FF61D2016F06000517030 /* main.cpp in Sources */,
 				EBFA52A421FA5D1A00CCC2C5 /* CIShipModel.cpp in Sources */,
+				3D563B9F25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */,
 				CA9A2DD325EDBD6A0048D02F /* CIDotModel.cpp in Sources */,
 				EBFA52A221FA5D1700CCC2C5 /* CIInput.cpp in Sources */,
 				0A5AFADB25F0B5320003669C /* CIDotsNode.cpp in Sources */,
@@ -591,6 +599,7 @@
 				EBFA529821FA5D0C00CCC2C5 /* CIApp.cpp in Sources */,
 				EB7454AE1D74D891002FBAE6 /* main.cpp in Sources */,
 				EBFA52A321FA5D1A00CCC2C5 /* CIShipModel.cpp in Sources */,
+				3D563B9E25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */,
 				CA9A2DD225EDBD6A0048D02F /* CIDotModel.cpp in Sources */,
 				EBFA52A121FA5D1700CCC2C5 /* CIInput.cpp in Sources */,
 				0A5AFADA25F0B5320003669C /* CIDotsNode.cpp in Sources */,
@@ -608,6 +617,7 @@
 				EBFA528F21FA5AAC00CCC2C5 /* CIGameScene.cpp in Sources */,
 				EBFA529021FA5AAC00CCC2C5 /* CIInput.cpp in Sources */,
 				EBFA528E21FA5AAC00CCC2C5 /* CIShipModel.cpp in Sources */,
+				3D563B9D25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */,
 				CA9A2DD125EDBD6A0048D02F /* CIDotModel.cpp in Sources */,
 				EBFA528D21FA5AAC00CCC2C5 /* CIApp.cpp in Sources */,
 				0A5AFAD925F0B5320003669C /* CIDotsNode.cpp in Sources */,
