@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D563B9D25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D563B9C25F0AF01006641B1 /* CIPlanetModel.cpp */; };
+		3D563B9E25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D563B9C25F0AF01006641B1 /* CIPlanetModel.cpp */; };
+		3D563B9F25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D563B9C25F0AF01006641B1 /* CIPlanetModel.cpp */; };
 		CA9A2DCE25EDBD6A0048D02F /* CIColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA9A2DCB25EDBD6A0048D02F /* CIColor.cpp */; };
 		CA9A2DCF25EDBD6A0048D02F /* CIColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA9A2DCB25EDBD6A0048D02F /* CIColor.cpp */; };
 		CA9A2DD025EDBD6A0048D02F /* CIColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA9A2DCB25EDBD6A0048D02F /* CIColor.cpp */; };
@@ -122,6 +125,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3D563B9825F0AEE8006641B1 /* CIPlanetModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIPlanetModel.h; sourceTree = "<group>"; };
+		3D563B9C25F0AF01006641B1 /* CIPlanetModel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CIPlanetModel.cpp; sourceTree = "<group>"; };
 		CA9A2DC725EDBD6A0048D02F /* CIDotModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIDotModel.h; sourceTree = "<group>"; };
 		CA9A2DCB25EDBD6A0048D02F /* CIColor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CIColor.cpp; sourceTree = "<group>"; };
 		CA9A2DCC25EDBD6A0048D02F /* CIDotModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CIDotModel.cpp; sourceTree = "<group>"; };
@@ -378,6 +383,8 @@
 				EBFA528B21FA5AAC00CCC2C5 /* SDInput.cpp */,
 				EBFA528221FA5AAB00CCC2C5 /* SDShipModel.h */,
 				EBFA528621FA5AAB00CCC2C5 /* SDShipModel.cpp */,
+				3D563B9825F0AEE8006641B1 /* CIPlanetModel.h */,
+				3D563B9C25F0AF01006641B1 /* CIPlanetModel.cpp */,
 			);
 			name = Source;
 			path = ../source;
@@ -559,6 +566,7 @@
 			files = (
 				EBFA529C21FA5D0C00CCC2C5 /* SDApp.cpp in Sources */,
 				EB0FF61D2016F06000517030 /* main.cpp in Sources */,
+				3D563B9F25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */,
 				EBFA52A421FA5D1A00CCC2C5 /* SDShipModel.cpp in Sources */,
 				CA9A2DD325EDBD6A0048D02F /* CIDotModel.cpp in Sources */,
 				EBFA52A221FA5D1700CCC2C5 /* SDInput.cpp in Sources */,
@@ -574,6 +582,7 @@
 			files = (
 				EBFA529821FA5D0C00CCC2C5 /* SDApp.cpp in Sources */,
 				EB7454AE1D74D891002FBAE6 /* main.cpp in Sources */,
+				3D563B9E25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */,
 				EBFA52A321FA5D1A00CCC2C5 /* SDShipModel.cpp in Sources */,
 				CA9A2DD225EDBD6A0048D02F /* CIDotModel.cpp in Sources */,
 				EBFA52A121FA5D1700CCC2C5 /* SDInput.cpp in Sources */,
@@ -589,6 +598,7 @@
 			files = (
 				EBFA528F21FA5AAC00CCC2C5 /* SDGameScene.cpp in Sources */,
 				EBFA529021FA5AAC00CCC2C5 /* SDInput.cpp in Sources */,
+				3D563B9D25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */,
 				EBFA528E21FA5AAC00CCC2C5 /* SDShipModel.cpp in Sources */,
 				CA9A2DD125EDBD6A0048D02F /* CIDotModel.cpp in Sources */,
 				EBFA528D21FA5AAC00CCC2C5 /* SDApp.cpp in Sources */,
