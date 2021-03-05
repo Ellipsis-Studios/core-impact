@@ -4,8 +4,6 @@
 #include "CIDotsQueue.h"
 
 using namespace cugl;
-/** Fixed velocity for a photon */
-#define PHOTON_SPEED    5.0f
 
 #pragma mark Photon Queue
 /**
