@@ -114,10 +114,11 @@ void ShipInput::update(float dt) {
         
         _position = _swipeEnd;
         _velocity = finishTouch;
+        
+        _swipeStart.setZero();
+        _swipeEnd.setZero();
     }
     
-    _swipeStart.setZero();
-    _swipeEnd.setZero();
 #else
     // fingerdown for the mouse controls if used to signal the user has finished a mouse movement
     if (_fingerDown) {
@@ -125,14 +126,14 @@ void ShipInput::update(float dt) {
         
         _position = _swipeStart;
         _velocity = finishTouch;
+        
+        _swipeStart.setZero();
+        _swipeEnd.setZero();
+        _fingerDown = false;
     } else {
         _position = Vec2::ZERO;
         _velocity = Vec2::ZERO;
     }
-    
-    _swipeStart.setZero();
-    _swipeEnd.setZero();
-    _fingerDown = false;
 #endif
 
 }
