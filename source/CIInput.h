@@ -46,6 +46,7 @@ private:
     bool _fingerDown;
     
     cugl::Touchscreen* _touch;
+    cugl::Mouse* _mouse;
     
 public:
 #pragma mark -
@@ -136,7 +137,7 @@ public:
 #pragma mark -
 #pragma mark Touch Callbacks
     /**
-     * Callback for a mouse release event.
+     * Callback for a touch moved event.
      *
      * @param event The associated event
      * @param previous The previous position of the touch
@@ -145,12 +146,28 @@ public:
     void touchesMovedCB(const cugl::TouchEvent& event, const cugl::Vec2& previous, bool focus);
     
     /**
-     * Callback forcugl::TouchEventf a touch event
+     * Callback for a touch ended event
      *
      * @param event The associated event
      * @param focus    Whether the listener currently has focus
      */
     void touchEndedCB(const cugl::TouchEvent& event, bool focus);
+    
+    /**
+     * Callback for a mouse pressed event
+     *
+     * @param event The associated event
+     * @param focus    Whether the listener currently has focus
+     */
+    void mousePressedCB(const cugl::MouseEvent& event, Uint8 clicks, bool focus);
+    
+    /**
+     * Callback for a mouse released event
+     *
+     * @param event The associated event
+     * @param focus    Whether the listener currently has focus
+     */
+    void mouseReleasedCB(const cugl::MouseEvent& event, Uint8 clicks, bool focus);
 };
 
 #endif /* __SD_INPUT_H__ */

@@ -46,7 +46,11 @@ _fingerDown(false)
  */
 void ShipInput::dispose() {
 #ifndef CU_TOUCH_SCREEN
-    Input::deactivate<Keyboard>();
+    if (_mouse == nullptr) {
+        return;
+    }
+    _mouse->removePressListener(LISTENER_KEY);
+    _mouse->removeReleaseListener(LISTENER_KEY);
 #else
     if (_touch == nullptr) {
         return;
@@ -70,7 +74,13 @@ bool ShipInput::init() {
     
 // Only process keyboard on desktop
 #ifndef CU_TOUCH_SCREEN
-    success = Input::activate<Keyboard>();
+    _mouse = Input::get<Mouse>();
+    _mouse->addPressListener(LISTENER_KEY, [=](const MouseEvent& event, Uint8 clicks, bool focus) {
+        this->mousePressedCB( event, clicks, focus);
+    });
+    _mouse->addReleaseListener(LISTENER_KEY, [=](const MouseEvent& event, Uint8 clicks, bool focus) {
+        this->mouseReleasedCB( event, clicks, focus);
+    });
 #else
     _touch = Input::get<Touchscreen>();
     _touch->addMotionListener(LISTENER_KEY,[=](const TouchEvent& event, const Vec2& previous, bool focus) {
@@ -109,8 +119,20 @@ void ShipInput::update(float dt) {
     _swipeStart.setZero();
     _swipeEnd.setZero();
 #else
-    // TODO: add keyboard controls
+    // fingerdown for the mouse controls if used to signal the user has finished a mouse movement
+    if (_fingerDown) {
+        Vec2 finishTouch = _swipeStart - _swipeEnd;
+        
+        _position = _swipeStart;
+        _velocity = finishTouch;
+    } else {
+        _position = Vec2::ZERO;
+        _velocity = Vec2::ZERO;
+    }
     
+    _swipeStart.setZero();
+    _swipeEnd.setZero();
+    _fingerDown = false;
 #endif
 
 }
@@ -149,4 +171,26 @@ void ShipInput::touchesMovedCB(const TouchEvent& event, const Vec2& previous, bo
  */
 void ShipInput::touchEndedCB(const TouchEvent& event, bool focus) {
     _fingerDown = false;
+}
+
+/**
+ * Callback for a mouse pressed event
+ *
+ * @param event The associated event
+ * @param focus    Whether the listener currently has focus
+ */
+void ShipInput::mousePressedCB(const cugl::MouseEvent& event, Uint8 clicks, bool focus) {
+    _swipeStart.set(event.position);
+}
+
+/**
+ * Callback for a mouse released event
+ *
+ * @param event The associated event
+ * @param focus    Whether the listener currently has focus
+ */
+void ShipInput::mouseReleasedCB(const cugl::MouseEvent& event, Uint8 clicks, bool focus) {
+    _swipeEnd.set(event.position);
+    
+    _fingerDown = true;
 }
