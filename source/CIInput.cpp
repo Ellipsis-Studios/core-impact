@@ -117,6 +117,9 @@ void ShipInput::update(float dt) {
         
         _swipeStart.setZero();
         _swipeEnd.setZero();
+    } else {
+        _position = Vec2::ZERO;
+        _velocity = Vec2::ZERO;
     }
     
 #else
