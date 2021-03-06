@@ -108,21 +108,8 @@ void ShipInput::update(float dt) {
 #ifdef CU_MOBILE
     // TODO: use touchDown() with finger id
     _fingerDown = _touch->touchCount() != 0;
+#endif
     
-    if (_fingerDown) {
-        Vec2 finishTouch = _swipeStart - _swipeEnd;
-        
-        _position = _swipeEnd;
-        _velocity = finishTouch;
-        
-        _swipeStart.setZero();
-        _swipeEnd.setZero();
-    } else {
-        _position = Vec2::ZERO;
-        _velocity = Vec2::ZERO;
-    }
-    
-#else
     // fingerdown for the mouse controls if used to signal the user has finished a mouse movement
     if (_fingerDown) {
         Vec2 finishTouch = _swipeStart - _swipeEnd;
@@ -137,8 +124,6 @@ void ShipInput::update(float dt) {
         _position = Vec2::ZERO;
         _velocity = Vec2::ZERO;
     }
-#endif
-
 }
 
 /**
