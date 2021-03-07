@@ -16,6 +16,9 @@
 		3D563B9D25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D563B9C25F0AF01006641B1 /* CIPlanetModel.cpp */; };
 		3D563B9E25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D563B9C25F0AF01006641B1 /* CIPlanetModel.cpp */; };
 		3D563B9F25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D563B9C25F0AF01006641B1 /* CIPlanetModel.cpp */; };
+		CA68E30B25F53BC200B4617D /* CICollisionController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA68E30625F53BC200B4617D /* CICollisionController.cpp */; };
+		CA68E30C25F53BC200B4617D /* CICollisionController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA68E30625F53BC200B4617D /* CICollisionController.cpp */; };
+		CA68E30D25F53BC200B4617D /* CICollisionController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA68E30625F53BC200B4617D /* CICollisionController.cpp */; };
 		CA9A2DCE25EDBD6A0048D02F /* CIColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA9A2DCB25EDBD6A0048D02F /* CIColor.cpp */; };
 		CA9A2DCF25EDBD6A0048D02F /* CIColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA9A2DCB25EDBD6A0048D02F /* CIColor.cpp */; };
 		CA9A2DD025EDBD6A0048D02F /* CIColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA9A2DCB25EDBD6A0048D02F /* CIColor.cpp */; };
@@ -137,6 +140,8 @@
 		0A5AFAD825F0B5320003669C /* CIDotsQueue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CIDotsQueue.cpp; sourceTree = "<group>"; };
 		3D563B9825F0AEE8006641B1 /* CIPlanetModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIPlanetModel.h; sourceTree = "<group>"; };
 		3D563B9C25F0AF01006641B1 /* CIPlanetModel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CIPlanetModel.cpp; sourceTree = "<group>"; };
+		CA68E30625F53BC200B4617D /* CICollisionController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CICollisionController.cpp; sourceTree = "<group>"; };
+		CA68E30A25F53BC200B4617D /* CICollisionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CICollisionController.h; sourceTree = "<group>"; };
 		CA9A2DC725EDBD6A0048D02F /* CIDotModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIDotModel.h; sourceTree = "<group>"; };
 		CA9A2DCB25EDBD6A0048D02F /* CIColor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CIColor.cpp; sourceTree = "<group>"; };
 		CA9A2DCC25EDBD6A0048D02F /* CIDotModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CIDotModel.cpp; sourceTree = "<group>"; };
@@ -378,6 +383,8 @@
 		EBBF18B11D749176008E2001 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				CA68E30625F53BC200B4617D /* CICollisionController.cpp */,
+				CA68E30A25F53BC200B4617D /* CICollisionController.h */,
 				0A5AFAD625F0B5320003669C /* CIDotsNode.cpp */,
 				0A5AFAD225F0B5320003669C /* CIDotsNode.h */,
 				0A5AFAD825F0B5320003669C /* CIDotsQueue.cpp */,
@@ -469,12 +476,12 @@
 				TargetAttributes = {
 					EB0FF5FB2016EF4F00517030 = {
 						CreatedOnToolsVersion = 9.2;
-						DevelopmentTeam = G6P7H83FK6;
+						DevelopmentTeam = B836CXCFQ5;
 						ProvisioningStyle = Automatic;
 					};
 					EB74548B1D74D75C002FBAE6 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = G6P7H83FK6;
+						DevelopmentTeam = B836CXCFQ5;
 					};
 					EBBF18901D74904A008E2001 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -584,6 +591,7 @@
 				3D563B9F25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */,
 				CA9A2DD325EDBD6A0048D02F /* CIDotModel.cpp in Sources */,
 				EBFA52A221FA5D1700CCC2C5 /* CIInput.cpp in Sources */,
+				CA68E30D25F53BC200B4617D /* CICollisionController.cpp in Sources */,
 				0A5AFADB25F0B5320003669C /* CIDotsNode.cpp in Sources */,
 				0A5AFADE25F0B5320003669C /* CIDotsQueue.cpp in Sources */,
 				EBFA529E21FA5D1000CCC2C5 /* CILoadingScene.cpp in Sources */,
@@ -602,6 +610,7 @@
 				3D563B9E25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */,
 				CA9A2DD225EDBD6A0048D02F /* CIDotModel.cpp in Sources */,
 				EBFA52A121FA5D1700CCC2C5 /* CIInput.cpp in Sources */,
+				CA68E30C25F53BC200B4617D /* CICollisionController.cpp in Sources */,
 				0A5AFADA25F0B5320003669C /* CIDotsNode.cpp in Sources */,
 				0A5AFADD25F0B5320003669C /* CIDotsQueue.cpp in Sources */,
 				EBFA529D21FA5D0F00CCC2C5 /* CILoadingScene.cpp in Sources */,
@@ -620,6 +629,7 @@
 				3D563B9D25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */,
 				CA9A2DD125EDBD6A0048D02F /* CIDotModel.cpp in Sources */,
 				EBFA528D21FA5AAC00CCC2C5 /* CIApp.cpp in Sources */,
+				CA68E30B25F53BC200B4617D /* CICollisionController.cpp in Sources */,
 				0A5AFAD925F0B5320003669C /* CIDotsNode.cpp in Sources */,
 				0A5AFADC25F0B5320003669C /* CIDotsQueue.cpp in Sources */,
 				EBFA528C21FA5AAC00CCC2C5 /* CILoadingScene.cpp in Sources */,
@@ -650,7 +660,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = G6P7H83FK6;
+				DEVELOPMENT_TEAM = B836CXCFQ5;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/iOS-Info.plist";
@@ -682,7 +692,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = G6P7H83FK6;
+				DEVELOPMENT_TEAM = B836CXCFQ5;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/iOS-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -704,6 +714,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = B836CXCFQ5;
 				ENABLE_BITCODE = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/iOS-Info.plist";

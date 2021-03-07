@@ -20,7 +20,7 @@
 #include <sstream>
 
 #include "CIGameScene.h"
-#include <CICollisionController.h>
+#include "CICollisionController.h"
 
 using namespace cugl;
 using namespace std;

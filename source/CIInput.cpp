@@ -115,6 +115,7 @@ void ShipInput::update(float dt) {
         Vec2 finishTouch = _swipeStart - _swipeEnd;
         
         _position = _swipeStart;
+//        cout << "Finger Pos - (" << _position.x << ", " << _position.y << ")\n";
         _velocity = finishTouch;
         
         _swipeStart.setZero();

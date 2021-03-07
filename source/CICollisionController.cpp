@@ -187,6 +187,7 @@ void collisions::checkForCollision(cugl::Vec2 inputPos, cugl::Vec2 inputVel, con
         DotModel* dot = dots->get(ii);
         // We add a layer due to own colored dot
         if (dot != nullptr) {
+//            cout << "Dot Position - (" << dot->getPosition().x << ", " << dot->getPosition().y << ")\n";
             Vec2 norm = inputPos - dot->getPosition();
             float distance = norm.length();
             //float impactDistance = (planet->getRadius() + dradius*dot->scale);
@@ -195,6 +196,7 @@ void collisions::checkForCollision(cugl::Vec2 inputPos, cugl::Vec2 inputVel, con
 
             // If this normal is too small, there was a collision
             if (distance < impactDistance) {
+//                cout << "Collision!\n";
                 dot->setPosition(inputPos + inputVel);
             }
         }
