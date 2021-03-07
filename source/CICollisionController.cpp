@@ -94,7 +94,7 @@ void collisions::checkForCollision(const std::shared_ptr<PlanetModel>& planet, c
         // This returns a reference
         DotModel* dot = dots->get(ii);
         // We add a layer due to own colored dot
-        if (dot != nullptr && dot->getColor() == planet->getColor()) {
+        if (dot != nullptr) {
             Vec2 norm = planet->getPosition()-dot->getPosition();
             float distance = norm.length();
             //float impactDistance = (planet->getRadius() + dradius*dot->scale);
@@ -103,22 +103,12 @@ void collisions::checkForCollision(const std::shared_ptr<PlanetModel>& planet, c
 
             // If this normal is too small, there was a collision
             if (distance < impactDistance) {
-                planet->increaseLayerSize();
-
-                // Destroy the photon
-                dot->destroy();
-            }
-        }
-        else if (dot != nullptr && dot->getColor() != planet->getColor()) {
-            Vec2 norm = planet->getPosition() - dot->getPosition();
-            float distance = norm.length();
-            //float impactDistance = (planet->getRadius() + dradius*dot->scale);
-            float impactDistance = (planet->getRadius() + dradius);
-            norm.normalize();
-
-            // If this normal is too small, there was a collision
-            if (distance < impactDistance) {
-                planet->decreaseLayerSize();
+                if (dot->getColor() == planet->getColor()) {
+                    planet->increaseLayerSize();
+                }
+                else {
+                    planet->decreaseLayerSize();
+                }
 
                 // Destroy the photon
                 dot->destroy();
@@ -174,7 +164,7 @@ void collisions::checkForCollision(const std::shared_ptr<DotsQueue>& dots1, cons
 }
 */
 
-void collisions::checkForCollision(cugl::Vec2 inputPos, cugl::Vec2 inputVel, const std::shared_ptr<DotsQueue>& dots) {
+void collisions::checkForCollision(cugl::Vec2 inputPos, const std::shared_ptr<DotsQueue>& dots) {
     // Get the photon size from the texture
     auto texture = dots->getTexture();
     float dradius = 0;
@@ -197,7 +187,10 @@ void collisions::checkForCollision(cugl::Vec2 inputPos, cugl::Vec2 inputVel, con
             // If this normal is too small, there was a collision
             if (distance < impactDistance) {
 //                cout << "Collision!\n";
-                dot->setPosition(inputPos + inputVel);
+                dot->setVelocity(Vec2::ZERO);
+            }
+            else if (distance < impactDistance * 2) {
+                dot->setVelocity(norm * 10);
             }
         }
     }

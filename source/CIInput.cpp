@@ -50,11 +50,13 @@ void ShipInput::dispose() {
         return;
     }
     _mouse->removePressListener(LISTENER_KEY);
+    _mouse->removeMotionListener(LISTENER_KEY);
     _mouse->removeReleaseListener(LISTENER_KEY);
 #else
     if (_touch == nullptr) {
         return;
     }
+    _touch->removeBeginListener(LISTENER_KEY);
     _touch->removeMotionListener(LISTENER_KEY);
     _touch->removeEndListener(LISTENER_KEY);
 #endif
@@ -67,22 +69,35 @@ void ShipInput::dispose() {
  * controller and allocating memory.  However, it still does not activate
  * the listeners.  You must call start() do that.
  *
+ * @param bounds    the scene graph bounds
+ * 
  * @return true if the controller was initialized successfully
  */
-bool ShipInput::init() {
+bool ShipInput::init(const Rect bounds) {
     bool success = true;
+    
+    _sbounds = bounds;
+    _tbounds = Application::get()->getDisplayBounds();
+    clearTouchInstance(_touchInstance);
     
 // Only process keyboard on desktop
 #ifndef CU_TOUCH_SCREEN
     _mouse = Input::get<Mouse>();
+    _mouse->setPointerAwareness(cugl::Mouse::PointerAwareness::ALWAYS);
     _mouse->addPressListener(LISTENER_KEY, [=](const MouseEvent& event, Uint8 clicks, bool focus) {
-        this->mousePressedCB( event, clicks, focus);
+        this->mousePressedCB(event, clicks, focus);
+    });
+    _mouse->addMotionListener(LISTENER_KEY, [=](const MouseEvent& event, const Vec2 previous, bool focus) {
+        this->mouseMovedCB(event, previous, focus);
     });
     _mouse->addReleaseListener(LISTENER_KEY, [=](const MouseEvent& event, Uint8 clicks, bool focus) {
-        this->mouseReleasedCB( event, clicks, focus);
+        this->mouseReleasedCB(event, clicks, focus);
     });
 #else
     _touch = Input::get<Touchscreen>();
+    _touch->addBeginListener(LISTENER_KEY,[=](const TouchEvent& event, bool focus) {
+        this->touchBeganCB(event,focus);
+    });
     _touch->addMotionListener(LISTENER_KEY,[=](const TouchEvent& event, const Vec2& previous, bool focus) {
         this->touchesMovedCB(event, previous, focus);
     });
@@ -107,23 +122,11 @@ bool ShipInput::init() {
 void ShipInput::update(float dt) {
 #ifdef CU_MOBILE
     // TODO: use touchDown() with finger id
-    _fingerDown = _touch->touchCount() != 0;
 #endif
-    
-    // fingerdown for the mouse controls if used to signal the user has finished a mouse movement
     if (_fingerDown) {
-        Vec2 finishTouch = _swipeStart - _swipeEnd;
-        
-        _position = _swipeStart;
-//        cout << "Finger Pos - (" << _position.x << ", " << _position.y << ")\n";
-        _velocity = finishTouch;
-        
-        _swipeStart.setZero();
-        _swipeEnd.setZero();
-        _fingerDown = false;
-    } else {
-        _position = Vec2::ZERO;
-        _velocity = Vec2::ZERO;
+//        cout << "Input Position - (" << _position.x << ", " << _position.y << ")\n";
+        _prevPosition = _position;
+        _prevVelocity = _velocity;
     }
 }
 
@@ -131,16 +134,59 @@ void ShipInput::update(float dt) {
  * Clears any buffered inputs so that we may start fresh.
  */
 void ShipInput::clear() {
-    
     _position = Vec2::ZERO;
     _velocity = Vec2::ZERO;
-    
-    _swipeStart = Vec2::ZERO;
-    _swipeEnd = Vec2::ZERO;
+    _prevPosition = Vec2::ZERO;
+    _prevVelocity = Vec2::ZERO;
+}
+
+/**
+ * Populates the initial values of the input TouchInstance
+ */
+void ShipInput::clearTouchInstance(TouchInstance& touchInstance) {
+    touchInstance.touchids.clear();
+    touchInstance.position = Vec2::ZERO;
+}
+
+/**
+ * Returns the scene location of a touch
+ *
+ * Touch coordinates are inverted, with y origin in the top-left
+ * corner. This method corrects for this and scales the screen
+ * coordinates down on to the scene graph size.
+ *
+ * @return the scene location of a touch
+ */
+Vec2 ShipInput::touch2Screen(const Vec2 pos) const {
+    float px = pos.x/_tbounds.size.width -_tbounds.origin.x;
+    float py = pos.y/_tbounds.size.height-_tbounds.origin.y;
+    Vec2 result;
+    result.x = px*_sbounds.size.width +_sbounds.origin.x;
+    result.y = (1-py)*_sbounds.size.height+_sbounds.origin.y;
+    return result;
 }
 
 #pragma mark -
 #pragma mark Touch Callbacks
+/**
+ * Callback for the beginning of a touch event
+ *
+ * @param event The associated event
+ * @param focus    Whether the listener currently has focus
+ *
+ */
+void ShipInput::touchBeganCB(const cugl::TouchEvent& event, bool focus) {
+    Vec2 pos = event.position;
+    if (_touchInstance.touchids.empty()) {
+        _touchInstance.position = pos;
+        _touchInstance.timestamp.mark();
+        _touchInstance.touchids.insert(event.touch);
+
+        _fingerDown = true;
+        _position = touch2Screen(pos);
+    }
+}
+
 /**
  * Callback for a touch moved event.
  *
@@ -149,8 +195,11 @@ void ShipInput::clear() {
  * @param focus    Whether the listener currently has focus
  */
 void ShipInput::touchesMovedCB(const TouchEvent& event, const Vec2& previous, bool focus) {
-    _swipeStart.set(previous);
-    _swipeEnd.set(event.position);
+    if (_touchInstance.touchids.find(event.touch) != _touchInstance.touchids.end()) {
+        Vec2 pos = event.position;
+        _velocity = touch2Screen(pos - previous);
+        _position = touch2Screen(pos);
+    }
 }
 
 /**
@@ -160,7 +209,12 @@ void ShipInput::touchesMovedCB(const TouchEvent& event, const Vec2& previous, bo
  * @param focus    Whether the listener currently has focus
  */
 void ShipInput::touchEndedCB(const TouchEvent& event, bool focus) {
-    _fingerDown = false;
+    if (_touchInstance.touchids.find(event.touch) != _touchInstance.touchids.end()) {
+        _touchInstance.touchids.clear();
+        _fingerDown = false;
+        _position = Vec2::ZERO;
+        _velocity = Vec2::ZERO;
+    }
 }
 
 /**
@@ -170,7 +224,22 @@ void ShipInput::touchEndedCB(const TouchEvent& event, bool focus) {
  * @param focus    Whether the listener currently has focus
  */
 void ShipInput::mousePressedCB(const cugl::MouseEvent& event, Uint8 clicks, bool focus) {
-    _swipeStart.set(event.position);
+    _fingerDown = true;
+    _position = event.position;
+}
+
+/**
+ * Callback for a mouse moved event
+ *
+ * @param event The associated event
+ * @param focus    Whether the listener currently has focus
+ */
+void ShipInput::mouseMovedCB(const MouseEvent& event, const Vec2 previous, bool focus) {
+    if (_fingerDown) {
+        Vec2 pos = event.position;
+        _velocity = pos - previous;
+        _position = pos;
+    }
 }
 
 /**
@@ -180,7 +249,7 @@ void ShipInput::mousePressedCB(const cugl::MouseEvent& event, Uint8 clicks, bool
  * @param focus    Whether the listener currently has focus
  */
 void ShipInput::mouseReleasedCB(const cugl::MouseEvent& event, Uint8 clicks, bool focus) {
-    _swipeEnd.set(event.position);
-    
-    _fingerDown = true;
+    _fingerDown = false;
+    _position = Vec2::ZERO;
+    _velocity = Vec2::ZERO;
 }

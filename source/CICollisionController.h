@@ -57,7 +57,7 @@ namespace collisions {
  */
 void checkForCollision(const std::shared_ptr<PlanetModel>& planet, const std::shared_ptr<DotsQueue>& dots);
 //void checkForCollision(const std::shared_ptr<DotsQueue>& dots1, const std::shared_ptr<DotsQueue>& dots2);
-void checkForCollision(cugl::Vec2 inputPos, cugl::Vec2 inputVel, const std::shared_ptr<DotsQueue>& dots);
+void checkForCollision(cugl::Vec2 inputPos, const std::shared_ptr<DotsQueue>& dots);
 
 /**
  * Nudge the ship to ensure it does not do out of view.

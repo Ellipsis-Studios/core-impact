@@ -69,7 +69,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     
     // Start up the input handler
     _assets = assets;
-    _input.init();
+    _input.init(getBounds());
     
     // Acquire the scene built by the asset loader and resize it the scene
     auto scene = _assets->get<scene2::SceneNode>("game");
@@ -189,7 +189,7 @@ void GameScene::update(float timestep) {
     //_nearSpace->setAngle(_shipModel->getAngle());
 
     collisions::checkForCollision(_shipModel, _dotsContainer);
-    collisions::checkForCollision(_input.getPosition(), _input.getVelocity(), _dotsContainer);
+    collisions::checkForCollision(_input.getPosition(), _dotsContainer);
 }
 
 /**
