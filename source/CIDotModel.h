@@ -94,6 +94,10 @@ public:
     float getRadius() {
         return _radius;
     }
+
+    CIColor::Value getColor() {
+        return _color;
+    }
     
 #pragma mark Constructors
     /**
@@ -145,6 +149,14 @@ public:
         std::shared_ptr<DotModel> result = std::make_shared<DotModel>();
         return (result->init(x,y,c) ? result : nullptr);
     }
+
+    /**
+    * Flags the dot for deletion.
+    *
+    * This just sets the mass of the dot to be negative.
+    * That way it is removed soon after during the collection phase.
+    */
+    void destroy();
     
 #pragma mark -
 #pragma mark Movement

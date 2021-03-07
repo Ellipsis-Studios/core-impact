@@ -88,6 +88,10 @@ public:
         return _mass;
     }
 
+    const cugl::Vec2 getPosition() const {
+        return _position;
+    }
+
 #pragma mark Constructors
     /**
      * Creates a new planet at the center of the screen

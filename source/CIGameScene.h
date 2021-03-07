@@ -19,7 +19,7 @@
 #define __SD_GAME_SCENE_H__
 #include <cugl/cugl.h>
 #include <vector>
-#include "CIShipModel.h"
+#include "CIPlanetModel.h"
 #include "CIInput.h"
 #include "CIDotsNode.h"
 #include "CIDotsQueue.h"
@@ -57,7 +57,7 @@ protected:
     // MODEL
     // A page-out could dispose of the view as long as it just has this.
     /** The current coordinates of the ship */
-    std::shared_ptr<ShipModel>  _shipModel;
+    std::shared_ptr<PlanetModel>  _shipModel;
     
     /**
      * Returns an informative string for the position
