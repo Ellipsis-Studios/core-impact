@@ -31,56 +31,12 @@
 using namespace cugl;
 
 /**
- *  Handles collisions between ships, causing them to bounce off one another.
+ *  Handles collisions between a planet and stardust.
  *
- *  This method updates the velocities of both ships: the collider and the
- *  collidee. Therefore, you should only call this method for one of the
- *  ships, not both. Otherwise, you are processing the same collisions twice.
+ *  Increases or decreases layer planet size depending on the color of the stardust
  *
- *  @param ship1    First ship in candidate collision
- *  @param ship2    Second ship in candidate collision
- */
-/*
-void collisions::checkForCollision(const std::shared_ptr<Ship>& ship1, const std::shared_ptr<Ship>& ship2) {
-    // Calculate the normal of the (possible) point of collision
-    Vec2 norm = ship1->getPosition()-ship2->getPosition();
-    float distance = norm.length();
-    float impactDistance = (ship1->getRadius() + ship2->getRadius());
-    norm.normalize();
-
-    // If this normal is too small, there was a collision
-    if (distance < impactDistance) {
-        // "Roll back" time so that the ships are barely touching (e.g. point of impact).
-        Vec2 temp = norm * ((impactDistance - distance) / 2);
-        ship1->setPosition(ship1->getPosition()+temp);
-        ship2->setPosition(ship2->getPosition()-temp);
-
-        // Now it is time for Newton's Law of Impact.
-        // Convert the two velocities into a single reference frame
-        Vec2 vel = ship1->getVelocity()-ship2->getVelocity();
-
-        // Compute the impulse (see Essential Math for Game Programmers)
-        float impulse = (-(1 + COLLISION_COEFF) * norm.dot(vel)) /
-                        (norm.dot(norm) * (1 / ship1->getMass() + 1 / ship2->getMass()));
-
-        // Change velocity of the two ships using this impulse
-        temp = norm * (impulse/ship1->getMass());
-        ship1->setVelocity(ship1->getVelocity()+temp);
-
-        temp = norm * (impulse/ship2->getMass());
-        ship2->setVelocity(ship2->getVelocity()-temp);
-    }
-}
-*/
-
-/**
- *  Handles collisions between a ship and a photon.
- *
- *  A collision bounces the hit ship back and destroys the photon (e.g. age
- *  is set to the maximum).
- *
- *  @param ship     The ship in the candidate collision
- *  @param photons  The photons in the candidate collision
+ *  @param planet     The planet in the candidate collision
+ *  @param dots       The stardust in the candidate collision
  */
 void collisions::checkForCollision(const std::shared_ptr<PlanetModel>& planet, const std::shared_ptr<DotsQueue>& dots) {
     // Get the photon size from the texture
@@ -97,7 +53,6 @@ void collisions::checkForCollision(const std::shared_ptr<PlanetModel>& planet, c
         if (dot != nullptr) {
             Vec2 norm = planet->getPosition()-dot->getPosition();
             float distance = norm.length();
-            //float impactDistance = (planet->getRadius() + dradius*dot->scale);
             float impactDistance = (planet->getRadius() + dradius);
             norm.normalize();
 
@@ -177,7 +132,6 @@ void collisions::checkForCollision(cugl::Vec2 inputPos, const std::shared_ptr<Do
         DotModel* dot = dots->get(ii);
         // We add a layer due to own colored dot
         if (dot != nullptr) {
-//            cout << "Dot Position - (" << dot->getPosition().x << ", " << dot->getPosition().y << ")\n";
             Vec2 norm = inputPos - dot->getPosition();
             float distance = norm.length();
             //float impactDistance = (planet->getRadius() + dradius*dot->scale);

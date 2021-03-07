@@ -34,29 +34,37 @@
  * probably use Box2d just like you did in 3152.
  */
 namespace collisions {
-/**
- *  Handles collisions between ships, causing them to bounce off one another.
- *
- *  This method updates the velocities of both ships: the collider and the
- *  collidee. Therefore, you should only call this method for one of the
- *  ships, not both. Otherwise, you are processing the same collisions twice.
- *
- *  @param ship1    First ship in candidate collision
- *  @param ship2    Second ship in candidate collision
- */
-//void checkForCollision(const std::shared_ptr<Ship>& ship1, const std::shared_ptr<Ship>& ship2);
 
 /**
- *  Handles collisions between a ship and a photon.
+ *  Handles collisions between a planet and stardust.
  *
- *  A collision bounces the hit ship back and destroys the photon (e.g. age
- *  is set to the maximum).
+ *  Increases or decreases layer planet size depending on the color of the stardust
  *
- *  @param ship     The ship in the candidate collision
- *  @param photons  The photons in the candidate collision
+ *  @param planet     The planet in the candidate collision
+ *  @param dots       The stardust in the candidate collision
  */
 void checkForCollision(const std::shared_ptr<PlanetModel>& planet, const std::shared_ptr<DotsQueue>& dots);
+
+/**
+ *  Handles collisions between stardusts, causing them to bounce off one another.
+ *
+ *  This method updates the velocities of both stardusts: the collider and the
+ *  collidee. Therefore, you should only call this method for one of the
+ *  stardusts, not both. Otherwise, you are processing the same collisions twice.
+ *
+ *  @param dot1    First stardust in candidate collision
+ *  @param dot2    Second stardust in candidate collision
+ */
 //void checkForCollision(const std::shared_ptr<DotsQueue>& dots1, const std::shared_ptr<DotsQueue>& dots2);
+
+/**
+ *  Handles collisions between an input and stardust.
+ *
+ *  Moves the stardust to follow the input
+ *
+ *  @param inputPos     The input position of the finger
+ *  @param dots			The stardust in the candidate collision
+ */
 void checkForCollision(cugl::Vec2 inputPos, const std::shared_ptr<DotsQueue>& dots);
 
 /**
