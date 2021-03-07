@@ -14,8 +14,6 @@
 #define __SD_INPUT_H__
 #include <cugl/cugl.h>
 
-using namespace cugl;
-
 /**
  * This class represents player input in the ship demo.
  *
@@ -100,7 +98,7 @@ public:
      * @param bounds    the scene graph bounds
      * @return true if the controller was initialized successfully
      */
-    bool init(const Rect bounds);
+    bool init(const cugl::Rect bounds);
     
     /**
      * Populates the initial values of the TouchInstances
@@ -230,7 +228,7 @@ public:
      * @param event The associated event
      * @param focus    Whether the listener currently has focus
      */
-    void mouseMovedCB(const MouseEvent& event, const Vec2 previous, bool focus);
+    void mouseMovedCB(const cugl::MouseEvent& event, const cugl::Vec2 previous, bool focus);
     
     /**
      * Callback for a mouse released event

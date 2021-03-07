@@ -83,7 +83,7 @@ bool ShipInput::init(const Rect bounds) {
 // Only process keyboard on desktop
 #ifndef CU_TOUCH_SCREEN
     _mouse = Input::get<Mouse>();
-    _mouse->setPointerAwareness(cugl::Mouse::PointerAwareness::ALWAYS);
+    _mouse->setPointerAwareness(Mouse::PointerAwareness::ALWAYS);
     _mouse->addPressListener(LISTENER_KEY, [=](const MouseEvent& event, Uint8 clicks, bool focus) {
         this->mousePressedCB(event, clicks, focus);
     });
@@ -124,7 +124,6 @@ void ShipInput::update(float dt) {
     // TODO: use touchDown() with finger id
 #endif
     if (_fingerDown) {
-//        cout << "Input Position - (" << _position.x << ", " << _position.y << ")\n";
         _prevPosition = _position;
         _prevVelocity = _velocity;
     }
@@ -175,7 +174,7 @@ Vec2 ShipInput::touch2Screen(const Vec2 pos) const {
  * @param focus    Whether the listener currently has focus
  *
  */
-void ShipInput::touchBeganCB(const cugl::TouchEvent& event, bool focus) {
+void ShipInput::touchBeganCB(const TouchEvent& event, bool focus) {
     Vec2 pos = event.position;
     if (_touchInstance.touchids.empty()) {
         _touchInstance.position = pos;
@@ -223,7 +222,7 @@ void ShipInput::touchEndedCB(const TouchEvent& event, bool focus) {
  * @param event The associated event
  * @param focus    Whether the listener currently has focus
  */
-void ShipInput::mousePressedCB(const cugl::MouseEvent& event, Uint8 clicks, bool focus) {
+void ShipInput::mousePressedCB(const MouseEvent& event, Uint8 clicks, bool focus) {
     _fingerDown = true;
     _position = event.position;
 }
@@ -248,7 +247,7 @@ void ShipInput::mouseMovedCB(const MouseEvent& event, const Vec2 previous, bool 
  * @param event The associated event
  * @param focus    Whether the listener currently has focus
  */
-void ShipInput::mouseReleasedCB(const cugl::MouseEvent& event, Uint8 clicks, bool focus) {
+void ShipInput::mouseReleasedCB(const MouseEvent& event, Uint8 clicks, bool focus) {
     _fingerDown = false;
     _position = Vec2::ZERO;
     _velocity = Vec2::ZERO;
