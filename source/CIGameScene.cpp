@@ -85,20 +85,17 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
 
     // Create the ship model
     Vec2 shipPos = _shipNode->getPosition();
-    //_shipModel = ShipModel::alloc(shipPos);
-    //_shipModel->setSprite(_shipNode);
-    _shipModel = PlanetModel::alloc(shipPos.x, shipPos.y, CIColor::blue, 3);
-    //_shipModel->setTextures(_shipNode);
+    _shipModel = PlanetModel::alloc(dimen.width/2, dimen.height/2, CIColor::blue, 3);
     
     _dotsContainer = DotsQueue::alloc(MAX_DOTS);
     _dotsContainer->setTexture(_assets->get<Texture>("photon"));
     std::shared_ptr<DotsNode> _dotsNode = DotsNode::alloc();
     _dotsNode->setDotsQueue(_dotsContainer);
     
-    _dotsContainer->addDot();
-    _dotsContainer->addDot();
-    _dotsContainer->addDot();
-    _dotsContainer->addDot();
+    _dotsContainer->addDot(dimen);
+    _dotsContainer->addDot(dimen);
+    _dotsContainer->addDot(dimen);
+    _dotsContainer->addDot(dimen);
 
     addChild(scene);
     addChild(_dotsNode);
@@ -152,44 +149,22 @@ void GameScene::reset() {
  * @param timestep  The amount of time (in seconds) since the last frame
  */
 void GameScene::update(float timestep) {
+    Size dimen = Application::get()->getDisplaySize();
+    dimen *= SCENE_WIDTH/dimen.width;
     _input.update(timestep);
     
-    // Reset the game if necessary
-//    if (_input.didReset()) { reset(); }
-
-    Vec2 thrust = Vec2::ZERO;
-    
-    // Move the ship (MODEL ONLY)
-    //_shipModel->setForward(thrust.y);
-    //_shipModel->setTurning(thrust.x);
-    //_shipModel->update(timestep);
     _dotsContainer->update();
     
-    // "Drawing" code.  Move everything BUT the ship
-    // Update the HUD
-//    _coordHUD->setText(positionText(_shipModel->getPosition()));
-    _coordHUD->setText(positionText(_input.getPosition()));
+    if (rand() % 60 == 0){
+        _dotsContainer->addDot(dimen);
+    }
     
-    Vec2 offset = _shipModel->getPosition()-_farSpace->getPosition();
-    
-    // Anchor points are in texture coordinates (0 to 1). Scale it.
-    offset.x = offset.x/_allSpace->getContentSize().width;
-    offset.y = offset.y/_allSpace->getContentSize().height;
-    
-    // Reanchor the node at the center of the screen and rotate about center.
-    Vec2 position = _farSpace->getPosition();
-    _farSpace->setAnchor(offset*PARALLAX_AMT+Vec2::ANCHOR_CENTER);
-    _farSpace->setPosition(position); // Reseting the anchor changes the position
-    //_farSpace->setAngle(_shipModel->getAngle());
-    
-    // Reanchor the node at the center of the screen and rotate about center.
-    position = _nearSpace->getPosition();
-    _nearSpace->setAnchor(offset+Vec2::ANCHOR_CENTER);
-    _nearSpace->setPosition(position); // Reseting the anchor changes the position
-    //_nearSpace->setAngle(_shipModel->getAngle());
+//    _coordHUD->setText(positionText(_input.getPosition()));
+    _coordHUD->setText(to_string(_shipModel->getMass()));
 
     collisions::checkForCollision(_shipModel, _dotsContainer);
     collisions::checkForCollision(_input.getPosition(), _dotsContainer);
+    collisions::checkInBounds(_dotsContainer, dimen);
 }
 
 /**
