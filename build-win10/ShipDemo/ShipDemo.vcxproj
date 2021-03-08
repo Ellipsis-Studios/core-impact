@@ -195,6 +195,7 @@
     <ClInclude Include="..\..\source\CILoadingScene.h" />
     <ClInclude Include="..\..\source\CIPlanetModel.h" />
     <ClInclude Include="..\..\source\CIShipModel.h" />
+    <ClInclude Include="..\..\source\CICollisionController.h" />
     <ClInclude Include="..\..\source\HelloApp.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
@@ -220,6 +221,7 @@
     <ClCompile Include="..\..\source\CILoadingScene.cpp" />
     <ClCompile Include="..\..\source\CIPlanetModel.cpp" />
     <ClCompile Include="..\..\source\CIShipModel.cpp" />
+    <ClCompile Include="..\..\source\CICollisionController.cpp" />
     <ClCompile Include="..\..\source\main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

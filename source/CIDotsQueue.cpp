@@ -110,7 +110,7 @@ void DotsQueue::update() {
  */
 DotModel* DotsQueue::get(size_t pos) {
     size_t idx = ((_qhead+pos) % _queue.size());
-    if (_queue[idx].getMass() <= 0) {
+    if (_queue[idx].getMass() > 0) {
         return &_queue[idx];
     }
     return nullptr;

@@ -20,6 +20,7 @@
 #include <sstream>
 
 #include "CIGameScene.h"
+#include "CICollisionController.h"
 
 using namespace cugl;
 using namespace std;
@@ -84,8 +85,10 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
 
     // Create the ship model
     Vec2 shipPos = _shipNode->getPosition();
-    _shipModel = ShipModel::alloc(shipPos);
-    _shipModel->setSprite(_shipNode);
+    //_shipModel = ShipModel::alloc(shipPos);
+    //_shipModel->setSprite(_shipNode);
+    _shipModel = PlanetModel::alloc(shipPos.x, shipPos.y, CIColor::blue, 3);
+    //_shipModel->setTextures(_shipNode);
     
     _dotsContainer = DotsQueue::alloc(MAX_DOTS);
     _dotsContainer->setTexture(_assets->get<Texture>("photon"));
@@ -127,7 +130,7 @@ void GameScene::dispose() {
  */
 void GameScene::reset() {
     // Reset the ships and input
-    _shipModel->reset();
+    //_shipModel->reset();
     _input.clear();
     
     // Reset the parallax
@@ -157,9 +160,9 @@ void GameScene::update(float timestep) {
     Vec2 thrust = Vec2::ZERO;
     
     // Move the ship (MODEL ONLY)
-    _shipModel->setForward(thrust.y);
-    _shipModel->setTurning(thrust.x);
-    _shipModel->update(timestep);
+    //_shipModel->setForward(thrust.y);
+    //_shipModel->setTurning(thrust.x);
+    //_shipModel->update(timestep);
     _dotsContainer->update();
     
     // "Drawing" code.  Move everything BUT the ship
@@ -177,13 +180,16 @@ void GameScene::update(float timestep) {
     Vec2 position = _farSpace->getPosition();
     _farSpace->setAnchor(offset*PARALLAX_AMT+Vec2::ANCHOR_CENTER);
     _farSpace->setPosition(position); // Reseting the anchor changes the position
-    _farSpace->setAngle(_shipModel->getAngle());
+    //_farSpace->setAngle(_shipModel->getAngle());
     
     // Reanchor the node at the center of the screen and rotate about center.
     position = _nearSpace->getPosition();
     _nearSpace->setAnchor(offset+Vec2::ANCHOR_CENTER);
     _nearSpace->setPosition(position); // Reseting the anchor changes the position
-    _nearSpace->setAngle(_shipModel->getAngle());
+    //_nearSpace->setAngle(_shipModel->getAngle());
+
+    collisions::checkForCollision(_shipModel, _dotsContainer);
+    collisions::checkForCollision(_input.getPosition(), _dotsContainer);
 }
 
 /**

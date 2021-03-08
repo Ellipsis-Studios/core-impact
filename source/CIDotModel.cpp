@@ -67,3 +67,13 @@ void DotModel::update(float timestep) {
     _position += _velocity;
     _velocity *= 0.99;
 }
+
+/**
+ * Flags the dot for deletion.
+ *
+ * This just sets the mass of the dot to be negative.
+ * That way it is removed soon after during the collection phase.
+ */
+void DotModel::destroy() {
+    _mass = -1;
+}
