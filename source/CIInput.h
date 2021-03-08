@@ -33,20 +33,37 @@
 class ShipInput {
 private:
     
-    /** Postion and velocity of a completed swipe. To be used in CollisionController to check if a dot was swiped. */
+    /** Postion and velocity of the finger */
     cugl::Vec2 _position;
     cugl::Vec2 _velocity;
     
-    // TOUCH SUPPORT
-    /** The swipe location for the current gesture */
-    cugl::Vec2 _swipeStart;
-    cugl::Vec2 _swipeEnd;
-    
+    /** Position and velocity of the finger in the previous frame */
+    cugl::Vec2 _prevPosition;
+    cugl::Vec2 _prevVelocity;
+
     /** Flag that tells whether the user's finger is currently down or not */
     bool _fingerDown;
     
+    /** Pointers to the touchscreen and mouse */
     cugl::Touchscreen* _touch;
     cugl::Mouse* _mouse;
+    
+protected:
+    struct TouchInstance {
+        /** The anchor touch position (on start) */
+        cugl::Vec2 position;
+        /** The current touch time */
+        cugl::Timestamp timestamp;
+        /** The touch id(s) for future reference */
+        std::unordered_set<Uint64> touchids;
+    };
+    
+    TouchInstance _touchInstance;
+    
+    /** The bounds of the entire game screen (in touch coordinates) */
+    cugl::Rect _tbounds;
+    /** The bounds of the entire game screen (in scene coordinates) */
+    cugl::Rect _sbounds;
     
 public:
 #pragma mark -
@@ -78,9 +95,26 @@ public:
      * This method works like a proper constructor, initializing the input
      * controller, allocating memory and attaching listeners.
      *
+     * @param bounds    the scene graph bounds
      * @return true if the controller was initialized successfully
      */
-    bool init();
+    bool init(const cugl::Rect bounds);
+    
+    /**
+     * Populates the initial values of the TouchInstances
+     */
+    void clearTouchInstance(TouchInstance& touchInstance);
+    
+    /**
+     * Returns the scene location of a touch
+     *
+     * Touch coordinates are inverted, with y origin in the top-left
+     * corner. This method corrects for this and scales the screen
+     * coordinates down on to the scene graph size.
+     *
+     * @return the scene location of a touch
+     */
+    cugl::Vec2 touch2Screen(const cugl::Vec2 pos) const;
     
     
 #pragma mark -
@@ -125,6 +159,24 @@ public:
     }
     
     /**
+     * Returns the position of a user swipe from the previous frame.
+     *
+     * @return position of a user swipe
+     */
+    cugl::Vec2 getPrevPosition() {
+        return _prevPosition;
+    }
+    
+    /**
+     * Returns the velocity of a user swipe from the previous frame.
+     *
+     * @return velocity of a user swipe 
+     */
+    cugl::Vec2 getPrevVelocity() {
+        return _prevVelocity;
+    }
+    
+    /**
      * Returns whether the user's finger is down or not
      *
      * @return whether the user's finger is down or not
@@ -136,6 +188,15 @@ public:
     
 #pragma mark -
 #pragma mark Touch Callbacks
+    /**
+     * Callback for the beginning of a touch event
+     *
+     * @param event The associated event
+     * @param focus    Whether the listener currently has focus
+     *
+     */
+    void touchBeganCB(const cugl::TouchEvent& event, bool focus);
+    
     /**
      * Callback for a touch moved event.
      *
@@ -160,6 +221,14 @@ public:
      * @param focus    Whether the listener currently has focus
      */
     void mousePressedCB(const cugl::MouseEvent& event, Uint8 clicks, bool focus);
+    
+    /**
+     * Callback for a mouse moved event
+     *
+     * @param event The associated event
+     * @param focus    Whether the listener currently has focus
+     */
+    void mouseMovedCB(const cugl::MouseEvent& event, const cugl::Vec2 previous, bool focus);
     
     /**
      * Callback for a mouse released event
