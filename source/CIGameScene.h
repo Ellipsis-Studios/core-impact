@@ -38,7 +38,7 @@ protected:
 
     // CONTROLLERS
     /** Controller for abstracting out input across multiple platforms */
-    ShipInput _input;
+    InputController _input;
     
     // VIEW
     /** Filmstrip representing the animated ship */

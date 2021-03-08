@@ -15,7 +15,7 @@
 #include <cugl/cugl.h>
 
 /**
- * This class represents player input in the ship demo.
+ * This class represents player input
  *
  * This input handler uses the CUGL input API.  It uses the polling API for
  * keyboard, but the callback API for touch.  This demonstrates a mix of ways
@@ -30,7 +30,7 @@
  * until later. This is one of the main reasons we like to avoid initialization 
  * in the constructor.
  */
-class ShipInput {
+class InputController {
 private:
     
     /** Postion and velocity of the finger */
@@ -74,12 +74,12 @@ public:
      * This constructor does NOT do any initialzation.  It simply allocates the
      * object. This makes it safe to use this class without a pointer.
      */
-    ShipInput(); // Don't initialize.  Allow stack based
+    InputController(); // Don't initialize.  Allow stack based
     
     /**
      * Disposes of this input controller, releasing all listeners.
      */
-    ~ShipInput() { dispose(); }
+    ~InputController() { dispose(); }
     
     /**
      * Deactivates this input controller, releasing all listeners.

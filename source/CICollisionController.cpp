@@ -1,6 +1,6 @@
 //
 //  CICollisionController.h
-//  Programming Lab
+//  CoreImpact
 //
 //  Unless you are making a point-and-click adventure game, every single
 //  game is going to need some sort of collision detection.  In a later
