@@ -2,7 +2,7 @@
 //  CIColor.cpp
 //  CoreImpact
 //
-//  This class represents the colors that are used by dots and the planet.
+//  This class represents the colors that are used by stardust and the planet.
 //  It maps from a custom enum to cugl Color4 colors.
 //
 //  Created by Brandon Stein on 3/1/21.

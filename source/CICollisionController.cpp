@@ -25,8 +25,6 @@
 
 /** Impulse for giving collisions a slight bounce. */
 #define COLLISION_COEFF     0.1f
-/** The standard mass for a photon. */
-#define PHOTON_MASS         5.0f
 
 using namespace cugl;
 
@@ -36,190 +34,157 @@ using namespace cugl;
  *  Increases or decreases layer planet size depending on the color of the stardust
  *
  *  @param planet     The planet in the candidate collision
- *  @param dots       The stardust in the candidate collision
+ *  @param queue       The stardust queue
  */
-void collisions::checkForCollision(const std::shared_ptr<PlanetModel>& planet, const std::shared_ptr<DotsQueue>& dots) {
-    // Get the photon size from the texture
-    auto texture = dots->getTexture();
+void collisions::checkForCollision(const std::shared_ptr<PlanetModel>& planet, const std::shared_ptr<StardustQueue>& queue) {
+    // Get the stardust size from the texture
+    auto texture = queue->getTexture();
     float dradius = 0;
     if (texture != nullptr) {
         dradius = std::max(texture->getWidth(),texture->getHeight())/2.0f;
     }
     
-    for(size_t ii = 0; ii < dots->size(); ii++) {
+    for(size_t ii = 0; ii < queue->size(); ii++) {
         // This returns a reference
-        DotModel* dot = dots->get(ii);
-        // We add a layer due to own colored dot
-        if (dot != nullptr) {
-            Vec2 norm = planet->getPosition()-dot->getPosition();
+        StardustModel* stardust = queue->get(ii);
+        if (stardust != nullptr) {
+            Vec2 norm = planet->getPosition() - stardust->getPosition();
             float distance = norm.length();
 //            float impactDistance = (planet->getRadius() + dradius);
-            float impactDistance = 32+dradius;
+            float impactDistance = 32+dradius; //placeholder until we increase planet size visually
             norm.normalize();
 
             // If this normal is too small, there was a collision
             if (distance < impactDistance) {
-                if (dot->getColor() == planet->getColor()) {
+                // We add a layer due to own colored stardust
+                if (stardust->getColor() == planet->getColor()) {
                     planet->increaseLayerSize();
                 }
+                // We remove a layer due to different colored stardust
                 else {
                     planet->decreaseLayerSize();
                 }
 
-                // Destroy the photon
-                dot->destroy();
+                // Destroy the stardust
+                stardust->destroy();
             } else {
-                float force = 9.81f * dot->getMass() * planet->getMass() / (distance * distance);
-                dot->setVelocity(((force / dot->getMass()) * 1.0f)*norm + dot->getVelocity());
+                float force = 9.81f * stardust->getMass() * planet->getMass() / (distance * distance);
+                stardust->setVelocity(((force / stardust->getMass()) * 1.0f)*norm + stardust->getVelocity());
             }
         }
     }
 
 }
 
-/*
-void collisions::checkForCollision(const std::shared_ptr<DotsQueue>& dots1, const std::shared_ptr<DotsQueue>& dots2) {
-    // Get the photon size from the texture
-    auto texture = photons->getTexture();
-    float pradius = 0;
-    if (texture != nullptr) {
-        pradius = std::max(texture->getWidth(), texture->getHeight()) / 2.0f;
-    }
-
-    for (size_t ii = 0; ii < photons->size(); ii++) {
-        // This returns a reference
-        PhotonQueue::Photon* photon = photons->get(ii);
-        // We are immune to our own photons
-        if (photon != nullptr && photon->ship != ship->getSID()) {
-            Vec2 norm = ship->getPosition() - photon->pos;
-            float distance = norm.length();
-            float impactDistance = (ship->getRadius() + pradius * photon->scale);
-            norm.normalize();
-
-            // If this normal is too small, there was a collision
-            if (distance < impactDistance) {
-                // "Roll back" time so that the ships are barely touching (e.g. point of impact).
-                Vec2 temp = norm * ((impactDistance - distance) / 2);
-                ship->setPosition(ship->getPosition() + temp);
-
-                // Now it is time for Newton's Law of Impact.
-                // Convert the two velocities into a single reference frame
-                Vec2 vel = ship->getVelocity() - photon->vel;
-
-                // Compute the impulse (see Essential Math for Game Programmers)
-                float impulse = (-(1 + COLLISION_COEFF) * norm.dot(vel)) /
-                    (norm.dot(norm) * (1 / ship->getMass() + 1 / PHOTON_MASS));
-
-                // Change velocity of the two ships using this impulse
-                temp = norm * (impulse / ship->getMass());
-                ship->setVelocity(ship->getVelocity() + temp);
-
-                // Destroy the photon
-                photon->destroy();
-            }
-        }
-    }
-
-}
-*/
-
-void collisions::checkForCollision(cugl::Vec2 inputPos, const std::shared_ptr<DotsQueue>& dots) {
-    // Get the photon size from the texture
-    auto texture = dots->getTexture();
+/**
+ *  Handles collisions between stardusts, causing them to bounce off one another.
+ *
+ *  This method updates the velocities of both stardusts: the collider and the
+ *  collidee. Therefore, you should only call this method for one of the
+ *  stardusts, not both. Otherwise, you are processing the same collisions twice.
+ *
+ *  @param queue    The stardust queue
+ */
+void collisions::checkForCollision(const std::shared_ptr<StardustQueue>& queue) {
+    // Get the stardust size from the texture
+    auto texture = queue->getTexture();
     float dradius = 0;
     if (texture != nullptr) {
         dradius = std::max(texture->getWidth(), texture->getHeight()) / 2.0f;
     }
 
-    for (size_t ii = 0; ii < dots->size(); ii++) {
+    for (size_t ii = 0; ii < queue->size(); ii++) {
         // This returns a reference
-        DotModel* dot = dots->get(ii);
-        // We add a layer due to own colored dot
-        if (dot != nullptr) {
-            Vec2 dotPos = dot->getPosition();
-            Vec2 norm = inputPos - dotPos;
-            float distance = norm.length();
-            //float impactDistance = (planet->getRadius() + dradius*dot->scale);
-            float impactDistance = dradius;
-            norm.normalize();
+        StardustModel* stardust1 = queue->get(ii);
+        for (size_t jj = ii+1; jj < queue->size(); jj++) {
+            StardustModel* stardust2 = queue->get(jj);
+            if (stardust1 != nullptr && stardust2 != nullptr) {
+                Vec2 norm = stardust1->getPosition() - stardust2->getPosition();
+                float distance = norm.length();
+                float impactDistance = 2*dradius;
+                norm.normalize();
 
-            // If this normal is too small, there was a collision
-            if (distance < impactDistance) {
-//                cout << "Collision!\n";
-                dot->setVelocity(Vec2::ZERO);
-            }
-            else if (distance < impactDistance * 2) {
-                dot->setVelocity(norm * 10);
+                // If this normal is too small, there was a collision
+                if (distance < impactDistance) {
+                    // "Roll back" time so that the stardusts are barely touching (e.g. point of impact).
+                    Vec2 temp = norm * ((impactDistance - distance) / 2);
+                    stardust1->setPosition(stardust1->getPosition()+temp);
+                    stardust2->setPosition(stardust2->getPosition()-temp);
+
+                    // Now it is time for Newton's Law of Impact.
+                    // Convert the two velocities into a single reference frame
+                    Vec2 vel = stardust1->getVelocity() - stardust2->getVelocity();
+
+                    // Compute the impulse (see Essential Math for Game Programmers)
+                    float impulse = (-(1 + COLLISION_COEFF) * norm.dot(vel)) /
+                        (norm.dot(norm) * (1 / stardust1->getMass() + 1 / stardust2->getMass()));
+
+                    temp = norm * (impulse/stardust1->getMass());
+                    stardust1->setVelocity(stardust1->getVelocity()+temp);
+
+                    temp = norm * (impulse/stardust2->getMass());
+                    stardust2->setVelocity(stardust2->getVelocity()-temp);
+                }
             }
         }
     }
 }
 
 /**
- * Nudge the ship to ensure it does not do out of view.
+ *  Handles collisions between an input and stardust.
  *
- * This code bounces the ship off walls.  You will replace it as part of
- * the lab.
+ *  Moves the stardust to follow the input
  *
- * @param ship      They player's ship which may have collided
- * @param bounds    The rectangular bounds of the playing field
+ *  @param inputPos     The input position of the finger
+ *  @param queue        The stardust queue
  */
-/*
-void collisions::checkInBounds(const std::shared_ptr<PlanetModel>& planet, const Rect bounds) {
-    // UNLIKE Java, these are values, not references
-    Vec2 vel = ship->getVelocity();
-    Vec2 pos = ship->getPosition();
-    
-    //Ensure the ship doesn't go out of view. Bounce off walls.
-    if (pos.x <= bounds.origin.x) {
-        vel.x = -vel.x;
-        pos.x = bounds.origin.x;
-        ship->setVelocity(vel);
-        ship->setPosition(pos);
-    } else if (pos.x >= bounds.size.width+bounds.origin.x) {
-        vel.x = -vel.x;
-        pos.x = bounds.size.width+bounds.origin.x-1.0f;
-        ship->setVelocity(vel);
-        ship->setPosition(pos);
+void collisions::checkForCollision(cugl::Vec2 inputPos, const std::shared_ptr<StardustQueue>& queue) {
+    // Get the stardust size from the texture
+    auto texture = queue->getTexture();
+    float dradius = 0;
+    if (texture != nullptr) {
+        dradius = std::max(texture->getWidth(), texture->getHeight()) / 2.0f;
     }
 
-    if (pos.y <= bounds.origin.y) {
-        vel.y = -vel.y;
-        pos.y = bounds.origin.y;
-        ship->setVelocity(vel);
-        ship->setPosition(pos);
-    } else if (pos.y >= bounds.size.height+bounds.origin.y) {
-        vel.y = -vel.y;
-        pos.y = bounds.size.height+bounds.origin.y-1.0f;
-        ship->setVelocity(vel);
-        ship->setPosition(pos);
-    }
+    for (size_t ii = 0; ii < queue->size(); ii++) {
+        // This returns a reference
+        StardustModel* stardust = queue->get(ii);
+        if (stardust != nullptr) {
+            Vec2 stardustPos = stardust->getPosition();
+            Vec2 norm = inputPos - stardustPos;
+            float distance = norm.length();
+            float impactDistance = dradius;
+            norm.normalize();
 
+            // If inputPos is inside stardust, don't move it
+            if (distance < impactDistance) {
+                stardust->setVelocity(Vec2::ZERO);
+            }
+            // If inputPos is just outside stardust, move it towards inputPos
+            else if (distance < impactDistance * 2) {
+                stardust->setVelocity(norm * 10);
+            }
+        }
+    }
 }
-*/
 
 /**
- * Nudge the photons to ensure they do not do out of view.
+ * Destroy any stardust that leaves the bounds
  *
- * This code bounces the photons off walls.  You will replace it as part of
- * the lab.
- *
- * @param photons   They photon queue
+ * @param queue   The stardust queue
  * @param bounds    The rectangular bounds of the playing field
  */
-
-void collisions::checkInBounds(const std::shared_ptr<DotsQueue>& dots, const cugl::Size bounds) {
-    for (size_t ii = 0; ii < dots->size(); ii++) {
+void collisions::checkInBounds(const std::shared_ptr<StardustQueue>& queue, const cugl::Size bounds) {
+    for (size_t ii = 0; ii < queue->size(); ii++) {
         // This returns a reference
-        DotModel* dot = dots->get(ii);
-        // We add a layer due to own colored dot
-        if (dot != nullptr) {
-            Vec2 dotPos = dot->getPosition();
+        StardustModel* stardust = queue->get(ii);
+        if (stardust != nullptr) {
+            Vec2 stardustPos = stardust->getPosition();
             Vec2 center = Vec2(bounds.width/2, bounds.height/2);
             Vec2 longest = Vec2(bounds.width, bounds.height) - center;
-            Vec2 distance = (dotPos - center);
-            if (distance.length() > longest.length() + 50){
-                dot->destroy();
+            Vec2 distance = (stardustPos - center);
+            if (distance.length() > longest.length() + 50) {
+                stardust->destroy();
             }
         }
     }

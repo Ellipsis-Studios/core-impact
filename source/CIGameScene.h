@@ -21,8 +21,8 @@
 #include <vector>
 #include "CIPlanetModel.h"
 #include "CIInput.h"
-#include "CIDotsNode.h"
-#include "CIDotsQueue.h"
+#include "CIStardustNode.h"
+#include "CIStardustQueue.h"
 
 /**
  * This class is the primary gameplay constroller for the demo.
@@ -41,35 +41,20 @@ protected:
     InputController _input;
     
     // VIEW
-    /** Filmstrip representing the animated ship */
-    std::shared_ptr<cugl::scene2::AnimationNode> _shipNode;
-    /** Label for on-screen coordinate HUD */
-    std::shared_ptr<cugl::scene2::Label> _coordHUD;
+    /** Label used to dispslay the planet's mass to the screen */
+    std::shared_ptr<cugl::scene2::Label> _massHUD;
     /** Node to hold all of our graphics. Necesary for resolution indepedence. */
     std::shared_ptr<cugl::scene2::SceneNode> _allSpace;
     /** Background in animation parallax. Stores the field of stars */
     std::shared_ptr<cugl::scene2::SceneNode> _farSpace;
     /** Foreground in animation parallax. Stores the planets. */
     std::shared_ptr<cugl::scene2::SceneNode> _nearSpace;
-    /** Shared memory pool for dots. (MODEL CLASS) */
-    std::shared_ptr<DotsQueue> _dotsContainer;
+    /** Shared memory pool for stardust. (MODEL CLASS) */
+    std::shared_ptr<StardustQueue> _stardustContainer;
 
     // MODEL
-    // A page-out could dispose of the view as long as it just has this.
-    /** The current coordinates of the ship */
-    std::shared_ptr<PlanetModel>  _shipModel;
-    
-    /**
-     * Returns an informative string for the position
-     *
-     * This function is for writing the current ship position to the HUD.
-     *
-     * @param coords The current ship coordinates
-     *
-     * @return an informative string for the position
-     */
-    std::string positionText(const cugl::Vec2& coords);
-
+    /** The model representing the planet */
+    std::shared_ptr<PlanetModel>  _planetModel;
     
 public:
 #pragma mark -
