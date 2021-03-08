@@ -130,7 +130,7 @@ public:
      *
      * @return true if the initialization was successful
      */
-    bool init(float x, float y, CIColor::Value c);
+    bool init(cugl::Vec2 position, cugl::Vec2 velocity, CIColor::Value c);
         
     /**
      * Returns a newly allocated dot at the given location
@@ -145,9 +145,9 @@ public:
      *
      * @return a newly allocated dot at the given location with the given color.
      */
-    static std::shared_ptr<DotModel> alloc(float x, float y, CIColor::Value c) {
+    static std::shared_ptr<DotModel> alloc(cugl::Vec2 position, cugl::Vec2 velocity, CIColor::Value c) {
         std::shared_ptr<DotModel> result = std::make_shared<DotModel>();
-        return (result->init(x,y,c) ? result : nullptr);
+        return (result->init(position, velocity, c) ? result : nullptr);
     }
 
     /**

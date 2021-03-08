@@ -45,6 +45,17 @@
                         "y_anchor" : "middle"
                     },
                     "children" : {
+                        "player": {
+                            "type": "Animation",
+                            "data": {
+                                "texture":  "ship",
+                                "span":     18,
+                                "cols":     5,
+                                "frame":    9,
+                                "position": [1280,1280],
+                                "anchor":   [0.5,0.5]
+                            }
+                        },
                         "far": {
                             "type": "Image",
                             "data": {
@@ -67,30 +78,10 @@
                                     "data": {
                                         "texture":  "planet1",
                                         "anchor":   [0.5,0.5],
-                                        "position": [955,1080],
-                                        "scale":    0.25
-                                    }
-                                },
-                                "planet_b": {
-                                    "type": "Image",
-                                    "data": {
-                                        "texture":  "planet2",
-                                        "anchor":   [0.5,0.5],
-                                        "position": [1605,1480],
+                                        "position": [1280,1280],
                                         "scale":    0.25
                                     }
                                 }
-                            }
-                        },
-                        "player": {
-                            "type": "Animation",
-                            "data": {
-                                "texture":  "ship",
-                                "span":     18,
-                                "cols":     5,
-                                "frame":    9,
-                                "position": [1280,1280],
-                                "anchor":   [0.5,0.5]
                             }
                         }
                     }

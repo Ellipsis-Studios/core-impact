@@ -42,12 +42,12 @@ DotModel::DotModel() {
  *
  * @return true if the initialization was successful
  */
-bool DotModel::init(float x, float y, CIColor::Value c) {
-    _position.set(x,y);
+bool DotModel::init(cugl::Vec2 position, cugl::Vec2 velocity, CIColor::Value c) {
+    _position = position;
     _color = c;
     _mass = 1;
     _radius = 1;
-    _velocity = cugl::Vec2((rand() % 10 - 5), (rand() % 10 - 5));
+    _velocity = velocity;
     return true;
 }
 
@@ -65,7 +65,6 @@ void DotModel::dispose() {
  */
 void DotModel::update(float timestep) {
     _position += _velocity;
-    _velocity *= 0.99;
 }
 
 /**

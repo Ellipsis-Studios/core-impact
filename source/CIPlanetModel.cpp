@@ -9,7 +9,7 @@
 #include "CIPlanetModel.h"
 
 #define PLANET_RADIUS_INCREASE          5
-#define INITIAL_PLANET_RADIUS           10
+#define INITIAL_PLANET_RADIUS           32
 #define PLANET_MASS_INCREASE            10
 #define INITIAL_PLANET_MASS             25
 #define INIT_LAYER_LOCKIN_TOTAL         5

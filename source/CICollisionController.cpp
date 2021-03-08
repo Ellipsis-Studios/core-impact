@@ -53,7 +53,8 @@ void collisions::checkForCollision(const std::shared_ptr<PlanetModel>& planet, c
         if (dot != nullptr) {
             Vec2 norm = planet->getPosition()-dot->getPosition();
             float distance = norm.length();
-            float impactDistance = (planet->getRadius() + dradius);
+//            float impactDistance = (planet->getRadius() + dradius);
+            float impactDistance = 32+dradius;
             norm.normalize();
 
             // If this normal is too small, there was a collision
@@ -67,6 +68,9 @@ void collisions::checkForCollision(const std::shared_ptr<PlanetModel>& planet, c
 
                 // Destroy the photon
                 dot->destroy();
+            } else {
+                float force = 9.81f * dot->getMass() * planet->getMass() / (distance * distance);
+                dot->setVelocity(((force / dot->getMass()) * 1.0f)*norm + dot->getVelocity());
             }
         }
     }
@@ -132,7 +136,8 @@ void collisions::checkForCollision(cugl::Vec2 inputPos, const std::shared_ptr<Do
         DotModel* dot = dots->get(ii);
         // We add a layer due to own colored dot
         if (dot != nullptr) {
-            Vec2 norm = inputPos - dot->getPosition();
+            Vec2 dotPos = dot->getPosition();
+            Vec2 norm = inputPos - dotPos;
             float distance = norm.length();
             //float impactDistance = (planet->getRadius() + dradius*dot->scale);
             float impactDistance = dradius;
@@ -202,29 +207,21 @@ void collisions::checkInBounds(const std::shared_ptr<PlanetModel>& planet, const
  * @param photons   They photon queue
  * @param bounds    The rectangular bounds of the playing field
  */
-/*
-void collisions::checkInBounds(const std::shared_ptr<DotsQueue>& dots, const cugl::Rect bounds) {
-    
-    for(size_t ii = 0; ii < photons->size(); ii++) {
-        // This returns a reference
-        PhotonQueue::Photon* photon = photons->get(ii);
-        if (photon != nullptr) {
-            if (photon->pos.x <= bounds.origin.x) {
-                photon->vel.x = -photon->vel.x;
-                photon->pos.x = bounds.origin.x;
-            } else if (photon->pos.x >= bounds.size.width+bounds.origin.x) {
-                photon->vel.x = -photon->vel.x;
-                photon->pos.x = bounds.size.width+bounds.origin.x-1.0f;
-            }
 
-            if (photon->pos.y <= bounds.origin.y) {
-                photon->vel.y = -photon->vel.y;
-                photon->pos.y = bounds.origin.y;
-            } else if (photon->pos.y >= bounds.size.height+bounds.origin.y) {
-                photon->vel.y = -photon->vel.y;
-                photon->pos.y = bounds.size.height+bounds.origin.y-1.0f;
+void collisions::checkInBounds(const std::shared_ptr<DotsQueue>& dots, const cugl::Size bounds) {
+    for (size_t ii = 0; ii < dots->size(); ii++) {
+        // This returns a reference
+        DotModel* dot = dots->get(ii);
+        // We add a layer due to own colored dot
+        if (dot != nullptr) {
+            Vec2 dotPos = dot->getPosition();
+            Vec2 center = Vec2(bounds.width/2, bounds.height/2);
+            Vec2 longest = Vec2(bounds.width, bounds.height) - center;
+            Vec2 distance = (dotPos - center);
+            if (distance.length() > longest.length() + 50){
+                dot->destroy();
             }
         }
     }
 }
-*/
+

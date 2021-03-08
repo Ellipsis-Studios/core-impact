@@ -53,11 +53,7 @@ bool DotsQueue::init(size_t max) {
  *
  * @param ship  The ship that fired.
  */
-void DotsQueue::addDot() {
-    // Determine direction and velocity of the photon.
-    float rads = M_PI*0.0f/180.0f+M_PI_2;
-    Vec2 dir(cosf(rads),sinf(rads));
-    
+void DotsQueue::addDot(const Size bounds) {
     // Check if any room in queue.
     // If maximum is reached, remove the oldest photon.
     if (_qsize == _queue.size()) {
@@ -67,8 +63,15 @@ void DotsQueue::addDot() {
 
     // Add a new photon at the end.
     // Already declared, so just initialize.
+    int posX = ((rand()%2==0) ? bounds.width + 20 : -20) + (rand() % 20 - 10);
+    int posY = ((rand()%2==0) ? bounds.height + 20 : -20) + (rand() % 20 - 10);
+    Vec2 pos = Vec2(posX, posY);
+    Vec2 dir = Vec2(bounds.width/2, bounds.height/2) - pos;
+    dir.normalize();
+    dir.x *= (rand() % 3)+2;
+    dir.y *= (rand() % 3)+2;
     _qtail = ((_qtail + 1) % _queue.size());
-    _queue[_qtail].init((rand() % 500), (rand() % 500), CIColor::blue);
+    _queue[_qtail].init(pos, dir, CIColor::blue);
     _qsize++;
 }
     

@@ -101,7 +101,7 @@ public:
      * of a memory pool. It works because we delete objects in the same order that
      * we allocate them.
      */
-    void addDot();
+    void addDot(const cugl::Size bounds);
     
     /**
      * Returns the number of active dots

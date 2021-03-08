@@ -76,7 +76,7 @@ void checkForCollision(cugl::Vec2 inputPos, const std::shared_ptr<DotsQueue>& do
  * @param ship      They player's ship which may have collided
  * @param bounds    The rectangular bounds of the playing field
  */
-//void checkInBounds(const std::shared_ptr<PlanetModel>& planet, const cugl::Rect bounds);
+//void checkInBounds(const std::shared_ptr<PlanetModel>& planet, const cugl::Size bounds);
 
 /**
  * Nudge the photons to ensure they do not do out of view.
@@ -87,7 +87,7 @@ void checkForCollision(cugl::Vec2 inputPos, const std::shared_ptr<DotsQueue>& do
  * @param photons   They photon queue
  * @param bounds    The rectangular bounds of the playing field
  */
-//void checkInBounds(const std::shared_ptr<DotsQueue>& dots, const cugl::Rect bounds);
+void checkInBounds(const std::shared_ptr<DotsQueue>& dots, const cugl::Size bounds);
 }
 
 #endif /* __GL_COLLISION_CONTROLLER_H__ */

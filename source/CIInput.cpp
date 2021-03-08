@@ -224,7 +224,7 @@ void ShipInput::touchEndedCB(const TouchEvent& event, bool focus) {
  */
 void ShipInput::mousePressedCB(const MouseEvent& event, Uint8 clicks, bool focus) {
     _fingerDown = true;
-    _position = event.position;
+    _position = touch2Screen(event.position);
 }
 
 /**
@@ -235,7 +235,7 @@ void ShipInput::mousePressedCB(const MouseEvent& event, Uint8 clicks, bool focus
  */
 void ShipInput::mouseMovedCB(const MouseEvent& event, const Vec2 previous, bool focus) {
     if (_fingerDown) {
-        Vec2 pos = event.position;
+        Vec2 pos = touch2Screen(event.position);
         _velocity = pos - previous;
         _position = pos;
     }
