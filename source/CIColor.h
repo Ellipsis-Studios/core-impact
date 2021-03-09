@@ -34,7 +34,7 @@ public:
     /**
      * Get the Color4 represented by a particular CIColor value
      */
-    cugl::Color4 getColor4(Value v) {
+    static cugl::Color4 getColor4(Value v) {
         return _color4Map[v];
     }
 };

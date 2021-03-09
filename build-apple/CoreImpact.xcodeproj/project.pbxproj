@@ -16,6 +16,9 @@
 		3D563B9D25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D563B9C25F0AF01006641B1 /* CIPlanetModel.cpp */; };
 		3D563B9E25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D563B9C25F0AF01006641B1 /* CIPlanetModel.cpp */; };
 		3D563B9F25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D563B9C25F0AF01006641B1 /* CIPlanetModel.cpp */; };
+		3D563BF825F6D5B7006641B1 /* CIPlanetNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D563BF725F6D5B7006641B1 /* CIPlanetNode.cpp */; };
+		3D563BF925F6D5B7006641B1 /* CIPlanetNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D563BF725F6D5B7006641B1 /* CIPlanetNode.cpp */; };
+		3D563BFA25F6D5B7006641B1 /* CIPlanetNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D563BF725F6D5B7006641B1 /* CIPlanetNode.cpp */; };
 		CA68E30B25F53BC200B4617D /* CICollisionController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA68E30625F53BC200B4617D /* CICollisionController.cpp */; };
 		CA68E30C25F53BC200B4617D /* CICollisionController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA68E30625F53BC200B4617D /* CICollisionController.cpp */; };
 		CA68E30D25F53BC200B4617D /* CICollisionController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA68E30625F53BC200B4617D /* CICollisionController.cpp */; };
@@ -140,6 +143,8 @@
 		0A5AFAD825F0B5320003669C /* CIDotsQueue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CIDotsQueue.cpp; sourceTree = "<group>"; };
 		3D563B9825F0AEE8006641B1 /* CIPlanetModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIPlanetModel.h; sourceTree = "<group>"; };
 		3D563B9C25F0AF01006641B1 /* CIPlanetModel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CIPlanetModel.cpp; sourceTree = "<group>"; };
+		3D563BF325F6D58C006641B1 /* CIPlanetNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIPlanetNode.h; sourceTree = "<group>"; };
+		3D563BF725F6D5B7006641B1 /* CIPlanetNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CIPlanetNode.cpp; sourceTree = "<group>"; };
 		CA68E30625F53BC200B4617D /* CICollisionController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CICollisionController.cpp; sourceTree = "<group>"; };
 		CA68E30A25F53BC200B4617D /* CICollisionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CICollisionController.h; sourceTree = "<group>"; };
 		CA9A2DC725EDBD6A0048D02F /* CIDotModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIDotModel.h; sourceTree = "<group>"; };
@@ -406,6 +411,8 @@
 				EBFA528621FA5AAB00CCC2C5 /* CIShipModel.cpp */,
 				3D563B9825F0AEE8006641B1 /* CIPlanetModel.h */,
 				3D563B9C25F0AF01006641B1 /* CIPlanetModel.cpp */,
+				3D563BF325F6D58C006641B1 /* CIPlanetNode.h */,
+				3D563BF725F6D5B7006641B1 /* CIPlanetNode.cpp */,
 			);
 			name = Source;
 			path = ../source;
@@ -593,6 +600,7 @@
 				EBFA52A221FA5D1700CCC2C5 /* CIInput.cpp in Sources */,
 				CA68E30D25F53BC200B4617D /* CICollisionController.cpp in Sources */,
 				0A5AFADB25F0B5320003669C /* CIDotsNode.cpp in Sources */,
+				3D563BFA25F6D5B7006641B1 /* CIPlanetNode.cpp in Sources */,
 				0A5AFADE25F0B5320003669C /* CIDotsQueue.cpp in Sources */,
 				EBFA529E21FA5D1000CCC2C5 /* CILoadingScene.cpp in Sources */,
 				EBFA52A021FA5D1300CCC2C5 /* CIGameScene.cpp in Sources */,
@@ -612,6 +620,7 @@
 				EBFA52A121FA5D1700CCC2C5 /* CIInput.cpp in Sources */,
 				CA68E30C25F53BC200B4617D /* CICollisionController.cpp in Sources */,
 				0A5AFADA25F0B5320003669C /* CIDotsNode.cpp in Sources */,
+				3D563BF925F6D5B7006641B1 /* CIPlanetNode.cpp in Sources */,
 				0A5AFADD25F0B5320003669C /* CIDotsQueue.cpp in Sources */,
 				EBFA529D21FA5D0F00CCC2C5 /* CILoadingScene.cpp in Sources */,
 				EBFA529F21FA5D1300CCC2C5 /* CIGameScene.cpp in Sources */,
@@ -631,6 +640,7 @@
 				EBFA528D21FA5AAC00CCC2C5 /* CIApp.cpp in Sources */,
 				CA68E30B25F53BC200B4617D /* CICollisionController.cpp in Sources */,
 				0A5AFAD925F0B5320003669C /* CIDotsNode.cpp in Sources */,
+				3D563BF825F6D5B7006641B1 /* CIPlanetNode.cpp in Sources */,
 				0A5AFADC25F0B5320003669C /* CIDotsQueue.cpp in Sources */,
 				EBFA528C21FA5AAC00CCC2C5 /* CILoadingScene.cpp in Sources */,
 				EB2BE9B61D74952A002FE78B /* main.cpp in Sources */,

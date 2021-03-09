@@ -57,7 +57,7 @@ protected:
     // MODEL
     // A page-out could dispose of the view as long as it just has this.
     /** The current coordinates of the ship */
-    std::shared_ptr<PlanetModel>  _shipModel;
+    std::shared_ptr<PlanetModel> _planet;
     
     /**
      * Returns an informative string for the position

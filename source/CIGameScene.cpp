@@ -79,13 +79,16 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     // Get the scene components.
     _allSpace  = _assets->get<scene2::SceneNode>("game_field");
     _farSpace  = _assets->get<scene2::SceneNode>("game_field_far");
-    _nearSpace = _assets->get<scene2::SceneNode>("game_field_near");
+//    _nearSpace = _assets->get<scene2::SceneNode>("game_field_near");
     _shipNode  = std::dynamic_pointer_cast<scene2::AnimationNode>(_assets->get<scene2::SceneNode>("game_field_player"));
     _coordHUD  = std::dynamic_pointer_cast<scene2::Label>(_assets->get<scene2::SceneNode>("game_hud"));
 
-    // Create the ship model
-    Vec2 shipPos = _shipNode->getPosition();
-    _shipModel = PlanetModel::alloc(dimen.width/2, dimen.height/2, CIColor::blue, 3);
+    
+    // Create the planet model
+    _planet = PlanetModel::alloc(dimen.width/2, dimen.height/2, CIColor::blue, 3);
+    auto planetTexture = _assets->get<Texture>("planet1");
+    _planet->setTexture(planetTexture);
+    
     
     _dotsContainer = DotsQueue::alloc(MAX_DOTS);
     _dotsContainer->setTexture(_assets->get<Texture>("photon"));
@@ -99,6 +102,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
 
     addChild(scene);
     addChild(_dotsNode);
+    addChild(_planet->getPlanetNode());
     return true;
 }
 
@@ -113,7 +117,7 @@ void GameScene::dispose() {
         _farSpace = nullptr;
         _nearSpace = nullptr;
         _shipNode = nullptr;
-        _shipModel = nullptr;
+        _planet = nullptr;
         _active = false;
     }
 }
@@ -135,10 +139,10 @@ void GameScene::reset() {
     _farSpace->setAnchor(Vec2::ANCHOR_CENTER);
     _farSpace->setPosition(position);
     _farSpace->setAngle(0.0f);
-    position = _nearSpace->getPosition();
-    _nearSpace->setAnchor(Vec2::ANCHOR_CENTER);
-    _nearSpace->setPosition(position);
-    _nearSpace->setAngle(0.0f);
+//    position = _nearSpace->getPosition();
+//    _nearSpace->setAnchor(Vec2::ANCHOR_CENTER);
+//    _nearSpace->setPosition(position);
+//    _nearSpace->setAngle(0.0f);
 }
 
 /**
@@ -160,9 +164,9 @@ void GameScene::update(float timestep) {
     }
     
 //    _coordHUD->setText(positionText(_input.getPosition()));
-    _coordHUD->setText(to_string(_shipModel->getMass()));
+    _coordHUD->setText(to_string(_planet->getMass()));
 
-    collisions::checkForCollision(_shipModel, _dotsContainer);
+    collisions::checkForCollision(_planet, _dotsContainer);
     collisions::checkForCollision(_input.getPosition(), _dotsContainer);
     collisions::checkInBounds(_dotsContainer, dimen);
 }

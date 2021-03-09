@@ -64,27 +64,7 @@
                                 "polygon":  [0,0,0,2560,2560,2560,2560,0],
                                 "anchor":   [0.5,0.5]
                             }
-                        },
-                        "near": {
-                            "type": "Node",
-                            "data": {
-                                "size":     [2560,2560],
-                                "position": [1280,1280],
-                                "anchor":   [0.5,0.5]
-                            },
-                            "children": {
-                                "planet_a": {
-                                    "type": "Image",
-                                    "data": {
-                                        "texture":  "planet1",
-                                        "anchor":   [0.5,0.5],
-                                        "position": [1280,1280],
-                                        "scale":    0.25
-                                    }
-                                }
-                            }
-                        }
-                    }
+                        }                    }
                 },
                 "hud" : {
                     "type": "Label",
