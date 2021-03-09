@@ -27,7 +27,7 @@ void DotModel::setPosition(cugl::Vec2 value) {
 
 DotModel::DotModel() {
     _position.set(0,0);
-    _color = CIColor::blue;
+    _color = CIColor::magenta;
 }
 
 /**

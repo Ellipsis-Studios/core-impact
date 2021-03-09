@@ -22,9 +22,6 @@
 		CA68E30B25F53BC200B4617D /* CICollisionController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA68E30625F53BC200B4617D /* CICollisionController.cpp */; };
 		CA68E30C25F53BC200B4617D /* CICollisionController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA68E30625F53BC200B4617D /* CICollisionController.cpp */; };
 		CA68E30D25F53BC200B4617D /* CICollisionController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA68E30625F53BC200B4617D /* CICollisionController.cpp */; };
-		CA9A2DCE25EDBD6A0048D02F /* CIColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA9A2DCB25EDBD6A0048D02F /* CIColor.cpp */; };
-		CA9A2DCF25EDBD6A0048D02F /* CIColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA9A2DCB25EDBD6A0048D02F /* CIColor.cpp */; };
-		CA9A2DD025EDBD6A0048D02F /* CIColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA9A2DCB25EDBD6A0048D02F /* CIColor.cpp */; };
 		CA9A2DD125EDBD6A0048D02F /* CIDotModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA9A2DCC25EDBD6A0048D02F /* CIDotModel.cpp */; };
 		CA9A2DD225EDBD6A0048D02F /* CIDotModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA9A2DCC25EDBD6A0048D02F /* CIDotModel.cpp */; };
 		CA9A2DD325EDBD6A0048D02F /* CIDotModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA9A2DCC25EDBD6A0048D02F /* CIDotModel.cpp */; };
@@ -148,7 +145,6 @@
 		CA68E30625F53BC200B4617D /* CICollisionController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CICollisionController.cpp; sourceTree = "<group>"; };
 		CA68E30A25F53BC200B4617D /* CICollisionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CICollisionController.h; sourceTree = "<group>"; };
 		CA9A2DC725EDBD6A0048D02F /* CIDotModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIDotModel.h; sourceTree = "<group>"; };
-		CA9A2DCB25EDBD6A0048D02F /* CIColor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CIColor.cpp; sourceTree = "<group>"; };
 		CA9A2DCC25EDBD6A0048D02F /* CIDotModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CIDotModel.cpp; sourceTree = "<group>"; };
 		CA9A2DCD25EDBD6A0048D02F /* CIColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIColor.h; sourceTree = "<group>"; };
 		EB0FF5FC2016EF4F00517030 /* Core Impact (Sim).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Core Impact (Sim).app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -395,7 +391,6 @@
 				0A5AFAD825F0B5320003669C /* CIDotsQueue.cpp */,
 				0A5AFAD725F0B5320003669C /* CIDotsQueue.h */,
 				CA9A2DCD25EDBD6A0048D02F /* CIColor.h */,
-				CA9A2DCB25EDBD6A0048D02F /* CIColor.cpp */,
 				CA9A2DC725EDBD6A0048D02F /* CIDotModel.h */,
 				CA9A2DCC25EDBD6A0048D02F /* CIDotModel.cpp */,
 				EB2BE9B41D74952A002FE78B /* main.cpp */,
@@ -604,7 +599,6 @@
 				0A5AFADE25F0B5320003669C /* CIDotsQueue.cpp in Sources */,
 				EBFA529E21FA5D1000CCC2C5 /* CILoadingScene.cpp in Sources */,
 				EBFA52A021FA5D1300CCC2C5 /* CIGameScene.cpp in Sources */,
-				CA9A2DD025EDBD6A0048D02F /* CIColor.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -624,7 +618,6 @@
 				0A5AFADD25F0B5320003669C /* CIDotsQueue.cpp in Sources */,
 				EBFA529D21FA5D0F00CCC2C5 /* CILoadingScene.cpp in Sources */,
 				EBFA529F21FA5D1300CCC2C5 /* CIGameScene.cpp in Sources */,
-				CA9A2DCF25EDBD6A0048D02F /* CIColor.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -644,7 +637,6 @@
 				0A5AFADC25F0B5320003669C /* CIDotsQueue.cpp in Sources */,
 				EBFA528C21FA5AAC00CCC2C5 /* CILoadingScene.cpp in Sources */,
 				EB2BE9B61D74952A002FE78B /* main.cpp in Sources */,
-				CA9A2DCE25EDBD6A0048D02F /* CIColor.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -26,18 +26,12 @@ public:
     
     void setRadius(float r) {
         _radius = r;
-    }
-    
-    void setPos(cugl::Vec2 pos) {
-        _pos = pos;
+        setScale(_radius * 0.005f);
     }
 
 private:
     /** Radius of the planet in pixels */
     float _radius;
-    
-    /** Position of the planet */
-    cugl::Vec2 _pos;
 };
 
 #endif /* __CI_PLANET_NODE_H__ */

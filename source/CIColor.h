@@ -14,10 +14,6 @@
 #include <cugl/cugl.h>
 
 class CIColor {
-private:
-    /** Map from color enum values to cugl Color4 values */
-    static const cugl::Color4 _color4Map[];
-    
 public:
     /**
      * Enum representing the different colors a dot or planet layer can have
@@ -30,12 +26,36 @@ public:
         magenta,
         yellow,
     };
+
     
     /**
      * Get the Color4 represented by a particular CIColor value
      */
     static cugl::Color4 getColor4(Value v) {
-        return _color4Map[v];
+        cugl::Color4 color;
+        switch(v)
+        {
+            case red:
+                color = cugl::Color4::RED;
+                break;
+            case green:
+                color = cugl::Color4::GREEN;
+                break;
+            case blue:
+                color = cugl::Color4::BLUE;
+                break;
+            case cyan:
+                color = cugl::Color4::CYAN;
+                break;
+            case magenta:
+                color = cugl::Color4::MAGENTA;
+                break;
+            case yellow:
+                color = cugl::Color4::YELLOW;
+                break;
+        }
+        
+        return color;
     }
 };
 

@@ -10,7 +10,7 @@
 #include "CIPlanetNode.h"
 #include "CIColor.h"
 
-#define PLANET_RADIUS_INCREASE          5
+#define PLANET_RADIUS_INCREASE          2
 #define INITIAL_PLANET_RADIUS           32
 #define PLANET_MASS_INCREASE            10
 #define INITIAL_PLANET_MASS             25
@@ -28,9 +28,7 @@ void PlanetModel::setTexture(const std::shared_ptr<cugl::Texture>& planet) {
     _planetNode->setAnchor(cugl::Vec2::ANCHOR_CENTER);
     _planetNode->setColor(CIColor::getColor4(_color));
     _planetNode->setPosition(_position);
-//    _planetNode->setScale(0.05);
     _planetNode->setRadius(_radius);
-    _planetNode->setPos(_position);
 }
 
 
@@ -80,7 +78,7 @@ void PlanetModel::decreaseLayerSize() {
     _currLayerProgress--;
     _radius -= PLANET_RADIUS_INCREASE;
     _mass -= PLANET_MASS_INCREASE;
-    
+
     _planetNode->setRadius(_radius);
 }
 
@@ -91,7 +89,7 @@ void PlanetModel::increaseLayerSize() {
     _currLayerProgress++;
     _radius += PLANET_RADIUS_INCREASE;
     _mass += PLANET_MASS_INCREASE;
-    
+
     _planetNode->setRadius(_radius);
 }
 
