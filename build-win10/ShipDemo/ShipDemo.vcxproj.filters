@@ -54,6 +54,9 @@
     <ClInclude Include="..\..\source\CICollisionController.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\source\CIPlanetNode.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\source\CIStardustModel.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -70,13 +73,15 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
+    <ResourceCompile Include="CoreImpact.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="..\..\source\CIApp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\source\CICollisionController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\source\CIColor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\source\CIGameScene.cpp">
@@ -91,6 +96,9 @@
     <ClCompile Include="..\..\source\CIPlanetModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\source\CIPlanetNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\source\CIStardustModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -103,10 +111,5 @@
     <ClCompile Include="..\..\source\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="CoreImpact.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
   </ItemGroup>
 </Project>

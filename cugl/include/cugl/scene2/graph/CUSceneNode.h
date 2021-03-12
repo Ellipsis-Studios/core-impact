@@ -219,6 +219,9 @@ protected:
     /** Indicates whether or not the z-order is currently violated */
     bool _zDirty;
     
+    /** The rendering priority; used by {@link OrderedNode} */
+    float _priority;
+    
     /** The defining JSON data for this node (if any) */
     std::shared_ptr<JsonValue> _json;
     
@@ -598,6 +601,16 @@ public:
         _name = name;
         _hashOfName = std::hash<std::string>()(_name);
     }
+    
+    /**
+     * Returns the class name of this node.
+     *
+     * This method is to help us speed up subclass-based polymorphism
+     * on the scene graphs.
+     *
+     * @return the class name of this node.
+     */
+    virtual const std::string getClassName() const { return "SceneNode"; }
 
     /**
      * Returns a string representation of this node for debugging purposes.
@@ -1213,6 +1226,18 @@ public:
         _angle = angle;
         if (!_useTransform) updateTransform();
     }
+    
+    /**
+     * Returns the standard transform of this node.
+     *
+     * This transform includes the scaling and rotational operations that
+     * you have applied to this node. It is the transform that is use to
+     * draw the node contents unless {@link chooseAlternateTransform(bool) }
+     * is set to true.
+     *
+     * @return the standard transform of this node.
+     */
+    const Mat4& getTransform() const { return _combined; }
     
     /**
      * Returns the alternate transform of this node.
@@ -1865,6 +1890,48 @@ public:
     
 #pragma mark -
 #pragma mark Rendering
+    /**
+     * Sets the render priority of this node
+     *
+     * Normally the nodes in a scene graph are rendered using a pre-order
+     * traversal, as this is the natural way to present UI elements.
+     * However, for character animation, it may be preferred to render
+     * elements in order independent of the scene graph hierarchy.
+     *
+     * That is the purpose of the priority value. The priority assigns
+     * a (potentially global) rendering priority. To use the priority,
+     * this node must be the descendant of a root {@link OrderedNode}.
+     * In that case the priority is the rendering priority of this node
+     * with respect to all of the other descendants of that root node.
+     * {@see OrderedNode} for more information.
+     *
+     * @param priority  The render priority of this node
+     */
+    void setPriority(float priority) {
+        _priority = priority;
+    }
+
+    /**
+     * Returns the render priority of this node
+     *
+     * Normally the nodes in a scene graph are rendered using a pre-order
+     * traversal, as this is the natural way to present UI elements.
+     * However, for character animation, it may be preferred to render
+     * elements in order independent of the scene graph hierarchy.
+     *
+     * That is the purpose of the priority value. The priority assigns
+     * a (potentially global) rendering priority. To use the priority,
+     * this node must be the descendant of a root {@link OrderedNode}.
+     * In that case the priority is the rendering priority of this node
+     * with respect to all of the other descendants of that root node.
+     * {@see OrderedNode} for more information.
+     *
+     * @return the render priority of this node
+     */
+    float getPriority() {
+        return _priority;
+    }
+    
     /**
      * Draws this Node and all of its children with the given SpriteBatch.
      *

@@ -36,7 +36,7 @@
 #include "graph/CUWireNode.h"
 #include "graph/CUPathNode.h"
 #include "graph/CUAnimationNode.h"
-#include "graph/CUAnimationNode.h"
+#include "graph/CUOrderedNode.h"
 #include "ui/CUButton.h"
 #include "ui/CULabel.h"
 #include "ui/CUProgressBar.h"
