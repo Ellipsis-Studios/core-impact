@@ -12,6 +12,7 @@
 #define __CI_PLANET_MODEL_H__
 #include <cugl/cugl.h>
 #include "CIColor.h"
+#include "CIPlanetNode.h"
 
 class PlanetModel {
 private:
@@ -33,6 +34,9 @@ private:
     float _mass;
     /** Position of the planet in world space */
     cugl::Vec2 _position;
+    
+    /** Scene graph node for the planet */
+    std::shared_ptr<PlanetNode> _planetNode;
 
 public:
 #pragma mark Properties
@@ -92,6 +96,22 @@ public:
 
     const cugl::Vec2 getPosition() const {
         return _position;
+    }
+    
+    /**
+     * Sets the texture for this planet.
+     *
+     * @param planet      The texture for the planet
+     */
+    void setTexture(const std::shared_ptr<cugl::Texture>& planet);
+    
+    /**
+     * Returns the scene graph node for this planet
+     *
+     * @return the image texture for this planet
+     */
+    const std::shared_ptr<cugl::scene2::SceneNode> getPlanetNode() const {
+        return _planetNode;
     }
 
 #pragma mark Constructors

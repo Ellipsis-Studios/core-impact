@@ -78,7 +78,9 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     _massHUD  = std::dynamic_pointer_cast<scene2::Label>(_assets->get<scene2::SceneNode>("game_hud"));
 
     // Create the planet model
-    _planetModel = PlanetModel::alloc(dimen.width/2, dimen.height/2, CIColor::blue, 3);
+    _planet = PlanetModel::alloc(dimen.width/2, dimen.height/2, CIColor::blue, 3);
+    auto planetTexture = _assets->get<Texture>("planet1");
+    _planet->setTexture(planetTexture);
     
     _stardustContainer = StardustQueue::alloc(MAX_STARDUST);
     _stardustContainer->setTexture(_assets->get<Texture>("photon"));
@@ -92,6 +94,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     
     addChild(scene);
     addChild(_stardustNode);
+    addChild(_planet->getPlanetNode());
     return true;
 }
 
@@ -105,7 +108,7 @@ void GameScene::dispose() {
         _allSpace = nullptr;
         _farSpace = nullptr;
         _nearSpace = nullptr;
-        _planetModel = nullptr;
+        _planet = nullptr;
         _active = false;
     }
 }
@@ -119,7 +122,6 @@ void GameScene::dispose() {
  */
 void GameScene::reset() {
     // Reset the planet and input
-    //_planetModel->reset();
     _input.clear();
     
     // Reset the parallax
@@ -127,10 +129,6 @@ void GameScene::reset() {
     _farSpace->setAnchor(Vec2::ANCHOR_CENTER);
     _farSpace->setPosition(position);
     _farSpace->setAngle(0.0f);
-    position = _nearSpace->getPosition();
-    _nearSpace->setAnchor(Vec2::ANCHOR_CENTER);
-    _nearSpace->setPosition(position);
-    _nearSpace->setAngle(0.0f);
 }
 
 /**
@@ -151,9 +149,9 @@ void GameScene::update(float timestep) {
         _stardustContainer->addStardust(dimen);
     }
     
-    _massHUD->setText(to_string(_planetModel->getMass()));
+    _massHUD->setText(to_string(_planet->getMass()));
 
-    collisions::checkForCollision(_planetModel, _stardustContainer);
+    collisions::checkForCollision(_planet, _stardustContainer);
     collisions::checkForCollision(_input.getPosition(), _stardustContainer);
     collisions::checkInBounds(_stardustContainer, dimen);
 }

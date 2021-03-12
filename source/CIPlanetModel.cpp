@@ -9,13 +9,30 @@
 //
 
 #include "CIPlanetModel.h"
+#include "CIPlanetNode.h"
+#include "CIColor.h"
 
-#define PLANET_RADIUS_INCREASE          5
+#define PLANET_RADIUS_INCREASE          2
 #define INITIAL_PLANET_RADIUS           32
 #define PLANET_MASS_INCREASE            10
 #define INITIAL_PLANET_MASS             25
 #define INIT_LAYER_LOCKIN_TOTAL         5
 #define LAYER_LOCKIN_TOTAL_INCREASE     1
+
+#pragma mark Properties
+/**
+ * Sets the texture for this planet.
+ *
+ * @param planet      The texture for the planet
+ */
+void PlanetModel::setTexture(const std::shared_ptr<cugl::Texture>& planet) {
+    _planetNode = PlanetNode::alloc(planet);
+    _planetNode->setAnchor(cugl::Vec2::ANCHOR_CENTER);
+    _planetNode->setColor(CIColor::getColor4(_color));
+    _planetNode->setPosition(_position);
+    _planetNode->setRadius(_radius);
+}
+
 
 #pragma mark Constructors
 /**
@@ -23,6 +40,7 @@
  */
 void PlanetModel::dispose() {
     _prevLayerColors.clear();
+    _planetNode = nullptr;
 }
 
 /**
@@ -62,6 +80,8 @@ void PlanetModel::decreaseLayerSize() {
     _currLayerProgress--;
     _radius -= PLANET_RADIUS_INCREASE;
     _mass -= PLANET_MASS_INCREASE;
+
+    _planetNode->setRadius(_radius);
 }
 
 /**
@@ -71,6 +91,8 @@ void PlanetModel::increaseLayerSize() {
     _currLayerProgress++;
     _radius += PLANET_RADIUS_INCREASE;
     _mass += PLANET_MASS_INCREASE;
+
+    _planetNode->setRadius(_radius);
 }
 
 /**

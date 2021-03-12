@@ -54,7 +54,7 @@ protected:
 
     // MODEL
     /** The model representing the planet */
-    std::shared_ptr<PlanetModel>  _planetModel;
+    std::shared_ptr<PlanetModel>  _planet;
     
 public:
 #pragma mark -
