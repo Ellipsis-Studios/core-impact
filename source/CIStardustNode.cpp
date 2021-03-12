@@ -9,6 +9,7 @@
 //
 
 #include "CIStardustNode.h"
+#include "CIColor.h"
 
 void StardustNode::draw(const std::shared_ptr<cugl::SpriteBatch>& batch,
                       const cugl::Mat4& transform, cugl::Color4 tint) {
@@ -30,24 +31,8 @@ void StardustNode::draw(const std::shared_ptr<cugl::SpriteBatch>& batch,
             cugl::Mat4 stardustTransform;
             stardustTransform.scale(queue[idx].getRadius());
             stardustTransform.translate(queue[idx].getPosition().x, queue[idx].getPosition().y, 0);
-            // handle color
-            auto stardustColor = queue[idx].getColor();     
-            // Use this information to draw.
-            if (stardustColor == CIColor::blue) { 
-                batch->draw(_stardustQueue->getTexture(), cugl::Color4f(0.0f, 0.0f, 1.0f, 1.0f), origin, stardustTransform * transform);
-            }
-            else if (stardustColor == CIColor::red) {
-                batch->draw(_stardustQueue->getTexture(), cugl::Color4f(1.0f, 0.0f, 0.0f, 1.0f), origin, stardustTransform * transform);
 
-            }
-            else if (stardustColor == CIColor::green) {
-                batch->draw(_stardustQueue->getTexture(), cugl::Color4f(0.0f, 0.5f, 0.0f, 1.0f), origin, stardustTransform * transform);
-
-            }
-            else if (stardustColor == CIColor::yellow) {
-                batch->draw(_stardustQueue->getTexture(), cugl::Color4f(1.0f, 1.0f, 0.0f, 1.0f), origin, stardustTransform * transform);
-
-            }
+            batch->draw(_stardustQueue->getTexture(), (cugl::Color4f) CIColor::getColor4(queue[idx].getColor()), origin, stardustTransform * transform);
         }
     }
     batch->setBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

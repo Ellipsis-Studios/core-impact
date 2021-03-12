@@ -8,6 +8,7 @@
 //  Copyright © 2021 Game Design Initiative at Cornell. All rights reserved.
 //
 #include "CIStardustQueue.h"
+#include "CIColor.h"
 
 using namespace cugl;
 
@@ -74,26 +75,9 @@ void StardustQueue::addStardust(const Size bounds) {
     dir.x *= (rand() % 3)+2;
     dir.y *= (rand() % 3)+2;
     
-    // Random Color
-    CIColor::Value randcolor;
-    const int color_count = 4; // 4 colors
-    switch (rand() % color_count) {
-    case 0:
-        randcolor = CIColor::red;
-        break;
-    case 1:
-        randcolor = CIColor::blue;
-        break;
-    case 2:
-        randcolor = CIColor::green;
-        break;
-    default:
-        randcolor = CIColor::yellow;
-        break;
-    }
-
+    // Random Color    
     _qtail = ((_qtail + 1) % _queue.size());
-    _queue[_qtail].init(pos, dir, randcolor);
+    _queue[_qtail].init(pos, dir, CIColor::getRandomColor());
     _qsize++;
 }
 

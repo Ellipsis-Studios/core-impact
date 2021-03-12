@@ -57,6 +57,45 @@ public:
         
         return color;
     }
+
+    /**
+     * Get the Color4 represented by a particular CIColor value
+     */
+    static cugl::Color4f getColor4f(Value v) {
+        cugl::Color4f color;
+        switch (v)
+        {
+        case red:
+            color = cugl::Color4f::RED;
+            break;
+        case green:
+            color = cugl::Color4f::GREEN;
+            break;
+        case blue:
+            color = cugl::Color4f::BLUE;
+            break;
+        case cyan:
+            color = cugl::Color4f::CYAN;
+            break;
+        case magenta:
+            color = cugl::Color4f::MAGENTA;
+            break;
+        case yellow:
+            color = cugl::Color4f::YELLOW;
+            break;
+        }
+
+        return color;
+    }
+
+
+    
+    /**
+     * Get random CIColor Value.
+     */
+    static Value getRandomColor() {
+        return Value(rand() % 6);
+    }
 };
 
 #endif /* __CI_COLOR_H__ */
