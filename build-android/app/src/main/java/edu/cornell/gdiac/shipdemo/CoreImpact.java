@@ -6,7 +6,7 @@ import android.os.*;
 /**
  * Default application entry point
  */
-public class ShipDemo extends SDLActivity { 
+public class CoreImpact extends SDLActivity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
