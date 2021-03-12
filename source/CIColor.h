@@ -1,16 +1,16 @@
 //
 //  CIColor.h
-//  Core Impact
+//  CoreImpact
 //
-//  This class represents the colors that are used by dots and the planet.
+//  This class represents the colors that are used by stardust and the planet.
 //  It maps from a custom enum to cugl Color4 colors.
 //
 //  Created by Brandon Stein on 3/1/21.
 //  Copyright © 2021 Game Design Initiative at Cornell. All rights reserved.
 //
 
-#ifndef CIColor_h
-#define CIColor_h
+#ifndef __CI_COLOR_H__
+#define __CI_COLOR_H__
 #include <cugl/cugl.h>
 
 class CIColor {
@@ -20,7 +20,7 @@ private:
     
 public:
     /**
-     * Enum representing the different colors a dot or planet layer can have
+     * Enum representing the different colors stardust or planet layers can have
      */
     enum Value {
         red,
@@ -39,4 +39,4 @@ public:
     }
 };
 
-#endif /* CIColor_h */
+#endif /* __CI_COLOR_H__ */

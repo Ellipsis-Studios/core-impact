@@ -1,6 +1,6 @@
 //
 //  CICollisionController.h
-//  Programming Lab
+//  CoreImpact
 //
 //  Unless you are making a point-and-click adventure game, every single
 //  game is going to need some sort of collision detection.  In a later
@@ -25,7 +25,7 @@
 #define __CI_COLLISION_CONTROLLER_H__
 #include <cugl/cugl.h>
 #include "CIPlanetModel.h"
-#include "CIDotsQueue.h"
+#include "CIStardustQueue.h"
 
 /**
  * Namespace of functions implementing simple game physics.
@@ -41,9 +41,9 @@ namespace collisions {
  *  Increases or decreases layer planet size depending on the color of the stardust
  *
  *  @param planet     The planet in the candidate collision
- *  @param dots       The stardust in the candidate collision
+ *  @param queue       The stardust queue
  */
-void checkForCollision(const std::shared_ptr<PlanetModel>& planet, const std::shared_ptr<DotsQueue>& dots);
+void checkForCollision(const std::shared_ptr<PlanetModel>& planet, const std::shared_ptr<StardustQueue>& queue);
 
 /**
  *  Handles collisions between stardusts, causing them to bounce off one another.
@@ -52,10 +52,9 @@ void checkForCollision(const std::shared_ptr<PlanetModel>& planet, const std::sh
  *  collidee. Therefore, you should only call this method for one of the
  *  stardusts, not both. Otherwise, you are processing the same collisions twice.
  *
- *  @param dot1    First stardust in candidate collision
- *  @param dot2    Second stardust in candidate collision
+ *  @param queue    The stardust queue
  */
-//void checkForCollision(const std::shared_ptr<DotsQueue>& dots1, const std::shared_ptr<DotsQueue>& dots2);
+void checkForCollision(const std::shared_ptr<StardustQueue>& queue);
 
 /**
  *  Handles collisions between an input and stardust.
@@ -63,31 +62,17 @@ void checkForCollision(const std::shared_ptr<PlanetModel>& planet, const std::sh
  *  Moves the stardust to follow the input
  *
  *  @param inputPos     The input position of the finger
- *  @param dots			The stardust in the candidate collision
+ *  @param queue		The stardust queue
  */
-void checkForCollision(cugl::Vec2 inputPos, const std::shared_ptr<DotsQueue>& dots);
+void checkForCollision(cugl::Vec2 inputPos, const std::shared_ptr<StardustQueue>& queue);
 
 /**
- * Nudge the ship to ensure it does not do out of view.
+ * Destroy any stardust that leaves the bounds
  *
- * This code bounces the ship off walls.  You will replace it as part of
- * the lab.
- *
- * @param ship      They player's ship which may have collided
+ * @param queue   The stardust queue
  * @param bounds    The rectangular bounds of the playing field
  */
-//void checkInBounds(const std::shared_ptr<PlanetModel>& planet, const cugl::Size bounds);
-
-/**
- * Nudge the photons to ensure they do not do out of view.
- *
- * This code bounces the photons off walls.  You will replace it as part of
- * the lab.
- *
- * @param photons   They photon queue
- * @param bounds    The rectangular bounds of the playing field
- */
-void checkInBounds(const std::shared_ptr<DotsQueue>& dots, const cugl::Size bounds);
+void checkInBounds(const std::shared_ptr<StardustQueue>& queue, const cugl::Size bounds);
 }
 
 #endif /* __GL_COLLISION_CONTROLLER_H__ */

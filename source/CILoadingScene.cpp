@@ -1,6 +1,6 @@
 //
-//  SDLoadingScene.cpp
-//  Ship Demo
+//  CILoadingScene.cpp
+//  CoreImpact
 //
 //  This module provides a very barebones loading screen.  Most of the time you
 //  will not need a loading screen, because the assets will load so fast.  But

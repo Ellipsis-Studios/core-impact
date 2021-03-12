@@ -10,3 +10,5 @@ CUGL_PATH  := $(CACHE_PATH)/../../../cugl/build-android
 
 include $(CUGL_PATH)/jni/Android.mk
 include $(PROJ_PATH)/source/Android.mk
+
+LOCAL_SHORT_COMMANDS := true

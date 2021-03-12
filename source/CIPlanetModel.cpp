@@ -1,6 +1,8 @@
 //
 //  CIPlanetModel.cpp
-//  ShipDemo
+//  CoreImpact
+//
+//  This model class represents all the information for the planet.
 //
 //  Created by William Long on 3/4/21.
 //  Copyright © 2021 Game Design Initiative at Cornell. All rights reserved.
@@ -26,7 +28,7 @@ void PlanetModel::dispose() {
 /**
  * Initializes a new planet with the given color
  *
- * This method does NOT create a scene graph node for this dot.  You
+ * This method does NOT create a scene graph node for this planet.  You
  * must call setTexture for that.
  *
  * @param x The initial x-coordinate of the center
@@ -75,7 +77,7 @@ void PlanetModel::increaseLayerSize() {
  * Attempts to lock in the current layer and adds a new one
  */
 bool PlanetModel::lockInLayer() {
-    // do not lock in if there is not enough dots to do a lock in or the planet already has the max number of layers
+    // do not lock in if there is not enough stardust to do a lock in or the planet already has the max number of layers
     if (_currLayerProgress < _layerLockinTotal || _numLayers >= _prevLayerColors.size()) {
         return false;
     }

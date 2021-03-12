@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ShipDemo", "ShipDemo\ShipDemo.vcxproj", "{EBA7F636-33E8-46A4-9024-D8DDFC250C64}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CoreImpact", "ShipDemo\ShipDemo.vcxproj", "{EBA7F636-33E8-46A4-9024-D8DDFC250C64}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CUGL", "..\cugl\build-win10\CUGL\CUGL.vcxproj", "{60C028A4-977F-44E9-A709-D79A153D6F69}"
 EndProject
@@ -44,5 +44,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F0A34432-3D8C-42D7-9EA3-7006124B0824}
 	EndGlobalSection
 EndGlobal
