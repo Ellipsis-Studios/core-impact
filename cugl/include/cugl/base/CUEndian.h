@@ -50,7 +50,7 @@ namespace cugl {
  *
  * @return the given value encoded in network order
  */
-SDL_FORCE_INLINE Uint16 marshall(Sint16 value) {
+SDL_FORCE_INLINE Sint16 marshall(Sint16 value) {
 #if SDL_BYTEORDER == SDL_LIL_ENDIAN
     return (Sint16)SDL_Swap16((Uint16)value);
 #else
@@ -92,7 +92,7 @@ SDL_FORCE_INLINE Uint16 marshall(Uint16 value) {
  *
  * @return the given value encoded in network order
  */
-SDL_FORCE_INLINE Uint32 marshall(Sint32 value) {
+SDL_FORCE_INLINE Sint32 marshall(Sint32 value) {
 #if SDL_BYTEORDER == SDL_LIL_ENDIAN
     return (Sint32)SDL_Swap32((Uint32)value);
 #else
@@ -134,7 +134,7 @@ SDL_FORCE_INLINE Uint32 marshall(Uint32 value) {
  *
  * @return the given value encoded in network order
  */
-SDL_FORCE_INLINE Uint64 marshall(Sint64 value) {
+SDL_FORCE_INLINE Sint64 marshall(Sint64 value) {
 #if SDL_BYTEORDER == SDL_LIL_ENDIAN
     return (Sint64)SDL_Swap64((Uint64)value);
 #else

@@ -70,6 +70,7 @@ _parent(nullptr),
 _graph(nullptr),
 _zOrder(0),
 _zDirty(false),
+_priority(0),
 _childOffset(-2) {}
 
 /**
@@ -189,6 +190,10 @@ bool SceneNode::initWithData(const Scene2Loader* loader, const std::shared_ptr<J
     
     if (data->has("z")) {
         _zOrder = data->getInt("z",0.0f);
+    }
+
+    if (data->has("priority")) {
+        _priority = data->getFloat("priority",0.0f);
     }
 
     if (data->has("color")) {
@@ -383,7 +388,7 @@ void SceneNode::setAnchor(const Vec2 anchor) {
  */
 std::string SceneNode::toString(bool verbose) const {
     std::stringstream ss;
-    ss << (verbose ? "cugl::Node(tag:" : "(tag:");
+    ss << (verbose ? "cugl::"+getClassName()+"(tag:" : "(tag:");
     ss <<  cugl::strtool::to_string(_tag);
     ss << ", name:" << _name;
     ss << ", children:" << cugl::strtool::to_string((Uint64)_children.size());

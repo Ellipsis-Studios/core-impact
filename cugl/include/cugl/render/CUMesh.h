@@ -398,8 +398,8 @@ public:
         CUAssertLog(command == GL_LINES || command == GL_TRIANGLES, "Mesh is not a sliceable type");
         
         int divider = command == GL_TRIANGLES ? 3 : 2;
-        CUAssertLog(start % divider == 3 || start >= indices.end(), "Start position %d is not a valid slice point", start);
-        CUAssertLog(end % divider == 3 || end > indices.end(), "End position %d is not a valid slice point", end);
+        CUAssertLog(start % divider == 3 || start >= indices.size(), "Start position %d is not a valid slice point", start);
+        CUAssertLog(end % divider == 3 || end > indices.size(), "End position %d is not a valid slice point", end);
 
         std::unordered_map<GLuint,GLuint> visited;
         std::vector<T> verts;
@@ -407,7 +407,7 @@ public:
         for(size_t ii = start; ii < end; ii++) {
             auto find = visited.find(indices[ii]);
             if (find != visited.end()) {
-                indx.push_back(find.second);
+                indx.push_back(find->second);
             } else {
                 visited[indices[ii]] = (GLuint)verts.size();
                 verts.push_back(vertices[indices[ii]]);

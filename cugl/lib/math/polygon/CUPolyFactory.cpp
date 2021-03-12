@@ -1,11 +1,40 @@
 //
-//  CUPolyFactory.cpp
-//  cugl-mac
+//  CUPolyFactory.java
 //
-//  Created by Walker White on 1/25/21.
-//  Copyright © 2021 Game Design Initiative at Cornell. All rights reserved.
+//  This module provides a convenient way to generate simple polygons, like lines
+//  or circles. It is lighter weight than the other factory classes because it
+//  does not separate the calculation step from the materialization step. That
+//  is because all of its calculations are very short and do not need to be
+//  factored into a separate thread.
 //
-
+//  Because math objects are intended to be on the stack, we do not provide
+//  any shared pointer support in this class.
+//
+//  This implementation is largely inspired by the LibGDX implementation from
+//  Nicolas Gramlich, Eric Spits, Thomas Cate, and Nathan Sweet.
+//
+//  CUGL MIT License:
+//      This software is provided 'as-is', without any express or implied
+//      warranty.  In no event will the authors be held liable for any damages
+//      arising from the use of this software.
+//
+//      Permission is granted to anyone to use this software for any purpose,
+//      including commercial applications, and to alter it and redistribute it
+//      freely, subject to the following restrictions:
+//
+//      1. The origin of this software must not be misrepresented; you must not
+//      claim that you wrote the original software. If you use this software
+//      in a product, an acknowledgment in the product documentation would be
+//      appreciated but is not required.
+//
+//      2. Altered source versions must be plainly marked as such, and must not
+//      be misrepresented as being the original software.
+//
+//      3. This notice may not be removed or altered from any source distribution.
+//
+//  Author: Walker White
+//  Version: 1/23/21
+//
 #include <cugl/math/polygon/CUPolyFactory.h>
 #include <cugl/util/CUDebug.h>
 
@@ -685,7 +714,7 @@ Poly2 PolyFactory::makeCircle(float cx, float cy, float radius) const {
  * @return a reference to the buffer for chaining.
  */
 Poly2* PolyFactory::makeCircle(Poly2* poly, float cx, float cy, float radius) const {
-    return makeEllipse(poly, cx, cy, radius, radius);
+    return makeEllipse(poly, cx, cy, 2*radius, 2*radius);
 }
 
 /**
