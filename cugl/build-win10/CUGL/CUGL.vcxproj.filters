@@ -338,9 +338,6 @@
     <ClInclude Include="..\..\include\cugl\cugl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\base\platform\CUDisplay-impl.h">
-      <Filter>Source Files\base\platform</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\cugl\audio\codecs\cu_codecs.h">
       <Filter>Header Files\audio\codecs</Filter>
     </ClInclude>
@@ -650,385 +647,13 @@
     <ClInclude Include="..\..\include\cugl\physics2\CUWheelObstacle.h">
       <Filter>Header Files\physics2</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\lib\base\platform\CUDisplay-impl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\assets\CUFontLoader.cpp">
-      <Filter>Source Files\assets</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\assets\CUJsonLoader.cpp">
-      <Filter>Source Files\assets</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\assets\CUJsonValue.cpp">
-      <Filter>Source Files\assets</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\assets\CUSoundLoader.cpp">
-      <Filter>Source Files\assets</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\assets\CUTextureLoader.cpp">
-      <Filter>Source Files\assets</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\audio\CUSound.cpp">
-      <Filter>Source Files\audio</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\base\CUApplication.cpp">
-      <Filter>Source Files\base</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\base\CUDisplay.cpp">
-      <Filter>Source Files\base</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\base\platform\CUDisplay-SDL.cpp">
-      <Filter>Source Files\base\platform</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\input\CUAccelerometer.cpp">
-      <Filter>Source Files\input</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\input\CUInput.cpp">
-      <Filter>Source Files\input</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\input\CUKeyboard.cpp">
-      <Filter>Source Files\input</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\input\CUMouse.cpp">
-      <Filter>Source Files\input</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\input\CUTextInput.cpp">
-      <Filter>Source Files\input</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\input\CUTouchscreen.cpp">
-      <Filter>Source Files\input</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\input\gestures\CUPanInput.cpp">
-      <Filter>Source Files\input\gestures</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\input\gestures\CUPinchInput.cpp">
-      <Filter>Source Files\input\gestures</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\input\gestures\CURotationInput.cpp">
-      <Filter>Source Files\input\gestures</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\io\CUBinaryReader.cpp">
-      <Filter>Source Files\io</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\io\CUBinaryWriter.cpp">
-      <Filter>Source Files\io</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\io\CUJsonReader.cpp">
-      <Filter>Source Files\io</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\io\CUJsonWriter.cpp">
-      <Filter>Source Files\io</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\io\CUTextReader.cpp">
-      <Filter>Source Files\io</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\io\CUTextWriter.cpp">
-      <Filter>Source Files\io</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\math\CUAffine2.cpp">
-      <Filter>Source Files\math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\math\CUColor4.cpp">
-      <Filter>Source Files\math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\math\CUFrustum.cpp">
-      <Filter>Source Files\math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\math\CUMat4.cpp">
-      <Filter>Source Files\math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\math\CUMathBase.cpp">
-      <Filter>Source Files\math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\math\CUPlane.cpp">
-      <Filter>Source Files\math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\math\CUPoly2.cpp">
-      <Filter>Source Files\math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\math\CUPolynomial.cpp">
-      <Filter>Source Files\math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\math\CUQuaternion.cpp">
-      <Filter>Source Files\math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\math\CURay.cpp">
-      <Filter>Source Files\math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\math\CURect.cpp">
-      <Filter>Source Files\math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\math\CUSize.cpp">
-      <Filter>Source Files\math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\math\CUVec2.cpp">
-      <Filter>Source Files\math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\math\CUVec3.cpp">
-      <Filter>Source Files\math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\math\CUVec4.cpp">
-      <Filter>Source Files\math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\math\polygon\CUSimpleTriangulator.cpp">
-      <Filter>Source Files\math\polygon</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\util\CUDebug.cpp">
-      <Filter>Source Files\util</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\util\CUStrings.cpp">
-      <Filter>Source Files\util</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\util\CUThreadPool.cpp">
-      <Filter>Source Files\util</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\external\cJSON\cJSON.c">
       <Filter>Header Files\external\cJSON</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\audio\codecs\CUAudioDecoder.cpp">
-      <Filter>Source Files\audio\codecs</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\audio\codecs\CUFLACDecoder.cpp">
-      <Filter>Source Files\audio\codecs</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\audio\codecs\CUMP3Decoder.cpp">
-      <Filter>Source Files\audio\codecs</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\audio\codecs\CUOGGDecoder.cpp">
-      <Filter>Source Files\audio\codecs</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\audio\codecs\CUWAVDecoder.cpp">
-      <Filter>Source Files\audio\codecs</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\audio\graph\CUAudioFader.cpp">
-      <Filter>Source Files\audio\graph</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\audio\graph\CUAudioInput.cpp">
-      <Filter>Source Files\audio\graph</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\audio\graph\CUAudioMixer.cpp">
-      <Filter>Source Files\audio\graph</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\audio\graph\CUAudioNode.cpp">
-      <Filter>Source Files\audio\graph</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\audio\graph\CUAudioOutput.cpp">
-      <Filter>Source Files\audio\graph</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\audio\graph\CUAudioPanner.cpp">
-      <Filter>Source Files\audio\graph</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\audio\graph\CUAudioPlayer.cpp">
-      <Filter>Source Files\audio\graph</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\audio\graph\CUAudioScheduler.cpp">
-      <Filter>Source Files\audio\graph</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\audio\graph\CUAudioSpinner.cpp">
-      <Filter>Source Files\audio\graph</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\audio\CUAudioSample.cpp">
-      <Filter>Source Files\audio</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\audio\CUAudioWaveform.cpp">
-      <Filter>Source Files\audio</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\math\CUEasingBezier.cpp">
-      <Filter>Source Files\math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\math\CUEasingFunction.cpp">
-      <Filter>Source Files\math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\math\dsp\CUBiquadIIR.cpp">
-      <Filter>Source Files\math\dsp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\math\dsp\CUDSPMath.cpp">
-      <Filter>Source Files\math\dsp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\math\dsp\CUFIRFilter.cpp">
-      <Filter>Source Files\math\dsp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\math\dsp\CUIIRFilter.cpp">
-      <Filter>Source Files\math\dsp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\math\dsp\CUOnePoleIIR.cpp">
-      <Filter>Source Files\math\dsp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\math\dsp\CUOneZeroFIR.cpp">
-      <Filter>Source Files\math\dsp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\math\dsp\CUPoleZeroIIR.cpp">
-      <Filter>Source Files\math\dsp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\math\dsp\CUTwoPoleIIR.cpp">
-      <Filter>Source Files\math\dsp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\math\dsp\CUTwoZeroFIR.cpp">
-      <Filter>Source Files\math\dsp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\assets\CUWidgetLoader.cpp">
-      <Filter>Source Files\assets</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\audio\graph\CUAudioResampler.cpp">
-      <Filter>Source Files\audio\graph</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\audio\graph\CUAudioSynchronizer.cpp">
-      <Filter>Source Files\audio\graph</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\assets\CUScene2Loader.cpp">
-      <Filter>Source Files\assets</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\audio\CUAudioDevices.cpp">
-      <Filter>Source Files\audio</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\audio\CUAudioEngine.cpp">
-      <Filter>Source Files\audio</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\audio\CUAudioQueue.cpp">
-      <Filter>Source Files\audio</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\math\CUGeometry.cpp">
-      <Filter>Source Files\math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\math\CUSpline2.cpp">
-      <Filter>Source Files\math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\math\polygon\CUComplexExtruder.cpp">
-      <Filter>Source Files\math\polygon</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\math\polygon\CUComplexTriangulator.cpp">
-      <Filter>Source Files\math\polygon</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\math\polygon\CUPathSmoother.cpp">
-      <Filter>Source Files\math\polygon</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\math\polygon\CUPolyFactory.cpp">
-      <Filter>Source Files\math\polygon</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\math\polygon\CUPolySplineFactory.cpp">
-      <Filter>Source Files\math\polygon</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\math\polygon\CUSimpleExtruder.cpp">
-      <Filter>Source Files\math\polygon</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\util\CUFiletools.cpp">
-      <Filter>Source Files\util</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\render\CUCamera.cpp">
-      <Filter>Source Files\render</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\render\CUFont.cpp">
-      <Filter>Source Files\render</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\render\CUGradient.cpp">
-      <Filter>Source Files\render</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\render\CUOrthographicCamera.cpp">
-      <Filter>Source Files\render</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\render\CUPerspectiveCamera.cpp">
-      <Filter>Source Files\render</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\render\CURenderTarget.cpp">
-      <Filter>Source Files\render</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\render\CUScissor.cpp">
-      <Filter>Source Files\render</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\render\CUShader.cpp">
-      <Filter>Source Files\render</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\render\CUSpriteBatch.cpp">
-      <Filter>Source Files\render</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\render\CUTexture.cpp">
-      <Filter>Source Files\render</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\render\CUUniformBuffer.cpp">
-      <Filter>Source Files\render</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\render\CUVertexBuffer.cpp">
-      <Filter>Source Files\render</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\scene2\CUScene2.cpp">
-      <Filter>Source Files\scene2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\scene2\CUScene2Texture.cpp">
-      <Filter>Source Files\scene2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\scene2\graph\CUAnimationNode.cpp">
-      <Filter>Source Files\scene2\graph</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\scene2\graph\CUPathNode.cpp">
-      <Filter>Source Files\scene2\graph</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\scene2\graph\CUPolygonNode.cpp">
-      <Filter>Source Files\scene2\graph</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\scene2\graph\CUSceneNode.cpp">
-      <Filter>Source Files\scene2\graph</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\scene2\graph\CUTexturedNode.cpp">
-      <Filter>Source Files\scene2\graph</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\scene2\graph\CUWireNode.cpp">
-      <Filter>Source Files\scene2\graph</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\scene2\layout\CUAnchoredLayout.cpp">
-      <Filter>Source Files\scene2\layout</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\scene2\layout\CUFloatLayout.cpp">
-      <Filter>Source Files\scene2\layout</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\scene2\layout\CUGridLayout.cpp">
-      <Filter>Source Files\scene2\layout</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\scene2\layout\CULayout.cpp">
-      <Filter>Source Files\scene2\layout</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\scene2\ui\CUButton.cpp">
-      <Filter>Source Files\scene2\ui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\scene2\ui\CULabel.cpp">
-      <Filter>Source Files\scene2\ui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\scene2\ui\CUNinePatch.cpp">
-      <Filter>Source Files\scene2\ui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\scene2\ui\CUProgressBar.cpp">
-      <Filter>Source Files\scene2\ui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\scene2\ui\CUSlider.cpp">
-      <Filter>Source Files\scene2\ui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\scene2\ui\CUTextField.cpp">
-      <Filter>Source Files\scene2\ui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\physics2\CUBoxObstacle.cpp">
-      <Filter>Source Files\physics2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\physics2\CUCapsuleObstacle.cpp">
-      <Filter>Source Files\physics2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\physics2\CUComplexObstacle.cpp">
-      <Filter>Source Files\physics2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\physics2\CUObstacle.cpp">
-      <Filter>Source Files\physics2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\physics2\CUObstacleSelector.cpp">
-      <Filter>Source Files\physics2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\physics2\CUObstacleWorld.cpp">
-      <Filter>Source Files\physics2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\physics2\CUPolygonObstacle.cpp">
-      <Filter>Source Files\physics2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\physics2\CUSimpleObstacle.cpp">
-      <Filter>Source Files\physics2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\physics2\CUWheelObstacle.cpp">
-      <Filter>Source Files\physics2</Filter>
     </ClCompile>
     <ClCompile Include="..\..\external\clipper\clipper.cpp">
       <Filter>Source Files\external\clipper</Filter>
@@ -1051,25 +676,392 @@
     <ClCompile Include="..\..\lib\assets\CUAssetManager.cpp">
       <Filter>Source Files\assets</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\lib\assets\CUFontLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\assets\CUJsonLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\assets\CUJsonValue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\assets\CUScene2Loader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\assets\CUSoundLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\assets\CUTextureLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\assets\CUWidgetLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\audio\codecs\CUAudioDecoder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\audio\codecs\CUFLACDecoder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\audio\codecs\CUMP3Decoder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\audio\codecs\CUOGGDecoder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\audio\codecs\CUWAVDecoder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\audio\CUAudioDevices.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\audio\CUAudioEngine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\audio\CUAudioQueue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\audio\CUAudioSample.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\audio\CUAudioWaveform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\audio\CUSound.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\audio\graph\CUAudioFader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\audio\graph\CUAudioInput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\audio\graph\CUAudioMixer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\audio\graph\CUAudioNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\audio\graph\CUAudioOutput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\audio\graph\CUAudioPanner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\audio\graph\CUAudioPlayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\audio\graph\CUAudioResampler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\audio\graph\CUAudioScheduler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\audio\graph\CUAudioSpinner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\audio\graph\CUAudioSynchronizer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\base\CUApplication.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\base\CUDisplay.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\base\platform\CUDisplay-SDL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\input\CUAccelerometer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\input\CUInput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\input\CUKeyboard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\input\CUMouse.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\input\CUTextInput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\input\CUTouchscreen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\input\gestures\CUPanInput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\input\gestures\CUPinchInput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\input\gestures\CURotationInput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\io\CUBinaryReader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\io\CUBinaryWriter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\io\CUJsonReader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\io\CUJsonWriter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\io\CUTextReader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\io\CUTextWriter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\math\CUAffine2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\math\CUColor4.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\math\CUEasingBezier.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\math\CUEasingFunction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\math\CUFrustum.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\math\CUGeometry.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\math\CUMat4.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\math\CUMathBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\math\CUPlane.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\math\CUPoly2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\math\CUPolynomial.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\math\CUQuaternion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\math\CURay.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\math\CURect.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\math\CUSize.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\math\CUSpline2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\math\CUVec2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\math\CUVec3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\math\CUVec4.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\math\dsp\CUBiquadIIR.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\math\dsp\CUDSPMath.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\math\dsp\CUFIRFilter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\math\dsp\CUIIRFilter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\math\dsp\CUOnePoleIIR.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\math\dsp\CUOneZeroFIR.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\math\dsp\CUPoleZeroIIR.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\math\dsp\CUTwoPoleIIR.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\math\dsp\CUTwoZeroFIR.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\math\polygon\CUComplexExtruder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\math\polygon\CUComplexTriangulator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\math\polygon\CUPathSmoother.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\math\polygon\CUPolyFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\math\polygon\CUPolySplineFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\math\polygon\CUSimpleExtruder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\math\polygon\CUSimpleTriangulator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\physics2\CUBoxObstacle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\physics2\CUCapsuleObstacle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\physics2\CUComplexObstacle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\physics2\CUObstacle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\physics2\CUObstacleSelector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\physics2\CUObstacleWorld.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\physics2\CUPolygonObstacle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\physics2\CUSimpleObstacle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\physics2\CUWheelObstacle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\render\CUCamera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\render\CUFont.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\render\CUGradient.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\render\CUOrthographicCamera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\render\CUPerspectiveCamera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\render\CURenderTarget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\render\CUScissor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\render\CUShader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\render\CUSpriteBatch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\render\CUTexture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\render\CUUniformBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\render\CUVertexBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\scene2\CUScene2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\scene2\CUScene2Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\scene2\graph\CUAnimationNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\scene2\graph\CUPathNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\scene2\graph\CUPolygonNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\scene2\graph\CUSceneNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\scene2\graph\CUTexturedNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\scene2\graph\CUWireNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\scene2\layout\CUAnchoredLayout.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\scene2\layout\CUFloatLayout.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\scene2\layout\CUGridLayout.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\scene2\layout\CULayout.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\scene2\ui\CUButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\scene2\ui\CULabel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\scene2\ui\CUNinePatch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\scene2\ui\CUProgressBar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\scene2\ui\CUSlider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\scene2\ui\CUTextField.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\util\CUDebug.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\util\CUFiletools.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\util\CUStrings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\util\CUThreadPool.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\src\math\cuACC128.inl">
-      <Filter>Source Files\math</Filter>
+    <None Include="..\..\lib\math\cuACC128.inl">
+      <Filter>Header Files</Filter>
     </None>
-    <None Include="..\..\src\math\dsp\cuDSP128.inl">
-      <Filter>Source Files\math\dsp</Filter>
+    <None Include="..\..\lib\math\dsp\cuDSP128.inl">
+      <Filter>Header Files</Filter>
     </None>
-    <None Include="..\..\src\render\shaders\ColorTexture.frag">
-      <Filter>Source Files\render\shaders</Filter>
-    </None>
-    <None Include="..\..\src\render\shaders\ColorTexture.vert">
-      <Filter>Source Files\render\shaders</Filter>
-    </None>
-    <None Include="..\..\src\render\shaders\SpriteShader.frag">
-      <Filter>Source Files\render\shaders</Filter>
-    </None>
-    <None Include="..\..\src\render\shaders\SpriteShader.vert">
-      <Filter>Source Files\render\shaders</Filter>
-    </None>
+    <None Include="..\..\lib\render\shaders\ColorTexture.frag" />
+    <None Include="..\..\lib\render\shaders\ColorTexture.vert" />
+    <None Include="..\..\lib\render\shaders\SpriteShader.frag" />
+    <None Include="..\..\lib\render\shaders\SpriteShader.vert" />
   </ItemGroup>
 </Project>
