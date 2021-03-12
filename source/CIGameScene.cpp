@@ -1,6 +1,6 @@
 //
-//  SDGameScene.h
-//  Ship Demo
+//  CIGameScene.cpp
+//  CoreImpact
 //
 //  This is the most important class in this demo.  This class manages the
 //  gameplay for this demo.  It is a relativeluy simple class as we are not
@@ -34,13 +34,8 @@ using namespace std;
 /** The parallax for each layer */
 #define PARALLAX_AMT 0.1f
 
-/** Ship Frame Sprite numbers */
-#define SHIP_IMG_LEFT   0   // Left bank frame
-#define SHIP_IMG_FLAT   9   // Neutral frame
-#define SHIP_IMG_RIGHT 17   // Right bank frame
-
-/** Maximum number of dots allowed on screen at a time. */
-#define MAX_DOTS 512
+/** Maximum number of stardusts allowed on screen at a time. */
+#define MAX_STARDUST 512
 
 #pragma mark -
 #pragma mark Constructors
@@ -79,27 +74,26 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     // Get the scene components.
     _allSpace  = _assets->get<scene2::SceneNode>("game_field");
     _farSpace  = _assets->get<scene2::SceneNode>("game_field_far");
-    _shipNode  = std::dynamic_pointer_cast<scene2::AnimationNode>(_assets->get<scene2::SceneNode>("game_field_player"));
-    _coordHUD  = std::dynamic_pointer_cast<scene2::Label>(_assets->get<scene2::SceneNode>("game_hud"));
+    _nearSpace = _assets->get<scene2::SceneNode>("game_field_near");
+    _massHUD  = std::dynamic_pointer_cast<scene2::Label>(_assets->get<scene2::SceneNode>("game_hud"));
 
-    
     // Create the planet model
-    _planet = PlanetModel::alloc(dimen.width/2, dimen.height/2, CIColor::magenta, 3);
+    _planet = PlanetModel::alloc(dimen.width/2, dimen.height/2, CIColor::blue, 3);
     auto planetTexture = _assets->get<Texture>("planet1");
     _planet->setTexture(planetTexture);
     
-    _dotsContainer = DotsQueue::alloc(MAX_DOTS);
-    _dotsContainer->setTexture(_assets->get<Texture>("photon"));
-    std::shared_ptr<DotsNode> _dotsNode = DotsNode::alloc();
-    _dotsNode->setDotsQueue(_dotsContainer);
+    _stardustContainer = StardustQueue::alloc(MAX_STARDUST);
+    _stardustContainer->setTexture(_assets->get<Texture>("photon"));
+    std::shared_ptr<StardustNode> _stardustNode = StardustNode::alloc();
+    _stardustNode->setStardustQueue(_stardustContainer);
     
-    _dotsContainer->addDot(dimen);
-    _dotsContainer->addDot(dimen);
-    _dotsContainer->addDot(dimen);
-    _dotsContainer->addDot(dimen);
-
+    _stardustContainer->addStardust(dimen);
+    _stardustContainer->addStardust(dimen);
+    _stardustContainer->addStardust(dimen);
+    _stardustContainer->addStardust(dimen);
+    
     addChild(scene);
-    addChild(_dotsNode);
+    addChild(_stardustNode);
     addChild(_planet->getPlanetNode());
     return true;
 }
@@ -114,7 +108,6 @@ void GameScene::dispose() {
         _allSpace = nullptr;
         _farSpace = nullptr;
         _nearSpace = nullptr;
-        _shipNode = nullptr;
         _planet = nullptr;
         _active = false;
     }
@@ -128,8 +121,7 @@ void GameScene::dispose() {
  * Resets the status of the game so that we can play again.
  */
 void GameScene::reset() {
-    // Reset the ships and input
-    //_shipModel->reset();
+    // Reset the planet and input
     _input.clear();
     
     // Reset the parallax
@@ -151,31 +143,16 @@ void GameScene::update(float timestep) {
     dimen *= SCENE_WIDTH/dimen.width;
     _input.update(timestep);
     
-    _dotsContainer->update();
+    _stardustContainer->update();
     
     if (rand() % 60 == 0){
-        _dotsContainer->addDot(dimen);
+        _stardustContainer->addStardust(dimen);
     }
     
-//    _coordHUD->setText(positionText(_input.getPosition()));
-    _coordHUD->setText(to_string(_planet->getMass()));
+    _massHUD->setText(to_string(_planet->getMass()));
 
-    collisions::checkForCollision(_planet, _dotsContainer);
-    collisions::checkForCollision(_input.getPosition(), _dotsContainer);
-    collisions::checkInBounds(_dotsContainer, dimen);
+    collisions::checkForCollision(_planet, _stardustContainer);
+    collisions::checkForCollision(_input.getPosition(), _stardustContainer);
+    collisions::checkInBounds(_stardustContainer, dimen);
 }
 
-/**
- * Returns an informative string for the position
- *
- * This function is for writing the current ship position to the HUD.
- *
- * @param coords The current ship coordinates
- *
- * @return an informative string for the position
- */
-std::string GameScene::positionText(const cugl::Vec2& coords) {
-    stringstream ss;
-    ss << "Coords: (" << (int)coords.x/10 << "," << (int)coords.y/10 << ")";
-    return ss.str();
-}

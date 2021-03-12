@@ -1,6 +1,6 @@
 //
-//  SDInput.h
-//  Ship Demo
+//  CIInput.h
+//  CoreImpact
 //
 //  This input controller is primarily designed for keyboard control.  On mobile
 //  you will notice that we use gestures to emulate keyboard commands. They even
@@ -25,14 +25,14 @@ using namespace cugl;
 #define SWIPE_LENGTH                10
 
 #pragma mark -
-#pragma mark Ship Input
+#pragma mark Input
 /**
  * Creates a new input controller.
  *
  * This constructor does NOT do any initialzation.  It simply allocates the
  * object. This makes it safe to use this class without a pointer.
  */
-ShipInput::ShipInput() :
+InputController::InputController() :
 _fingerDown(false)
 {
     
@@ -44,7 +44,7 @@ _fingerDown(false)
  * This method will not dispose of the input controller. It can be reused
  * once it is reinitialized.
  */
-void ShipInput::dispose() {
+void InputController::dispose() {
 #ifndef CU_TOUCH_SCREEN
     if (_mouse == nullptr) {
         return;
@@ -73,7 +73,7 @@ void ShipInput::dispose() {
  * 
  * @return true if the controller was initialized successfully
  */
-bool ShipInput::init(const Rect bounds) {
+bool InputController::init(const Rect bounds) {
     bool success = true;
     
     _sbounds = bounds;
@@ -119,7 +119,7 @@ bool ShipInput::init(const Rect bounds) {
  * the OS, we may see multiple updates of the same touch in a single animation
  * frame, so we need to accumulate all of the data together.
  */
-void ShipInput::update(float dt) {
+void InputController::update(float dt) {
 #ifdef CU_MOBILE
     // TODO: use touchDown() with finger id
 #endif
@@ -132,7 +132,7 @@ void ShipInput::update(float dt) {
 /**
  * Clears any buffered inputs so that we may start fresh.
  */
-void ShipInput::clear() {
+void InputController::clear() {
     _position = Vec2::ZERO;
     _velocity = Vec2::ZERO;
     _prevPosition = Vec2::ZERO;
@@ -142,7 +142,7 @@ void ShipInput::clear() {
 /**
  * Populates the initial values of the input TouchInstance
  */
-void ShipInput::clearTouchInstance(TouchInstance& touchInstance) {
+void InputController::clearTouchInstance(TouchInstance& touchInstance) {
     touchInstance.touchids.clear();
     touchInstance.position = Vec2::ZERO;
 }
@@ -156,7 +156,7 @@ void ShipInput::clearTouchInstance(TouchInstance& touchInstance) {
  *
  * @return the scene location of a touch
  */
-Vec2 ShipInput::touch2Screen(const Vec2 pos) const {
+Vec2 InputController::touch2Screen(const Vec2 pos) const {
     float px = pos.x/_tbounds.size.width -_tbounds.origin.x;
     float py = pos.y/_tbounds.size.height-_tbounds.origin.y;
     Vec2 result;
@@ -174,7 +174,7 @@ Vec2 ShipInput::touch2Screen(const Vec2 pos) const {
  * @param focus    Whether the listener currently has focus
  *
  */
-void ShipInput::touchBeganCB(const TouchEvent& event, bool focus) {
+void InputController::touchBeganCB(const TouchEvent& event, bool focus) {
     Vec2 pos = event.position;
     if (_touchInstance.touchids.empty()) {
         _touchInstance.position = pos;
@@ -193,7 +193,7 @@ void ShipInput::touchBeganCB(const TouchEvent& event, bool focus) {
  * @param previous The previous position of the touch
  * @param focus    Whether the listener currently has focus
  */
-void ShipInput::touchesMovedCB(const TouchEvent& event, const Vec2& previous, bool focus) {
+void InputController::touchesMovedCB(const TouchEvent& event, const Vec2& previous, bool focus) {
     if (_touchInstance.touchids.find(event.touch) != _touchInstance.touchids.end()) {
         Vec2 pos = event.position;
         _velocity = touch2Screen(pos - previous);
@@ -207,7 +207,7 @@ void ShipInput::touchesMovedCB(const TouchEvent& event, const Vec2& previous, bo
  * @param event The associated event
  * @param focus    Whether the listener currently has focus
  */
-void ShipInput::touchEndedCB(const TouchEvent& event, bool focus) {
+void InputController::touchEndedCB(const TouchEvent& event, bool focus) {
     if (_touchInstance.touchids.find(event.touch) != _touchInstance.touchids.end()) {
         _touchInstance.touchids.clear();
         _fingerDown = false;
@@ -222,7 +222,7 @@ void ShipInput::touchEndedCB(const TouchEvent& event, bool focus) {
  * @param event The associated event
  * @param focus    Whether the listener currently has focus
  */
-void ShipInput::mousePressedCB(const MouseEvent& event, Uint8 clicks, bool focus) {
+void InputController::mousePressedCB(const MouseEvent& event, Uint8 clicks, bool focus) {
     _fingerDown = true;
     _position = touch2Screen(event.position);
 }
@@ -233,7 +233,7 @@ void ShipInput::mousePressedCB(const MouseEvent& event, Uint8 clicks, bool focus
  * @param event The associated event
  * @param focus    Whether the listener currently has focus
  */
-void ShipInput::mouseMovedCB(const MouseEvent& event, const Vec2 previous, bool focus) {
+void InputController::mouseMovedCB(const MouseEvent& event, const Vec2 previous, bool focus) {
     if (_fingerDown) {
         Vec2 pos = event.position;
         _velocity = touch2Screen(pos - previous);
@@ -247,7 +247,7 @@ void ShipInput::mouseMovedCB(const MouseEvent& event, const Vec2 previous, bool 
  * @param event The associated event
  * @param focus    Whether the listener currently has focus
  */
-void ShipInput::mouseReleasedCB(const MouseEvent& event, Uint8 clicks, bool focus) {
+void InputController::mouseReleasedCB(const MouseEvent& event, Uint8 clicks, bool focus) {
     _fingerDown = false;
     _position = Vec2::ZERO;
     _velocity = Vec2::ZERO;

@@ -1,6 +1,6 @@
 //
-//  SDInput.h
-//  Ship Demo
+//  CIInput.h
+//  CoreImpact
 //
 //  This input controller is primarily designed for keyboard control.  On mobile
 //  you will notice that we use gestures to emulate keyboard commands. They even
@@ -10,12 +10,12 @@
 //  Author: Walker White
 //  Version: 1/10/17
 //
-#ifndef __SD_INPUT_H__
-#define __SD_INPUT_H__
+#ifndef __CI_INPUT_H__
+#define __CI_INPUT_H__
 #include <cugl/cugl.h>
 
 /**
- * This class represents player input in the ship demo.
+ * This class represents player input
  *
  * This input handler uses the CUGL input API.  It uses the polling API for
  * keyboard, but the callback API for touch.  This demonstrates a mix of ways
@@ -30,7 +30,7 @@
  * until later. This is one of the main reasons we like to avoid initialization 
  * in the constructor.
  */
-class ShipInput {
+class InputController {
 private:
     
     /** Postion and velocity of the finger */
@@ -74,12 +74,12 @@ public:
      * This constructor does NOT do any initialzation.  It simply allocates the
      * object. This makes it safe to use this class without a pointer.
      */
-    ShipInput(); // Don't initialize.  Allow stack based
+    InputController(); // Don't initialize.  Allow stack based
     
     /**
      * Disposes of this input controller, releasing all listeners.
      */
-    ~ShipInput() { dispose(); }
+    ~InputController() { dispose(); }
     
     /**
      * Deactivates this input controller, releasing all listeners.
@@ -239,4 +239,4 @@ public:
     void mouseReleasedCB(const cugl::MouseEvent& event, Uint8 clicks, bool focus);
 };
 
-#endif /* __SD_INPUT_H__ */
+#endif /* __CI_INPUT_H__ */

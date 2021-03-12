@@ -1,6 +1,8 @@
 //
 //  CIPlanetModel.h
-//  ShipDemo
+//  CoreImpact
+//
+//  This model class represents all the information for the planet.
 //
 //  Created by William Long on 3/4/21.
 //  Copyright © 2021 Game Design Initiative at Cornell. All rights reserved.
@@ -21,9 +23,9 @@ private:
     
     /** The number of layers this planet has */
     int _numLayers;
-    /** The number of dots the player has put in for the current layer */
+    /** The amount of stardust the player has put in for the current layer */
     int _currLayerProgress;
-    /** The total number of dots the player need to put in to lock in the current layer  */
+    /** The total amount of stardust the player need to put in to lock in the current layer  */
     int _layerLockinTotal;
     
     /** Radius of the planet in pixels */
@@ -57,18 +59,18 @@ public:
     }
     
     /**
-     * Returns the total number of dots added to the current layer
+     * Returns the total amount of stardust added to the current layer
      *
-     * @return the numer of dots added to the current layer
+     * @return the amount of stardust added to the current layer
      */
     const int getCurrLayerProgress() const {
         return _currLayerProgress;
     }
     
     /**
-     * Returns the total number of dots need to lock in the current layer
+     * Returns the total amount of stardust need to lock in the current layer
      *
-     * @return the numer of dots needed to lock in the current layer
+     * @return the amount of stardust needed to lock in the current layer
      */
     const int getLayerLockinTotal() const {
         return _layerLockinTotal;
@@ -134,7 +136,7 @@ public:
     /**
      * Initializes a new planet with the given color
      *
-     * This method does NOT create a scene graph node for this dot.  You
+     * This method does NOT create a scene graph node for this planet.  You
      * must call setTexture for that.
      *
      * @param x The initial x-coordinate of the center
@@ -149,7 +151,7 @@ public:
     /**
      * Returns a newly allocated planet with the given color
      *
-     * This method does NOT create a scene graph node for this dot.  You
+     * This method does NOT create a scene graph node for this planet.  You
      * must call setTextures for that.
      *
      * @param x The initial x-coordinate of the center
@@ -157,7 +159,7 @@ public:
      * @param c The initial color code of the planet
      * @param maxLayers The maximum number of layers the planet can have
      *
-     * @return a newly allocated dot at the given location with the given color.
+     * @return a newly allocated planet at the given location with the given color.
      */
     static std::shared_ptr<PlanetModel> alloc(float x, float y, CIColor::Value c, int maxLayers) {
         std::shared_ptr<PlanetModel> result = std::make_shared<PlanetModel>();
