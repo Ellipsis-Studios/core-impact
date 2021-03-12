@@ -34,8 +34,6 @@ private:
     /** Number of elements currently in the queue */
     int _qsize;
 
-    //std::vector<CIColor::Value> _colormap; 
-
 #pragma mark The Queue
 public:
     /**
@@ -159,6 +157,7 @@ public:
      * to the collision controller where they belong.
      */
     void update();
+
 };
 
 #endif /* __CI_STARDUST_QUEUE_H__ */
