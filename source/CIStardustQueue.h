@@ -34,6 +34,8 @@ private:
     /** Number of elements currently in the queue */
     int _qsize;
 
+    //std::vector<CIColor::Value> _colormap; 
+
 #pragma mark The Queue
 public:
     /**

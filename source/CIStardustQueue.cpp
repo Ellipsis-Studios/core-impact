@@ -73,8 +73,19 @@ void StardustQueue::addStardust(const Size bounds) {
     dir.normalize();
     dir.x *= (rand() % 3)+2;
     dir.y *= (rand() % 3)+2;
+
+
+    // random color
+    //CIColor::Value randcolor = _colormap[(rand() % 4)]; 
+    const std::vector<CIColor::Value> _colormap{
+        CIColor::red,
+        CIColor::blue,
+        CIColor::green,
+        CIColor::yellow
+    };
+
     _qtail = ((_qtail + 1) % _queue.size());
-    _queue[_qtail].init(pos, dir, CIColor::blue);
+    _queue[_qtail].init(pos, dir, _colormap[rand() % 4]); //CIColor::blue);
     _qsize++;
 }
 
