@@ -85,7 +85,7 @@ void collisions::checkForCollision(const std::shared_ptr<PlanetModel>& planet, c
  *
  *  @param queue    The stardust queue
  */
-void collisions::checkForCollision(const std::shared_ptr<StardustQueue>& queue) {
+void collisions::checkForCollisions(const std::shared_ptr<StardustQueue>& queue) {
     // Get the stardust size from the texture
     auto texture = queue->getTexture();
     float dradius = 0;
@@ -131,20 +131,19 @@ void collisions::checkForCollision(const std::shared_ptr<StardustQueue>& queue) 
 }
 
 /**
- *  Handles collisions between an input and stardust.
+ * Finds the closest stardust that collides with the input position
  *
- *  Moves the stardust to follow the input
- *
- *  @param inputPos     The input position of the finger
- *  @param queue        The stardust queue
+ * @param inputPos     The input position of the finger
+ * @param queue        The stardust queue
  */
-void collisions::checkForCollision(cugl::Vec2 inputPos, const std::shared_ptr<StardustQueue>& queue) {
-    // Get the stardust size from the texture
+StardustModel* collisions::getNearestStardust(cugl::Vec2 inputPos, const std::shared_ptr<StardustQueue>& queue) {
     auto texture = queue->getTexture();
     float dradius = 0;
     if (texture != nullptr) {
         dradius = std::max(texture->getWidth(), texture->getHeight()) / 2.0f;
     }
+    StardustModel* closest = NULL;
+    float closestDistance = 0;
 
     for (size_t ii = 0; ii < queue->size(); ii++) {
         // This returns a reference
@@ -156,16 +155,17 @@ void collisions::checkForCollision(cugl::Vec2 inputPos, const std::shared_ptr<St
             float impactDistance = dradius;
             norm.normalize();
 
-            // If inputPos is inside stardust, don't move it
-            if (distance < impactDistance) {
-                stardust->setVelocity(Vec2::ZERO);
-            }
-            // If inputPos is just outside stardust, move it towards inputPos
-            else if (distance < impactDistance * 2) {
-                stardust->setVelocity(norm * 10);
+            // check of inputPos is inside stardust
+            if (distance < impactDistance * 2) {
+                // check if this is first one touching or closer than existing closest
+                if (closest == NULL || distance < closestDistance) {
+                    closest = stardust;
+                    closestDistance = distance;
+                }
             }
         }
     }
+    return closest;
 }
 
 /**

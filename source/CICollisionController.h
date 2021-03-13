@@ -54,17 +54,15 @@ void checkForCollision(const std::shared_ptr<PlanetModel>& planet, const std::sh
  *
  *  @param queue    The stardust queue
  */
-void checkForCollision(const std::shared_ptr<StardustQueue>& queue);
+void checkForCollisions(const std::shared_ptr<StardustQueue>& queue);
 
 /**
- *  Handles collisions between an input and stardust.
+ * Finds the closest stardust that collides with the input position
  *
- *  Moves the stardust to follow the input
- *
- *  @param inputPos     The input position of the finger
- *  @param queue		The stardust queue
+ * @param inputPos     The input position of the finger
+ * @param queue        The stardust queue
  */
-void checkForCollision(cugl::Vec2 inputPos, const std::shared_ptr<StardustQueue>& queue);
+StardustModel* getNearestStardust(cugl::Vec2 inputPos, const std::shared_ptr<StardustQueue>& queue);
 
 /**
  * Destroy any stardust that leaves the bounds

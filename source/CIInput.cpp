@@ -79,6 +79,7 @@ bool InputController::init(const Rect bounds) {
     _sbounds = bounds;
     _tbounds = Application::get()->getDisplayBounds();
     clearTouchInstance(_touchInstance);
+    clear();
     
 // Only process keyboard on desktop
 #ifndef CU_TOUCH_SCREEN
@@ -195,9 +196,9 @@ void InputController::touchBeganCB(const TouchEvent& event, bool focus) {
  */
 void InputController::touchesMovedCB(const TouchEvent& event, const Vec2& previous, bool focus) {
     if (_touchInstance.touchids.find(event.touch) != _touchInstance.touchids.end()) {
-        Vec2 pos = event.position;
-        _velocity = touch2Screen(pos - previous);
-        _position = touch2Screen(pos);
+        Vec2 pos = touch2Screen(event.position);
+        _velocity = pos - touch2Screen(previous);
+        _position = pos;
     }
 }
 
@@ -235,9 +236,9 @@ void InputController::mousePressedCB(const MouseEvent& event, Uint8 clicks, bool
  */
 void InputController::mouseMovedCB(const MouseEvent& event, const Vec2 previous, bool focus) {
     if (_fingerDown) {
-        Vec2 pos = event.position;
-        _velocity = touch2Screen(pos - previous);
-        _position = touch2Screen(pos);
+        Vec2 pos = touch2Screen(event.position);
+        _velocity = pos - touch2Screen(previous);
+        _position = pos;
     }
 }
 
