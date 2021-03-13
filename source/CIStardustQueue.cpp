@@ -75,8 +75,9 @@ void StardustQueue::addStardust(const Size bounds) {
     dir.x *= (rand() % 3)+2;
     dir.y *= (rand() % 3)+2;
     
-    // Random Color    
     _qtail = ((_qtail + 1) % _queue.size());
+
+    // TODO: adding dot queues based on an upcoming algorithm
     _queue[_qtail].init(pos, dir, CIColor::getRandomColor());
     _qsize++;
 }

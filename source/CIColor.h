@@ -50,6 +50,7 @@ public:
                 break;
             case blue:
                 color = cugl::Color4(70.0f, 87.0f, 206.0f);
+                break;
             case grey:
                 color = cugl::Color4(194.0f, 194.0f, 194.0f);
                 break;
