@@ -24,18 +24,17 @@ void StardustNode::draw(const std::shared_ptr<cugl::SpriteBatch>& batch,
     // Step through each active stardust in the queue.
     for (size_t ii = 0; ii < _qsize; ii++) {
         // Find the position of this stardust.
-//        std::vector<StardustModel> queue = _stardustQueue->getQueue();
-//        size_t idx = ((_stardustQueue->headIndex() + ii) % queue.size());
         size_t idx = ((_qhead + ii) % _queue.size());
 
         if (_queue[idx].getMass() > 0) {
             cugl::Mat4 stardustTransform;
             stardustTransform.scale(_queue[idx].getRadius());
             stardustTransform.translate(_queue[idx].getPosition().x, _queue[idx].getPosition().y, 0);
-
+            stardustTransform.multiply(transform);
+            
             // Use this information to draw.
-            cugl::Color4f stardustColor = CIColor::getColor4(_queue[idx].getColor());
-            batch->draw(_texture, stardustColor, origin, stardustTransform*transform);
+            const cugl::Color4f stardustColor = CIColor::getColor4(_queue[idx].getColor());
+            batch->draw(_texture, stardustColor, origin, stardustTransform);
         }
     }
     batch->setBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

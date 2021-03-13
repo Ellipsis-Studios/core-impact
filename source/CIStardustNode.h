@@ -15,9 +15,7 @@
 
 class StardustNode : public cugl::scene2::SceneNode {
 private:
-    /** Shared memory pool for stardust. (MODEL CLASS) */
-//    std::shared_ptr<StardustQueue> _stardustQueue;
-    
+
 public:
     std::shared_ptr<cugl::Texture> _texture;
     std::vector<StardustModel> _queue;
@@ -34,10 +32,6 @@ public:
         std::shared_ptr<StardustNode> node = std::make_shared<StardustNode>();
         return (node->init() ? node : nullptr);
     }
-    
-//    void setStardustQueue(std::shared_ptr<StardustQueue> queue){
-//        _stardustQueue = queue;
-//    }
     
     void draw(const std::shared_ptr<cugl::SpriteBatch>& batch,
               const cugl::Mat4& transform, cugl::Color4 tint) override;

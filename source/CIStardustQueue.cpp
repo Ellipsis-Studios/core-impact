@@ -49,14 +49,13 @@ void StardustQueue::dispose() {
  *  @return true if initialization is successful
  */
 bool StardustQueue::init(size_t max) {
-    _queue.resize(max);
-    
     _stardustNode = StardustNode::alloc();
     _stardustNode->_queue.resize(max);
     _stardustNode->_qhead=0;
     _stardustNode->_qtail=-1;
     _stardustNode->_qsize=0;
     
+    _queue.resize(max);
     return true;
 }
 
@@ -78,7 +77,7 @@ void StardustQueue::addStardust(const Size bounds) {
         _qsize--;
         
         _stardustNode->_qhead=_qhead;
-        _stardustNode->_qsize--;
+        _stardustNode->_qsize=_qsize;
     }
 
     // Add a new stardust at the end.
@@ -91,14 +90,15 @@ void StardustQueue::addStardust(const Size bounds) {
     dir.x *= (rand() % 3)+2;
     dir.y *= (rand() % 3)+2;
     _qtail = ((_qtail + 1) % _queue.size());
-    auto nodeColor = CIColor::blue;
-    _queue[_qtail].init(pos, dir, nodeColor);
+    
+    // TODO: adding dot queues based on an upcoming algorithm
+    auto randColor = CIColor::getRandomColor();
+    _queue[_qtail].init(pos, dir, randColor);
     _qsize++;
     
     _stardustNode->_qtail=_qtail;
-    _stardustNode->_queue[_qtail].init(pos, dir, nodeColor);
+    _stardustNode->_queue[_qtail].init(pos, dir, randColor);
     _stardustNode->_qsize = _qsize;
-    
 }
 
 /**

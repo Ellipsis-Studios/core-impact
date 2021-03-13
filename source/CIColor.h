@@ -19,12 +19,13 @@ public:
      * Enum representing the different colors stardust or planet layers can have
      */
     enum Value {
-        red,
-        blue,
-        green,
-        cyan,
-        magenta,
+        orange,
         yellow,
+        turquoise,
+        cyan,
+        blue,
+        grey,
+        lightgrey,
     };
 
     
@@ -35,27 +36,37 @@ public:
         cugl::Color4 color;
         switch(v)
         {
-            case red:
-                color = cugl::Color4::RED;
-                break;
-            case green:
-                color = cugl::Color4::GREEN;
-                break;
-            case blue:
-                color = cugl::Color4::BLUE;
-                break;
-            case cyan:
-                color = cugl::Color4::CYAN;
-                break;
-            case magenta:
-                color = cugl::Color4::MAGENTA;
+            case orange:
+                color = cugl::Color4(252.0f, 68.0f, 34.0f);
                 break;
             case yellow:
-                color = cugl::Color4::YELLOW;
+                color = cugl::Color4(253.0f, 142.0f, 50.0f);
+                break;
+            case turquoise:
+                color = cugl::Color4(0.0f, 181.0f, 137.0f);
+                break;
+            case cyan:
+                color = cugl::Color4(33.0f, 189.0f, 202.0f);
+                break;
+            case blue:
+                color = cugl::Color4(70.0f, 87.0f, 206.0f);
+                break;
+            case grey:
+                color = cugl::Color4(194.0f, 194.0f, 194.0f);
+                break;
+            case lightgrey:
+                color = cugl::Color4(252.0f, 239.0f, 237.0f);
                 break;
         }
         
         return color;
+    }
+    
+    /**
+     * Get random CIColor Value.
+     */
+    static Value getRandomColor() {
+        return Value(rand() % 5); // pick out of first 5 colors
     }
 };
 
