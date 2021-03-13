@@ -46,7 +46,9 @@ void collisions::checkForCollision(const std::shared_ptr<PlanetModel>& planet, c
     
     for(size_t ii = 0; ii < queue->size(); ii++) {
         // This returns a reference
-        StardustModel* stardust = queue->get(ii);
+        auto stardustNode = queue->getStardustNode();
+        StardustModel* stardust = stardustNode->get(ii);
+        // StardustModel* stardust = queue->get(ii);
         if (stardust != nullptr) {
             Vec2 norm = planet->getPosition() - stardust->getPosition();
             float distance = norm.length();
@@ -148,7 +150,10 @@ void collisions::checkForCollision(cugl::Vec2 inputPos, const std::shared_ptr<St
 
     for (size_t ii = 0; ii < queue->size(); ii++) {
         // This returns a reference
-        StardustModel* stardust = queue->get(ii);
+        auto stardustNode = queue->getStardustNode();
+        StardustModel* stardust = stardustNode->get(ii);
+        // StardustModel* stardust = queue->get(ii);
+        
         if (stardust != nullptr) {
             Vec2 stardustPos = stardust->getPosition();
             Vec2 norm = inputPos - stardustPos;

@@ -11,13 +11,21 @@
 #ifndef __CI_STARDUST_NODE_H__
 #define __CI_STARDUST_NODE_H__
 #include <cugl/cugl.h>
-#include "CIStardustQueue.h"
+#include "CIStardustModel.h"
 
 class StardustNode : public cugl::scene2::SceneNode {
 private:
     /** Shared memory pool for stardust. (MODEL CLASS) */
-    std::shared_ptr<StardustQueue> _stardustQueue;
+//    std::shared_ptr<StardustQueue> _stardustQueue;
+    
 public:
+    std::shared_ptr<cugl::Texture> _texture;
+    std::vector<StardustModel> _queue;
+    
+    int _qhead;
+    int _qtail;
+    int _qsize;
+    
     StardustNode() : SceneNode() {}
 
     ~StardustNode() { dispose(); }
@@ -27,12 +35,14 @@ public:
         return (node->init() ? node : nullptr);
     }
     
-    void setStardustQueue(std::shared_ptr<StardustQueue> queue){
-        _stardustQueue = queue;
-    }
+//    void setStardustQueue(std::shared_ptr<StardustQueue> queue){
+//        _stardustQueue = queue;
+//    }
     
     void draw(const std::shared_ptr<cugl::SpriteBatch>& batch,
               const cugl::Mat4& transform, cugl::Color4 tint) override;
+    
+    StardustModel* get(size_t pos);
 };
 
 #endif /* __CI_STARDUST_NODE_H__ */

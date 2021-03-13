@@ -84,8 +84,12 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     
     _stardustContainer = StardustQueue::alloc(MAX_STARDUST);
     _stardustContainer->setTexture(_assets->get<Texture>("photon"));
-    std::shared_ptr<StardustNode> _stardustNode = StardustNode::alloc();
-    _stardustNode->setStardustQueue(_stardustContainer);
+    std::shared_ptr<StardustNode> _stardustNode = _stardustContainer->getStardustNode();
+    
+//    _stardustContainer = StardustQueue::alloc(MAX_STARDUST);
+//    _stardustContainer->setTexture(_assets->get<Texture>("photon"));
+//    std::shared_ptr<StardustNode> _stardustNode = StardustNode::alloc();
+//    _stardustNode->setStardustQueue(_stardustContainer);
     
     _stardustContainer->addStardust(dimen);
     _stardustContainer->addStardust(dimen);

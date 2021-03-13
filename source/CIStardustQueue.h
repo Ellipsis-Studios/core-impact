@@ -11,6 +11,7 @@
 #define __CI_STARDUST_QUEUE_H__
 #include <cugl/cugl.h>
 #include "CIStardustModel.h"
+#include "CIStardustNode.h"
 
 /**
  * Model class representing an "particle system" of stardust.
@@ -23,6 +24,8 @@ class StardustQueue {
 private:
     /** Graphic asset representing a single stardust. */
     std::shared_ptr<cugl::Texture> _texture;
+    
+    std::shared_ptr<StardustNode> _stardustNode;
 
     // QUEUE DATA STRUCTURES
     /** Vector implementation of a circular queue. */
@@ -97,6 +100,7 @@ public:
      */
     void setTexture(const std::shared_ptr<cugl::Texture>& value) {
         _texture = value;
+        _stardustNode->_texture = value;
     }
 
     /**
@@ -118,6 +122,10 @@ public:
      */
     size_t size() const {
         return _qsize;
+    }
+    
+    const std::shared_ptr<StardustNode>& getStardustNode() const {
+        return _stardustNode;
     }
     
     /**

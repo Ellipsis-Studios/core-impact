@@ -25,6 +25,7 @@
 #define __CI_COLLISION_CONTROLLER_H__
 #include <cugl/cugl.h>
 #include "CIPlanetModel.h"
+#include "CIStardustModel.h"
 #include "CIStardustQueue.h"
 
 /**

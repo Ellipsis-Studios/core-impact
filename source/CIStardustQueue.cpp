@@ -8,6 +8,7 @@
 //  Copyright © 2021 Game Design Initiative at Cornell. All rights reserved.
 //
 #include "CIStardustQueue.h"
+#include "CIColor.h"
 
 using namespace cugl;
 
@@ -28,6 +29,12 @@ _qsize(0) {
  * Disposes the stardust queue, releasing all resources.
  */
 void StardustQueue::dispose() {
+    _stardustNode->_queue.clear();
+    _stardustNode->_qhead=0;
+    _stardustNode->_qtail=-1;
+    _stardustNode->_qsize=0;
+    _stardustNode = nullptr;
+
     _queue.clear();
     _qhead = 0;
     _qtail = -1;
@@ -43,6 +50,13 @@ void StardustQueue::dispose() {
  */
 bool StardustQueue::init(size_t max) {
     _queue.resize(max);
+    
+    _stardustNode = StardustNode::alloc();
+    _stardustNode->_queue.resize(max);
+    _stardustNode->_qhead=0;
+    _stardustNode->_qtail=-1;
+    _stardustNode->_qsize=0;
+    
     return true;
 }
 
@@ -62,6 +76,9 @@ void StardustQueue::addStardust(const Size bounds) {
     if (_qsize == _queue.size()) {
         _qhead = ((_qhead + 1) % _queue.size());
         _qsize--;
+        
+        _stardustNode->_qhead=_qhead;
+        _stardustNode->_qsize--;
     }
 
     // Add a new stardust at the end.
@@ -74,8 +91,14 @@ void StardustQueue::addStardust(const Size bounds) {
     dir.x *= (rand() % 3)+2;
     dir.y *= (rand() % 3)+2;
     _qtail = ((_qtail + 1) % _queue.size());
-    _queue[_qtail].init(pos, dir, CIColor::blue);
+    auto nodeColor = CIColor::blue;
+    _queue[_qtail].init(pos, dir, nodeColor);
     _qsize++;
+    
+    _stardustNode->_qtail=_qtail;
+    _stardustNode->_queue[_qtail].init(pos, dir, nodeColor);
+    _stardustNode->_qsize = _qsize;
+    
 }
 
 /**
@@ -110,6 +133,9 @@ void StardustQueue::update() {
         // As stardusts are predeclared, all we have to do is move head forward.
         _qhead = ((_qhead + 1) % _queue.size());
         _qsize--;
+        
+        _stardustNode->_qhead=_qhead;
+        _stardustNode->_qsize=_qsize;
     }
 
     // Now, step through each active stardust in the queue.
@@ -119,5 +145,7 @@ void StardustQueue::update() {
 
         // Move the stardust according to velocity.
         _queue[idx].update();
+        
+        _stardustNode->_queue[idx].update();
     }
 }
