@@ -1,9 +1,7 @@
-# Cornell University Game Library (CUGL)
+# Core Impact
 
-This template provides a base for you to build off of.  You should add all of your
-files to sources and assets, as appropriate.  This will allow access to the Apple,
-Android, and Windows IDEs.
+![CoreImpactSplashArt](https://user-images.githubusercontent.com/43297289/111014831-a35a1680-8373-11eb-89ab-2eae9c5ca990.png)
 
-You will need to make changes to the project to give it a different name and package
-identifier (to prevent your application from clashing with others).  See the course 
-web page for instructions  
+iOS/Android game developed by Ellipsis-Studios for Cornell CS 4152 course.
+
+![ElipsisBlackLogo](https://user-images.githubusercontent.com/43297289/111014928-372be280-8374-11eb-80f7-ce5c6e6af3b5.png)
