@@ -97,9 +97,12 @@ void collisions::checkForCollision(const std::shared_ptr<StardustQueue>& queue) 
 
     for (size_t ii = 0; ii < queue->size(); ii++) {
         // This returns a reference
-        StardustModel* stardust1 = queue->get(ii);
+        auto stardustNode = queue->getStardustNode();
+        StardustModel* stardust1 = stardustNode->get(ii);
+//        StardustModel* stardust1 = queue->get(ii);
         for (size_t jj = ii+1; jj < queue->size(); jj++) {
-            StardustModel* stardust2 = queue->get(jj);
+            StardustModel* stardust2 = stardustNode->get(jj);
+//            StardustModel* stardust2 = queue->get(jj);
             if (stardust1 != nullptr && stardust2 != nullptr) {
                 Vec2 norm = stardust1->getPosition() - stardust2->getPosition();
                 float distance = norm.length();
@@ -182,7 +185,9 @@ void collisions::checkForCollision(cugl::Vec2 inputPos, const std::shared_ptr<St
 void collisions::checkInBounds(const std::shared_ptr<StardustQueue>& queue, const cugl::Size bounds) {
     for (size_t ii = 0; ii < queue->size(); ii++) {
         // This returns a reference
-        StardustModel* stardust = queue->get(ii);
+        auto stardustNode = queue->getStardustNode();
+        StardustModel* stardust = stardustNode->get(ii);
+//        StardustModel* stardust = queue->get(ii);
         if (stardust != nullptr) {
             Vec2 stardustPos = stardust->getPosition();
             Vec2 center = Vec2(bounds.width/2, bounds.height/2);
