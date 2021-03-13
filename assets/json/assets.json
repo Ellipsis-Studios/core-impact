@@ -1,6 +1,6 @@
 {
-	"textures": {
-		"ship": {
+    "textures": {
+        "ship": {
             "file":   "textures/ships.png"
         },
         "space": {
@@ -14,14 +14,27 @@
         },
         "planet2": {
             "file":   "textures/planet2.png"
+        },
+        "core": {
+            "file":   "textures/coreBW.png"
+        },
+        "inner": {
+            "file":   "textures/innerRingBW.png"
+        },
+        "outerLocked": {
+            "file":   "textures/lockedOuterRingBW.png"
+        },
+        "outerUnlocked": {
+            "file":   "textures/unlockedOuterRingBW.png"
         }
-	},
-	"fonts": {
-		"felt32": {
-			"file":     "fonts/MarkerFelt.ttf",
-			"size":     32
-		}
-	},
+        
+    },
+    "fonts": {
+        "felt32": {
+            "file":     "fonts/MarkerFelt.ttf",
+            "size":     32
+        }
+    },
     "scene2s" : {
         "game": {
             "type"      : "Node",

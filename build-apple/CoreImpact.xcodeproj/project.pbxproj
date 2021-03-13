@@ -18,7 +18,6 @@
 		3D563B9F25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D563B9C25F0AF01006641B1 /* CIPlanetModel.cpp */; };
 		3D563BF825F6D5B7006641B1 /* CIPlanetNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D563BF725F6D5B7006641B1 /* CIPlanetNode.cpp */; };
 		3D563BF925F6D5B7006641B1 /* CIPlanetNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D563BF725F6D5B7006641B1 /* CIPlanetNode.cpp */; };
-		3D563BFA25F6D5B7006641B1 /* CIPlanetNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D563BF725F6D5B7006641B1 /* CIPlanetNode.cpp */; };
 		CA68E30B25F53BC200B4617D /* CICollisionController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA68E30625F53BC200B4617D /* CICollisionController.cpp */; };
 		CA68E30C25F53BC200B4617D /* CICollisionController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA68E30625F53BC200B4617D /* CICollisionController.cpp */; };
 		CA68E30D25F53BC200B4617D /* CICollisionController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA68E30625F53BC200B4617D /* CICollisionController.cpp */; };
@@ -392,9 +391,9 @@
 				EBFA528521FA5AAB00CCC2C5 /* CILoadingScene.h */,
 				EB2BE9B41D74952A002FE78B /* main.cpp */,
 				3D563B9C25F0AF01006641B1 /* CIPlanetModel.cpp */,
-				3D563BF325F6D58C006641B1 /* CIPlanetNode.h */,
-				3D563BF725F6D5B7006641B1 /* CIPlanetNode.cpp */,
 				3D563B9825F0AEE8006641B1 /* CIPlanetModel.h */,
+				3D563BF725F6D5B7006641B1 /* CIPlanetNode.cpp */,
+				3D563BF325F6D58C006641B1 /* CIPlanetNode.h */,
 				CA9A2DCC25EDBD6A0048D02F /* CIStardustModel.cpp */,
 				CA9A2DC725EDBD6A0048D02F /* CIStardustModel.h */,
 				0A5AFAD625F0B5320003669C /* CIStardustNode.cpp */,

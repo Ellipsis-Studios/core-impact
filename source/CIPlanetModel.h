@@ -48,6 +48,10 @@ public:
     const CIColor::Value getColor() const {
         return _color;
     }
+    
+    void setColor(CIColor::Value value) {
+        _color = value;
+    }
 
     /**
      * Returns the number of layers this planet has

@@ -58,8 +58,13 @@ void collisions::checkForCollision(const std::shared_ptr<PlanetModel>& planet, c
 
             // If this normal is too small, there was a collision
             if (distance < impactDistance) {
+                // handle new layer without colors
+                if (planet->getColor() == CIColor::grey) {
+                    planet->setColor(stardust->getColor());
+                    planet->increaseLayerSize();
+                }
                 // We add a layer due to own colored stardust
-                if (stardust->getColor() == planet->getColor()) {
+                else if (stardust->getColor() == planet->getColor()) {
                     planet->increaseLayerSize();
                 }
                 // We remove a layer due to different colored stardust
