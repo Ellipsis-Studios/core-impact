@@ -13,6 +13,8 @@
 #ifndef __CI_INPUT_H__
 #define __CI_INPUT_H__
 #include <cugl/cugl.h>
+//#include "CICollisionController.h"
+
 
 /**
  * This class represents player input
@@ -40,9 +42,14 @@ private:
     /** Position and velocity of the finger in the previous frame */
     cugl::Vec2 _prevPosition;
     cugl::Vec2 _prevVelocity;
+    
 
     /** Flag that tells whether the user's finger is currently down or not */
     bool _fingerDown;
+    cugl::Timestamp _fingerDownTimestamp;
+    bool _didPressPlanet;
+    bool _didLongPress;
+    
     
     /** Pointers to the touchscreen and mouse */
     cugl::Touchscreen* _touch;
@@ -185,6 +192,20 @@ public:
         return _fingerDown;
     }
     
+    void setPressedPlanet(bool p) {
+        _didPressPlanet = p;
+    }
+    
+    bool pressedPlanet() {
+        return _didPressPlanet;
+    }
+    
+    bool getDidLongPress() {
+        return _didLongPress;
+    }
+    void setDidLongPress(bool p) {
+        _didLongPress = p;
+    }
     
 #pragma mark -
 #pragma mark Touch Callbacks

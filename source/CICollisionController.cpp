@@ -181,6 +181,54 @@ void collisions::checkForCollision(cugl::Vec2 inputPos, const std::shared_ptr<St
     }
 }
 
+
+//void collisions::checkForCollision(bool isLockLayer, cugl::Vec2 inputPos, const std::shared_ptr<PlanetModel>& planet) {
+//
+//    float dradius = planet->getRadius();
+//    Vec2 norm = inputPos - planet->getPosition();
+//    float distance = norm.length();
+//    float impactDistance = dradius;
+//    norm.normalize();
+//    if (distance < impactDistance) {
+//        // lock in planet layer
+////        planet->lockInLayer();
+//
+//        // temp testing
+//        planet->setColor(CIColor::grey);
+//
+//    }
+//
+//}
+
+bool collisions::checkForCollision(bool isLockLayer, cugl::Vec2 inputPos, const std::shared_ptr<PlanetModel>& planet) {
+    if (isLockLayer) {
+        float dradius = planet->getRadius();
+        Vec2 norm = inputPos - planet->getPosition();
+        float distance = norm.length();
+        float impactDistance = dradius;
+        norm.normalize();
+        if (distance < impactDistance) {
+            // lock in planet layer
+    //        planet->lockInLayer();
+
+            // temp testing
+            planet->setColor(CIColor::grey);
+            
+            auto cl = planet->getColor();
+            CUAssertLog((cl == CIColor::grey), "Invalid color for planet...");
+        }
+        return true; // temp. change later
+    } else {
+        float dradius = planet->getRadius();
+        Vec2 norm = inputPos - planet->getPosition();
+        float distance = norm.length();
+        float impactDistance = dradius;
+        norm.normalize();
+        return (distance < impactDistance);
+    }
+}
+
+
 /**
  * Destroy any stardust that leaves the bounds
  *

@@ -153,8 +153,19 @@ void GameScene::update(float timestep) {
         _stardustContainer->addStardust(dimen);
     }
     
-    _massHUD->setText(to_string(_planet->getMass()));
+//    _massHUD->setText(to_string(_planet->getMass()));
+    _massHUD->setText(to_string(_planet->getMass()) + "; " + CIColor::getStringValue(_planet->getColor()));
 
+    
+    if (_input.getDidLongPress()) {
+        // lock in
+        collisions::checkForCollision(true, _input.getPosition(), _planet);
+        _input.setPressedPlanet(false);
+    } else if (_input.fingerDown()) {
+        bool isPressingPlanet = collisions::checkForCollision(false, _input.getPosition(), _planet);
+        _input.setPressedPlanet(isPressingPlanet);
+    }
+    
     collisions::checkForCollision(_planet, _stardustContainer);
     collisions::checkForCollision(_input.getPosition(), _stardustContainer);
     collisions::checkInBounds(_stardustContainer, dimen);

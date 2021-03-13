@@ -68,6 +68,37 @@ public:
     static Value getRandomColor() {
         return Value(rand() % 5); // pick out of first 5 colors
     }
+    
+    
+    // for debugging
+    static std::string getStringValue(Value v) {
+        std::string color;
+        switch(v)
+        {
+            case orange:
+                color = "orange";
+                break;
+            case yellow:
+                color = "yellow";
+                break;
+            case turquoise:
+                color = "turquoise";
+                break;
+            case cyan:
+                color = "cyan";
+                break;
+            case blue:
+                color = "blue";
+                break;
+            case grey:
+                color = "grey";
+                break;
+            case lightgrey:
+                color = "lightgrey";
+                break;
+        }
+        return color;
+    }
 };
 
 #endif /* __CI_COLOR_H__ */

@@ -33,7 +33,9 @@ using namespace cugl;
  * object. This makes it safe to use this class without a pointer.
  */
 InputController::InputController() :
-_fingerDown(false)
+_fingerDown(false),
+_didPressPlanet(false),
+_didLongPress(false)
 {
     
 }
@@ -123,9 +125,19 @@ void InputController::update(float dt) {
 #ifdef CU_MOBILE
     // TODO: use touchDown() with finger id
 #endif
+    _didLongPress = false;
+    
     if (_fingerDown) {
         _prevPosition = _position;
         _prevVelocity = _velocity;
+        if (_didPressPlanet) {
+            auto ctime = cugl::Timestamp();
+            if (ctime.ellapsedMillis(_fingerDownTimestamp) >= 3000) {
+                // more than 3 seconds
+                _didLongPress = true;
+            }
+
+        }
     }
 }
 
@@ -225,6 +237,9 @@ void InputController::touchEndedCB(const TouchEvent& event, bool focus) {
 void InputController::mousePressedCB(const MouseEvent& event, Uint8 clicks, bool focus) {
     _fingerDown = true;
     _position = touch2Screen(event.position);
+    
+    _fingerDownTimestamp.mark();
+    _didLongPress = false;
 }
 
 /**
@@ -251,4 +266,6 @@ void InputController::mouseReleasedCB(const MouseEvent& event, Uint8 clicks, boo
     _fingerDown = false;
     _position = Vec2::ZERO;
     _velocity = Vec2::ZERO;
+    
+    _didLongPress = false;
 }

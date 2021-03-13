@@ -66,7 +66,17 @@ void checkForCollision(const std::shared_ptr<StardustQueue>& queue);
  *  @param queue		The stardust queue
  */
 void checkForCollision(cugl::Vec2 inputPos, const std::shared_ptr<StardustQueue>& queue);
+    
+/**
+ *  Handles collisions between an input and planet.
+ *
+ *  @param inputPos     The input position of the finger
+ *  @param planet     The planet in the candidate collision
+ */
+bool checkForCollision(bool isLockLayer, cugl::Vec2 inputPos, const std::shared_ptr<PlanetModel>& planet);
 
+//bool checkForCollision(cugl::Vec2 inputPos, const std::shared_ptr<PlanetModel>& planet);
+    
 /**
  * Destroy any stardust that leaves the bounds
  *
