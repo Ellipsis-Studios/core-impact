@@ -174,15 +174,8 @@ void GameScene::updateDraggedStardust() {
         }
         // this is structured like this to update a recently dragged stardust
         if (_draggedStardust != NULL) {
-            float sdradius = collisions::getStardustRadius(_stardustContainer);
-            Vec2 norm = _input.getPosition() - _draggedStardust->getPosition();
-            float distance = norm.length();
-            norm.normalize();
-            if (distance < sdradius) {
-                _draggedStardust->setVelocity(Vec2::ZERO);
-            } else {
-                _draggedStardust->setVelocity(norm * sqrt(distance));
-            }
+            float sdRadius = collisions::getStardustRadius(_stardustContainer);
+            collisions::moveDraggedStardust(_input.getPosition(), _draggedStardust, sdRadius);
         }
     } else if (!_input.fingerDown() && _draggedStardust != NULL) {
         // finger just released, flick dragged stardust
