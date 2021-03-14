@@ -38,11 +38,7 @@ using namespace cugl;
  */
 void collisions::checkForCollision(const std::shared_ptr<PlanetModel>& planet, const std::shared_ptr<StardustQueue>& queue) {
     // Get the stardust size from the texture
-    auto texture = queue->getTexture();
-    float dradius = 0;
-    if (texture != nullptr) {
-        dradius = std::max(texture->getWidth(),texture->getHeight())/2.0f;
-    }
+    float sdRadius = getStardustRadius(queue);
     
     for(size_t ii = 0; ii < queue->size(); ii++) {
         // This returns a reference
@@ -50,8 +46,8 @@ void collisions::checkForCollision(const std::shared_ptr<PlanetModel>& planet, c
         if (stardust != nullptr) {
             Vec2 norm = planet->getPosition() - stardust->getPosition();
             float distance = norm.length();
-//            float impactDistance = (planet->getRadius() + dradius);
-            float impactDistance = 32+dradius; //placeholder until we increase planet size visually
+            //TODO update with planet radius
+            float impactDistance = 32+sdRadius;
             norm.normalize();
 
             // If this normal is too small, there was a collision
@@ -73,7 +69,6 @@ void collisions::checkForCollision(const std::shared_ptr<PlanetModel>& planet, c
             }
         }
     }
-
 }
 
 /**
@@ -85,13 +80,9 @@ void collisions::checkForCollision(const std::shared_ptr<PlanetModel>& planet, c
  *
  *  @param queue    The stardust queue
  */
-void collisions::checkForCollision(const std::shared_ptr<StardustQueue>& queue) {
+void collisions::checkForCollisions(const std::shared_ptr<StardustQueue>& queue) {
     // Get the stardust size from the texture
-    auto texture = queue->getTexture();
-    float dradius = 0;
-    if (texture != nullptr) {
-        dradius = std::max(texture->getWidth(), texture->getHeight()) / 2.0f;
-    }
+    float sdRadius = getStardustRadius(queue);
 
     for (size_t ii = 0; ii < queue->size(); ii++) {
         // This returns a reference
@@ -101,8 +92,8 @@ void collisions::checkForCollision(const std::shared_ptr<StardustQueue>& queue) 
             if (stardust1 != nullptr && stardust2 != nullptr) {
                 Vec2 norm = stardust1->getPosition() - stardust2->getPosition();
                 float distance = norm.length();
-                float impactDistance = 2*dradius;
-                norm.normalize();
+                float impactDistance = 1.8 * sdRadius;
+                norm.normalize(); 
 
                 // If this normal is too small, there was a collision
                 if (distance < impactDistance) {
@@ -131,41 +122,67 @@ void collisions::checkForCollision(const std::shared_ptr<StardustQueue>& queue) 
 }
 
 /**
- *  Handles collisions between an input and stardust.
+ * Finds the closest stardust that collides with the input position
  *
- *  Moves the stardust to follow the input
- *
- *  @param inputPos     The input position of the finger
- *  @param queue        The stardust queue
+ * @param inputPos     The input position of the finger
+ * @param queue        The stardust queue
  */
-void collisions::checkForCollision(cugl::Vec2 inputPos, const std::shared_ptr<StardustQueue>& queue) {
-    // Get the stardust size from the texture
-    auto texture = queue->getTexture();
-    float dradius = 0;
-    if (texture != nullptr) {
-        dradius = std::max(texture->getWidth(), texture->getHeight()) / 2.0f;
-    }
+StardustModel* collisions::getNearestStardust(Vec2 inputPos, const std::shared_ptr<StardustQueue>& queue) {
+    float sdRadius = getStardustRadius(queue);
+    StardustModel* closest = NULL;
+    float closestDistance = 0;
 
     for (size_t ii = 0; ii < queue->size(); ii++) {
         // This returns a reference
         StardustModel* stardust = queue->get(ii);
         if (stardust != nullptr) {
-            Vec2 stardustPos = stardust->getPosition();
-            Vec2 norm = inputPos - stardustPos;
+            Vec2 norm = inputPos - stardust->getPosition();
             float distance = norm.length();
-            float impactDistance = dradius;
-            norm.normalize();
 
-            // If inputPos is inside stardust, don't move it
-            if (distance < impactDistance) {
-                stardust->setVelocity(Vec2::ZERO);
-            }
-            // If inputPos is just outside stardust, move it towards inputPos
-            else if (distance < impactDistance * 2) {
-                stardust->setVelocity(norm * 10);
+            // check of inputPos is near stardust
+            if (distance < sdRadius * 2) {
+                // check if this is first one touching or closer than existing closest
+                if (closest == NULL || distance < closestDistance) {
+                    closest = stardust;
+                    closestDistance = distance;
+                }
             }
         }
     }
+    return closest;
+}
+
+/**
+ * Move the given stardust towards the input position
+ *
+ * @param inputPos The position of the current input
+ * @param stardust The stardust to move
+ * @param sdRaduis The radius of the stardust
+ */
+void collisions::moveDraggedStardust(Vec2 inputPos, StardustModel* stardust, float sdRadius) {
+    Vec2 norm = inputPos - stardust->getPosition();
+    float distance = norm.length();
+    norm.normalize();
+    if (distance < sdRadius) {
+        stardust->setVelocity(Vec2::ZERO);
+    } else {
+        stardust->setVelocity(norm * sqrt(distance));
+    }
+}
+
+
+/**
+ * Get the radius of a stardust for use in collisions and physics
+ *
+ * @param queue The stardust queue
+ */
+float collisions::getStardustRadius(const std::shared_ptr<StardustQueue>& queue) {
+    auto texture = queue->getTexture();
+    float sdRadius = 0;
+    if (texture != nullptr) {
+        sdRadius = std::max(texture->getWidth(), texture->getHeight()) / 2.0f;
+    }
+    return sdRadius;
 }
 
 /**
@@ -174,7 +191,7 @@ void collisions::checkForCollision(cugl::Vec2 inputPos, const std::shared_ptr<St
  * @param queue   The stardust queue
  * @param bounds    The rectangular bounds of the playing field
  */
-void collisions::checkInBounds(const std::shared_ptr<StardustQueue>& queue, const cugl::Size bounds) {
+void collisions::checkInBounds(const std::shared_ptr<StardustQueue>& queue, const Size bounds) {
     for (size_t ii = 0; ii < queue->size(); ii++) {
         // This returns a reference
         StardustModel* stardust = queue->get(ii);

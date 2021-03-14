@@ -237,6 +237,26 @@ public:
      * @param focus    Whether the listener currently has focus
      */
     void mouseReleasedCB(const cugl::MouseEvent& event, Uint8 clicks, bool focus);
+    
+    /**
+     * Process the start of a touch or click
+     *
+     * @param pos The screen coordinates of the touch or click
+     */
+    void processBegan(cugl::Vec2 pos);
+    
+    /**
+     * Process movement during a touch or click
+     *
+     * @param pos The screen coordinates of the touch or click
+     * @param prev The screen coordinates of the previous touch or click
+     */
+    void processMoved(cugl::Vec2 pos, cugl::Vec2 prev);
+    
+    /**
+     * Process the end of a touch or click
+     */
+    void processEnded();
 };
 
 #endif /* __CI_INPUT_H__ */

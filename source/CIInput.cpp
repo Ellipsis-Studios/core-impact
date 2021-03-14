@@ -79,6 +79,7 @@ bool InputController::init(const Rect bounds) {
     _sbounds = bounds;
     _tbounds = Application::get()->getDisplayBounds();
     clearTouchInstance(_touchInstance);
+    clear();
     
 // Only process keyboard on desktop
 #ifndef CU_TOUCH_SCREEN
@@ -181,8 +182,7 @@ void InputController::touchBeganCB(const TouchEvent& event, bool focus) {
         _touchInstance.timestamp.mark();
         _touchInstance.touchids.insert(event.touch);
 
-        _fingerDown = true;
-        _position = touch2Screen(pos);
+        processBegan(pos);
     }
 }
 
@@ -195,9 +195,7 @@ void InputController::touchBeganCB(const TouchEvent& event, bool focus) {
  */
 void InputController::touchesMovedCB(const TouchEvent& event, const Vec2& previous, bool focus) {
     if (_touchInstance.touchids.find(event.touch) != _touchInstance.touchids.end()) {
-        Vec2 pos = event.position;
-        _velocity = touch2Screen(pos - previous);
-        _position = touch2Screen(pos);
+        processMoved(event.position, previous);
     }
 }
 
@@ -210,9 +208,7 @@ void InputController::touchesMovedCB(const TouchEvent& event, const Vec2& previo
 void InputController::touchEndedCB(const TouchEvent& event, bool focus) {
     if (_touchInstance.touchids.find(event.touch) != _touchInstance.touchids.end()) {
         _touchInstance.touchids.clear();
-        _fingerDown = false;
-        _position = Vec2::ZERO;
-        _velocity = Vec2::ZERO;
+        processEnded();
     }
 }
 
@@ -223,8 +219,7 @@ void InputController::touchEndedCB(const TouchEvent& event, bool focus) {
  * @param focus    Whether the listener currently has focus
  */
 void InputController::mousePressedCB(const MouseEvent& event, Uint8 clicks, bool focus) {
-    _fingerDown = true;
-    _position = touch2Screen(event.position);
+    processBegan(event.position);
 }
 
 /**
@@ -235,9 +230,7 @@ void InputController::mousePressedCB(const MouseEvent& event, Uint8 clicks, bool
  */
 void InputController::mouseMovedCB(const MouseEvent& event, const Vec2 previous, bool focus) {
     if (_fingerDown) {
-        Vec2 pos = event.position;
-        _velocity = touch2Screen(pos - previous);
-        _position = touch2Screen(pos);
+        processMoved(event.position, previous);
     }
 }
 
@@ -248,6 +241,35 @@ void InputController::mouseMovedCB(const MouseEvent& event, const Vec2 previous,
  * @param focus    Whether the listener currently has focus
  */
 void InputController::mouseReleasedCB(const MouseEvent& event, Uint8 clicks, bool focus) {
+    processEnded();
+}
+
+/**
+ * Process the start of a touch or click
+ *
+ * @param pos The screen coordinates of the touch or click
+ */
+void InputController::processBegan(cugl::Vec2 pos) {
+    _fingerDown = true;
+    _position = touch2Screen(pos);
+}
+
+/**
+ * Process movement during a touch or click
+ *
+ * @param pos The screen coordinates of the touch or click
+ * @param prev The screen coordinates of the previous touch or click
+ */
+void InputController::processMoved(cugl::Vec2 pos, cugl::Vec2 prev) {
+    Vec2 scenePos = touch2Screen(pos);
+    _velocity = scenePos - touch2Screen(prev);
+    _position = scenePos;
+}
+
+/**
+ * Process the end of a touch or click
+ */
+void InputController::processEnded() {
     _fingerDown = false;
     _position = Vec2::ZERO;
     _velocity = Vec2::ZERO;
