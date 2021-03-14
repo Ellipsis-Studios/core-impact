@@ -24,6 +24,7 @@
 		CA9A2DD125EDBD6A0048D02F /* CIStardustModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA9A2DCC25EDBD6A0048D02F /* CIStardustModel.cpp */; };
 		CA9A2DD225EDBD6A0048D02F /* CIStardustModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA9A2DCC25EDBD6A0048D02F /* CIStardustModel.cpp */; };
 		CA9A2DD325EDBD6A0048D02F /* CIStardustModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA9A2DCC25EDBD6A0048D02F /* CIStardustModel.cpp */; };
+		CADCA31225FE9AEE0048FCA1 /* CIPlanetNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D563BF725F6D5B7006641B1 /* CIPlanetNode.cpp */; };
 		EB0FF6172016EFB200517030 /* iOS.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB7454A71D74D846002FBAE6 /* iOS.xcassets */; };
 		EB0FF6182016EFB200517030 /* Landscape.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB7454A81D74D846002FBAE6 /* Landscape.storyboard */; };
 		EB0FF6192016EFB200517030 /* Portrait.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB7454A91D74D846002FBAE6 /* Portrait.storyboard */; };
@@ -580,6 +581,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EBFA529C21FA5D0C00CCC2C5 /* CIApp.cpp in Sources */,
+				CADCA31225FE9AEE0048FCA1 /* CIPlanetNode.cpp in Sources */,
 				EB0FF61D2016F06000517030 /* main.cpp in Sources */,
 				3D563B9F25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */,
 				CA9A2DD325EDBD6A0048D02F /* CIStardustModel.cpp in Sources */,
