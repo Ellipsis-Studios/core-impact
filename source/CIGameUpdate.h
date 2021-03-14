@@ -30,7 +30,7 @@ private:
     std::map<int, std::vector<StardustModel>> _stardust_sent;
     
     /** The planet of the player sending the update */
-    PlanetModel _planet;
+    std::shared_ptr<PlanetModel> _planet;
     
     /** The timestamp associated with this  */
     int _timestamp;
@@ -69,15 +69,12 @@ public:
      * @param planet                The planet of the player that sent the message
      * @param timestamp         The timestamp of the game update
      *
-     * @return true if the controller is initialized properly, false otherwise.
+     * @return true if the game update is initialized properly, false otherwise.
      */
-    bool init(std::string gameId, int playerId, std::map<int, std::vector<StardustModel>> stardustSent, PlanetModel planet, int timestamp);
+    bool init(std::string gameId, int playerId, std::map<int, std::vector<StardustModel>> stardustSent, const std::shared_ptr<PlanetModel> planet, int timestamp);
     
     /**
      * Returns a newly allocated game update.
-     *
-     * This method does NOT create a scene graph node for this stardust.  You
-     * must call setTextures for that.
      *
      * @param gameId                The game id of the current game
      * @param playerId            The id of the player who sent the game update
@@ -87,7 +84,7 @@ public:
      *
      * @return a newly allocated game update.
      */
-    static std::shared_ptr<GameUpdate> alloc(std::string gameId, int playerId, std::map<int, std::vector<StardustModel>> stardustSent, PlanetModel planet, int timestamp) {
+    static std::shared_ptr<GameUpdate> alloc(std::string gameId, int playerId, std::map<int, std::vector<StardustModel>> stardustSent, const std::shared_ptr<PlanetModel> planet, int timestamp) {
         std::shared_ptr<GameUpdate> result = std::make_shared<GameUpdate>();
         return (result->init(gameId, playerId, stardustSent, planet, timestamp) ? result : nullptr);
     }
@@ -121,14 +118,14 @@ public:
     /**
      * Returns the planet of the player who sent the game update.
      */
-    PlanetModel getPlanet() {
+    std::shared_ptr<PlanetModel> getPlanet() {
         return _planet;
     }
     
     /**
      * Sets the planet associated with this game update.
      */
-    void setPlanet(PlanetModel planet) {
+    void setPlanet(const std::shared_ptr<PlanetModel> planet) {
         _planet = planet;
     }
     
