@@ -1,12 +1,12 @@
 {
-	"textures": {
-		"logo": {
-			"file":      "textures/cugl-logo.png",
+    "textures": {
+        "logo": {
+            "file":      "textures/cugl-logo.png",
             "wrapS":     "clamp",
             "wrapT":     "clamp",
             "minfilter": "linear",
             "magfilter": "linear"
-		},
+        },
         "name": {
             "file":      "textures/cugl-name.png",
             "wrapS":     "clamp",
@@ -33,8 +33,20 @@
                 "leftcap"    : [0,   45,  24, 90],
                 "rightcap"   : [296, 45, 320, 90]
             }
+        },
+        "nebula": {
+            "file": "textures/splashArt/splashArtBackground.png"
+        },
+        "title": {
+            "file": "textures/splashArt/splashArtTitle.png"
+        },
+        "stardust": {
+            "file": "textures/splashArt/splashArtStardust.png"
+        },
+        "world": {
+            "file": "textures/splashArt/splashArtWorld.png"
         }
-	},
+    },
     "scene2s" : {
         "load" : {
             "type"      : "Solid",
@@ -42,23 +54,72 @@
                 "type" : "Anchored"
             },
             "data" : {
-                "color": [239,61,49,255]
+                "color": [11,0,1,255]
             },
             "children"  : {
-                "logo"  : {
+                "nebula": {
                     "type"   : "Image",
                     "format"    : {
                         "type" : "Anchored"
                     },
                     "data"   : {
-                        "texture"  : "logo",
-                        "anchor"   : [0.5,0.5],
+                        "texture"  : "nebula",
+                        "anchor"   : [0.5,1],
                         "scale"    : 0.75
                     },
                     "layout" : {
                         "x_anchor" : "center",
+                        "y_anchor" : "top"
+                    }
+                },
+                "title"  : {
+                    "type"   : "Image",
+                    "format"    : {
+                        "type" : "Anchored"
+                    },
+                    "data"   : {
+                        "texture"  : "title",
+                        "anchor"   : [0.5,0.5],
+                        "scale"    : 0.5
+                    },
+                    "layout" : {
+                        "x_anchor" : "center",
                         "y_anchor" : "middle",
-                        "y_offset" : 115,
+                        "y_offset" : 120,
+                        "absolute" : true
+                    },
+                    "children": {
+                        "stardust": {
+                            "type": "Image",
+                            "data"   : {
+                                "texture"  : "stardust",
+                                "anchor"   : [0.5,0.20],
+                                "scale"    : 1
+                            },
+                            "layout" : {
+                                "x_anchor" : "center",
+                                "y_anchor" : "middle",
+                                "x_offset" : -60,
+                                "y_offset" : 50,
+                                "absolute" : true
+                            }
+                        }
+                    }
+                },
+                "world"  : {
+                    "type"   : "Image",
+                    "format"    : {
+                        "type" : "Anchored"
+                    },
+                    "data"   : {
+                        "texture"  : "world",
+                        "anchor"   : [0.5,0.5],
+                        "scale"    : 0.5
+                    },
+                    "layout" : {
+                        "x_anchor" : "center",
+                        "y_anchor" : "bottom",
+                        "y_offset" : 5,
                         "absolute" : true
                     }
                 },
@@ -87,7 +148,7 @@
                         "visible"  : false,
                         "pushsize" : true,
                         "anchor"   : [0.5,0.5],
-                        "scale"    : 0.8
+                        "scale"    : 0.5
                     },
                     "children" : {
                         "up"       : {
@@ -100,7 +161,7 @@
                     "layout" : {
                         "x_anchor" : "center",
                         "y_anchor" : "middle",
-                        "y_offset" : -115,
+                        "y_offset" : -20,
                         "absolute" : true
                     }
                 },
