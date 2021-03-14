@@ -189,19 +189,14 @@
     <ClInclude Include="..\..\source\CIApp.h" />
     <ClInclude Include="..\..\source\CICollisionController.h" />
     <ClInclude Include="..\..\source\CIColor.h" />
-    <ClInclude Include="..\..\source\CIDotModel.h" />
-    <ClInclude Include="..\..\source\CIDotsNode.h" />
-    <ClInclude Include="..\..\source\CIDotsQueue.h" />
     <ClInclude Include="..\..\source\CIGameScene.h" />
     <ClInclude Include="..\..\source\CIInput.h" />
     <ClInclude Include="..\..\source\CILoadingScene.h" />
     <ClInclude Include="..\..\source\CIPlanetModel.h" />
     <ClInclude Include="..\..\source\CIPlanetNode.h" />
-    <ClInclude Include="..\..\source\CIShipModel.h" />
     <ClInclude Include="..\..\source\CIStardustModel.h" />
     <ClInclude Include="..\..\source\CIStardustNode.h" />
     <ClInclude Include="..\..\source\CIStardustQueue.h" />
-    <ClInclude Include="..\..\source\HelloApp.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>

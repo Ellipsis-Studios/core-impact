@@ -9,6 +9,7 @@
 //
 
 #include "CIStardustNode.h"
+#include "CIColor.h"
 
 void StardustNode::draw(const std::shared_ptr<cugl::SpriteBatch>& batch,
                       const cugl::Mat4& transform, cugl::Color4 tint) {
@@ -30,9 +31,11 @@ void StardustNode::draw(const std::shared_ptr<cugl::SpriteBatch>& batch,
             cugl::Mat4 stardustTransform;
             stardustTransform.scale(queue[idx].getRadius());
             stardustTransform.translate(queue[idx].getPosition().x, queue[idx].getPosition().y, 0);
-
-            // Use this information to draw.
-            batch->draw(_stardustQueue->getTexture(), origin, stardustTransform*transform);
+            stardustTransform.multiply(transform);
+            
+            // Handle stardust color 
+            const cugl::Color4f stardustColor = CIColor::getColor4(queue[idx].getColor());
+            batch->draw(_stardustQueue->getTexture(), stardustColor, origin, stardustTransform);    
         }
     }
     batch->setBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
