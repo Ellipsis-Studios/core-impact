@@ -172,23 +172,15 @@ void GameScene::updateDraggedStardust() {
         if (_draggedStardust == NULL) {
             _draggedStardust = collisions::getNearestStardust(_input.getPosition(), _stardustContainer);
         }
+        // this is structured like this to update a recently dragged stardust
         if (_draggedStardust != NULL) {
-            // this is structured like this to update a recently dragged stardust
-            auto texture = _stardustContainer->getTexture();
-            float dradius = 0;
-            if (texture != nullptr) {
-                dradius = std::max(texture->getWidth(), texture->getHeight()) / 2.0f;
-            }
-            
-            Vec2 stardustPos = _draggedStardust->getPosition();
-            Vec2 norm = _input.getPosition() - stardustPos;
+            float sdradius = collisions::getStardustRadius(_stardustContainer);
+            Vec2 norm = _input.getPosition() - _draggedStardust->getPosition();
             float distance = norm.length();
             norm.normalize();
-            if (distance < dradius) {
+            if (distance < sdradius) {
                 _draggedStardust->setVelocity(Vec2::ZERO);
-            }
-            // If inputPos is outside stardust, move it towards inputPos
-            else {
+            } else {
                 _draggedStardust->setVelocity(norm * sqrt(distance));
             }
         }
@@ -199,4 +191,3 @@ void GameScene::updateDraggedStardust() {
         _draggedStardust = NULL;
     }
 }
-

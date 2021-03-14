@@ -65,6 +65,14 @@ void checkForCollisions(const std::shared_ptr<StardustQueue>& queue);
 StardustModel* getNearestStardust(cugl::Vec2 inputPos, const std::shared_ptr<StardustQueue>& queue);
 
 /**
+ * Get the radius of a stardust for use in collisions and physics.
+ * Returns 0 if the stardust texture has not been set.
+ *
+ * @param queue The stardust queue
+ */
+float getStardustRadius(const std::shared_ptr<StardustQueue>& queue);
+
+/**
  * Destroy any stardust that leaves the bounds
  *
  * @param queue   The stardust queue
