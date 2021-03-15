@@ -13,6 +13,7 @@
 #define __CI_COLOR_H__
 #include <cugl/cugl.h>
 #include <random>
+#include <string>
 
 
 class CIColor {
@@ -65,6 +66,43 @@ public:
                 break;
         }
         
+        return color;
+    }
+
+    /**
+     * Get the string representation of CIColor Value
+     *
+     * @param CIColor Value
+     *
+     * @return string representation of the CIColor Value
+     */
+    static string getString(Value v) {
+        string color;
+        switch (v)
+        {
+        case orange:
+            color = "orange";
+            break;
+        case yellow:
+            color = "yellow";
+            break;
+        case turquoise:
+            color = "turquoise";
+            break;
+        case cyan:
+            color = "cyan";
+            break;
+        case blue:
+            color = "blue";
+            break;
+        case grey:
+            color = "grey";
+            break;
+        case lightgrey:
+            color = "lightgrey";
+            break;
+        }
+
         return color;
     }
 

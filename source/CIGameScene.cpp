@@ -149,7 +149,8 @@ void GameScene::update(float timestep) {
         _stardustContainer->addStardust(dimen);
     }
     
-    _massHUD->setText(to_string(_planet->getMass()));
+    _massHUD->setText(to_string(_planet->getMass()) + "; "
+        + CIColor::getString(_planet->getColor()));
 
     collisions::checkForCollision(_planet, _stardustContainer);
     collisions::checkForCollision(_input.getPosition(), _stardustContainer);
