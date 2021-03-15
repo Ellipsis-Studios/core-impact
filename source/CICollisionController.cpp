@@ -201,6 +201,17 @@ void collisions::checkInBounds(const std::shared_ptr<StardustQueue>& queue, cons
             Vec2 longest = Vec2(bounds.width, bounds.height) - center;
             Vec2 distance = (stardustPos - center);
             if (distance.length() > longest.length() + 50) {
+                
+                // set stardust's off screen location if it is not in bounds
+                if (distance.x < 0 && distance.y < 0) {
+                    stardust->setStardustLocation(StardustModel::Location::BOTTOM_LEFT);
+                } else if (distance.x > 0 && distance.y < 0) {
+                    stardust->setStardustLocation(StardustModel::Location::BOTTOM_RIGHT);
+                } else if (distance.x < 0 && distance.y > 0) {
+                    stardust->setStardustLocation(StardustModel::Location::TOP_LEFT);
+                } else if (distance.x > 0 && distance.y > 0) {
+                    stardust->setStardustLocation(StardustModel::Location::TOP_RIGHT);
+                }
                 stardust->destroy();
             }
         }

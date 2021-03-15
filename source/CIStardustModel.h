@@ -13,6 +13,18 @@
 #include "CIColor.h"
 
 class StardustModel {
+public:
+    /**
+     * Enum representing where the stardust is. Top left, top right, bottom left, and bottom right all represent off screen locations.
+     */
+    enum Location {
+        ON_SCREEN,
+        TOP_LEFT,
+        TOP_RIGHT,
+        BOTTOM_LEFT,
+        BOTTOM_RIGHT,
+    };
+    
 private:
     /** Color code of this stardust */
     CIColor::Value _color;
@@ -22,6 +34,9 @@ private:
     float _radius;
     /** Mass/weight of the stardust. Used in collisions and physics. */
     float _mass;
+    
+    /** The location of the stardust */
+    Location _stardust_location;
 
 protected:
     /** Position of the stardust in world space */
@@ -112,6 +127,24 @@ public:
     //cugl::Color4f getColor4f() {
 
     //}
+    
+    /**
+     * Returns the location of the stardust
+     *
+     * @return the stardust's location
+     */
+    Location getStardustLocation() {
+        return _stardust_location;
+    }
+    
+    /**
+     * Sets the location of the stardust
+     *
+     * @param location      the stardust's location
+     */
+    void setStardustLocation(Location location) {
+        _stardust_location = location;
+    }
 
 #pragma mark Constructors
     /**
