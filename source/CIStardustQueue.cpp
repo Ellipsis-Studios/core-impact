@@ -8,6 +8,7 @@
 //  Copyright © 2021 Game Design Initiative at Cornell. All rights reserved.
 //
 #include "CIStardustQueue.h"
+#include "CIColor.h"
 
 using namespace cugl;
 
@@ -73,8 +74,11 @@ void StardustQueue::addStardust(const Size bounds) {
     dir.normalize();
     dir.x *= (rand() % 3)+2;
     dir.y *= (rand() % 3)+2;
+    
     _qtail = ((_qtail + 1) % _queue.size());
-    _queue[_qtail].init(pos, dir, CIColor::blue);
+
+    // TODO: adding dot queues based on an upcoming algorithm
+    _queue[_qtail].init(pos, dir, CIColor::getRandomColor());
     _qsize++;
 }
 

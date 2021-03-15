@@ -71,9 +71,7 @@ public:
      *
      * @param value the velocity of this stardust
      */
-    void setVelocity(cugl::Vec2 value) {
-        _velocity = value;
-    }
+    void setVelocity(cugl::Vec2 value);
     
     /**
      * Returns the mass of the stardust.
@@ -105,7 +103,16 @@ public:
     CIColor::Value getColor() {
         return _color;
     }
-    
+
+    ///**
+    // * Returns the color4f of the stardust
+    // * 
+    // * @return the stardust's color in Color4f
+    // */
+    //cugl::Color4f getColor4f() {
+
+    //}
+
 #pragma mark Constructors
     /**
      * Creates a new stardust at the origin.
