@@ -115,7 +115,26 @@ void GameUpdateManager::sendUpdate(const std::shared_ptr<PlanetModel> planet, co
  * @param bounds                    The bounds of the screen
  */
 void GameUpdateManager::processGameUpdate(std::shared_ptr<StardustQueue> stardustQueue, cugl::Size bounds) {
+    if (_game_updates_to_process.empty()) {
+        return;
+    }
     
+    for (size_t ii = 0; ii < _game_updates_to_process.size(); ii++) {
+        std::shared_ptr<GameUpdate> gameUpdate = _game_updates_to_process[ii];
+        std::map<int, std::vector<StardustModel>> stardustSent = gameUpdate->getStardustSent();
+        
+        if (stardustSent.count(PLAYER_ID) > 0) {
+            std::vector<StardustModel> stardustVector = stardustSent[PLAYER_ID];
+            for (size_t jj = 0; jj < stardustVector.size(); jj++) {
+                // TODO: add stardust in correct location
+                stardustQueue->addStardust(bounds);
+            }
+        }
+    }
+    
+    // TODO: update other player's planet displays
+    
+    _game_updates_to_process.clear();
 }
 
 
