@@ -10,8 +10,8 @@
 //  Copyright © 2021 Game Design Initiative at Cornell. All rights reserved.
 //
 
-#ifndef CIGameUpdateManager_h
-#define CIGameUpdateManager_h
+#ifndef __CI_GAME_UPDATE_MANAGER_H__
+#define __CI_GAME_UPDATE_MANAGER_H__
 
 #include <vector>
 #include <cugl/cugl.h>
@@ -89,4 +89,4 @@ public:
     void processGameUpdate(std::shared_ptr<StardustQueue> stardustQueue, cugl::Size bounds);
 };
 
-#endif /* CIGameUpdateManager_h */
+#endif /* __CI_GAME_UPDATE_MANAGER_H__ */
