@@ -68,7 +68,6 @@ void GameUpdateManager::sendUpdate(const std::shared_ptr<PlanetModel> planet, co
     
     std::vector<std::shared_ptr<StardustModel>> stardustToSendQueue = stardustQueue->getSendQueue();
     for (size_t ii = 0; ii < stardustToSendQueue.size(); ii++) {
-        // This returns a reference
         std::shared_ptr<StardustModel> stardust = stardustToSendQueue[ii];
 
         // only send stardust that is off the screen currently
@@ -91,12 +90,10 @@ void GameUpdateManager::sendUpdate(const std::shared_ptr<PlanetModel> planet, co
                 stardustVector.emplace_back(*stardust);
                 stardustToSend[playerIdToSend] = stardustVector;
             }
-            
-            // set location back to on screen so the stardust does not get sent in multiple updates
-            stardust->setStardustLocation(StardustModel::Location::ON_SCREEN);
         }
     }
     
+    // clear the send queue
     stardustQueue->clearSendQueue();
     
     // always send a game update initially
@@ -110,7 +107,7 @@ void GameUpdateManager::sendUpdate(const std::shared_ptr<PlanetModel> planet, co
     if (stardustToSend.empty() && planet->getNumLayers() == _prev_game_update_sent->getPlanet()->getNumLayers()) {
         return;
     }
-    
+
     std::shared_ptr<GameUpdate> gameUpdate = GameUpdate::alloc(GAME_ID, PLAYER_ID, stardustToSend, planet, _prev_game_update_sent->getTimestamp() + 1);
     _prev_game_update_sent = gameUpdate;
 }
