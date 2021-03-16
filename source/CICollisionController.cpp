@@ -177,33 +177,29 @@ void collisions::checkForCollision(cugl::Vec2 inputPos, const std::shared_ptr<St
 	}
 }
 
-bool collisions::checkForCollision(bool isLockLayer, cugl::Vec2 inputPos, const std::shared_ptr<PlanetModel>& planet) {
-	if (isLockLayer) {
-		// check input position then start lock-in
-		float dradius = planet->getRadius();
-		Vec2 norm = inputPos - planet->getPosition();
-		float distance = norm.length();
-		float impactDistance = dradius;
-		norm.normalize();
-		if (distance < impactDistance) {
-			// lock in planet layer
-			// planet->lockInLayer();
+/**
+ *  Checks for collisions between an input and planet.
+ *
+ *  Handles locking outer layer of planet in case of 3 second press on the planet.
+ *
+ *  @param inputPos     The input position of the finger
+ *  @param planet     The planet in the candidate collision
+ * 	@param isLockInReady True if conditions for locking-in layer is satisfied else false
+ *
+ *  @return True if collision occurs between input and planet else false
+ */
+bool collisions::checkForCollision(cugl::Vec2 inputPos, const std::shared_ptr<PlanetModel>& planet, bool isLockInReady) {
+	float dradius = planet->getRadius();
+	Vec2 norm = inputPos - planet->getPosition();
+	float distance = norm.length();
+	float impactDistance = dradius;
+	norm.normalize();
 
-			// TEMP for debug testing
-			planet->setColor(CIColor::grey);
-			auto cl = planet->getColor();
-			CUAssertLog((cl == CIColor::grey), "Invalid color for planet...");
-		}
-		return true; // TEMP for debug testing
+	if (isLockInReady && (distance < impactDistance)) { // trigger lock-in if collision is present
+		planet->lockInLayer();
+		return false; // set to false for lock-in
 	}
-	else { // check if input is on the planet
-		float dradius = planet->getRadius();
-		Vec2 norm = inputPos - planet->getPosition();
-		float distance = norm.length();
-		float impactDistance = dradius;
-		norm.normalize();
-		return (distance < impactDistance);
-	}
+	return (distance < impactDistance);
 }
 
 /**

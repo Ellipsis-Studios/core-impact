@@ -149,16 +149,11 @@ void GameScene::update(float timestep) {
 
 	_massHUD->setText(to_string(_planet->getMass()) + "; " + CIColor::getStringValue(_planet->getColor()));
 
-	if (_input.getDidLongPress()) {
-		// lock in
-		collisions::checkForCollision(true, _input.getPosition(), _planet);
-		_input.setPressedPlanet(false);
-	}
-	else if (_input.fingerDown()) {
-		bool isPressingPlanet = collisions::checkForCollision(false, _input.getPosition(), _planet);
+	if (_input.fingerDown()) { // handles triggering lock-in
+		bool isLockInReady = _input.getDidLongPress(); // 3 second press on planet
+		bool isPressingPlanet = collisions::checkForCollision(_input.getPosition(), _planet, isLockInReady);
 		_input.setPressedPlanet(isPressingPlanet);
 	}
-
 	collisions::checkForCollision(_planet, _stardustContainer);
 	collisions::checkForCollision(_input.getPosition(), _stardustContainer);
 	collisions::checkInBounds(_stardustContainer, dimen);

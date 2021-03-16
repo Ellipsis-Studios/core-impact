@@ -33,11 +33,10 @@ using namespace cugl;
  * object. This makes it safe to use this class without a pointer.
  */
 InputController::InputController() :
-_fingerDown(false),
-_didPressPlanet(false),
-_didLongPress(false)
+	_fingerDown(false),
+	_didPressPlanet(false),
+	_didLongPress(false)
 {
-    
 }
 
 /**
@@ -48,19 +47,19 @@ _didLongPress(false)
  */
 void InputController::dispose() {
 #ifndef CU_TOUCH_SCREEN
-    if (_mouse == nullptr) {
-        return;
-    }
-    _mouse->removePressListener(LISTENER_KEY);
-    _mouse->removeMotionListener(LISTENER_KEY);
-    _mouse->removeReleaseListener(LISTENER_KEY);
+	if (_mouse == nullptr) {
+		return;
+	}
+	_mouse->removePressListener(LISTENER_KEY);
+	_mouse->removeMotionListener(LISTENER_KEY);
+	_mouse->removeReleaseListener(LISTENER_KEY);
 #else
-    if (_touch == nullptr) {
-        return;
-    }
-    _touch->removeBeginListener(LISTENER_KEY);
-    _touch->removeMotionListener(LISTENER_KEY);
-    _touch->removeEndListener(LISTENER_KEY);
+	if (_touch == nullptr) {
+		return;
+	}
+	_touch->removeBeginListener(LISTENER_KEY);
+	_touch->removeMotionListener(LISTENER_KEY);
+	_touch->removeEndListener(LISTENER_KEY);
 #endif
 }
 
@@ -72,43 +71,43 @@ void InputController::dispose() {
  * the listeners.  You must call start() do that.
  *
  * @param bounds    the scene graph bounds
- * 
+ *
  * @return true if the controller was initialized successfully
  */
 bool InputController::init(const Rect bounds) {
-    bool success = true;
-    
-    _sbounds = bounds;
-    _tbounds = Application::get()->getDisplayBounds();
-    clearTouchInstance(_touchInstance);
-    
-// Only process keyboard on desktop
+	bool success = true;
+
+	_sbounds = bounds;
+	_tbounds = Application::get()->getDisplayBounds();
+	clearTouchInstance(_touchInstance);
+
+	// Only process keyboard on desktop
 #ifndef CU_TOUCH_SCREEN
-    _mouse = Input::get<Mouse>();
-    _mouse->setPointerAwareness(Mouse::PointerAwareness::ALWAYS);
-    _mouse->addPressListener(LISTENER_KEY, [=](const MouseEvent& event, Uint8 clicks, bool focus) {
-        this->mousePressedCB(event, clicks, focus);
-    });
-    _mouse->addMotionListener(LISTENER_KEY, [=](const MouseEvent& event, const Vec2 previous, bool focus) {
-        this->mouseMovedCB(event, previous, focus);
-    });
-    _mouse->addReleaseListener(LISTENER_KEY, [=](const MouseEvent& event, Uint8 clicks, bool focus) {
-        this->mouseReleasedCB(event, clicks, focus);
-    });
+	_mouse = Input::get<Mouse>();
+	_mouse->setPointerAwareness(Mouse::PointerAwareness::ALWAYS);
+	_mouse->addPressListener(LISTENER_KEY, [=](const MouseEvent& event, Uint8 clicks, bool focus) {
+		this->mousePressedCB(event, clicks, focus);
+		});
+	_mouse->addMotionListener(LISTENER_KEY, [=](const MouseEvent& event, const Vec2 previous, bool focus) {
+		this->mouseMovedCB(event, previous, focus);
+		});
+	_mouse->addReleaseListener(LISTENER_KEY, [=](const MouseEvent& event, Uint8 clicks, bool focus) {
+		this->mouseReleasedCB(event, clicks, focus);
+		});
 #else
-    _touch = Input::get<Touchscreen>();
-    _touch->addBeginListener(LISTENER_KEY,[=](const TouchEvent& event, bool focus) {
-        this->touchBeganCB(event,focus);
-    });
-    _touch->addMotionListener(LISTENER_KEY,[=](const TouchEvent& event, const Vec2& previous, bool focus) {
-        this->touchesMovedCB(event, previous, focus);
-    });
-    _touch->addEndListener(LISTENER_KEY,[=](const TouchEvent& event, bool focus) {
-        this->touchEndedCB(event,focus);
-    });
+	_touch = Input::get<Touchscreen>();
+	_touch->addBeginListener(LISTENER_KEY, [=](const TouchEvent& event, bool focus) {
+		this->touchBeganCB(event, focus);
+		});
+	_touch->addMotionListener(LISTENER_KEY, [=](const TouchEvent& event, const Vec2& previous, bool focus) {
+		this->touchesMovedCB(event, previous, focus);
+		});
+	_touch->addEndListener(LISTENER_KEY, [=](const TouchEvent& event, bool focus) {
+		this->touchEndedCB(event, focus);
+		});
 #endif
-    
-    return success;
+
+	return success;
 }
 
 /**
@@ -123,40 +122,38 @@ bool InputController::init(const Rect bounds) {
  */
 void InputController::update(float dt) {
 #ifdef CU_MOBILE
-    // TODO: use touchDown() with finger id
+	// TODO: use touchDown() with finger id
 #endif
-    _didLongPress = false;
-    
-    if (_fingerDown) {
-        _prevPosition = _position;
-        _prevVelocity = _velocity;
-        if (_didPressPlanet) {
-            auto ctime = cugl::Timestamp();
-            if (ctime.ellapsedMillis(_fingerDownTimestamp) >= 3000) {
-                // more than 3 seconds
-                _didLongPress = true;
-            }
+	_didLongPress = false;
 
-        }
-    }
+	if (_fingerDown) {
+		_prevPosition = _position;
+		_prevVelocity = _velocity;
+		if (_didPressPlanet) { // handle pressing planet and triggering lock-in
+			auto ctime = cugl::Timestamp();
+			if (ctime.ellapsedMillis(_fingerDownTimestamp) >= 3000) { // more than 3 seconds
+				_didLongPress = true;
+			}
+		}
+	}
 }
 
 /**
  * Clears any buffered inputs so that we may start fresh.
  */
 void InputController::clear() {
-    _position = Vec2::ZERO;
-    _velocity = Vec2::ZERO;
-    _prevPosition = Vec2::ZERO;
-    _prevVelocity = Vec2::ZERO;
+	_position = Vec2::ZERO;
+	_velocity = Vec2::ZERO;
+	_prevPosition = Vec2::ZERO;
+	_prevVelocity = Vec2::ZERO;
 }
 
 /**
  * Populates the initial values of the input TouchInstance
  */
 void InputController::clearTouchInstance(TouchInstance& touchInstance) {
-    touchInstance.touchids.clear();
-    touchInstance.position = Vec2::ZERO;
+	touchInstance.touchids.clear();
+	touchInstance.position = Vec2::ZERO;
 }
 
 /**
@@ -169,12 +166,12 @@ void InputController::clearTouchInstance(TouchInstance& touchInstance) {
  * @return the scene location of a touch
  */
 Vec2 InputController::touch2Screen(const Vec2 pos) const {
-    float px = pos.x/_tbounds.size.width -_tbounds.origin.x;
-    float py = pos.y/_tbounds.size.height-_tbounds.origin.y;
-    Vec2 result;
-    result.x = px*_sbounds.size.width +_sbounds.origin.x;
-    result.y = (1-py)*_sbounds.size.height+_sbounds.origin.y;
-    return result;
+	float px = pos.x / _tbounds.size.width - _tbounds.origin.x;
+	float py = pos.y / _tbounds.size.height - _tbounds.origin.y;
+	Vec2 result;
+	result.x = px * _sbounds.size.width + _sbounds.origin.x;
+	result.y = (1 - py) * _sbounds.size.height + _sbounds.origin.y;
+	return result;
 }
 
 #pragma mark -
@@ -187,15 +184,15 @@ Vec2 InputController::touch2Screen(const Vec2 pos) const {
  *
  */
 void InputController::touchBeganCB(const TouchEvent& event, bool focus) {
-    Vec2 pos = event.position;
-    if (_touchInstance.touchids.empty()) {
-        _touchInstance.position = pos;
-        _touchInstance.timestamp.mark();
-        _touchInstance.touchids.insert(event.touch);
+	Vec2 pos = event.position;
+	if (_touchInstance.touchids.empty()) {
+		_touchInstance.position = pos;
+		_touchInstance.timestamp.mark();
+		_touchInstance.touchids.insert(event.touch);
 
-        _fingerDown = true;
-        _position = touch2Screen(pos);
-    }
+		_fingerDown = true;
+		_position = touch2Screen(pos);
+	}
 }
 
 /**
@@ -206,11 +203,11 @@ void InputController::touchBeganCB(const TouchEvent& event, bool focus) {
  * @param focus    Whether the listener currently has focus
  */
 void InputController::touchesMovedCB(const TouchEvent& event, const Vec2& previous, bool focus) {
-    if (_touchInstance.touchids.find(event.touch) != _touchInstance.touchids.end()) {
-        Vec2 pos = event.position;
-        _velocity = touch2Screen(pos - previous);
-        _position = touch2Screen(pos);
-    }
+	if (_touchInstance.touchids.find(event.touch) != _touchInstance.touchids.end()) {
+		Vec2 pos = event.position;
+		_velocity = touch2Screen(pos - previous);
+		_position = touch2Screen(pos);
+	}
 }
 
 /**
@@ -220,12 +217,12 @@ void InputController::touchesMovedCB(const TouchEvent& event, const Vec2& previo
  * @param focus    Whether the listener currently has focus
  */
 void InputController::touchEndedCB(const TouchEvent& event, bool focus) {
-    if (_touchInstance.touchids.find(event.touch) != _touchInstance.touchids.end()) {
-        _touchInstance.touchids.clear();
-        _fingerDown = false;
-        _position = Vec2::ZERO;
-        _velocity = Vec2::ZERO;
-    }
+	if (_touchInstance.touchids.find(event.touch) != _touchInstance.touchids.end()) {
+		_touchInstance.touchids.clear();
+		_fingerDown = false;
+		_position = Vec2::ZERO;
+		_velocity = Vec2::ZERO;
+	}
 }
 
 /**
@@ -235,11 +232,11 @@ void InputController::touchEndedCB(const TouchEvent& event, bool focus) {
  * @param focus    Whether the listener currently has focus
  */
 void InputController::mousePressedCB(const MouseEvent& event, Uint8 clicks, bool focus) {
-    _fingerDown = true;
-    _position = touch2Screen(event.position);
-    
-    _fingerDownTimestamp.mark();
-    _didLongPress = false;
+	_fingerDown = true;
+	_position = touch2Screen(event.position);
+
+	_fingerDownTimestamp.mark();
+	_didLongPress = false;
 }
 
 /**
@@ -249,11 +246,11 @@ void InputController::mousePressedCB(const MouseEvent& event, Uint8 clicks, bool
  * @param focus    Whether the listener currently has focus
  */
 void InputController::mouseMovedCB(const MouseEvent& event, const Vec2 previous, bool focus) {
-    if (_fingerDown) {
-        Vec2 pos = event.position;
-        _velocity = touch2Screen(pos - previous);
-        _position = touch2Screen(pos);
-    }
+	if (_fingerDown) {
+		Vec2 pos = event.position;
+		_velocity = touch2Screen(pos - previous);
+		_position = touch2Screen(pos);
+	}
 }
 
 /**
@@ -263,9 +260,9 @@ void InputController::mouseMovedCB(const MouseEvent& event, const Vec2 previous,
  * @param focus    Whether the listener currently has focus
  */
 void InputController::mouseReleasedCB(const MouseEvent& event, Uint8 clicks, bool focus) {
-    _fingerDown = false;
-    _position = Vec2::ZERO;
-    _velocity = Vec2::ZERO;
-    
-    _didLongPress = false;
+	_fingerDown = false;
+	_position = Vec2::ZERO;
+	_velocity = Vec2::ZERO;
+
+	_didLongPress = false;
 }

@@ -67,12 +67,17 @@ namespace collisions {
 	void checkForCollision(cugl::Vec2 inputPos, const std::shared_ptr<StardustQueue>& queue);
 
 	/**
-	 *  Handles collisions between an input and planet.
+	 *  Checks for collisions between an input and planet.
+	 *
+	 *  Handles locking outer layer of planet in case of 3 second press on the planet.
 	 *
 	 *  @param inputPos     The input position of the finger
 	 *  @param planet     The planet in the candidate collision
+	 * 	@param isLockInReady True if conditions for locking-in layer is satisfied else false
+	 *
+	 *  @return True if collision occurs between input and planet else false
 	 */
-	bool checkForCollision(bool isLockLayer, cugl::Vec2 inputPos, const std::shared_ptr<PlanetModel>& planet);
+	bool checkForCollision(cugl::Vec2 inputPos, const std::shared_ptr<PlanetModel>& planet, bool isLockInReady);
 
 	/**
 	 * Destroy any stardust that leaves the bounds
