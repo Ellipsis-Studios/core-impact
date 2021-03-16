@@ -118,15 +118,6 @@ public:
     CIColor::Value getColor() {
         return _color;
     }
-
-    ///**
-    // * Returns the color4f of the stardust
-    // * 
-    // * @return the stardust's color in Color4f
-    // */
-    //cugl::Color4f getColor4f() {
-
-    //}
     
     /**
      * Returns the location of the stardust
