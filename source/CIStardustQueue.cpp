@@ -33,6 +33,7 @@ void StardustQueue::dispose() {
     _qhead = 0;
     _qtail = -1;
     _qsize = 0;
+    _stardust_to_send.clear();
 }
     
 /**
@@ -100,15 +101,12 @@ StardustModel* StardustQueue::get(size_t pos) {
 }
 
 /**
- * Returns the (reference to the) stardust at the given position even if it is not valid.
+ * Adds a stardust to the queue of stardust to send to other players
  *
- * @param pos   The stardust position in the queue
- *
- * @return the (reference to the) stardust at the given position.
+ * @param stardust   The stardust that is to be sent to another player
  */
-StardustModel* StardustQueue::get_unsafe(size_t pos) {
-    size_t idx = ((_qhead+pos) % _queue.size());
-    return &_queue[idx];
+void StardustQueue::addToSendQueue(StardustModel* stardust) {
+    _stardust_to_send.push_back(std::make_shared<StardustModel>(*stardust));
 }
 
 /**

@@ -213,6 +213,7 @@ void collisions::checkInBounds(const std::shared_ptr<StardustQueue>& queue, cons
                     stardust->setStardustLocation(StardustModel::Location::TOP_RIGHT);
                 }
                 stardust->destroy();
+                queue->addToSendQueue(stardust);
             }
         }
     }
