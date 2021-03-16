@@ -77,64 +77,23 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
 	_nearSpace = _assets->get<scene2::SceneNode>("game_field_near");
 	_massHUD = std::dynamic_pointer_cast<scene2::Label>(_assets->get<scene2::SceneNode>("game_hud"));
 
-	addChild(scene);
-
 	// Create the planet model
 	_planet = PlanetModel::alloc(dimen.width / 2, dimen.height / 2, CIColor::blue, 3);
 	auto planetTexture = _assets->get<Texture>("planet1");
 	_planet->setTexture(planetTexture);
 
-	addChild(_planet->getPlanetNode());
-
-	// TEMP
-	std::shared_ptr<StardustNode> _stardustNode = StardustNode::alloc();
-
-	_stardustContainer = StardustQueue::alloc(MAX_STARDUST, _stardustNode);
+	_stardustContainer = StardustQueue::alloc(MAX_STARDUST);
 	_stardustContainer->setTexture(_assets->get<Texture>("photon"));
+	std::shared_ptr<StardustNode> _stardustNode = _stardustContainer->getStardustNode();
+
 	_stardustContainer->addStardust(dimen);
 	_stardustContainer->addStardust(dimen);
 	_stardustContainer->addStardust(dimen);
 	_stardustContainer->addStardust(dimen);
 
-	_stardustNode->setQueue(&(_stardustContainer->getQueue()));
-
-	//_stardustContainer = StardustQueue::alloc(MAX_STARDUST);
-	//_stardustContainer->setTexture(_assets->get<Texture>("photon"));
-
-	//std::shared_ptr<StardustNode> _stardustNode = _stardustContainer->getStardustNode();
-
-	//_stardustContainer->addStardust(dimen);
-	//_stardustContainer->addStardust(dimen);
-	//_stardustContainer->addStardust(dimen);
-	//_stardustContainer->addStardust(dimen);
-
-	//try {
-	//	addChild(scene);
-	//}
-	//catch (...) {
-	//	std::cout << "FAILED 1234" << "\n";
-
-	//	CULog("FAILED 1");
-	//}
-
-	// TEMP
-	try {
-		addChild(_stardustNode, 1);
-
-		//assert(false);
-	}
-	catch (...) {
-		std::cout << "FAILED 22222\n";
-		CULog("FAILED 2");
-	}
-
-	//try {
-	//	addChild(_planet->getPlanetNode());
-	//}
-	//catch (...) {
-	//	CUAssertLog(false, "FAILED 3");
-	//}
-
+	addChild(scene);
+	addChild(_stardustNode);
+	addChild(_planet->getPlanetNode());
 	return true;
 }
 
@@ -188,7 +147,6 @@ void GameScene::update(float timestep) {
 		_stardustContainer->addStardust(dimen);
 	}
 
-	//    _massHUD->setText(to_string(_planet->getMass()));
 	_massHUD->setText(to_string(_planet->getMass()) + "; " + CIColor::getStringValue(_planet->getColor()));
 
 	if (_input.getDidLongPress()) {

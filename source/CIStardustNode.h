@@ -20,14 +20,14 @@ private:
 
 	// QUEUE DATA STRUCTURES
 	/** Vector implementation of a circular queue. */
-	std::vector<StardustModel>* _queue;
+	std::vector<StardustModel> _queue;
 
 	/** Index of head element in the queue */
 	int _qhead;
 	/** Index of tail element in the queue */
 	int _qtail;
 	/** Number of elements currently in the queue */
-	size_t _qsize;
+	int _qsize;
 
 public:
 	/**
@@ -36,21 +36,12 @@ public:
 	 * To properly initialize the node, you should call the init
 	 * method.
 	 */
-	StardustNode() : SceneNode() {
-		_qhead = 0;
-		_qtail = -1;
-		_qsize = 0;
-	}
+	StardustNode() : SceneNode() {}
 
 	/**
 	 * Disposes the stardust node, releasing all resources.
 	 */
 	~StardustNode() { dispose(); }
-
-	/**
-	 * Disposes the stardust node, releasing all resources.
-	 */
-	void dispose();
 
 	/**
 	 *  Returns a newly allocated (empty) StardustNode
@@ -59,26 +50,14 @@ public:
 	 *
 	 *  @return a newly allocated (empty) StardustNode
 	 */
-	static std::shared_ptr<StardustNode> alloc() { // std::vector<StardustModel>* q) {
+	static std::shared_ptr<StardustNode> alloc() {
 		std::shared_ptr<StardustNode> node = std::make_shared<StardustNode>();
 		return (node->init() ? node : nullptr);
 	}
 
 	/**
-	 *  Initialies a new (empty) StardustNode.
-	 *
-	 *  @param max  The maximum number of stardust to support
-	 *
-	 *  @return true if initialization is successful
+	 * Draws the stardusts to the game scene
 	 */
-	bool init() { //std::vector<StardustModel>* q) {
-		//_queue = q;
-		_qhead = 0;
-		_qtail = -1;
-		_qsize = 0;
-		return true;
-	}
-
 	void draw(const std::shared_ptr<cugl::SpriteBatch>& batch,
 		const cugl::Mat4& transform, cugl::Color4 tint) override;
 
@@ -94,6 +73,57 @@ public:
 	StardustModel* get(size_t pos);
 
 	/**
+	 * Returns the queue of stardust
+	 *
+	 * @return the queue of stardust
+	 */
+	std::vector<StardustModel> getQueue() const {
+		return _queue;
+	}
+
+	/**
+	 * Resizes the queue of stardust
+	 */
+	void resizeQueue(size_t max) {
+		_queue.resize(max);
+	}
+
+	/**
+	 * Returns the size of the queue of stardust
+	 */
+	size_t getQueueSize() const {
+		return _queue.size();
+	}
+
+	/**
+	 * Sets the _qhead value
+	 */
+	void setQHead(int ind) {
+		_qhead = ind;
+	}
+
+	/**
+	 * Sets the _qtail value
+	 */
+	void setQTail(int ind) {
+		_qtail = ind;
+	}
+
+	/**
+	 * Sets the _qsize value
+	 */
+	void setQSize(int s) {
+		_qsize = s;
+	}
+
+	/**
+	 * Clears the queue of stardust
+	 */
+	void clearQueue() {
+		_queue.clear();
+	}
+
+	/**
 	 * Returns the image for a single stardust; reused by all stardust.
 	 *
 	 * This value should be loaded by the GameMode and set there. However, we
@@ -101,7 +131,7 @@ public:
 	 *
 	 * @return the image for a single stardust; reused by all stardust.
 	 */
-	const std::shared_ptr<cugl::Texture>& getTexture() const {
+	std::shared_ptr<cugl::Texture> getTexture() const {
 		return _texture;
 	}
 
@@ -113,97 +143,45 @@ public:
 	 *
 	 * @param value the image for a single stardust; reused by all stardust.
 	 */
-	void setTexture(const std::shared_ptr<cugl::Texture>& value) {
-		_texture = value;
+	void setTexture(const std::shared_ptr<cugl::Texture>& texture) {
+		_texture = texture;
 	}
 
 	/**
-	 * Adds a stardust to the active queue.
-	 *
-	 * As all stardusts are predeclared, this involves moving the head and the tail,
-	 * and reseting the values of the object in place.  This is a simple implementation
-	 * of a memory pool. It works because we delete objects in the same order that
-	 * we allocate them.
-	 *
-	 * @param bounds the bounds of the game screen
+	 * Clears out the memory for the texture.
 	 */
-	void addStardust(const cugl::Size bounds);
-
-	/**
-	 * Returns the number of active stardust
-	 *
-	 * @return the number of active stardust
-	 */
-	size_t size() const {
-		return _qsize;
+	void clearTexture() {
+		_texture = nullptr;
 	}
 
 	/**
-	 * Sets the queue size of stardust
-	 *
-	 * @param integer value for queue size
+	 * Initializes a StardustModel at the given index in queue with the provided values.
 	 */
-	void setSize(size_t qsize) {
-		_qsize = qsize;
+	void initNewStardust(cugl::Vec2 position, cugl::Vec2 velocity, CIColor::Value c) {
+		_queue[_qtail].init(position, velocity, c);
 	}
 
 	/**
-	 * Returns the index of the first stardust
-	 *
-	 * @return the index of the first stardust
+	 * Returns the mass of the model at the given index in queue.
 	 */
-	int headIndex() const {
-		return _qhead;
+	float getModelMass(size_t ind) const {
+		return _queue[ind].getMass();
 	}
 
 	/**
-	 * Sets the queue head value
+	 * Steps through active stardust in queue and updates them.
 	 *
-	 * @param the index of the first stardust
+	 * For use only in StardustQueue's update()
 	 */
-	void setHeadIndex(int ind) {
-		_qhead = ind;
+	void updateQueueModels(int& qsize, int& qhead) {
+		// Step through each active stardust in the queue.
+		for (size_t ii = 0; ii < qsize; ii++) {
+			// Find the position of this stardust.
+			size_t idx = ((qhead + ii) % _queue.size());
+			// Move the stardust according to velocity.
+			_queue[idx].update();
+		}
 	}
-
-	/**
-	 * Returns the index of the last stardust
-	 *
-	 * @return the index of the last stardust
-	 */
-	int tailIndex() const {
-		return _qtail;
-	}
-
-	/**
-	 * Sets the queue tail value
-	 *
-	 * @param the index of the last stardust
-	 */
-	void setTailIndex(int ind) {
-		_qtail = ind;
-	}
-
-	void setQueue(std::vector<StardustModel>* q) {
-		_queue = q;
-	}
-
-	///**
-	// * Returns the queue of stardust
-	// *
-	// * @return the queue of stardust
-	// */
-	//std::vector<StardustModel>* getQueue() const {
-	//	return _queue;
-	//}
-
-	/**
-	 * Moves all the stardust in the active queue.
-	 *
-	 * Each stardust is advanced according to its velocity. Stardusts which are too old
-	 * are deleted.  This method does not bounce off walls.  We moved all collisions
-	 * to the collision controller where they belong.
-	 */
-	void update();
 };
 
 #endif /* __CI_STARDUST_NODE_H__ */

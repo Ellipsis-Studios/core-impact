@@ -98,7 +98,7 @@ void WheelObstacle::resetDebug() {
     Poly2 poly = factory.makeCircle(Vec2::ZERO,2*getRadius());
     
     if (_debug == nullptr) {
-        _debug = scene2::WireNode::allocWithTraversal(poly,poly2::Traversal::OPEN);
+        _debug = scene2::WireNode::allocWithTraversal(poly,poly2::Traversal::CLOSED);
         _debug->setColor(_dcolor);
         if (_scene != nullptr) {
             _scene->addChild(_debug);

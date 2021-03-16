@@ -23,20 +23,17 @@
 class StardustQueue {
 private:
 	///** Graphic asset representing a single stardust. */
-	//std::shared_ptr<cugl::Texture> _texture;
+	std::shared_ptr<cugl::Texture> _texture;
 
-	// QUEUE DATA STRUCTURES
-	/** Vector implementation of a circular queue. */
-	std::vector<StardustModel> _queue;
-
+	/** Pointer to StardustNode */
 	std::shared_ptr<StardustNode> _stardustNode;
 
-	///** Index of head element in the queue */
-	//int _qhead;
-	///** Index of tail element in the queue */
-	//int _qtail;
-	///** Number of elements currently in the queue */
-	//int _qsize;
+	/** Index of head element in the queue */
+	int _qhead;
+	/** Index of tail element in the queue */
+	int _qtail;
+	/** Number of elements currently in the queue */
+	int _qsize;
 
 #pragma mark The Queue
 public:
@@ -46,7 +43,7 @@ public:
 	 * To properly initialize the queue, you should call the init
 	 * method.
 	 */
-	StardustQueue() {};
+	StardustQueue();
 
 	/**
 	 * Disposes the stardust queue, releasing all resources.
@@ -56,12 +53,7 @@ public:
 	/**
 	 * Disposes the stardust queue, releasing all resources.
 	 */
-	void dispose() {
-		_stardustNode->dispose();
-		//_stardustNode = nullptr;
-
-		_queue.clear();
-	}
+	void dispose();
 
 	/**
 	 *  Initialies a new (empty) StardustQueue.
@@ -70,12 +62,7 @@ public:
 	 *
 	 *  @return true if initialization is successful
 	 */
-	bool init(size_t max, std::shared_ptr<StardustNode> snode) {
-		_queue.resize(max);
-		_stardustNode = snode;
-		//_stardustNode = StardustNode::alloc(&_queue);
-		return true;
-	}
+	bool init(size_t max);
 
 	/**
 	 *  Returns a newly allocated (empty) StardustQueue
@@ -84,14 +71,11 @@ public:
 	 *
 	 *  @return a newly allocated (empty) StardustQueue
 	 */
-	static std::shared_ptr<StardustQueue> alloc(size_t max, std::shared_ptr<StardustNode> snode) {
+	static std::shared_ptr<StardustQueue> alloc(size_t max) {
 		std::shared_ptr<StardustQueue> result = std::make_shared<StardustQueue>();
-		return (result->init(max, snode) ? result : nullptr);
+		return (result->init(max) ? result : nullptr);
 	}
 
-	//void setStardustNode() {
-	//	_stardustNode = StardustNode::alloc(&_queue);
-	//}
 	/**
 	 * Returns the image for a single stardust; reused by all stardust.
 	 *
@@ -101,11 +85,7 @@ public:
 	 * @return the image for a single stardust; reused by all stardust.
 	 */
 	const std::shared_ptr<cugl::Texture>& getTexture() const {
-		if (_stardustNode != nullptr) {
-			return _stardustNode->getTexture();
-		}
-		return NULL;
-		//return _stardustNode->getTexture();
+		return _texture;
 	}
 
 	/**
@@ -117,9 +97,8 @@ public:
 	 * @param value the image for a single stardust; reused by all stardust.
 	 */
 	void setTexture(const std::shared_ptr<cugl::Texture>& value) {
-		if (_stardustNode != nullptr) {
-			_stardustNode->setTexture(value);
-		}
+		_texture = value;
+		_stardustNode->setTexture(value);
 	}
 
 	/**
@@ -132,11 +111,7 @@ public:
 	 *
 	 * @param bounds the bounds of the game screen
 	 */
-	void addStardust(const cugl::Size bounds) {
-		if (_stardustNode != nullptr) {
-			_stardustNode->addStardust(bounds);
-		}
-	}
+	void addStardust(const cugl::Size bounds);
 
 	/**
 	 * Returns the number of active stardust
@@ -144,15 +119,14 @@ public:
 	 * @return the number of active stardust
 	 */
 	size_t size() const {
-		if (_stardustNode == nullptr) {
-			return 0;
-		}
-		auto s = _stardustNode->size();
-		return s;
-
-		//return _stardustNode->size();
+		return _qsize;
 	}
 
+	/**
+	 * Returns the stardust node pointer.
+	 *
+	 * @return shared pointer to StardustNode
+	 */
 	const std::shared_ptr<StardustNode>& getStardustNode() const {
 		return _stardustNode;
 	}
@@ -163,10 +137,7 @@ public:
 	 * @return the index of the first stardust
 	 */
 	int headIndex() const {
-		if (_stardustNode == nullptr) {
-			return 0;
-		}
-		return _stardustNode->headIndex();
+		return _qhead;
 	}
 
 	/**
@@ -175,7 +146,7 @@ public:
 	 * @return the queue of stardust
 	 */
 	std::vector<StardustModel> getQueue() const {
-		return _queue;
+		return _stardustNode->getQueue();
 	}
 
 	/**
@@ -187,10 +158,7 @@ public:
 	 *
 	 * @return the (reference to the) stardust at the given position.
 	 */
-	StardustModel* get(size_t pos) {
-		return &_queue[pos];
-		//return _stardustNode->get(pos);
-	}
+	StardustModel* get(size_t pos);
 
 	/**
 	 * Moves all the stardust in the active queue.
@@ -199,11 +167,7 @@ public:
 	 * are deleted.  This method does not bounce off walls.  We moved all collisions
 	 * to the collision controller where they belong.
 	 */
-	void update() {
-		if (_stardustNode != nullptr) {
-			_stardustNode->update();
-		}
-	}
+	void update();
 };
 
 #endif /* __CI_STARDUST_QUEUE_H__ */

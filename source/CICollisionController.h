@@ -35,55 +35,52 @@
  * probably use Box2d just like you did in 3152.
  */
 namespace collisions {
+	/**
+	 *  Handles collisions between a planet and stardust.
+	 *
+	 *  Increases or decreases layer planet size depending on the color of the stardust
+	 *
+	 *  @param planet     The planet in the candidate collision
+	 *  @param queue       The stardust queue
+	 */
+	void checkForCollision(const std::shared_ptr<PlanetModel>& planet, const std::shared_ptr<StardustQueue>& queue);
 
-/**
- *  Handles collisions between a planet and stardust.
- *
- *  Increases or decreases layer planet size depending on the color of the stardust
- *
- *  @param planet     The planet in the candidate collision
- *  @param queue       The stardust queue
- */
-void checkForCollision(const std::shared_ptr<PlanetModel>& planet, const std::shared_ptr<StardustQueue>& queue);
+	/**
+	 *  Handles collisions between stardusts, causing them to bounce off one another.
+	 *
+	 *  This method updates the velocities of both stardusts: the collider and the
+	 *  collidee. Therefore, you should only call this method for one of the
+	 *  stardusts, not both. Otherwise, you are processing the same collisions twice.
+	 *
+	 *  @param queue    The stardust queue
+	 */
+	void checkForCollision(const std::shared_ptr<StardustQueue>& queue);
 
-/**
- *  Handles collisions between stardusts, causing them to bounce off one another.
- *
- *  This method updates the velocities of both stardusts: the collider and the
- *  collidee. Therefore, you should only call this method for one of the
- *  stardusts, not both. Otherwise, you are processing the same collisions twice.
- *
- *  @param queue    The stardust queue
- */
-void checkForCollision(const std::shared_ptr<StardustQueue>& queue);
+	/**
+	 *  Handles collisions between an input and stardust.
+	 *
+	 *  Moves the stardust to follow the input
+	 *
+	 *  @param inputPos     The input position of the finger
+	 *  @param queue		The stardust queue
+	 */
+	void checkForCollision(cugl::Vec2 inputPos, const std::shared_ptr<StardustQueue>& queue);
 
-/**
- *  Handles collisions between an input and stardust.
- *
- *  Moves the stardust to follow the input
- *
- *  @param inputPos     The input position of the finger
- *  @param queue		The stardust queue
- */
-void checkForCollision(cugl::Vec2 inputPos, const std::shared_ptr<StardustQueue>& queue);
-    
-/**
- *  Handles collisions between an input and planet.
- *
- *  @param inputPos     The input position of the finger
- *  @param planet     The planet in the candidate collision
- */
-bool checkForCollision(bool isLockLayer, cugl::Vec2 inputPos, const std::shared_ptr<PlanetModel>& planet);
+	/**
+	 *  Handles collisions between an input and planet.
+	 *
+	 *  @param inputPos     The input position of the finger
+	 *  @param planet     The planet in the candidate collision
+	 */
+	bool checkForCollision(bool isLockLayer, cugl::Vec2 inputPos, const std::shared_ptr<PlanetModel>& planet);
 
-//bool checkForCollision(cugl::Vec2 inputPos, const std::shared_ptr<PlanetModel>& planet);
-    
-/**
- * Destroy any stardust that leaves the bounds
- *
- * @param queue   The stardust queue
- * @param bounds    The rectangular bounds of the playing field
- */
-void checkInBounds(const std::shared_ptr<StardustQueue>& queue, const cugl::Size bounds);
+	/**
+	 * Destroy any stardust that leaves the bounds
+	 *
+	 * @param queue   The stardust queue
+	 * @param bounds    The rectangular bounds of the playing field
+	 */
+	void checkInBounds(const std::shared_ptr<StardustQueue>& queue, const cugl::Size bounds);
 }
 
 #endif /* __GL_COLLISION_CONTROLLER_H__ */
