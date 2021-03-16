@@ -150,6 +150,15 @@ public:
     StardustModel* get(size_t pos);
     
     /**
+     * Returns the (reference to the) stardust at the given position even if it is not valid.
+     *
+     * @param pos   The stardust position in the queue
+     *
+     * @return the (reference to the) stardust at the given position.
+     */
+    StardustModel* get_unsafe(size_t pos);
+    
+    /**
      * Moves all the stardust in the active queue.
      *
      * Each stardust is advanced according to its velocity. Stardusts which are too old
