@@ -12,6 +12,9 @@
 #ifndef __CI_COLOR_H__
 #define __CI_COLOR_H__
 #include <cugl/cugl.h>
+#include <random>
+#include <string>
+
 
 class CIColor {
 public:
@@ -31,6 +34,10 @@ public:
     
     /**
      * Get the Color4 represented by a particular CIColor value
+     * 
+     * @param CIColor Value 
+     * 
+     * @return Color4 representation of the CIColor Value
      */
     static cugl::Color4 getColor4(Value v) {
         cugl::Color4 color;
@@ -61,12 +68,58 @@ public:
         
         return color;
     }
-    
+
     /**
-     * Get random CIColor Value.
+     * Get the string representation of CIColor Value
+     *
+     * @param CIColor Value
+     *
+     * @return string representation of the CIColor Value
+     */
+    static string getString(Value v) {
+        string color;
+        switch (v)
+        {
+        case orange:
+            color = "orange";
+            break;
+        case yellow:
+            color = "yellow";
+            break;
+        case turquoise:
+            color = "turquoise";
+            break;
+        case cyan:
+            color = "cyan";
+            break;
+        case blue:
+            color = "blue";
+            break;
+        case grey:
+            color = "grey";
+            break;
+        case lightgrey:
+            color = "lightgrey";
+            break;
+        }
+
+        return color;
+    }
+
+    /** 
+     * Returns a random CIColor Value for a stardust.
+     * 
+     * This method picks out of the first 5 CIColor values since they 
+     * are valid for stardust color. 
+     * 
+     * @return CIColor Value for a stardust 
      */
     static Value getRandomColor() {
-        return Value(rand() % 5); // pick out of first 5 colors 
+        std::random_device rd;
+        std::mt19937 mt(rd());
+        std::uniform_int_distribution<int> dist(0, 4); // pick out of first 5 colors
+        int rand = dist(mt);
+        return Value(rand);  
     }
     
     /**

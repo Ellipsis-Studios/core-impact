@@ -66,6 +66,9 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     _assets = assets;
     _input.init(getBounds());
     
+    // Create the game update manager
+    _gameUpdateManager = GameUpdateManager::alloc();
+    
     // Acquire the scene built by the asset loader and resize it the scene
     auto scene = _assets->get<scene2::SceneNode>("game");
     scene->setContentSize(dimen);
@@ -109,6 +112,7 @@ void GameScene::dispose() {
     if (_active) {
         removeAllChildren();
         _input.dispose();
+        _gameUpdateManager = nullptr;
         _allSpace = nullptr;
         _farSpace = nullptr;
         _nearSpace = nullptr;
@@ -156,12 +160,16 @@ void GameScene::update(float timestep) {
         _stardustContainer->addStardust(dimen);
     }
     
-    _massHUD->setText(to_string(_planet->getMass()));
+    _massHUD->setText(to_string(_planet->getMass()) + "; "
+        + CIColor::getString(_planet->getColor()));
 
     collisions::checkForCollision(_planet, _stardustContainer);
     collisions::checkInBounds(_stardustContainer, dimen);
     collisions::checkForCollisions(_stardustContainer);
     updateDraggedStardust();
+    
+    // send game updates to other players
+    _gameUpdateManager->sendUpdate(_planet, _stardustContainer, dimen);
 }
 
 /**

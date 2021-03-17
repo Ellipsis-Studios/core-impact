@@ -33,6 +33,9 @@ private:
     int _qtail;
     /** Number of elements currently in the queue */
     int _qsize;
+    
+    /** stardust to be sent to other players in the game. */
+    std::vector<std::shared_ptr<StardustModel>> _stardust_to_send;
 
 #pragma mark The Queue
 public:
@@ -148,6 +151,29 @@ public:
      * @return the (reference to the) stardust at the given position.
      */
     StardustModel* get(size_t pos);
+
+    /**
+     * Adds a stardust to the queue of stardust to send to other players
+     *
+     * @param stardust   The stardust that is to be sent to another player
+     */
+    void addToSendQueue(StardustModel* stardust);
+    
+    /**
+     * Returns the queue of stardust to send
+     *
+     * @return The queue of stardust to send
+     */
+    std::vector<std::shared_ptr<StardustModel>> getSendQueue() {
+        return _stardust_to_send;
+    }
+    
+    /**
+     * Clears the stardust to send queue
+     */
+    void clearSendQueue() {
+        _stardust_to_send.clear();
+    }
     
     /**
      * Moves all the stardust in the active queue.
