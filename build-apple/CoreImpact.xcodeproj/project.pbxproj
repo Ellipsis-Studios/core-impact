@@ -18,7 +18,6 @@
 		3D563B9F25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D563B9C25F0AF01006641B1 /* CIPlanetModel.cpp */; };
 		3D563BF825F6D5B7006641B1 /* CIPlanetNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D563BF725F6D5B7006641B1 /* CIPlanetNode.cpp */; };
 		3D563BF925F6D5B7006641B1 /* CIPlanetNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D563BF725F6D5B7006641B1 /* CIPlanetNode.cpp */; };
-
 		3D8646222601111600B0B2C1 /* Router2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645142601111600B0B2C1 /* Router2.cpp */; };
 		3D8646232601111600B0B2C1 /* Router2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645142601111600B0B2C1 /* Router2.cpp */; };
 		3D8646242601111600B0B2C1 /* Router2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645142601111600B0B2C1 /* Router2.cpp */; };
@@ -889,7 +888,8 @@
 			children = (
 				3D8645132601111600B0B2C1 /* SLikeNet */,
 			);
-			path = SLikeNet;
+			name = SLikeNet;
+			path = libraries;
 			sourceTree = "<group>";
 		};
 		3D8645132601111600B0B2C1 /* SLikeNet */ = {
