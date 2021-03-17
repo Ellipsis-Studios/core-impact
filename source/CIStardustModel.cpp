@@ -64,6 +64,7 @@ bool StardustModel::init(cugl::Vec2 position, cugl::Vec2 velocity, CIColor::Valu
     _mass = 1;
     _radius = 1;
     _velocity = velocity;
+    _stardust_location = Location::ON_SCREEN;
     return true;
 }
 

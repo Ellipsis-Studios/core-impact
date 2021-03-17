@@ -33,6 +33,7 @@ void StardustQueue::dispose() {
     _qhead = 0;
     _qtail = -1;
     _qsize = 0;
+    _stardust_to_send.clear();
 }
     
 /**
@@ -97,6 +98,15 @@ StardustModel* StardustQueue::get(size_t pos) {
         return &_queue[idx];
     }
     return nullptr;
+}
+
+/**
+ * Adds a stardust to the queue of stardust to send to other players
+ *
+ * @param stardust   The stardust that is to be sent to another player
+ */
+void StardustQueue::addToSendQueue(StardustModel* stardust) {
+    _stardust_to_send.push_back(std::make_shared<StardustModel>(*stardust));
 }
 
 /**

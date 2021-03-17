@@ -18,6 +18,9 @@
 		3D563B9F25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D563B9C25F0AF01006641B1 /* CIPlanetModel.cpp */; };
 		3D563BF825F6D5B7006641B1 /* CIPlanetNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D563BF725F6D5B7006641B1 /* CIPlanetNode.cpp */; };
 		3D563BF925F6D5B7006641B1 /* CIPlanetNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D563BF725F6D5B7006641B1 /* CIPlanetNode.cpp */; };
+		3D94040725FFC52400043357 /* CIGameUpdateManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D94040625FFC52400043357 /* CIGameUpdateManager.cpp */; };
+		3D94040825FFC52400043357 /* CIGameUpdateManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D94040625FFC52400043357 /* CIGameUpdateManager.cpp */; };
+		3D94040925FFC52400043357 /* CIGameUpdateManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D94040625FFC52400043357 /* CIGameUpdateManager.cpp */; };
 		3DCE833825FDC3B8007EBA2D /* CIGameUpdate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCE833725FDC3B8007EBA2D /* CIGameUpdate.cpp */; };
 		3DCE833925FDC3B8007EBA2D /* CIGameUpdate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCE833725FDC3B8007EBA2D /* CIGameUpdate.cpp */; };
 		3DCE833A25FDC3B8007EBA2D /* CIGameUpdate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCE833725FDC3B8007EBA2D /* CIGameUpdate.cpp */; };
@@ -142,6 +145,8 @@
 		3D563B9C25F0AF01006641B1 /* CIPlanetModel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CIPlanetModel.cpp; sourceTree = "<group>"; };
 		3D563BF325F6D58C006641B1 /* CIPlanetNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIPlanetNode.h; sourceTree = "<group>"; };
 		3D563BF725F6D5B7006641B1 /* CIPlanetNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CIPlanetNode.cpp; sourceTree = "<group>"; };
+		3D94040225FFC50C00043357 /* CIGameUpdateManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIGameUpdateManager.h; sourceTree = "<group>"; };
+		3D94040625FFC52400043357 /* CIGameUpdateManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CIGameUpdateManager.cpp; sourceTree = "<group>"; };
 		3DCE833625FDB914007EBA2D /* CIGameUpdate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIGameUpdate.h; sourceTree = "<group>"; };
 		3DCE833725FDC3B8007EBA2D /* CIGameUpdate.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CIGameUpdate.cpp; sourceTree = "<group>"; };
 		CA68E30625F53BC200B4617D /* CICollisionController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CICollisionController.cpp; sourceTree = "<group>"; };
@@ -408,6 +413,8 @@
 				0A5AFAD725F0B5320003669C /* CIStardustQueue.h */,
 				3DCE833625FDB914007EBA2D /* CIGameUpdate.h */,
 				3DCE833725FDC3B8007EBA2D /* CIGameUpdate.cpp */,
+				3D94040225FFC50C00043357 /* CIGameUpdateManager.h */,
+				3D94040625FFC52400043357 /* CIGameUpdateManager.cpp */,
 			);
 			name = Source;
 			path = ../source;
@@ -589,6 +596,7 @@
 			files = (
 				EBFA529C21FA5D0C00CCC2C5 /* CIApp.cpp in Sources */,
 				CADCA31225FE9AEE0048FCA1 /* CIPlanetNode.cpp in Sources */,
+				3D94040925FFC52400043357 /* CIGameUpdateManager.cpp in Sources */,
 				EB0FF61D2016F06000517030 /* main.cpp in Sources */,
 				3D563B9F25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */,
 				CA9A2DD325EDBD6A0048D02F /* CIStardustModel.cpp in Sources */,
@@ -608,6 +616,7 @@
 			files = (
 				EBFA529821FA5D0C00CCC2C5 /* CIApp.cpp in Sources */,
 				EB7454AE1D74D891002FBAE6 /* main.cpp in Sources */,
+				3D94040825FFC52400043357 /* CIGameUpdateManager.cpp in Sources */,
 				3D563B9E25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */,
 				CA9A2DD225EDBD6A0048D02F /* CIStardustModel.cpp in Sources */,
 				EBFA52A121FA5D1700CCC2C5 /* CIInput.cpp in Sources */,
@@ -627,6 +636,7 @@
 			files = (
 				EBFA528F21FA5AAC00CCC2C5 /* CIGameScene.cpp in Sources */,
 				EBFA529021FA5AAC00CCC2C5 /* CIInput.cpp in Sources */,
+				3D94040725FFC52400043357 /* CIGameUpdateManager.cpp in Sources */,
 				3D563B9D25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */,
 				CA9A2DD125EDBD6A0048D02F /* CIStardustModel.cpp in Sources */,
 				EBFA528D21FA5AAC00CCC2C5 /* CIApp.cpp in Sources */,
