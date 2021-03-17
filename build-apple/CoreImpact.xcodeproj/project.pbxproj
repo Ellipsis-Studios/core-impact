@@ -18,6 +18,7 @@
 		3D563B9F25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D563B9C25F0AF01006641B1 /* CIPlanetModel.cpp */; };
 		3D563BF825F6D5B7006641B1 /* CIPlanetNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D563BF725F6D5B7006641B1 /* CIPlanetNode.cpp */; };
 		3D563BF925F6D5B7006641B1 /* CIPlanetNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D563BF725F6D5B7006641B1 /* CIPlanetNode.cpp */; };
+
 		3D8646222601111600B0B2C1 /* Router2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645142601111600B0B2C1 /* Router2.cpp */; };
 		3D8646232601111600B0B2C1 /* Router2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645142601111600B0B2C1 /* Router2.cpp */; };
 		3D8646242601111600B0B2C1 /* Router2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645142601111600B0B2C1 /* Router2.cpp */; };
@@ -354,6 +355,9 @@
 		3D86476F2601111700B0B2C1 /* RakMemoryOverride.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646212601111600B0B2C1 /* RakMemoryOverride.cpp */; };
 		3D8647702601111700B0B2C1 /* RakMemoryOverride.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646212601111600B0B2C1 /* RakMemoryOverride.cpp */; };
 		3D8647712601111700B0B2C1 /* RakMemoryOverride.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646212601111600B0B2C1 /* RakMemoryOverride.cpp */; };
+		3D94040725FFC52400043357 /* CIGameUpdateManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D94040625FFC52400043357 /* CIGameUpdateManager.cpp */; };
+		3D94040825FFC52400043357 /* CIGameUpdateManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D94040625FFC52400043357 /* CIGameUpdateManager.cpp */; };
+		3D94040925FFC52400043357 /* CIGameUpdateManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D94040625FFC52400043357 /* CIGameUpdateManager.cpp */; };
 		3DCE833825FDC3B8007EBA2D /* CIGameUpdate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCE833725FDC3B8007EBA2D /* CIGameUpdate.cpp */; };
 		3DCE833925FDC3B8007EBA2D /* CIGameUpdate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCE833725FDC3B8007EBA2D /* CIGameUpdate.cpp */; };
 		3DCE833A25FDC3B8007EBA2D /* CIGameUpdate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCE833725FDC3B8007EBA2D /* CIGameUpdate.cpp */; };
@@ -747,6 +751,8 @@
 		3D86461F2601111600B0B2C1 /* RakNetSocket2_NativeClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RakNetSocket2_NativeClient.cpp; sourceTree = "<group>"; };
 		3D8646202601111600B0B2C1 /* RPC4Plugin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RPC4Plugin.cpp; sourceTree = "<group>"; };
 		3D8646212601111600B0B2C1 /* RakMemoryOverride.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RakMemoryOverride.cpp; sourceTree = "<group>"; };
+		3D94040225FFC50C00043357 /* CIGameUpdateManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIGameUpdateManager.h; sourceTree = "<group>"; };
+		3D94040625FFC52400043357 /* CIGameUpdateManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CIGameUpdateManager.cpp; sourceTree = "<group>"; };
 		3DCE833625FDB914007EBA2D /* CIGameUpdate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIGameUpdate.h; sourceTree = "<group>"; };
 		3DCE833725FDC3B8007EBA2D /* CIGameUpdate.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CIGameUpdate.cpp; sourceTree = "<group>"; };
 		CA68E30625F53BC200B4617D /* CICollisionController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CICollisionController.cpp; sourceTree = "<group>"; };
@@ -1307,6 +1313,8 @@
 				0A5AFAD725F0B5320003669C /* CIStardustQueue.h */,
 				3DCE833625FDB914007EBA2D /* CIGameUpdate.h */,
 				3DCE833725FDC3B8007EBA2D /* CIGameUpdate.cpp */,
+				3D94040225FFC50C00043357 /* CIGameUpdateManager.h */,
+				3D94040625FFC52400043357 /* CIGameUpdateManager.cpp */,
 			);
 			name = Source;
 			path = ../source;
@@ -1508,6 +1516,7 @@
 				CADCA31225FE9AEE0048FCA1 /* CIPlanetNode.cpp in Sources */,
 				3D8646C92601111600B0B2C1 /* NetworkIDManager.cpp in Sources */,
 				3D8646CF2601111600B0B2C1 /* RakThread.cpp in Sources */,
+				3D94040925FFC52400043357 /* CIGameUpdateManager.cpp in Sources */,
 				EB0FF61D2016F06000517030 /* main.cpp in Sources */,
 				3D86463F2601111600B0B2C1 /* ReadyEvent.cpp in Sources */,
 				3D86475C2601111700B0B2C1 /* RakString.cpp in Sources */,
@@ -1639,6 +1648,7 @@
 				EB7454AE1D74D891002FBAE6 /* main.cpp in Sources */,
 				3D8646C82601111600B0B2C1 /* NetworkIDManager.cpp in Sources */,
 				3D8646CE2601111600B0B2C1 /* RakThread.cpp in Sources */,
+				3D94040825FFC52400043357 /* CIGameUpdateManager.cpp in Sources */,
 				3D563B9E25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */,
 				3D86463E2601111600B0B2C1 /* ReadyEvent.cpp in Sources */,
 				3D86475B2601111700B0B2C1 /* RakString.cpp in Sources */,
@@ -1770,6 +1780,7 @@
 				EBFA529021FA5AAC00CCC2C5 /* CIInput.cpp in Sources */,
 				3D8646C72601111600B0B2C1 /* NetworkIDManager.cpp in Sources */,
 				3D8646CD2601111600B0B2C1 /* RakThread.cpp in Sources */,
+				3D94040725FFC52400043357 /* CIGameUpdateManager.cpp in Sources */,
 				3D563B9D25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */,
 				3D86463D2601111600B0B2C1 /* ReadyEvent.cpp in Sources */,
 				3D86475A2601111700B0B2C1 /* RakString.cpp in Sources */,

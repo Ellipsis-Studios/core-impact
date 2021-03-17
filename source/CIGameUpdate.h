@@ -8,8 +8,8 @@
 //  Copyright © 2021 Game Design Initiative at Cornell. All rights reserved.
 //
 
-#ifndef CIGameUpdate_h
-#define CIGameUpdate_h
+#ifndef __CI_GAME_UPDATE_H__
+#define __CI_GAME_UPDATE_H__
 
 #include <map>
 #include <string>
@@ -146,4 +146,4 @@ public:
     
 };
 
-#endif /* CIGameUpdate_h */
+#endif /* __CI_GAME_UPDATE_H__ */
