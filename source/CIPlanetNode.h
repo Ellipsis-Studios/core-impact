@@ -16,6 +16,8 @@
 #include "CIColor.h"
 #include "CIPlanetLayer.h"
 
+#define PLANET_RING_SCALE     0.28f
+
 class PlanetNode : public cugl::scene2::PolygonNode {
 private:
     class LayerNode {
@@ -77,8 +79,8 @@ public:
                     
                     node->innerRing->setAnchor(cugl::Vec2::ANCHOR_CENTER);
                     node->outerRing->setAnchor(cugl::Vec2::ANCHOR_CENTER);
-                    node->innerRing->setPosition(cugl::Vec2(getSize())*.5f);
-                    node->outerRing->setPosition(cugl::Vec2(getSize())*.5f);
+                    node->innerRing->setPosition(cugl::Vec2(getSize())*0.5f);
+                    node->outerRing->setPosition(cugl::Vec2(getSize())*0.5f);
                     node->innerRing->setRelativeColor(false);
                     node->outerRing->setRelativeColor(false);
                     
@@ -101,8 +103,8 @@ public:
         for (int ii = 0; ii < _layerNodes.size(); ii++) {
             LayerNode node = _layerNodes[ii];
             if (node.innerRing != nullptr) {
-                node.innerRing->setScale(.28f);
-                node.outerRing->setScale(.28f);
+                node.innerRing->setScale(PLANET_RING_SCALE);
+                node.outerRing->setScale(PLANET_RING_SCALE);
             }
         }
     }
