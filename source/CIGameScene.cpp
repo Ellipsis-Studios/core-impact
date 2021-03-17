@@ -3,7 +3,7 @@
 //  CoreImpact
 //
 //  This is the most important class in this demo.  This class manages the
-//  gameplay for this demo.  It is a relativeluy simple class as we are not
+//  gameplay for this demo.  It is a relatively simple class as we are not
 //  worried about collisions.
 //
 //  WARNING: There are a lot of shortcuts in this design that will do not adapt
@@ -82,6 +82,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     auto planetTexture = _assets->get<Texture>("planet1");
     _planet->setTexture(planetTexture);
     
+    _draggedStardust = NULL;
     _stardustContainer = StardustQueue::alloc(MAX_STARDUST);
     _stardustContainer->setTexture(_assets->get<Texture>("photon"));
     std::shared_ptr<StardustNode> _stardustNode = StardustNode::alloc();
@@ -109,6 +110,7 @@ void GameScene::dispose() {
         _farSpace = nullptr;
         _nearSpace = nullptr;
         _planet = nullptr;
+        _draggedStardust = NULL;
         _active = false;
     }
 }
@@ -129,6 +131,8 @@ void GameScene::reset() {
     _farSpace->setAnchor(Vec2::ANCHOR_CENTER);
     _farSpace->setPosition(position);
     _farSpace->setAngle(0.0f);
+    
+    _draggedStardust = NULL;
 }
 
 /**
@@ -149,10 +153,35 @@ void GameScene::update(float timestep) {
         _stardustContainer->addStardust(dimen);
     }
     
-    _massHUD->setText(to_string(_planet->getMass()));
+    _massHUD->setText(to_string(_planet->getMass()) + "; "
+        + CIColor::getString(_planet->getColor()));
 
     collisions::checkForCollision(_planet, _stardustContainer);
-    collisions::checkForCollision(_input.getPosition(), _stardustContainer);
     collisions::checkInBounds(_stardustContainer, dimen);
+    collisions::checkForCollisions(_stardustContainer);
+    updateDraggedStardust();
 }
 
+/**
+ * This method updates the dragged stardust.
+ *
+ * It selects or deselects a dragged stardust stardust if applicable,
+ * and updates the velocity a selected stardust if there is one.
+ */
+void GameScene::updateDraggedStardust() {
+    if (_input.fingerDown()) {
+        if (_draggedStardust == NULL) {
+            _draggedStardust = collisions::getNearestStardust(_input.getPosition(), _stardustContainer);
+        }
+        // this is structured like this to update a recently dragged stardust
+        if (_draggedStardust != NULL) {
+            float sdRadius = collisions::getStardustRadius(_stardustContainer);
+            collisions::moveDraggedStardust(_input.getPosition(), _draggedStardust, sdRadius);
+        }
+    } else if (!_input.fingerDown() && _draggedStardust != NULL) {
+        // finger just released, flick dragged stardust
+        Vec2 newVelocity = _draggedStardust->getVelocity() + _input.getPrevVelocity();
+        _draggedStardust->setVelocity(newVelocity);
+        _draggedStardust = NULL;
+    }
+}

@@ -157,6 +157,7 @@ public:
      * to the collision controller where they belong.
      */
     void update();
+
 };
 
 #endif /* __CI_STARDUST_QUEUE_H__ */

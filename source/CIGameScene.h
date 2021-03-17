@@ -55,6 +55,8 @@ protected:
     // MODEL
     /** The model representing the planet */
     std::shared_ptr<PlanetModel>  _planet;
+    /** Pointer to the model of the stardust that is currently being dragged */
+    StardustModel*  _draggedStardust;
     
 public:
 #pragma mark -
@@ -104,6 +106,14 @@ public:
      * @param timestep  The amount of time (in seconds) since the last frame
      */
     void update(float timestep);
+    
+    /**
+     * This method updates the dragged stardust.
+     *
+     * It selects or deselects a dragged stardust stardust if applicable,
+     * and updates the velocity a selected stardust if there is one.
+     */
+    void updateDraggedStardust();
 
     /**
      * Resets the status of the game so that we can play again.

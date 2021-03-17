@@ -10,6 +10,25 @@
 
 #include "CIStardustModel.h"
 
+/** Maximum speed of a stardust */
+#define MAX_SPEED     10.0f
+
+#pragma mark Properties
+
+/**
+ * Sets the velocity of this stardust.
+ *
+ * This value is necessary to control momementum in stardust movement.
+ *
+ * @param value the velocity of this stardust
+ */
+void StardustModel::setVelocity(cugl::Vec2 value) {
+    _velocity = value;
+    if (_velocity.length() > MAX_SPEED) {
+        _velocity.scale(MAX_SPEED / _velocity.length());
+    }
+}
+
 #pragma mark Constructors
 
 /**
