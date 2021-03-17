@@ -52,7 +52,6 @@ public:
      * @param color The new color of this planet's current layer
      */
     void setColor(CIColor::Value color) {
-        cout << color;
         _layers[_numLayers-1].layerColor = color;
     }
 
