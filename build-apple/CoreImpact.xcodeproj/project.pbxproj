@@ -18,6 +18,343 @@
 		3D563B9F25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D563B9C25F0AF01006641B1 /* CIPlanetModel.cpp */; };
 		3D563BF825F6D5B7006641B1 /* CIPlanetNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D563BF725F6D5B7006641B1 /* CIPlanetNode.cpp */; };
 		3D563BF925F6D5B7006641B1 /* CIPlanetNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D563BF725F6D5B7006641B1 /* CIPlanetNode.cpp */; };
+
+		3D8646222601111600B0B2C1 /* Router2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645142601111600B0B2C1 /* Router2.cpp */; };
+		3D8646232601111600B0B2C1 /* Router2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645142601111600B0B2C1 /* Router2.cpp */; };
+		3D8646242601111600B0B2C1 /* Router2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645142601111600B0B2C1 /* Router2.cpp */; };
+		3D8646252601111600B0B2C1 /* DS_Table.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645152601111600B0B2C1 /* DS_Table.cpp */; };
+		3D8646262601111600B0B2C1 /* DS_Table.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645152601111600B0B2C1 /* DS_Table.cpp */; };
+		3D8646272601111600B0B2C1 /* DS_Table.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645152601111600B0B2C1 /* DS_Table.cpp */; };
+		3D8646282601111600B0B2C1 /* RakNetSocket2_Berkley_NativeClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645162601111600B0B2C1 /* RakNetSocket2_Berkley_NativeClient.cpp */; };
+		3D8646292601111600B0B2C1 /* RakNetSocket2_Berkley_NativeClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645162601111600B0B2C1 /* RakNetSocket2_Berkley_NativeClient.cpp */; };
+		3D86462A2601111600B0B2C1 /* RakNetSocket2_Berkley_NativeClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645162601111600B0B2C1 /* RakNetSocket2_Berkley_NativeClient.cpp */; };
+		3D86462B2601111600B0B2C1 /* NatPunchthroughClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645172601111600B0B2C1 /* NatPunchthroughClient.cpp */; };
+		3D86462C2601111600B0B2C1 /* NatPunchthroughClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645172601111600B0B2C1 /* NatPunchthroughClient.cpp */; };
+		3D86462D2601111600B0B2C1 /* NatPunchthroughClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645172601111600B0B2C1 /* NatPunchthroughClient.cpp */; };
+		3D86462E2601111600B0B2C1 /* ThreadsafePacketLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645182601111600B0B2C1 /* ThreadsafePacketLogger.cpp */; };
+		3D86462F2601111600B0B2C1 /* ThreadsafePacketLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645182601111600B0B2C1 /* ThreadsafePacketLogger.cpp */; };
+		3D8646302601111600B0B2C1 /* ThreadsafePacketLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645182601111600B0B2C1 /* ThreadsafePacketLogger.cpp */; };
+		3D8646312601111600B0B2C1 /* RakPeer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645192601111600B0B2C1 /* RakPeer.cpp */; };
+		3D8646322601111600B0B2C1 /* RakPeer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645192601111600B0B2C1 /* RakPeer.cpp */; };
+		3D8646332601111600B0B2C1 /* RakPeer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645192601111600B0B2C1 /* RakPeer.cpp */; };
+		3D8646342601111600B0B2C1 /* ConnectionGraph2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86451A2601111600B0B2C1 /* ConnectionGraph2.cpp */; };
+		3D8646352601111600B0B2C1 /* ConnectionGraph2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86451A2601111600B0B2C1 /* ConnectionGraph2.cpp */; };
+		3D8646362601111600B0B2C1 /* ConnectionGraph2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86451A2601111600B0B2C1 /* ConnectionGraph2.cpp */; };
+		3D8646372601111600B0B2C1 /* DS_BytePool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86451B2601111600B0B2C1 /* DS_BytePool.cpp */; };
+		3D8646382601111600B0B2C1 /* DS_BytePool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86451B2601111600B0B2C1 /* DS_BytePool.cpp */; };
+		3D8646392601111600B0B2C1 /* DS_BytePool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86451B2601111600B0B2C1 /* DS_BytePool.cpp */; };
+		3D86463A2601111600B0B2C1 /* DS_HuffmanEncodingTree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86451C2601111600B0B2C1 /* DS_HuffmanEncodingTree.cpp */; };
+		3D86463B2601111600B0B2C1 /* DS_HuffmanEncodingTree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86451C2601111600B0B2C1 /* DS_HuffmanEncodingTree.cpp */; };
+		3D86463C2601111600B0B2C1 /* DS_HuffmanEncodingTree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86451C2601111600B0B2C1 /* DS_HuffmanEncodingTree.cpp */; };
+		3D86463D2601111600B0B2C1 /* ReadyEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86451D2601111600B0B2C1 /* ReadyEvent.cpp */; };
+		3D86463E2601111600B0B2C1 /* ReadyEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86451D2601111600B0B2C1 /* ReadyEvent.cpp */; };
+		3D86463F2601111600B0B2C1 /* ReadyEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86451D2601111600B0B2C1 /* ReadyEvent.cpp */; };
+		3D8646402601111600B0B2C1 /* Rackspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86451E2601111600B0B2C1 /* Rackspace.cpp */; };
+		3D8646412601111600B0B2C1 /* Rackspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86451E2601111600B0B2C1 /* Rackspace.cpp */; };
+		3D8646422601111600B0B2C1 /* Rackspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86451E2601111600B0B2C1 /* Rackspace.cpp */; };
+		3D8646432601111600B0B2C1 /* UDPProxyClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86451F2601111600B0B2C1 /* UDPProxyClient.cpp */; };
+		3D8646442601111600B0B2C1 /* UDPProxyClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86451F2601111600B0B2C1 /* UDPProxyClient.cpp */; };
+		3D8646452601111600B0B2C1 /* UDPProxyClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86451F2601111600B0B2C1 /* UDPProxyClient.cpp */; };
+		3D8646462601111600B0B2C1 /* EpochTimeToString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645202601111600B0B2C1 /* EpochTimeToString.cpp */; };
+		3D8646472601111600B0B2C1 /* EpochTimeToString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645202601111600B0B2C1 /* EpochTimeToString.cpp */; };
+		3D8646482601111600B0B2C1 /* EpochTimeToString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645202601111600B0B2C1 /* EpochTimeToString.cpp */; };
+		3D8646492601111600B0B2C1 /* SocketLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645212601111600B0B2C1 /* SocketLayer.cpp */; };
+		3D86464A2601111600B0B2C1 /* SocketLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645212601111600B0B2C1 /* SocketLayer.cpp */; };
+		3D86464B2601111600B0B2C1 /* SocketLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645212601111600B0B2C1 /* SocketLayer.cpp */; };
+		3D86464C2601111600B0B2C1 /* BitStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645222601111600B0B2C1 /* BitStream.cpp */; };
+		3D86464D2601111600B0B2C1 /* BitStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645222601111600B0B2C1 /* BitStream.cpp */; };
+		3D86464E2601111600B0B2C1 /* BitStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645222601111600B0B2C1 /* BitStream.cpp */; };
+		3D86464F2601111600B0B2C1 /* HTTPConnection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645232601111600B0B2C1 /* HTTPConnection.cpp */; };
+		3D8646502601111600B0B2C1 /* HTTPConnection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645232601111600B0B2C1 /* HTTPConnection.cpp */; };
+		3D8646512601111600B0B2C1 /* HTTPConnection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645232601111600B0B2C1 /* HTTPConnection.cpp */; };
+		3D8646522601111600B0B2C1 /* SecureHandshake.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645242601111600B0B2C1 /* SecureHandshake.cpp */; };
+		3D8646532601111600B0B2C1 /* SecureHandshake.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645242601111600B0B2C1 /* SecureHandshake.cpp */; };
+		3D8646542601111600B0B2C1 /* SecureHandshake.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645242601111600B0B2C1 /* SecureHandshake.cpp */; };
+		3D8646552601111600B0B2C1 /* EmailSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645252601111600B0B2C1 /* EmailSender.cpp */; };
+		3D8646562601111600B0B2C1 /* EmailSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645252601111600B0B2C1 /* EmailSender.cpp */; };
+		3D8646572601111600B0B2C1 /* EmailSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645252601111600B0B2C1 /* EmailSender.cpp */; };
+		3D8646582601111600B0B2C1 /* RakNetSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645262601111600B0B2C1 /* RakNetSocket.cpp */; };
+		3D8646592601111600B0B2C1 /* RakNetSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645262601111600B0B2C1 /* RakNetSocket.cpp */; };
+		3D86465A2601111600B0B2C1 /* RakNetSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645262601111600B0B2C1 /* RakNetSocket.cpp */; };
+		3D86465B2601111600B0B2C1 /* CheckSum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645272601111600B0B2C1 /* CheckSum.cpp */; };
+		3D86465C2601111600B0B2C1 /* CheckSum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645272601111600B0B2C1 /* CheckSum.cpp */; };
+		3D86465D2601111600B0B2C1 /* CheckSum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645272601111600B0B2C1 /* CheckSum.cpp */; };
+		3D86465E2601111600B0B2C1 /* StringTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645282601111600B0B2C1 /* StringTable.cpp */; };
+		3D86465F2601111600B0B2C1 /* StringTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645282601111600B0B2C1 /* StringTable.cpp */; };
+		3D8646602601111600B0B2C1 /* StringTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645282601111600B0B2C1 /* StringTable.cpp */; };
+		3D8646612601111600B0B2C1 /* Getche.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645292601111600B0B2C1 /* Getche.cpp */; };
+		3D8646622601111600B0B2C1 /* Getche.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645292601111600B0B2C1 /* Getche.cpp */; };
+		3D8646632601111600B0B2C1 /* Getche.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645292601111600B0B2C1 /* Getche.cpp */; };
+		3D8646642601111600B0B2C1 /* RelayPlugin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86452A2601111600B0B2C1 /* RelayPlugin.cpp */; };
+		3D8646652601111600B0B2C1 /* RelayPlugin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86452A2601111600B0B2C1 /* RelayPlugin.cpp */; };
+		3D8646662601111600B0B2C1 /* RelayPlugin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86452A2601111600B0B2C1 /* RelayPlugin.cpp */; };
+		3D8646672601111600B0B2C1 /* CCRakNetSlidingWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86452B2601111600B0B2C1 /* CCRakNetSlidingWindow.cpp */; };
+		3D8646682601111600B0B2C1 /* CCRakNetSlidingWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86452B2601111600B0B2C1 /* CCRakNetSlidingWindow.cpp */; };
+		3D8646692601111600B0B2C1 /* CCRakNetSlidingWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86452B2601111600B0B2C1 /* CCRakNetSlidingWindow.cpp */; };
+		3D86466A2601111600B0B2C1 /* FormatString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86452C2601111600B0B2C1 /* FormatString.cpp */; };
+		3D86466B2601111600B0B2C1 /* FormatString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86452C2601111600B0B2C1 /* FormatString.cpp */; };
+		3D86466C2601111600B0B2C1 /* FormatString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86452C2601111600B0B2C1 /* FormatString.cpp */; };
+		3D86466D2601111600B0B2C1 /* LogCommandParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86452D2601111600B0B2C1 /* LogCommandParser.cpp */; };
+		3D86466E2601111600B0B2C1 /* LogCommandParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86452D2601111600B0B2C1 /* LogCommandParser.cpp */; };
+		3D86466F2601111600B0B2C1 /* LogCommandParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86452D2601111600B0B2C1 /* LogCommandParser.cpp */; };
+		3D8646702601111600B0B2C1 /* PS4Includes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86452E2601111600B0B2C1 /* PS4Includes.cpp */; };
+		3D8646712601111600B0B2C1 /* PS4Includes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86452E2601111600B0B2C1 /* PS4Includes.cpp */; };
+		3D8646722601111600B0B2C1 /* PS4Includes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86452E2601111600B0B2C1 /* PS4Includes.cpp */; };
+		3D8646732601111600B0B2C1 /* NatTypeDetectionCommon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86452F2601111600B0B2C1 /* NatTypeDetectionCommon.cpp */; };
+		3D8646742601111600B0B2C1 /* NatTypeDetectionCommon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86452F2601111600B0B2C1 /* NatTypeDetectionCommon.cpp */; };
+		3D8646752601111600B0B2C1 /* NatTypeDetectionCommon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86452F2601111600B0B2C1 /* NatTypeDetectionCommon.cpp */; };
+		3D8646762601111600B0B2C1 /* PluginInterface2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645302601111600B0B2C1 /* PluginInterface2.cpp */; };
+		3D8646772601111600B0B2C1 /* PluginInterface2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645302601111600B0B2C1 /* PluginInterface2.cpp */; };
+		3D8646782601111600B0B2C1 /* PluginInterface2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645302601111600B0B2C1 /* PluginInterface2.cpp */; };
+		3D8646792601111600B0B2C1 /* SendToThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645312601111600B0B2C1 /* SendToThread.cpp */; };
+		3D86467A2601111600B0B2C1 /* SendToThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645312601111600B0B2C1 /* SendToThread.cpp */; };
+		3D86467B2601111600B0B2C1 /* SendToThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645312601111600B0B2C1 /* SendToThread.cpp */; };
+		3D86467C2601111600B0B2C1 /* CCRakNetUDT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645322601111600B0B2C1 /* CCRakNetUDT.cpp */; };
+		3D86467D2601111600B0B2C1 /* CCRakNetUDT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645322601111600B0B2C1 /* CCRakNetUDT.cpp */; };
+		3D86467E2601111600B0B2C1 /* CCRakNetUDT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645322601111600B0B2C1 /* CCRakNetUDT.cpp */; };
+		3D86467F2601111600B0B2C1 /* DataCompressor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645332601111600B0B2C1 /* DataCompressor.cpp */; };
+		3D8646802601111600B0B2C1 /* DataCompressor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645332601111600B0B2C1 /* DataCompressor.cpp */; };
+		3D8646812601111600B0B2C1 /* DataCompressor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645332601111600B0B2C1 /* DataCompressor.cpp */; };
+		3D8646822601111600B0B2C1 /* LinuxStrings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645342601111600B0B2C1 /* LinuxStrings.cpp */; };
+		3D8646832601111600B0B2C1 /* LinuxStrings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645342601111600B0B2C1 /* LinuxStrings.cpp */; };
+		3D8646842601111600B0B2C1 /* LinuxStrings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645342601111600B0B2C1 /* LinuxStrings.cpp */; };
+		3D8646852601111600B0B2C1 /* FullyConnectedMesh2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645352601111600B0B2C1 /* FullyConnectedMesh2.cpp */; };
+		3D8646862601111600B0B2C1 /* FullyConnectedMesh2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645352601111600B0B2C1 /* FullyConnectedMesh2.cpp */; };
+		3D8646872601111600B0B2C1 /* FullyConnectedMesh2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645352601111600B0B2C1 /* FullyConnectedMesh2.cpp */; };
+		3D8646882601111600B0B2C1 /* NatTypeDetectionClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645362601111600B0B2C1 /* NatTypeDetectionClient.cpp */; };
+		3D8646892601111600B0B2C1 /* NatTypeDetectionClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645362601111600B0B2C1 /* NatTypeDetectionClient.cpp */; };
+		3D86468A2601111600B0B2C1 /* NatTypeDetectionClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645362601111600B0B2C1 /* NatTypeDetectionClient.cpp */; };
+		3D86468B2601111600B0B2C1 /* PacketLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645372601111600B0B2C1 /* PacketLogger.cpp */; };
+		3D86468C2601111600B0B2C1 /* PacketLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645372601111600B0B2C1 /* PacketLogger.cpp */; };
+		3D86468D2601111600B0B2C1 /* PacketLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645372601111600B0B2C1 /* PacketLogger.cpp */; };
+		3D86468E2601111600B0B2C1 /* FileList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645382601111600B0B2C1 /* FileList.cpp */; };
+		3D86468F2601111600B0B2C1 /* FileList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645382601111600B0B2C1 /* FileList.cpp */; };
+		3D8646902601111600B0B2C1 /* FileList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645382601111600B0B2C1 /* FileList.cpp */; };
+		3D8646912601111600B0B2C1 /* CommandParserInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645392601111600B0B2C1 /* CommandParserInterface.cpp */; };
+		3D8646922601111600B0B2C1 /* CommandParserInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645392601111600B0B2C1 /* CommandParserInterface.cpp */; };
+		3D8646932601111600B0B2C1 /* CommandParserInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645392601111600B0B2C1 /* CommandParserInterface.cpp */; };
+		3D8646942601111600B0B2C1 /* CloudServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86453A2601111600B0B2C1 /* CloudServer.cpp */; };
+		3D8646952601111600B0B2C1 /* CloudServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86453A2601111600B0B2C1 /* CloudServer.cpp */; };
+		3D8646962601111600B0B2C1 /* CloudServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86453A2601111600B0B2C1 /* CloudServer.cpp */; };
+		3D8646972601111600B0B2C1 /* FileOperations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86453B2601111600B0B2C1 /* FileOperations.cpp */; };
+		3D8646982601111600B0B2C1 /* FileOperations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86453B2601111600B0B2C1 /* FileOperations.cpp */; };
+		3D8646992601111600B0B2C1 /* FileOperations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86453B2601111600B0B2C1 /* FileOperations.cpp */; };
+		3D86469A2601111600B0B2C1 /* PacketConsoleLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86453C2601111600B0B2C1 /* PacketConsoleLogger.cpp */; };
+		3D86469B2601111600B0B2C1 /* PacketConsoleLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86453C2601111600B0B2C1 /* PacketConsoleLogger.cpp */; };
+		3D86469C2601111600B0B2C1 /* PacketConsoleLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86453C2601111600B0B2C1 /* PacketConsoleLogger.cpp */; };
+		3D86469D2601111600B0B2C1 /* VariadicSQLParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86453D2601111600B0B2C1 /* VariadicSQLParser.cpp */; };
+		3D86469E2601111600B0B2C1 /* VariadicSQLParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86453D2601111600B0B2C1 /* VariadicSQLParser.cpp */; };
+		3D86469F2601111600B0B2C1 /* VariadicSQLParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86453D2601111600B0B2C1 /* VariadicSQLParser.cpp */; };
+		3D8646A02601111600B0B2C1 /* GridSectorizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86453E2601111600B0B2C1 /* GridSectorizer.cpp */; };
+		3D8646A12601111600B0B2C1 /* GridSectorizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86453E2601111600B0B2C1 /* GridSectorizer.cpp */; };
+		3D8646A22601111600B0B2C1 /* GridSectorizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86453E2601111600B0B2C1 /* GridSectorizer.cpp */; };
+		3D8646A32601111600B0B2C1 /* SignaledEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86453F2601111600B0B2C1 /* SignaledEvent.cpp */; };
+		3D8646A42601111600B0B2C1 /* SignaledEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86453F2601111600B0B2C1 /* SignaledEvent.cpp */; };
+		3D8646A52601111600B0B2C1 /* SignaledEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86453F2601111600B0B2C1 /* SignaledEvent.cpp */; };
+		3D8646A62601111600B0B2C1 /* RakNetCommandParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645402601111600B0B2C1 /* RakNetCommandParser.cpp */; };
+		3D8646A72601111600B0B2C1 /* RakNetCommandParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645402601111600B0B2C1 /* RakNetCommandParser.cpp */; };
+		3D8646A82601111600B0B2C1 /* RakNetCommandParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645402601111600B0B2C1 /* RakNetCommandParser.cpp */; };
+		3D8646A92601111600B0B2C1 /* RakNetSocket2_Windows_Linux.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645412601111600B0B2C1 /* RakNetSocket2_Windows_Linux.cpp */; };
+		3D8646AA2601111600B0B2C1 /* RakNetSocket2_Windows_Linux.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645412601111600B0B2C1 /* RakNetSocket2_Windows_Linux.cpp */; };
+		3D8646AB2601111600B0B2C1 /* RakNetSocket2_Windows_Linux.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645412601111600B0B2C1 /* RakNetSocket2_Windows_Linux.cpp */; };
+		3D8646AC2601111600B0B2C1 /* MessageFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645422601111600B0B2C1 /* MessageFilter.cpp */; };
+		3D8646AD2601111600B0B2C1 /* MessageFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645422601111600B0B2C1 /* MessageFilter.cpp */; };
+		3D8646AE2601111600B0B2C1 /* MessageFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645422601111600B0B2C1 /* MessageFilter.cpp */; };
+		3D8646AF2601111600B0B2C1 /* RakNetSocket2_Windows_Linux_360.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645432601111600B0B2C1 /* RakNetSocket2_Windows_Linux_360.cpp */; };
+		3D8646B02601111600B0B2C1 /* RakNetSocket2_Windows_Linux_360.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645432601111600B0B2C1 /* RakNetSocket2_Windows_Linux_360.cpp */; };
+		3D8646B12601111600B0B2C1 /* RakNetSocket2_Windows_Linux_360.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645432601111600B0B2C1 /* RakNetSocket2_Windows_Linux_360.cpp */; };
+		3D8646B22601111600B0B2C1 /* RakNetSocket2_PS4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645442601111600B0B2C1 /* RakNetSocket2_PS4.cpp */; };
+		3D8646B32601111600B0B2C1 /* RakNetSocket2_PS4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645442601111600B0B2C1 /* RakNetSocket2_PS4.cpp */; };
+		3D8646B42601111600B0B2C1 /* RakNetSocket2_PS4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645442601111600B0B2C1 /* RakNetSocket2_PS4.cpp */; };
+		3D8646B52601111600B0B2C1 /* UDPProxyCoordinator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645452601111600B0B2C1 /* UDPProxyCoordinator.cpp */; };
+		3D8646B62601111600B0B2C1 /* UDPProxyCoordinator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645452601111600B0B2C1 /* UDPProxyCoordinator.cpp */; };
+		3D8646B72601111600B0B2C1 /* UDPProxyCoordinator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645452601111600B0B2C1 /* UDPProxyCoordinator.cpp */; };
+		3D8646B82601111600B0B2C1 /* HTTPConnection2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645462601111600B0B2C1 /* HTTPConnection2.cpp */; };
+		3D8646B92601111600B0B2C1 /* HTTPConnection2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645462601111600B0B2C1 /* HTTPConnection2.cpp */; };
+		3D8646BA2601111600B0B2C1 /* HTTPConnection2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645462601111600B0B2C1 /* HTTPConnection2.cpp */; };
+		3D8646BB2601111600B0B2C1 /* gettimeofday.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645472601111600B0B2C1 /* gettimeofday.cpp */; };
+		3D8646BC2601111600B0B2C1 /* gettimeofday.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645472601111600B0B2C1 /* gettimeofday.cpp */; };
+		3D8646BD2601111600B0B2C1 /* gettimeofday.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645472601111600B0B2C1 /* gettimeofday.cpp */; };
+		3D8646BE2601111600B0B2C1 /* RakNetSocket2_Berkley.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645482601111600B0B2C1 /* RakNetSocket2_Berkley.cpp */; };
+		3D8646BF2601111600B0B2C1 /* RakNetSocket2_Berkley.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645482601111600B0B2C1 /* RakNetSocket2_Berkley.cpp */; };
+		3D8646C02601111600B0B2C1 /* RakNetSocket2_Berkley.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645482601111600B0B2C1 /* RakNetSocket2_Berkley.cpp */; };
+		3D8646C12601111600B0B2C1 /* _FindFirst.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645492601111600B0B2C1 /* _FindFirst.cpp */; };
+		3D8646C22601111600B0B2C1 /* _FindFirst.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645492601111600B0B2C1 /* _FindFirst.cpp */; };
+		3D8646C32601111600B0B2C1 /* _FindFirst.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645492601111600B0B2C1 /* _FindFirst.cpp */; };
+		3D8646C42601111600B0B2C1 /* PacketOutputWindowLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86454A2601111600B0B2C1 /* PacketOutputWindowLogger.cpp */; };
+		3D8646C52601111600B0B2C1 /* PacketOutputWindowLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86454A2601111600B0B2C1 /* PacketOutputWindowLogger.cpp */; };
+		3D8646C62601111600B0B2C1 /* PacketOutputWindowLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86454A2601111600B0B2C1 /* PacketOutputWindowLogger.cpp */; };
+		3D8646C72601111600B0B2C1 /* NetworkIDManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86454B2601111600B0B2C1 /* NetworkIDManager.cpp */; };
+		3D8646C82601111600B0B2C1 /* NetworkIDManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86454B2601111600B0B2C1 /* NetworkIDManager.cpp */; };
+		3D8646C92601111600B0B2C1 /* NetworkIDManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86454B2601111600B0B2C1 /* NetworkIDManager.cpp */; };
+		3D8646CA2601111600B0B2C1 /* ReliabilityLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86454C2601111600B0B2C1 /* ReliabilityLayer.cpp */; };
+		3D8646CB2601111600B0B2C1 /* ReliabilityLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86454C2601111600B0B2C1 /* ReliabilityLayer.cpp */; };
+		3D8646CC2601111600B0B2C1 /* ReliabilityLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86454C2601111600B0B2C1 /* ReliabilityLayer.cpp */; };
+		3D8646CD2601111600B0B2C1 /* RakThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86454D2601111600B0B2C1 /* RakThread.cpp */; };
+		3D8646CE2601111600B0B2C1 /* RakThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86454D2601111600B0B2C1 /* RakThread.cpp */; };
+		3D8646CF2601111600B0B2C1 /* RakThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86454D2601111600B0B2C1 /* RakThread.cpp */; };
+		3D8646D02601111600B0B2C1 /* GetTime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86454E2601111600B0B2C1 /* GetTime.cpp */; };
+		3D8646D12601111600B0B2C1 /* GetTime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86454E2601111600B0B2C1 /* GetTime.cpp */; };
+		3D8646D22601111600B0B2C1 /* GetTime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86454E2601111600B0B2C1 /* GetTime.cpp */; };
+		3D8646D32601111600B0B2C1 /* FileListTransfer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86454F2601111600B0B2C1 /* FileListTransfer.cpp */; };
+		3D8646D42601111600B0B2C1 /* FileListTransfer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86454F2601111600B0B2C1 /* FileListTransfer.cpp */; };
+		3D8646D52601111600B0B2C1 /* FileListTransfer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86454F2601111600B0B2C1 /* FileListTransfer.cpp */; };
+		3D8646D62601111600B0B2C1 /* SuperFastHash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645502601111600B0B2C1 /* SuperFastHash.cpp */; };
+		3D8646D72601111600B0B2C1 /* SuperFastHash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645502601111600B0B2C1 /* SuperFastHash.cpp */; };
+		3D8646D82601111600B0B2C1 /* SuperFastHash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645502601111600B0B2C1 /* SuperFastHash.cpp */; };
+		3D8646D92601111600B0B2C1 /* ConsoleServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645512601111600B0B2C1 /* ConsoleServer.cpp */; };
+		3D8646DA2601111600B0B2C1 /* ConsoleServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645512601111600B0B2C1 /* ConsoleServer.cpp */; };
+		3D8646DB2601111600B0B2C1 /* ConsoleServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645512601111600B0B2C1 /* ConsoleServer.cpp */; };
+		3D8646DC2601111600B0B2C1 /* Rand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645522601111600B0B2C1 /* Rand.cpp */; };
+		3D8646DD2601111600B0B2C1 /* Rand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645522601111600B0B2C1 /* Rand.cpp */; };
+		3D8646DE2601111600B0B2C1 /* Rand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645522601111600B0B2C1 /* Rand.cpp */; };
+		3D8646DF2601111600B0B2C1 /* CloudCommon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645532601111600B0B2C1 /* CloudCommon.cpp */; };
+		3D8646E02601111600B0B2C1 /* CloudCommon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645532601111600B0B2C1 /* CloudCommon.cpp */; };
+		3D8646E12601111600B0B2C1 /* CloudCommon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645532601111600B0B2C1 /* CloudCommon.cpp */; };
+		3D8646E22601111600B0B2C1 /* PacketFileLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645542601111600B0B2C1 /* PacketFileLogger.cpp */; };
+		3D8646E32601111600B0B2C1 /* PacketFileLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645542601111600B0B2C1 /* PacketFileLogger.cpp */; };
+		3D8646E42601111600B0B2C1 /* PacketFileLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645542601111600B0B2C1 /* PacketFileLogger.cpp */; };
+		3D8646E52601111600B0B2C1 /* PacketizedTCP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645552601111600B0B2C1 /* PacketizedTCP.cpp */; };
+		3D8646E62601111600B0B2C1 /* PacketizedTCP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645552601111600B0B2C1 /* PacketizedTCP.cpp */; };
+		3D8646E72601111600B0B2C1 /* PacketizedTCP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645552601111600B0B2C1 /* PacketizedTCP.cpp */; };
+		3D8646E82601111600B0B2C1 /* IncrementalReadInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645562601111600B0B2C1 /* IncrementalReadInterface.cpp */; };
+		3D8646E92601111600B0B2C1 /* IncrementalReadInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645562601111600B0B2C1 /* IncrementalReadInterface.cpp */; };
+		3D8646EA2601111600B0B2C1 /* IncrementalReadInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645562601111600B0B2C1 /* IncrementalReadInterface.cpp */; };
+		3D8646EB2601111600B0B2C1 /* NetworkIDObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645572601111600B0B2C1 /* NetworkIDObject.cpp */; };
+		3D8646EC2601111600B0B2C1 /* NetworkIDObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645572601111600B0B2C1 /* NetworkIDObject.cpp */; };
+		3D8646ED2601111600B0B2C1 /* NetworkIDObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645572601111600B0B2C1 /* NetworkIDObject.cpp */; };
+		3D8646EE2601111600B0B2C1 /* RakNetSocket2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645582601111600B0B2C1 /* RakNetSocket2.cpp */; };
+		3D8646EF2601111600B0B2C1 /* RakNetSocket2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645582601111600B0B2C1 /* RakNetSocket2.cpp */; };
+		3D8646F02601111600B0B2C1 /* RakNetSocket2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645582601111600B0B2C1 /* RakNetSocket2.cpp */; };
+		3D8646F12601111600B0B2C1 /* CloudClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645592601111600B0B2C1 /* CloudClient.cpp */; };
+		3D8646F22601111600B0B2C1 /* CloudClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645592601111600B0B2C1 /* CloudClient.cpp */; };
+		3D8646F32601111600B0B2C1 /* CloudClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645592601111600B0B2C1 /* CloudClient.cpp */; };
+		3D8646F42601111600B0B2C1 /* DS_ByteQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86455A2601111600B0B2C1 /* DS_ByteQueue.cpp */; };
+		3D8646F52601111600B0B2C1 /* DS_ByteQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86455A2601111600B0B2C1 /* DS_ByteQueue.cpp */; };
+		3D8646F62601111600B0B2C1 /* DS_ByteQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86455A2601111600B0B2C1 /* DS_ByteQueue.cpp */; };
+		3D8646F72601111600B0B2C1 /* StringCompressor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86455B2601111600B0B2C1 /* StringCompressor.cpp */; };
+		3D8646F82601111600B0B2C1 /* StringCompressor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86455B2601111600B0B2C1 /* StringCompressor.cpp */; };
+		3D8646F92601111600B0B2C1 /* StringCompressor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86455B2601111600B0B2C1 /* StringCompressor.cpp */; };
+		3D8646FA2601111600B0B2C1 /* TeamBalancer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86455C2601111600B0B2C1 /* TeamBalancer.cpp */; };
+		3D8646FB2601111600B0B2C1 /* TeamBalancer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86455C2601111600B0B2C1 /* TeamBalancer.cpp */; };
+		3D8646FC2601111600B0B2C1 /* TeamBalancer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86455C2601111600B0B2C1 /* TeamBalancer.cpp */; };
+		3D8646FD2601111600B0B2C1 /* VitaIncludes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86455D2601111600B0B2C1 /* VitaIncludes.cpp */; };
+		3D8646FE2601111600B0B2C1 /* VitaIncludes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86455D2601111600B0B2C1 /* VitaIncludes.cpp */; };
+		3D8646FF2601111700B0B2C1 /* VitaIncludes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86455D2601111600B0B2C1 /* VitaIncludes.cpp */; };
+		3D8647002601111700B0B2C1 /* RakWString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86455E2601111600B0B2C1 /* RakWString.cpp */; };
+		3D8647012601111700B0B2C1 /* RakWString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86455E2601111600B0B2C1 /* RakWString.cpp */; };
+		3D8647022601111700B0B2C1 /* RakWString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86455E2601111600B0B2C1 /* RakWString.cpp */; };
+		3D8647032601111700B0B2C1 /* VariableListDeltaTracker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86455F2601111600B0B2C1 /* VariableListDeltaTracker.cpp */; };
+		3D8647042601111700B0B2C1 /* VariableListDeltaTracker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86455F2601111600B0B2C1 /* VariableListDeltaTracker.cpp */; };
+		3D8647052601111700B0B2C1 /* VariableListDeltaTracker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86455F2601111600B0B2C1 /* VariableListDeltaTracker.cpp */; };
+		3D8647062601111700B0B2C1 /* TeamManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645602601111600B0B2C1 /* TeamManager.cpp */; };
+		3D8647072601111700B0B2C1 /* TeamManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645602601111600B0B2C1 /* TeamManager.cpp */; };
+		3D8647082601111700B0B2C1 /* TeamManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645602601111600B0B2C1 /* TeamManager.cpp */; };
+		3D8647092601111700B0B2C1 /* RakNetTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645612601111600B0B2C1 /* RakNetTypes.cpp */; };
+		3D86470A2601111700B0B2C1 /* RakNetTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645612601111600B0B2C1 /* RakNetTypes.cpp */; };
+		3D86470B2601111700B0B2C1 /* RakNetTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645612601111600B0B2C1 /* RakNetTypes.cpp */; };
+		3D86470C2601111700B0B2C1 /* RakNetSocket2_Vita.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645622601111600B0B2C1 /* RakNetSocket2_Vita.cpp */; };
+		3D86470D2601111700B0B2C1 /* RakNetSocket2_Vita.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645622601111600B0B2C1 /* RakNetSocket2_Vita.cpp */; };
+		3D86470E2601111700B0B2C1 /* RakNetSocket2_Vita.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645622601111600B0B2C1 /* RakNetSocket2_Vita.cpp */; };
+		3D86470F2601111700B0B2C1 /* TwoWayAuthentication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645632601111600B0B2C1 /* TwoWayAuthentication.cpp */; };
+		3D8647102601111700B0B2C1 /* TwoWayAuthentication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645632601111600B0B2C1 /* TwoWayAuthentication.cpp */; };
+		3D8647112601111700B0B2C1 /* TwoWayAuthentication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645632601111600B0B2C1 /* TwoWayAuthentication.cpp */; };
+		3D8647122601111700B0B2C1 /* NatTypeDetectionServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645642601111600B0B2C1 /* NatTypeDetectionServer.cpp */; };
+		3D8647132601111700B0B2C1 /* NatTypeDetectionServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645642601111600B0B2C1 /* NatTypeDetectionServer.cpp */; };
+		3D8647142601111700B0B2C1 /* NatTypeDetectionServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8645642601111600B0B2C1 /* NatTypeDetectionServer.cpp */; };
+		3D8647152601111700B0B2C1 /* linux_adapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646032601111600B0B2C1 /* linux_adapter.cpp */; };
+		3D8647162601111700B0B2C1 /* linux_adapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646032601111600B0B2C1 /* linux_adapter.cpp */; };
+		3D8647172601111700B0B2C1 /* linux_adapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646032601111600B0B2C1 /* linux_adapter.cpp */; };
+		3D8647182601111700B0B2C1 /* RandSync.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646042601111600B0B2C1 /* RandSync.cpp */; };
+		3D8647192601111700B0B2C1 /* RandSync.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646042601111600B0B2C1 /* RandSync.cpp */; };
+		3D86471A2601111700B0B2C1 /* RandSync.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646042601111600B0B2C1 /* RandSync.cpp */; };
+		3D86471B2601111700B0B2C1 /* ReplicaManager3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646052601111600B0B2C1 /* ReplicaManager3.cpp */; };
+		3D86471C2601111700B0B2C1 /* ReplicaManager3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646052601111600B0B2C1 /* ReplicaManager3.cpp */; };
+		3D86471D2601111700B0B2C1 /* ReplicaManager3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646052601111600B0B2C1 /* ReplicaManager3.cpp */; };
+		3D86471E2601111700B0B2C1 /* RakNetSocket2_PS3_PS4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646062601111600B0B2C1 /* RakNetSocket2_PS3_PS4.cpp */; };
+		3D86471F2601111700B0B2C1 /* RakNetSocket2_PS3_PS4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646062601111600B0B2C1 /* RakNetSocket2_PS3_PS4.cpp */; };
+		3D8647202601111700B0B2C1 /* RakNetSocket2_PS3_PS4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646062601111600B0B2C1 /* RakNetSocket2_PS3_PS4.cpp */; };
+		3D8647212601111700B0B2C1 /* TCPInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646072601111600B0B2C1 /* TCPInterface.cpp */; };
+		3D8647222601111700B0B2C1 /* TCPInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646072601111600B0B2C1 /* TCPInterface.cpp */; };
+		3D8647232601111700B0B2C1 /* TCPInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646072601111600B0B2C1 /* TCPInterface.cpp */; };
+		3D8647242601111700B0B2C1 /* NatPunchthroughServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646082601111600B0B2C1 /* NatPunchthroughServer.cpp */; };
+		3D8647252601111700B0B2C1 /* NatPunchthroughServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646082601111600B0B2C1 /* NatPunchthroughServer.cpp */; };
+		3D8647262601111700B0B2C1 /* NatPunchthroughServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646082601111600B0B2C1 /* NatPunchthroughServer.cpp */; };
+		3D8647272601111700B0B2C1 /* VariableDeltaSerializer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646092601111600B0B2C1 /* VariableDeltaSerializer.cpp */; };
+		3D8647282601111700B0B2C1 /* VariableDeltaSerializer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646092601111600B0B2C1 /* VariableDeltaSerializer.cpp */; };
+		3D8647292601111700B0B2C1 /* VariableDeltaSerializer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646092601111600B0B2C1 /* VariableDeltaSerializer.cpp */; };
+		3D86472A2601111700B0B2C1 /* osx_adapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86460A2601111600B0B2C1 /* osx_adapter.cpp */; };
+		3D86472B2601111700B0B2C1 /* osx_adapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86460A2601111600B0B2C1 /* osx_adapter.cpp */; };
+		3D86472C2601111700B0B2C1 /* osx_adapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86460A2601111600B0B2C1 /* osx_adapter.cpp */; };
+		3D86472D2601111700B0B2C1 /* UDPForwarder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86460B2601111600B0B2C1 /* UDPForwarder.cpp */; };
+		3D86472E2601111700B0B2C1 /* UDPForwarder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86460B2601111600B0B2C1 /* UDPForwarder.cpp */; };
+		3D86472F2601111700B0B2C1 /* UDPForwarder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86460B2601111600B0B2C1 /* UDPForwarder.cpp */; };
+		3D8647302601111700B0B2C1 /* LocklessTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86460C2601111600B0B2C1 /* LocklessTypes.cpp */; };
+		3D8647312601111700B0B2C1 /* LocklessTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86460C2601111600B0B2C1 /* LocklessTypes.cpp */; };
+		3D8647322601111700B0B2C1 /* LocklessTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86460C2601111600B0B2C1 /* LocklessTypes.cpp */; };
+		3D8647332601111700B0B2C1 /* WSAStartupSingleton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86460D2601111600B0B2C1 /* WSAStartupSingleton.cpp */; };
+		3D8647342601111700B0B2C1 /* WSAStartupSingleton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86460D2601111600B0B2C1 /* WSAStartupSingleton.cpp */; };
+		3D8647352601111700B0B2C1 /* WSAStartupSingleton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86460D2601111600B0B2C1 /* WSAStartupSingleton.cpp */; };
+		3D8647362601111700B0B2C1 /* UDPProxyServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86460E2601111600B0B2C1 /* UDPProxyServer.cpp */; };
+		3D8647372601111700B0B2C1 /* UDPProxyServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86460E2601111600B0B2C1 /* UDPProxyServer.cpp */; };
+		3D8647382601111700B0B2C1 /* UDPProxyServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86460E2601111600B0B2C1 /* UDPProxyServer.cpp */; };
+		3D8647392601111700B0B2C1 /* DR_SHA1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86460F2601111600B0B2C1 /* DR_SHA1.cpp */; };
+		3D86473A2601111700B0B2C1 /* DR_SHA1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86460F2601111600B0B2C1 /* DR_SHA1.cpp */; };
+		3D86473B2601111700B0B2C1 /* DR_SHA1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86460F2601111600B0B2C1 /* DR_SHA1.cpp */; };
+		3D86473C2601111700B0B2C1 /* RakNetStatistics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646102601111600B0B2C1 /* RakNetStatistics.cpp */; };
+		3D86473D2601111700B0B2C1 /* RakNetStatistics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646102601111600B0B2C1 /* RakNetStatistics.cpp */; };
+		3D86473E2601111700B0B2C1 /* RakNetStatistics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646102601111600B0B2C1 /* RakNetStatistics.cpp */; };
+		3D86473F2601111700B0B2C1 /* Itoa.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646112601111600B0B2C1 /* Itoa.cpp */; };
+		3D8647402601111700B0B2C1 /* Itoa.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646112601111600B0B2C1 /* Itoa.cpp */; };
+		3D8647412601111700B0B2C1 /* Itoa.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646112601111600B0B2C1 /* Itoa.cpp */; };
+		3D8647422601111700B0B2C1 /* RakNetTransport2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646122601111600B0B2C1 /* RakNetTransport2.cpp */; };
+		3D8647432601111700B0B2C1 /* RakNetTransport2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646122601111600B0B2C1 /* RakNetTransport2.cpp */; };
+		3D8647442601111700B0B2C1 /* RakNetTransport2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646122601111600B0B2C1 /* RakNetTransport2.cpp */; };
+		3D8647452601111700B0B2C1 /* TelnetTransport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646132601111600B0B2C1 /* TelnetTransport.cpp */; };
+		3D8647462601111700B0B2C1 /* TelnetTransport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646132601111600B0B2C1 /* TelnetTransport.cpp */; };
+		3D8647472601111700B0B2C1 /* TelnetTransport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646132601111600B0B2C1 /* TelnetTransport.cpp */; };
+		3D8647482601111700B0B2C1 /* StatisticsHistory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646142601111600B0B2C1 /* StatisticsHistory.cpp */; };
+		3D8647492601111700B0B2C1 /* StatisticsHistory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646142601111600B0B2C1 /* StatisticsHistory.cpp */; };
+		3D86474A2601111700B0B2C1 /* StatisticsHistory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646142601111600B0B2C1 /* StatisticsHistory.cpp */; };
+		3D86474B2601111700B0B2C1 /* SimpleMutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646152601111600B0B2C1 /* SimpleMutex.cpp */; };
+		3D86474C2601111700B0B2C1 /* SimpleMutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646152601111600B0B2C1 /* SimpleMutex.cpp */; };
+		3D86474D2601111700B0B2C1 /* SimpleMutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646152601111600B0B2C1 /* SimpleMutex.cpp */; };
+		3D86474E2601111700B0B2C1 /* Gets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646162601111600B0B2C1 /* Gets.cpp */; };
+		3D86474F2601111700B0B2C1 /* Gets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646162601111600B0B2C1 /* Gets.cpp */; };
+		3D8647502601111700B0B2C1 /* Gets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646162601111600B0B2C1 /* Gets.cpp */; };
+		3D8647512601111700B0B2C1 /* TableSerializer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646172601111600B0B2C1 /* TableSerializer.cpp */; };
+		3D8647522601111700B0B2C1 /* TableSerializer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646172601111600B0B2C1 /* TableSerializer.cpp */; };
+		3D8647532601111700B0B2C1 /* TableSerializer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646172601111600B0B2C1 /* TableSerializer.cpp */; };
+		3D8647542601111700B0B2C1 /* DirectoryDeltaTransfer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646182601111600B0B2C1 /* DirectoryDeltaTransfer.cpp */; };
+		3D8647552601111700B0B2C1 /* DirectoryDeltaTransfer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646182601111600B0B2C1 /* DirectoryDeltaTransfer.cpp */; };
+		3D8647562601111700B0B2C1 /* DirectoryDeltaTransfer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646182601111600B0B2C1 /* DirectoryDeltaTransfer.cpp */; };
+		3D8647572601111700B0B2C1 /* Base64Encoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646192601111600B0B2C1 /* Base64Encoder.cpp */; };
+		3D8647582601111700B0B2C1 /* Base64Encoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646192601111600B0B2C1 /* Base64Encoder.cpp */; };
+		3D8647592601111700B0B2C1 /* Base64Encoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646192601111600B0B2C1 /* Base64Encoder.cpp */; };
+		3D86475A2601111700B0B2C1 /* RakString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86461A2601111600B0B2C1 /* RakString.cpp */; };
+		3D86475B2601111700B0B2C1 /* RakString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86461A2601111600B0B2C1 /* RakString.cpp */; };
+		3D86475C2601111700B0B2C1 /* RakString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86461A2601111600B0B2C1 /* RakString.cpp */; };
+		3D86475D2601111700B0B2C1 /* RakNetSocket2_WindowsStore8.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86461B2601111600B0B2C1 /* RakNetSocket2_WindowsStore8.cpp */; };
+		3D86475E2601111700B0B2C1 /* RakNetSocket2_WindowsStore8.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86461B2601111600B0B2C1 /* RakNetSocket2_WindowsStore8.cpp */; };
+		3D86475F2601111700B0B2C1 /* RakNetSocket2_WindowsStore8.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86461B2601111600B0B2C1 /* RakNetSocket2_WindowsStore8.cpp */; };
+		3D8647602601111700B0B2C1 /* DynDNS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86461C2601111600B0B2C1 /* DynDNS.cpp */; };
+		3D8647612601111700B0B2C1 /* DynDNS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86461C2601111600B0B2C1 /* DynDNS.cpp */; };
+		3D8647622601111700B0B2C1 /* DynDNS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86461C2601111600B0B2C1 /* DynDNS.cpp */; };
+		3D8647632601111700B0B2C1 /* RakSleep.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86461D2601111600B0B2C1 /* RakSleep.cpp */; };
+		3D8647642601111700B0B2C1 /* RakSleep.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86461D2601111600B0B2C1 /* RakSleep.cpp */; };
+		3D8647652601111700B0B2C1 /* RakSleep.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86461D2601111600B0B2C1 /* RakSleep.cpp */; };
+		3D8647662601111700B0B2C1 /* RakNetSocket2_360_720.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86461E2601111600B0B2C1 /* RakNetSocket2_360_720.cpp */; };
+		3D8647672601111700B0B2C1 /* RakNetSocket2_360_720.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86461E2601111600B0B2C1 /* RakNetSocket2_360_720.cpp */; };
+		3D8647682601111700B0B2C1 /* RakNetSocket2_360_720.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86461E2601111600B0B2C1 /* RakNetSocket2_360_720.cpp */; };
+		3D8647692601111700B0B2C1 /* RakNetSocket2_NativeClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86461F2601111600B0B2C1 /* RakNetSocket2_NativeClient.cpp */; };
+		3D86476A2601111700B0B2C1 /* RakNetSocket2_NativeClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86461F2601111600B0B2C1 /* RakNetSocket2_NativeClient.cpp */; };
+		3D86476B2601111700B0B2C1 /* RakNetSocket2_NativeClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86461F2601111600B0B2C1 /* RakNetSocket2_NativeClient.cpp */; };
+		3D86476C2601111700B0B2C1 /* RPC4Plugin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646202601111600B0B2C1 /* RPC4Plugin.cpp */; };
+		3D86476D2601111700B0B2C1 /* RPC4Plugin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646202601111600B0B2C1 /* RPC4Plugin.cpp */; };
+		3D86476E2601111700B0B2C1 /* RPC4Plugin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646202601111600B0B2C1 /* RPC4Plugin.cpp */; };
+		3D86476F2601111700B0B2C1 /* RakMemoryOverride.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646212601111600B0B2C1 /* RakMemoryOverride.cpp */; };
+		3D8647702601111700B0B2C1 /* RakMemoryOverride.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646212601111600B0B2C1 /* RakMemoryOverride.cpp */; };
+		3D8647712601111700B0B2C1 /* RakMemoryOverride.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8646212601111600B0B2C1 /* RakMemoryOverride.cpp */; };
 		3D94040725FFC52400043357 /* CIGameUpdateManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D94040625FFC52400043357 /* CIGameUpdateManager.cpp */; };
 		3D94040825FFC52400043357 /* CIGameUpdateManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D94040625FFC52400043357 /* CIGameUpdateManager.cpp */; };
 		3D94040925FFC52400043357 /* CIGameUpdateManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D94040625FFC52400043357 /* CIGameUpdateManager.cpp */; };
@@ -145,6 +482,275 @@
 		3D563B9C25F0AF01006641B1 /* CIPlanetModel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CIPlanetModel.cpp; sourceTree = "<group>"; };
 		3D563BF325F6D58C006641B1 /* CIPlanetNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIPlanetNode.h; sourceTree = "<group>"; };
 		3D563BF725F6D5B7006641B1 /* CIPlanetNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CIPlanetNode.cpp; sourceTree = "<group>"; };
+		3D8645142601111600B0B2C1 /* Router2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Router2.cpp; sourceTree = "<group>"; };
+		3D8645152601111600B0B2C1 /* DS_Table.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DS_Table.cpp; sourceTree = "<group>"; };
+		3D8645162601111600B0B2C1 /* RakNetSocket2_Berkley_NativeClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RakNetSocket2_Berkley_NativeClient.cpp; sourceTree = "<group>"; };
+		3D8645172601111600B0B2C1 /* NatPunchthroughClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NatPunchthroughClient.cpp; sourceTree = "<group>"; };
+		3D8645182601111600B0B2C1 /* ThreadsafePacketLogger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThreadsafePacketLogger.cpp; sourceTree = "<group>"; };
+		3D8645192601111600B0B2C1 /* RakPeer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RakPeer.cpp; sourceTree = "<group>"; };
+		3D86451A2601111600B0B2C1 /* ConnectionGraph2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConnectionGraph2.cpp; sourceTree = "<group>"; };
+		3D86451B2601111600B0B2C1 /* DS_BytePool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DS_BytePool.cpp; sourceTree = "<group>"; };
+		3D86451C2601111600B0B2C1 /* DS_HuffmanEncodingTree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DS_HuffmanEncodingTree.cpp; sourceTree = "<group>"; };
+		3D86451D2601111600B0B2C1 /* ReadyEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ReadyEvent.cpp; sourceTree = "<group>"; };
+		3D86451E2601111600B0B2C1 /* Rackspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Rackspace.cpp; sourceTree = "<group>"; };
+		3D86451F2601111600B0B2C1 /* UDPProxyClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UDPProxyClient.cpp; sourceTree = "<group>"; };
+		3D8645202601111600B0B2C1 /* EpochTimeToString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EpochTimeToString.cpp; sourceTree = "<group>"; };
+		3D8645212601111600B0B2C1 /* SocketLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SocketLayer.cpp; sourceTree = "<group>"; };
+		3D8645222601111600B0B2C1 /* BitStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BitStream.cpp; sourceTree = "<group>"; };
+		3D8645232601111600B0B2C1 /* HTTPConnection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HTTPConnection.cpp; sourceTree = "<group>"; };
+		3D8645242601111600B0B2C1 /* SecureHandshake.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SecureHandshake.cpp; sourceTree = "<group>"; };
+		3D8645252601111600B0B2C1 /* EmailSender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EmailSender.cpp; sourceTree = "<group>"; };
+		3D8645262601111600B0B2C1 /* RakNetSocket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RakNetSocket.cpp; sourceTree = "<group>"; };
+		3D8645272601111600B0B2C1 /* CheckSum.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CheckSum.cpp; sourceTree = "<group>"; };
+		3D8645282601111600B0B2C1 /* StringTable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StringTable.cpp; sourceTree = "<group>"; };
+		3D8645292601111600B0B2C1 /* Getche.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Getche.cpp; sourceTree = "<group>"; };
+		3D86452A2601111600B0B2C1 /* RelayPlugin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RelayPlugin.cpp; sourceTree = "<group>"; };
+		3D86452B2601111600B0B2C1 /* CCRakNetSlidingWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCRakNetSlidingWindow.cpp; sourceTree = "<group>"; };
+		3D86452C2601111600B0B2C1 /* FormatString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormatString.cpp; sourceTree = "<group>"; };
+		3D86452D2601111600B0B2C1 /* LogCommandParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LogCommandParser.cpp; sourceTree = "<group>"; };
+		3D86452E2601111600B0B2C1 /* PS4Includes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PS4Includes.cpp; sourceTree = "<group>"; };
+		3D86452F2601111600B0B2C1 /* NatTypeDetectionCommon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NatTypeDetectionCommon.cpp; sourceTree = "<group>"; };
+		3D8645302601111600B0B2C1 /* PluginInterface2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PluginInterface2.cpp; sourceTree = "<group>"; };
+		3D8645312601111600B0B2C1 /* SendToThread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SendToThread.cpp; sourceTree = "<group>"; };
+		3D8645322601111600B0B2C1 /* CCRakNetUDT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCRakNetUDT.cpp; sourceTree = "<group>"; };
+		3D8645332601111600B0B2C1 /* DataCompressor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DataCompressor.cpp; sourceTree = "<group>"; };
+		3D8645342601111600B0B2C1 /* LinuxStrings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LinuxStrings.cpp; sourceTree = "<group>"; };
+		3D8645352601111600B0B2C1 /* FullyConnectedMesh2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FullyConnectedMesh2.cpp; sourceTree = "<group>"; };
+		3D8645362601111600B0B2C1 /* NatTypeDetectionClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NatTypeDetectionClient.cpp; sourceTree = "<group>"; };
+		3D8645372601111600B0B2C1 /* PacketLogger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PacketLogger.cpp; sourceTree = "<group>"; };
+		3D8645382601111600B0B2C1 /* FileList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileList.cpp; sourceTree = "<group>"; };
+		3D8645392601111600B0B2C1 /* CommandParserInterface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CommandParserInterface.cpp; sourceTree = "<group>"; };
+		3D86453A2601111600B0B2C1 /* CloudServer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CloudServer.cpp; sourceTree = "<group>"; };
+		3D86453B2601111600B0B2C1 /* FileOperations.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileOperations.cpp; sourceTree = "<group>"; };
+		3D86453C2601111600B0B2C1 /* PacketConsoleLogger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PacketConsoleLogger.cpp; sourceTree = "<group>"; };
+		3D86453D2601111600B0B2C1 /* VariadicSQLParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VariadicSQLParser.cpp; sourceTree = "<group>"; };
+		3D86453E2601111600B0B2C1 /* GridSectorizer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GridSectorizer.cpp; sourceTree = "<group>"; };
+		3D86453F2601111600B0B2C1 /* SignaledEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SignaledEvent.cpp; sourceTree = "<group>"; };
+		3D8645402601111600B0B2C1 /* RakNetCommandParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RakNetCommandParser.cpp; sourceTree = "<group>"; };
+		3D8645412601111600B0B2C1 /* RakNetSocket2_Windows_Linux.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RakNetSocket2_Windows_Linux.cpp; sourceTree = "<group>"; };
+		3D8645422601111600B0B2C1 /* MessageFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MessageFilter.cpp; sourceTree = "<group>"; };
+		3D8645432601111600B0B2C1 /* RakNetSocket2_Windows_Linux_360.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RakNetSocket2_Windows_Linux_360.cpp; sourceTree = "<group>"; };
+		3D8645442601111600B0B2C1 /* RakNetSocket2_PS4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RakNetSocket2_PS4.cpp; sourceTree = "<group>"; };
+		3D8645452601111600B0B2C1 /* UDPProxyCoordinator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UDPProxyCoordinator.cpp; sourceTree = "<group>"; };
+		3D8645462601111600B0B2C1 /* HTTPConnection2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HTTPConnection2.cpp; sourceTree = "<group>"; };
+		3D8645472601111600B0B2C1 /* gettimeofday.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gettimeofday.cpp; sourceTree = "<group>"; };
+		3D8645482601111600B0B2C1 /* RakNetSocket2_Berkley.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RakNetSocket2_Berkley.cpp; sourceTree = "<group>"; };
+		3D8645492601111600B0B2C1 /* _FindFirst.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = _FindFirst.cpp; sourceTree = "<group>"; };
+		3D86454A2601111600B0B2C1 /* PacketOutputWindowLogger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PacketOutputWindowLogger.cpp; sourceTree = "<group>"; };
+		3D86454B2601111600B0B2C1 /* NetworkIDManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetworkIDManager.cpp; sourceTree = "<group>"; };
+		3D86454C2601111600B0B2C1 /* ReliabilityLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ReliabilityLayer.cpp; sourceTree = "<group>"; };
+		3D86454D2601111600B0B2C1 /* RakThread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RakThread.cpp; sourceTree = "<group>"; };
+		3D86454E2601111600B0B2C1 /* GetTime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GetTime.cpp; sourceTree = "<group>"; };
+		3D86454F2601111600B0B2C1 /* FileListTransfer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileListTransfer.cpp; sourceTree = "<group>"; };
+		3D8645502601111600B0B2C1 /* SuperFastHash.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SuperFastHash.cpp; sourceTree = "<group>"; };
+		3D8645512601111600B0B2C1 /* ConsoleServer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConsoleServer.cpp; sourceTree = "<group>"; };
+		3D8645522601111600B0B2C1 /* Rand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Rand.cpp; sourceTree = "<group>"; };
+		3D8645532601111600B0B2C1 /* CloudCommon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CloudCommon.cpp; sourceTree = "<group>"; };
+		3D8645542601111600B0B2C1 /* PacketFileLogger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PacketFileLogger.cpp; sourceTree = "<group>"; };
+		3D8645552601111600B0B2C1 /* PacketizedTCP.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PacketizedTCP.cpp; sourceTree = "<group>"; };
+		3D8645562601111600B0B2C1 /* IncrementalReadInterface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IncrementalReadInterface.cpp; sourceTree = "<group>"; };
+		3D8645572601111600B0B2C1 /* NetworkIDObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetworkIDObject.cpp; sourceTree = "<group>"; };
+		3D8645582601111600B0B2C1 /* RakNetSocket2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RakNetSocket2.cpp; sourceTree = "<group>"; };
+		3D8645592601111600B0B2C1 /* CloudClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CloudClient.cpp; sourceTree = "<group>"; };
+		3D86455A2601111600B0B2C1 /* DS_ByteQueue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DS_ByteQueue.cpp; sourceTree = "<group>"; };
+		3D86455B2601111600B0B2C1 /* StringCompressor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StringCompressor.cpp; sourceTree = "<group>"; };
+		3D86455C2601111600B0B2C1 /* TeamBalancer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TeamBalancer.cpp; sourceTree = "<group>"; };
+		3D86455D2601111600B0B2C1 /* VitaIncludes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VitaIncludes.cpp; sourceTree = "<group>"; };
+		3D86455E2601111600B0B2C1 /* RakWString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RakWString.cpp; sourceTree = "<group>"; };
+		3D86455F2601111600B0B2C1 /* VariableListDeltaTracker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VariableListDeltaTracker.cpp; sourceTree = "<group>"; };
+		3D8645602601111600B0B2C1 /* TeamManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TeamManager.cpp; sourceTree = "<group>"; };
+		3D8645612601111600B0B2C1 /* RakNetTypes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RakNetTypes.cpp; sourceTree = "<group>"; };
+		3D8645622601111600B0B2C1 /* RakNetSocket2_Vita.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RakNetSocket2_Vita.cpp; sourceTree = "<group>"; };
+		3D8645632601111600B0B2C1 /* TwoWayAuthentication.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TwoWayAuthentication.cpp; sourceTree = "<group>"; };
+		3D8645642601111600B0B2C1 /* NatTypeDetectionServer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NatTypeDetectionServer.cpp; sourceTree = "<group>"; };
+		3D8645662601111600B0B2C1 /* NatTypeDetectionClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NatTypeDetectionClient.h; sourceTree = "<group>"; };
+		3D8645672601111600B0B2C1 /* DS_OrderedList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DS_OrderedList.h; sourceTree = "<group>"; };
+		3D8645682601111600B0B2C1 /* TwoWayAuthentication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwoWayAuthentication.h; sourceTree = "<group>"; };
+		3D8645692601111600B0B2C1 /* time.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = time.h; sourceTree = "<group>"; };
+		3D86456A2601111600B0B2C1 /* DS_BPlusTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DS_BPlusTree.h; sourceTree = "<group>"; };
+		3D86456B2601111600B0B2C1 /* DS_QueueLinkedList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DS_QueueLinkedList.h; sourceTree = "<group>"; };
+		3D86456C2601111600B0B2C1 /* peer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = peer.h; sourceTree = "<group>"; };
+		3D86456D2601111600B0B2C1 /* DynDNS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynDNS.h; sourceTree = "<group>"; };
+		3D86456E2601111600B0B2C1 /* IncrementalReadInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IncrementalReadInterface.h; sourceTree = "<group>"; };
+		3D86456F2601111600B0B2C1 /* SocketDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketDefines.h; sourceTree = "<group>"; };
+		3D8645702601111600B0B2C1 /* HTTPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPConnection.h; sourceTree = "<group>"; };
+		3D8645712601111600B0B2C1 /* FormatString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormatString.h; sourceTree = "<group>"; };
+		3D8645722601111600B0B2C1 /* PluginInterface2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PluginInterface2.h; sourceTree = "<group>"; };
+		3D8645732601111600B0B2C1 /* SimpleMutex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleMutex.h; sourceTree = "<group>"; };
+		3D8645742601111600B0B2C1 /* sleep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sleep.h; sourceTree = "<group>"; };
+		3D8645752601111600B0B2C1 /* DR_SHA1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DR_SHA1.h; sourceTree = "<group>"; };
+		3D8645762601111600B0B2C1 /* MessageIdentifiers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageIdentifiers.h; sourceTree = "<group>"; };
+		3D8645772601111600B0B2C1 /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
+		3D8645782601111600B0B2C1 /* memoryoverride.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = memoryoverride.h; sourceTree = "<group>"; };
+		3D8645792601111600B0B2C1 /* MessageFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageFilter.h; sourceTree = "<group>"; };
+		3D86457A2601111600B0B2C1 /* Export.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Export.h; sourceTree = "<group>"; };
+		3D86457B2601111600B0B2C1 /* DS_LinkedList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DS_LinkedList.h; sourceTree = "<group>"; };
+		3D86457C2601111600B0B2C1 /* transport2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = transport2.h; sourceTree = "<group>"; };
+		3D86457D2601111600B0B2C1 /* DS_Tree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DS_Tree.h; sourceTree = "<group>"; };
+		3D86457E2601111600B0B2C1 /* SendToThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendToThread.h; sourceTree = "<group>"; };
+		3D86457F2601111600B0B2C1 /* NatPunchthroughServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NatPunchthroughServer.h; sourceTree = "<group>"; };
+		3D8645802601111600B0B2C1 /* ReliabilityLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReliabilityLayer.h; sourceTree = "<group>"; };
+		3D8645812601111600B0B2C1 /* RPC4Plugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPC4Plugin.h; sourceTree = "<group>"; };
+		3D8645822601111600B0B2C1 /* DS_HuffmanEncodingTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DS_HuffmanEncodingTree.h; sourceTree = "<group>"; };
+		3D8645832601111600B0B2C1 /* CCRakNetSlidingWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCRakNetSlidingWindow.h; sourceTree = "<group>"; };
+		3D8645842601111600B0B2C1 /* ConsoleServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConsoleServer.h; sourceTree = "<group>"; };
+		3D8645852601111600B0B2C1 /* ThreadPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreadPool.h; sourceTree = "<group>"; };
+		3D8645862601111600B0B2C1 /* DS_Queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DS_Queue.h; sourceTree = "<group>"; };
+		3D8645872601111600B0B2C1 /* VitaIncludes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VitaIncludes.h; sourceTree = "<group>"; };
+		3D8645882601111600B0B2C1 /* PacketPriority.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PacketPriority.h; sourceTree = "<group>"; };
+		3D8645892601111600B0B2C1 /* SignaledEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignaledEvent.h; sourceTree = "<group>"; };
+		3D86458A2601111600B0B2C1 /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
+		3D86458B2601111600B0B2C1 /* RefCountedObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RefCountedObj.h; sourceTree = "<group>"; };
+		3D86458C2601111600B0B2C1 /* ReadyEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadyEvent.h; sourceTree = "<group>"; };
+		3D86458D2601111600B0B2C1 /* ReplicaEnums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplicaEnums.h; sourceTree = "<group>"; };
+		3D86458E2601111600B0B2C1 /* linux_adapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = linux_adapter.h; sourceTree = "<group>"; };
+		3D86458F2601111600B0B2C1 /* AutopatcherPatchContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutopatcherPatchContext.h; sourceTree = "<group>"; };
+		3D8645902601111600B0B2C1 /* UDPProxyClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UDPProxyClient.h; sourceTree = "<group>"; };
+		3D8645912601111600B0B2C1 /* DirectoryDeltaTransfer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectoryDeltaTransfer.h; sourceTree = "<group>"; };
+		3D8645922601111600B0B2C1 /* DS_Map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DS_Map.h; sourceTree = "<group>"; };
+		3D8645932601111600B0B2C1 /* DS_BinarySearchTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DS_BinarySearchTree.h; sourceTree = "<group>"; };
+		3D8645942601111600B0B2C1 /* DS_BytePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DS_BytePool.h; sourceTree = "<group>"; };
+		3D8645952601111600B0B2C1 /* wstring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wstring.h; sourceTree = "<group>"; };
+		3D8645962601111600B0B2C1 /* NativeFeatureIncludesOverrides.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NativeFeatureIncludesOverrides.h; sourceTree = "<group>"; };
+		3D8645972601111600B0B2C1 /* DS_ThreadsafeAllocatingQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DS_ThreadsafeAllocatingQueue.h; sourceTree = "<group>"; };
+		3D8645982601111600B0B2C1 /* SuperFastHash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperFastHash.h; sourceTree = "<group>"; };
+		3D8645992601111600B0B2C1 /* DS_HuffmanEncodingTreeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DS_HuffmanEncodingTreeNode.h; sourceTree = "<group>"; };
+		3D86459A2601111600B0B2C1 /* FullyConnectedMesh2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullyConnectedMesh2.h; sourceTree = "<group>"; };
+		3D86459B2601111600B0B2C1 /* HTTPConnection2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPConnection2.h; sourceTree = "<group>"; };
+		3D86459C2601111600B0B2C1 /* PacketOutputWindowLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PacketOutputWindowLogger.h; sourceTree = "<group>"; };
+		3D86459D2601111600B0B2C1 /* DataCompressor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataCompressor.h; sourceTree = "<group>"; };
+		3D86459E2601111600B0B2C1 /* VariableListDeltaTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VariableListDeltaTracker.h; sourceTree = "<group>"; };
+		3D86459F2601111600B0B2C1 /* ThreadsafePacketLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreadsafePacketLogger.h; sourceTree = "<group>"; };
+		3D8645A02601111600B0B2C1 /* MTUSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTUSize.h; sourceTree = "<group>"; };
+		3D8645A12601111600B0B2C1 /* smartptr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smartptr.h; sourceTree = "<group>"; };
+		3D8645A22601111600B0B2C1 /* StatisticsHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatisticsHistory.h; sourceTree = "<group>"; };
+		3D8645A32601111600B0B2C1 /* DS_RangeList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DS_RangeList.h; sourceTree = "<group>"; };
+		3D8645A42601111600B0B2C1 /* osx_adapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = osx_adapter.h; sourceTree = "<group>"; };
+		3D8645A52601111600B0B2C1 /* DS_Multilist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DS_Multilist.h; sourceTree = "<group>"; };
+		3D8645A62601111600B0B2C1 /* Rackspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rackspace.h; sourceTree = "<group>"; };
+		3D8645A72601111600B0B2C1 /* SocketIncludes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIncludes.h; sourceTree = "<group>"; };
+		3D8645A82601111600B0B2C1 /* Base64Encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64Encoder.h; sourceTree = "<group>"; };
+		3D8645A92601111600B0B2C1 /* FileList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileList.h; sourceTree = "<group>"; };
+		3D8645AA2601111600B0B2C1 /* slikenet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = slikenet.h; sourceTree = "<group>"; };
+		3D8645AB2601111600B0B2C1 /* CommandParserInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommandParserInterface.h; sourceTree = "<group>"; };
+		3D8645AC2601111600B0B2C1 /* defines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = defines.h; sourceTree = "<group>"; };
+		3D8645AD2601111600B0B2C1 /* CloudClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudClient.h; sourceTree = "<group>"; };
+		3D8645AE2601111600B0B2C1 /* peerinterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = peerinterface.h; sourceTree = "<group>"; };
+		3D8645AF2601111600B0B2C1 /* DS_Table.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DS_Table.h; sourceTree = "<group>"; };
+		3D8645B02601111600B0B2C1 /* CloudServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudServer.h; sourceTree = "<group>"; };
+		3D8645B12601111600B0B2C1 /* EpochTimeToString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpochTimeToString.h; sourceTree = "<group>"; };
+		3D8645B22601111600B0B2C1 /* LocklessTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocklessTypes.h; sourceTree = "<group>"; };
+		3D8645B32601111600B0B2C1 /* LogCommandParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogCommandParser.h; sourceTree = "<group>"; };
+		3D8645B42601111600B0B2C1 /* FileListTransfer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileListTransfer.h; sourceTree = "<group>"; };
+		3D8645B52601111600B0B2C1 /* ConnectionGraph2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectionGraph2.h; sourceTree = "<group>"; };
+		3D8645B62601111600B0B2C1 /* DS_MemoryPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DS_MemoryPool.h; sourceTree = "<group>"; };
+		3D8645B72601111600B0B2C1 /* PacketPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PacketPool.h; sourceTree = "<group>"; };
+		3D8645B82601111600B0B2C1 /* PacketizedTCP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PacketizedTCP.h; sourceTree = "<group>"; };
+		3D8645B92601111600B0B2C1 /* NatTypeDetectionCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NatTypeDetectionCommon.h; sourceTree = "<group>"; };
+		3D8645BA2601111600B0B2C1 /* DS_OrderedChannelHeap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DS_OrderedChannelHeap.h; sourceTree = "<group>"; };
+		3D8645BB2601111600B0B2C1 /* SocketLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketLayer.h; sourceTree = "<group>"; };
+		3D8645BC2601111600B0B2C1 /* EmailSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailSender.h; sourceTree = "<group>"; };
+		3D8645BD2601111600B0B2C1 /* thread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = thread.h; sourceTree = "<group>"; };
+		3D8645BE2601111600B0B2C1 /* XBox360Includes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XBox360Includes.h; sourceTree = "<group>"; };
+		3D8645BF2601111600B0B2C1 /* alloca.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = alloca.h; sourceTree = "<group>"; };
+		3D8645C02601111600B0B2C1 /* ReplicaManager3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplicaManager3.h; sourceTree = "<group>"; };
+		3D8645C12601111600B0B2C1 /* TeamManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamManager.h; sourceTree = "<group>"; };
+		3D8645C22601111600B0B2C1 /* BitStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitStream.h; sourceTree = "<group>"; };
+		3D8645C32601111600B0B2C1 /* SingleProducerConsumer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleProducerConsumer.h; sourceTree = "<group>"; };
+		3D8645C42601111600B0B2C1 /* Itoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Itoa.h; sourceTree = "<group>"; };
+		3D8645C52601111600B0B2C1 /* DS_Hash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DS_Hash.h; sourceTree = "<group>"; };
+		3D8645C62601111600B0B2C1 /* statistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = statistics.h; sourceTree = "<group>"; };
+		3D8645C72601111600B0B2C1 /* DS_ByteQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DS_ByteQueue.h; sourceTree = "<group>"; };
+		3D8645C82601111600B0B2C1 /* SecureHandshake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecureHandshake.h; sourceTree = "<group>"; };
+		3D8645C92601111600B0B2C1 /* Gets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Gets.h; sourceTree = "<group>"; };
+		3D8645CA2601111600B0B2C1 /* RandSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RandSync.h; sourceTree = "<group>"; };
+		3D8645CB2601111600B0B2C1 /* commandparser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = commandparser.h; sourceTree = "<group>"; };
+		3D8645CC2601111600B0B2C1 /* VariadicSQLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VariadicSQLParser.h; sourceTree = "<group>"; };
+		3D8645CD2601111600B0B2C1 /* TCPInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCPInterface.h; sourceTree = "<group>"; };
+		3D8645CE2601111600B0B2C1 /* TelnetTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TelnetTransport.h; sourceTree = "<group>"; };
+		3D8645CF2601111600B0B2C1 /* FileListNodeContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileListNodeContext.h; sourceTree = "<group>"; };
+		3D8645D02601111600B0B2C1 /* defineoverrides.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = defineoverrides.h; sourceTree = "<group>"; };
+		3D8645D12601111600B0B2C1 /* WindowsIncludes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WindowsIncludes.h; sourceTree = "<group>"; };
+		3D8645D22601111600B0B2C1 /* CCRakNetUDT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCRakNetUDT.h; sourceTree = "<group>"; };
+		3D8645D32601111600B0B2C1 /* PS3Includes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PS3Includes.h; sourceTree = "<group>"; };
+		3D8645D42601111600B0B2C1 /* NativeTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NativeTypes.h; sourceTree = "<group>"; };
+		3D8645D52601111600B0B2C1 /* GetTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetTime.h; sourceTree = "<group>"; };
+		3D8645D62601111600B0B2C1 /* gettimeofday.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gettimeofday.h; sourceTree = "<group>"; };
+		3D8645D72601111600B0B2C1 /* Rand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rand.h; sourceTree = "<group>"; };
+		3D8645D82601111600B0B2C1 /* UDPProxyServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UDPProxyServer.h; sourceTree = "<group>"; };
+		3D8645D92601111600B0B2C1 /* LinuxStrings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinuxStrings.h; sourceTree = "<group>"; };
+		3D8645DA2601111600B0B2C1 /* VariableDeltaSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VariableDeltaSerializer.h; sourceTree = "<group>"; };
+		3D8645DB2601111600B0B2C1 /* DS_List.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DS_List.h; sourceTree = "<group>"; };
+		3D8645DC2601111600B0B2C1 /* PS4Includes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PS4Includes.h; sourceTree = "<group>"; };
+		3D8645DD2601111600B0B2C1 /* NetworkIDManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkIDManager.h; sourceTree = "<group>"; };
+		3D8645DE2601111600B0B2C1 /* DS_HuffmanEncodingTreeFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DS_HuffmanEncodingTreeFactory.h; sourceTree = "<group>"; };
+		3D8645DF2601111600B0B2C1 /* StringCompressor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringCompressor.h; sourceTree = "<group>"; };
+		3D8645E02601111600B0B2C1 /* NativeFeatureIncludes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NativeFeatureIncludes.h; sourceTree = "<group>"; };
+		3D8645E12601111600B0B2C1 /* InternalPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InternalPacket.h; sourceTree = "<group>"; };
+		3D8645E22601111600B0B2C1 /* FileListTransferCBInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileListTransferCBInterface.h; sourceTree = "<group>"; };
+		3D8645E32601111600B0B2C1 /* FileOperations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileOperations.h; sourceTree = "<group>"; };
+		3D8645E42601111600B0B2C1 /* WSAStartupSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSAStartupSingleton.h; sourceTree = "<group>"; };
+		3D8645E52601111600B0B2C1 /* socket2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = socket2.h; sourceTree = "<group>"; };
+		3D8645E62601111600B0B2C1 /* UDPProxyCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UDPProxyCommon.h; sourceTree = "<group>"; };
+		3D8645E72601111600B0B2C1 /* NatPunchthroughClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NatPunchthroughClient.h; sourceTree = "<group>"; };
+		3D8645E82601111600B0B2C1 /* UDPProxyCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UDPProxyCoordinator.h; sourceTree = "<group>"; };
+		3D8645E92601111600B0B2C1 /* NetworkIDObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkIDObject.h; sourceTree = "<group>"; };
+		3D8645EA2601111600B0B2C1 /* Router2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Router2.h; sourceTree = "<group>"; };
+		3D8645EB2601111600B0B2C1 /* PacketFileLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PacketFileLogger.h; sourceTree = "<group>"; };
+		3D8645EC2601111600B0B2C1 /* PacketLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PacketLogger.h; sourceTree = "<group>"; };
+		3D8645ED2601111600B0B2C1 /* assert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = assert.h; sourceTree = "<group>"; };
+		3D8645EE2601111600B0B2C1 /* UDPForwarder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UDPForwarder.h; sourceTree = "<group>"; };
+		3D8645EF2601111600B0B2C1 /* Getche.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Getche.h; sourceTree = "<group>"; };
+		3D8645F02601111600B0B2C1 /* TransportInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransportInterface.h; sourceTree = "<group>"; };
+		3D8645F12601111600B0B2C1 /* Kbhit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Kbhit.h; sourceTree = "<group>"; };
+		3D8645F22601111600B0B2C1 /* RelayPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RelayPlugin.h; sourceTree = "<group>"; };
+		3D8645F32601111600B0B2C1 /* SimpleTCPServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleTCPServer.h; sourceTree = "<group>"; };
+		3D8645F42601111600B0B2C1 /* socket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = socket.h; sourceTree = "<group>"; };
+		3D8645F52601111600B0B2C1 /* PacketConsoleLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PacketConsoleLogger.h; sourceTree = "<group>"; };
+		3D8645F62601111600B0B2C1 /* AutopatcherRepositoryInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutopatcherRepositoryInterface.h; sourceTree = "<group>"; };
+		3D8645F72601111600B0B2C1 /* _FindFirst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _FindFirst.h; sourceTree = "<group>"; };
+		3D8645F82601111600B0B2C1 /* CloudCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudCommon.h; sourceTree = "<group>"; };
+		3D8645F92601111600B0B2C1 /* EmptyHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmptyHeader.h; sourceTree = "<group>"; };
+		3D8645FA2601111600B0B2C1 /* DS_WeightedGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DS_WeightedGraph.h; sourceTree = "<group>"; };
+		3D8645FB2601111600B0B2C1 /* TeamBalancer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamBalancer.h; sourceTree = "<group>"; };
+		3D8645FC2601111600B0B2C1 /* GridSectorizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridSectorizer.h; sourceTree = "<group>"; };
+		3D8645FD2601111600B0B2C1 /* StringTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringTable.h; sourceTree = "<group>"; };
+		3D8645FE2601111600B0B2C1 /* DS_Heap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DS_Heap.h; sourceTree = "<group>"; };
+		3D8645FF2601111600B0B2C1 /* NatTypeDetectionServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NatTypeDetectionServer.h; sourceTree = "<group>"; };
+		3D8646002601111600B0B2C1 /* string.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = string.h; sourceTree = "<group>"; };
+		3D8646012601111600B0B2C1 /* TableSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableSerializer.h; sourceTree = "<group>"; };
+		3D8646022601111600B0B2C1 /* CheckSum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckSum.h; sourceTree = "<group>"; };
+		3D8646032601111600B0B2C1 /* linux_adapter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = linux_adapter.cpp; sourceTree = "<group>"; };
+		3D8646042601111600B0B2C1 /* RandSync.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RandSync.cpp; sourceTree = "<group>"; };
+		3D8646052601111600B0B2C1 /* ReplicaManager3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ReplicaManager3.cpp; sourceTree = "<group>"; };
+		3D8646062601111600B0B2C1 /* RakNetSocket2_PS3_PS4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RakNetSocket2_PS3_PS4.cpp; sourceTree = "<group>"; };
+		3D8646072601111600B0B2C1 /* TCPInterface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TCPInterface.cpp; sourceTree = "<group>"; };
+		3D8646082601111600B0B2C1 /* NatPunchthroughServer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NatPunchthroughServer.cpp; sourceTree = "<group>"; };
+		3D8646092601111600B0B2C1 /* VariableDeltaSerializer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VariableDeltaSerializer.cpp; sourceTree = "<group>"; };
+		3D86460A2601111600B0B2C1 /* osx_adapter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = osx_adapter.cpp; sourceTree = "<group>"; };
+		3D86460B2601111600B0B2C1 /* UDPForwarder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UDPForwarder.cpp; sourceTree = "<group>"; };
+		3D86460C2601111600B0B2C1 /* LocklessTypes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LocklessTypes.cpp; sourceTree = "<group>"; };
+		3D86460D2601111600B0B2C1 /* WSAStartupSingleton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WSAStartupSingleton.cpp; sourceTree = "<group>"; };
+		3D86460E2601111600B0B2C1 /* UDPProxyServer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UDPProxyServer.cpp; sourceTree = "<group>"; };
+		3D86460F2601111600B0B2C1 /* DR_SHA1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DR_SHA1.cpp; sourceTree = "<group>"; };
+		3D8646102601111600B0B2C1 /* RakNetStatistics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RakNetStatistics.cpp; sourceTree = "<group>"; };
+		3D8646112601111600B0B2C1 /* Itoa.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Itoa.cpp; sourceTree = "<group>"; };
+		3D8646122601111600B0B2C1 /* RakNetTransport2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RakNetTransport2.cpp; sourceTree = "<group>"; };
+		3D8646132601111600B0B2C1 /* TelnetTransport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TelnetTransport.cpp; sourceTree = "<group>"; };
+		3D8646142601111600B0B2C1 /* StatisticsHistory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StatisticsHistory.cpp; sourceTree = "<group>"; };
+		3D8646152601111600B0B2C1 /* SimpleMutex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SimpleMutex.cpp; sourceTree = "<group>"; };
+		3D8646162601111600B0B2C1 /* Gets.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Gets.cpp; sourceTree = "<group>"; };
+		3D8646172601111600B0B2C1 /* TableSerializer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TableSerializer.cpp; sourceTree = "<group>"; };
+		3D8646182601111600B0B2C1 /* DirectoryDeltaTransfer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DirectoryDeltaTransfer.cpp; sourceTree = "<group>"; };
+		3D8646192601111600B0B2C1 /* Base64Encoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Base64Encoder.cpp; sourceTree = "<group>"; };
+		3D86461A2601111600B0B2C1 /* RakString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RakString.cpp; sourceTree = "<group>"; };
+		3D86461B2601111600B0B2C1 /* RakNetSocket2_WindowsStore8.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RakNetSocket2_WindowsStore8.cpp; sourceTree = "<group>"; };
+		3D86461C2601111600B0B2C1 /* DynDNS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DynDNS.cpp; sourceTree = "<group>"; };
+		3D86461D2601111600B0B2C1 /* RakSleep.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RakSleep.cpp; sourceTree = "<group>"; };
+		3D86461E2601111600B0B2C1 /* RakNetSocket2_360_720.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RakNetSocket2_360_720.cpp; sourceTree = "<group>"; };
+		3D86461F2601111600B0B2C1 /* RakNetSocket2_NativeClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RakNetSocket2_NativeClient.cpp; sourceTree = "<group>"; };
+		3D8646202601111600B0B2C1 /* RPC4Plugin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RPC4Plugin.cpp; sourceTree = "<group>"; };
+		3D8646212601111600B0B2C1 /* RakMemoryOverride.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RakMemoryOverride.cpp; sourceTree = "<group>"; };
 		3D94040225FFC50C00043357 /* CIGameUpdateManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIGameUpdateManager.h; sourceTree = "<group>"; };
 		3D94040625FFC52400043357 /* CIGameUpdateManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CIGameUpdateManager.cpp; sourceTree = "<group>"; };
 		3DCE833625FDB914007EBA2D /* CIGameUpdate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIGameUpdate.h; sourceTree = "<group>"; };
@@ -278,6 +884,299 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D864512260110ED00B0B2C1 /* SLikeNet */ = {
+			isa = PBXGroup;
+			children = (
+				3D8645132601111600B0B2C1 /* SLikeNet */,
+			);
+			path = SLikeNet;
+			sourceTree = "<group>";
+		};
+		3D8645132601111600B0B2C1 /* SLikeNet */ = {
+			isa = PBXGroup;
+			children = (
+				3D8645142601111600B0B2C1 /* Router2.cpp */,
+				3D8645152601111600B0B2C1 /* DS_Table.cpp */,
+				3D8645162601111600B0B2C1 /* RakNetSocket2_Berkley_NativeClient.cpp */,
+				3D8645172601111600B0B2C1 /* NatPunchthroughClient.cpp */,
+				3D8645182601111600B0B2C1 /* ThreadsafePacketLogger.cpp */,
+				3D8645192601111600B0B2C1 /* RakPeer.cpp */,
+				3D86451A2601111600B0B2C1 /* ConnectionGraph2.cpp */,
+				3D86451B2601111600B0B2C1 /* DS_BytePool.cpp */,
+				3D86451C2601111600B0B2C1 /* DS_HuffmanEncodingTree.cpp */,
+				3D86451D2601111600B0B2C1 /* ReadyEvent.cpp */,
+				3D86451E2601111600B0B2C1 /* Rackspace.cpp */,
+				3D86451F2601111600B0B2C1 /* UDPProxyClient.cpp */,
+				3D8645202601111600B0B2C1 /* EpochTimeToString.cpp */,
+				3D8645212601111600B0B2C1 /* SocketLayer.cpp */,
+				3D8645222601111600B0B2C1 /* BitStream.cpp */,
+				3D8645232601111600B0B2C1 /* HTTPConnection.cpp */,
+				3D8645242601111600B0B2C1 /* SecureHandshake.cpp */,
+				3D8645252601111600B0B2C1 /* EmailSender.cpp */,
+				3D8645262601111600B0B2C1 /* RakNetSocket.cpp */,
+				3D8645272601111600B0B2C1 /* CheckSum.cpp */,
+				3D8645282601111600B0B2C1 /* StringTable.cpp */,
+				3D8645292601111600B0B2C1 /* Getche.cpp */,
+				3D86452A2601111600B0B2C1 /* RelayPlugin.cpp */,
+				3D86452B2601111600B0B2C1 /* CCRakNetSlidingWindow.cpp */,
+				3D86452C2601111600B0B2C1 /* FormatString.cpp */,
+				3D86452D2601111600B0B2C1 /* LogCommandParser.cpp */,
+				3D86452E2601111600B0B2C1 /* PS4Includes.cpp */,
+				3D86452F2601111600B0B2C1 /* NatTypeDetectionCommon.cpp */,
+				3D8645302601111600B0B2C1 /* PluginInterface2.cpp */,
+				3D8645312601111600B0B2C1 /* SendToThread.cpp */,
+				3D8645322601111600B0B2C1 /* CCRakNetUDT.cpp */,
+				3D8645332601111600B0B2C1 /* DataCompressor.cpp */,
+				3D8645342601111600B0B2C1 /* LinuxStrings.cpp */,
+				3D8645352601111600B0B2C1 /* FullyConnectedMesh2.cpp */,
+				3D8645362601111600B0B2C1 /* NatTypeDetectionClient.cpp */,
+				3D8645372601111600B0B2C1 /* PacketLogger.cpp */,
+				3D8645382601111600B0B2C1 /* FileList.cpp */,
+				3D8645392601111600B0B2C1 /* CommandParserInterface.cpp */,
+				3D86453A2601111600B0B2C1 /* CloudServer.cpp */,
+				3D86453B2601111600B0B2C1 /* FileOperations.cpp */,
+				3D86453C2601111600B0B2C1 /* PacketConsoleLogger.cpp */,
+				3D86453D2601111600B0B2C1 /* VariadicSQLParser.cpp */,
+				3D86453E2601111600B0B2C1 /* GridSectorizer.cpp */,
+				3D86453F2601111600B0B2C1 /* SignaledEvent.cpp */,
+				3D8645402601111600B0B2C1 /* RakNetCommandParser.cpp */,
+				3D8645412601111600B0B2C1 /* RakNetSocket2_Windows_Linux.cpp */,
+				3D8645422601111600B0B2C1 /* MessageFilter.cpp */,
+				3D8645432601111600B0B2C1 /* RakNetSocket2_Windows_Linux_360.cpp */,
+				3D8645442601111600B0B2C1 /* RakNetSocket2_PS4.cpp */,
+				3D8645452601111600B0B2C1 /* UDPProxyCoordinator.cpp */,
+				3D8645462601111600B0B2C1 /* HTTPConnection2.cpp */,
+				3D8645472601111600B0B2C1 /* gettimeofday.cpp */,
+				3D8645482601111600B0B2C1 /* RakNetSocket2_Berkley.cpp */,
+				3D8645492601111600B0B2C1 /* _FindFirst.cpp */,
+				3D86454A2601111600B0B2C1 /* PacketOutputWindowLogger.cpp */,
+				3D86454B2601111600B0B2C1 /* NetworkIDManager.cpp */,
+				3D86454C2601111600B0B2C1 /* ReliabilityLayer.cpp */,
+				3D86454D2601111600B0B2C1 /* RakThread.cpp */,
+				3D86454E2601111600B0B2C1 /* GetTime.cpp */,
+				3D86454F2601111600B0B2C1 /* FileListTransfer.cpp */,
+				3D8645502601111600B0B2C1 /* SuperFastHash.cpp */,
+				3D8645512601111600B0B2C1 /* ConsoleServer.cpp */,
+				3D8645522601111600B0B2C1 /* Rand.cpp */,
+				3D8645532601111600B0B2C1 /* CloudCommon.cpp */,
+				3D8645542601111600B0B2C1 /* PacketFileLogger.cpp */,
+				3D8645552601111600B0B2C1 /* PacketizedTCP.cpp */,
+				3D8645562601111600B0B2C1 /* IncrementalReadInterface.cpp */,
+				3D8645572601111600B0B2C1 /* NetworkIDObject.cpp */,
+				3D8645582601111600B0B2C1 /* RakNetSocket2.cpp */,
+				3D8645592601111600B0B2C1 /* CloudClient.cpp */,
+				3D86455A2601111600B0B2C1 /* DS_ByteQueue.cpp */,
+				3D86455B2601111600B0B2C1 /* StringCompressor.cpp */,
+				3D86455C2601111600B0B2C1 /* TeamBalancer.cpp */,
+				3D86455D2601111600B0B2C1 /* VitaIncludes.cpp */,
+				3D86455E2601111600B0B2C1 /* RakWString.cpp */,
+				3D86455F2601111600B0B2C1 /* VariableListDeltaTracker.cpp */,
+				3D8645602601111600B0B2C1 /* TeamManager.cpp */,
+				3D8645612601111600B0B2C1 /* RakNetTypes.cpp */,
+				3D8645622601111600B0B2C1 /* RakNetSocket2_Vita.cpp */,
+				3D8645632601111600B0B2C1 /* TwoWayAuthentication.cpp */,
+				3D8645642601111600B0B2C1 /* NatTypeDetectionServer.cpp */,
+				3D8645652601111600B0B2C1 /* slikenet */,
+				3D8646032601111600B0B2C1 /* linux_adapter.cpp */,
+				3D8646042601111600B0B2C1 /* RandSync.cpp */,
+				3D8646052601111600B0B2C1 /* ReplicaManager3.cpp */,
+				3D8646062601111600B0B2C1 /* RakNetSocket2_PS3_PS4.cpp */,
+				3D8646072601111600B0B2C1 /* TCPInterface.cpp */,
+				3D8646082601111600B0B2C1 /* NatPunchthroughServer.cpp */,
+				3D8646092601111600B0B2C1 /* VariableDeltaSerializer.cpp */,
+				3D86460A2601111600B0B2C1 /* osx_adapter.cpp */,
+				3D86460B2601111600B0B2C1 /* UDPForwarder.cpp */,
+				3D86460C2601111600B0B2C1 /* LocklessTypes.cpp */,
+				3D86460D2601111600B0B2C1 /* WSAStartupSingleton.cpp */,
+				3D86460E2601111600B0B2C1 /* UDPProxyServer.cpp */,
+				3D86460F2601111600B0B2C1 /* DR_SHA1.cpp */,
+				3D8646102601111600B0B2C1 /* RakNetStatistics.cpp */,
+				3D8646112601111600B0B2C1 /* Itoa.cpp */,
+				3D8646122601111600B0B2C1 /* RakNetTransport2.cpp */,
+				3D8646132601111600B0B2C1 /* TelnetTransport.cpp */,
+				3D8646142601111600B0B2C1 /* StatisticsHistory.cpp */,
+				3D8646152601111600B0B2C1 /* SimpleMutex.cpp */,
+				3D8646162601111600B0B2C1 /* Gets.cpp */,
+				3D8646172601111600B0B2C1 /* TableSerializer.cpp */,
+				3D8646182601111600B0B2C1 /* DirectoryDeltaTransfer.cpp */,
+				3D8646192601111600B0B2C1 /* Base64Encoder.cpp */,
+				3D86461A2601111600B0B2C1 /* RakString.cpp */,
+				3D86461B2601111600B0B2C1 /* RakNetSocket2_WindowsStore8.cpp */,
+				3D86461C2601111600B0B2C1 /* DynDNS.cpp */,
+				3D86461D2601111600B0B2C1 /* RakSleep.cpp */,
+				3D86461E2601111600B0B2C1 /* RakNetSocket2_360_720.cpp */,
+				3D86461F2601111600B0B2C1 /* RakNetSocket2_NativeClient.cpp */,
+				3D8646202601111600B0B2C1 /* RPC4Plugin.cpp */,
+				3D8646212601111600B0B2C1 /* RakMemoryOverride.cpp */,
+			);
+			name = SLikeNet;
+			path = ../libraries/SLikeNet;
+			sourceTree = "<group>";
+		};
+		3D8645652601111600B0B2C1 /* slikenet */ = {
+			isa = PBXGroup;
+			children = (
+				3D8645662601111600B0B2C1 /* NatTypeDetectionClient.h */,
+				3D8645672601111600B0B2C1 /* DS_OrderedList.h */,
+				3D8645682601111600B0B2C1 /* TwoWayAuthentication.h */,
+				3D8645692601111600B0B2C1 /* time.h */,
+				3D86456A2601111600B0B2C1 /* DS_BPlusTree.h */,
+				3D86456B2601111600B0B2C1 /* DS_QueueLinkedList.h */,
+				3D86456C2601111600B0B2C1 /* peer.h */,
+				3D86456D2601111600B0B2C1 /* DynDNS.h */,
+				3D86456E2601111600B0B2C1 /* IncrementalReadInterface.h */,
+				3D86456F2601111600B0B2C1 /* SocketDefines.h */,
+				3D8645702601111600B0B2C1 /* HTTPConnection.h */,
+				3D8645712601111600B0B2C1 /* FormatString.h */,
+				3D8645722601111600B0B2C1 /* PluginInterface2.h */,
+				3D8645732601111600B0B2C1 /* SimpleMutex.h */,
+				3D8645742601111600B0B2C1 /* sleep.h */,
+				3D8645752601111600B0B2C1 /* DR_SHA1.h */,
+				3D8645762601111600B0B2C1 /* MessageIdentifiers.h */,
+				3D8645772601111600B0B2C1 /* version.h */,
+				3D8645782601111600B0B2C1 /* memoryoverride.h */,
+				3D8645792601111600B0B2C1 /* MessageFilter.h */,
+				3D86457A2601111600B0B2C1 /* Export.h */,
+				3D86457B2601111600B0B2C1 /* DS_LinkedList.h */,
+				3D86457C2601111600B0B2C1 /* transport2.h */,
+				3D86457D2601111600B0B2C1 /* DS_Tree.h */,
+				3D86457E2601111600B0B2C1 /* SendToThread.h */,
+				3D86457F2601111600B0B2C1 /* NatPunchthroughServer.h */,
+				3D8645802601111600B0B2C1 /* ReliabilityLayer.h */,
+				3D8645812601111600B0B2C1 /* RPC4Plugin.h */,
+				3D8645822601111600B0B2C1 /* DS_HuffmanEncodingTree.h */,
+				3D8645832601111600B0B2C1 /* CCRakNetSlidingWindow.h */,
+				3D8645842601111600B0B2C1 /* ConsoleServer.h */,
+				3D8645852601111600B0B2C1 /* ThreadPool.h */,
+				3D8645862601111600B0B2C1 /* DS_Queue.h */,
+				3D8645872601111600B0B2C1 /* VitaIncludes.h */,
+				3D8645882601111600B0B2C1 /* PacketPriority.h */,
+				3D8645892601111600B0B2C1 /* SignaledEvent.h */,
+				3D86458A2601111600B0B2C1 /* types.h */,
+				3D86458B2601111600B0B2C1 /* RefCountedObj.h */,
+				3D86458C2601111600B0B2C1 /* ReadyEvent.h */,
+				3D86458D2601111600B0B2C1 /* ReplicaEnums.h */,
+				3D86458E2601111600B0B2C1 /* linux_adapter.h */,
+				3D86458F2601111600B0B2C1 /* AutopatcherPatchContext.h */,
+				3D8645902601111600B0B2C1 /* UDPProxyClient.h */,
+				3D8645912601111600B0B2C1 /* DirectoryDeltaTransfer.h */,
+				3D8645922601111600B0B2C1 /* DS_Map.h */,
+				3D8645932601111600B0B2C1 /* DS_BinarySearchTree.h */,
+				3D8645942601111600B0B2C1 /* DS_BytePool.h */,
+				3D8645952601111600B0B2C1 /* wstring.h */,
+				3D8645962601111600B0B2C1 /* NativeFeatureIncludesOverrides.h */,
+				3D8645972601111600B0B2C1 /* DS_ThreadsafeAllocatingQueue.h */,
+				3D8645982601111600B0B2C1 /* SuperFastHash.h */,
+				3D8645992601111600B0B2C1 /* DS_HuffmanEncodingTreeNode.h */,
+				3D86459A2601111600B0B2C1 /* FullyConnectedMesh2.h */,
+				3D86459B2601111600B0B2C1 /* HTTPConnection2.h */,
+				3D86459C2601111600B0B2C1 /* PacketOutputWindowLogger.h */,
+				3D86459D2601111600B0B2C1 /* DataCompressor.h */,
+				3D86459E2601111600B0B2C1 /* VariableListDeltaTracker.h */,
+				3D86459F2601111600B0B2C1 /* ThreadsafePacketLogger.h */,
+				3D8645A02601111600B0B2C1 /* MTUSize.h */,
+				3D8645A12601111600B0B2C1 /* smartptr.h */,
+				3D8645A22601111600B0B2C1 /* StatisticsHistory.h */,
+				3D8645A32601111600B0B2C1 /* DS_RangeList.h */,
+				3D8645A42601111600B0B2C1 /* osx_adapter.h */,
+				3D8645A52601111600B0B2C1 /* DS_Multilist.h */,
+				3D8645A62601111600B0B2C1 /* Rackspace.h */,
+				3D8645A72601111600B0B2C1 /* SocketIncludes.h */,
+				3D8645A82601111600B0B2C1 /* Base64Encoder.h */,
+				3D8645A92601111600B0B2C1 /* FileList.h */,
+				3D8645AA2601111600B0B2C1 /* slikenet.h */,
+				3D8645AB2601111600B0B2C1 /* CommandParserInterface.h */,
+				3D8645AC2601111600B0B2C1 /* defines.h */,
+				3D8645AD2601111600B0B2C1 /* CloudClient.h */,
+				3D8645AE2601111600B0B2C1 /* peerinterface.h */,
+				3D8645AF2601111600B0B2C1 /* DS_Table.h */,
+				3D8645B02601111600B0B2C1 /* CloudServer.h */,
+				3D8645B12601111600B0B2C1 /* EpochTimeToString.h */,
+				3D8645B22601111600B0B2C1 /* LocklessTypes.h */,
+				3D8645B32601111600B0B2C1 /* LogCommandParser.h */,
+				3D8645B42601111600B0B2C1 /* FileListTransfer.h */,
+				3D8645B52601111600B0B2C1 /* ConnectionGraph2.h */,
+				3D8645B62601111600B0B2C1 /* DS_MemoryPool.h */,
+				3D8645B72601111600B0B2C1 /* PacketPool.h */,
+				3D8645B82601111600B0B2C1 /* PacketizedTCP.h */,
+				3D8645B92601111600B0B2C1 /* NatTypeDetectionCommon.h */,
+				3D8645BA2601111600B0B2C1 /* DS_OrderedChannelHeap.h */,
+				3D8645BB2601111600B0B2C1 /* SocketLayer.h */,
+				3D8645BC2601111600B0B2C1 /* EmailSender.h */,
+				3D8645BD2601111600B0B2C1 /* thread.h */,
+				3D8645BE2601111600B0B2C1 /* XBox360Includes.h */,
+				3D8645BF2601111600B0B2C1 /* alloca.h */,
+				3D8645C02601111600B0B2C1 /* ReplicaManager3.h */,
+				3D8645C12601111600B0B2C1 /* TeamManager.h */,
+				3D8645C22601111600B0B2C1 /* BitStream.h */,
+				3D8645C32601111600B0B2C1 /* SingleProducerConsumer.h */,
+				3D8645C42601111600B0B2C1 /* Itoa.h */,
+				3D8645C52601111600B0B2C1 /* DS_Hash.h */,
+				3D8645C62601111600B0B2C1 /* statistics.h */,
+				3D8645C72601111600B0B2C1 /* DS_ByteQueue.h */,
+				3D8645C82601111600B0B2C1 /* SecureHandshake.h */,
+				3D8645C92601111600B0B2C1 /* Gets.h */,
+				3D8645CA2601111600B0B2C1 /* RandSync.h */,
+				3D8645CB2601111600B0B2C1 /* commandparser.h */,
+				3D8645CC2601111600B0B2C1 /* VariadicSQLParser.h */,
+				3D8645CD2601111600B0B2C1 /* TCPInterface.h */,
+				3D8645CE2601111600B0B2C1 /* TelnetTransport.h */,
+				3D8645CF2601111600B0B2C1 /* FileListNodeContext.h */,
+				3D8645D02601111600B0B2C1 /* defineoverrides.h */,
+				3D8645D12601111600B0B2C1 /* WindowsIncludes.h */,
+				3D8645D22601111600B0B2C1 /* CCRakNetUDT.h */,
+				3D8645D32601111600B0B2C1 /* PS3Includes.h */,
+				3D8645D42601111600B0B2C1 /* NativeTypes.h */,
+				3D8645D52601111600B0B2C1 /* GetTime.h */,
+				3D8645D62601111600B0B2C1 /* gettimeofday.h */,
+				3D8645D72601111600B0B2C1 /* Rand.h */,
+				3D8645D82601111600B0B2C1 /* UDPProxyServer.h */,
+				3D8645D92601111600B0B2C1 /* LinuxStrings.h */,
+				3D8645DA2601111600B0B2C1 /* VariableDeltaSerializer.h */,
+				3D8645DB2601111600B0B2C1 /* DS_List.h */,
+				3D8645DC2601111600B0B2C1 /* PS4Includes.h */,
+				3D8645DD2601111600B0B2C1 /* NetworkIDManager.h */,
+				3D8645DE2601111600B0B2C1 /* DS_HuffmanEncodingTreeFactory.h */,
+				3D8645DF2601111600B0B2C1 /* StringCompressor.h */,
+				3D8645E02601111600B0B2C1 /* NativeFeatureIncludes.h */,
+				3D8645E12601111600B0B2C1 /* InternalPacket.h */,
+				3D8645E22601111600B0B2C1 /* FileListTransferCBInterface.h */,
+				3D8645E32601111600B0B2C1 /* FileOperations.h */,
+				3D8645E42601111600B0B2C1 /* WSAStartupSingleton.h */,
+				3D8645E52601111600B0B2C1 /* socket2.h */,
+				3D8645E62601111600B0B2C1 /* UDPProxyCommon.h */,
+				3D8645E72601111600B0B2C1 /* NatPunchthroughClient.h */,
+				3D8645E82601111600B0B2C1 /* UDPProxyCoordinator.h */,
+				3D8645E92601111600B0B2C1 /* NetworkIDObject.h */,
+				3D8645EA2601111600B0B2C1 /* Router2.h */,
+				3D8645EB2601111600B0B2C1 /* PacketFileLogger.h */,
+				3D8645EC2601111600B0B2C1 /* PacketLogger.h */,
+				3D8645ED2601111600B0B2C1 /* assert.h */,
+				3D8645EE2601111600B0B2C1 /* UDPForwarder.h */,
+				3D8645EF2601111600B0B2C1 /* Getche.h */,
+				3D8645F02601111600B0B2C1 /* TransportInterface.h */,
+				3D8645F12601111600B0B2C1 /* Kbhit.h */,
+				3D8645F22601111600B0B2C1 /* RelayPlugin.h */,
+				3D8645F32601111600B0B2C1 /* SimpleTCPServer.h */,
+				3D8645F42601111600B0B2C1 /* socket.h */,
+				3D8645F52601111600B0B2C1 /* PacketConsoleLogger.h */,
+				3D8645F62601111600B0B2C1 /* AutopatcherRepositoryInterface.h */,
+				3D8645F72601111600B0B2C1 /* _FindFirst.h */,
+				3D8645F82601111600B0B2C1 /* CloudCommon.h */,
+				3D8645F92601111600B0B2C1 /* EmptyHeader.h */,
+				3D8645FA2601111600B0B2C1 /* DS_WeightedGraph.h */,
+				3D8645FB2601111600B0B2C1 /* TeamBalancer.h */,
+				3D8645FC2601111600B0B2C1 /* GridSectorizer.h */,
+				3D8645FD2601111600B0B2C1 /* StringTable.h */,
+				3D8645FE2601111600B0B2C1 /* DS_Heap.h */,
+				3D8645FF2601111600B0B2C1 /* NatTypeDetectionServer.h */,
+				3D8646002601111600B0B2C1 /* string.h */,
+				3D8646012601111600B0B2C1 /* TableSerializer.h */,
+				3D8646022601111600B0B2C1 /* CheckSum.h */,
+			);
+			path = slikenet;
+			sourceTree = "<group>";
+		};
 		EB2BE9B71D749870002FE78B /* Assets */ = {
 			isa = PBXGroup;
 			children = (
@@ -389,6 +1288,7 @@
 		EBBF18B11D749176008E2001 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				3D864512260110ED00B0B2C1 /* SLikeNet */,
 				EBFA528421FA5AAB00CCC2C5 /* CIApp.cpp */,
 				EBFA528821FA5AAB00CCC2C5 /* CIApp.h */,
 				CA68E30625F53BC200B4617D /* CICollisionController.cpp */,
@@ -594,19 +1494,131 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D8647532601111700B0B2C1 /* TableSerializer.cpp in Sources */,
+				3D8646A82601111600B0B2C1 /* RakNetCommandParser.cpp in Sources */,
+				3D8647232601111700B0B2C1 /* TCPInterface.cpp in Sources */,
+				3D86473B2601111700B0B2C1 /* DR_SHA1.cpp in Sources */,
+				3D8646C02601111600B0B2C1 /* RakNetSocket2_Berkley.cpp in Sources */,
+				3D8646FC2601111600B0B2C1 /* TeamBalancer.cpp in Sources */,
+				3D86467B2601111600B0B2C1 /* SendToThread.cpp in Sources */,
+				3D8646F02601111600B0B2C1 /* RakNetSocket2.cpp in Sources */,
+				3D8646C62601111600B0B2C1 /* PacketOutputWindowLogger.cpp in Sources */,
 				EBFA529C21FA5D0C00CCC2C5 /* CIApp.cpp in Sources */,
+				3D8646BD2601111600B0B2C1 /* gettimeofday.cpp in Sources */,
+				3D8646D52601111600B0B2C1 /* FileListTransfer.cpp in Sources */,
+				3D8646E72601111600B0B2C1 /* PacketizedTCP.cpp in Sources */,
+				3D86471A2601111700B0B2C1 /* RandSync.cpp in Sources */,
+				3D86474D2601111700B0B2C1 /* SimpleMutex.cpp in Sources */,
+				3D8646302601111600B0B2C1 /* ThreadsafePacketLogger.cpp in Sources */,
+				3D8646602601111600B0B2C1 /* StringTable.cpp in Sources */,
+				3D8646932601111600B0B2C1 /* CommandParserInterface.cpp in Sources */,
+				3D8646A22601111600B0B2C1 /* GridSectorizer.cpp in Sources */,
 				CADCA31225FE9AEE0048FCA1 /* CIPlanetNode.cpp in Sources */,
+				3D8646C92601111600B0B2C1 /* NetworkIDManager.cpp in Sources */,
+				3D8646CF2601111600B0B2C1 /* RakThread.cpp in Sources */,
 				3D94040925FFC52400043357 /* CIGameUpdateManager.cpp in Sources */,
 				EB0FF61D2016F06000517030 /* main.cpp in Sources */,
+				3D86463F2601111600B0B2C1 /* ReadyEvent.cpp in Sources */,
+				3D86475C2601111700B0B2C1 /* RakString.cpp in Sources */,
+				3D8646452601111600B0B2C1 /* UDPProxyClient.cpp in Sources */,
+				3D8646AB2601111600B0B2C1 /* RakNetSocket2_Windows_Linux.cpp in Sources */,
+				3D8647052601111700B0B2C1 /* VariableListDeltaTracker.cpp in Sources */,
+				3D8646872601111600B0B2C1 /* FullyConnectedMesh2.cpp in Sources */,
+				3D8646E42601111600B0B2C1 /* PacketFileLogger.cpp in Sources */,
+				3D86468D2601111600B0B2C1 /* PacketLogger.cpp in Sources */,
+				3D8646BA2601111600B0B2C1 /* HTTPConnection2.cpp in Sources */,
 				3D563B9F25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */,
+				3D8647442601111700B0B2C1 /* RakNetTransport2.cpp in Sources */,
 				CA9A2DD325EDBD6A0048D02F /* CIStardustModel.cpp in Sources */,
+				3D8647112601111700B0B2C1 /* TwoWayAuthentication.cpp in Sources */,
+				3D86465A2601111600B0B2C1 /* RakNetSocket.cpp in Sources */,
+				3D8646DE2601111600B0B2C1 /* Rand.cpp in Sources */,
+				3D8646DB2601111600B0B2C1 /* ConsoleServer.cpp in Sources */,
 				3DCE833A25FDC3B8007EBA2D /* CIGameUpdate.cpp in Sources */,
+				3D8646242601111600B0B2C1 /* Router2.cpp in Sources */,
+				3D8647502601111700B0B2C1 /* Gets.cpp in Sources */,
+				3D8646EA2601111600B0B2C1 /* IncrementalReadInterface.cpp in Sources */,
+				3D86469F2601111600B0B2C1 /* VariadicSQLParser.cpp in Sources */,
+				3D86469C2601111600B0B2C1 /* PacketConsoleLogger.cpp in Sources */,
+				3D8646332601111600B0B2C1 /* RakPeer.cpp in Sources */,
+				3D86472F2601111700B0B2C1 /* UDPForwarder.cpp in Sources */,
+				3D8646722601111600B0B2C1 /* PS4Includes.cpp in Sources */,
+				3D8647142601111700B0B2C1 /* NatTypeDetectionServer.cpp in Sources */,
+				3D8646572601111600B0B2C1 /* EmailSender.cpp in Sources */,
+				3D8646F92601111600B0B2C1 /* StringCompressor.cpp in Sources */,
+				3D8646992601111600B0B2C1 /* FileOperations.cpp in Sources */,
+				3D8647652601111700B0B2C1 /* RakSleep.cpp in Sources */,
+				3D8646962601111600B0B2C1 /* CloudServer.cpp in Sources */,
+				3D8646C32601111600B0B2C1 /* _FindFirst.cpp in Sources */,
+				3D8646512601111600B0B2C1 /* HTTPConnection.cpp in Sources */,
+				3D8646D22601111600B0B2C1 /* GetTime.cpp in Sources */,
+				3D8646B72601111600B0B2C1 /* UDPProxyCoordinator.cpp in Sources */,
+				3D8646632601111600B0B2C1 /* Getche.cpp in Sources */,
+				3D8646B42601111600B0B2C1 /* RakNetSocket2_PS4.cpp in Sources */,
+				3D8647412601111700B0B2C1 /* Itoa.cpp in Sources */,
+				3D8646902601111600B0B2C1 /* FileList.cpp in Sources */,
+				3D86473E2601111700B0B2C1 /* RakNetStatistics.cpp in Sources */,
+				3D8646B12601111600B0B2C1 /* RakNetSocket2_Windows_Linux_360.cpp in Sources */,
 				EBFA52A221FA5D1700CCC2C5 /* CIInput.cpp in Sources */,
+				3D8647082601111700B0B2C1 /* TeamManager.cpp in Sources */,
+				3D8646662601111600B0B2C1 /* RelayPlugin.cpp in Sources */,
+				3D8646422601111600B0B2C1 /* Rackspace.cpp in Sources */,
+				3D86470B2601111700B0B2C1 /* RakNetTypes.cpp in Sources */,
+				3D86466F2601111600B0B2C1 /* LogCommandParser.cpp in Sources */,
+				3D8646ED2601111600B0B2C1 /* NetworkIDObject.cpp in Sources */,
+				3D8646CC2601111600B0B2C1 /* ReliabilityLayer.cpp in Sources */,
+				3D8647382601111700B0B2C1 /* UDPProxyServer.cpp in Sources */,
+				3D8647322601111700B0B2C1 /* LocklessTypes.cpp in Sources */,
+				3D8646692601111600B0B2C1 /* CCRakNetSlidingWindow.cpp in Sources */,
+				3D86465D2601111600B0B2C1 /* CheckSum.cpp in Sources */,
+				3D86475F2601111700B0B2C1 /* RakNetSocket2_WindowsStore8.cpp in Sources */,
+				3D8647712601111700B0B2C1 /* RakMemoryOverride.cpp in Sources */,
+				3D86463C2601111600B0B2C1 /* DS_HuffmanEncodingTree.cpp in Sources */,
+				3D8647592601111700B0B2C1 /* Base64Encoder.cpp in Sources */,
+				3D8646542601111600B0B2C1 /* SecureHandshake.cpp in Sources */,
+				3D8647172601111700B0B2C1 /* linux_adapter.cpp in Sources */,
+				3D8646AE2601111600B0B2C1 /* MessageFilter.cpp in Sources */,
+				3D8647622601111700B0B2C1 /* DynDNS.cpp in Sources */,
+				3D86464B2601111600B0B2C1 /* SocketLayer.cpp in Sources */,
 				CA68E30D25F53BC200B4617D /* CICollisionController.cpp in Sources */,
 				0A5AFADB25F0B5320003669C /* CIStardustNode.cpp in Sources */,
+				3D86476B2601111700B0B2C1 /* RakNetSocket2_NativeClient.cpp in Sources */,
+				3D8647352601111700B0B2C1 /* WSAStartupSingleton.cpp in Sources */,
+				3D8646E12601111600B0B2C1 /* CloudCommon.cpp in Sources */,
+				3D8646D82601111600B0B2C1 /* SuperFastHash.cpp in Sources */,
+				3D8646842601111600B0B2C1 /* LinuxStrings.cpp in Sources */,
+				3D8646392601111600B0B2C1 /* DS_BytePool.cpp in Sources */,
 				0A5AFADE25F0B5320003669C /* CIStardustQueue.cpp in Sources */,
+				3D86462D2601111600B0B2C1 /* NatPunchthroughClient.cpp in Sources */,
+				3D8647262601111700B0B2C1 /* NatPunchthroughServer.cpp in Sources */,
+				3D8646272601111600B0B2C1 /* DS_Table.cpp in Sources */,
+				3D8646752601111600B0B2C1 /* NatTypeDetectionCommon.cpp in Sources */,
 				EBFA529E21FA5D1000CCC2C5 /* CILoadingScene.cpp in Sources */,
+				3D8647472601111700B0B2C1 /* TelnetTransport.cpp in Sources */,
+				3D8646F32601111600B0B2C1 /* CloudClient.cpp in Sources */,
+				3D86470E2601111700B0B2C1 /* RakNetSocket2_Vita.cpp in Sources */,
+				3D86466C2601111600B0B2C1 /* FormatString.cpp in Sources */,
+				3D86471D2601111700B0B2C1 /* ReplicaManager3.cpp in Sources */,
+				3D8647562601111700B0B2C1 /* DirectoryDeltaTransfer.cpp in Sources */,
+				3D86464E2601111600B0B2C1 /* BitStream.cpp in Sources */,
+				3D86462A2601111600B0B2C1 /* RakNetSocket2_Berkley_NativeClient.cpp in Sources */,
+				3D8646FF2601111700B0B2C1 /* VitaIncludes.cpp in Sources */,
+				3D8646F62601111600B0B2C1 /* DS_ByteQueue.cpp in Sources */,
+				3D86476E2601111700B0B2C1 /* RPC4Plugin.cpp in Sources */,
+				3D86474A2601111700B0B2C1 /* StatisticsHistory.cpp in Sources */,
+				3D8646812601111600B0B2C1 /* DataCompressor.cpp in Sources */,
 				EBFA52A021FA5D1300CCC2C5 /* CIGameScene.cpp in Sources */,
+				3D86468A2601111600B0B2C1 /* NatTypeDetectionClient.cpp in Sources */,
+				3D8646A52601111600B0B2C1 /* SignaledEvent.cpp in Sources */,
+				3D86467E2601111600B0B2C1 /* CCRakNetUDT.cpp in Sources */,
+				3D8647292601111700B0B2C1 /* VariableDeltaSerializer.cpp in Sources */,
+				3D8646782601111600B0B2C1 /* PluginInterface2.cpp in Sources */,
+				3D8647022601111700B0B2C1 /* RakWString.cpp in Sources */,
+				3D8647682601111700B0B2C1 /* RakNetSocket2_360_720.cpp in Sources */,
+				3D8646362601111600B0B2C1 /* ConnectionGraph2.cpp in Sources */,
+				3D86472C2601111700B0B2C1 /* osx_adapter.cpp in Sources */,
+				3D8647202601111700B0B2C1 /* RakNetSocket2_PS3_PS4.cpp in Sources */,
+				3D8646482601111600B0B2C1 /* EpochTimeToString.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -614,19 +1626,131 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D8647522601111700B0B2C1 /* TableSerializer.cpp in Sources */,
+				3D8646A72601111600B0B2C1 /* RakNetCommandParser.cpp in Sources */,
+				3D8647222601111700B0B2C1 /* TCPInterface.cpp in Sources */,
+				3D86473A2601111700B0B2C1 /* DR_SHA1.cpp in Sources */,
+				3D8646BF2601111600B0B2C1 /* RakNetSocket2_Berkley.cpp in Sources */,
+				3D8646FB2601111600B0B2C1 /* TeamBalancer.cpp in Sources */,
+				3D86467A2601111600B0B2C1 /* SendToThread.cpp in Sources */,
+				3D8646EF2601111600B0B2C1 /* RakNetSocket2.cpp in Sources */,
+				3D8646C52601111600B0B2C1 /* PacketOutputWindowLogger.cpp in Sources */,
 				EBFA529821FA5D0C00CCC2C5 /* CIApp.cpp in Sources */,
+				3D8646BC2601111600B0B2C1 /* gettimeofday.cpp in Sources */,
+				3D8646D42601111600B0B2C1 /* FileListTransfer.cpp in Sources */,
+				3D8646E62601111600B0B2C1 /* PacketizedTCP.cpp in Sources */,
+				3D8647192601111700B0B2C1 /* RandSync.cpp in Sources */,
+				3D86474C2601111700B0B2C1 /* SimpleMutex.cpp in Sources */,
+				3D86462F2601111600B0B2C1 /* ThreadsafePacketLogger.cpp in Sources */,
+				3D86465F2601111600B0B2C1 /* StringTable.cpp in Sources */,
+				3D8646922601111600B0B2C1 /* CommandParserInterface.cpp in Sources */,
+				3D8646A12601111600B0B2C1 /* GridSectorizer.cpp in Sources */,
 				EB7454AE1D74D891002FBAE6 /* main.cpp in Sources */,
+				3D8646C82601111600B0B2C1 /* NetworkIDManager.cpp in Sources */,
+				3D8646CE2601111600B0B2C1 /* RakThread.cpp in Sources */,
 				3D94040825FFC52400043357 /* CIGameUpdateManager.cpp in Sources */,
 				3D563B9E25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */,
+				3D86463E2601111600B0B2C1 /* ReadyEvent.cpp in Sources */,
+				3D86475B2601111700B0B2C1 /* RakString.cpp in Sources */,
+				3D8646442601111600B0B2C1 /* UDPProxyClient.cpp in Sources */,
+				3D8646AA2601111600B0B2C1 /* RakNetSocket2_Windows_Linux.cpp in Sources */,
+				3D8647042601111700B0B2C1 /* VariableListDeltaTracker.cpp in Sources */,
+				3D8646862601111600B0B2C1 /* FullyConnectedMesh2.cpp in Sources */,
+				3D8646E32601111600B0B2C1 /* PacketFileLogger.cpp in Sources */,
+				3D86468C2601111600B0B2C1 /* PacketLogger.cpp in Sources */,
+				3D8646B92601111600B0B2C1 /* HTTPConnection2.cpp in Sources */,
 				CA9A2DD225EDBD6A0048D02F /* CIStardustModel.cpp in Sources */,
+				3D8647432601111700B0B2C1 /* RakNetTransport2.cpp in Sources */,
 				EBFA52A121FA5D1700CCC2C5 /* CIInput.cpp in Sources */,
+				3D8647102601111700B0B2C1 /* TwoWayAuthentication.cpp in Sources */,
+				3D8646592601111600B0B2C1 /* RakNetSocket.cpp in Sources */,
+				3D8646DD2601111600B0B2C1 /* Rand.cpp in Sources */,
+				3D8646DA2601111600B0B2C1 /* ConsoleServer.cpp in Sources */,
 				CA68E30C25F53BC200B4617D /* CICollisionController.cpp in Sources */,
+				3D8646232601111600B0B2C1 /* Router2.cpp in Sources */,
+				3D86474F2601111700B0B2C1 /* Gets.cpp in Sources */,
+				3D8646E92601111600B0B2C1 /* IncrementalReadInterface.cpp in Sources */,
+				3D86469E2601111600B0B2C1 /* VariadicSQLParser.cpp in Sources */,
+				3D86469B2601111600B0B2C1 /* PacketConsoleLogger.cpp in Sources */,
+				3D8646322601111600B0B2C1 /* RakPeer.cpp in Sources */,
+				3D86472E2601111700B0B2C1 /* UDPForwarder.cpp in Sources */,
+				3D8646712601111600B0B2C1 /* PS4Includes.cpp in Sources */,
+				3D8647132601111700B0B2C1 /* NatTypeDetectionServer.cpp in Sources */,
+				3D8646562601111600B0B2C1 /* EmailSender.cpp in Sources */,
+				3D8646F82601111600B0B2C1 /* StringCompressor.cpp in Sources */,
+				3D8646982601111600B0B2C1 /* FileOperations.cpp in Sources */,
+				3D8647642601111700B0B2C1 /* RakSleep.cpp in Sources */,
+				3D8646952601111600B0B2C1 /* CloudServer.cpp in Sources */,
+				3D8646C22601111600B0B2C1 /* _FindFirst.cpp in Sources */,
+				3D8646502601111600B0B2C1 /* HTTPConnection.cpp in Sources */,
+				3D8646D12601111600B0B2C1 /* GetTime.cpp in Sources */,
+				3D8646B62601111600B0B2C1 /* UDPProxyCoordinator.cpp in Sources */,
+				3D8646622601111600B0B2C1 /* Getche.cpp in Sources */,
+				3D8646B32601111600B0B2C1 /* RakNetSocket2_PS4.cpp in Sources */,
+				3D8647402601111700B0B2C1 /* Itoa.cpp in Sources */,
+				3D86468F2601111600B0B2C1 /* FileList.cpp in Sources */,
+				3D86473D2601111700B0B2C1 /* RakNetStatistics.cpp in Sources */,
+				3D8646B02601111600B0B2C1 /* RakNetSocket2_Windows_Linux_360.cpp in Sources */,
 				3DCE833925FDC3B8007EBA2D /* CIGameUpdate.cpp in Sources */,
+				3D8647072601111700B0B2C1 /* TeamManager.cpp in Sources */,
+				3D8646652601111600B0B2C1 /* RelayPlugin.cpp in Sources */,
+				3D8646412601111600B0B2C1 /* Rackspace.cpp in Sources */,
+				3D86470A2601111700B0B2C1 /* RakNetTypes.cpp in Sources */,
+				3D86466E2601111600B0B2C1 /* LogCommandParser.cpp in Sources */,
+				3D8646EC2601111600B0B2C1 /* NetworkIDObject.cpp in Sources */,
+				3D8646CB2601111600B0B2C1 /* ReliabilityLayer.cpp in Sources */,
+				3D8647372601111700B0B2C1 /* UDPProxyServer.cpp in Sources */,
+				3D8647312601111700B0B2C1 /* LocklessTypes.cpp in Sources */,
+				3D8646682601111600B0B2C1 /* CCRakNetSlidingWindow.cpp in Sources */,
+				3D86465C2601111600B0B2C1 /* CheckSum.cpp in Sources */,
+				3D86475E2601111700B0B2C1 /* RakNetSocket2_WindowsStore8.cpp in Sources */,
+				3D8647702601111700B0B2C1 /* RakMemoryOverride.cpp in Sources */,
+				3D86463B2601111600B0B2C1 /* DS_HuffmanEncodingTree.cpp in Sources */,
+				3D8647582601111700B0B2C1 /* Base64Encoder.cpp in Sources */,
+				3D8646532601111600B0B2C1 /* SecureHandshake.cpp in Sources */,
+				3D8647162601111700B0B2C1 /* linux_adapter.cpp in Sources */,
+				3D8646AD2601111600B0B2C1 /* MessageFilter.cpp in Sources */,
+				3D8647612601111700B0B2C1 /* DynDNS.cpp in Sources */,
+				3D86464A2601111600B0B2C1 /* SocketLayer.cpp in Sources */,
 				0A5AFADA25F0B5320003669C /* CIStardustNode.cpp in Sources */,
 				3D563BF925F6D5B7006641B1 /* CIPlanetNode.cpp in Sources */,
+				3D86476A2601111700B0B2C1 /* RakNetSocket2_NativeClient.cpp in Sources */,
+				3D8647342601111700B0B2C1 /* WSAStartupSingleton.cpp in Sources */,
+				3D8646E02601111600B0B2C1 /* CloudCommon.cpp in Sources */,
+				3D8646D72601111600B0B2C1 /* SuperFastHash.cpp in Sources */,
+				3D8646832601111600B0B2C1 /* LinuxStrings.cpp in Sources */,
+				3D8646382601111600B0B2C1 /* DS_BytePool.cpp in Sources */,
 				0A5AFADD25F0B5320003669C /* CIStardustQueue.cpp in Sources */,
+				3D86462C2601111600B0B2C1 /* NatPunchthroughClient.cpp in Sources */,
+				3D8647252601111700B0B2C1 /* NatPunchthroughServer.cpp in Sources */,
+				3D8646262601111600B0B2C1 /* DS_Table.cpp in Sources */,
+				3D8646742601111600B0B2C1 /* NatTypeDetectionCommon.cpp in Sources */,
 				EBFA529D21FA5D0F00CCC2C5 /* CILoadingScene.cpp in Sources */,
+				3D8647462601111700B0B2C1 /* TelnetTransport.cpp in Sources */,
+				3D8646F22601111600B0B2C1 /* CloudClient.cpp in Sources */,
+				3D86470D2601111700B0B2C1 /* RakNetSocket2_Vita.cpp in Sources */,
+				3D86466B2601111600B0B2C1 /* FormatString.cpp in Sources */,
+				3D86471C2601111700B0B2C1 /* ReplicaManager3.cpp in Sources */,
+				3D8647552601111700B0B2C1 /* DirectoryDeltaTransfer.cpp in Sources */,
+				3D86464D2601111600B0B2C1 /* BitStream.cpp in Sources */,
+				3D8646292601111600B0B2C1 /* RakNetSocket2_Berkley_NativeClient.cpp in Sources */,
+				3D8646FE2601111600B0B2C1 /* VitaIncludes.cpp in Sources */,
+				3D8646F52601111600B0B2C1 /* DS_ByteQueue.cpp in Sources */,
+				3D86476D2601111700B0B2C1 /* RPC4Plugin.cpp in Sources */,
+				3D8647492601111700B0B2C1 /* StatisticsHistory.cpp in Sources */,
+				3D8646802601111600B0B2C1 /* DataCompressor.cpp in Sources */,
 				EBFA529F21FA5D1300CCC2C5 /* CIGameScene.cpp in Sources */,
+				3D8646892601111600B0B2C1 /* NatTypeDetectionClient.cpp in Sources */,
+				3D8646A42601111600B0B2C1 /* SignaledEvent.cpp in Sources */,
+				3D86467D2601111600B0B2C1 /* CCRakNetUDT.cpp in Sources */,
+				3D8647282601111700B0B2C1 /* VariableDeltaSerializer.cpp in Sources */,
+				3D8646772601111600B0B2C1 /* PluginInterface2.cpp in Sources */,
+				3D8647012601111700B0B2C1 /* RakWString.cpp in Sources */,
+				3D8647672601111700B0B2C1 /* RakNetSocket2_360_720.cpp in Sources */,
+				3D8646352601111600B0B2C1 /* ConnectionGraph2.cpp in Sources */,
+				3D86472B2601111700B0B2C1 /* osx_adapter.cpp in Sources */,
+				3D86471F2601111700B0B2C1 /* RakNetSocket2_PS3_PS4.cpp in Sources */,
+				3D8646472601111600B0B2C1 /* EpochTimeToString.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -634,19 +1758,131 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D8647512601111700B0B2C1 /* TableSerializer.cpp in Sources */,
+				3D8646A62601111600B0B2C1 /* RakNetCommandParser.cpp in Sources */,
+				3D8647212601111700B0B2C1 /* TCPInterface.cpp in Sources */,
+				3D8647392601111700B0B2C1 /* DR_SHA1.cpp in Sources */,
+				3D8646BE2601111600B0B2C1 /* RakNetSocket2_Berkley.cpp in Sources */,
+				3D8646FA2601111600B0B2C1 /* TeamBalancer.cpp in Sources */,
+				3D8646792601111600B0B2C1 /* SendToThread.cpp in Sources */,
+				3D8646EE2601111600B0B2C1 /* RakNetSocket2.cpp in Sources */,
+				3D8646C42601111600B0B2C1 /* PacketOutputWindowLogger.cpp in Sources */,
 				EBFA528F21FA5AAC00CCC2C5 /* CIGameScene.cpp in Sources */,
+				3D8646BB2601111600B0B2C1 /* gettimeofday.cpp in Sources */,
+				3D8646D32601111600B0B2C1 /* FileListTransfer.cpp in Sources */,
+				3D8646E52601111600B0B2C1 /* PacketizedTCP.cpp in Sources */,
+				3D8647182601111700B0B2C1 /* RandSync.cpp in Sources */,
+				3D86474B2601111700B0B2C1 /* SimpleMutex.cpp in Sources */,
+				3D86462E2601111600B0B2C1 /* ThreadsafePacketLogger.cpp in Sources */,
+				3D86465E2601111600B0B2C1 /* StringTable.cpp in Sources */,
+				3D8646912601111600B0B2C1 /* CommandParserInterface.cpp in Sources */,
+				3D8646A02601111600B0B2C1 /* GridSectorizer.cpp in Sources */,
 				EBFA529021FA5AAC00CCC2C5 /* CIInput.cpp in Sources */,
+				3D8646C72601111600B0B2C1 /* NetworkIDManager.cpp in Sources */,
+				3D8646CD2601111600B0B2C1 /* RakThread.cpp in Sources */,
 				3D94040725FFC52400043357 /* CIGameUpdateManager.cpp in Sources */,
 				3D563B9D25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */,
+				3D86463D2601111600B0B2C1 /* ReadyEvent.cpp in Sources */,
+				3D86475A2601111700B0B2C1 /* RakString.cpp in Sources */,
+				3D8646432601111600B0B2C1 /* UDPProxyClient.cpp in Sources */,
+				3D8646A92601111600B0B2C1 /* RakNetSocket2_Windows_Linux.cpp in Sources */,
+				3D8647032601111700B0B2C1 /* VariableListDeltaTracker.cpp in Sources */,
+				3D8646852601111600B0B2C1 /* FullyConnectedMesh2.cpp in Sources */,
+				3D8646E22601111600B0B2C1 /* PacketFileLogger.cpp in Sources */,
+				3D86468B2601111600B0B2C1 /* PacketLogger.cpp in Sources */,
+				3D8646B82601111600B0B2C1 /* HTTPConnection2.cpp in Sources */,
 				CA9A2DD125EDBD6A0048D02F /* CIStardustModel.cpp in Sources */,
+				3D8647422601111700B0B2C1 /* RakNetTransport2.cpp in Sources */,
 				EBFA528D21FA5AAC00CCC2C5 /* CIApp.cpp in Sources */,
+				3D86470F2601111700B0B2C1 /* TwoWayAuthentication.cpp in Sources */,
+				3D8646582601111600B0B2C1 /* RakNetSocket.cpp in Sources */,
+				3D8646DC2601111600B0B2C1 /* Rand.cpp in Sources */,
+				3D8646D92601111600B0B2C1 /* ConsoleServer.cpp in Sources */,
 				CA68E30B25F53BC200B4617D /* CICollisionController.cpp in Sources */,
+				3D8646222601111600B0B2C1 /* Router2.cpp in Sources */,
+				3D86474E2601111700B0B2C1 /* Gets.cpp in Sources */,
+				3D8646E82601111600B0B2C1 /* IncrementalReadInterface.cpp in Sources */,
+				3D86469D2601111600B0B2C1 /* VariadicSQLParser.cpp in Sources */,
+				3D86469A2601111600B0B2C1 /* PacketConsoleLogger.cpp in Sources */,
+				3D8646312601111600B0B2C1 /* RakPeer.cpp in Sources */,
+				3D86472D2601111700B0B2C1 /* UDPForwarder.cpp in Sources */,
+				3D8646702601111600B0B2C1 /* PS4Includes.cpp in Sources */,
+				3D8647122601111700B0B2C1 /* NatTypeDetectionServer.cpp in Sources */,
+				3D8646552601111600B0B2C1 /* EmailSender.cpp in Sources */,
+				3D8646F72601111600B0B2C1 /* StringCompressor.cpp in Sources */,
+				3D8646972601111600B0B2C1 /* FileOperations.cpp in Sources */,
+				3D8647632601111700B0B2C1 /* RakSleep.cpp in Sources */,
+				3D8646942601111600B0B2C1 /* CloudServer.cpp in Sources */,
+				3D8646C12601111600B0B2C1 /* _FindFirst.cpp in Sources */,
+				3D86464F2601111600B0B2C1 /* HTTPConnection.cpp in Sources */,
+				3D8646D02601111600B0B2C1 /* GetTime.cpp in Sources */,
+				3D8646B52601111600B0B2C1 /* UDPProxyCoordinator.cpp in Sources */,
+				3D8646612601111600B0B2C1 /* Getche.cpp in Sources */,
+				3D8646B22601111600B0B2C1 /* RakNetSocket2_PS4.cpp in Sources */,
+				3D86473F2601111700B0B2C1 /* Itoa.cpp in Sources */,
+				3D86468E2601111600B0B2C1 /* FileList.cpp in Sources */,
+				3D86473C2601111700B0B2C1 /* RakNetStatistics.cpp in Sources */,
+				3D8646AF2601111600B0B2C1 /* RakNetSocket2_Windows_Linux_360.cpp in Sources */,
 				3DCE833825FDC3B8007EBA2D /* CIGameUpdate.cpp in Sources */,
+				3D8647062601111700B0B2C1 /* TeamManager.cpp in Sources */,
+				3D8646642601111600B0B2C1 /* RelayPlugin.cpp in Sources */,
+				3D8646402601111600B0B2C1 /* Rackspace.cpp in Sources */,
+				3D8647092601111700B0B2C1 /* RakNetTypes.cpp in Sources */,
+				3D86466D2601111600B0B2C1 /* LogCommandParser.cpp in Sources */,
+				3D8646EB2601111600B0B2C1 /* NetworkIDObject.cpp in Sources */,
+				3D8646CA2601111600B0B2C1 /* ReliabilityLayer.cpp in Sources */,
+				3D8647362601111700B0B2C1 /* UDPProxyServer.cpp in Sources */,
+				3D8647302601111700B0B2C1 /* LocklessTypes.cpp in Sources */,
+				3D8646672601111600B0B2C1 /* CCRakNetSlidingWindow.cpp in Sources */,
+				3D86465B2601111600B0B2C1 /* CheckSum.cpp in Sources */,
+				3D86475D2601111700B0B2C1 /* RakNetSocket2_WindowsStore8.cpp in Sources */,
+				3D86476F2601111700B0B2C1 /* RakMemoryOverride.cpp in Sources */,
+				3D86463A2601111600B0B2C1 /* DS_HuffmanEncodingTree.cpp in Sources */,
+				3D8647572601111700B0B2C1 /* Base64Encoder.cpp in Sources */,
+				3D8646522601111600B0B2C1 /* SecureHandshake.cpp in Sources */,
+				3D8647152601111700B0B2C1 /* linux_adapter.cpp in Sources */,
+				3D8646AC2601111600B0B2C1 /* MessageFilter.cpp in Sources */,
+				3D8647602601111700B0B2C1 /* DynDNS.cpp in Sources */,
+				3D8646492601111600B0B2C1 /* SocketLayer.cpp in Sources */,
 				0A5AFAD925F0B5320003669C /* CIStardustNode.cpp in Sources */,
 				3D563BF825F6D5B7006641B1 /* CIPlanetNode.cpp in Sources */,
+				3D8647692601111700B0B2C1 /* RakNetSocket2_NativeClient.cpp in Sources */,
+				3D8647332601111700B0B2C1 /* WSAStartupSingleton.cpp in Sources */,
+				3D8646DF2601111600B0B2C1 /* CloudCommon.cpp in Sources */,
+				3D8646D62601111600B0B2C1 /* SuperFastHash.cpp in Sources */,
+				3D8646822601111600B0B2C1 /* LinuxStrings.cpp in Sources */,
+				3D8646372601111600B0B2C1 /* DS_BytePool.cpp in Sources */,
 				0A5AFADC25F0B5320003669C /* CIStardustQueue.cpp in Sources */,
+				3D86462B2601111600B0B2C1 /* NatPunchthroughClient.cpp in Sources */,
+				3D8647242601111700B0B2C1 /* NatPunchthroughServer.cpp in Sources */,
+				3D8646252601111600B0B2C1 /* DS_Table.cpp in Sources */,
+				3D8646732601111600B0B2C1 /* NatTypeDetectionCommon.cpp in Sources */,
 				EBFA528C21FA5AAC00CCC2C5 /* CILoadingScene.cpp in Sources */,
+				3D8647452601111700B0B2C1 /* TelnetTransport.cpp in Sources */,
+				3D8646F12601111600B0B2C1 /* CloudClient.cpp in Sources */,
+				3D86470C2601111700B0B2C1 /* RakNetSocket2_Vita.cpp in Sources */,
+				3D86466A2601111600B0B2C1 /* FormatString.cpp in Sources */,
+				3D86471B2601111700B0B2C1 /* ReplicaManager3.cpp in Sources */,
+				3D8647542601111700B0B2C1 /* DirectoryDeltaTransfer.cpp in Sources */,
+				3D86464C2601111600B0B2C1 /* BitStream.cpp in Sources */,
+				3D8646282601111600B0B2C1 /* RakNetSocket2_Berkley_NativeClient.cpp in Sources */,
+				3D8646FD2601111600B0B2C1 /* VitaIncludes.cpp in Sources */,
+				3D8646F42601111600B0B2C1 /* DS_ByteQueue.cpp in Sources */,
+				3D86476C2601111700B0B2C1 /* RPC4Plugin.cpp in Sources */,
+				3D8647482601111700B0B2C1 /* StatisticsHistory.cpp in Sources */,
+				3D86467F2601111600B0B2C1 /* DataCompressor.cpp in Sources */,
 				EB2BE9B61D74952A002FE78B /* main.cpp in Sources */,
+				3D8646882601111600B0B2C1 /* NatTypeDetectionClient.cpp in Sources */,
+				3D8646A32601111600B0B2C1 /* SignaledEvent.cpp in Sources */,
+				3D86467C2601111600B0B2C1 /* CCRakNetUDT.cpp in Sources */,
+				3D8647272601111700B0B2C1 /* VariableDeltaSerializer.cpp in Sources */,
+				3D8646762601111600B0B2C1 /* PluginInterface2.cpp in Sources */,
+				3D8647002601111700B0B2C1 /* RakWString.cpp in Sources */,
+				3D8647662601111700B0B2C1 /* RakNetSocket2_360_720.cpp in Sources */,
+				3D8646342601111600B0B2C1 /* ConnectionGraph2.cpp in Sources */,
+				3D86472A2601111700B0B2C1 /* osx_adapter.cpp in Sources */,
+				3D86471E2601111700B0B2C1 /* RakNetSocket2_PS3_PS4.cpp in Sources */,
+				3D8646462601111600B0B2C1 /* EpochTimeToString.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
