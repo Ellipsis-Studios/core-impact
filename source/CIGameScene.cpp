@@ -78,9 +78,12 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     _massHUD  = std::dynamic_pointer_cast<scene2::Label>(_assets->get<scene2::SceneNode>("game_hud"));
 
     // Create the planet model
-    _planet = PlanetModel::alloc(dimen.width/2, dimen.height/2, CIColor::blue, 3);
-    auto planetTexture = _assets->get<Texture>("planet1");
-    _planet->setTexture(planetTexture);
+    _planet = PlanetModel::alloc(dimen.width/2, dimen.height/2, CIColor::getNoneColor(), 3);
+    auto coreTexture = _assets->get<Texture>("core");
+    auto ringTexture = _assets->get<Texture>("innerRing"); 
+    auto unlockedTexture = _assets->get<Texture>("unlockedOuterRing");
+    auto lockedTexture = _assets->get<Texture>("lockedOuterRing");
+    _planet->setTextures(coreTexture, ringTexture, unlockedTexture, lockedTexture);
     
     _draggedStardust = NULL;
     _stardustContainer = StardustQueue::alloc(MAX_STARDUST);
@@ -94,8 +97,8 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     _stardustContainer->addStardust(dimen);
     
     addChild(scene);
-    addChild(_stardustNode);
     addChild(_planet->getPlanetNode());
+    addChild(_stardustNode);
     return true;
 }
 

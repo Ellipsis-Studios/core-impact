@@ -68,6 +68,13 @@ public:
     static Value getRandomColor() {
         return Value(rand() % 5); // pick out of first 5 colors 
     }
+    
+    /**
+     * Get the CIColor Value representing the lack of a color
+     */
+    static Value getNoneColor() {
+        return Value(5);
+    }
 };
 
 #endif /* __CI_COLOR_H__ */

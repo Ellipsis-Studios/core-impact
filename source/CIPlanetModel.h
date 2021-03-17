@@ -12,19 +12,16 @@
 #define __CI_PLANET_MODEL_H__
 #include <cugl/cugl.h>
 #include "CIColor.h"
+#include "CIPlanetLayer.h"
 #include "CIPlanetNode.h"
 
 class PlanetModel {
 private:
-    /** Current color code of the outermost layer of this planet */
-    CIColor::Value _color;
-    
-    std::vector<CIColor::Value> _prevLayerColors;
+    /** The layers of this planet */
+    std::vector<PlanetLayer> _layers;
     
     /** The number of layers this planet has */
     int _numLayers;
-    /** The amount of stardust the player has put in for the current layer */
-    int _currLayerProgress;
     /** The total amount of stardust the player need to put in to lock in the current layer  */
     int _layerLockinTotal;
     
@@ -46,7 +43,17 @@ public:
      * @return the color of the planet
      */
     const CIColor::Value getColor() const {
-        return _color;
+        return _layers[_numLayers-1].layerColor;
+    }
+    
+    /**
+     * Sets the color of this planet's current layer
+     *
+     * @param color The new color of this planet's current layer
+     */
+    void setColor(CIColor::Value color) {
+        cout << color;
+        _layers[_numLayers-1].layerColor = color;
     }
 
     /**
@@ -64,7 +71,7 @@ public:
      * @return the amount of stardust added to the current layer
      */
     const int getCurrLayerProgress() const {
-        return _currLayerProgress;
+        return _layers[_numLayers-1].layerSize;
     }
     
     /**
@@ -94,16 +101,27 @@ public:
         return _mass;
     }
 
+    /**
+     * Returns the position of the planet
+     *
+     * @return the position of the planet
+     **/
     const cugl::Vec2 getPosition() const {
         return _position;
     }
     
     /**
-     * Sets the texture for this planet.
+     * Sets the textures for this planet.
      *
-     * @param planet      The texture for the planet
+     * @param core          The texture of the core
+     * @param ring          The texture of an innner ring
+     * @param unlocked The texture on the outside of an unlocked ring
+     * @param unlocked The texture on the outside of a locked ring
      */
-    void setTexture(const std::shared_ptr<cugl::Texture>& planet);
+    void setTextures(const std::shared_ptr<cugl::Texture>& core,
+                     const std::shared_ptr<cugl::Texture>& ring,
+                     const std::shared_ptr<cugl::Texture>& unlocked,
+                     const std::shared_ptr<cugl::Texture>& locked);
     
     /**
      * Returns the scene graph node for this planet

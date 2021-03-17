@@ -21,25 +21,31 @@
 
 #pragma mark Properties
 /**
- * Sets the texture for this planet.
+ * Sets the textures for this planet.
  *
- * @param planet      The texture for the planet
+ * @param core          The texture of the core
+ * @param ring          The texture of an innner ring
+ * @param unlocked The texture on the outside of an unlocked ring
+ * @param unlocked The texture on the outside of a locked ring
  */
-void PlanetModel::setTexture(const std::shared_ptr<cugl::Texture>& planet) {
-    _planetNode = PlanetNode::alloc(planet);
+void PlanetModel::setTextures(const std::shared_ptr<cugl::Texture>& core,
+                 const std::shared_ptr<cugl::Texture>& ring,
+                 const std::shared_ptr<cugl::Texture>& unlocked,
+                 const std::shared_ptr<cugl::Texture>& locked) {
+    _planetNode = PlanetNode::alloc(core, ring, unlocked, locked);
     _planetNode->setAnchor(cugl::Vec2::ANCHOR_CENTER);
-    _planetNode->setColor(CIColor::getColor4(_color));
+    _planetNode->setLayers(_layers);
     _planetNode->setPosition(_position);
     _planetNode->setRadius(_radius);
 }
-
+ 
 
 #pragma mark Constructors
 /**
  * Disposes the planet, releasing all resources.
  */
 void PlanetModel::dispose() {
-    _prevLayerColors.clear();
+    _layers.clear();
     _planetNode = nullptr;
 }
 
@@ -58,11 +64,17 @@ void PlanetModel::dispose() {
  */
 bool PlanetModel::init(float x, float y, CIColor::Value c, int maxLayers) {
     _position.set(x, y);
-    _color = c;
-    _prevLayerColors.resize(maxLayers);
+    _layers.resize(maxLayers);
     
-    _numLayers = 0;
-    _currLayerProgress = 0;
+    _numLayers = 1;
+    PlanetLayer layer = {
+        .layerSize =  0,
+        .layerColor =  c,
+        .isActive = true,
+        .isLockedIn = false
+    };
+    _layers[_numLayers-1] = layer;
+    
     _layerLockinTotal = INIT_LAYER_LOCKIN_TOTAL;
     
     _radius = INITIAL_PLANET_RADIUS;
@@ -77,22 +89,29 @@ bool PlanetModel::init(float x, float y, CIColor::Value c, int maxLayers) {
  * Decreases the size of the current layer
  */
 void PlanetModel::decreaseLayerSize() {
-    _currLayerProgress--;
-    _radius -= PLANET_RADIUS_INCREASE;
-    _mass -= PLANET_MASS_INCREASE;
-
-    _planetNode->setRadius(_radius);
+    PlanetLayer* currentLayer = &_layers[_numLayers-1];
+    if (currentLayer->layerSize > 0) {
+        currentLayer->layerSize--;
+        if (currentLayer->layerSize == 0) {
+            currentLayer->layerColor = CIColor::getNoneColor();
+        }
+        _radius -= PLANET_RADIUS_INCREASE;
+        _mass -= PLANET_MASS_INCREASE;
+        _planetNode->setRadius(_radius);
+        _planetNode->setLayers(_layers);
+    }
 }
 
 /**
  * Increases the size of the current layer
  */
 void PlanetModel::increaseLayerSize() {
-    _currLayerProgress++;
+    _layers[_numLayers-1].layerSize++;
     _radius += PLANET_RADIUS_INCREASE;
     _mass += PLANET_MASS_INCREASE;
 
     _planetNode->setRadius(_radius);
+    _planetNode->setLayers(_layers);
 }
 
 /**
@@ -100,15 +119,19 @@ void PlanetModel::increaseLayerSize() {
  */
 bool PlanetModel::lockInLayer() {
     // do not lock in if there is not enough stardust to do a lock in or the planet already has the max number of layers
-    if (_currLayerProgress < _layerLockinTotal || _numLayers >= _prevLayerColors.size()) {
+    if (_layers[_numLayers-1].layerSize < _layerLockinTotal || _numLayers >= _layers.size()) {
         return false;
     }
     
     _numLayers++;
-    _currLayerProgress = 0;
     _layerLockinTotal += LAYER_LOCKIN_TOTAL_INCREASE;
     
-    _prevLayerColors[_numLayers-1] = _color;
-    // TODO: add in logic to change color of the layer
+    PlanetLayer layer = {
+        .layerSize =  0,
+        .layerColor =  CIColor::getNoneColor(),
+        .isActive = true,
+        .isLockedIn = false
+    };
+    _layers[_numLayers-1] = layer;
     return true;
 }

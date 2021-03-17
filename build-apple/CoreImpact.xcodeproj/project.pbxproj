@@ -149,6 +149,7 @@
 		CA9A2DC725EDBD6A0048D02F /* CIStardustModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIStardustModel.h; sourceTree = "<group>"; };
 		CA9A2DCC25EDBD6A0048D02F /* CIStardustModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CIStardustModel.cpp; sourceTree = "<group>"; };
 		CA9A2DCD25EDBD6A0048D02F /* CIColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIColor.h; sourceTree = "<group>"; };
+		CAC0C81A26002EDA003B3F42 /* CIPlanetLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIPlanetLayer.h; sourceTree = "<group>"; };
 		EB0FF5FC2016EF4F00517030 /* Core Impact (Sim).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Core Impact (Sim).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB2BE9B41D74952A002FE78B /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		EB2BE9B81D7498C9002FE78B /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
@@ -396,18 +397,19 @@
 				EBFA528321FA5AAB00CCC2C5 /* CILoadingScene.cpp */,
 				EBFA528521FA5AAB00CCC2C5 /* CILoadingScene.h */,
 				EB2BE9B41D74952A002FE78B /* main.cpp */,
+				CAC0C81A26002EDA003B3F42 /* CIPlanetLayer.h */,
 				3D563B9C25F0AF01006641B1 /* CIPlanetModel.cpp */,
 				3D563B9825F0AEE8006641B1 /* CIPlanetModel.h */,
-				3D563BF325F6D58C006641B1 /* CIPlanetNode.h */,
 				3D563BF725F6D5B7006641B1 /* CIPlanetNode.cpp */,
+				3D563BF325F6D58C006641B1 /* CIPlanetNode.h */,
 				CA9A2DCC25EDBD6A0048D02F /* CIStardustModel.cpp */,
 				CA9A2DC725EDBD6A0048D02F /* CIStardustModel.h */,
 				0A5AFAD625F0B5320003669C /* CIStardustNode.cpp */,
 				0A5AFAD225F0B5320003669C /* CIStardustNode.h */,
 				0A5AFAD825F0B5320003669C /* CIStardustQueue.cpp */,
 				0A5AFAD725F0B5320003669C /* CIStardustQueue.h */,
-				3DCE833625FDB914007EBA2D /* CIGameUpdate.h */,
 				3DCE833725FDC3B8007EBA2D /* CIGameUpdate.cpp */,
+				3DCE833625FDB914007EBA2D /* CIGameUpdate.h */,
 			);
 			name = Source;
 			path = ../source;
