@@ -11,28 +11,167 @@
 #ifndef __CI_STARDUST_NODE_H__
 #define __CI_STARDUST_NODE_H__
 #include <cugl/cugl.h>
-#include "CIStardustQueue.h"
+#include "CIStardustModel.h"
 
 class StardustNode : public cugl::scene2::SceneNode {
 private:
-    /** Shared memory pool for stardust. (MODEL CLASS) */
-    std::shared_ptr<StardustQueue> _stardustQueue;
-public:
-    StardustNode() : SceneNode() {}
+	/** Graphic asset representing a single stardust. */
+	std::shared_ptr<cugl::Texture> _texture;
 
-    ~StardustNode() { dispose(); }
-    
-    static std::shared_ptr<StardustNode> alloc() {
-        std::shared_ptr<StardustNode> node = std::make_shared<StardustNode>();
-        return (node->init() ? node : nullptr);
-    }
-    
-    void setStardustQueue(std::shared_ptr<StardustQueue> queue){
-        _stardustQueue = queue;
-    }
-    
-    void draw(const std::shared_ptr<cugl::SpriteBatch>& batch,
-              const cugl::Mat4& transform, cugl::Color4 tint) override;
+	// QUEUE DATA STRUCTURES
+	/** Vector implementation of a circular queue. */
+	std::vector<StardustModel> _queue;
+	/** Index of head element in the queue */
+	int _qhead;
+	/** Index of tail element in the queue */
+	int _qtail;
+	/** Number of elements currently in the queue */
+	int _qsize;
+
+public:
+	StardustNode() : SceneNode() {}
+
+	~StardustNode() { dispose(); }
+
+	static std::shared_ptr<StardustNode> alloc() {
+		std::shared_ptr<StardustNode> node = std::make_shared<StardustNode>();
+		return (node->init() ? node : nullptr);
+	}
+
+	/**
+	 * Draws the stardusts to the game scne
+	 */
+	void draw(const std::shared_ptr<cugl::SpriteBatch>& batch,
+		const cugl::Mat4& transform, cugl::Color4 tint) override;
+
+	/**
+	 * Returns the (reference to the) stardust at the given position.
+	 *
+	 * If the position is not a valid stardust, then the result is null.
+	 *
+	 * @param pos   The stardust position in the queue
+	 *
+	 * @return the (reference to the) stardust at the given position.
+	 */
+	StardustModel* get(size_t pos);
+
+	/**
+	 * Returns the queue of stardust
+	 *
+	 * @return the queue of stardust
+	 */
+	std::vector<StardustModel> getQueue() const {
+		return _queue;
+	}
+
+	/**
+	 * Resizes the queue of stardust
+	 *
+	 * @param max	The size of teh stardust queue
+	 */
+	void resizeQueue(size_t max) {
+		_queue.resize(max);
+	}
+
+	/**
+	 * Returns the size of the stardust queue
+	 *
+	 * @return the size of the stardust queue
+	 */
+	size_t getQueueSize() const {
+		return _queue.size();
+	}
+
+	/**
+	 * Sets the queue head value
+	 */
+	void setQHead(int ind) {
+		_qhead = ind;
+	}
+
+	/**
+	 * Sets the queue tail value
+	 */
+	void setQTail(int ind) {
+		_qtail = ind;
+	}
+
+	/**
+	 * Sets the queue size
+	 */
+	void setQSize(int s) {
+		_qsize = s;
+	}
+
+	/**
+	 * Clears the stardust queue
+	 */
+	void clearQueue() {
+		_queue.clear();
+	}
+
+	/**
+	 * Returns the image of a single stardust; reused by all stardust.
+	 *
+	 * @return the image for a single stardust; reused by all stardust.
+	 */
+	std::shared_ptr<cugl::Texture> getTexture() const {
+		return _texture;
+	}
+
+	/**
+	 * Sets the image for a single stardust; reused by all stardust.
+	 *
+	 * @param value the image for a single stardust; reused by all stardust.
+	 */
+	void setTexture(const std::shared_ptr<cugl::Texture>& texture) {
+		_texture = texture;
+	}
+
+	/**
+	 * Clears out the memory for the texture.
+	 */
+	void clearTexture() {
+		_texture = nullptr;
+	}
+
+	/**
+	 * Initializes a StardustModel at the given index in queue with the provided values.
+	 *
+	 * @param position	The position vector
+	 * @param velocity  The velocity vector
+	 * @param c			The color of the new stardust
+	 */
+	void initNewStardust(cugl::Vec2 position, cugl::Vec2 velocity, CIColor::Value c) {
+		_queue[_qtail].init(position, velocity, c);
+	}
+
+	/**
+	 * Returns the mass of the model at the given index in queue.
+	 *
+	 * @return the model mass at index
+	 */
+	float getModelMass(size_t ind) const {
+		return _queue[ind].getMass();
+	}
+
+	/**
+	 * Steps through active stardust in queue and updates them
+	 *
+	 * For use only in StardustQueue's update()
+	 *
+	 * @param qsize		The queue's size.
+	 * @param shead		The queue's head index.
+	 */
+	void updateQueueModels(int& qsize, int& qhead) {
+		// Step through each active stardust in the queue
+		for (size_t ii = 0; ii < qsize; ii++) {
+			// Find the position of this stardust.
+			size_t idx = ((qhead + ii) % _queue.size());
+			// Move the stardust according to velocity
+			_queue[idx].update();
+		}
+	}
 };
 
 #endif /* __CI_STARDUST_NODE_H__ */

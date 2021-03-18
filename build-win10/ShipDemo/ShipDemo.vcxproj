@@ -190,6 +190,8 @@
     <ClInclude Include="..\..\source\CICollisionController.h" />
     <ClInclude Include="..\..\source\CIColor.h" />
     <ClInclude Include="..\..\source\CIGameScene.h" />
+    <ClInclude Include="..\..\source\CIGameUpdate.h" />
+    <ClInclude Include="..\..\source\CIGameUpdateManager.h" />
     <ClInclude Include="..\..\source\CIInput.h" />
     <ClInclude Include="..\..\source\CILoadingScene.h" />
     <ClInclude Include="..\..\source\CIPlanetModel.h" />
@@ -371,6 +373,8 @@
     <ClCompile Include="..\..\source\CIApp.cpp" />
     <ClCompile Include="..\..\source\CICollisionController.cpp" />
     <ClCompile Include="..\..\source\CIGameScene.cpp" />
+    <ClCompile Include="..\..\source\CIGameUpdate.cpp" />
+    <ClCompile Include="..\..\source\CIGameUpdateManager.cpp" />
     <ClCompile Include="..\..\source\CIInput.cpp" />
     <ClCompile Include="..\..\source\CILoadingScene.cpp" />
     <ClCompile Include="..\..\source\CIPlanetModel.cpp" />

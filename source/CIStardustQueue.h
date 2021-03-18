@@ -11,6 +11,7 @@
 #define __CI_STARDUST_QUEUE_H__
 #include <cugl/cugl.h>
 #include "CIStardustModel.h"
+#include "CIStardustNode.h"
 
 /**
  * Model class representing an "particle system" of stardust.
@@ -21,170 +22,178 @@
  */
 class StardustQueue {
 private:
-    /** Graphic asset representing a single stardust. */
-    std::shared_ptr<cugl::Texture> _texture;
+	/** Graphic asset representing a single stardust. */
+	std::shared_ptr<cugl::Texture> _texture;
 
-    // QUEUE DATA STRUCTURES
-    /** Vector implementation of a circular queue. */
-    std::vector<StardustModel> _queue;
-    /** Index of head element in the queue */
-    int _qhead;
-    /** Index of tail element in the queue */
-    int _qtail;
-    /** Number of elements currently in the queue */
-    int _qsize;
-    
-    /** stardust to be sent to other players in the game. */
-    std::vector<std::shared_ptr<StardustModel>> _stardust_to_send;
+	/** Reference to stardust node */
+	std::shared_ptr<StardustNode> _stardustNode;
+
+	/** Index of head element in the queue */
+	int _qhead;
+	/** Index of tail element in the queue */
+	int _qtail;
+	/** Number of elements currently in the queue */
+	int _qsize;
+
+	/** stardust to be sent to other players in the game. */
+	std::vector<std::shared_ptr<StardustModel>> _stardust_to_send;
 
 #pragma mark The Queue
 public:
-    /**
-     * Creates a stardust queue with the default values.
-     *
-     * To properly initialize the queue, you should call the init
-     * method.
-     */
-    StardustQueue();
-    
-    /**
-     * Disposes the stardust queue, releasing all resources.
-     */
-    ~StardustQueue() { dispose(); }
+	/**
+	 * Creates a stardust queue with the default values.
+	 *
+	 * To properly initialize the queue, you should call the init
+	 * method.
+	 */
+	StardustQueue();
 
-    /**
-     * Disposes the stardust queue, releasing all resources.
-     */
-    void dispose();
-    
-    /**
-     *  Initialies a new (empty) StardustQueue.
-     *
-     *  @param max  The maximum number of stardust to support
-     *
-     *  @return true if initialization is successful
-     */
-    bool init(size_t max);
+	/**
+	 * Disposes the stardust queue, releasing all resources.
+	 */
+	~StardustQueue() { dispose(); }
 
-    /**
-     *  Returns a newly allocated (empty) StardustQueue
-     *
-     *  @param max  The maximum number of stardust to support
-     *
-     *  @return a newly allocated (empty) StardustQueue
-     */
-    static std::shared_ptr<StardustQueue> alloc(size_t max) {
-        std::shared_ptr<StardustQueue> result = std::make_shared<StardustQueue>();
-        return (result->init(max) ? result : nullptr);
-    }
+	/**
+	 * Disposes the stardust queue, releasing all resources.
+	 */
+	void dispose();
 
-    /**
-     * Returns the image for a single stardust; reused by all stardust.
-     *
-     * This value should be loaded by the GameMode and set there. However, we
-     * have to be prepared for this to be null at all times
-     *
-     * @return the image for a single stardust; reused by all stardust.
-     */
-    const std::shared_ptr<cugl::Texture>& getTexture() const {
-        return _texture;
-    }
+	/**
+	 *  Initialies a new (empty) StardustQueue.
+	 *
+	 *  @param max  The maximum number of stardust to support
+	 *
+	 *  @return true if initialization is successful
+	 */
+	bool init(size_t max);
 
-    /**
-     * Sets the image for a single stardust; reused by all stardust.
-     *
-     * This value should be loaded by the GameMode and set there. However, we
-     * have to be prepared for this to be null at all times
-     *
-     * @param value the image for a single stardust; reused by all stardust.
-     */
-    void setTexture(const std::shared_ptr<cugl::Texture>& value) {
-        _texture = value;
-    }
+	/**
+	 *  Returns a newly allocated (empty) StardustQueue
+	 *
+	 *  @param max  The maximum number of stardust to support
+	 *
+	 *  @return a newly allocated (empty) StardustQueue
+	 */
+	static std::shared_ptr<StardustQueue> alloc(size_t max) {
+		std::shared_ptr<StardustQueue> result = std::make_shared<StardustQueue>();
+		return (result->init(max) ? result : nullptr);
+	}
 
-    /**
-     * Adds a stardust to the active queue.
-     *
-     * As all stardusts are predeclared, this involves moving the head and the tail,
-     * and reseting the values of the object in place.  This is a simple implementation
-     * of a memory pool. It works because we delete objects in the same order that
-     * we allocate them.
-     *
-     * @param bounds the bounds of the game screen
-     */
-    void addStardust(const cugl::Size bounds);
-    
-    /**
-     * Returns the number of active stardust
-     *
-     * @return the number of active stardust
-     */
-    size_t size() const {
-        return _qsize;
-    }
-    
-    /**
-     * Returns the index of the first stardust
-     *
-     * @return the index of the first stardust
-     */
-    int headIndex() const {
-        return _qhead;
-    }
-    
-    /**
-     * Returns the queue of stardust
-     *
-     * @return the queue of stardust
-     */
-    std::vector<StardustModel> getQueue() const {
-        return _queue;
-    }
-    
-    /**
-     * Returns the (reference to the) stardust at the given position.
-     *
-     * If the position is not a valid stardust, then the result is null.
-     *
-     * @param pos   The stardust position in the queue
-     *
-     * @return the (reference to the) stardust at the given position.
-     */
-    StardustModel* get(size_t pos);
+	/**
+	 * Returns the image for a single stardust; reused by all stardust.
+	 *
+	 * This value should be loaded by the GameMode and set there. However, we
+	 * have to be prepared for this to be null at all times
+	 *
+	 * @return the image for a single stardust; reused by all stardust.
+	 */
+	const std::shared_ptr<cugl::Texture>& getTexture() const {
+		return _texture;
+	}
 
-    /**
-     * Adds a stardust to the queue of stardust to send to other players
-     *
-     * @param stardust   The stardust that is to be sent to another player
-     */
-    void addToSendQueue(StardustModel* stardust);
-    
-    /**
-     * Returns the queue of stardust to send
-     *
-     * @return The queue of stardust to send
-     */
-    std::vector<std::shared_ptr<StardustModel>> getSendQueue() {
-        return _stardust_to_send;
-    }
-    
-    /**
-     * Clears the stardust to send queue
-     */
-    void clearSendQueue() {
-        _stardust_to_send.clear();
-    }
-    
-    /**
-     * Moves all the stardust in the active queue.
-     *
-     * Each stardust is advanced according to its velocity. Stardusts which are too old
-     * are deleted.  This method does not bounce off walls.  We moved all collisions
-     * to the collision controller where they belong.
-     */
-    void update();
+	/**
+	 * Sets the image for a single stardust; reused by all stardust.
+	 *
+	 * This value should be loaded by the GameMode and set there. However, we
+	 * have to be prepared for this to be null at all times
+	 *
+	 * @param value the image for a single stardust; reused by all stardust.
+	 */
+	void setTexture(const std::shared_ptr<cugl::Texture>& value) {
+		_texture = value;
+		_stardustNode->setTexture(value);
+	}
 
+	/**
+	 * Adds a stardust to the active queue.
+	 *
+	 * As all stardusts are predeclared, this involves moving the head and the tail,
+	 * and reseting the values of the object in place.  This is a simple implementation
+	 * of a memory pool. It works because we delete objects in the same order that
+	 * we allocate them.
+	 *
+	 * @param bounds the bounds of the game screen
+	 */
+	void addStardust(const cugl::Size bounds);
+
+	/**
+	 * Returns the number of active stardust
+	 *
+	 * @return the number of active stardust
+	 */
+	size_t size() const {
+		return _qsize;
+	}
+
+	/**
+	 * Returns the index of the first stardust
+	 *
+	 * @return the index of the first stardust
+	 */
+	int headIndex() const {
+		return _qhead;
+	}
+
+	/**
+	 * Returns the stardust node pointer
+	 *
+	 * @return shared pointer to stardust node
+	 */
+	const std::shared_ptr<StardustNode>& getStardustNode() const {
+		return _stardustNode;
+	}
+
+	/**
+	 * Returns the queue of stardust
+	 *
+	 * @return the queue of stardust
+	 */
+	std::vector<StardustModel> getQueue() const {
+		return _stardustNode->getQueue();
+	}
+
+	/**
+	 * Returns the (reference to the) stardust at the given position.
+	 *
+	 * If the position is not a valid stardust, then the result is null.
+	 *
+	 * @param pos   The stardust position in the queue
+	 *
+	 * @return the (reference to the) stardust at the given position.
+	 */
+	StardustModel* get(size_t pos);
+
+	/**
+	 * Adds a stardust to the queue of stardust to send to other players
+	 *
+	 * @param stardust   The stardust that is to be sent to another player
+	 */
+	void addToSendQueue(StardustModel* stardust);
+
+	/**
+	 * Returns the queue of stardust to send
+	 *
+	 * @return The queue of stardust to send
+	 */
+	std::vector<std::shared_ptr<StardustModel>> getSendQueue() {
+		return _stardust_to_send;
+	}
+
+	/**
+	 * Clears the stardust to send queue
+	 */
+	void clearSendQueue() {
+		_stardust_to_send.clear();
+	}
+
+	/**
+	 * Moves all the stardust in the active queue.
+	 *
+	 * Each stardust is advanced according to its velocity. Stardusts which are too old
+	 * are deleted.  This method does not bounce off walls.  We moved all collisions
+	 * to the collision controller where they belong.
+	 */
+	void update();
 };
 
 #endif /* __CI_STARDUST_QUEUE_H__ */
-
