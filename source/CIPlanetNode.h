@@ -32,7 +32,7 @@ private:
     float _radius;
     
     /** The layers of this planet */
-    std::vector<PlanetLayer> _layers;
+    std::vector<PlanetLayer>* _layers;
     /** The nodes representing the layers of this planet */
     std::vector<LayerNode> _layerNodes;
     
@@ -64,7 +64,7 @@ public:
               const cugl::Mat4& transform, cugl::Color4 tint) override;
     
     void setLayers(std::vector<PlanetLayer> layers) {
-        _layers = layers;
+        _layers = &layers;
         setColor(CIColor::getColor4(layers[0].layerColor));
         
         if (_layerNodes.size() != layers.size()) {

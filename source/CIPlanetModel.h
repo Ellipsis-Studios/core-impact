@@ -109,6 +109,15 @@ public:
         return _position;
     }
     
+    const PlanetLayer getNewLayer() const {
+        return {
+            .layerSize =  0,
+            .layerColor =  CIColor::getNoneColor(),
+            .isActive = true,
+            .isLockedIn = false
+        };
+    }
+    
     /**
      * Sets the textures for this planet.
      *

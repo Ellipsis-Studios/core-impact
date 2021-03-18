@@ -67,13 +67,7 @@ bool PlanetModel::init(float x, float y, CIColor::Value c, int maxLayers) {
     _layers.resize(maxLayers);
     
     _numLayers = 1;
-    PlanetLayer layer = {
-        .layerSize =  0,
-        .layerColor =  c,
-        .isActive = true,
-        .isLockedIn = false
-    };
-    _layers[_numLayers-1] = layer;
+    _layers[_numLayers-1] = getNewLayer();
     
     _layerLockinTotal = INIT_LAYER_LOCKIN_TOTAL;
     
@@ -119,19 +113,12 @@ void PlanetModel::increaseLayerSize() {
  */
 bool PlanetModel::lockInLayer() {
     // do not lock in if there is not enough stardust to do a lock in or the planet already has the max number of layers
-    if (_layers[_numLayers-1].layerSize < _layerLockinTotal || _numLayers >= _layers.size()) {
+    if (getCurrLayerProgress() < _layerLockinTotal || _numLayers >= _layers.size()) {
         return false;
     }
     
     _numLayers++;
     _layerLockinTotal += LAYER_LOCKIN_TOTAL_INCREASE;
-    
-    PlanetLayer layer = {
-        .layerSize =  0,
-        .layerColor =  CIColor::getNoneColor(),
-        .isActive = true,
-        .isLockedIn = false
-    };
-    _layers[_numLayers-1] = layer;
+    _layers[_numLayers-1] = getNewLayer();
     return true;
 }

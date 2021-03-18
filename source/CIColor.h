@@ -126,7 +126,7 @@ public:
      * Get the CIColor Value representing the lack of a color
      */
     static Value getNoneColor() {
-        return Value(5);
+        return Value::lightgrey;
     }
 };
 
