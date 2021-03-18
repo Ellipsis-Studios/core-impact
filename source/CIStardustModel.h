@@ -38,6 +38,7 @@ private:
     /** The location of the stardust */
     Location _stardust_location;
     
+    // TODO: add in reward structure for player who hits another player's planet with one of their stardust
     /** The player id of the last player to own this stardust. -1 if this stardust does not have a previous owner */
     int _previous_owner;
 
