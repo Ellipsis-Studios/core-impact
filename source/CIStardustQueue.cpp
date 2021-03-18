@@ -33,6 +33,7 @@ void StardustQueue::dispose() {
     _qhead = 0;
     _qtail = -1;
     _qsize = 0;
+    _stardustNode = nullptr;
     _stardust_to_send.clear();
 }
     
@@ -45,6 +46,8 @@ void StardustQueue::dispose() {
  */
 bool StardustQueue::init(size_t max) {
     _queue.resize(max);
+    _stardustNode = StardustNode::alloc();
+    _stardustNode->initialize(&_queue, &_qhead, &_qtail, &_qsize);
     return true;
 }
 

@@ -11,6 +11,7 @@
 #define __CI_STARDUST_QUEUE_H__
 #include <cugl/cugl.h>
 #include "CIStardustModel.h"
+#include "CIStardustNode.h"
 
 /**
  * Model class representing an "particle system" of stardust.
@@ -21,9 +22,6 @@
  */
 class StardustQueue {
 private:
-    /** Graphic asset representing a single stardust. */
-    std::shared_ptr<cugl::Texture> _texture;
-
     // QUEUE DATA STRUCTURES
     /** Vector implementation of a circular queue. */
     std::vector<StardustModel> _queue;
@@ -33,6 +31,9 @@ private:
     int _qtail;
     /** Number of elements currently in the queue */
     int _qsize;
+
+    /** Reference to stardust node */
+    std::shared_ptr<StardustNode> _stardustNode;
     
     /** stardust to be sent to other players in the game. */
     std::vector<std::shared_ptr<StardustModel>> _stardust_to_send;
@@ -76,30 +77,6 @@ public:
     static std::shared_ptr<StardustQueue> alloc(size_t max) {
         std::shared_ptr<StardustQueue> result = std::make_shared<StardustQueue>();
         return (result->init(max) ? result : nullptr);
-    }
-
-    /**
-     * Returns the image for a single stardust; reused by all stardust.
-     *
-     * This value should be loaded by the GameMode and set there. However, we
-     * have to be prepared for this to be null at all times
-     *
-     * @return the image for a single stardust; reused by all stardust.
-     */
-    const std::shared_ptr<cugl::Texture>& getTexture() const {
-        return _texture;
-    }
-
-    /**
-     * Sets the image for a single stardust; reused by all stardust.
-     *
-     * This value should be loaded by the GameMode and set there. However, we
-     * have to be prepared for this to be null at all times
-     *
-     * @param value the image for a single stardust; reused by all stardust.
-     */
-    void setTexture(const std::shared_ptr<cugl::Texture>& value) {
-        _texture = value;
     }
 
     /**
@@ -158,6 +135,15 @@ public:
      * @return the (reference to the) stardust at the given position.
      */
     StardustModel* get(size_t pos);
+
+    /**
+     * Returns the Stardust Node pointer
+     * 
+     * @return shared pointer to Stardust Node
+     */
+    const std::shared_ptr<StardustNode>& getStardustNode() const {
+        return _stardustNode;
+    }
 
     /**
      * Adds a stardust to the queue of stardust to send to other players
