@@ -16,7 +16,7 @@ void GameUpdate::dispose() {
     _planet = nullptr;
 }
 
-bool GameUpdate::init(std::string gameId, int playerId, std::map<int, std::vector<StardustModel>> stardustSent, const std::shared_ptr<PlanetModel> planet, int timestamp) {
+bool GameUpdate::init(std::string gameId, int playerId, std::map<int, std::vector<std::shared_ptr<StardustModel>>> stardustSent, const std::shared_ptr<PlanetModel> planet, int timestamp) {
     _game_id = gameId;
     _player_id = playerId;
     _stardust_sent = stardustSent;

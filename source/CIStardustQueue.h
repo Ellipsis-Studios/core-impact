@@ -115,6 +115,13 @@ public:
     void addStardust(const cugl::Size bounds);
     
     /**
+     * Adds a stardust to the active queue given a pointer to the stardust
+     *
+     * @param stardust the stardust to add to the queue
+     */
+    void addStardust(const std::shared_ptr<StardustModel> stardust);
+    
+    /**
      * Returns the number of active stardust
      *
      * @return the number of active stardust
