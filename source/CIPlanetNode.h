@@ -63,38 +63,7 @@ public:
     void draw(const std::shared_ptr<cugl::SpriteBatch>& batch,
               const cugl::Mat4& transform, cugl::Color4 tint) override;
     
-    void setLayers(std::vector<PlanetLayer> layers) {
-        _layers = &layers;
-        setColor(CIColor::getColor4(layers[0].layerColor));
-        
-        if (_layerNodes.size() != layers.size()) {
-            _layerNodes.resize(layers.size());
-        }
-        for (int ii = 0; ii < layers.size(); ii++) {
-            LayerNode* node = &_layerNodes[ii];
-            if (layers[ii].isActive) {
-                if (node->innerRing == nullptr) {
-                    node->innerRing = cugl::scene2::PolygonNode::allocWithTexture(_ringTexture);
-                    node->outerRing = cugl::scene2::PolygonNode::allocWithTexture(_unlockedTexture);
-                    
-                    node->innerRing->setAnchor(cugl::Vec2::ANCHOR_CENTER);
-                    node->outerRing->setAnchor(cugl::Vec2::ANCHOR_CENTER);
-                    node->innerRing->setPosition(cugl::Vec2(getSize())*0.5f);
-                    node->outerRing->setPosition(cugl::Vec2(getSize())*0.5f);
-                    node->innerRing->setRelativeColor(false);
-                    node->outerRing->setRelativeColor(false);
-                    
-                    addChild(node->innerRing);
-                    addChild(node->outerRing);
-                }
-                node->innerRing->setColor(CIColor::getColor4(layers[ii].layerColor));
-                node->outerRing->setColor(CIColor::getColor4(layers[ii].layerColor));
-                if (layers[ii].isLockedIn) {
-                    node->outerRing->setTexture(_lockedTexture);
-                }
-            }
-        }
-    }
+    void setLayers(std::vector<PlanetLayer>* layers);
     
     void setRadius(float r) {
         _radius = r;

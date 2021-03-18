@@ -34,7 +34,7 @@ void PlanetModel::setTextures(const std::shared_ptr<cugl::Texture>& core,
                  const std::shared_ptr<cugl::Texture>& locked) {
     _planetNode = PlanetNode::alloc(core, ring, unlocked, locked);
     _planetNode->setAnchor(cugl::Vec2::ANCHOR_CENTER);
-    _planetNode->setLayers(_layers);
+    _planetNode->setLayers(&_layers);
     _planetNode->setPosition(_position);
     _planetNode->setRadius(_radius);
 }
@@ -92,7 +92,7 @@ void PlanetModel::decreaseLayerSize() {
         _radius -= PLANET_RADIUS_INCREASE;
         _mass -= PLANET_MASS_INCREASE;
         _planetNode->setRadius(_radius);
-        _planetNode->setLayers(_layers);
+        _planetNode->setLayers(&_layers);
     }
 }
 
@@ -105,7 +105,7 @@ void PlanetModel::increaseLayerSize() {
     _mass += PLANET_MASS_INCREASE;
 
     _planetNode->setRadius(_radius);
-    _planetNode->setLayers(_layers);
+    _planetNode->setLayers(&_layers);
 }
 
 /**
