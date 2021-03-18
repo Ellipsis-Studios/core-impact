@@ -121,6 +121,13 @@ public:
         int rand = dist(mt);
         return Value(rand);  
     }
+    
+    /**
+     * Get the CIColor Value representing the lack of a color
+     */
+    static Value getNoneColor() {
+        return Value::lightgrey;
+    }
 };
 
 #endif /* __CI_COLOR_H__ */
