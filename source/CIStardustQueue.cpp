@@ -59,13 +59,6 @@ bool StardustQueue::init(size_t max) {
  * @param bounds the bounds of the game screen
  */
 void StardustQueue::addStardust(const Size bounds) {
-    // Check if any room in queue.
-    // If maximum is reached, remove the oldest stardust.
-    if (_qsize == _queue.size()) {
-        _qhead = ((_qhead + 1) % _queue.size());
-        _qsize--;
-    }
-
     // Add a new stardust at the end.
     // Already declared, so just initialize.
     int posX = ((rand()%2==0) ? bounds.width + 20 : -20) + (rand() % 20 - 10);
@@ -75,11 +68,28 @@ void StardustQueue::addStardust(const Size bounds) {
     dir.normalize();
     dir.x *= (rand() % 3)+2;
     dir.y *= (rand() % 3)+2;
+
+    std::shared_ptr<StardustModel> stardust = StardustModel::alloc(pos, dir, CIColor::getRandomColor());
+    addStardust(stardust);
+}
+
+/**
+ * Adds a stardust to the active queue given a pointer to the stardust
+ *
+ * @param stardust the stardust to add to the queue
+ */
+void StardustQueue::addStardust(const std::shared_ptr<StardustModel> stardust) {
+    // Check if any room in queue.
+    // If maximum is reached, remove the oldest stardust.
+    if (_qsize == _queue.size()) {
+        _qhead = ((_qhead + 1) % _queue.size());
+        _qsize--;
+    }
     
     _qtail = ((_qtail + 1) % _queue.size());
 
     // TODO: adding dot queues based on an upcoming algorithm
-    _queue[_qtail].init(pos, dir, CIColor::getRandomColor());
+    _queue[_qtail] = *stardust;
     _qsize++;
 }
 

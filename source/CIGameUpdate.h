@@ -27,7 +27,7 @@ private:
     int _player_id;
     
     /** Map of player id to stardust sent to other players */
-    std::map<int, std::vector<StardustModel>> _stardust_sent;
+    std::map<int, std::vector<std::shared_ptr<StardustModel>>> _stardust_sent;
     
     /** The planet of the player sending the update */
     std::shared_ptr<PlanetModel> _planet;
@@ -71,7 +71,7 @@ public:
      *
      * @return true if the game update is initialized properly, false otherwise.
      */
-    bool init(std::string gameId, int playerId, std::map<int, std::vector<StardustModel>> stardustSent, const std::shared_ptr<PlanetModel> planet, int timestamp);
+    bool init(std::string gameId, int playerId, std::map<int, std::vector<std::shared_ptr<StardustModel>>> stardustSent, const std::shared_ptr<PlanetModel> planet, int timestamp);
     
     /**
      * Returns a newly allocated game update.
@@ -84,7 +84,7 @@ public:
      *
      * @return a newly allocated game update.
      */
-    static std::shared_ptr<GameUpdate> alloc(std::string gameId, int playerId, std::map<int, std::vector<StardustModel>> stardustSent, const std::shared_ptr<PlanetModel> planet, int timestamp) {
+    static std::shared_ptr<GameUpdate> alloc(std::string gameId, int playerId, std::map<int, std::vector<std::shared_ptr<StardustModel>>> stardustSent, const std::shared_ptr<PlanetModel> planet, int timestamp) {
         std::shared_ptr<GameUpdate> result = std::make_shared<GameUpdate>();
         return (result->init(gameId, playerId, stardustSent, planet, timestamp) ? result : nullptr);
     }
@@ -107,11 +107,11 @@ public:
     /**
      * Return the map of player ids to stardust.
      */
-    std::map<int, std::vector<StardustModel>> getStardustSent() {
+    std::map<int, std::vector<std::shared_ptr<StardustModel>>> getStardustSent() {
         return _stardust_sent;
     }
     
-    void setStardustSent(std::map<int, std::vector<StardustModel>> stardustSent) {
+    void setStardustSent(std::map<int, std::vector<std::shared_ptr<StardustModel>>> stardustSent) {
         _stardust_sent = stardustSent;
     }
     

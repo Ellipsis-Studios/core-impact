@@ -37,6 +37,9 @@ private:
     
     /** The location of the stardust */
     Location _stardust_location;
+    
+    /** The player id of the last player to own this stardust. -1 if this stardust does not have a previous owner */
+    int _previous_owner;
 
 protected:
     /** Position of the stardust in world space */
@@ -136,6 +139,24 @@ public:
     void setStardustLocation(Location location) {
         _stardust_location = location;
     }
+    
+    /**
+     * Returns the previous owner of this stardust
+     *
+     * @return the previous owner of this stardust
+     */
+    int getPreviousOwner() {
+        return _previous_owner;
+    }
+    
+    /**
+     * Sets the previous owner of the stardust
+     *
+     * @param playerId      the playerId of the previous owner of this stardust
+     */
+    void setPreviousOwner(int playerId) {
+        _previous_owner = playerId;
+    }
 
 #pragma mark Constructors
     /**
@@ -176,10 +197,9 @@ public:
      * This method does NOT create a scene graph node for this stardust.  You
      * must call setTextures for that.
      *
-     * @param x The initial x-coordinate of the center
-     * @param y The initial y-coordinate of the center
+     * @param position The position of the stardust
+     * @param velocity The velocity of the stardust
      * @param c The color code of the stardust
-     * @param ang The initial angle of rotation
      *
      * @return a newly allocated stardust at the given location with the given color.
      */
