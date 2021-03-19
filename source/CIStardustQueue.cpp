@@ -44,10 +44,9 @@ void StardustQueue::dispose() {
  *
  *  @return true if initialization is successful
  */
-bool StardustQueue::init(size_t max) {
+bool StardustQueue::init(size_t max, const std::shared_ptr<cugl::Texture>& texture) {
     _queue.resize(max);
-    _stardustNode = StardustNode::alloc();
-    _stardustNode->initialize(&_queue, &_qhead, &_qtail, &_qsize);
+    _stardustNode = StardustNode::alloc(texture, &_queue, &_qhead, &_qtail, &_qsize);
     return true;
 }
 

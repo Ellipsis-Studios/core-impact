@@ -13,6 +13,9 @@
 #include <cugl/cugl.h>
 #include "CIStardustModel.h"
 
+using Texture_ptr = const std::shared_ptr<cugl::Texture>&;
+
+
 class StardustNode : public cugl::scene2::SceneNode {
 private:
     /** Graphic asset representing a single stardust. */
@@ -43,26 +46,35 @@ public:
      *
      * @return a newly allocated Stardust Node
      */
-    static std::shared_ptr<StardustNode> alloc() {
+    static std::shared_ptr<StardustNode> alloc
+    (
+        Texture_ptr texture,
+        std::vector<StardustModel>* queue, 
+        int* head, 
+        int* tail, 
+        int* size
+    ) {
         std::shared_ptr<StardustNode> node = std::make_shared<StardustNode>();
-        return (node->init() ? node : nullptr);
+        return (node->init(texture, queue, head, tail, size) ? node : nullptr);
     }
-    
-    /**
-     * Initializes the Stardust Node by setting the queue-related 
-     * pointer values.
-     *
-     * @param queue     Pointer to Stardust Queue's queue
-     * @param head      Pointer to Stardust Queue's qhead
-     * @param tail      Pointer to Stardust Queue's qtail
-     * @param size      Pointer to Stardust Queue's qsize
-     */
-    void initialize(std::vector<StardustModel>* queue, int* head, int* tail, int* size) {
+
+    bool init
+    (
+        Texture_ptr texture,
+        std::vector<StardustModel>* queue, 
+        int* head, 
+        int* tail, 
+        int* size
+    ) {
+        _texture = texture;
         _queue = queue;
         _qhead = head;
         _qtail = tail;
         _qsize = size;
+
+        return SceneNode::init();
     }
+    
     /** 
      * Draws the stardusts in the queue to the game scene.
      */
@@ -77,20 +89,8 @@ public:
      *
      * @return the image for a single stardust; reused by all stardust.
      */
-    const std::shared_ptr<cugl::Texture>& getTexture() const {
+    const Texture_ptr getTexture() const {
         return _texture;
-    }
-
-    /**
-     * Sets the image for a single stardust; reused by all stardust.
-     *
-     * This value should be loaded by the GameMode and set there. However, we
-     * have to be prepared for this to be null at all times
-     *
-     * @param value the image for a single stardust; reused by all stardust.
-     */
-    void setTexture(const std::shared_ptr<cugl::Texture>& value) {
-        _texture = value;
     }
 };
 

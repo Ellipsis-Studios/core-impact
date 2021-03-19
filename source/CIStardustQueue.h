@@ -13,6 +13,9 @@
 #include "CIStardustModel.h"
 #include "CIStardustNode.h"
 
+using Texture_ptr = const std::shared_ptr<cugl::Texture>&;
+
+
 /**
  * Model class representing an "particle system" of stardust.
  *
@@ -65,7 +68,7 @@ public:
      *
      *  @return true if initialization is successful
      */
-    bool init(size_t max);
+    bool init(size_t max, Texture_ptr texture);
 
     /**
      *  Returns a newly allocated (empty) StardustQueue
@@ -74,9 +77,24 @@ public:
      *
      *  @return a newly allocated (empty) StardustQueue
      */
-    static std::shared_ptr<StardustQueue> alloc(size_t max) {
+    static std::shared_ptr<StardustQueue> alloc(size_t max, Texture_ptr texture) {
         std::shared_ptr<StardustQueue> result = std::make_shared<StardustQueue>();
-        return (result->init(max) ? result : nullptr);
+        return (result->init(max, texture) ? result : nullptr);
+    }
+
+    /**
+     * Returns the image for a single stardust; reused by all stardust.
+     *
+     * This value should be loaded by the GameMode and set there. However, we
+     * have to be prepared for this to be null at all times
+     *
+     * @return the image for a single stardust; reused by all stardust.
+     */
+    Texture_ptr getTexture() const {
+        if (_stardustNode != nullptr) {
+            return _stardustNode->getTexture();
+        }
+        return nullptr;
     }
 
     /**
