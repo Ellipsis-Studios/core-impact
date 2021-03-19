@@ -1,0 +1,3 @@
+﻿cl : command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
+  FileList.cpp
+  LibStatic.vcxproj -> C:\Users\mt_xi\Documents\School\research\HelloWorld\build-win10\Lib\SLikeNet_LibStatic_Debug - Unicode_x64.lib
