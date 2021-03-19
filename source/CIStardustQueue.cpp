@@ -41,6 +41,7 @@ void StardustQueue::dispose() {
  *  Initialies a new (empty) StardustQueue
  *
  *  @param max  The maximum number of stardust to support
+ *  @param texture The pointer to the shared stardust texture 
  *
  *  @return true if initialization is successful
  */

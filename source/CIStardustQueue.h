@@ -65,6 +65,7 @@ public:
      *  Initialies a new (empty) StardustQueue.
      *
      *  @param max  The maximum number of stardust to support
+     *  @param texture The pointer to the shared stardust texture
      *
      *  @return true if initialization is successful
      */
@@ -74,7 +75,8 @@ public:
      *  Returns a newly allocated (empty) StardustQueue
      *
      *  @param max  The maximum number of stardust to support
-     *
+     *  @param texture The pointer to the shared stardust texture 
+     * 
      *  @return a newly allocated (empty) StardustQueue
      */
     static std::shared_ptr<StardustQueue> alloc(size_t max, Texture_ptr& texture) {
