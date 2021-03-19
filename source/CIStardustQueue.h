@@ -13,7 +13,7 @@
 #include "CIStardustModel.h"
 #include "CIStardustNode.h"
 
-using Texture_ptr = const std::shared_ptr<cugl::Texture>&;
+using Texture_ptr = const std::shared_ptr<cugl::Texture>;
 
 
 /**
@@ -68,7 +68,7 @@ public:
      *
      *  @return true if initialization is successful
      */
-    bool init(size_t max, Texture_ptr texture);
+    bool init(size_t max, Texture_ptr& texture);
 
     /**
      *  Returns a newly allocated (empty) StardustQueue
@@ -77,7 +77,7 @@ public:
      *
      *  @return a newly allocated (empty) StardustQueue
      */
-    static std::shared_ptr<StardustQueue> alloc(size_t max, Texture_ptr texture) {
+    static std::shared_ptr<StardustQueue> alloc(size_t max, Texture_ptr& texture) {
         std::shared_ptr<StardustQueue> result = std::make_shared<StardustQueue>();
         return (result->init(max, texture) ? result : nullptr);
     }
@@ -159,7 +159,7 @@ public:
      * 
      * @return shared pointer to Stardust Node
      */
-    const std::shared_ptr<StardustNode>& getStardustNode() const {
+    const std::shared_ptr<StardustNode> getStardustNode() const {
         return _stardustNode;
     }
 

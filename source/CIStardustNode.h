@@ -13,7 +13,7 @@
 #include <cugl/cugl.h>
 #include "CIStardustModel.h"
 
-using Texture_ptr = const std::shared_ptr<cugl::Texture>&;
+using Texture_ptr = const std::shared_ptr<cugl::Texture>;
 
 
 class StardustNode : public cugl::scene2::SceneNode {
@@ -48,7 +48,7 @@ public:
      */
     static std::shared_ptr<StardustNode> alloc
     (
-        Texture_ptr texture,
+        Texture_ptr& texture,
         std::vector<StardustModel>* queue, 
         int* head, 
         int* tail, 
@@ -60,9 +60,9 @@ public:
 
     bool init
     (
-        Texture_ptr texture,
+        Texture_ptr& texture,
         std::vector<StardustModel>* queue, 
-        int* head, 
+        int* head,
         int* tail, 
         int* size
     ) {
@@ -89,7 +89,7 @@ public:
      *
      * @return the image for a single stardust; reused by all stardust.
      */
-    const Texture_ptr getTexture() const {
+    Texture_ptr getTexture() const {
         return _texture;
     }
 };
