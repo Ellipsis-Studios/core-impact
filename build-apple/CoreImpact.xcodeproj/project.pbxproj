@@ -360,6 +360,9 @@
 		3DCE833825FDC3B8007EBA2D /* CIGameUpdate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCE833725FDC3B8007EBA2D /* CIGameUpdate.cpp */; };
 		3DCE833925FDC3B8007EBA2D /* CIGameUpdate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCE833725FDC3B8007EBA2D /* CIGameUpdate.cpp */; };
 		3DCE833A25FDC3B8007EBA2D /* CIGameUpdate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCE833725FDC3B8007EBA2D /* CIGameUpdate.cpp */; };
+		3DCF90D726051C9A00B97FA1 /* CINetworkMessageManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCF90D626051C9A00B97FA1 /* CINetworkMessageManager.cpp */; };
+		3DCF90D826051C9A00B97FA1 /* CINetworkMessageManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCF90D626051C9A00B97FA1 /* CINetworkMessageManager.cpp */; };
+		3DCF90D926051C9A00B97FA1 /* CINetworkMessageManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCF90D626051C9A00B97FA1 /* CINetworkMessageManager.cpp */; };
 		CA68E30B25F53BC200B4617D /* CICollisionController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA68E30625F53BC200B4617D /* CICollisionController.cpp */; };
 		CA68E30C25F53BC200B4617D /* CICollisionController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA68E30625F53BC200B4617D /* CICollisionController.cpp */; };
 		CA68E30D25F53BC200B4617D /* CICollisionController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA68E30625F53BC200B4617D /* CICollisionController.cpp */; };
@@ -754,6 +757,8 @@
 		3D94040625FFC52400043357 /* CIGameUpdateManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CIGameUpdateManager.cpp; sourceTree = "<group>"; };
 		3DCE833625FDB914007EBA2D /* CIGameUpdate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIGameUpdate.h; sourceTree = "<group>"; };
 		3DCE833725FDC3B8007EBA2D /* CIGameUpdate.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CIGameUpdate.cpp; sourceTree = "<group>"; };
+		3DCF90D22605198D00B97FA1 /* CINetworkMessageManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CINetworkMessageManager.h; sourceTree = "<group>"; };
+		3DCF90D626051C9A00B97FA1 /* CINetworkMessageManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CINetworkMessageManager.cpp; sourceTree = "<group>"; };
 		CA68E30625F53BC200B4617D /* CICollisionController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CICollisionController.cpp; sourceTree = "<group>"; };
 		CA68E30A25F53BC200B4617D /* CICollisionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CICollisionController.h; sourceTree = "<group>"; };
 		CA9A2DC725EDBD6A0048D02F /* CIStardustModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIStardustModel.h; sourceTree = "<group>"; };
@@ -1317,6 +1322,8 @@
 				3DCE833625FDB914007EBA2D /* CIGameUpdate.h */,
 				3D94040225FFC50C00043357 /* CIGameUpdateManager.h */,
 				3D94040625FFC52400043357 /* CIGameUpdateManager.cpp */,
+				3DCF90D22605198D00B97FA1 /* CINetworkMessageManager.h */,
+				3DCF90D626051C9A00B97FA1 /* CINetworkMessageManager.cpp */,
 			);
 			name = Source;
 			path = ../source;
@@ -1572,6 +1579,7 @@
 				3D8647382601111700B0B2C1 /* UDPProxyServer.cpp in Sources */,
 				3D8647322601111700B0B2C1 /* LocklessTypes.cpp in Sources */,
 				3D8646692601111600B0B2C1 /* CCRakNetSlidingWindow.cpp in Sources */,
+				3DCF90D926051C9A00B97FA1 /* CINetworkMessageManager.cpp in Sources */,
 				3D86465D2601111600B0B2C1 /* CheckSum.cpp in Sources */,
 				3D86475F2601111700B0B2C1 /* RakNetSocket2_WindowsStore8.cpp in Sources */,
 				3D8647712601111700B0B2C1 /* RakMemoryOverride.cpp in Sources */,
@@ -1704,6 +1712,7 @@
 				3D8647372601111700B0B2C1 /* UDPProxyServer.cpp in Sources */,
 				3D8647312601111700B0B2C1 /* LocklessTypes.cpp in Sources */,
 				3D8646682601111600B0B2C1 /* CCRakNetSlidingWindow.cpp in Sources */,
+				3DCF90D826051C9A00B97FA1 /* CINetworkMessageManager.cpp in Sources */,
 				3D86465C2601111600B0B2C1 /* CheckSum.cpp in Sources */,
 				3D86475E2601111700B0B2C1 /* RakNetSocket2_WindowsStore8.cpp in Sources */,
 				3D8647702601111700B0B2C1 /* RakMemoryOverride.cpp in Sources */,
@@ -1836,6 +1845,7 @@
 				3D8647362601111700B0B2C1 /* UDPProxyServer.cpp in Sources */,
 				3D8647302601111700B0B2C1 /* LocklessTypes.cpp in Sources */,
 				3D8646672601111600B0B2C1 /* CCRakNetSlidingWindow.cpp in Sources */,
+				3DCF90D726051C9A00B97FA1 /* CINetworkMessageManager.cpp in Sources */,
 				3D86465B2601111600B0B2C1 /* CheckSum.cpp in Sources */,
 				3D86475D2601111700B0B2C1 /* RakNetSocket2_WindowsStore8.cpp in Sources */,
 				3D86476F2601111700B0B2C1 /* RakMemoryOverride.cpp in Sources */,

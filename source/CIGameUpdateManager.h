@@ -69,6 +69,27 @@ public:
         std::shared_ptr<GameUpdateManager> result = std::make_shared<GameUpdateManager>();
         return (result->init() ? result : nullptr);
     }
+    
+#pragma mark Properties
+    /**
+     * Returns the game updates to process vector.
+     *
+     * @return the vector of game updates to process
+     */
+    std::vector<std::shared_ptr<GameUpdate>> getGameUpdatesToProcess() {
+        return _game_updates_to_process;
+    }
+    
+    /**
+     * Clears the game updates to process. This method should only be called once all the game updates have been sent to other players.
+     */
+    void clearGameUpdatesToProcess() {
+        _game_updates_to_process.clear();
+    }
+    
+    void addGameUpdate(std::shared_ptr<GameUpdate> gameUpdate) {
+        _game_updates_to_process.push_back(gameUpdate);
+    }
 
 #pragma mark Interactions
     /**
