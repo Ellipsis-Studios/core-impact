@@ -19,6 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\external\slikenet\Lib\LibStatic\LibStatic.vcxproj">
+      <Project>{6533bdae-0f0c-45e4-8fe7-add0f37fe063}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\Box2D\Box2D.vcxproj">
       <Project>{98400d17-43a5-1a40-95be-c53ac78e7694}</Project>
     </ProjectReference>
@@ -127,6 +130,7 @@
     <ClInclude Include="..\..\include\cugl\math\polygon\CUSimpleExtruder.h" />
     <ClInclude Include="..\..\include\cugl\math\polygon\CUSimpleTriangulator.h" />
     <ClInclude Include="..\..\include\cugl\math\polygon\cu_polygon.h" />
+    <ClInclude Include="..\..\include\cugl\net\CUNetworkConnection.h" />
     <ClInclude Include="..\..\include\cugl\physics2\CUBoxObstacle.h" />
     <ClInclude Include="..\..\include\cugl\physics2\CUCapsuleObstacle.h" />
     <ClInclude Include="..\..\include\cugl\physics2\CUComplexObstacle.h" />
@@ -281,6 +285,7 @@
     <ClCompile Include="..\..\lib\math\polygon\CUPolySplineFactory.cpp" />
     <ClCompile Include="..\..\lib\math\polygon\CUSimpleExtruder.cpp" />
     <ClCompile Include="..\..\lib\math\polygon\CUSimpleTriangulator.cpp" />
+    <ClCompile Include="..\..\lib\net\CUNetworkConnection.cpp" />
     <ClCompile Include="..\..\lib\physics2\CUBoxObstacle.cpp" />
     <ClCompile Include="..\..\lib\physics2\CUCapsuleObstacle.cpp" />
     <ClCompile Include="..\..\lib\physics2\CUComplexObstacle.cpp" />
@@ -445,6 +450,7 @@
       <AdditionalOptions>/IGNORE:4006,4221 %(AdditionalOptions)</AdditionalOptions>
       <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
