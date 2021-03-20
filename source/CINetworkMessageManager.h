@@ -11,17 +11,24 @@
 #ifndef __CI_NETWORK_MESSAGE_MANAGER_H__
 #define __CI_NETWORK_MESSAGE_MANAGER_H__
 
+#include <cugl/cugl.h>
+#include <string>
 #include "CIGameUpdateManager.h"
+#include "CIGameState.h"
 
 class NetworkMessageManager {
 private:
+    /** The network connection. Used for sending and receiving messages. */
+    std::shared_ptr<cugl::CUNetworkConnection> _conn;
+    
+    /** The state the game currently is in. */
+    GameState _gameState;
+    
     /** Pointer to the game update manager class */
     std::shared_ptr<GameUpdateManager> _gameUpdateManager;
     
     /** The timestamp of the next message to send. */
     int _timestamp;
-    
-    // TODO: need a reference to cugl-net network connection
     
 public:
 #pragma mark -
@@ -64,6 +71,38 @@ public:
         std::shared_ptr<NetworkMessageManager> result = std::make_shared<NetworkMessageManager>();
         return (result->init() ? result : nullptr);
     }
+    
+#pragma mark Properties
+    /**
+     * Returns the game state
+     *
+     * @return the current game state
+     */
+    GameState getGameState() {
+        return _gameState;
+    }
+    
+    /**
+     * Returns the room id of the current game. Returns an empty string if not connected to a game yet.
+     *
+     * @return the room id of the current game
+     */
+    std::string getRoomId() {
+        if (_conn == nullptr) {
+            return "";
+        }
+        
+        return _conn->getRoomID();
+    }
+    
+    int getPlayerId() {
+        if (_conn == nullptr) {
+            return -1;
+        }
+        
+        return _conn->getPlayerID().value();
+    }
+
 
 #pragma mark Interactions
     /**
@@ -75,6 +114,21 @@ public:
      * Receives messages sent over the network and adds them to the queue in game update manager.
      */
     void receiveMessages();
+    
+    /**
+     * Creates a game instance with this player as the host.
+     */
+    void createGame();
+    
+    /**
+     * Joins the game instance with room id roomID
+     *
+     * @param roomID the roomId of the game to be joined
+     */
+    void joinGame(std::string roomID);
+    
+    void receive();
+    
     
 };
 

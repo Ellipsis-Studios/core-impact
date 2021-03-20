@@ -24,9 +24,9 @@
 		3DCE833825FDC3B8007EBA2D /* CIGameUpdate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCE833725FDC3B8007EBA2D /* CIGameUpdate.cpp */; };
 		3DCE833925FDC3B8007EBA2D /* CIGameUpdate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCE833725FDC3B8007EBA2D /* CIGameUpdate.cpp */; };
 		3DCE833A25FDC3B8007EBA2D /* CIGameUpdate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCE833725FDC3B8007EBA2D /* CIGameUpdate.cpp */; };
-		3DCF90D726051C9A00B97FA1 /* CINetworkMessageManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCF90D626051C9A00B97FA1 /* CINetworkMessageManager.cpp */; };
-		3DCF90D826051C9A00B97FA1 /* CINetworkMessageManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCF90D626051C9A00B97FA1 /* CINetworkMessageManager.cpp */; };
-		3DCF90D926051C9A00B97FA1 /* CINetworkMessageManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCF90D626051C9A00B97FA1 /* CINetworkMessageManager.cpp */; };
+		3DCF910A2606538200B97FA1 /* CINetworkMessageManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCF90D626051C9A00B97FA1 /* CINetworkMessageManager.cpp */; };
+		3DCF910B2606538300B97FA1 /* CINetworkMessageManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCF90D626051C9A00B97FA1 /* CINetworkMessageManager.cpp */; };
+		3DCF910C2606538300B97FA1 /* CINetworkMessageManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCF90D626051C9A00B97FA1 /* CINetworkMessageManager.cpp */; };
 		CA68E30B25F53BC200B4617D /* CICollisionController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA68E30625F53BC200B4617D /* CICollisionController.cpp */; };
 		CA68E30C25F53BC200B4617D /* CICollisionController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA68E30625F53BC200B4617D /* CICollisionController.cpp */; };
 		CA68E30D25F53BC200B4617D /* CICollisionController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA68E30625F53BC200B4617D /* CICollisionController.cpp */; };
@@ -154,6 +154,7 @@
 		3DCE833725FDC3B8007EBA2D /* CIGameUpdate.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CIGameUpdate.cpp; sourceTree = "<group>"; };
 		3DCF90D22605198D00B97FA1 /* CINetworkMessageManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CINetworkMessageManager.h; sourceTree = "<group>"; };
 		3DCF90D626051C9A00B97FA1 /* CINetworkMessageManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CINetworkMessageManager.cpp; sourceTree = "<group>"; };
+		3DCF9118260657A900B97FA1 /* CIGameState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIGameState.h; sourceTree = "<group>"; };
 		CA68E30625F53BC200B4617D /* CICollisionController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CICollisionController.cpp; sourceTree = "<group>"; };
 		CA68E30A25F53BC200B4617D /* CICollisionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CICollisionController.h; sourceTree = "<group>"; };
 		CA9A2DC725EDBD6A0048D02F /* CIStardustModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIStardustModel.h; sourceTree = "<group>"; };
@@ -424,6 +425,7 @@
 				3D94040625FFC52400043357 /* CIGameUpdateManager.cpp */,
 				3DCF90D22605198D00B97FA1 /* CINetworkMessageManager.h */,
 				3DCF90D626051C9A00B97FA1 /* CINetworkMessageManager.cpp */,
+				3DCF9118260657A900B97FA1 /* CIGameState.h */,
 			);
 			name = Source;
 			path = ../source;
@@ -609,6 +611,7 @@
 				EB0FF61D2016F06000517030 /* main.cpp in Sources */,
 				3D563B9F25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */,
 				CA9A2DD325EDBD6A0048D02F /* CIStardustModel.cpp in Sources */,
+				3DCF910C2606538300B97FA1 /* CINetworkMessageManager.cpp in Sources */,
 				3DCE833A25FDC3B8007EBA2D /* CIGameUpdate.cpp in Sources */,
 				EBFA52A221FA5D1700CCC2C5 /* CIInput.cpp in Sources */,
 				CA68E30D25F53BC200B4617D /* CICollisionController.cpp in Sources */,
@@ -629,6 +632,7 @@
 				3D563B9E25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */,
 				CA9A2DD225EDBD6A0048D02F /* CIStardustModel.cpp in Sources */,
 				EBFA52A121FA5D1700CCC2C5 /* CIInput.cpp in Sources */,
+				3DCF910B2606538300B97FA1 /* CINetworkMessageManager.cpp in Sources */,
 				CA68E30C25F53BC200B4617D /* CICollisionController.cpp in Sources */,
 				3DCE833925FDC3B8007EBA2D /* CIGameUpdate.cpp in Sources */,
 				0A5AFADA25F0B5320003669C /* CIStardustNode.cpp in Sources */,
@@ -649,6 +653,7 @@
 				3D563B9D25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */,
 				CA9A2DD125EDBD6A0048D02F /* CIStardustModel.cpp in Sources */,
 				EBFA528D21FA5AAC00CCC2C5 /* CIApp.cpp in Sources */,
+				3DCF910A2606538200B97FA1 /* CINetworkMessageManager.cpp in Sources */,
 				CA68E30B25F53BC200B4617D /* CICollisionController.cpp in Sources */,
 				3DCE833825FDC3B8007EBA2D /* CIGameUpdate.cpp in Sources */,
 				0A5AFAD925F0B5320003669C /* CIStardustNode.cpp in Sources */,

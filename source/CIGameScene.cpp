@@ -37,6 +37,12 @@ using namespace std;
 /** Maximum number of stardusts allowed on screen at a time. */
 #define MAX_STARDUST 512
 
+
+// TODO: remove this flag once the menu scene is done
+bool IS_HOST = true;
+std::string GAME_ID = "";
+
+
 #pragma mark -
 #pragma mark Constructors
 
@@ -66,8 +72,14 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     _assets = assets;
     _input.init(getBounds());
     
-    // Create the game update manager
+    // Create the game update manager and network message managers
     _gameUpdateManager = GameUpdateManager::alloc();
+    _networkMessageManager = NetworkMessageManager::alloc();
+    if (IS_HOST) {
+        _networkMessageManager->createGame();
+    } else {
+        _networkMessageManager->joinGame(GAME_ID);
+    }
     
     // Acquire the scene built by the asset loader and resize it the scene
     auto scene = _assets->get<scene2::SceneNode>("game");
@@ -113,6 +125,7 @@ void GameScene::dispose() {
         removeAllChildren();
         _input.dispose();
         _gameUpdateManager = nullptr;
+        _networkMessageManager = nullptr;
         _allSpace = nullptr;
         _farSpace = nullptr;
         _nearSpace = nullptr;
@@ -170,6 +183,9 @@ void GameScene::update(float timestep) {
     
     // send game updates to other players
     _gameUpdateManager->sendUpdate(_planet, _stardustContainer, dimen);
+    
+    _networkMessageManager->receive();
+//    _networkMessageManager->sendMessages();
 }
 
 /**
