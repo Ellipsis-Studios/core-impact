@@ -101,6 +101,7 @@ void GameUpdateManager::sendUpdate(const std::shared_ptr<PlanetModel> planet, co
     if (_prev_game_update_sent == nullptr) {
         std::shared_ptr<GameUpdate> gameUpdate = GameUpdate::alloc(GAME_ID, PLAYER_ID, stardustToSend, planet, 0);
         _prev_game_update_sent = gameUpdate;
+        _game_update_to_send = gameUpdate;
         return;
     }
     
@@ -111,6 +112,7 @@ void GameUpdateManager::sendUpdate(const std::shared_ptr<PlanetModel> planet, co
 
     std::shared_ptr<GameUpdate> gameUpdate = GameUpdate::alloc(GAME_ID, PLAYER_ID, stardustToSend, planet, _prev_game_update_sent->getTimestamp() + 1);
     _prev_game_update_sent = gameUpdate;
+    _game_update_to_send = gameUpdate;
 }
 
 /**

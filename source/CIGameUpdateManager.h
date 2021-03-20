@@ -25,6 +25,8 @@ private:
     /** The last game update sent to other players */
     std::shared_ptr<GameUpdate> _prev_game_update_sent;
     
+    std::shared_ptr<GameUpdate> _game_update_to_send;
+    
     /** Vector of game updates to process */
     std::vector<std::shared_ptr<GameUpdate>> _game_updates_to_process;
     
@@ -89,6 +91,14 @@ public:
     
     void addGameUpdate(std::shared_ptr<GameUpdate> gameUpdate) {
         _game_updates_to_process.push_back(gameUpdate);
+    }
+    
+    std::shared_ptr<GameUpdate> getGameUpdateToSend() {
+        return _game_update_to_send;
+    }
+    
+    void clearGameUpdateToSend() {
+        _game_update_to_send = nullptr;
     }
 
 #pragma mark Interactions

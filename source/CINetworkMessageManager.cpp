@@ -61,7 +61,7 @@ int decodeInt(uint8_t i1, uint8_t i2, uint8_t i3, uint8_t i4) {
     x |= i3;
     x <<= 8;
     x |= i4;
-    return x;
+    return cugl::marshall(x);
 }
 
 // Maybe wrong, took from stack overflow
@@ -92,7 +92,6 @@ void NetworkMessageManager::dispose() {
  */
 bool NetworkMessageManager::init() {
     _gameState = GameState::OnMenuScreen;
-    _gameUpdateManager = GameUpdateManager::alloc();
     _timestamp = 0;
     return true;
 }
@@ -101,69 +100,68 @@ bool NetworkMessageManager::init() {
  * Sends messages from the game update manager to other players over the network.
  */
 void NetworkMessageManager::sendMessages() {
-    std::vector<std::shared_ptr<GameUpdate>> gameUpdatesToProcess = _gameUpdateManager->getGameUpdatesToProcess();
-    if (gameUpdatesToProcess.empty()) {
+    if (_conn == nullptr || !_conn->getPlayerID().has_value())
+        return;
+
+    std::shared_ptr<GameUpdate> gameUpdate = _gameUpdateManager->getGameUpdateToSend();
+    if (gameUpdate == nullptr) {
         return;
     }
     
-    CULog("%u", gameUpdatesToProcess.size());
-    
     // vector containing data bytes for each message
     std::vector<uint8_t> data;
-    
-    for (size_t ii = 0; ii < gameUpdatesToProcess.size(); ii++) {
-        std::shared_ptr<GameUpdate> gameUpdate = gameUpdatesToProcess[ii];
         
-        int playerId = cugl::marshall(gameUpdate->getPlayerId());
-        for (auto const& [key, val] : gameUpdate->getStardustSent()) {
-            int dstPlayerId = cugl::marshall(key);
-            
-            // send stardust sent
-            for (size_t jj = 0; jj < val.size(); jj++) {
-                int stardustColor = cugl::marshall(val[jj]->getColor());
-                
-                // TODO: only send speed of stardust
-                float xVel = cugl::marshall(val[jj]->getVelocity().x);
-                float yVel = cugl::marshall(val[jj]->getVelocity().y);
-                
-                data.push_back(STARDUST_SENT);
-                encodeInt(playerId, data);
-                encodeInt(dstPlayerId, data);
-                encodeInt(stardustColor, data);
-                encodeFloat(xVel, data);
-                encodeFloat(yVel, data);
-                encodeInt(cugl::marshall(_timestamp), data);
-                _timestamp++;
-                
-                // TODO: uncomment when cugl-net set up
-                // conn->send(data);
-                data.clear();
-            }
-        }
+    int playerId = _conn->getPlayerID().value();
+    for (auto const& [key, val] : gameUpdate->getStardustSent()) {
+        int dstPlayerId = 0;
         
-        // send planet update on last game update to process
-        if (ii == gameUpdatesToProcess.size() - 1) {
-            int planetColor = cugl::marshall(gameUpdate->getPlanet()->getColor());
-            int planetSize = cugl::marshall(gameUpdate->getPlanet()->getMass());
-            int planetCurrLayerSize = cugl::marshall(gameUpdate->getPlanet()->getCurrLayerProgress());
-            int planetStardustToNextLockIn = cugl::marshall(gameUpdate->getPlanet()->getLayerLockinTotal());
+        // send stardust sent
+        for (size_t jj = 0; jj < val.size(); jj++) {
+            int stardustColor = val[jj]->getColor();
             
-            data.push_back(PLANET_UPDATE);
+            // TODO: only send speed of stardust
+            float xVel = val[jj]->getVelocity().x;
+            float yVel = val[jj]->getVelocity().y;
+            
+            CULog("%f, %f", xVel, yVel);
+            
+            data.push_back(STARDUST_SENT);
             encodeInt(playerId, data);
-            encodeInt(planetColor, data);
-            encodeInt(planetSize, data);
-            encodeInt(planetCurrLayerSize, data);
-            encodeInt(planetStardustToNextLockIn, data);
-            encodeInt(cugl::marshall(_timestamp), data);
+            encodeInt(dstPlayerId, data);
+            encodeInt(stardustColor, data);
+            encodeFloat(xVel, data);
+            encodeFloat(yVel, data);
+            encodeInt(_timestamp, data);
             _timestamp++;
             
-            // TODO: uncomment when cugl-net set up
-            // conn->send(data);
+             _conn->send(data);
             data.clear();
         }
+    }
+        
+        // send planet update on last game update to process
+//        if (ii == gameUpdatesToProcess.size() - 1) {
+//            int planetColor = cugl::marshall(gameUpdate->getPlanet()->getColor());
+//            int planetSize = cugl::marshall(gameUpdate->getPlanet()->getMass());
+//            int planetCurrLayerSize = cugl::marshall(gameUpdate->getPlanet()->getCurrLayerProgress());
+//            int planetStardustToNextLockIn = cugl::marshall(gameUpdate->getPlanet()->getLayerLockinTotal());
+//
+//            data.push_back(PLANET_UPDATE);
+//            encodeInt(playerId, data);
+//            encodeInt(planetColor, data);
+//            encodeInt(planetSize, data);
+//            encodeInt(planetCurrLayerSize, data);
+//            encodeInt(planetStardustToNextLockIn, data);
+//            encodeInt(cugl::marshall(_timestamp), data);
+//            _timestamp++;
+//
+//            // TODO: uncomment when cugl-net set up
+//            // conn->send(data);
+//            data.clear();
+//        }
         
         // TODO: send win game message
-    }
+//    }
     
     // clear game updates to process now that we have processed them all
     _gameUpdateManager->clearGameUpdatesToProcess();
@@ -180,12 +178,12 @@ void NetworkMessageManager::receiveMessages() {
     
     uint8_t message_type = cugl::marshall(recv[0]);
     if (message_type == STARDUST_SENT) {
-        int srcPlayer = cugl::marshall(decodeInt(recv[1], recv[2], recv[3], recv[4]));
-        int dstPlayer = cugl::marshall(decodeInt(recv[5], recv[6], recv[7], recv[8]));
-        int stardustColor = cugl::marshall(decodeInt(recv[9], recv[10], recv[11], recv[12]));
-        float xVel = cugl::marshall(decodeFloat(recv[13], recv[14]));
-        float yVel = cugl::marshall(decodeFloat(recv[15], recv[16]));
-        int timestamp = cugl::marshall(decodeInt(recv[17], recv[18], recv[19], recv[20]));
+        int srcPlayer = decodeInt(recv[1], recv[2], recv[3], recv[4]);
+        int dstPlayer = decodeInt(recv[5], recv[6], recv[7], recv[8]);
+        int stardustColor = decodeInt(recv[9], recv[10], recv[11], recv[12]);
+        float xVel = decodeFloat(recv[13], recv[14]);
+        float yVel = decodeFloat(recv[15], recv[16]);
+        int timestamp = decodeInt(recv[17], recv[18], recv[19], recv[20]);
         
         std::shared_ptr<StardustModel> stardust = StardustModel::alloc(cugl::Vec2(0, 0), cugl::Vec2(xVel, yVel), static_cast<CIColor::Value>( stardustColor));
         std::map<int, std::vector<std::shared_ptr<StardustModel>>> map = {{ dstPlayer, std::vector<std::shared_ptr<StardustModel>> { stardust } }};
@@ -221,6 +219,67 @@ void NetworkMessageManager::joinGame(std::string roomID) {
 
 void NetworkMessageManager::receive() {
     _conn->receive([this](const std::vector<uint8_t>& message) {
-        CULog("%u", message.size());
+        //CULog("RECEIVED MESSAGE");
+        //CULog("%u", message.size());
+        if (!message.empty()) {
+            // TODO: call conn->receive instead of dunmby message
+            std::vector<uint8_t> recv = message;
+
+            /*
+            for (int i = 0; i <= 20; i++) {
+                CULog("BIT %u", i);
+                CULog("%u", recv[i]);
+            }
+            */
+
+            //uint8_t message_type = cugl::marshall(recv[0]);
+            uint8_t message_type = recv[0];
+            //CULog("MESSAGE TYPE");
+            //CULog("%u", message_type);
+
+            if (message_type == STARDUST_SENT) {
+                int srcPlayer = decodeInt(recv[1], recv[2], recv[3], recv[4]);
+                int dstPlayer = decodeInt(recv[5], recv[6], recv[7], recv[8]);
+                int stardustColor = decodeInt(recv[9], recv[10], recv[11], recv[12]);
+                float xVel = decodeFloat(recv[13], recv[14]);
+                float yVel = decodeFloat(recv[15], recv[16]);
+                int timestamp = decodeInt(recv[17], recv[18], recv[19], recv[20]);
+
+                CULog("X VEL");
+                CULog("%u, %u", recv[13], recv[14]);
+                CULog("%u", xVel);
+                CULog("Y VEL");
+                CULog("%u, %u", recv[15], recv[16]);
+                CULog("%u", yVel);
+
+                /*
+                CULog("SRC PLAYER");
+                CULog("%u", srcPlayer);
+                CULog("DST PLAYER");
+                CULog("%u", dstPlayer);
+                CULog("COLOR");
+                CULog("%u", stardustColor);
+                CULog("X VEL");
+                CULog("%f", xVel);
+                CULog("Y VEL");
+                CULog("%f", yVel);
+                CULog("TIME");
+                CULog("%u", timestamp);
+                */
+
+                std::shared_ptr<StardustModel> stardust = StardustModel::alloc(cugl::Vec2(0, 0), cugl::Vec2(xVel, yVel), static_cast<CIColor::Value>(stardustColor));
+                std::map<int, std::vector<std::shared_ptr<StardustModel>>> map = { { dstPlayer, std::vector<std::shared_ptr<StardustModel>> { stardust } } };
+                std::shared_ptr<GameUpdate> gameUpdate = GameUpdate::alloc(GAME_ID, srcPlayer, map, nullptr, timestamp);
+                _gameUpdateManager->addGameUpdate(gameUpdate);
+            }
+            else if (message_type == PLANET_UPDATE) {
+                CULog("RECEIVED PLANET UPDATE MESSAGE");
+
+                // TODO: no need to process bytes now as opponent planet is not drawn on screen
+            }
+            else {
+                CULog("WRONG MESSAGE TYPE");
+            }
+        }
     });
 }

@@ -73,6 +73,10 @@ public:
     }
     
 #pragma mark Properties
+    void setGameuUpdateManager(std::shared_ptr<GameUpdateManager> gameUpdateManager) {
+        _gameUpdateManager = gameUpdateManager;
+    }
+    
     /**
      * Returns the game state
      *

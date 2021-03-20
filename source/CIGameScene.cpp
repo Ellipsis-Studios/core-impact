@@ -39,8 +39,8 @@ using namespace std;
 
 
 // TODO: remove this flag once the menu scene is done
-bool IS_HOST = true;
-std::string GAME_ID = "";
+bool IS_HOST = false;
+std::string GAME_ID = "79158";
 
 
 #pragma mark -
@@ -75,6 +75,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     // Create the game update manager and network message managers
     _gameUpdateManager = GameUpdateManager::alloc();
     _networkMessageManager = NetworkMessageManager::alloc();
+    _networkMessageManager->setGameuUpdateManager(_gameUpdateManager);
     if (IS_HOST) {
         _networkMessageManager->createGame();
     } else {
@@ -185,7 +186,7 @@ void GameScene::update(float timestep) {
     _gameUpdateManager->sendUpdate(_planet, _stardustContainer, dimen);
     
     _networkMessageManager->receive();
-//    _networkMessageManager->sendMessages();
+    _networkMessageManager->sendMessages();
 }
 
 /**
