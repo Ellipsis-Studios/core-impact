@@ -128,13 +128,13 @@ void GameUpdateManager::processGameUpdate(std::shared_ptr<StardustQueue> stardus
     
     for (size_t ii = 0; ii < _game_updates_to_process.size(); ii++) {
         std::shared_ptr<GameUpdate> gameUpdate = _game_updates_to_process[ii];
+        if (gameUpdate == nullptr) break;
         std::map<int, std::vector<std::shared_ptr<StardustModel>>> stardustSent = gameUpdate->getStardustSent();
-        
         if (stardustSent.count(PLAYER_ID) > 0) {
             std::vector<std::shared_ptr<StardustModel>> stardustVector = stardustSent[PLAYER_ID];
             for (size_t jj = 0; jj < stardustVector.size(); jj++) {
                 std::shared_ptr<StardustModel> stardust = stardustVector[jj];
-                
+                CULog("New stardust from player %i", gameUpdate->getPlayerId());
                 // adjust stardust position and velocity based on location of player who sent stardust
                 if (gameUpdate->getPlayerId() == TOP_LEFT_PLAYER) {
                     cugl::Vec2 vel = stardust->getVelocity();
@@ -146,8 +146,8 @@ void GameUpdateManager::processGameUpdate(std::shared_ptr<StardustQueue> stardus
                     }
                     stardust->setVelocity(vel);
                     
-                    int posX = bounds.width - 20 + (rand() % 20 - 10);
-                    int posY = bounds.width + 20 + (rand() % 20 - 10);
+                    int posX = 0 - 20 + (rand() % 20 - 10);
+                    int posY = bounds.height + 20 + (rand() % 20 - 10);
                     stardust->setPosition(cugl::Vec2(posX, posY));
                 } else if (gameUpdate->getPlayerId() == TOP_RIGHT_PLAYER) {
                     cugl::Vec2 vel = stardust->getVelocity();
@@ -160,7 +160,7 @@ void GameUpdateManager::processGameUpdate(std::shared_ptr<StardustQueue> stardus
                     stardust->setVelocity(vel);
                     
                     int posX = bounds.width + 20 + (rand() % 20 - 10);
-                    int posY = bounds.width + 20 + (rand() % 20 - 10);
+                    int posY = bounds.height + 20 + (rand() % 20 - 10);
                     stardust->setPosition(cugl::Vec2(posX, posY));
                 } else if (gameUpdate->getPlayerId() == BOTTOM_LEFT_PLAYER) {
                     cugl::Vec2 vel = stardust->getVelocity();
@@ -172,8 +172,8 @@ void GameUpdateManager::processGameUpdate(std::shared_ptr<StardustQueue> stardus
                     }
                     stardust->setVelocity(vel);
                     
-                    int posX = bounds.width - 20 + (rand() % 20 - 10);
-                    int posY = bounds.width - 20 + (rand() % 20 - 10);
+                    int posX = 0 - 20 + (rand() % 20 - 10);
+                    int posY = 0 - 20 + (rand() % 20 - 10);
                     stardust->setPosition(cugl::Vec2(posX, posY));
                 } else if (gameUpdate->getPlayerId() == BOTTOM_RIGHT_PLAYER) {
                     cugl::Vec2 vel = stardust->getVelocity();
@@ -186,10 +186,10 @@ void GameUpdateManager::processGameUpdate(std::shared_ptr<StardustQueue> stardus
                     stardust->setVelocity(vel);
                     
                     int posX = bounds.width + 20 + (rand() % 20 - 10);
-                    int posY = bounds.width - 20 + (rand() % 20 - 10);
+                    int posY = 0 - 20 + (rand() % 20 - 10);
                     stardust->setPosition(cugl::Vec2(posX, posY));
                 }
-                
+                CULog("at position (%f, %f)", stardust->getPosition().x, stardust->getPosition().y);
                 stardust->setPreviousOwner(gameUpdate->getPlayerId());
                 stardustQueue->addStardust(stardust);
             }

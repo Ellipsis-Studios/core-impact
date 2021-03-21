@@ -114,7 +114,7 @@ void NetworkMessageManager::sendMessages() {
  * Receives messages sent over the network and adds them to the queue in game update manager.
  */
 void NetworkMessageManager::receiveMessages() {
-    if (_conn == nullptr || !_conn->getPlayerID().has_value())
+    if (_conn == nullptr)
         return;
     
     _conn->receive([this](const std::vector<uint8_t>& recv) {
@@ -135,9 +135,9 @@ void NetworkMessageManager::receiveMessages() {
                 int timestamp = NetworkUtils::decodeInt(recv[21], recv[22], recv[23], recv[24]);
 
                 CULog("X VEL");
-                CULog("%u", xVel);
+                CULog("%f", xVel);
                 CULog("Y VEL");
-                CULog("%u", yVel);
+                CULog("%f", yVel);
 
                 /*
                 CULog("SRC PLAYER");

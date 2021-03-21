@@ -170,9 +170,9 @@ void GameScene::update(float timestep) {
     
     _stardustContainer->update();
     
-    if (rand() % 60 == 0){
-        _stardustContainer->addStardust(dimen);
-    }
+//    if (rand() % 60 == 0){
+//        _stardustContainer->addStardust(dimen);
+//    }
     
     _massHUD->setText(to_string(_planet->getMass()) + "; "
         + CIColor::getString(_planet->getColor()));
@@ -186,6 +186,7 @@ void GameScene::update(float timestep) {
     _gameUpdateManager->sendUpdate(_planet, _stardustContainer, dimen);
     _networkMessageManager->receiveMessages();
     _networkMessageManager->sendMessages();
+    _gameUpdateManager->processGameUpdate(_stardustContainer, dimen);
 }
 
 /**
