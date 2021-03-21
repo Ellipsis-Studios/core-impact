@@ -22,10 +22,11 @@ public:
      * Enum representing the different colors stardust or planet layers can have
      */
     enum Value {
-        orange, 
-        yellow,
+        purple,
+        red,
+        orange,
         turquoise,
-        cyan, 
+        green,
         blue, 
         grey, 
         lightgrey,
@@ -43,20 +44,23 @@ public:
         cugl::Color4 color;
         switch(v)
         {
-            case orange:
-                color = cugl::Color4(252.0f, 68.0f, 34.0f);
+            case purple:
+                color = cugl::Color4(145.0f, 20.0f, 218.0f);
                 break;
-            case yellow:
-                color = cugl::Color4(253.0f, 142.0f, 50.0f);
+            case red:
+                color = cugl::Color4(252.0f, 67.0f, 34.0f);
+                break;
+            case orange:
+                color = cugl::Color4(211.0f, 132.0f, 19.0f);
                 break;
             case turquoise:
-                color = cugl::Color4(0.0f, 181.0f, 137.0f);
-                break;
-            case cyan:
                 color = cugl::Color4(33.0f, 189.0f, 202.0f);
                 break;
+            case green:
+                color = cugl::Color4(43.0f, 151.0f, 26.0f);
+                break;
             case blue:
-                color = cugl::Color4(70.0f, 87.0f, 206.0f);
+                color = cugl::Color4(33.0f, 49.0f, 165.0f);
                 break;
             case grey:
                 color = cugl::Color4(194.0f, 194.0f, 194.0f);
@@ -80,17 +84,20 @@ public:
         string color;
         switch (v)
         {
+        case purple:
+            color = "purple";
+            break;
+        case red:
+            color = "red";
+            break;
         case orange:
             color = "orange";
-            break;
-        case yellow:
-            color = "yellow";
             break;
         case turquoise:
             color = "turquoise";
             break;
-        case cyan:
-            color = "cyan";
+        case green:
+            color = "green";
             break;
         case blue:
             color = "blue";
@@ -117,7 +124,7 @@ public:
     static Value getRandomColor() {
         std::random_device rd;
         std::mt19937 mt(rd());
-        std::uniform_int_distribution<int> dist(0, 4); // pick out of first 5 colors
+        std::uniform_int_distribution<int> dist(0, 5); // pick out of first 6 colors
         int rand = dist(mt);
         return Value(rand);  
     }

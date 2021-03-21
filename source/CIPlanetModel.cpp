@@ -12,12 +12,13 @@
 #include "CIPlanetNode.h"
 #include "CIColor.h"
 
-#define PLANET_RADIUS_DELTA          2
-#define INITIAL_PLANET_RADIUS           32
-#define PLANET_MASS_DELTA            10
-#define INITIAL_PLANET_MASS             25
+#define PLANET_RADIUS_DELTA             2
+#define INITIAL_PLANET_RADIUS          32
+#define PLANET_MASS_DELTA              10
+#define INITIAL_PLANET_MASS            25
 #define INIT_LAYER_LOCKIN_TOTAL         5
 #define LAYER_LOCKIN_TOTAL_INCREASE     1
+#define LAYER_LOCKIN_TIME               3
 
 #pragma mark Properties
 /**
@@ -108,17 +109,34 @@ void PlanetModel::increaseLayerSize() {
     _planetNode->setLayers(&_layers);
 }
 
+/** Stops any current progress towards locking in a layer */
+void PlanetModel::stopLockIn() {
+    _lockInProgress = 0;
+}
+
 /**
  * Attempts to lock in the current layer and adds a new one
+ *
+ * @param timestep  The amount of time (in seconds) since the last frame
+ * @return true if the layer lock in was successful
  */
-bool PlanetModel::lockInLayer() {
+bool PlanetModel::lockInLayer(float timestep) {
     // do not lock in if there is not enough stardust to do a lock in or the planet already has the max number of layers
     if (getCurrLayerProgress() < _layerLockinTotal || _numLayers >= _layers.size()) {
+        stopLockIn();
         return false;
     }
     
+    if (_lockInProgress < LAYER_LOCKIN_TIME) {
+        _lockInProgress += timestep;
+        return false;
+    }
+    
+    _layers[_numLayers-1].isLockedIn = true;
     _numLayers++;
     _layerLockinTotal += LAYER_LOCKIN_TOTAL_INCREASE;
     _layers[_numLayers-1] = getNewLayer();
+    _lockInProgress = 0;
+    _planetNode->setLayers(&_layers);
     return true;
 }
