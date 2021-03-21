@@ -131,9 +131,6 @@ public:
      */
     void joinGame(std::string roomID);
     
-    void receive();
-    
-    
 };
 
 #endif /* __CI_NETWORK_MESSAGE_MANAGER_H__ */

@@ -13,64 +13,7 @@
 #include <cugl/cugl.h>
 #include "CIGameUpdate.h"
 #include "CIStardustModel.h"
-
-// TODO: turn message types into a class/enum
-#define STARDUST_SENT   1
-#define PLANET_UPDATE   2
-
-// TODO: change when match making is done
-#define GAME_ID         "test game id"
-
-/** The precision to multiply floating point numbers by */
-constexpr float FLOAT_PRECISION = 10.0f;
-
-/** One byte */
-constexpr uint16_t ONE_BYTE = 256;
-
-/** IP of the NAT punchthrough server */
-constexpr auto SERVER_ADDRESS = "34.74.68.73";
-/** Port of the NAT punchthrough server */
-constexpr uint16_t SERVER_PORT = 61111;
-
-struct cugl::CUNetworkConnection::ConnectionConfig CONNECTION_CONFIG = {
-    SERVER_ADDRESS,
-    SERVER_PORT,
-    4,
-    0
-};
-
-// TODO: put into a class
-float decodeFloat(uint8_t m1, uint8_t m2) {
-    return static_cast<float>(m1 + ONE_BYTE * m2) / FLOAT_PRECISION;
-}
-
-void encodeFloat(float f, std::vector<uint8_t>& out) {
-    auto ff = static_cast<uint16_t>(f * FLOAT_PRECISION);
-    out.push_back(static_cast<uint8_t>(ff % ONE_BYTE));
-    out.push_back(static_cast<uint8_t>(ff / ONE_BYTE));
-}
-
-// Maybe wrong, took from stack overflow
-int decodeInt(uint8_t i1, uint8_t i2, uint8_t i3, uint8_t i4) {
-    int x = 0;
-    x <<= 8;
-    x |= i1;
-    x <<= 8;
-    x |= i2;
-    x <<= 8;
-    x |= i3;
-    x <<= 8;
-    x |= i4;
-    return cugl::marshall(x);
-}
-
-// Maybe wrong, took from stack overflow
-void encodeInt(int x, std::vector<uint8_t>& out) {
-    for (size_t i = 0; i < sizeof(x); ++i) {
-        out.push_back(x & 0xFF);
-        x >>= 8;
-    }
-}
+#include "CINetworkUtils.h"
 
 /**
  * Disposes of all (non-static) resources allocated to this network message manager.
@@ -125,13 +68,13 @@ void NetworkMessageManager::sendMessages() {
             
             CULog("%f, %f", xVel, yVel);
             
-            data.push_back(STARDUST_SENT);
-            encodeInt(playerId, data);
-            encodeInt(dstPlayerId, data);
-            encodeInt(stardustColor, data);
-            encodeFloat(xVel, data);
-            encodeFloat(yVel, data);
-            encodeInt(_timestamp, data);
+            data.push_back(NetworkUtils::MessageType::StardustSent);
+            NetworkUtils::encodeInt(playerId, data);
+            NetworkUtils::encodeInt(dstPlayerId, data);
+            NetworkUtils::encodeInt(stardustColor, data);
+            NetworkUtils::encodeFloat(xVel, data);
+            NetworkUtils::encodeFloat(yVel, data);
+            NetworkUtils::encodeInt(_timestamp, data);
             _timestamp++;
             
              _conn->send(data);
@@ -163,93 +106,37 @@ void NetworkMessageManager::sendMessages() {
         // TODO: send win game message
 //    }
     
-    // clear game updates to process now that we have processed them all
-    _gameUpdateManager->clearGameUpdatesToProcess();
+    // clear game update to send now that we have sent update.
+    _gameUpdateManager->clearGameUpdateToSend();
 }
 
 /**
  * Receives messages sent over the network and adds them to the queue in game update manager.
  */
 void NetworkMessageManager::receiveMessages() {
-    CULog("RECEIVED NETWORK MESSAGE");
+    if (_conn == nullptr || !_conn->getPlayerID().has_value())
+        return;
     
-    // TODO: call conn->receive instead of dunmby message
-    std::vector<uint8_t> recv{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-    
-    uint8_t message_type = cugl::marshall(recv[0]);
-    if (message_type == STARDUST_SENT) {
-        int srcPlayer = decodeInt(recv[1], recv[2], recv[3], recv[4]);
-        int dstPlayer = decodeInt(recv[5], recv[6], recv[7], recv[8]);
-        int stardustColor = decodeInt(recv[9], recv[10], recv[11], recv[12]);
-        float xVel = decodeFloat(recv[13], recv[14]);
-        float yVel = decodeFloat(recv[15], recv[16]);
-        int timestamp = decodeInt(recv[17], recv[18], recv[19], recv[20]);
-        
-        std::shared_ptr<StardustModel> stardust = StardustModel::alloc(cugl::Vec2(0, 0), cugl::Vec2(xVel, yVel), static_cast<CIColor::Value>( stardustColor));
-        std::map<int, std::vector<std::shared_ptr<StardustModel>>> map = {{ dstPlayer, std::vector<std::shared_ptr<StardustModel>> { stardust } }};
-        std::shared_ptr<GameUpdate> gameUpdate = GameUpdate::alloc(GAME_ID, srcPlayer, map, nullptr, timestamp);
-        _gameUpdateManager->addGameUpdate(gameUpdate);
-    } else if (message_type == PLANET_UPDATE) {
-        CULog("RECEIVED PLANET UPDATE MESSAGE");
-        
-        // TODO: no need to process bytes now as opponent planet is not drawn on screen
-    }
-    return;
-}
-
-/**
- * Creates a game instance with this player as the host.
- */
-void NetworkMessageManager::createGame() {
-    _conn = std::make_shared<cugl::CUNetworkConnection>(CONNECTION_CONFIG);
-    _gameState = GameState::JoiningGameAsHost;
-    CULog("CONNECTING AS HOST");
-}
-
-/**
- * Joins the game instance with room id roomID
- *
- * @param roomID the roomId of the game to be joined
- */
-void NetworkMessageManager::joinGame(std::string roomID) {
-    _conn = std::make_shared<cugl::CUNetworkConnection>(CONNECTION_CONFIG, roomID);
-    _gameState = GameState::JoiningGameAsNonHost;
-    CULog("CONNECTING AS NON HOST");
-}
-
-void NetworkMessageManager::receive() {
-    _conn->receive([this](const std::vector<uint8_t>& message) {
+    _conn->receive([this](const std::vector<uint8_t>& recv) {
         //CULog("RECEIVED MESSAGE");
         //CULog("%u", message.size());
-        if (!message.empty()) {
-            // TODO: call conn->receive instead of dunmby message
-            std::vector<uint8_t> recv = message;
-
-            /*
-            for (int i = 0; i <= 20; i++) {
-                CULog("BIT %u", i);
-                CULog("%u", recv[i]);
-            }
-            */
-
+        if (!recv.empty()) {
             //uint8_t message_type = cugl::marshall(recv[0]);
             uint8_t message_type = recv[0];
             //CULog("MESSAGE TYPE");
             //CULog("%u", message_type);
 
-            if (message_type == STARDUST_SENT) {
-                int srcPlayer = decodeInt(recv[1], recv[2], recv[3], recv[4]);
-                int dstPlayer = decodeInt(recv[5], recv[6], recv[7], recv[8]);
-                int stardustColor = decodeInt(recv[9], recv[10], recv[11], recv[12]);
-                float xVel = decodeFloat(recv[13], recv[14]);
-                float yVel = decodeFloat(recv[15], recv[16]);
-                int timestamp = decodeInt(recv[17], recv[18], recv[19], recv[20]);
+            if (message_type == NetworkUtils::MessageType::StardustSent) {
+                int srcPlayer = NetworkUtils::decodeInt(recv[1], recv[2], recv[3], recv[4]);
+                int dstPlayer = NetworkUtils::decodeInt(recv[5], recv[6], recv[7], recv[8]);
+                int stardustColor = NetworkUtils::decodeInt(recv[9], recv[10], recv[11], recv[12]);
+                float xVel = NetworkUtils::decodeFloat(recv[13], recv[14], recv[15], recv[16]);
+                float yVel = NetworkUtils::decodeFloat(recv[17], recv[18], recv[19], recv[20]);
+                int timestamp = NetworkUtils::decodeInt(recv[21], recv[22], recv[23], recv[24]);
 
                 CULog("X VEL");
-                CULog("%u, %u", recv[13], recv[14]);
                 CULog("%u", xVel);
                 CULog("Y VEL");
-                CULog("%u, %u", recv[15], recv[16]);
                 CULog("%u", yVel);
 
                 /*
@@ -269,10 +156,10 @@ void NetworkMessageManager::receive() {
 
                 std::shared_ptr<StardustModel> stardust = StardustModel::alloc(cugl::Vec2(0, 0), cugl::Vec2(xVel, yVel), static_cast<CIColor::Value>(stardustColor));
                 std::map<int, std::vector<std::shared_ptr<StardustModel>>> map = { { dstPlayer, std::vector<std::shared_ptr<StardustModel>> { stardust } } };
-                std::shared_ptr<GameUpdate> gameUpdate = GameUpdate::alloc(GAME_ID, srcPlayer, map, nullptr, timestamp);
+                std::shared_ptr<GameUpdate> gameUpdate = GameUpdate::alloc(_conn->getRoomID(), srcPlayer, map, nullptr, timestamp);
                 _gameUpdateManager->addGameUpdate(gameUpdate);
             }
-            else if (message_type == PLANET_UPDATE) {
+            else if (message_type == NetworkUtils::MessageType::PlanetUpdate) {
                 CULog("RECEIVED PLANET UPDATE MESSAGE");
 
                 // TODO: no need to process bytes now as opponent planet is not drawn on screen
@@ -282,4 +169,24 @@ void NetworkMessageManager::receive() {
             }
         }
     });
+}
+
+/**
+ * Creates a game instance with this player as the host.
+ */
+void NetworkMessageManager::createGame() {
+    _conn = std::make_shared<cugl::CUNetworkConnection>(NetworkUtils::getConnectionConfig());
+    _gameState = GameState::JoiningGameAsHost;
+    CULog("CONNECTING AS HOST");
+}
+
+/**
+ * Joins the game instance with room id roomID
+ *
+ * @param roomID the roomId of the game to be joined
+ */
+void NetworkMessageManager::joinGame(std::string roomID) {
+    _conn = std::make_shared<cugl::CUNetworkConnection>(NetworkUtils::getConnectionConfig(), roomID);
+    _gameState = GameState::JoiningGameAsNonHost;
+    CULog("CONNECTING AS NON HOST");
 }

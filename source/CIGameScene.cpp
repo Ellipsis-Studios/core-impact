@@ -39,8 +39,8 @@ using namespace std;
 
 
 // TODO: remove this flag once the menu scene is done
-bool IS_HOST = false;
-std::string GAME_ID = "79158";
+bool IS_HOST = true;
+std::string GAME_ID = "";
 
 
 #pragma mark -
@@ -182,10 +182,9 @@ void GameScene::update(float timestep) {
     collisions::checkForCollisions(_stardustContainer);
     updateDraggedStardust();
     
-    // send game updates to other players
+    // send and receive game updates to other players
     _gameUpdateManager->sendUpdate(_planet, _stardustContainer, dimen);
-    
-    _networkMessageManager->receive();
+    _networkMessageManager->receiveMessages();
     _networkMessageManager->sendMessages();
 }
 
