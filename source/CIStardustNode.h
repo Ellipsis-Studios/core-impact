@@ -13,8 +13,6 @@
 #include <cugl/cugl.h>
 #include "CIStardustModel.h"
 
-using Texture_ptr = const std::shared_ptr<cugl::Texture>;
-
 
 class StardustNode : public cugl::scene2::SceneNode {
 private:
@@ -52,14 +50,8 @@ public:
      *
      * @return a newly allocated Stardust Node
      */
-    static std::shared_ptr<StardustNode> alloc
-    (
-        Texture_ptr& texture,
-        std::vector<StardustModel>* queue, 
-        int* head, 
-        int* tail, 
-        int* size
-    ) {
+    static std::shared_ptr<StardustNode> alloc(const std::shared_ptr<cugl::Texture>& texture, 
+        std::vector<StardustModel>* queue, int* head, int* tail, int* size) {
         std::shared_ptr<StardustNode> node = std::make_shared<StardustNode>();
         return (node->init(texture, queue, head, tail, size) ? node : nullptr);
     }
@@ -74,14 +66,8 @@ public:
      * 
      * @return bool true if new node initialized successfully else false 
      */
-    bool init
-    (
-        Texture_ptr& texture,
-        std::vector<StardustModel>* queue, 
-        int* head,
-        int* tail, 
-        int* size
-    ) {
+    bool init(const std::shared_ptr<cugl::Texture>& texture, 
+        std::vector<StardustModel>* queue, int* head, int* tail, int* size) {
         _texture = texture;
         _queue = queue;
         _qhead = head;
@@ -105,7 +91,7 @@ public:
      *
      * @return the image for a single stardust; reused by all stardust.
      */
-    Texture_ptr getTexture() const {
+    const std::shared_ptr<cugl::Texture> getTexture() const {
         return _texture;
     }
 };
