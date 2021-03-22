@@ -165,6 +165,12 @@ void GameScene::update(float timestep) {
     collisions::checkForCollisions(_stardustContainer);
     updateDraggedStardust();
     
+    if (collisions::checkForCollision(_planet, _input.getPosition())) {
+        _planet->lockInLayer(timestep);
+    } else if (_planet->isLockingIn()) {
+        _planet->stopLockIn();
+    }
+    
     // send game updates to other players
     _gameUpdateManager->sendUpdate(_planet, _stardustContainer, dimen);
 }

@@ -39,5 +39,6 @@
 #include "audio/cu_audio.h"
 #include "scene2/cu_scene2.h"
 #include "physics2/cu_physics2.h"
+#include "net/CUNetworkConnection.h"
 
 #endif /* __CUGL_PKG_H__ */

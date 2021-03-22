@@ -57,6 +57,15 @@ void checkForCollision(const std::shared_ptr<PlanetModel>& planet, const std::sh
 void checkForCollisions(const std::shared_ptr<StardustQueue>& queue);
 
 /**
+ *  Checks for a collision between a planet and the input position
+ *
+ *  @param planet     The planet in the candidate collision
+ *  @param inputPos     The input position of the finger
+ *  @return true if inputPos is inside the planet
+ */
+bool checkForCollision(const std::shared_ptr<PlanetModel>& planet, cugl::Vec2 inputPos);
+
+/**
  * Finds the closest stardust that collides with the input position
  *
  * @param inputPos     The input position of the finger
