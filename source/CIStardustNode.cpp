@@ -11,6 +11,18 @@
 #include "CIStardustNode.h"
 #include "CIColor.h"
 
+/**
+ * Disposes the Stardust node, releasing all resources.
+ */
+void StardustNode::dispose() {
+    _queue->clear();
+    _queue = NULL;
+    _qhead = NULL;
+    _qtail = NULL;
+    _qsize = NULL;
+    _texture = nullptr;
+}
+
 /** 
  * Draws the stardusts in queue to the game scene.
  */

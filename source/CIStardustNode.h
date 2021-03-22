@@ -39,6 +39,11 @@ public:
      */
     ~StardustNode() { dispose(); }
     
+    /**
+     * Disposes the Stardust node, releasing all resources.
+     */
+    virtual void dispose() override;
+    
     /** 
      * Returns the newly allocated Stardust Node
      * 
