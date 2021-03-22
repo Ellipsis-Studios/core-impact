@@ -99,6 +99,7 @@
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <DisableSpecificWarnings>4068;4018;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -145,6 +146,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)include\;$(SolutionDir)..\source\;$(SolutionDir)..\cugl\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
       <DisableSpecificWarnings>4068;4018;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -175,6 +177,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)include\;$(SolutionDir)..\source\;$(SolutionDir)..\cugl\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
       <DisableSpecificWarnings>4068;4018;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -195,6 +198,7 @@
     <ClInclude Include="..\..\source\CIGameUpdateManager.h" />
     <ClInclude Include="..\..\source\CIInput.h" />
     <ClInclude Include="..\..\source\CILoadingScene.h" />
+    <ClInclude Include="..\..\source\CIPlanetLayer.h" />
     <ClInclude Include="..\..\source\CIPlanetModel.h" />
     <ClInclude Include="..\..\source\CIPlanetNode.h" />
     <ClInclude Include="..\..\source\CIStardustModel.h" />

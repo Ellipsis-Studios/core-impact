@@ -194,8 +194,8 @@ void collisions::moveDraggedStardust(Vec2 inputPos, StardustModel* stardust, flo
  * @param queue The stardust queue
  */
 float collisions::getStardustRadius(const std::shared_ptr<StardustQueue>& queue) {
-    auto texture = queue->getTexture();
     float sdRadius = 0;
+    auto texture = queue->getTexture();
     if (texture != nullptr) {
         sdRadius = std::max(texture->getWidth(), texture->getHeight()) / 2.0f;
     }

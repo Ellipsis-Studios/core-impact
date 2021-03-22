@@ -89,10 +89,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     _planet->setTextures(coreTexture, ringTexture, unlockedTexture, lockedTexture);
     
     _draggedStardust = NULL;
-    _stardustContainer = StardustQueue::alloc(MAX_STARDUST);
-    _stardustContainer->setTexture(_assets->get<Texture>("photon"));
-    std::shared_ptr<StardustNode> _stardustNode = StardustNode::alloc();
-    _stardustNode->setStardustQueue(_stardustContainer);
+    _stardustContainer = StardustQueue::alloc(MAX_STARDUST, _assets->get<Texture>("photon"));
     
     _stardustContainer->addStardust(dimen);
     _stardustContainer->addStardust(dimen);
@@ -101,7 +98,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     
     addChild(scene);
     addChild(_planet->getPlanetNode());
-    addChild(_stardustNode);
+    addChild(_stardustContainer->getStardustNode());
     return true;
 }
 
