@@ -102,6 +102,10 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     addChild(scene);
     addChild(_planet->getPlanetNode());
     addChild(_stardustNode);
+    
+    
+    _completed = false;
+    _countdown = -1;
     return true;
 }
 
@@ -140,6 +144,9 @@ void GameScene::reset() {
     _farSpace->setAngle(0.0f);
     
     _draggedStardust = NULL;
+    
+    removeAllChildren();
+    init(_assets);
 }
 
 /**
@@ -154,14 +161,30 @@ void GameScene::update(float timestep) {
     dimen *= SCENE_WIDTH/dimen.width;
     _input.update(timestep);
     
+    _massHUD->setText(to_string(_planet->getMass()) + "; "
+        + CIColor::getString(_planet->getColor()));
+    
+    // Reset game if won/lost
+    if (_countdown > 0) {
+        _countdown--;
+        return;
+    } else if (_countdown == 0) {
+        // TODO: return to main menu instead of resetting the game
+        reset();
+        return;
+    }
+    
+    if (_planet->isWinner()) {
+        // handle winning
+        CULog("Game won.");
+        _countdown = 120;
+    }
+    
     _stardustContainer->update();
     
     if (rand() % 60 == 0){
         _stardustContainer->addStardust(dimen);
     }
-    
-    _massHUD->setText(to_string(_planet->getMass()) + "; "
-        + CIColor::getString(_planet->getColor()));
 
     collisions::checkForCollision(_planet, _stardustContainer);
     collisions::checkInBounds(_stardustContainer, dimen);

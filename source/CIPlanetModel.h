@@ -15,6 +15,9 @@
 #include "CIPlanetLayer.h"
 #include "CIPlanetNode.h"
 
+#define WIN_PLANET_MASS 200
+
+
 class PlanetModel {
 private:
     /** The layers of this planet */
@@ -37,6 +40,11 @@ private:
     
     /** Scene graph node for the planet */
     std::shared_ptr<PlanetNode> _planetNode;
+    
+    /** Whether this planet satisfies winning conditions */
+    bool _winner;
+    /** Whether this planet satisfies losing conditions */
+    bool _loser;
 
 public:
 #pragma mark Properties
@@ -227,6 +235,15 @@ public:
      * @return true if the layer lock in was successful
      */
     bool lockInLayer(float timestep);
+    
+    /**
+     * Checks if current planet satisfies winning conditions.
+     *
+     * @return bool whether current planet satisfies winning conditions.
+     */
+    bool isWinner() {
+        return (_mass >= WIN_PLANET_MASS);
+    }
     
 };
 
