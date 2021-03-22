@@ -23,6 +23,7 @@
 #include "CIInput.h"
 #include "CIStardustQueue.h"
 #include "CIGameUpdateManager.h"
+#include "CINetworkMessageManager.h"
 
 /**
  * This class is the primary gameplay constroller for the demo.
@@ -41,6 +42,8 @@ protected:
     InputController _input;
     /** The game update manager for managing messages from other players */
     std::shared_ptr<GameUpdateManager> _gameUpdateManager;
+    /** The network message manager for managing connections to other players */
+    std::shared_ptr<NetworkMessageManager> _networkMessageManager;
     
     // VIEW
     /** Label used to dispslay the planet's mass to the screen */
