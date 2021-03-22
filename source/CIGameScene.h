@@ -21,7 +21,6 @@
 #include <vector>
 #include "CIPlanetModel.h"
 #include "CIInput.h"
-#include "CIStardustNode.h"
 #include "CIStardustQueue.h"
 #include "CIGameUpdateManager.h"
 #include "CINetworkMessageManager.h"

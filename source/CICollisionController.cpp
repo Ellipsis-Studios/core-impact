@@ -47,7 +47,7 @@ void collisions::checkForCollision(const std::shared_ptr<PlanetModel>& planet, c
             Vec2 norm = planet->getPosition() - stardust->getPosition();
             float distance = norm.length();
             //TODO update with planet radius
-            float impactDistance = 32+sdRadius;
+            float impactDistance = planet->getRadius()+sdRadius;
             norm.normalize();
 
             // If this normal is too small, there was a collision
@@ -126,6 +126,19 @@ void collisions::checkForCollisions(const std::shared_ptr<StardustQueue>& queue)
 }
 
 /**
+ *  Checks for a collision between a planet and the input position
+ *
+ *  @param planet     The planet in the candidate collision
+ *  @param inputPos     The input position of the finger
+ *  @return true if inputPos is inside the planet
+ */
+bool collisions::checkForCollision(const std::shared_ptr<PlanetModel>& planet, Vec2 inputPos) { 
+    Vec2 norm = inputPos - planet->getPosition();
+    float distance = norm.length();
+    return distance <= planet->getRadius();
+}
+
+/**
  * Finds the closest stardust that collides with the input position
  *
  * @param inputPos     The input position of the finger
@@ -181,8 +194,8 @@ void collisions::moveDraggedStardust(Vec2 inputPos, StardustModel* stardust, flo
  * @param queue The stardust queue
  */
 float collisions::getStardustRadius(const std::shared_ptr<StardustQueue>& queue) {
-    auto texture = queue->getTexture();
     float sdRadius = 0;
+    auto texture = queue->getTexture();
     if (texture != nullptr) {
         sdRadius = std::max(texture->getWidth(), texture->getHeight()) / 2.0f;
     }

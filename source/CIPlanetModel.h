@@ -24,6 +24,9 @@ private:
     int _numLayers;
     /** The total amount of stardust the player need to put in to lock in the current layer  */
     int _layerLockinTotal;
+    /** The amount of time for which this planet is being held down on to lock in
+        This is equal to 0 if the planet is not currently being locked in */
+    float _lockInProgress;
     
     /** Radius of the planet in pixels */
     float _radius;
@@ -80,6 +83,15 @@ public:
      */
     const int getLayerLockinTotal() const {
         return _layerLockinTotal;
+    }
+    
+    /**
+     * Returns whether the planet is in the process of locking in
+     *
+     * @return true if the planet is currently locking in, false otherwise
+     */
+    const bool isLockingIn() const {
+        return _lockInProgress > 0;
     }
     
     /**
@@ -204,11 +216,17 @@ public:
     void increaseLayerSize();
     
     /**
+     * Stops any current progress towards locking in a layer
+     */
+    void stopLockIn();
+    
+    /**
      * Locks in the current layer and adds a new layer if the current layer is able to be locked in.
      *
+     * @param timestep  The amount of time (in seconds) since the last frame
      * @return true if the layer lock in was successful
      */
-    bool lockInLayer();
+    bool lockInLayer(float timestep);
     
 };
 
