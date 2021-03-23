@@ -56,7 +56,8 @@ void NetworkMessageManager::sendMessages() {
         
     int playerId = _conn->getPlayerID().value();
     for (auto const& [key, val] : gameUpdate->getStardustSent()) {
-        int dstPlayerId = 0;
+        // Send the dot to the player assigned to that corner. If client rather than host and the cornerId matches playerId, send to host.
+        int dstPlayerId = (key == playerId) ? 0 : key;
         
         // send stardust sent
         for (size_t jj = 0; jj < val.size(); jj++) {
@@ -66,7 +67,7 @@ void NetworkMessageManager::sendMessages() {
             float xVel = val[jj]->getVelocity().x;
             float yVel = val[jj]->getVelocity().y;
             
-            CULog("%f, %f", xVel, yVel);
+            CULog("SENT> SRC[%i], DST[%i], CLR[%i], VEL[%f,%f]", playerId, dstPlayerId, stardustColor, xVel, yVel);
             
             data.push_back(NetworkUtils::MessageType::StardustSent);
             NetworkUtils::encodeInt(playerId, data);
@@ -134,25 +135,7 @@ void NetworkMessageManager::receiveMessages() {
                 float yVel = NetworkUtils::decodeFloat(recv[17], recv[18], recv[19], recv[20]);
                 int timestamp = NetworkUtils::decodeInt(recv[21], recv[22], recv[23], recv[24]);
 
-                CULog("X VEL");
-                CULog("%f", xVel);
-                CULog("Y VEL");
-                CULog("%f", yVel);
-
-                /*
-                CULog("SRC PLAYER");
-                CULog("%u", srcPlayer);
-                CULog("DST PLAYER");
-                CULog("%u", dstPlayer);
-                CULog("COLOR");
-                CULog("%u", stardustColor);
-                CULog("X VEL");
-                CULog("%f", xVel);
-                CULog("Y VEL");
-                CULog("%f", yVel);
-                CULog("TIME");
-                CULog("%u", timestamp);
-                */
+                CULog("RCVD> SRC[%i], DST[%i], CLR[%i], VEL[%f,%f]", srcPlayer, dstPlayer, stardustColor, xVel, yVel);
 
                 std::shared_ptr<StardustModel> stardust = StardustModel::alloc(cugl::Vec2(0, 0), cugl::Vec2(xVel, yVel), static_cast<CIColor::Value>(stardustColor));
                 std::map<int, std::vector<std::shared_ptr<StardustModel>>> map = { { dstPlayer, std::vector<std::shared_ptr<StardustModel>> { stardust } } };
