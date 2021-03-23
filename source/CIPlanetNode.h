@@ -16,7 +16,7 @@
 #include "CIColor.h"
 #include "CIPlanetLayer.h"
 
-#define PLANET_RING_SCALE     0.28f
+#define PLANET_RING_TEXTURE_INNER_SIZE 480
 
 class PlanetNode : public cugl::scene2::PolygonNode {
 private:
@@ -28,8 +28,10 @@ private:
         std::shared_ptr<cugl::scene2::PolygonNode> outerRing;
     };
     
-    /** Radius of the planet in pixels */
-    float _radius;
+    /** The scaling factor of the core */
+    float _coreScale;
+    /** The scaling factor of the outermost layer */
+    float _layerScale;
     
     /** The layers of this planet */
     std::vector<PlanetLayer>* _layers;
@@ -66,14 +68,17 @@ public:
     void setLayers(std::vector<PlanetLayer>* layers);
     
     void setRadius(float r) {
-        _radius = r;
-        float scale = _radius * 0.02f;
-        setScale(scale);
-        for (int ii = 0; ii < _layerNodes.size(); ii++) {
-            LayerNode node = _layerNodes[ii];
-            if (node.innerRing != nullptr) {
-                node.innerRing->setScale(PLANET_RING_SCALE);
-                node.outerRing->setScale(PLANET_RING_SCALE);
+        _layerScale = (2 * r) / _ringTexture->getWidth();
+        for (int ii = (int)(_layerNodes.size())-1; ii >= 0; ii--) {
+            LayerNode* node = &_layerNodes[ii];
+            if (node->innerRing != nullptr) {
+                if (ii == 0) {
+                    _coreScale = (2 * r * PLANET_RING_TEXTURE_INNER_SIZE) / (_ringTexture->getWidth() * getTexture()->getWidth());
+                    setScale(_coreScale);
+                }
+                node->innerRing->setScale(_layerScale/_coreScale);
+                node->outerRing->setScale(_layerScale/_coreScale);
+                break;
             }
         }
     }
