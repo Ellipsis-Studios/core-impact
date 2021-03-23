@@ -47,12 +47,6 @@
             "file": "textures/splashArt/splashArtWorld.png"
         }
     },
-    "fonts": {
-        "felt32": {
-            "file":     "fonts/MarkerFelt.ttf",
-            "size":     32
-        }
-    },
     "scene2s" : {
         "load" : {
             "type"      : "Solid",
@@ -168,23 +162,6 @@
                         "x_anchor" : "center",
                         "y_anchor" : "middle",
                         "y_offset" : -20,
-                        "absolute" : true
-                    }
-                },
-                "join_game"  : {
-                    "type"   : "TextField",
-                    "data"   : {
-                        "font"       : "felt32",
-                        "text"       : "",
-                        "foreground" : [255,255,255,255],
-                        "background" : [0,0,0,255],
-                        "size"       : [120,40],
-                        "anchor"     : [0.5,0.5]
-                    },
-                    "layout" : {
-                        "x_anchor" : "center",
-                        "y_anchor" : "middle",
-                        "y_offset" : -120,
                         "absolute" : true
                     }
                 },

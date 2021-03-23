@@ -41,11 +41,9 @@ protected:
     /** The animated progress bar */
     std::shared_ptr<cugl::scene2::ProgressBar>  _bar;
     /** The engine name */
-    std::shared_ptr<cugl::scene2::SceneNode>   _brand;
+    std::shared_ptr<cugl::scene2::SceneNode>  _brand;
     /** The "play" button */
-    std::shared_ptr<cugl::scene2::Button>      _button;
-    /** The "join game" textfield */
-    std::shared_ptr<cugl::scene2::TextField>   _joinText;
+    std::shared_ptr<cugl::scene2::Button>    _button;
 
     // MODEL
     /** The progress displayed on the screen */
@@ -53,9 +51,8 @@ protected:
     /** Whether or not the player has pressed play to continue */
     bool  _completed;
 
+    
 public:
-    /** Stores the game code for joining as client*/
-    string _joinGame;
 #pragma mark -
 #pragma mark Constructors
     /**

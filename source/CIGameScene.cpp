@@ -38,6 +38,11 @@ using namespace std;
 #define MAX_STARDUST 512
 
 
+// TODO: remove this flag once the menu scene is done
+bool IS_HOST = true;
+std::string GAME_ID = "";
+
+
 #pragma mark -
 #pragma mark Constructors
 
@@ -50,12 +55,10 @@ using namespace std;
  * memory allocation.  Instead, allocation happens in this method.
  *
  * @param assets    The (loaded) assets for this game mode
- * @param isHost    Whether or not this instance is hosting the game
- * @param gameId    The gameId for a client game
  *
  * @return true if the controller is initialized properly, false otherwise.
  */
-bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets, bool isHost, std::string gameId) {
+bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     // Initialize the scene to a locked width
     Size dimen = Application::get()->getDisplaySize();
     dimen *= SCENE_WIDTH/dimen.width; // Lock the game to a reasonable resolution
@@ -73,10 +76,10 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets, bool isH
     _gameUpdateManager = GameUpdateManager::alloc();
     _networkMessageManager = NetworkMessageManager::alloc();
     _networkMessageManager->setGameuUpdateManager(_gameUpdateManager);
-    if (isHost) {
+    if (IS_HOST) {
         _networkMessageManager->createGame();
     } else {
-        _networkMessageManager->joinGame(gameId);
+        _networkMessageManager->joinGame(GAME_ID);
     }
     
     // Acquire the scene built by the asset loader and resize it the scene
@@ -164,12 +167,11 @@ void GameScene::update(float timestep) {
     
     _stardustContainer->update();
     
-    if (rand() % 60 == 0){
-        _stardustContainer->addStardust(dimen);
-    }
+//    if (rand() % 60 == 0){
+//        _stardustContainer->addStardust(dimen);
+//    }
     
-    _massHUD->setText("Room: " + _networkMessageManager->getRoomId()
-        + " / Your Core: " + to_string(_planet->getMass()) + "; "
+    _massHUD->setText(to_string(_planet->getMass()) + "; "
         + CIColor::getString(_planet->getColor()));
 
     collisions::checkForCollision(_planet, _stardustContainer);

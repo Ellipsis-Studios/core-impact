@@ -95,12 +95,10 @@ public:
      * memory allocation.  Instead, allocation happens in this method.
      *
      * @param assets    The (loaded) assets for this game mode
-     * @param isHost    Whether or not this instance is hosting the game
-     * @param gameId    The gameId for a client game
      *
      * @return true if the controller is initialized properly, false otherwise.
      */
-    bool init(const std::shared_ptr<cugl::AssetManager>& assets, bool isHost, std::string gameId);
+    bool init(const std::shared_ptr<cugl::AssetManager>& assets);
 
     
 #pragma mark -
