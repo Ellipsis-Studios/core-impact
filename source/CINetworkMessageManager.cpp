@@ -24,6 +24,14 @@ void NetworkMessageManager::dispose() {
     _timestamp = 0;
 }
 
+/** 
+ * Resets the resources in this network message manager. Used to reset the game.
+ */
+void NetworkMessageManager::reset() {
+    _gameState = GameState::OnMenuScreen;
+    _timestamp = 0;
+}
+
 /**
  * Initializes the network message manager
  *

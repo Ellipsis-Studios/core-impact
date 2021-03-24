@@ -173,7 +173,12 @@ public:
      * disposed, a planet may not be used until it is initialized again.
      */
     void dispose();
-        
+
+    /**
+     * Resets resources of this planet. Used to reset the game.
+     */
+    void reset();
+
     /**
      * Initializes a new planet with the given color
      *

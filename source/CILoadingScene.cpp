@@ -92,6 +92,21 @@ void LoadingScene::dispose() {
     _progress = 0.0f;
 }
 
+/**
+ * Resets the resources allocated to this mode to default.
+ */
+void LoadingScene::reset() {
+    _progress = 0.0f;
+    _button->setVisible(false);
+    _button->deactivate();
+    _joinText->setVisible(false);
+    _joinText->deactivate();
+    _bar->setVisible(true);
+    _brand->setVisible(true);
+    _bar->setProgress(_progress);
+    Scene2::reset();
+}
+
 
 #pragma mark -
 #pragma mark Progress Monitoring

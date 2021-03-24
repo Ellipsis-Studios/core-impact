@@ -15,6 +15,10 @@
 
 #define LOCK_IN_SCALE_DOWN  .75
 
+void PlanetNode::reset() {
+    _layerNodes.clear();
+}
+
 void PlanetNode::draw(const std::shared_ptr<cugl::SpriteBatch>& batch,
           const cugl::Mat4& transform, cugl::Color4 tint) {
     PolygonNode::draw(batch,transform, tint);

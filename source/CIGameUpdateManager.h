@@ -55,6 +55,11 @@ public:
     void dispose();
     
     /**
+     * Resets the resources in this game update manager. Used to reset the game.
+     */
+    void reset();
+
+    /**
      * Initializes the game update manager
      *
      * The constructor does not allocate any objects or memory.  This allows

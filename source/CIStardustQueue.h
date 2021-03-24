@@ -58,6 +58,11 @@ public:
      * Disposes the stardust queue, releasing all resources.
      */
     void dispose();
+
+    /** 
+     * Resets the stardust queue. Used for resetting the game.
+     */
+    void reset();
     
     /**
      *  Initialies a new (empty) StardustQueue.

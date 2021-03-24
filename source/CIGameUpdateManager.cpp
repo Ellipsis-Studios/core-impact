@@ -34,6 +34,15 @@ void GameUpdateManager::dispose() {
 }
 
 /**
+ * Resets the resources in this game update manager. Used to reset the game.
+ */
+void GameUpdateManager::reset() {
+    _prev_game_update_sent = nullptr;
+    _game_updates_to_process.clear();
+    _game_updates_to_process.resize(MAX_PENDING_UPDATES);
+}
+
+/**
  * Initializes the game update manager
  *
  * The constructor does not allocate any objects or memory.  This allows

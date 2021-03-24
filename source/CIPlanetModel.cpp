@@ -51,6 +51,25 @@ void PlanetModel::dispose() {
 }
 
 /**
+ * Resets the resources of the planet. Used to reset the game.
+ */
+void PlanetModel::reset() {
+    auto ls = _layers.size();
+    _layers.clear();
+    _layers.resize(ls);
+    _layers[0] = getNewLayer();
+
+    _layerLockinTotal = INIT_LAYER_LOCKIN_TOTAL;
+    _radius = INITIAL_PLANET_RADIUS;
+    _mass = INITIAL_PLANET_MASS;
+
+    _planetNode->reset();
+    _planetNode->setAnchor(cugl::Vec2::ANCHOR_CENTER);
+    _planetNode->setLayers(&_layers);
+    _planetNode->setPosition(_position);
+    _planetNode->setRadius(_radius);
+}
+/**
  * Initializes a new planet with the given color
  *
  * This method does NOT create a scene graph node for this planet.  You

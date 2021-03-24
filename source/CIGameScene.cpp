@@ -37,6 +37,8 @@ using namespace std;
 /** Maximum number of stardusts allowed on screen at a time. */
 #define MAX_STARDUST 512
 
+/** Starting value for the countdown */
+#define START_COUNTDOWN -10.0f
 
 #pragma mark -
 #pragma mark Constructors
@@ -68,16 +70,18 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets, bool isH
     // Start up the input handler
     _assets = assets;
     _input.init(getBounds());
+
+    startGame(isHost, gameId);
     
-    // Create the game update manager and network message managers
-    _gameUpdateManager = GameUpdateManager::alloc();
-    _networkMessageManager = NetworkMessageManager::alloc();
-    _networkMessageManager->setGameuUpdateManager(_gameUpdateManager);
-    if (isHost) {
-        _networkMessageManager->createGame();
-    } else {
-        _networkMessageManager->joinGame(gameId);
-    }
+    //// Create the game update manager and network message managers
+    //_gameUpdateManager = GameUpdateManager::alloc();
+    //_networkMessageManager = NetworkMessageManager::alloc();
+    //_networkMessageManager->setGameuUpdateManager(_gameUpdateManager);
+    //if (isHost) {
+    //    _networkMessageManager->createGame();
+    //} else {
+    //    _networkMessageManager->joinGame(gameId);
+    //}
     
     // Acquire the scene built by the asset loader and resize it the scene
     auto scene = _assets->get<scene2::SceneNode>("game");
@@ -109,7 +113,8 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets, bool isH
     addChild(scene);
     addChild(_planet->getPlanetNode());
     addChild(_stardustContainer->getStardustNode());
-    _countdown = -10.0f;
+
+    _countdown = START_COUNTDOWN;
     return true;
 }
 
@@ -142,13 +147,41 @@ void GameScene::reset() {
     // Reset the planet and input
     _input.clear();
     
-    // Reset the parallax
-    Vec2 position = _farSpace->getPosition();
-    _farSpace->setAnchor(Vec2::ANCHOR_CENTER);
-    _farSpace->setPosition(position);
-    _farSpace->setAngle(0.0f);
+    //// Reset the parallax
+    //Vec2 position = _farSpace->getPosition();
+    //_farSpace->setAnchor(Vec2::ANCHOR_CENTER);
+    //_farSpace->setPosition(position);
+    //_farSpace->setAngle(0.0f);
     
+    CULog("Game scene reset game update manager.");
+    _gameUpdateManager->reset();
+    CULog("Game scene reset network message manager.");
+    _networkMessageManager->reset();
+    _networkMessageManager->setGameuUpdateManager(_gameUpdateManager);
+
+    CULog("Game scene reset parallax.");
+    _allSpace = _assets->get<scene2::SceneNode>("game_field");
+    _farSpace = _assets->get<scene2::SceneNode>("game_field_far");
+    _nearSpace = _assets->get<scene2::SceneNode>("game_field_near");
+    _massHUD = std::dynamic_pointer_cast<scene2::Label>(_assets->get<scene2::SceneNode>("game_hud"));
+
+    CULog("Game scene reset planet.");
+    _planet->reset();
+
+    CULog("Game scene reset stardust container.");
+    Size dimen = Application::get()->getDisplaySize();
+    dimen *= SCENE_WIDTH / dimen.width; // Lock the game to a reasonable resolution
+    _stardustContainer->reset(); // clears both queues and resets indices
+    _stardustContainer->addStardust(dimen);
+    _stardustContainer->addStardust(dimen);
+    _stardustContainer->addStardust(dimen);
+    _stardustContainer->addStardust(dimen);
+
+    // Reset countdown 
+    _countdown = START_COUNTDOWN;
     _draggedStardust = NULL;
+    _active = false;
+    setActive(false);
 }
 
 /**
@@ -167,13 +200,12 @@ void GameScene::update(float timestep) {
         + " / Your Core: " + to_string(_planet->getMass()) + "; "
         + CIColor::getString(_planet->getColor()));
     
-    // Reset game if won/lost
-    if (_countdown > 0.0f) {
+     // Handle counting down then switching to loading screen 
+     if (_countdown > 0.0f) {
         _countdown = _countdown - timestep;
         return;
-    } else if (_countdown > -10.0f) {
-        // TODO: return to main menu instead of resetting the game
-        reset();
+    } else if (_countdown > START_COUNTDOWN) {
+        setActive(false);
         return;
     } 
     
@@ -236,4 +268,23 @@ void GameScene::updateDraggedStardust() {
         _draggedStardust->setVelocity(newVelocity);
         _draggedStardust = NULL;
     }
+}
+
+
+/**
+ * Starts a new game instance.
+ */
+void GameScene::startGame(bool isHost, std::string gameId) {
+    // Create the game update manager and network message managers
+    _gameUpdateManager = GameUpdateManager::alloc();
+    _networkMessageManager = NetworkMessageManager::alloc();
+    _networkMessageManager->setGameuUpdateManager(_gameUpdateManager);
+    if (isHost) {
+        _networkMessageManager->createGame();
+    }
+    else {
+        _networkMessageManager->joinGame(gameId);
+    }
+    _active = true;
+    setActive(true);
 }

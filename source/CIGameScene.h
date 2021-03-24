@@ -130,6 +130,13 @@ public:
      */
     void reset();
 
+    /**
+     * Starts a new game instance with given configurations.
+     * 
+     * Only used to start new game after resetting.
+     */
+    void startGame(bool isHost, std::string gameId);
+
 };
 
 #endif /* __CI_GAME_SCENE_H__ */

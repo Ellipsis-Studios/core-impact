@@ -50,6 +50,11 @@ public:
      * Disposes of all (non-static) resources allocated to this network message manager.
      */
     void dispose();
+
+    /**
+     * Resets the resources in this network message manager. Used to reset the game.
+     */
+    void reset();
     
     /**
      * Initializes the network message manager

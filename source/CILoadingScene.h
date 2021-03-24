@@ -80,6 +80,11 @@ public:
     void dispose();
     
     /**
+     * Resets the resources allocated to this mode to default.
+     */
+    void reset();
+
+    /**
      * Initializes the controller contents, making it ready for loading
      *
      * The constructor does not allocate any objects or memory.  This allows

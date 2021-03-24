@@ -34,7 +34,9 @@ protected:
 
     /** Whether or not we have finished loading all assets */
     bool _loaded;
-    
+    /** Whether or not we have initialized gamescene */
+    bool _gameInitalized;
+
 public:
     /**
      * Creates, but does not initialized a new application.
