@@ -12,6 +12,7 @@
 #define __CI_NETWORK_UTILS_H__
 
 #include <cugl/cugl.h>
+#include "CIStardustModel.h"
 
 class NetworkUtils {
 private:
@@ -64,6 +65,16 @@ public:
             0
         };
     }
+    
+    /**
+     * Gets the stardust location given our player id and the player id of the opponent.
+     */
+    static StardustModel::Location getStardustLocation(int playerID, int opponentPlayerID);
+    
+    /**
+     * Returns an opponents player id given this player's id and a location
+     */
+    static int getOpponentPlayerID(int playerID, StardustModel::Location location);
 };
 
 #endif /* __CI_NETWORK_UTILS_H__ */

@@ -102,9 +102,11 @@ public:
     int getPlayerId() {
         if (_conn == nullptr) {
             return -1;
+        } else if (!_conn->getPlayerID().has_value()) {
+            return -1;
+        } else {
+            return _conn->getPlayerID().value();
         }
-        
-        return _conn->getPlayerID().value();
     }
 
 
