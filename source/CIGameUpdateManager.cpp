@@ -21,7 +21,7 @@
 /** The timestamp of the first update sent */
 #define INITIAL_TIMESTAMP       0
 
-// TODO: remove this at some point
+// TODO: remove this when game id is stored programmatically
 #define GAME_ID                 "test"
 
 
@@ -56,7 +56,7 @@ bool GameUpdateManager::init() {
  * @param bounds                    The bounds of the screen
  */
 void GameUpdateManager::sendUpdate(const std::shared_ptr<PlanetModel> planet, const std::shared_ptr<StardustQueue> stardustQueue, cugl::Size bounds) {
-    if (getPlayerId() == -1) {
+    if (getPlayerId() < 0) {
         return;
     }
     
@@ -111,7 +111,7 @@ void GameUpdateManager::sendUpdate(const std::shared_ptr<PlanetModel> planet, co
  * @param bounds                    The bounds of the screen
  */
 void GameUpdateManager::processGameUpdate(std::shared_ptr<StardustQueue> stardustQueue, cugl::Size bounds) {
-    if (_game_updates_to_process.empty() || getPlayerId() == -1) {
+    if (_game_updates_to_process.empty() || getPlayerId() < 0) {
         return;
     }
     

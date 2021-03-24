@@ -184,7 +184,7 @@ void GameScene::update(float timestep) {
     }
     
     // attempt to set player id of game update manager
-    if (_gameUpdateManager->getPlayerId() == -1) {
+    if (_gameUpdateManager->getPlayerId() < 0) {
         // need to make this call to attempt to connect to game
         _networkMessageManager->receiveMessages();
         _gameUpdateManager->setPlayerId(_networkMessageManager->getPlayerId());
