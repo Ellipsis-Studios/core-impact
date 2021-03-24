@@ -103,8 +103,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     addChild(_planet->getPlanetNode());
     addChild(_stardustNode);
 
-    _completed = false;
-    _countdown = -1;
+    _countdown = -10.0f; // arbitrary low value
     return true;
 }
 
@@ -161,19 +160,19 @@ void GameScene::update(float timestep) {
         + CIColor::getString(_planet->getColor()));
     
     // Reset game if won/lost
-    if (_countdown > 0) {
-        _countdown--;
+    if (_countdown > 0.0f) {
+        _countdown = _countdown - timestep;
         return;
-    } else if (_countdown == 0) {
+    } else if (_countdown > -10.0f) {
         // TODO: return to main menu instead of resetting the game
         reset();
         return;
-    }
+    } 
     
     if (_planet->isWinner()) {
         // handle winning
         CULog("Game won.");
-        _countdown = 120;
+        _countdown = 2.0f;
     }
     
     _stardustContainer->update();
