@@ -82,8 +82,8 @@ void LoadingScene::dispose() {
     // Deactivate the button (platform dependent)
     if (isPending()) {
         _button->deactivate();
+        _joinText->deactivate();
     }
-    _joinText->deactivate();
     _button = nullptr;
     _joinText = nullptr;
     _brand = nullptr;
