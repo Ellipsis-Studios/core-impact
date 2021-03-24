@@ -3526,6 +3526,7 @@
 				ENABLE_BITCODE = YES;
 				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_WARN_UNUSED_FUNCTION = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/lib",
@@ -3547,6 +3548,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = YES;
 				GCC_WARN_UNUSED_FUNCTION = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/lib",

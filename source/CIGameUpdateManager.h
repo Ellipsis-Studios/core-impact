@@ -25,8 +25,13 @@ private:
     /** The last game update sent to other players */
     std::shared_ptr<GameUpdate> _prev_game_update_sent;
     
+    std::shared_ptr<GameUpdate> _game_update_to_send;
+    
     /** Vector of game updates to process */
     std::vector<std::shared_ptr<GameUpdate>> _game_updates_to_process;
+    
+    /** The player id. Initialized to -1 before a player id is assigned. */
+    int _player_id;
     
 public:
 #pragma mark -
@@ -68,6 +73,43 @@ public:
     static std::shared_ptr<GameUpdateManager> alloc() {
         std::shared_ptr<GameUpdateManager> result = std::make_shared<GameUpdateManager>();
         return (result->init() ? result : nullptr);
+    }
+    
+#pragma mark Properties
+    /**
+     * Returns the game updates to process vector.
+     *
+     * @return the vector of game updates to process
+     */
+    std::vector<std::shared_ptr<GameUpdate>> getGameUpdatesToProcess() {
+        return _game_updates_to_process;
+    }
+    
+    /**
+     * Clears the game updates to process. This method should only be called once all the game updates have been sent to other players.
+     */
+    void clearGameUpdatesToProcess() {
+        _game_updates_to_process.clear();
+    }
+    
+    void addGameUpdate(std::shared_ptr<GameUpdate> gameUpdate) {
+        _game_updates_to_process.push_back(gameUpdate);
+    }
+    
+    std::shared_ptr<GameUpdate> getGameUpdateToSend() {
+        return _game_update_to_send;
+    }
+    
+    void clearGameUpdateToSend() {
+        _game_update_to_send = nullptr;
+    }
+    
+    int getPlayerId() {
+        return _player_id;
+    }
+    
+    void setPlayerId(int playerId) {
+        _player_id = playerId;
     }
 
 #pragma mark Interactions

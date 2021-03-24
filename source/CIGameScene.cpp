@@ -37,6 +37,7 @@ using namespace std;
 /** Maximum number of stardusts allowed on screen at a time. */
 #define MAX_STARDUST 512
 
+
 #pragma mark -
 #pragma mark Constructors
 
@@ -49,10 +50,12 @@ using namespace std;
  * memory allocation.  Instead, allocation happens in this method.
  *
  * @param assets    The (loaded) assets for this game mode
+ * @param isHost    Whether or not this instance is hosting the game
+ * @param gameId    The gameId for a client game
  *
  * @return true if the controller is initialized properly, false otherwise.
  */
-bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
+bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets, bool isHost, std::string gameId) {
     // Initialize the scene to a locked width
     Size dimen = Application::get()->getDisplaySize();
     dimen *= SCENE_WIDTH/dimen.width; // Lock the game to a reasonable resolution
@@ -66,8 +69,15 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     _assets = assets;
     _input.init(getBounds());
     
-    // Create the game update manager
+    // Create the game update manager and network message managers
     _gameUpdateManager = GameUpdateManager::alloc();
+    _networkMessageManager = NetworkMessageManager::alloc();
+    _networkMessageManager->setGameuUpdateManager(_gameUpdateManager);
+    if (isHost) {
+        _networkMessageManager->createGame();
+    } else {
+        _networkMessageManager->joinGame(gameId);
+    }
     
     // Acquire the scene built by the asset loader and resize it the scene
     auto scene = _assets->get<scene2::SceneNode>("game");
@@ -89,10 +99,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     _planet->setTextures(coreTexture, ringTexture, unlockedTexture, lockedTexture);
     
     _draggedStardust = NULL;
-    _stardustContainer = StardustQueue::alloc(MAX_STARDUST);
-    _stardustContainer->setTexture(_assets->get<Texture>("photon"));
-    std::shared_ptr<StardustNode> _stardustNode = StardustNode::alloc();
-    _stardustNode->setStardustQueue(_stardustContainer);
+    _stardustContainer = StardustQueue::alloc(MAX_STARDUST, _assets->get<Texture>("photon"));
     
     _stardustContainer->addStardust(dimen);
     _stardustContainer->addStardust(dimen);
@@ -101,9 +108,8 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     
     addChild(scene);
     addChild(_planet->getPlanetNode());
-    addChild(_stardustNode);
-
-    _countdown = -10.0f; // arbitrary low value
+    addChild(_stardustContainer->getStardustNode());
+    _countdown = -10.0f;
     return true;
 }
 
@@ -115,6 +121,7 @@ void GameScene::dispose() {
         removeAllChildren();
         _input.dispose();
         _gameUpdateManager = nullptr;
+        _networkMessageManager = nullptr;
         _allSpace = nullptr;
         _farSpace = nullptr;
         _nearSpace = nullptr;
@@ -156,7 +163,8 @@ void GameScene::update(float timestep) {
     dimen *= SCENE_WIDTH/dimen.width;
     _input.update(timestep);
     
-    _massHUD->setText(to_string(_planet->getMass()) + "; "
+     _massHUD->setText("Room: " + _networkMessageManager->getRoomId()
+        + " / Your Core: " + to_string(_planet->getMass()) + "; "
         + CIColor::getString(_planet->getColor()));
     
     // Reset game if won/lost
@@ -177,7 +185,7 @@ void GameScene::update(float timestep) {
     
     _stardustContainer->update();
     
-    if (rand() % 60 == 0){
+    if (rand() % 150 == 0){
         _stardustContainer->addStardust(dimen);
     }
 
@@ -192,8 +200,18 @@ void GameScene::update(float timestep) {
         _planet->stopLockIn();
     }
     
-    // send game updates to other players
-    _gameUpdateManager->sendUpdate(_planet, _stardustContainer, dimen);
+    // attempt to set player id of game update manager
+    if (_gameUpdateManager->getPlayerId() < 0) {
+        // need to make this call to attempt to connect to game
+        _networkMessageManager->receiveMessages();
+        _gameUpdateManager->setPlayerId(_networkMessageManager->getPlayerId());
+    } else {
+        // send and receive game updates to other players
+        _gameUpdateManager->sendUpdate(_planet, _stardustContainer, dimen);
+        _networkMessageManager->receiveMessages();
+        _networkMessageManager->sendMessages();
+        _gameUpdateManager->processGameUpdate(_stardustContainer, dimen);
+    }
 }
 
 /**

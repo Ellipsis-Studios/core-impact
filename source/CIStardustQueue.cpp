@@ -33,6 +33,7 @@ void StardustQueue::dispose() {
     _qhead = 0;
     _qtail = -1;
     _qsize = 0;
+    _stardustNode = nullptr;
     _stardust_to_send.clear();
 }
     
@@ -40,11 +41,13 @@ void StardustQueue::dispose() {
  *  Initialies a new (empty) StardustQueue
  *
  *  @param max  The maximum number of stardust to support
+ *  @param texture The pointer to the shared stardust texture 
  *
  *  @return true if initialization is successful
  */
-bool StardustQueue::init(size_t max) {
+bool StardustQueue::init(size_t max, const std::shared_ptr<cugl::Texture>& texture) {
     _queue.resize(max);
+    _stardustNode = StardustNode::alloc(texture, &_queue, &_qhead, &_qtail, &_qsize);
     return true;
 }
 
