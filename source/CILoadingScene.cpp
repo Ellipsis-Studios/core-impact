@@ -83,6 +83,7 @@ void LoadingScene::dispose() {
     if (isPending()) {
         _button->deactivate();
     }
+    _joinText->deactivate();
     _button = nullptr;
     _joinText = nullptr;
     _brand = nullptr;
