@@ -164,7 +164,7 @@ void GameScene::update(float timestep) {
     
     _stardustContainer->update();
     
-    if (rand() % 60 == 0){
+    if (rand() % 150 == 0){
         _stardustContainer->addStardust(dimen);
     }
     
