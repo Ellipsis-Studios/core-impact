@@ -63,6 +63,12 @@ bool LoadingScene::init(const std::shared_ptr<AssetManager>& assets) {
     _button->addListener([=](const std::string& name, bool down) {
         this->_active = down;
     });
+    _joinText = std::dynamic_pointer_cast<scene2::TextField>(assets->get<scene2::SceneNode>("load_join_game"));
+    _joinText->addExitListener([=](const std::string& name, const std::string& value) {
+        CULog("Attempt to join %s",value.c_str());
+        _joinGame = value;
+        this->_active = true;
+    });
     
     Application::get()->setClearColor(Color4(192,192,192,255));
     addChild(layer);
@@ -77,7 +83,9 @@ void LoadingScene::dispose() {
     if (isPending()) {
         _button->deactivate();
     }
+    _joinText->deactivate();
     _button = nullptr;
+    _joinText = nullptr;
     _brand = nullptr;
     _bar = nullptr;
     _assets = nullptr;
@@ -103,6 +111,8 @@ void LoadingScene::update(float progress) {
             _brand->setVisible(false);
             _button->setVisible(true);
             _button->activate();
+            _joinText->setVisible(true);
+            _joinText->activate();
         }
         _bar->setProgress(_progress);
     }
