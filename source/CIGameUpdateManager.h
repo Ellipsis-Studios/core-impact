@@ -30,6 +30,9 @@ private:
     /** Vector of game updates to process */
     std::vector<std::shared_ptr<GameUpdate>> _game_updates_to_process;
     
+    /** The player id. Initialized to -1 before a player id is assigned. */
+    int _player_id;
+    
 public:
 #pragma mark -
 #pragma mark Constructors
@@ -99,6 +102,14 @@ public:
     
     void clearGameUpdateToSend() {
         _game_update_to_send = nullptr;
+    }
+    
+    int getPlayerId() {
+        return _player_id;
+    }
+    
+    void setPlayerId(int playerId) {
+        _player_id = playerId;
     }
 
 #pragma mark Interactions

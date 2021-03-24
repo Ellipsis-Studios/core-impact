@@ -182,12 +182,19 @@ void GameScene::update(float timestep) {
     } else if (_planet->isLockingIn()) {
         _planet->stopLockIn();
     }
-
-    // send and receive game updates to other players
-    _gameUpdateManager->sendUpdate(_planet, _stardustContainer, dimen);
-    _networkMessageManager->receiveMessages();
-    _networkMessageManager->sendMessages();
-    _gameUpdateManager->processGameUpdate(_stardustContainer, dimen);
+    
+    // attempt to set player id of game update manager
+    if (_gameUpdateManager->getPlayerId() == -1) {
+        // need to make this call to attempt to connect to game
+        _networkMessageManager->receiveMessages();
+        _gameUpdateManager->setPlayerId(_networkMessageManager->getPlayerId());
+    } else {
+        // send and receive game updates to other players
+        _gameUpdateManager->sendUpdate(_planet, _stardustContainer, dimen);
+        _networkMessageManager->receiveMessages();
+        _networkMessageManager->sendMessages();
+        _gameUpdateManager->processGameUpdate(_stardustContainer, dimen);
+    }
 }
 
 /**

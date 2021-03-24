@@ -56,8 +56,7 @@ void NetworkMessageManager::sendMessages() {
         
     int playerId = _conn->getPlayerID().value();
     for (auto const& [key, val] : gameUpdate->getStardustSent()) {
-        // Send the dot to the player assigned to that corner. If client rather than host and the cornerId matches playerId, send to host.
-        int dstPlayerId = (key == playerId) ? 0 : key;
+        int dstPlayerId = key;
         
         // send stardust sent
         for (size_t jj = 0; jj < val.size(); jj++) {
