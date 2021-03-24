@@ -40,11 +40,6 @@ private:
     
     /** Scene graph node for the planet */
     std::shared_ptr<PlanetNode> _planetNode;
-    
-    /** Whether this planet satisfies winning conditions */
-    bool _winner;
-    /** Whether this planet satisfies losing conditions */
-    bool _loser;
 
 public:
 #pragma mark Properties

@@ -102,8 +102,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     addChild(scene);
     addChild(_planet->getPlanetNode());
     addChild(_stardustNode);
-    
-    
+
     _completed = false;
     _countdown = -1;
     return true;
@@ -144,9 +143,6 @@ void GameScene::reset() {
     _farSpace->setAngle(0.0f);
     
     _draggedStardust = NULL;
-    
-    removeAllChildren();
-    init(_assets);
 }
 
 /**
