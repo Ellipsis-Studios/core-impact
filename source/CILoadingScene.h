@@ -78,7 +78,7 @@ public:
      * Disposes of all (non-static) resources allocated to this mode.
      */
     void dispose();
-    
+
     /**
      * Resets the resources allocated to this mode to default.
      */

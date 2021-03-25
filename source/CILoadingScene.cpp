@@ -96,15 +96,25 @@ void LoadingScene::dispose() {
  * Resets the resources allocated to this mode to default.
  */
 void LoadingScene::reset() {
-    _progress = 0.0f;
-    _button->setVisible(false);
-    _button->deactivate();
-    _joinText->setVisible(false);
-    _joinText->deactivate();
-    _bar->setVisible(true);
-    _brand->setVisible(true);
-    _bar->setProgress(_progress);
-    Scene2::reset();
+    if (isActive()) { // initially set all values to default
+        _progress = 0.0f;
+
+        _button->setVisible(false);
+        _button->deactivate();
+        _joinText->setVisible(false);
+        _joinText->deactivate();
+
+        _bar->setVisible(true);
+        _brand->setVisible(true);
+        _bar->setProgress(_progress);
+        Scene2::reset();
+    } else { // deactivate inputs before starting game scene 
+        _progress = 0.0f;
+        if (isPending()) {
+            _button->deactivate();
+            _joinText->deactivate();
+        }
+    }
 }
 
 

@@ -69,6 +69,7 @@ void PlanetModel::reset() {
     _planetNode->setPosition(_position);
     _planetNode->setRadius(_radius);
 }
+
 /**
  * Initializes a new planet with the given color
  *

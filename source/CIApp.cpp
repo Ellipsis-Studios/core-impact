@@ -103,21 +103,24 @@ void CoreImpactApp::update(float timestep) {
     if (!_loaded && _loading.isActive()) {
         _loading.reset(); // sets the values to default
         _loading.update(0.01f);
-    }
-    else if (!_loaded) {
+    } else if (!_loaded) { 
         _loaded = true;
         _loading.setActive(false);
-        if (!_gameInitalized) {
-            // handle first new game 
-            _gameInitalized = true; // only on first init 
+        _loading.reset(); // deactivates inputs
+
+        if (!_gameInitalized) { 
+            // handle only first new game
+            _gameInitalized = true;
             _gameplay.init(_assets, _loading._joinGame.empty(), _loading._joinGame);
-        } else {
-            // handle new game after resetting 
+        } else { 
+            // handle new game after resetting
             _gameplay.startGame(_loading._joinGame.empty(), _loading._joinGame);
         }
-    } else if (_gameplay.isActive()) {
+    } else if (_gameplay.isActive()) { 
+        // handle updatting game 
         _gameplay.update(timestep);
     } else {
+        // handle resetting game 
         _loaded = false;
         _loading.setActive(true);
         _gameplay.reset();
