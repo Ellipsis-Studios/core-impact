@@ -58,11 +58,6 @@ public:
      * Disposes the stardust queue, releasing all resources.
      */
     void dispose();
-
-    /** 
-     * Resets the stardust queue. Used for resetting the game.
-     */
-    void reset();
     
     /**
      *  Initialies a new (empty) StardustQueue.
@@ -199,7 +194,6 @@ public:
      * to the collision controller where they belong.
      */
     void update();
-
 };
 
 #endif /* __CI_STARDUST_QUEUE_H__ */

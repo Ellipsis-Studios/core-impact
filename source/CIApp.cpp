@@ -51,8 +51,6 @@ void CoreImpactApp::onStartup() {
     _loaded = false;
     _loading.init(_assets);
 
-    _gameInitalized = false;
-    
     // Queue up the other assets
     _assets->loadDirectoryAsync("json/assets.json",nullptr);
     
@@ -104,26 +102,27 @@ void CoreImpactApp::update(float timestep) {
         _loading.reset(); // sets the values to default
         _loading.update(0.01f);
     } else if (!_loaded) { 
+        _loading.dispose(); // Disables the input listeners to this mode
+        _gameplay.init(_assets, _loading._joinGame.empty(), _loading._joinGame);
         _loaded = true;
-        _loading.setActive(false);
-        _loading.reset(); // deactivates inputs
-
-        if (!_gameInitalized) { 
-            // handle only first new game
-            _gameInitalized = true;
-            _gameplay.init(_assets, _loading._joinGame.empty(), _loading._joinGame);
-        } else { 
-            // handle new game after resetting
-            _gameplay.startGame(_loading._joinGame.empty(), _loading._joinGame);
-        }
     } else if (_gameplay.isActive()) { 
-        // handle updatting game 
         _gameplay.update(timestep);
     } else {
-        // handle resetting game 
-        _loaded = false;
-        _loading.setActive(true);
+        // handle game reset
         _gameplay.reset();
+        _assets = nullptr;
+        _batch = nullptr;
+
+        _assets = AssetManager::alloc();
+        _batch = SpriteBatch::alloc();
+        _assets->attach<Font>(FontLoader::alloc()->getHook());
+        _assets->attach<Texture>(TextureLoader::alloc()->getHook());
+        _assets->attach<scene2::SceneNode>(Scene2Loader::alloc()->getHook());
+
+        _loaded = false;
+        _loading.init(_assets);
+
+        _assets->loadDirectoryAsync("json/assets.json", nullptr);
     }
 }
 

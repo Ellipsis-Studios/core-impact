@@ -53,11 +53,6 @@ public:
      * Disposes of all (non-static) resources allocated to this game update manager.
      */
     void dispose();
-    
-    /**
-     * Resets the resources in this game update manager. Used to reset the game.
-     */
-    void reset();
 
     /**
      * Initializes the game update manager

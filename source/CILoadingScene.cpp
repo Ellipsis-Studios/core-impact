@@ -108,15 +108,8 @@ void LoadingScene::reset() {
         _brand->setVisible(true);
         _bar->setProgress(_progress);
         Scene2::reset();
-    } else { // deactivate inputs before starting game scene 
-        _progress = 0.0f;
-        if (isPending()) {
-            _button->deactivate();
-            _joinText->deactivate();
-        }
-    }
+    } 
 }
-
 
 #pragma mark -
 #pragma mark Progress Monitoring

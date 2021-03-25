@@ -69,7 +69,17 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets, bool isH
     
     // Start up the input handler and managers
     _assets = assets;
-    startGame(isHost, gameId);
+    _input.init(getBounds());
+    // Create the game update manager and network message managers
+    _gameUpdateManager = GameUpdateManager::alloc();
+    _networkMessageManager = NetworkMessageManager::alloc();
+    _networkMessageManager->setGameuUpdateManager(_gameUpdateManager);
+    if (isHost) {
+        _networkMessageManager->createGame();
+    }
+    else {
+        _networkMessageManager->joinGame(gameId);
+    }
     
     // Acquire the scene built by the asset loader and resize it the scene
     auto scene = _assets->get<scene2::SceneNode>("game");
@@ -133,33 +143,10 @@ void GameScene::dispose() {
  */
 void GameScene::reset() {
     _input.dispose();
-    
-    _gameUpdateManager->reset();
-
-    _networkMessageManager->reset();
-    _networkMessageManager->setGameuUpdateManager(_gameUpdateManager);
-
-    _allSpace = _assets->get<scene2::SceneNode>("game_field");
-    _farSpace = _assets->get<scene2::SceneNode>("game_field_far");
-    _nearSpace = _assets->get<scene2::SceneNode>("game_field_near");
-    _massHUD = std::dynamic_pointer_cast<scene2::Label>(_assets->get<scene2::SceneNode>("game_hud"));
-
-    _planet->reset();
-
-    Size dimen = Application::get()->getDisplaySize();
-    dimen *= SCENE_WIDTH / dimen.width; // Lock the game to a reasonable resolution
-    _stardustContainer->reset(); // clears both queues and resets indices
-    _stardustContainer->addStardust(dimen);
-    _stardustContainer->addStardust(dimen);
-    _stardustContainer->addStardust(dimen);
-    _stardustContainer->addStardust(dimen);
-
-    _countdown = START_COUNTDOWN;
-
-    _draggedStardust = NULL;
-
+    _gameUpdateManager->dispose();
+    _networkMessageManager->dispose();
+    removeAllChildren();
     _active = false;
-    setActive(false);
 }
 
 /**
@@ -194,18 +181,6 @@ void GameScene::update(float timestep) {
              return;
          }
      }
-    // if (_countdown > 0.0f) {
-    //    _countdown -= timestep;
-    //    return;
-    //} else if (_countdown > START_COUNTDOWN) {
-    //    setActive(false);
-    //    return;
-    //} 
-    //if (_planet->isWinner()) {
-    //    // handle winning
-    //    CULog("Game won.");
-    //    _countdown = 2.0f;
-    //}
     
     _stardustContainer->update();
     
@@ -260,26 +235,4 @@ void GameScene::updateDraggedStardust() {
         _draggedStardust->setVelocity(newVelocity);
         _draggedStardust = NULL;
     }
-}
-
-
-/**
- * Starts a new game instance with new input instance.
- */
-void GameScene::startGame(bool isHost, std::string gameId) {
-    // reinitialize the input 
-    _input.init(getBounds());
-
-    // Create the game update manager and network message managers
-    _gameUpdateManager = GameUpdateManager::alloc();
-    _networkMessageManager = NetworkMessageManager::alloc();
-    _networkMessageManager->setGameuUpdateManager(_gameUpdateManager);
-    if (isHost) {
-        _networkMessageManager->createGame();
-    }
-    else {
-        _networkMessageManager->joinGame(gameId);
-    }
-    _active = true;
-    setActive(true);
 }

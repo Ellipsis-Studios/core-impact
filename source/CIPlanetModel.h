@@ -175,11 +175,6 @@ public:
     void dispose();
 
     /**
-     * Resets resources of this planet. Used to reset the game.
-     */
-    void reset();
-
-    /**
      * Initializes a new planet with the given color
      *
      * This method does NOT create a scene graph node for this planet.  You
@@ -243,9 +238,7 @@ public:
      */
     bool isWinner() {
         return (_mass >= WIN_PLANET_MASS);
-    }
-    
+    }    
 };
-
 
 #endif /* __CI_PLANET_MODEL_H__ */

@@ -36,19 +36,6 @@ void StardustQueue::dispose() {
     _stardustNode = nullptr;
     _stardust_to_send.clear();
 }
-
-/**
-* Resets the stardust queue. Used for resetting the game.
-*/
-void StardustQueue::reset() {
-    _stardust_to_send.clear();
-    auto qs = _queue.size();
-    _queue.clear();
-    _queue.resize(qs);
-    _qhead = 0;
-    _qtail = -1;
-    _qsize = 0;
-}
     
 /**
  *  Initialies a new (empty) StardustQueue

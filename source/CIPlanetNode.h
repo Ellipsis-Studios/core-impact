@@ -61,8 +61,6 @@ public:
         node->_lockedTexture = locked;
         return (node->initWithTexture(core) ? node : nullptr);
     }
-
-    void reset();
     
     void draw(const std::shared_ptr<cugl::SpriteBatch>& batch,
               const cugl::Mat4& transform, cugl::Color4 tint) override;
