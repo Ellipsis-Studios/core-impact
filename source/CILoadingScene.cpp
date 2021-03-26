@@ -100,9 +100,7 @@ void LoadingScene::reset() {
         _progress = 0.0f;
 
         _button->setVisible(false);
-        _button->deactivate();
         _joinText->setVisible(false);
-        _joinText->deactivate();
 
         _bar->setVisible(true);
         _brand->setVisible(true);
