@@ -110,20 +110,9 @@ void CoreImpactApp::update(float timestep) {
     } else {
         // handle game reset
         _gameplay.reset();
-        _assets = nullptr;
-        _batch = nullptr;
-
-        _assets = AssetManager::alloc();
-        _batch = SpriteBatch::alloc();
-
-        _assets->attach<Font>(FontLoader::alloc()->getHook());
-        _assets->attach<Texture>(TextureLoader::alloc()->getHook());
-        _assets->attach<scene2::SceneNode>(Scene2Loader::alloc()->getHook());
-
+        _loading.removeAllChildren();
         _loaded = false;
         _loading.init(_assets);
-
-        _assets->loadDirectoryAsync("json/assets.json", nullptr);
     }
 }
 
