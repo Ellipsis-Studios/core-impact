@@ -99,7 +99,6 @@ void CoreImpactApp::onShutdown() {
  */
 void CoreImpactApp::update(float timestep) {
     if (!_loaded && _loading.isActive()) {
-        _loading.reset(); // sets the values to default
         _loading.update(0.01f);
     } else if (!_loaded) { 
         _loading.dispose(); // Disables the input listeners to this mode

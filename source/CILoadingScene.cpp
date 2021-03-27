@@ -92,23 +92,6 @@ void LoadingScene::dispose() {
     _progress = 0.0f;
 }
 
-/**
- * Resets the resources allocated to this mode to default.
- */
-void LoadingScene::reset() {
-    if (isActive()) { // initially set all values to default
-        _progress = 0.0f;
-
-        _button->setVisible(false);
-        _joinText->setVisible(false);
-
-        _bar->setVisible(true);
-        _brand->setVisible(true);
-        _bar->setProgress(_progress);
-        Scene2::reset();
-    } 
-}
-
 #pragma mark -
 #pragma mark Progress Monitoring
 /**
@@ -119,6 +102,18 @@ void LoadingScene::reset() {
  * @param timestep  The amount of time (in seconds) since the last frame
  */
 void LoadingScene::update(float progress) {
+    if (isActive()) { // initially set all values to default
+        _progress = 0.0f;
+
+        _button->setVisible(false);
+        _joinText->setVisible(false);
+
+        _bar->setVisible(true);
+        _brand->setVisible(true);
+        _bar->setProgress(_progress);
+        Scene2::reset();
+    }
+
     if (_progress < 1) {
         _progress = _assets->progress();
         if (_progress >= 1) {

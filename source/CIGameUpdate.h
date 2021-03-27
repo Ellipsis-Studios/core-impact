@@ -140,7 +140,6 @@ public:
      * Returns whether the player sending the game update has won.
      */
     bool didPlayerWin() {
-        // TODO: need to implement network win/lose condition
         return _planet->isWinner();
     }
 };
