@@ -59,19 +59,12 @@ bool LoadingScene::init(const std::shared_ptr<AssetManager>& assets) {
     
     _bar = std::dynamic_pointer_cast<scene2::ProgressBar>(assets->get<scene2::SceneNode>("load_bar"));
     _brand = assets->get<scene2::SceneNode>("load_name");
-    _button = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("load_play"));
-    _button->addListener([=](const std::string& name, bool down) {
-        this->_active = down;
-    });
-    _joinText = std::dynamic_pointer_cast<scene2::TextField>(assets->get<scene2::SceneNode>("load_join_game"));
-    _joinText->addExitListener([=](const std::string& name, const std::string& value) {
-        CULog("Attempt to join %s",value.c_str());
-        _joinGame = value;
-        this->_active = true;
-    });
-    
-    Application::get()->setClearColor(Color4(192,192,192,255));
-    addChild(layer);
+    _teamlogo = assets->get<scene2::SceneNode>("load_teamlogo");
+    _gameTitle = assets->get<scene2::SceneNode>("load_title");
+    _gamePlanet = assets->get<scene2::SceneNode>("load_world");
+
+    Application::get()->setClearColor(Color4(192, 192, 192, 255));
+    addChildWithName(layer, "loadingScene");
     return true;
 }
 
@@ -79,17 +72,17 @@ bool LoadingScene::init(const std::shared_ptr<AssetManager>& assets) {
  * Disposes of all (non-static) resources allocated to this mode.
  */
 void LoadingScene::dispose() {
-    // Deactivate the button (platform dependent)
-    if (isPending()) {
-        _button->deactivate();
-        _joinText->deactivate();
-    }
-    _button = nullptr;
-    _joinText = nullptr;
+    _teamlogo->setVisible(false);
+    _gameTitle->setVisible(false);
+    _gamePlanet->setVisible(false);
     _brand = nullptr;
     _bar = nullptr;
     _assets = nullptr;
+    _teamlogo = nullptr;
+    _gameTitle = nullptr;
+    _gamePlanet = nullptr;
     _progress = 0.0f;
+    _isLoaded = false;
 }
 
 
@@ -103,27 +96,36 @@ void LoadingScene::dispose() {
  * @param timestep  The amount of time (in seconds) since the last frame
  */
 void LoadingScene::update(float progress) {
-    if (_progress < 1) {
+    if (_isLoaded) {
+        // move game title/planet
+        auto root = getChildByName("loadingScene");
+        float rend = root->getContentWidth() / 4.0f;
+
+        if (_gamePlanet->getPositionX() > rend) {
+            /** Move game planet/title to the left */
+            auto newx = _gamePlanet->getPositionX() - (rend / 60.0f);
+            _gamePlanet->setPositionX(newx);
+            _gameTitle->setPositionX(newx);
+        }
+        else {
+            /** Completed movement. Trigger main menu scene. */
+            _gamePlanet->setPositionX(rend);
+            _gameTitle->setPositionX(rend);
+            _active = false;
+        }
+    }
+    else if (_progress < 1) {
         _progress = _assets->progress();
         if (_progress >= 1) {
             _progress = 1.0f;
             _bar->setVisible(false);
             _brand->setVisible(false);
-            _button->setVisible(true);
-            _button->activate();
-            _joinText->setVisible(true);
-            _joinText->activate();
+
+            _gameTitle->setVisible(true);
+            _gamePlanet->setVisible(true);
+            _teamlogo->setVisible(true);
+            _isLoaded = true;
         }
         _bar->setProgress(_progress);
     }
 }
-
-/**
- * Returns true if loading is complete, but the player has not pressed play
- *
- * @return true if loading is complete, but the player has not pressed play
- */
-bool LoadingScene::isPending( ) const {
-    return _button != nullptr && _button->isVisible();
-}
-

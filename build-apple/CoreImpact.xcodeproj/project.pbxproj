@@ -30,6 +30,12 @@
 		3DCF911E2607B5B600B97FA1 /* CINetworkUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCF911D2607B5B600B97FA1 /* CINetworkUtils.cpp */; };
 		3DCF911F2607B5B600B97FA1 /* CINetworkUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCF911D2607B5B600B97FA1 /* CINetworkUtils.cpp */; };
 		3DCF91202607B5B600B97FA1 /* CINetworkUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCF911D2607B5B600B97FA1 /* CINetworkUtils.cpp */; };
+		426951F0260FCE5000E675E9 /* CIMenuScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 426951EF260FCE5000E675E9 /* CIMenuScene.cpp */; };
+		426951F1260FCE5000E675E9 /* CIMenuScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 426951EF260FCE5000E675E9 /* CIMenuScene.cpp */; };
+		426951F2260FCE5000E675E9 /* CIMenuScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 426951EF260FCE5000E675E9 /* CIMenuScene.cpp */; };
+		426951FA260FCE9D00E675E9 /* widgets in Resources */ = {isa = PBXBuildFile; fileRef = 426951F9260FCE9D00E675E9 /* widgets */; };
+		426951FB260FCE9D00E675E9 /* widgets in Resources */ = {isa = PBXBuildFile; fileRef = 426951F9260FCE9D00E675E9 /* widgets */; };
+		426951FC260FCE9D00E675E9 /* widgets in Resources */ = {isa = PBXBuildFile; fileRef = 426951F9260FCE9D00E675E9 /* widgets */; };
 		CA68E30B25F53BC200B4617D /* CICollisionController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA68E30625F53BC200B4617D /* CICollisionController.cpp */; };
 		CA68E30C25F53BC200B4617D /* CICollisionController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA68E30625F53BC200B4617D /* CICollisionController.cpp */; };
 		CA68E30D25F53BC200B4617D /* CICollisionController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA68E30625F53BC200B4617D /* CICollisionController.cpp */; };
@@ -160,6 +166,9 @@
 		3DCF9118260657A900B97FA1 /* CIGameState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIGameState.h; sourceTree = "<group>"; };
 		3DCF911C2607B5A100B97FA1 /* CINetworkUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CINetworkUtils.h; sourceTree = "<group>"; };
 		3DCF911D2607B5B600B97FA1 /* CINetworkUtils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CINetworkUtils.cpp; sourceTree = "<group>"; };
+		426951EE260FCE4000E675E9 /* CIMenuScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIMenuScene.h; sourceTree = "<group>"; };
+		426951EF260FCE5000E675E9 /* CIMenuScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CIMenuScene.cpp; sourceTree = "<group>"; };
+		426951F9260FCE9D00E675E9 /* widgets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = widgets; sourceTree = "<group>"; };
 		CA68E30625F53BC200B4617D /* CICollisionController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CICollisionController.cpp; sourceTree = "<group>"; };
 		CA68E30A25F53BC200B4617D /* CICollisionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CICollisionController.h; sourceTree = "<group>"; };
 		CA9A2DC725EDBD6A0048D02F /* CIStardustModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIStardustModel.h; sourceTree = "<group>"; };
@@ -294,6 +303,7 @@
 			isa = PBXGroup;
 			children = (
 				EBFE7C041E19B496001007C2 /* json */,
+				426951F9260FCE9D00E675E9 /* widgets */,
 				EB2BE9BA1D7498D2002FE78B /* textures */,
 				EB2BE9B81D7498C9002FE78B /* fonts */,
 			);
@@ -433,6 +443,8 @@
 				3DCF9118260657A900B97FA1 /* CIGameState.h */,
 				3DCF911C2607B5A100B97FA1 /* CINetworkUtils.h */,
 				3DCF911D2607B5B600B97FA1 /* CINetworkUtils.cpp */,
+				426951EE260FCE4000E675E9 /* CIMenuScene.h */,
+				426951EF260FCE5000E675E9 /* CIMenuScene.cpp */,
 			);
 			name = Source;
 			path = ../source;
@@ -576,6 +588,7 @@
 				EB0FF6172016EFB200517030 /* iOS.xcassets in Resources */,
 				EB0FF6182016EFB200517030 /* Landscape.storyboard in Resources */,
 				EB0FF6192016EFB200517030 /* Portrait.storyboard in Resources */,
+				426951FC260FCE9D00E675E9 /* widgets in Resources */,
 				EB42669721F68F6900A9DE61 /* DeviceMargins.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -590,6 +603,7 @@
 				EB7454AC1D74D846002FBAE6 /* Landscape.storyboard in Resources */,
 				EBFE7C051E19B496001007C2 /* json in Resources */,
 				EB7454AD1D74D846002FBAE6 /* Portrait.storyboard in Resources */,
+				426951FB260FCE9D00E675E9 /* widgets in Resources */,
 				EB42669621F68F6900A9DE61 /* DeviceMargins.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -602,6 +616,7 @@
 				EB2BE9BB1D7498D2002FE78B /* textures in Resources */,
 				EB2BE9B91D7498C9002FE78B /* fonts in Resources */,
 				EBBF189B1D74904A008E2001 /* Mac.xcassets in Resources */,
+				426951FA260FCE9D00E675E9 /* widgets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -627,6 +642,7 @@
 				EBFA529E21FA5D1000CCC2C5 /* CILoadingScene.cpp in Sources */,
 				3DCF91202607B5B600B97FA1 /* CINetworkUtils.cpp in Sources */,
 				EBFA52A021FA5D1300CCC2C5 /* CIGameScene.cpp in Sources */,
+				426951F2260FCE5000E675E9 /* CIMenuScene.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -649,6 +665,7 @@
 				EBFA529D21FA5D0F00CCC2C5 /* CILoadingScene.cpp in Sources */,
 				3DCF911F2607B5B600B97FA1 /* CINetworkUtils.cpp in Sources */,
 				EBFA529F21FA5D1300CCC2C5 /* CIGameScene.cpp in Sources */,
+				426951F1260FCE5000E675E9 /* CIMenuScene.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -671,6 +688,7 @@
 				EBFA528C21FA5AAC00CCC2C5 /* CILoadingScene.cpp in Sources */,
 				3DCF911E2607B5B600B97FA1 /* CINetworkUtils.cpp in Sources */,
 				EB2BE9B61D74952A002FE78B /* main.cpp in Sources */,
+				426951F0260FCE5000E675E9 /* CIMenuScene.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -700,6 +718,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/iOS-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(STATIC_LIB)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.elipsis.sim.coreimpact;
@@ -731,6 +750,7 @@
 				DEVELOPMENT_TEAM = B836CXCFQ5;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/iOS-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(STATIC_LIB)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.elipsis.sim.coreimpact;

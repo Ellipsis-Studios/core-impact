@@ -63,6 +63,9 @@ protected:
     /** Pointer to the model of the stardust that is currently being dragged */
     StardustModel*  _draggedStardust;
     
+    /** Countdown to reset the game after winning/losing */
+    float _countdown;
+    
 public:
 #pragma mark -
 #pragma mark Constructors

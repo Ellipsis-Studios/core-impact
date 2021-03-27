@@ -37,6 +37,8 @@ using namespace std;
 /** Maximum number of stardusts allowed on screen at a time. */
 #define MAX_STARDUST 512
 
+/** Starting value for the countdown */
+#define START_COUNTDOWN -10.0f
 
 #pragma mark -
 #pragma mark Constructors
@@ -109,6 +111,8 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets, bool isH
     addChild(scene);
     addChild(_planet->getPlanetNode());
     addChild(_stardustContainer->getStardustNode());
+    
+    _countdown = START_COUNTDOWN;
     return true;
 }
 
@@ -138,16 +142,11 @@ void GameScene::dispose() {
  * Resets the status of the game so that we can play again.
  */
 void GameScene::reset() {
-    // Reset the planet and input
-    _input.clear();
-    
-    // Reset the parallax
-    Vec2 position = _farSpace->getPosition();
-    _farSpace->setAnchor(Vec2::ANCHOR_CENTER);
-    _farSpace->setPosition(position);
-    _farSpace->setAngle(0.0f);
-    
-    _draggedStardust = NULL;
+    _input.dispose();
+    _gameUpdateManager->dispose();
+    _networkMessageManager->dispose();
+    removeAllChildren();
+    _active = false;
 }
 
 /**
@@ -162,15 +161,32 @@ void GameScene::update(float timestep) {
     dimen *= SCENE_WIDTH/dimen.width;
     _input.update(timestep);
     
+     _massHUD->setText("Room: " + _networkMessageManager->getRoomId()
+        + " / Your Core: " + to_string(_planet->getMass()) + "; "
+        + CIColor::getString(_planet->getColor()));
+    
+     // Handle counting down then switching to loading screen
+     if (_planet->isWinner()) {
+         if (_countdown <= START_COUNTDOWN) {
+             // handle winning. starts off win countdown
+             CULog("Game won.");
+             _countdown = 2.0f;
+         } else if (_countdown > 0.0f) {
+             // handle win countdown
+             _countdown -= timestep;
+             return;
+         } else if (_countdown > START_COUNTDOWN) {
+             // handle resetting game
+             setActive(false);
+             return;
+         }
+     }
+    
     _stardustContainer->update();
     
     if (rand() % 150 == 0){
         _stardustContainer->addStardust(dimen);
     }
-    
-    _massHUD->setText("Room: " + _networkMessageManager->getRoomId()
-        + " / Your Core: " + to_string(_planet->getMass()) + "; "
-        + CIColor::getString(_planet->getColor()));
 
     collisions::checkForCollision(_planet, _stardustContainer);
     collisions::checkInBounds(_stardustContainer, dimen);

@@ -1,0 +1,710 @@
+{
+  "textures": {
+    "nebula": {
+      "file": "textures/splashArt/splashArtBackground.png"
+    },
+    "title": {
+      "file": "textures/splashArt/splashArtTitle.png"
+    },
+    "stardust": {
+      "file": "textures/splashArt/splashArtStardust.png"
+    },
+    "world": {
+      "file": "textures/splashArt/splashArtWorld.png"
+    },
+    "teamlogo": {
+      "file": "textures/teamlogo.png"
+    },
+    "settingsbutton": {
+      "file": "textures/circle3dots.png",
+      "wrapS": "clamp",
+      "wrapT": "clamp",
+      "minfilter": "linear",
+      "magfilter": "linear"
+    },
+    "menubuttonup": {
+      "file": "textures/whitebuttonup.png"
+    },
+    "menubuttondown": {
+      "file": "textures/whitebuttondown.png"
+    },
+    "clearbutton": {
+      "file": "textures/clearbutton.png"
+    }
+  },
+  "fonts": {
+    "felt32": {
+      "file": "fonts/MarkerFelt.ttf",
+      "size": 32
+    },
+    "game64": {
+      "file": "fonts/RetroGame.ttf",
+      "size": 64
+    },
+    "pixel32": {
+      "file": "fonts/LightPixel7.ttf",
+      "size": 32
+    }
+  },
+  "widgets": {
+    "menubutton": "widgets/menubutton.json",
+    "backbutton": "widgets/backbutton.json"
+  },
+  "scene2s": {
+    "menu": {
+      "type": "Solid",
+      "format": {
+        "type": "Anchored"
+      },
+      "data": {
+        "color": [11, 0, 1, 255]
+      },
+      "children": {
+        "nebula": {
+          "type": "Image",
+          "format": {
+            "type": "Anchored"
+          },
+          "data": {
+            "texture": "nebula",
+            "anchor": [0.5, 1],
+            "scale": 0.75
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "top"
+          }
+        },
+        "title": {
+          "type": "Image",
+          "format": {
+            "type": "Anchored"
+          },
+          "data": {
+            "texture": "title",
+            "anchor": [0.5, 0.5],
+            "scale": 0.5
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "y_offset": 120,
+            "absolute": true
+          },
+          "children": {
+            "stardust": {
+              "type": "Image",
+              "data": {
+                "texture": "stardust",
+                "anchor": [0.5, 0.2],
+                "scale": 1
+              },
+              "layout": {
+                "x_anchor": "center",
+                "y_anchor": "middle",
+                "x_offset": -60,
+                "y_offset": 50,
+                "absolute": true
+              }
+            }
+          }
+        },
+        "world": {
+          "type": "Image",
+          "format": {
+            "type": "Anchored"
+          },
+          "data": {
+            "texture": "world",
+            "anchor": [0.5, 0.5],
+            "scale": 0.5
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "bottom",
+            "y_offset": 5,
+            "absolute": true
+          }
+        },
+        "teamlogo": {
+          "comment": "The scene graph for team logo in bottom right corner.",
+          "type": "Image",
+          "format": {
+            "type": "Anchored"
+          },
+          "data": {
+            "texture": "teamlogo",
+            "anchor": [0.5, 0.5],
+            "scale": 0.25,
+            "visible": true
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": 0.4,
+            "y_offset": -0.45
+          }
+        },
+        "mainmenu": {
+          "comment": "The main menu scene with 3 menu buttons and settings button.",
+          "type": "Node",
+          "format": {
+            "type": "Anchored"
+          },
+          "children": {
+            "settingsbutton": {
+              "comment": "The settings button with 3 dots in a circle.",
+              "type": "Button",
+              "data": {
+                "upnode": "up",
+                "pushable": [
+                  0,
+                  26,
+                  18,
+                  27,
+                  66,
+                  19,
+                  34,
+                  9,
+                  53,
+                  26,
+                  34,
+                  45,
+                  26,
+                  53,
+                  7,
+                  45
+                ],
+                "visible": true,
+                "pushsize": true,
+                "anchor": [0.5, 0.5],
+                "scale": 0.8
+              },
+              "children": {
+                "up": {
+                  "type": "Image",
+                  "data": {
+                    "texture": "settingsbutton",
+                    "scale": 0.15
+                  }
+                }
+              },
+              "layout": {
+                "x_anchor": "center",
+                "y_anchor": "middle",
+                "x_offset": 0.45,
+                "y_offset": 0.45
+              }
+            },
+            "joinbutton": {
+              "comment": "The join game button in main menu.",
+              "type": "Widget",
+              "data": {
+                "key": "menubutton",
+                "variables": {
+                  "size": [300, 75],
+                  "text": "Join Game",
+                  "size2": [300, 75],
+                  "text2": "Join Game"
+                }
+              },
+              "layout": {
+                "x_anchor": "center",
+                "y_anchor": "middle",
+                "x_offset": 0.2,
+                "y_offset": 0.25
+              }
+            },
+            "newbutton": {
+              "comment": "The new game button in main menu.",
+              "type": "Widget",
+              "data": {
+                "key": "menubutton",
+                "variables": {
+                  "size": [300, 75],
+                  "text": "New Game",
+                  "size2": [300, 75],
+                  "text2": "New Game"
+                }
+              },
+              "layout": {
+                "x_anchor": "center",
+                "y_anchor": "middle",
+                "x_offset": 0.2
+              }
+            },
+            "tutorialbutton": {
+              "comment": "The 'How to Play' button in main menu.",
+              "type": "Widget",
+              "data": {
+                "key": "menubutton",
+                "variables": {
+                  "size": [300, 75],
+                  "text": "How to Play",
+                  "size2": [300, 75],
+                  "text2": "How to Play"
+                }
+              },
+              "layout": {
+                "x_anchor": "center",
+                "y_anchor": "middle",
+                "x_offset": 0.2,
+                "y_offset": -0.25
+              }
+            }
+          }
+        },
+        "settings": {
+          "comment": "The scene graph for Settings sub-menu.",
+          "type": "Node",
+          "format": {
+            "type": "Anchored"
+          },
+          "children": {
+            "back": {
+              "comment": "The back button to return to main menu.",
+              "type": "Widget",
+              "data": {
+                "key": "backbutton",
+                "variables": {
+                  "size": [65, 75],
+                  "text": "Back"
+                }
+              },
+              "layout": {
+                "x_anchor": "center",
+                "y_anchor": "middle",
+                "x_offset": 0.05,
+                "y_offset": 0.38
+              }
+            },
+            "title": {
+              "comment": "Static text label for Setting page heading.",
+              "type": "Label",
+              "data": {
+                "font": "felt32",
+                "text": "Settings",
+                "foreground": [255, 255, 255, 255],
+                "background": [0, 0, 0, 0],
+                "size": [300, 80],
+                "anchor": [0.5, 0.5]
+              },
+              "layout": {
+                "x_anchor": "center",
+                "y_anchor": "middle",
+                "x_offset": 0.35,
+                "y_offset": 0.35
+              }
+            },
+            "namelabel": {
+              "comment": "The 'Name' label for the player name section.",
+              "type": "Label",
+              "data": {
+                "font": "felt32",
+                "text": "Name",
+                "foreground": [255, 255, 255, 255],
+                "background": [0, 0, 0, 0],
+                "size": [300, 80],
+                "anchor": [0.5, 0.5]
+              },
+              "layout": {
+                "x_anchor": "center",
+                "y_anchor": "middle",
+                "x_offset": 0.15,
+                "y_offset": 0.25
+              }
+            },
+            "nameinput": {
+              "comment": "The player name text input in Settings.",
+              "type": "TextField",
+              "data": {
+                "font": "felt32",
+                "text": "Player Name",
+                "foreground": [255, 255, 255, 255],
+                "background": [0, 0, 0, 0],
+                "size": [300, 80],
+                "anchor": [0.5, 0.5]
+              },
+              "layout": {
+                "x_anchor": "center",
+                "y_anchor": "middle",
+                "x_offset": 0.25,
+                "y_offset": 0.25
+              }
+            },
+            "musiclabel": {
+              "comment": "The 'Music' label for the toggle music section.",
+              "type": "Label",
+              "data": {
+                "font": "felt32",
+                "text": "Music",
+                "foreground": [255, 255, 255, 255],
+                "background": [0, 0, 0, 0],
+                "size": [300, 80],
+                "anchor": [0.5, 0.5]
+              },
+              "layout": {
+                "x_anchor": "center",
+                "y_anchor": "middle",
+                "x_offset": 0.15,
+                "y_offset": 0.1
+              }
+            },
+            "musicinput": {
+              "comment": "The music toggle button in Settings.",
+              "type": "Widget",
+              "data": {
+                "key": "menubutton",
+                "variables": {
+                  "size": [300, 75],
+                  "text": "Toggle Music",
+                  "size2": [300, 75],
+                  "text2": "Toggle Music"
+                }
+              },
+              "layout": {
+                "x_anchor": "center",
+                "y_anchor": "middle",
+                "x_offset": 0.3,
+                "y_offset": 0.1
+              }
+            },
+            "volumelabel": {
+              "comment": "The 'Volume' label for the volume slider section.",
+              "type": "Label",
+              "data": {
+                "font": "felt32",
+                "text": "Volume",
+                "foreground": [255, 255, 255, 255],
+                "background": [0, 0, 0, 0],
+                "size": [300, 80],
+                "anchor": [0.5, 0.5]
+              },
+              "layout": {
+                "x_anchor": "center",
+                "y_anchor": "middle",
+                "x_offset": 0.15,
+                "y_offset": -0.1
+              }
+            },
+            "volumeinput": {
+              "comment": "The volume slider in Settings.",
+              "type": "Slider",
+              "data": {
+                "bounds": [40, 0, 300, 0],
+                "range": [1, 100],
+                "value": 50,
+                "tick": 10,
+                "snap": true,
+                "anchor": [0.5, 0.5]
+              },
+              "layout": {
+                "x_anchor": "center",
+                "y_anchor": "middle",
+                "x_offset": 0.3,
+                "y_offset": -0.1
+              }
+            },
+            "parallaxlabel": {
+              "comment": "The 'Parallax Effect' label for the parallax toggle section.",
+              "type": "Label",
+              "data": {
+                "font": "felt32",
+                "text": "Parallax Effect",
+                "foreground": [255, 255, 255, 255],
+                "background": [0, 0, 0, 0],
+                "size": [300, 80],
+                "anchor": [0.5, 0.5]
+              },
+              "layout": {
+                "x_anchor": "center",
+                "y_anchor": "middle",
+                "x_offset": 0.15,
+                "y_offset": -0.3
+              }
+            },
+            "parallaxinput": {
+              "comment": "The parallax effect toggle button in Settings.",
+              "type": "Widget",
+              "data": {
+                "key": "menubutton",
+                "variables": {
+                  "size": [300, 75],
+                  "text": "Toggle Parallax",
+                  "size2": [300, 75],
+                  "text2": "Toggle Parallax"
+                }
+              },
+              "layout": {
+                "x_anchor": "center",
+                "y_anchor": "middle",
+                "x_offset": 0.3,
+                "y_offset": -0.3
+              }
+            }
+          }
+        },
+        "tutorial": {
+          "comment": "The scene graph for 'How To Play' sub-menu.",
+          "type": "Node",
+          "format": {
+            "type": "Anchored"
+          },
+          "children": {
+            "back": {
+              "comment": "The back button to return to main menu.",
+              "type": "Widget",
+              "data": {
+                "key": "backbutton",
+                "variables": {
+                  "size": [65, 75],
+                  "text": "Back"
+                }
+              },
+              "layout": {
+                "x_anchor": "center",
+                "y_anchor": "middle",
+                "x_offset": 0.05,
+                "y_offset": 0.38
+              }
+            },
+            "title": {
+              "comment": "The 'How To Play' page heading.",
+              "type": "Label",
+              "data": {
+                "font": "felt32",
+                "text": "How to Play",
+                "foreground": [255, 255, 255, 255],
+                "background": [0, 0, 0, 0],
+                "size": [300, 80],
+                "anchor": [0.5, 0.5]
+              },
+              "layout": {
+                "x_anchor": "center",
+                "y_anchor": "middle",
+                "x_offset": 0.35,
+                "y_offset": 0.3
+              }
+            }
+          }
+        },
+        "joingame": {
+          "comment": "The scene graph for Join Game sub-menu.",
+          "type": "Node",
+          "format": {
+            "type": "Anchored"
+          },
+          "children": {
+            "back": {
+              "comment": "The back button to return to main menu.",
+              "type": "Widget",
+              "data": {
+                "key": "backbutton",
+                "variables": {
+                  "size": [65, 75],
+                  "text": "Back"
+                }
+              },
+              "layout": {
+                "x_anchor": "center",
+                "y_anchor": "middle",
+                "x_offset": 0.05,
+                "y_offset": 0.38
+              }
+            },
+            "joinbutton": {
+              "comment": "The 'Join Game' button to join the game lobby.",
+              "type": "Widget",
+              "data": {
+                "key": "menubutton",
+                "variables": {
+                  "size": [300, 75],
+                  "text": "Join Game",
+                  "size2": [300, 75],
+                  "text2": "Join Game"
+                }
+              },
+              "layout": {
+                "x_anchor": "center",
+                "y_anchor": "middle",
+                "x_offset": 0.25,
+                "y_offset": -0.15
+              }
+            },
+            "roomidinput": {
+              "comment": "The Game Room Id text input in Join Game page",
+              "type": "TextField",
+              "data": {
+                "font": "felt32",
+                "text": "",
+                "foreground": [255, 255, 255, 255],
+                "background": [0, 0, 0, 255],
+                "size": [300, 80],
+                "anchor": [0.5, 0.5]
+              },
+              "layout": {
+                "x_anchor": "center",
+                "y_anchor": "middle",
+                "x_offset": 0.25,
+                "y_offset": 0.05
+              }
+            }
+          }
+        },
+        "gamelobby": {
+          "comment": "The scene graph for Game Lobby sub-menu",
+          "type": "Node",
+          "format": {
+            "type": "Anchored"
+          },
+          "children": {
+            "back": {
+              "comment": "The back button to return to main menu.",
+              "type": "Widget",
+              "data": {
+                "key": "backbutton",
+                "variables": {
+                  "size": [65, 75],
+                  "text": "Back"
+                }
+              },
+              "layout": {
+                "x_anchor": "center",
+                "y_anchor": "middle",
+                "x_offset": 0.05,
+                "y_offset": 0.38
+              }
+            },
+            "roomidlabel": {
+              "comment": "The text label showing the current game room id",
+              "type": "Label",
+              "data": {
+                "font": "felt32",
+                "text": "",
+                "foreground": [255, 255, 255, 255],
+                "background": [0, 0, 0, 0],
+                "size": [300, 80],
+                "anchor": [0.5, 0.5]
+              },
+              "layout": {
+                "x_anchor": "center",
+                "y_anchor": "middle",
+                "x_offset": 0.35,
+                "y_offset": 0.4
+              }
+            },
+            "playerlabel1": {
+              "comment": "The label at the top for current player's info.",
+              "type": "Label",
+              "data": {
+                "font": "felt32",
+                "text": "You",
+                "foreground": [255, 255, 255, 255],
+                "background": [0, 0, 0, 0],
+                "size": [300, 80],
+                "anchor": [0.5, 0.5]
+              },
+              "layout": {
+                "x_anchor": "center",
+                "y_anchor": "middle",
+                "x_offset": 0.35,
+                "y_offset": 0.3
+              }
+            },
+            "playerlabel2": {
+              "comment": "The label at the middle-left for opponent player's info",
+              "type": "Label",
+              "data": {
+                "font": "felt32",
+                "text": "N/A",
+                "foreground": [255, 255, 255, 255],
+                "background": [0, 0, 0, 0],
+                "size": [300, 80],
+                "anchor": [0.5, 0.5]
+              },
+              "layout": {
+                "x_anchor": "center",
+                "y_anchor": "middle",
+                "x_offset": 0.25,
+                "y_offset": 0.15
+              }
+            },
+            "playerlabel3": {
+              "comment": "The label at the middle-right for opponent player's info",
+              "type": "Label",
+              "data": {
+                "font": "felt32",
+                "text": "N/A",
+                "foreground": [255, 255, 255, 255],
+                "background": [0, 0, 0, 0],
+                "size": [300, 80],
+                "anchor": [0.5, 0.5]
+              },
+              "layout": {
+                "x_anchor": "center",
+                "y_anchor": "middle",
+                "x_offset": 0.45,
+                "y_offset": 0.15
+              }
+            },
+            "playerlabel4": {
+              "comment": "The label at the bottom-left for opponent player's info",
+              "type": "Label",
+              "data": {
+                "font": "felt32",
+                "text": "N/A",
+                "foreground": [255, 255, 255, 255],
+                "background": [0, 0, 0, 0],
+                "size": [300, 80],
+                "anchor": [0.5, 0.5]
+              },
+              "layout": {
+                "x_anchor": "center",
+                "y_anchor": "middle",
+                "x_offset": 0.25,
+                "y_offset": -0.05
+              }
+            },
+            "playerlabel5": {
+              "comment": "The label at the bottom-right for opponent player's info",
+              "type": "Label",
+              "data": {
+                "font": "felt32",
+                "text": "N/A",
+                "foreground": [255, 255, 255, 255],
+                "background": [0, 0, 0, 0],
+                "size": [300, 80],
+                "anchor": [0.5, 0.5]
+              },
+              "layout": {
+                "x_anchor": "center",
+                "y_anchor": "middle",
+                "x_offset": 0.45,
+                "y_offset": -0.05
+              }
+            },
+            "startbutton": {
+              "comment": "The start game button to launch game from the game lobby",
+              "type": "Widget",
+              "data": {
+                "key": "menubutton",
+                "variables": {
+                  "size": [300, 75],
+                  "text": "Start",
+                  "size2": [300, 75],
+                  "text2": "Start"
+                }
+              },
+              "layout": {
+                "x_anchor": "center",
+                "y_anchor": "middle",
+                "x_offset": 0.25,
+                "y_offset": -0.3
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

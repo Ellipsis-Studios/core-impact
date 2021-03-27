@@ -45,11 +45,13 @@ void CoreImpactApp::onStartup() {
     
     _assets->attach<Font>(FontLoader::alloc()->getHook());
     _assets->attach<Texture>(TextureLoader::alloc()->getHook());
+    _assets->attach<WidgetValue>(WidgetLoader::alloc()->getHook());
     _assets->attach<scene2::SceneNode>(Scene2Loader::alloc()->getHook());
 
     // Create a "loading" screen
     _loaded = false;
     _loading.init(_assets);
+    _startGame = false;
     
     // Queue up the other assets
     _assets->loadDirectoryAsync("json/assets.json",nullptr);
@@ -69,7 +71,10 @@ void CoreImpactApp::onStartup() {
  * causing the application to be deleted.
  */
 void CoreImpactApp::onShutdown() {
-    _loading.dispose();
+    if (_loading.isActive())
+        _loading.dispose();
+    if (_menu.isActive())
+        _menu.dispose();
     _gameplay.dispose();
     _assets = nullptr;
     _batch = nullptr;
@@ -99,13 +104,38 @@ void CoreImpactApp::onShutdown() {
  */
 void CoreImpactApp::update(float timestep) {
     if (!_loaded && _loading.isActive()) {
+        _loading.reset(); // sets the values to default
         _loading.update(0.01f);
-    } else if (!_loaded) {
-        _loading.dispose(); // Disables the input listeners in this mode
-        _gameplay.init(_assets, _loading._joinGame.empty(), _loading._joinGame);
+    }
+    else if (!_loaded) {
+        /** Transition to menu scene */
+        _loading.dispose();
+        _menu.init(_assets);
         _loaded = true;
-    } else {
+    }
+    else if (!_startGame && _menu.isActive()) {
+        /** Handle menu scene updates */
+        _menu.reset();
+        _menu.update(timestep);
+    }
+    else if (!_startGame) {
+        /** Transition from menu to game scene */
+        _menu.dispose(); // Disables the input listeners to this mode
+        _gameplay.init(_assets, _menu.getJoinGameId().empty(), _menu.getJoinGameId());
+        _startGame = true;
+    } else if (_gameplay.isActive()) {
+        /** Handle game play updates */
         _gameplay.update(timestep);
+    }
+    else {
+        /** Handle game reset */
+        _gameplay.reset();
+        //_menu.removeAllChildren();
+        _menu.removeChildByName("menuScene");
+        _menu.setActive(false);
+        _loaded = true;
+        _startGame = false;
+        _menu.init(_assets);
     }
 }
 
@@ -121,6 +151,8 @@ void CoreImpactApp::update(float timestep) {
 void CoreImpactApp::draw() {
     if (!_loaded) {
         _loading.render(_batch);
+    } else if (!_startGame) {
+        _menu.render(_batch);
     } else {
         _gameplay.render(_batch);
     }

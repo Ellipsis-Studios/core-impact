@@ -1,0 +1,126 @@
+{
+  "variables": {
+    "size": ["children", "up", "data", "size"],
+    "text": ["children", "up", "children", "label", "data", "text"],
+    "size2": ["children", "down", "data", "size"],
+    "text2": ["children", "down", "children", "label", "data", "text"],
+    "font": ["children", "up", "children", "label", "data", "font"],
+    "texture": ["children", "up", "children", "patch", "data", "texture"],
+    "interior": ["children", "up", "children", "patch", "data", "interior"]
+  },
+  "contents": {
+    "type": "Button",
+    "format": {
+      "type": "Anchored"
+    },
+    "data": {
+      "anchor": [0.5, 0.5],
+      "upnode": "up",
+      "downnode": "down"
+    },
+    "children": {
+      "up": {
+        "type": "Node",
+        "format": {
+          "type": "Anchored"
+        },
+        "data": {
+          "size": [300, 75],
+          "anchor": [0.5, 0.5]
+        },
+        "children": {
+          "patch": {
+            "type": "NinePatch",
+            "format": {
+              "type": "Anchored"
+            },
+            "data": {
+              "texture": "menubuttonup",
+              "anchor": [0.5, 0.5],
+              "interior": [10, 10, 100, 60]
+            },
+            "layout": {
+              "x_anchor": "fill",
+              "y_anchor": "fill"
+            }
+          },
+          "label": {
+            "type": "Label",
+            "format": {
+              "type": "Anchored"
+            },
+            "data": {
+              "font": "felt32",
+              "text": "text",
+              "foreground": [255, 255, 255, 255],
+              "background": [0, 0, 0, 0],
+              "anchor": [0.5, 0.5],
+              "halign": "center",
+              "valign": "middle"
+            },
+            "layout": {
+              "x_anchor": "fill",
+              "y_anchor": "fill"
+            }
+          }
+        },
+        "layout": {
+          "x_anchor": "fill",
+          "y_anchor": "fill"
+        }
+      },
+      "down": {
+        "type": "Node",
+        "format": {
+          "type": "Anchored"
+        },
+        "data": {
+          "comment": "Without this size, the up button fills the screen (because that is default)",
+          "size": [300, 75],
+          "anchor": [0.5, 0.5]
+        },
+        "children": {
+          "comment": "The children fit snug to the up button and do not need sizes",
+          "patch": {
+            "type": "NinePatch",
+            "format": {
+              "type": "Anchored"
+            },
+            "data": {
+              "texture": "menubuttondown",
+              "anchor": [0.5, 0.5],
+              "interior": [10, 10, 100, 60]
+            },
+            "layout": {
+              "x_anchor": "fill",
+              "y_anchor": "fill"
+            }
+          },
+          "label": {
+            "type": "Label",
+            "format": {
+              "type": "Anchored"
+            },
+            "data": {
+              "font": "felt32",
+              "text": "text",
+              "foreground": [0, 0, 0, 255],
+              "background": [0, 0, 0, 0],
+              "anchor": [0.5, 0.5],
+              "halign": "center",
+              "valign": "middle"
+            },
+            "layout": {
+              "x_anchor": "fill",
+              "y_anchor": "fill"
+            }
+          }
+        },
+        "layout": {
+          "x_anchor": "fill",
+          "y_anchor": "fill"
+        }
+      }
+    }
+  }
+}
