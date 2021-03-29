@@ -66,9 +66,7 @@ void NetworkMessageManager::sendMessages() {
             float xVel = val[jj]->getVelocity().x;
             float yVel = val[jj]->getVelocity().y;
             
-            CULog("SENT> SRC[%i], DST[%i], CLR[%i], VEL[%f,%f]", playerId, dstPlayerId, stardustColor, xVel, yVel);
-            
-            data.push_back(NetworkUtils::MessageType::StardustSent);
+            NetworkUtils::encodeInt(NetworkUtils::MessageType::StardustSent, data);
             NetworkUtils::encodeInt(playerId, data);
             NetworkUtils::encodeInt(dstPlayerId, data);
             NetworkUtils::encodeInt(stardustColor, data);
@@ -79,32 +77,26 @@ void NetworkMessageManager::sendMessages() {
             
              _conn->send(data);
             data.clear();
+            CULog("SENT SU> SRC[%i], DST[%i], CLR[%i], VEL[%f,%f]", playerId, dstPlayerId, stardustColor, xVel, yVel);
         }
     }
-        
-        // send planet update on last game update to process
-//        if (ii == gameUpdatesToProcess.size() - 1) {
-//            int planetColor = cugl::marshall(gameUpdate->getPlanet()->getColor());
-//            int planetSize = cugl::marshall(gameUpdate->getPlanet()->getMass());
-//            int planetCurrLayerSize = cugl::marshall(gameUpdate->getPlanet()->getCurrLayerProgress());
-//            int planetStardustToNextLockIn = cugl::marshall(gameUpdate->getPlanet()->getLayerLockinTotal());
-//
-//            data.push_back(PLANET_UPDATE);
-//            encodeInt(playerId, data);
-//            encodeInt(planetColor, data);
-//            encodeInt(planetSize, data);
-//            encodeInt(planetCurrLayerSize, data);
-//            encodeInt(planetStardustToNextLockIn, data);
-//            encodeInt(cugl::marshall(_timestamp), data);
-//            _timestamp++;
-//
-//            // TODO: uncomment when cugl-net set up
-//            // conn->send(data);
-//            data.clear();
-//        }
-        
-        // TODO: send win game message
-//    }
+    
+    // send planet update
+    int planetColor = gameUpdate->getPlanet()->getColor();
+    float planetSize = gameUpdate->getPlanet()->getMass();
+
+    NetworkUtils::encodeInt(NetworkUtils::MessageType::PlanetUpdate, data);
+    NetworkUtils::encodeInt(playerId, data);
+    NetworkUtils::encodeInt(planetColor, data);
+    NetworkUtils::encodeInt(planetSize, data);
+    NetworkUtils::encodeInt(_timestamp, data);
+    _timestamp++;
+
+    _conn->send(data);
+    data.clear();
+    CULog("SENT PU> SRC[%i], CLR[%i], SIZE[%f]", playerId, planetColor, planetSize);
+
+    // TODO: send win game message
     
     // clear game update to send now that we have sent update.
     _gameUpdateManager->clearGameUpdateToSend();
@@ -116,15 +108,10 @@ void NetworkMessageManager::sendMessages() {
 void NetworkMessageManager::receiveMessages() {
     if (_conn == nullptr)
         return;
-    
+
     _conn->receive([this](const std::vector<uint8_t>& recv) {
-        //CULog("RECEIVED MESSAGE");
-        //CULog("%u", message.size());
         if (!recv.empty()) {
-            //uint8_t message_type = cugl::marshall(recv[0]);
             uint8_t message_type = recv[0];
-            //CULog("MESSAGE TYPE");
-            //CULog("%u", message_type);
 
             if (message_type == NetworkUtils::MessageType::StardustSent) {
                 int srcPlayer = NetworkUtils::decodeInt(recv[1], recv[2], recv[3], recv[4]);
@@ -134,7 +121,7 @@ void NetworkMessageManager::receiveMessages() {
                 float yVel = NetworkUtils::decodeFloat(recv[17], recv[18], recv[19], recv[20]);
                 int timestamp = NetworkUtils::decodeInt(recv[21], recv[22], recv[23], recv[24]);
 
-                CULog("RCVD> SRC[%i], DST[%i], CLR[%i], VEL[%f,%f]", srcPlayer, dstPlayer, stardustColor, xVel, yVel);
+                CULog("RCVD SU> SRC[%i], DST[%i], CLR[%i], VEL[%f,%f]", srcPlayer, dstPlayer, stardustColor, xVel, yVel);
 
                 std::shared_ptr<StardustModel> stardust = StardustModel::alloc(cugl::Vec2(0, 0), cugl::Vec2(xVel, yVel), static_cast<CIColor::Value>(stardustColor));
                 std::map<int, std::vector<std::shared_ptr<StardustModel>>> map = { { dstPlayer, std::vector<std::shared_ptr<StardustModel>> { stardust } } };
@@ -142,9 +129,14 @@ void NetworkMessageManager::receiveMessages() {
                 _gameUpdateManager->addGameUpdate(gameUpdate);
             }
             else if (message_type == NetworkUtils::MessageType::PlanetUpdate) {
-                CULog("RECEIVED PLANET UPDATE MESSAGE");
+                int srcPlayer = NetworkUtils::decodeInt(recv[1], recv[2], recv[3], recv[4]);
+                int planetColor = NetworkUtils::decodeInt(recv[5], recv[6], recv[7], recv[8]);
+                float planetSize = NetworkUtils::decodeFloat(recv[9], recv[10], recv[11], recv[12]);
+                int timeStamp = NetworkUtils::decodeInt(recv[13], recv[14], recv[15], recv[16]);
+                
+                CULog("RCVD PU> SRC[%i], CLR[%i], SIZE[%f]", srcPlayer, planetColor, planetSize);
 
-                // TODO: no need to process bytes now as opponent planet is not drawn on screen
+                // TODO: create opponent planet model when that is complete
             }
             else {
                 CULog("WRONG MESSAGE TYPE");

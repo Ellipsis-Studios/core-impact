@@ -25,6 +25,9 @@ private:
     /** The last game update sent to other players */
     std::shared_ptr<GameUpdate> _prev_game_update_sent;
     
+    /** The mass of the planet from the previous game update sent */
+    float _prev_planet_mass;
+    
     std::shared_ptr<GameUpdate> _game_update_to_send;
     
     /** Vector of game updates to process */
