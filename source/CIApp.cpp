@@ -50,7 +50,7 @@ void CoreImpactApp::onStartup() {
     // Create a "loading" screen
     _loaded = false;
     _loading.init(_assets);
-    
+
     // Queue up the other assets
     _assets->loadDirectoryAsync("json/assets.json",nullptr);
     
@@ -100,12 +100,18 @@ void CoreImpactApp::onShutdown() {
 void CoreImpactApp::update(float timestep) {
     if (!_loaded && _loading.isActive()) {
         _loading.update(0.01f);
-    } else if (!_loaded) {
-        _loading.dispose(); // Disables the input listeners in this mode
+    } else if (!_loaded) { 
+        _loading.dispose(); // Disables the input listeners to this mode
         _gameplay.init(_assets, _loading._joinGame.empty(), _loading._joinGame);
         _loaded = true;
-    } else {
+    } else if (_gameplay.isActive()) { 
         _gameplay.update(timestep);
+    } else {
+        // handle game reset
+        _gameplay.reset();
+        _loading.removeAllChildren();
+        _loaded = false;
+        _loading.init(_assets);
     }
 }
 

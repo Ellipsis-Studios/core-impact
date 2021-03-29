@@ -78,7 +78,7 @@ public:
      * Disposes of all (non-static) resources allocated to this mode.
      */
     void dispose();
-    
+
     /**
      * Initializes the controller contents, making it ready for loading
      *

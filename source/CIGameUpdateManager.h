@@ -56,7 +56,7 @@ public:
      * Disposes of all (non-static) resources allocated to this game update manager.
      */
     void dispose();
-    
+
     /**
      * Initializes the game update manager
      *

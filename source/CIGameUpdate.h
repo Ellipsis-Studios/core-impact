@@ -140,10 +140,8 @@ public:
      * Returns whether the player sending the game update has won.
      */
     bool didPlayerWin() {
-        // TODO: need to implement win condition
-        return false;
+        return _planet->isWinner();
     }
-    
 };
 
 #endif /* __CI_GAME_UPDATE_H__ */

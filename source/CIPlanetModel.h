@@ -15,6 +15,9 @@
 #include "CIPlanetLayer.h"
 #include "CIPlanetNode.h"
 
+#define WIN_PLANET_MASS 200
+
+
 class PlanetModel {
 private:
     /** The layers of this planet */
@@ -170,7 +173,7 @@ public:
      * disposed, a planet may not be used until it is initialized again.
      */
     void dispose();
-        
+
     /**
      * Initializes a new planet with the given color
      *
@@ -228,7 +231,14 @@ public:
      */
     bool lockInLayer(float timestep);
     
+    /**
+     * Checks if current planet satisfies winning conditions.
+     *
+     * @return bool whether current planet satisfies winning conditions.
+     */
+    bool isWinner() {
+        return (_mass >= WIN_PLANET_MASS);
+    }    
 };
-
 
 #endif /* __CI_PLANET_MODEL_H__ */

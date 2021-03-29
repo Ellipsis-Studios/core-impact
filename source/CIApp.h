@@ -34,7 +34,7 @@ protected:
 
     /** Whether or not we have finished loading all assets */
     bool _loaded;
-    
+
 public:
     /**
      * Creates, but does not initialized a new application.

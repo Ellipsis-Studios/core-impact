@@ -92,7 +92,6 @@ void LoadingScene::dispose() {
     _progress = 0.0f;
 }
 
-
 #pragma mark -
 #pragma mark Progress Monitoring
 /**
@@ -103,6 +102,16 @@ void LoadingScene::dispose() {
  * @param timestep  The amount of time (in seconds) since the last frame
  */
 void LoadingScene::update(float progress) {
+    _progress = 0.0f;
+
+    _button->setVisible(false);
+    _joinText->setVisible(false);
+
+    _bar->setVisible(true);
+    _brand->setVisible(true);
+    _bar->setProgress(_progress);
+    Scene2::reset();
+
     if (_progress < 1) {
         _progress = _assets->progress();
         if (_progress >= 1) {
