@@ -13,6 +13,7 @@
 #include <cugl/cugl.h>
 #include "CIGameUpdate.h"
 #include "CIStardustModel.h"
+#include "CIOpponentPlanet.h"
 #include "CINetworkUtils.h"
 
 /**
@@ -111,15 +112,15 @@ void NetworkMessageManager::receiveMessages() {
 
     _conn->receive([this](const std::vector<uint8_t>& recv) {
         if (!recv.empty()) {
-            uint8_t message_type = recv[0];
+            int message_type = NetworkUtils::decodeInt(recv[0], recv[1], recv[2], recv[3]);
 
             if (message_type == NetworkUtils::MessageType::StardustSent) {
-                int srcPlayer = NetworkUtils::decodeInt(recv[1], recv[2], recv[3], recv[4]);
-                int dstPlayer = NetworkUtils::decodeInt(recv[5], recv[6], recv[7], recv[8]);
-                int stardustColor = NetworkUtils::decodeInt(recv[9], recv[10], recv[11], recv[12]);
-                float xVel = NetworkUtils::decodeFloat(recv[13], recv[14], recv[15], recv[16]);
-                float yVel = NetworkUtils::decodeFloat(recv[17], recv[18], recv[19], recv[20]);
-                int timestamp = NetworkUtils::decodeInt(recv[21], recv[22], recv[23], recv[24]);
+                int srcPlayer = NetworkUtils::decodeInt(recv[4], recv[5], recv[6], recv[7]);
+                int dstPlayer = NetworkUtils::decodeInt(recv[8], recv[9], recv[10], recv[11]);
+                int stardustColor = NetworkUtils::decodeInt(recv[12], recv[13], recv[14], recv[15]);
+                float xVel = NetworkUtils::decodeFloat(recv[16], recv[17], recv[18], recv[19]);
+                float yVel = NetworkUtils::decodeFloat(recv[20], recv[21], recv[22], recv[23]);
+                int timestamp = NetworkUtils::decodeInt(recv[24], recv[25], recv[26], recv[27]);
 
                 CULog("RCVD SU> SRC[%i], DST[%i], CLR[%i], VEL[%f,%f]", srcPlayer, dstPlayer, stardustColor, xVel, yVel);
 
@@ -129,14 +130,19 @@ void NetworkMessageManager::receiveMessages() {
                 _gameUpdateManager->addGameUpdate(gameUpdate);
             }
             else if (message_type == NetworkUtils::MessageType::PlanetUpdate) {
-                int srcPlayer = NetworkUtils::decodeInt(recv[1], recv[2], recv[3], recv[4]);
-                int planetColor = NetworkUtils::decodeInt(recv[5], recv[6], recv[7], recv[8]);
-                float planetSize = NetworkUtils::decodeFloat(recv[9], recv[10], recv[11], recv[12]);
-                int timeStamp = NetworkUtils::decodeInt(recv[13], recv[14], recv[15], recv[16]);
+                int srcPlayer = NetworkUtils::decodeInt(recv[4], recv[5], recv[6], recv[7]);
+                int planetColor = NetworkUtils::decodeInt(recv[8], recv[9], recv[10], recv[11]);
+                float planetSize = NetworkUtils::decodeInt(recv[12], recv[13], recv[14], recv[15]);
+                int timestamp = NetworkUtils::decodeFloat(recv[16], recv[17], recv[18], recv[19]);
                 
                 CULog("RCVD PU> SRC[%i], CLR[%i], SIZE[%f]", srcPlayer, planetColor, planetSize);
 
-                // TODO: create opponent planet model when that is complete
+                std::shared_ptr<OpponentPlanet> planet = OpponentPlanet::alloc(0, 0, static_cast<CIColor::Value>(planetColor));
+                planet->setLayerSize(planetSize);
+                std::map<int, std::vector<std::shared_ptr<StardustModel>>> map = {};
+                std::shared_ptr<GameUpdate> gameUpdate = GameUpdate::alloc(_conn->getRoomID(), srcPlayer, map, planet, timestamp);
+                _gameUpdateManager->addGameUpdate(gameUpdate);
+                
             }
             else {
                 CULog("WRONG MESSAGE TYPE");

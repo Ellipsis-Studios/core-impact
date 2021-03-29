@@ -46,6 +46,7 @@ void GameUpdateManager::dispose() {
 bool GameUpdateManager::init() {
     _game_updates_to_process.resize(MAX_PENDING_UPDATES);
     _prev_planet_mass = 0;
+    _player_id = -1;
     return true;
 }
 
