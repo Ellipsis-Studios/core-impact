@@ -19,7 +19,7 @@
 
 
 class PlanetModel {
-private:
+protected:
     /** The layers of this planet */
     std::vector<PlanetLayer> _layers;
     
@@ -211,12 +211,12 @@ public:
     /**
      * Decreases the size of the current layer
      */
-    void decreaseLayerSize();
+    virtual void decreaseLayerSize();
     
     /**
      * Increases the size of the current layer
      */
-    void increaseLayerSize();
+    virtual void increaseLayerSize();
     
     /**
      * Stops any current progress towards locking in a layer
