@@ -47,6 +47,13 @@ public:
      */
     void increaseLayerSize() override;
     
+    /**
+     * Sets the size of the current layer
+     *
+     * @param size The new size of this planet
+     */
+    void setLayerSize(int size);
+    
 };
 
 #endif /* __CI_OPPONENT_PLANET_H__ */

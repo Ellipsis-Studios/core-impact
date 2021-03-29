@@ -28,3 +28,12 @@ void OpponentPlanet::decreaseLayerSize() {
 void OpponentPlanet::increaseLayerSize() {
     _layers[_numLayers-1].layerSize++;
 }
+
+/**
+ * Sets the size of the current layer
+ *
+ * @param size The new size of this planet
+ */
+void OpponentPlanet::setLayerSize(int size) {
+    _layers[_numLayers-1].layerSize = size;
+}
