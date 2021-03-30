@@ -112,6 +112,9 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _stardustContainer->addStardust(dimen);
     _stardustContainer->addStardust(dimen);
     
+    // TODO: resize to number of players in the game and add opponent planet nodes to scene graph
+    _opponent_planets.resize(5);
+    
     addChild(scene);
     addChild(_planet->getPlanetNode());
     addChild(_stardustContainer->getStardustNode());
@@ -127,15 +130,19 @@ void GameScene::dispose() {
     if (_active) {
         removeAllChildren();
         _input.dispose();
-        _gameUpdateManager = nullptr;
-        _networkMessageManager = nullptr;
-        _allSpace = nullptr;
-        _farSpace = nullptr;
-        _nearSpace = nullptr;
-        _planet = nullptr;
-        _draggedStardust = NULL;
         _active = false;
     }
+    _assets = nullptr;
+    _gameUpdateManager = nullptr;
+    _networkMessageManager = nullptr;
+    _massHUD = nullptr;
+    _allSpace = nullptr;
+    _farSpace = nullptr;
+    _nearSpace = nullptr;
+    _stardustContainer = nullptr;
+    _planet = nullptr;
+    _draggedStardust = NULL;
+    _opponent_planets.clear();
 }
 
 
@@ -202,7 +209,7 @@ void GameScene::update(float timestep) {
         _gameUpdateManager->sendUpdate(_planet, _stardustContainer, dimen);
         _networkMessageManager->receiveMessages();
         _networkMessageManager->sendMessages();
-        _gameUpdateManager->processGameUpdate(_stardustContainer, dimen);
+        _gameUpdateManager->processGameUpdate(_stardustContainer, _opponent_planets, dimen);
     }
 }
 

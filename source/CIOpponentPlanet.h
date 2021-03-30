@@ -48,11 +48,11 @@ public:
     void increaseLayerSize() override;
     
     /**
-     * Sets the size of the current layer
+     * Sets the mass of the planet
      *
-     * @param size The new size of this planet
+     * @param mass The new mass of this planet
      */
-    void setLayerSize(int size);
+    void setMass(float mass);
     
 };
 

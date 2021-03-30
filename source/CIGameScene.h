@@ -24,6 +24,7 @@
 #include "CIStardustQueue.h"
 #include "CIGameUpdateManager.h"
 #include "CINetworkMessageManager.h"
+#include "CIOpponentPlanet.h"
 
 /**
  * This class is the primary gameplay constroller for the demo.
@@ -62,6 +63,8 @@ protected:
     std::shared_ptr<PlanetModel>  _planet;
     /** Pointer to the model of the stardust that is currently being dragged */
     StardustModel*  _draggedStardust;
+    /** Vector of opponent planets */
+    std::vector<std::shared_ptr<OpponentPlanet>> _opponent_planets;
     
     /** Countdown to reset the game after winning/losing */
     float _countdown;
