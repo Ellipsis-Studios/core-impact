@@ -30,10 +30,10 @@ void OpponentPlanet::increaseLayerSize() {
 }
 
 /**
- * Sets the size of the current layer
+ * Sets the mass of the planet
  *
- * @param size The new size of this planet
+ * @param mass The new mass of this planet
  */
-void OpponentPlanet::setLayerSize(int size) {
-    _layers[_numLayers-1].layerSize = size;
+void OpponentPlanet::setMass(float mass) {
+    _mass = mass;
 }
