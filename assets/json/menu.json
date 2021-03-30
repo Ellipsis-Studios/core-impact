@@ -13,26 +13,30 @@
       "file": "textures/splashArt/splashArtWorld.png"
     },
     "teamlogo": {
-      "file": "textures/teamlogo.png"
+      "file": "textures/EllipsisMiniLogoWhite.png"
     },
     "settingsbutton": {
-      "file": "textures/circle3dots.png",
+      "file": "textures/settingsButton.png",
       "wrapS": "clamp",
       "wrapT": "clamp",
       "minfilter": "linear",
       "magfilter": "linear"
     },
     "menubuttonup": {
-      "file": "textures/whitebuttonup.png"
+      "file": "textures/buttonUp.png"
     },
     "menubuttondown": {
-      "file": "textures/whitebuttondown.png"
+      "file": "textures/buttonDown.png"
     },
     "clearbutton": {
       "file": "textures/clearbutton.png"
     }
   },
   "fonts": {
+    "saira32": {
+      "file": "fonts/SairaSemicondensed.ttf",
+      "size": 32
+    },
     "felt32": {
       "file": "fonts/MarkerFelt.ttf",
       "size": 32
@@ -48,7 +52,9 @@
   },
   "widgets": {
     "menubutton": "widgets/menubutton.json",
-    "backbutton": "widgets/backbutton.json"
+    "backbutton": "widgets/backbutton.json",
+    "settingsbutton": "widgets/settingsbutton.json",
+    "mainmenu": "widgets/mainmenu.json"
   },
   "scene2s": {
     "menu": {
@@ -135,123 +141,21 @@
           "data": {
             "texture": "teamlogo",
             "anchor": [0.5, 0.5],
-            "scale": 0.25,
+            "scale": 0.1,
             "visible": true
           },
           "layout": {
-            "x_anchor": "center",
-            "y_anchor": "middle",
-            "x_offset": 0.4,
-            "y_offset": -0.45
+            "x_anchor": "right",
+            "y_anchor": "bottom",
+            "x_offset": -0.1,
+            "y_offset": 0.05
           }
         },
         "mainmenu": {
           "comment": "The main menu scene with 3 menu buttons and settings button.",
-          "type": "Node",
-          "format": {
-            "type": "Anchored"
-          },
-          "children": {
-            "settingsbutton": {
-              "comment": "The settings button with 3 dots in a circle.",
-              "type": "Button",
-              "data": {
-                "upnode": "up",
-                "pushable": [
-                  0,
-                  26,
-                  18,
-                  27,
-                  66,
-                  19,
-                  34,
-                  9,
-                  53,
-                  26,
-                  34,
-                  45,
-                  26,
-                  53,
-                  7,
-                  45
-                ],
-                "visible": true,
-                "pushsize": true,
-                "anchor": [0.5, 0.5],
-                "scale": 0.8
-              },
-              "children": {
-                "up": {
-                  "type": "Image",
-                  "data": {
-                    "texture": "settingsbutton",
-                    "scale": 0.15
-                  }
-                }
-              },
-              "layout": {
-                "x_anchor": "center",
-                "y_anchor": "middle",
-                "x_offset": 0.45,
-                "y_offset": 0.45
-              }
-            },
-            "joinbutton": {
-              "comment": "The join game button in main menu.",
-              "type": "Widget",
-              "data": {
-                "key": "menubutton",
-                "variables": {
-                  "size": [300, 75],
-                  "text": "Join Game",
-                  "size2": [300, 75],
-                  "text2": "Join Game"
-                }
-              },
-              "layout": {
-                "x_anchor": "center",
-                "y_anchor": "middle",
-                "x_offset": 0.2,
-                "y_offset": 0.25
-              }
-            },
-            "newbutton": {
-              "comment": "The new game button in main menu.",
-              "type": "Widget",
-              "data": {
-                "key": "menubutton",
-                "variables": {
-                  "size": [300, 75],
-                  "text": "New Game",
-                  "size2": [300, 75],
-                  "text2": "New Game"
-                }
-              },
-              "layout": {
-                "x_anchor": "center",
-                "y_anchor": "middle",
-                "x_offset": 0.2
-              }
-            },
-            "tutorialbutton": {
-              "comment": "The 'How to Play' button in main menu.",
-              "type": "Widget",
-              "data": {
-                "key": "menubutton",
-                "variables": {
-                  "size": [300, 75],
-                  "text": "How to Play",
-                  "size2": [300, 75],
-                  "text2": "How to Play"
-                }
-              },
-              "layout": {
-                "x_anchor": "center",
-                "y_anchor": "middle",
-                "x_offset": 0.2,
-                "y_offset": -0.25
-              }
-            }
+          "type": "Widget",
+          "data": {
+            "key": "mainmenu"
           }
         },
         "settings": {
@@ -265,11 +169,7 @@
               "comment": "The back button to return to main menu.",
               "type": "Widget",
               "data": {
-                "key": "backbutton",
-                "variables": {
-                  "size": [65, 75],
-                  "text": "Back"
-                }
+                "key": "backbutton"
               },
               "layout": {
                 "x_anchor": "center",
@@ -455,11 +355,7 @@
               "comment": "The back button to return to main menu.",
               "type": "Widget",
               "data": {
-                "key": "backbutton",
-                "variables": {
-                  "size": [65, 75],
-                  "text": "Back"
-                }
+                "key": "backbutton"
               },
               "layout": {
                 "x_anchor": "center",
@@ -499,11 +395,7 @@
               "comment": "The back button to return to main menu.",
               "type": "Widget",
               "data": {
-                "key": "backbutton",
-                "variables": {
-                  "size": [65, 75],
-                  "text": "Back"
-                }
+                "key": "backbutton"
               },
               "layout": {
                 "x_anchor": "center",
@@ -562,11 +454,7 @@
               "comment": "The back button to return to main menu.",
               "type": "Widget",
               "data": {
-                "key": "backbutton",
-                "variables": {
-                  "size": [65, 75],
-                  "text": "Back"
-                }
+                "key": "backbutton"
               },
               "layout": {
                 "x_anchor": "center",

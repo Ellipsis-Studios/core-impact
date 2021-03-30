@@ -40,7 +40,7 @@
       "file": "textures/splashArt/splashArtWorld.png"
     },
     "teamlogo": {
-      "file": "textures/teamlogo.png"
+      "file": "textures/EllipsisMiniLogoWhite.png"
     }
   },
   "fonts": {
@@ -175,14 +175,14 @@
           "data": {
             "texture": "teamlogo",
             "anchor": [0.5, 0.5],
-            "scale": 0.25,
+            "scale": 0.1,
             "visible": true
           },
           "layout": {
-            "x_anchor": "center",
-            "y_anchor": "middle",
-            "x_offset": 0.4,
-            "y_offset": -0.45
+            "x_anchor": "right",
+            "y_anchor": "bottom",
+            "x_offset": -0.1,
+            "y_offset": 0.05
           }
         }
       }

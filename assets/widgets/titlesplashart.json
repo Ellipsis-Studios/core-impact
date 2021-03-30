@@ -1,0 +1,57 @@
+{
+  "contents": {
+    "type": "Node",
+    
+    "title": {
+      "type": "Image",
+      "format": {
+        "type": "Anchored"
+      },
+      "data": {
+        "texture": "title",
+        "anchor": [0.5, 0.5],
+        "scale": 0.5
+      },
+      "layout": {
+        "x_anchor": "center",
+        "y_anchor": "middle",
+        "y_offset": 120,
+        "absolute": true
+      },
+      "children": {
+        "stardust": {
+          "type": "Image",
+          "data": {
+            "texture": "stardust",
+            "anchor": [0.5, 0.2],
+            "scale": 1
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": -60,
+            "y_offset": 50,
+            "absolute": true
+          }
+        }
+      }
+    },
+    "world": {
+      "type": "Image",
+      "format": {
+        "type": "Anchored"
+      },
+      "data": {
+        "texture": "world",
+        "anchor": [0.5, 0.5],
+        "scale": 0.5
+      },
+      "layout": {
+        "x_anchor": "center",
+        "y_anchor": "bottom",
+        "y_offset": 5,
+        "absolute": true
+      }
+    }
+  }
+}

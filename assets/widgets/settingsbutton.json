@@ -1,0 +1,34 @@
+{
+    "variables": {
+      "scale": ["data", "scale"]
+    },
+    "contents": {
+      "type": "Button",
+      "data": {
+        "upnode": "up",
+        "pushable": [
+          0,
+          0,
+          0,
+          20,
+          20,
+          20,
+          20,
+          0
+        ],
+        "visible": true,
+        "pushsize": true,
+        "anchor": [0.5, 0.5],
+        "scale": 2
+      },
+      "children": {
+        "up": {
+          "type": "Image",
+          "data": {
+            "texture": "settingsbutton",
+            "scale": 0.15
+          }
+        }
+      }
+    }
+}
