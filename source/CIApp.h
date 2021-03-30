@@ -15,7 +15,6 @@
 #include <cugl/cugl.h>
 #include "CIGameScene.h"
 #include "CILoadingScene.h"
-#include "CIGameUpdateManager.h"
 #include "CINetworkMessageManager.h"
 
 /**
