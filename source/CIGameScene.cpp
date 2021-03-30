@@ -60,7 +60,6 @@ using namespace std;
  * @return true if the controller is initialized properly, false otherwise.
  */
 bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
-    const std::shared_ptr<GameUpdateManager>& gameUpdateManager,
     const std::shared_ptr<NetworkMessageManager>& networkMessageManager,
     bool isHost, std::string gameId) {
     // Initialize the scene to a locked width
@@ -76,8 +75,9 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _assets = assets;
     _input.init(getBounds());
     // Set the game update manager and network message managers
-    _gameUpdateManager = gameUpdateManager;
+    _gameUpdateManager = GameUpdateManager::alloc();
     _networkMessageManager = networkMessageManager;
+    _networkMessageManager->setGameuUpdateManager(_gameUpdateManager);
     if (isHost) {
         _networkMessageManager->createGame();
     }
@@ -141,18 +141,6 @@ void GameScene::dispose() {
 
 #pragma mark -
 #pragma mark Gameplay Handling
-
-/**
- * Resets the status of the game so that we can play again.
- */
-void GameScene::reset() {
-    _input.dispose();
-    _gameUpdateManager = nullptr;
-    _networkMessageManager = nullptr;
-
-    removeAllChildren();
-    _active = false;
-}
 
 /**
  * The method called to update the game mode.

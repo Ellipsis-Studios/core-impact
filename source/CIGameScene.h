@@ -98,7 +98,6 @@ public:
      * memory allocation.  Instead, allocation happens in this method.
      *
      * @param assets                The (loaded) assets for this game mode
-     * @param gameUpdateManager     The reference to game update manager
      * @param networkMessageManager The reference to network message manager
      * @param isHost                Whether or not this instance is hosting the game
      * @param gameId                The gameId for a client game
@@ -106,7 +105,6 @@ public:
      * @return true if the controller is initialized properly, false otherwise.
      */
     bool init(const std::shared_ptr<cugl::AssetManager>& assets, 
-              const std::shared_ptr<GameUpdateManager>& gameUpdateManager, 
               const std::shared_ptr<NetworkMessageManager>& networkMessageManager, 
               bool isHost, std::string gameId);
     
@@ -129,10 +127,6 @@ public:
      */
     void updateDraggedStardust();
 
-    /**
-     * Resets the status of the game so that we can play again.
-     */
-    void reset();
 };
 
 #endif /* __CI_GAME_SCENE_H__ */

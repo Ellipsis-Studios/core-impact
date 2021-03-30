@@ -28,10 +28,7 @@ protected:
     /** The global asset manager */
     std::shared_ptr<cugl::AssetManager> _assets;
 
-    // SHARED MANAGERS
-    /** The game update manager for managing messages from other players */
-    std::shared_ptr<GameUpdateManager> _gameUpdateManager;
-    /** The network message manager for managing connections to other players */
+    // SHARED MANAGER
     std::shared_ptr<NetworkMessageManager> _networkMessageManager;
 
     // Player modes

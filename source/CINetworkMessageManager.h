@@ -61,11 +61,6 @@ public:
      * @return true if the game update manager is initialized properly, false otherwise.
      */
     bool init();
-    
-    /**
-     * Resets the network message manager on game reset.
-     */
-    void reset();
 
     /**
      * Returns a newly allocated network message manager.

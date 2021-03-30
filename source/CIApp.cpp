@@ -54,11 +54,6 @@ void CoreImpactApp::onStartup() {
     // Queue up the other assets
     _assets->loadDirectoryAsync("json/assets.json",nullptr);
 
-    // Create the game update manager and network message managers
-    _gameUpdateManager = GameUpdateManager::alloc();
-    _networkMessageManager = NetworkMessageManager::alloc();
-    _networkMessageManager->setGameuUpdateManager(_gameUpdateManager);
-    
     Application::onStartup(); // YOU MUST END with call to parent
 }
 
@@ -88,7 +83,6 @@ void CoreImpactApp::onShutdown() {
     Input::deactivate<Keyboard>();
     Input::deactivate<TextInput>();
 
-    _gameUpdateManager = nullptr;
     _networkMessageManager = nullptr;
     
     Application::onShutdown();  // YOU MUST END with call to parent
@@ -110,16 +104,19 @@ void CoreImpactApp::update(float timestep) {
         _loading.update(0.01f);
     } else if (!_loaded) { 
         _loading.dispose(); // Disables the input listeners to this mode
-
-        _gameplay.init(_assets, _gameUpdateManager, _networkMessageManager, _loading._joinGame.empty(), _loading._joinGame);
+        if (_networkMessageManager == nullptr) {
+            _networkMessageManager = NetworkMessageManager::alloc();
+        }
+        _gameplay.init(_assets, _networkMessageManager, _loading._joinGame.empty(), _loading._joinGame);
         _loaded = true;
     } else if (_gameplay.isActive()) { 
         _gameplay.update(timestep);
     } else {
         // handle game reset
-        _gameplay.reset();
-        _gameUpdateManager->reset();
-        _networkMessageManager->reset();
+        _gameplay.setActive(true);
+        _gameplay.dispose();
+
+        _networkMessageManager = nullptr;
 
         _loading.removeAllChildren();
         _loaded = false;

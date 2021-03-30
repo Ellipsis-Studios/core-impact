@@ -49,18 +49,6 @@ bool GameUpdateManager::init() {
     return true;
 }
 
-/**
- * Resets the manager on game reset.
- */
-void GameUpdateManager::reset() {
-    _prev_game_update_sent = nullptr;
-    _prev_planet_mass = 0;
-    _game_update_to_send = nullptr;
-    _game_updates_to_process.clear();
-    _game_updates_to_process.resize(MAX_PENDING_UPDATES);
-    _player_id = -1;
-}
-
 #pragma mark Interactions
 /**
  * Sends a game update to other players if the game state has changed.
