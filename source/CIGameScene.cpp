@@ -51,13 +51,17 @@ using namespace std;
  * us to have a non-pointer reference to this controller, reducing our
  * memory allocation.  Instead, allocation happens in this method.
  *
- * @param assets    The (loaded) assets for this game mode
- * @param isHost    Whether or not this instance is hosting the game
- * @param gameId    The gameId for a client game
+ * @param assets                The (loaded) assets for this game mode
+ * @param gameUpdateManager     The reference to game update manager
+ * @param networkMessageManager The reference to network message manager
+ * @param isHost                Whether or not this instance is hosting the game
+ * @param gameId                The gameId for a client game
  *
  * @return true if the controller is initialized properly, false otherwise.
  */
-bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets, bool isHost, std::string gameId) {
+bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
+    const std::shared_ptr<NetworkMessageManager>& networkMessageManager,
+    bool isHost, std::string gameId) {
     // Initialize the scene to a locked width
     Size dimen = Application::get()->getDisplaySize();
     dimen *= SCENE_WIDTH/dimen.width; // Lock the game to a reasonable resolution
@@ -70,9 +74,9 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets, bool isH
     // Start up the input handler and managers
     _assets = assets;
     _input.init(getBounds());
-    // Create the game update manager and network message managers
+    // Set the game update manager and network message managers
     _gameUpdateManager = GameUpdateManager::alloc();
-    _networkMessageManager = NetworkMessageManager::alloc();
+    _networkMessageManager = networkMessageManager;
     _networkMessageManager->setGameuUpdateManager(_gameUpdateManager);
     if (isHost) {
         _networkMessageManager->createGame();
@@ -144,18 +148,6 @@ void GameScene::dispose() {
 
 #pragma mark -
 #pragma mark Gameplay Handling
-
-/**
- * Resets the status of the game so that we can play again.
- */
-void GameScene::reset() {
-    _input.dispose();
-    _gameUpdateManager->dispose();
-    _networkMessageManager->dispose();
-    removeAllChildren();
-    _opponent_planets.clear();
-    _active = false;
-}
 
 /**
  * The method called to update the game mode.
