@@ -23,6 +23,7 @@ void NetworkMessageManager::dispose() {
     _conn = nullptr;
     _gameUpdateManager = nullptr;
     _timestamp = 0;
+    _winner_player_id = -1;
 }
 
 /**
@@ -37,6 +38,7 @@ void NetworkMessageManager::dispose() {
 bool NetworkMessageManager::init() {
     _gameState = GameState::OnMenuScreen;
     _timestamp = 0;
+    _winner_player_id = -1;
     return true;
 }
 
@@ -98,6 +100,28 @@ void NetworkMessageManager::sendMessages() {
     CULog("SENT PU> SRC[%i], CLR[%i], SIZE[%f]", playerId, planetColor, planetSize);
 
     // TODO: send win game message
+    if (gameUpdate->getPlanet()->isWinner()) {
+        if (playerId == 0) {
+            // if we are the host and win first then we immediately send the won game message
+            _winner_player_id = playerId;
+            
+            NetworkUtils::encodeInt(NetworkUtils::MessageType::WonGame, data);
+            NetworkUtils::encodeInt(playerId, data);
+            NetworkUtils::encodeInt(_timestamp, data);
+            _timestamp++;
+            _conn->send(data);
+            data.clear();
+            CULog("SENT WON GAME MESSAGE> PLAYER[%i]", playerId);
+        } else {
+            NetworkUtils::encodeInt(NetworkUtils::MessageType::AttemptToWin, data);
+            NetworkUtils::encodeInt(playerId, data);
+            NetworkUtils::encodeInt(_timestamp, data);
+            _timestamp++;
+            _conn->send(data);
+            data.clear();
+            CULog("SENT ATTEMPT TO WIN MESSAGE> SRC[%i]", playerId);
+        }
+    }
     
     // clear game update to send now that we have sent update.
     _gameUpdateManager->clearGameUpdateToSend();
@@ -142,6 +166,36 @@ void NetworkMessageManager::receiveMessages() {
                 std::map<int, std::vector<std::shared_ptr<StardustModel>>> map = {};
                 std::shared_ptr<GameUpdate> gameUpdate = GameUpdate::alloc(_conn->getRoomID(), srcPlayer, map, planet, timestamp);
                 _gameUpdateManager->addGameUpdate(gameUpdate);
+            }
+            // only respond to attempt to win message if we are a host
+            else if (message_type == NetworkUtils::MessageType::AttemptToWin && _conn->getPlayerID().value_or(-1) == 0) {
+                int srcPlayer = NetworkUtils::decodeInt(recv[4], recv[5], recv[6], recv[7]);
+                int timestamp = NetworkUtils::decodeInt(recv[8], recv[9], recv[10], recv[11]);
+                
+                CULog("RCVD Attempt To Win> SRC[%i], TS[%i]", srcPlayer, timestamp);
+                
+                if (_winner_player_id == -1) {
+                    _winner_player_id = srcPlayer;
+                    
+                    std::vector<uint8_t> data;
+                    NetworkUtils::encodeInt(NetworkUtils::MessageType::WonGame, data);
+                    NetworkUtils::encodeInt(srcPlayer, data);
+                    NetworkUtils::encodeInt(_timestamp, data);
+                    _timestamp++;
+                    _conn->send(data);
+                    data.clear();
+                    CULog("SENT WON GAME MESSAGE> PLAYER[%i]", srcPlayer);
+                }
+            }
+            else if (message_type == NetworkUtils::MessageType::WonGame) {
+                int srcPlayer = NetworkUtils::decodeInt(recv[4], recv[5], recv[6], recv[7]);
+                int timestamp = NetworkUtils::decodeInt(recv[8], recv[9], recv[10], recv[11]);
+                
+                CULog("RCVD GAME WON> SRC[%i], TS[%i]", srcPlayer, timestamp);
+                
+                if (_winner_player_id == -1) {
+                    _winner_player_id = srcPlayer;
+                }
             }
             else {
                 CULog("WRONG MESSAGE TYPE");
