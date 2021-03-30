@@ -97,14 +97,18 @@ public:
      * us to have a non-pointer reference to this controller, reducing our
      * memory allocation.  Instead, allocation happens in this method.
      *
-     * @param assets    The (loaded) assets for this game mode
-     * @param isHost    Whether or not this instance is hosting the game
-     * @param gameId    The gameId for a client game
+     * @param assets                The (loaded) assets for this game mode
+     * @param gameUpdateManager     The reference to game update manager
+     * @param networkMessageManager The reference to network message manager
+     * @param isHost                Whether or not this instance is hosting the game
+     * @param gameId                The gameId for a client game
      *
      * @return true if the controller is initialized properly, false otherwise.
      */
-    bool init(const std::shared_ptr<cugl::AssetManager>& assets, bool isHost, std::string gameId);
-
+    bool init(const std::shared_ptr<cugl::AssetManager>& assets, 
+              const std::shared_ptr<GameUpdateManager>& gameUpdateManager, 
+              const std::shared_ptr<NetworkMessageManager>& networkMessageManager, 
+              bool isHost, std::string gameId);
     
 #pragma mark -
 #pragma mark Gameplay Handling

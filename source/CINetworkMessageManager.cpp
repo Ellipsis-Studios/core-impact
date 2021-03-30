@@ -40,6 +40,15 @@ bool NetworkMessageManager::init() {
 }
 
 /**
+ * Resets the network message manager on game reset.
+ */
+void NetworkMessageManager::reset() {
+    _gameState = GameState::OnMenuScreen;
+    _timestamp = 0;
+    _conn = nullptr;   
+}
+
+/**
  * Sends messages from the game update manager to other players over the network.
  */
 void NetworkMessageManager::sendMessages() {
