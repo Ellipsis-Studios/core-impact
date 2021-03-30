@@ -132,17 +132,16 @@ void NetworkMessageManager::receiveMessages() {
             else if (message_type == NetworkUtils::MessageType::PlanetUpdate) {
                 int srcPlayer = NetworkUtils::decodeInt(recv[4], recv[5], recv[6], recv[7]);
                 int planetColor = NetworkUtils::decodeInt(recv[8], recv[9], recv[10], recv[11]);
-                float planetSize = NetworkUtils::decodeInt(recv[12], recv[13], recv[14], recv[15]);
-                int timestamp = NetworkUtils::decodeFloat(recv[16], recv[17], recv[18], recv[19]);
+                float planetSize = NetworkUtils::decodeFloat(recv[12], recv[13], recv[14], recv[15]);
+                int timestamp = NetworkUtils::decodeInt(recv[16], recv[17], recv[18], recv[19]);
                 
                 CULog("RCVD PU> SRC[%i], CLR[%i], SIZE[%f]", srcPlayer, planetColor, planetSize);
 
                 std::shared_ptr<OpponentPlanet> planet = OpponentPlanet::alloc(0, 0, static_cast<CIColor::Value>(planetColor));
-                planet->setLayerSize(planetSize);
+                planet->setMass(planetSize);
                 std::map<int, std::vector<std::shared_ptr<StardustModel>>> map = {};
                 std::shared_ptr<GameUpdate> gameUpdate = GameUpdate::alloc(_conn->getRoomID(), srcPlayer, map, planet, timestamp);
                 _gameUpdateManager->addGameUpdate(gameUpdate);
-                
             }
             else {
                 CULog("WRONG MESSAGE TYPE");

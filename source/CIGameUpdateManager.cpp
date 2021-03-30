@@ -199,7 +199,7 @@ void GameUpdateManager::processGameUpdate(std::shared_ptr<StardustQueue> stardus
         if (opponentPlanets[playerId] == nullptr) {
             opponentPlanets[playerId] = planet;
         } else {
-            opponentPlanets[playerId]->setLayerSize(planet->getMass());
+            opponentPlanets[playerId]->setMass(planet->getMass());
             opponentPlanets[playerId]->setColor(planet->getColor());
         }
         
