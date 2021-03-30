@@ -165,10 +165,10 @@ void GameScene::update(float timestep) {
         + " / Your Core: " + to_string(_planet->getMass()) + "; "
         + CIColor::getString(_planet->getColor()));
     
-     // Handle counting down then switching to loading screen 
-     if (_planet->isWinner()) {
+     // Handle counting down then switching to loading screen
+     if (_networkMessageManager->getWinnerPlayerId() != -1) {
          if (_countdown <= START_COUNTDOWN) {
-             // handle winning. starts off win countdown 
+             // handle winning. starts off win countdown
              CULog("Game won.");
              _countdown = 2.0f;
          } else if (_countdown > 0.0f) {
