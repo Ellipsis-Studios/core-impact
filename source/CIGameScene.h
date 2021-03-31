@@ -129,6 +129,16 @@ public:
      * and updates the velocity a selected stardust if there is one.
      */
     void updateDraggedStardust();
+    
+    /**
+     * This method attempts to add a stardust to the players screen.
+     *
+     *  Whether a stardust is added is determined by how many stardust are already on the screen.
+     *  The color of the added stardust is determined by how close to finishing the player is.
+     *
+     *  @param bounds the bounds of the game screen
+     */
+    void addStardust(const cugl::Size bounds);
 
 };
 
