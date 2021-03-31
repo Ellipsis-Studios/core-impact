@@ -58,6 +58,7 @@ protected:
     /** Tutorial */
     std::shared_ptr<cugl::scene2::SceneNode> _tutorial;
     std::shared_ptr<cugl::scene2::Button> _tutorialbackbutton;
+    std::shared_ptr<cugl::scene2::Label> _tutorialsceneheader;
 
     // MODEL
     /** Value for the game audio volume */

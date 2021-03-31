@@ -31,12 +31,9 @@ bool MenuScene::init(const std::shared_ptr<AssetManager>& assets) {
     // Initialize the scene to a locked width
     Size dimen = Application::get()->getDisplaySize();
     // Lock the scene to a reasonable resolution
-    if (dimen.width > dimen.height) {
-        dimen *= SCENE_SIZE / dimen.width;
-    }
-    else {
-        dimen *= SCENE_SIZE / dimen.height;
-    }
+    auto sratio = SCENE_SIZE / dimen.width;
+    auto rratio = dimen.width / SCENE_SIZE;
+    dimen *= sratio;
     if (assets == nullptr) {
         return false;
     }
@@ -66,7 +63,13 @@ bool MenuScene::init(const std::shared_ptr<AssetManager>& assets) {
     _joinmenubutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_mainmenu_joinbutton"));
     _newmenubutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_mainmenu_newbutton"));
     _tutorialmenubutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_mainmenu_tutorialbutton"));
-    
+    _mainmenu->setScale(sratio);
+    _settingsbutton->setScale(rratio);
+    _joinmenubutton->setScale(rratio);
+    _newmenubutton->setScale(rratio);
+    _tutorialmenubutton->setScale(rratio);
+
+
     /** Initialize settings scene */
     _settings = assets->get<scene2::SceneNode>("menu_settings");
     _settingsbackbutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_settings_back"));
@@ -79,6 +82,18 @@ bool MenuScene::init(const std::shared_ptr<AssetManager>& assets) {
     _settingsvolumeslider = std::dynamic_pointer_cast<scene2::Slider>(assets->get<scene2::SceneNode>("menu_settings_volumeinput"));
     _settingsparallaxlabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_settings_parallaxlabel"));
     _settingsparallaxbutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_settings_parallaxinput"));
+    
+    _settings->setScale(sratio);
+    _settingsbackbutton->setScale(rratio);
+    _settingstitle->setScale(rratio);
+    _settingsnamelabel->setScale(rratio);
+    _settingsnameinput->setScale(rratio);
+    _settingsmusiclabel->setScale(rratio);
+    _settingsmusicbutton->setScale(rratio);
+    _settingsvolumelabel->setScale(rratio);
+    _settingsvolumeslider->setScale(rratio);
+    _settingsparallaxlabel->setScale(rratio);
+    _settingsparallaxbutton->setScale(rratio);
     
     /** Set settings scene to invisible */
     _settingstitle->setVisible(false);
@@ -97,6 +112,13 @@ bool MenuScene::init(const std::shared_ptr<AssetManager>& assets) {
     _joingamebackbutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_joingame_back"));
     _joingametextinput = std::dynamic_pointer_cast<scene2::TextField>(assets->get<scene2::SceneNode>("menu_joingame_roomidinput"));
     _joingamejoinbutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_joingame_joinbutton"));
+
+    _joingame->setScale(sratio);
+    _joingamebackbutton->setScale(rratio);
+    _joingametextinput->setScale(rratio);
+    _joingamejoinbutton->setScale(rratio);
+    _tutorialmenubutton->setScale(rratio);
+
     _joingame->setVisible(false);
 
     /** Initialize game lobby then set invisible */
@@ -109,12 +131,27 @@ bool MenuScene::init(const std::shared_ptr<AssetManager>& assets) {
     _gamelobbyplayerlabel4 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_gamelobby_playerlabel4"));
     _gamelobbyplayerlabel5 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_gamelobby_playerlabel5"));
     _gamelobbystartbutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_gamelobby_startbutton"));
+    
+    _gamelobby->setScale(sratio);
+    _gamelobbybackbutton->setScale(rratio);
+    _gamelobbyroomidlabel->setScale(rratio);
+    _gamelobbyplayerlabel1->setScale(rratio);
+    _gamelobbyplayerlabel2->setScale(rratio);
+    _gamelobbyplayerlabel3->setScale(rratio);
+    _gamelobbyplayerlabel4->setScale(rratio);
+    _gamelobbyplayerlabel5->setScale(rratio);
+    _gamelobbystartbutton->setScale(rratio);
+    
     _gamelobby->setVisible(false);
     // TODO: integrate network manager to game lobby
     
     /** Initialize tutorial page then set invisible */
     _tutorial = assets->get<scene2::SceneNode>("menu_tutorial");
     _tutorialbackbutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_tutorial_back"));
+    _tutorialsceneheader = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_tutorial_title"));
+    _tutorial->setScale(sratio);
+    _tutorialbackbutton->setScale(rratio); 
+    _tutorialsceneheader->setScale(rratio);
     _tutorial->setVisible(false);
 
     /** Add listeners to main menu buttons */
