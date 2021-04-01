@@ -53,8 +53,7 @@
   "widgets": {
     "menubutton": "widgets/menubutton.json",
     "backbutton": "widgets/backbutton.json",
-    "settingsbutton": "widgets/settingsbutton.json",
-    "mainmenu": "widgets/mainmenu.json"
+    "settingsbutton": "widgets/settingsbutton.json"
   },
   "scene2s": {
     "menu": {
