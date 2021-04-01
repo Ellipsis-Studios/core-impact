@@ -106,12 +106,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     
     _draggedStardust = NULL;
     _stardustContainer = StardustQueue::alloc(MAX_STARDUST, _assets->get<Texture>("photon"));
-    
-    _stardustContainer->addStardust(dimen);
-    _stardustContainer->addStardust(dimen);
-    _stardustContainer->addStardust(dimen);
-    _stardustContainer->addStardust(dimen);
-    
+
     // TODO: resize to number of players in the game and add opponent planet nodes to scene graph
     _opponent_planets.resize(5);
     
@@ -183,10 +178,7 @@ void GameScene::update(float timestep) {
      }
     
     _stardustContainer->update();
-    
-    if (rand() % 150 == 0){
-        _stardustContainer->addStardust(dimen);
-    }
+    addStardust(dimen);
 
     collisions::checkForCollision(_planet, _stardustContainer);
     collisions::checkInBounds(_stardustContainer, dimen);
@@ -235,4 +227,39 @@ void GameScene::updateDraggedStardust() {
         _draggedStardust->setVelocity(newVelocity);
         _draggedStardust = NULL;
     }
+}
+
+/**
+ * This method attempts to add a stardust to the players screen.
+ *
+ *  Whether a stardust is added is determined by how many stardust are already on the screen.
+ *  The color of the added stardust is determined by how close to finishing the player is.
+ *
+ *  @param bounds the bounds of the game screen
+ */
+void GameScene::addStardust(const Size bounds) {
+    if (_stardustContainer->size() == MAX_STARDUST) {
+        return;
+    }
+    
+    size_t spawn_probability = 100 + (_stardustContainer->size() * 25);
+    if (rand() % spawn_probability != 0) {
+        return;
+    }
+    
+    int planetRadius = _planet->getRadius() - 30;
+    bool correctColorStardust = rand() % planetRadius == 0;
+    CIColor::Value c = _planet->getColor();
+    if (!correctColorStardust) {
+        while (c == _planet->getColor()) {
+            c = CIColor::getRandomColor();
+        }
+    }
+    
+    // do not want to spawn grey stardust
+    if (c == CIColor::getNoneColor()) {
+        c = CIColor::getRandomColor();
+    }
+    _stardustContainer->addStardust(c, bounds);
+    
 }
