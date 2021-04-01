@@ -57,8 +57,6 @@ protected:
     bool _isLoaded;
     
 public:
-    /** Stores the game code for joining as client*/
-    string _joinGame;
 #pragma mark -
 #pragma mark Constructors
     /**
@@ -81,7 +79,7 @@ public:
      * Disposes of all (non-static) resources allocated to this mode.
      */
     void dispose();
-    
+
     /**
      * Initializes the controller contents, making it ready for loading
      *

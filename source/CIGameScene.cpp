@@ -51,13 +51,17 @@ using namespace std;
  * us to have a non-pointer reference to this controller, reducing our
  * memory allocation.  Instead, allocation happens in this method.
  *
- * @param assets    The (loaded) assets for this game mode
- * @param isHost    Whether or not this instance is hosting the game
- * @param gameId    The gameId for a client game
+ * @param assets                The (loaded) assets for this game mode
+ * @param gameUpdateManager     The reference to game update manager
+ * @param networkMessageManager The reference to network message manager
+ * @param isHost                Whether or not this instance is hosting the game
+ * @param gameId                The gameId for a client game
  *
  * @return true if the controller is initialized properly, false otherwise.
  */
-bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets, bool isHost, std::string gameId) {
+bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
+    const std::shared_ptr<NetworkMessageManager>& networkMessageManager,
+    bool isHost, std::string gameId) {
     // Initialize the scene to a locked width
     Size dimen = Application::get()->getDisplaySize();
     dimen *= SCENE_WIDTH/dimen.width; // Lock the game to a reasonable resolution
@@ -67,17 +71,17 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets, bool isH
         return false;
     }
     
-    // Start up the input handler
+    // Start up the input handler and managers
     _assets = assets;
     _input.init(getBounds());
-    
-    // Create the game update manager and network message managers
+    // Set the game update manager and network message managers
     _gameUpdateManager = GameUpdateManager::alloc();
-    _networkMessageManager = NetworkMessageManager::alloc();
+    _networkMessageManager = networkMessageManager;
     _networkMessageManager->setGameuUpdateManager(_gameUpdateManager);
     if (isHost) {
         _networkMessageManager->createGame();
-    } else {
+    }
+    else {
         _networkMessageManager->joinGame(gameId);
     }
     
@@ -102,16 +106,14 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets, bool isH
     
     _draggedStardust = NULL;
     _stardustContainer = StardustQueue::alloc(MAX_STARDUST, _assets->get<Texture>("photon"));
-    
-    _stardustContainer->addStardust(dimen);
-    _stardustContainer->addStardust(dimen);
-    _stardustContainer->addStardust(dimen);
-    _stardustContainer->addStardust(dimen);
+
+    // TODO: resize to number of players in the game and add opponent planet nodes to scene graph
+    _opponent_planets.resize(5);
     
     addChild(scene);
     addChild(_planet->getPlanetNode());
     addChild(_stardustContainer->getStardustNode());
-    
+
     _countdown = START_COUNTDOWN;
     return true;
 }
@@ -123,31 +125,24 @@ void GameScene::dispose() {
     if (_active) {
         removeAllChildren();
         _input.dispose();
-        _gameUpdateManager = nullptr;
-        _networkMessageManager = nullptr;
-        _allSpace = nullptr;
-        _farSpace = nullptr;
-        _nearSpace = nullptr;
-        _planet = nullptr;
-        _draggedStardust = NULL;
         _active = false;
     }
+    _assets = nullptr;
+    _gameUpdateManager = nullptr;
+    _networkMessageManager = nullptr;
+    _massHUD = nullptr;
+    _allSpace = nullptr;
+    _farSpace = nullptr;
+    _nearSpace = nullptr;
+    _stardustContainer = nullptr;
+    _planet = nullptr;
+    _draggedStardust = NULL;
+    _opponent_planets.clear();
 }
 
 
 #pragma mark -
 #pragma mark Gameplay Handling
-
-/**
- * Resets the status of the game so that we can play again.
- */
-void GameScene::reset() {
-    _input.dispose();
-    _gameUpdateManager->dispose();
-    _networkMessageManager->dispose();
-    removeAllChildren();
-    _active = false;
-}
 
 /**
  * The method called to update the game mode.
@@ -164,9 +159,10 @@ void GameScene::update(float timestep) {
      _massHUD->setText("Room: " + _networkMessageManager->getRoomId()
         + " / Your Core: " + to_string(_planet->getMass()) + "; "
         + CIColor::getString(_planet->getColor()));
+
     
      // Handle counting down then switching to loading screen
-     if (_planet->isWinner()) {
+     if (_networkMessageManager->getWinnerPlayerId() != -1) {
          if (_countdown <= START_COUNTDOWN) {
              // handle winning. starts off win countdown
              CULog("Game won.");
@@ -183,10 +179,7 @@ void GameScene::update(float timestep) {
      }
     
     _stardustContainer->update();
-    
-    if (rand() % 150 == 0){
-        _stardustContainer->addStardust(dimen);
-    }
+    addStardust(dimen);
 
     collisions::checkForCollision(_planet, _stardustContainer);
     collisions::checkInBounds(_stardustContainer, dimen);
@@ -209,7 +202,7 @@ void GameScene::update(float timestep) {
         _gameUpdateManager->sendUpdate(_planet, _stardustContainer, dimen);
         _networkMessageManager->receiveMessages();
         _networkMessageManager->sendMessages();
-        _gameUpdateManager->processGameUpdate(_stardustContainer, dimen);
+        _gameUpdateManager->processGameUpdate(_stardustContainer, _opponent_planets, dimen);
     }
 }
 
@@ -235,4 +228,39 @@ void GameScene::updateDraggedStardust() {
         _draggedStardust->setVelocity(newVelocity);
         _draggedStardust = NULL;
     }
+}
+
+/**
+ * This method attempts to add a stardust to the players screen.
+ *
+ *  Whether a stardust is added is determined by how many stardust are already on the screen.
+ *  The color of the added stardust is determined by how close to finishing the player is.
+ *
+ *  @param bounds the bounds of the game screen
+ */
+void GameScene::addStardust(const Size bounds) {
+    if (_stardustContainer->size() == MAX_STARDUST) {
+        return;
+    }
+    
+    size_t spawn_probability = 100 + (_stardustContainer->size() * 25);
+    if (rand() % spawn_probability != 0) {
+        return;
+    }
+    
+    int planetRadius = _planet->getRadius() - 30;
+    bool correctColorStardust = rand() % planetRadius == 0;
+    CIColor::Value c = _planet->getColor();
+    if (!correctColorStardust) {
+        while (c == _planet->getColor()) {
+            c = CIColor::getRandomColor();
+        }
+    }
+    
+    // do not want to spawn grey stardust
+    if (c == CIColor::getNoneColor()) {
+        c = CIColor::getRandomColor();
+    }
+    _stardustContainer->addStardust(c, bounds);
+    
 }

@@ -55,7 +55,7 @@ void CoreImpactApp::onStartup() {
     
     // Queue up the other assets
     _assets->loadDirectoryAsync("json/assets.json",nullptr);
-    
+
     Application::onStartup(); // YOU MUST END with call to parent
 }
 
@@ -87,6 +87,8 @@ void CoreImpactApp::onShutdown() {
 #endif
     Input::deactivate<Keyboard>();
     Input::deactivate<TextInput>();
+
+    _networkMessageManager = nullptr;
     
     Application::onShutdown();  // YOU MUST END with call to parent
 }
@@ -104,7 +106,6 @@ void CoreImpactApp::onShutdown() {
  */
 void CoreImpactApp::update(float timestep) {
     if (!_loaded && _loading.isActive()) {
-        _loading.reset(); // sets the values to default
         _loading.update(0.01f);
     }
     else if (!_loaded) {
@@ -120,15 +121,22 @@ void CoreImpactApp::update(float timestep) {
     else if (!_startGame) {
         /** Transition from menu to game scene */
         _menu.dispose(); // Disables the input listeners to this mode
-        _gameplay.init(_assets, _menu.getJoinGameId().empty(), _menu.getJoinGameId());
+        if (_networkMessageManager == nullptr) {
+            _networkMessageManager = NetworkMessageManager::alloc();
+        }
+        _gameplay.init(_assets, _networkMessageManager, _menu.getJoinGameId().empty(), _menu.getJoinGameId());
         _startGame = true;
-    } else if (_gameplay.isActive()) {
+    }
+    else if (_gameplay.isActive()) {
         /** Handle game play updates */
         _gameplay.update(timestep);
-    }
-    else {
-        /** Handle game reset */
-        _gameplay.reset();
+    } else {
+        // handle game reset
+        _gameplay.setActive(true);
+        _gameplay.dispose();
+
+        _networkMessageManager = nullptr;
+
         _menu.removeChildByName("menuScene");
         _menu.setActive(false);
         _loaded = true;

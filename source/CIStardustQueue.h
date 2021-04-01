@@ -105,9 +105,10 @@ public:
      * of a memory pool. It works because we delete objects in the same order that
      * we allocate them.
      *
+     * @param c the color of the stardust to spawn
      * @param bounds the bounds of the game screen
      */
-    void addStardust(const cugl::Size bounds);
+    void addStardust(CIColor::Value c, const cugl::Size bounds);
     
     /**
      * Adds a stardust to the active queue given a pointer to the stardust
@@ -194,7 +195,6 @@ public:
      * to the collision controller where they belong.
      */
     void update();
-
 };
 
 #endif /* __CI_STARDUST_QUEUE_H__ */

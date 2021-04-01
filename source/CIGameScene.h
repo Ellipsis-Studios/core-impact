@@ -24,6 +24,7 @@
 #include "CIStardustQueue.h"
 #include "CIGameUpdateManager.h"
 #include "CINetworkMessageManager.h"
+#include "CIOpponentPlanet.h"
 
 /**
  * This class is the primary gameplay constroller for the demo.
@@ -62,6 +63,8 @@ protected:
     std::shared_ptr<PlanetModel>  _planet;
     /** Pointer to the model of the stardust that is currently being dragged */
     StardustModel*  _draggedStardust;
+    /** Vector of opponent planets */
+    std::vector<std::shared_ptr<OpponentPlanet>> _opponent_planets;
     
     /** Countdown to reset the game after winning/losing */
     float _countdown;
@@ -97,14 +100,16 @@ public:
      * us to have a non-pointer reference to this controller, reducing our
      * memory allocation.  Instead, allocation happens in this method.
      *
-     * @param assets    The (loaded) assets for this game mode
-     * @param isHost    Whether or not this instance is hosting the game
-     * @param gameId    The gameId for a client game
+     * @param assets                The (loaded) assets for this game mode
+     * @param networkMessageManager The reference to network message manager
+     * @param isHost                Whether or not this instance is hosting the game
+     * @param gameId                The gameId for a client game
      *
      * @return true if the controller is initialized properly, false otherwise.
      */
-    bool init(const std::shared_ptr<cugl::AssetManager>& assets, bool isHost, std::string gameId);
-
+    bool init(const std::shared_ptr<cugl::AssetManager>& assets, 
+              const std::shared_ptr<NetworkMessageManager>& networkMessageManager, 
+              bool isHost, std::string gameId);
     
 #pragma mark -
 #pragma mark Gameplay Handling
@@ -124,11 +129,16 @@ public:
      * and updates the velocity a selected stardust if there is one.
      */
     void updateDraggedStardust();
-
+    
     /**
-     * Resets the status of the game so that we can play again.
+     * This method attempts to add a stardust to the players screen.
+     *
+     *  Whether a stardust is added is determined by how many stardust are already on the screen.
+     *  The color of the added stardust is determined by how close to finishing the player is.
+     *
+     *  @param bounds the bounds of the game screen
      */
-    void reset();
+    void addStardust(const cugl::Size bounds);
 
 };
 

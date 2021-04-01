@@ -85,7 +85,6 @@ void LoadingScene::dispose() {
     _isLoaded = false;
 }
 
-
 #pragma mark -
 #pragma mark Progress Monitoring
 /**

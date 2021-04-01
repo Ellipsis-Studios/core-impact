@@ -59,9 +59,10 @@ bool StardustQueue::init(size_t max, const std::shared_ptr<cugl::Texture>& textu
  * of a memory pool. It works because we delete objects in the same order that
  * we allocate them.
  *
+ * @param c the color of the stardust to spawn
  * @param bounds the bounds of the game screen
  */
-void StardustQueue::addStardust(const Size bounds) {
+void StardustQueue::addStardust(CIColor::Value c, const Size bounds) {
     // Add a new stardust at the end.
     // Already declared, so just initialize.
     int posX = ((rand()%2==0) ? bounds.width + 20 : -20) + (rand() % 20 - 10);
@@ -72,7 +73,7 @@ void StardustQueue::addStardust(const Size bounds) {
     dir.x *= (rand() % 3)+2;
     dir.y *= (rand() % 3)+2;
 
-    std::shared_ptr<StardustModel> stardust = StardustModel::alloc(pos, dir, CIColor::getRandomColor());
+    std::shared_ptr<StardustModel> stardust = StardustModel::alloc(pos, dir, c);
     addStardust(stardust);
 }
 
@@ -90,8 +91,6 @@ void StardustQueue::addStardust(const std::shared_ptr<StardustModel> stardust) {
     }
     
     _qtail = ((_qtail + 1) % _queue.size());
-
-    // TODO: adding dot queues based on an upcoming algorithm
     _queue[_qtail] = *stardust;
     _qsize++;
 }

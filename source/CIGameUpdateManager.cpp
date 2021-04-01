@@ -31,6 +31,7 @@
 void GameUpdateManager::dispose() {
     _prev_game_update_sent = nullptr;
     _game_updates_to_process.clear();
+    _prev_planet_mass = 0;
 }
 
 /**
@@ -44,6 +45,8 @@ void GameUpdateManager::dispose() {
  */
 bool GameUpdateManager::init() {
     _game_updates_to_process.resize(MAX_PENDING_UPDATES);
+    _prev_planet_mass = 0;
+    _player_id = -1;
     return true;
 }
 
@@ -91,17 +94,19 @@ void GameUpdateManager::sendUpdate(const std::shared_ptr<PlanetModel> planet, co
         std::shared_ptr<GameUpdate> gameUpdate = GameUpdate::alloc(GAME_ID, getPlayerId(), stardustToSend, planet, 0);
         _prev_game_update_sent = gameUpdate;
         _game_update_to_send = gameUpdate;
+        _prev_planet_mass = planet->getMass();
         return;
     }
     
-    // do not send any update if the planet does not have a new layer and there is no stardust to send
-    if (stardustToSend.empty() && planet->getNumLayers() == _prev_game_update_sent->getPlanet()->getNumLayers()) {
+    // do not send any update if the planet's mass has not changed and there is no stardust to send
+    if (stardustToSend.empty() && planet->getMass() == _prev_planet_mass) {
         return;
     }
 
     std::shared_ptr<GameUpdate> gameUpdate = GameUpdate::alloc(GAME_ID, getPlayerId(), stardustToSend, planet, _prev_game_update_sent->getTimestamp() + 1);
     _prev_game_update_sent = gameUpdate;
     _game_update_to_send = gameUpdate;
+    _prev_planet_mass = planet->getMass();
 }
 
 /**
@@ -110,7 +115,7 @@ void GameUpdateManager::sendUpdate(const std::shared_ptr<PlanetModel> planet, co
  * @param stardustQueue     A reference to the player's stardust queue
  * @param bounds                    The bounds of the screen
  */
-void GameUpdateManager::processGameUpdate(std::shared_ptr<StardustQueue> stardustQueue, cugl::Size bounds) {
+void GameUpdateManager::processGameUpdate(std::shared_ptr<StardustQueue> stardustQueue, std::vector<std::shared_ptr<OpponentPlanet>> opponentPlanets, cugl::Size bounds) {
     if (_game_updates_to_process.empty() || getPlayerId() < 0) {
         return;
     }
@@ -184,9 +189,21 @@ void GameUpdateManager::processGameUpdate(std::shared_ptr<StardustQueue> stardus
                 stardustQueue->addStardust(stardust);
             }
         }
+        
+        std::shared_ptr<OpponentPlanet> planet = std::static_pointer_cast<OpponentPlanet>(gameUpdate->getPlanet());
+        if (planet == nullptr) {
+            break;
+        }
+        
+        int playerId = gameUpdate->getPlayerId();
+        if (opponentPlanets[playerId] == nullptr) {
+            opponentPlanets[playerId] = planet;
+        } else {
+            opponentPlanets[playerId]->setMass(planet->getMass());
+            opponentPlanets[playerId]->setColor(planet->getColor());
+        }
+        
     }
-    
-    // TODO: update other player's planet displays
     
     _game_updates_to_process.clear();
 }
