@@ -159,7 +159,6 @@ void GameScene::update(float timestep) {
      _massHUD->setText("Room: " + _networkMessageManager->getRoomId()
         + " / Your Core: " + to_string(_planet->getMass()) + "; "
         + CIColor::getString(_planet->getColor()));
-
     
      // Handle counting down then switching to loading screen
      if (_networkMessageManager->getWinnerPlayerId() != -1) {

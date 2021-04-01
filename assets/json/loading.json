@@ -1,19 +1,5 @@
 {
   "textures": {
-    "logo": {
-      "file": "textures/cugl-logo.png",
-      "wrapS": "clamp",
-      "wrapT": "clamp",
-      "minfilter": "linear",
-      "magfilter": "linear"
-    },
-    "name": {
-      "file": "textures/cugl-name.png",
-      "wrapS": "clamp",
-      "wrapT": "clamp",
-      "minfilter": "linear",
-      "magfilter": "linear"
-    },
     "progress": {
       "file": "textures/progress.png",
       "wrapS": "clamp",
@@ -41,20 +27,6 @@
     },
     "teamlogo": {
       "file": "textures/EllipsisMiniLogoWhite.png"
-    }
-  },
-  "fonts": {
-    "felt32": {
-      "file": "fonts/MarkerFelt.ttf",
-      "size": 32
-    },
-    "game64": {
-      "file": "fonts/RetroGame.ttf",
-      "size": 64
-    },
-    "pixel32": {
-      "file": "fonts/LightPixel7.ttf",
-      "size": 32
     }
   },
   "scene2s": {
@@ -139,9 +111,9 @@
             "type": "Anchored"
           },
           "data": {
-            "texture": "name",
+            "texture": "teamlogo",
             "anchor": [0.5, 0.5],
-            "scale": 0.75
+            "scale": 0.45
           },
           "layout": {
             "x_anchor": "center",

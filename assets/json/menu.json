@@ -36,18 +36,6 @@
     "saira32": {
       "file": "fonts/SairaSemicondensed.ttf",
       "size": 32
-    },
-    "felt32": {
-      "file": "fonts/MarkerFelt.ttf",
-      "size": 32
-    },
-    "game64": {
-      "file": "fonts/RetroGame.ttf",
-      "size": 64
-    },
-    "pixel32": {
-      "file": "fonts/LightPixel7.ttf",
-      "size": 32
     }
   },
   "widgets": {
@@ -236,7 +224,7 @@
           "comment": "Static text label for Setting page heading.",
           "type": "Label",
           "data": {
-            "font": "felt32",
+            "font": "saira32",
             "text": "Settings",
             "foreground": [255, 255, 255, 255],
             "background": [0, 0, 0, 0],
@@ -255,7 +243,7 @@
           "comment": "The 'Name' label for the player name section.",
           "type": "Label",
           "data": {
-            "font": "felt32",
+            "font": "saira32",
             "text": "Name",
             "foreground": [255, 255, 255, 255],
             "background": [0, 0, 0, 0],
@@ -274,7 +262,7 @@
           "comment": "The player name text input in Settings.",
           "type": "TextField",
           "data": {
-            "font": "felt32",
+            "font": "saira32",
             "text": "Player Name",
             "foreground": [255, 255, 255, 255],
             "background": [0, 0, 0, 0],
@@ -293,7 +281,7 @@
           "comment": "The 'Music' label for the toggle music section.",
           "type": "Label",
           "data": {
-            "font": "felt32",
+            "font": "saira32",
             "text": "Music",
             "foreground": [255, 255, 255, 255],
             "background": [0, 0, 0, 0],
@@ -331,7 +319,7 @@
           "comment": "The 'Volume' label for the volume slider section.",
           "type": "Label",
           "data": {
-            "font": "felt32",
+            "font": "saira32",
             "text": "Volume",
             "foreground": [255, 255, 255, 255],
             "background": [0, 0, 0, 0],
@@ -369,7 +357,7 @@
           "comment": "The 'Parallax Effect' label for the parallax toggle section.",
           "type": "Label",
           "data": {
-            "font": "felt32",
+            "font": "saira32",
             "text": "Parallax Effect",
             "foreground": [255, 255, 255, 255],
             "background": [0, 0, 0, 0],
@@ -390,9 +378,7 @@
           "data": {
             "key": "menubutton",
             "variables": {
-              "size": [300, 75],
               "text": "Toggle Parallax",
-              "size2": [300, 75],
               "text2": "Toggle Parallax"
             }
           },
@@ -421,7 +407,7 @@
           "comment": "The 'How To Play' page heading.",
           "type": "Label",
           "data": {
-            "font": "felt32",
+            "font": "saira32",
             "text": "How to Play",
             "foreground": [255, 255, 255, 255],
             "background": [0, 0, 0, 0],
@@ -456,9 +442,7 @@
           "data": {
             "key": "menubutton",
             "variables": {
-              "size": [300, 75],
               "text": "Join Game",
-              "size2": [300, 75],
               "text2": "Join Game"
             }
           },
@@ -473,7 +457,7 @@
           "comment": "The Game Room Id text input in Join Game page",
           "type": "TextField",
           "data": {
-            "font": "felt32",
+            "font": "saira32",
             "text": "",
             "foreground": [255, 255, 255, 255],
             "background": [0, 0, 0, 255],
@@ -506,7 +490,7 @@
           "comment": "The text label showing the current game room id",
           "type": "Label",
           "data": {
-            "font": "felt32",
+            "font": "saira32",
             "text": "",
             "foreground": [255, 255, 255, 255],
             "background": [0, 0, 0, 0],
@@ -525,7 +509,7 @@
           "comment": "The label at the top for current player's info.",
           "type": "Label",
           "data": {
-            "font": "felt32",
+            "font": "saira32",
             "text": "You",
             "foreground": [255, 255, 255, 255],
             "background": [0, 0, 0, 0],
@@ -544,7 +528,7 @@
           "comment": "The label at the middle-left for opponent player's info",
           "type": "Label",
           "data": {
-            "font": "felt32",
+            "font": "saira32",
             "text": "N/A",
             "foreground": [255, 255, 255, 255],
             "background": [0, 0, 0, 0],
@@ -563,7 +547,7 @@
           "comment": "The label at the middle-right for opponent player's info",
           "type": "Label",
           "data": {
-            "font": "felt32",
+            "font": "saira32",
             "text": "N/A",
             "foreground": [255, 255, 255, 255],
             "background": [0, 0, 0, 0],
@@ -582,7 +566,7 @@
           "comment": "The label at the bottom-left for opponent player's info",
           "type": "Label",
           "data": {
-            "font": "felt32",
+            "font": "saira32",
             "text": "N/A",
             "foreground": [255, 255, 255, 255],
             "background": [0, 0, 0, 0],
@@ -601,7 +585,7 @@
           "comment": "The label at the bottom-right for opponent player's info",
           "type": "Label",
           "data": {
-            "font": "felt32",
+            "font": "saira32",
             "text": "N/A",
             "foreground": [255, 255, 255, 255],
             "background": [0, 0, 0, 0],
@@ -622,9 +606,7 @@
           "data": {
             "key": "menubutton",
             "variables": {
-              "size": [300, 75],
               "text": "Start",
-              "size2": [300, 75],
               "text2": "Start"
             }
           },
