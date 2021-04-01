@@ -70,11 +70,13 @@ bool MenuScene::init(const std::shared_ptr<AssetManager>& assets) {
     _settingsvolumeslider = std::dynamic_pointer_cast<scene2::Slider>(assets->get<scene2::SceneNode>("menu_settingsvolumeinput"));
     _settingsparallaxlabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_settingsparallaxlabel"));
     _settingsparallaxbutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_settingsparallaxbutton"));
+    _playerName = _settingsnameinput->getText();
 
     /** Initialize joingame scene then set invisible */
     _joingamebackbutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_joingameback"));
     _joingametextinput = std::dynamic_pointer_cast<scene2::TextField>(assets->get<scene2::SceneNode>("menu_joingameroomidinput"));
     _joingamejoinbutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_joingamejoinbutton"));
+    _joinGame = _joingametextinput->getText();
 
     /** Initialize game lobby then set invisible */
     _gamelobbybackbutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_gamelobbyback"));
@@ -85,12 +87,12 @@ bool MenuScene::init(const std::shared_ptr<AssetManager>& assets) {
     _gamelobbyplayerlabel4 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_gamelobbyplayerlabel4"));
     _gamelobbyplayerlabel5 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_gamelobbyplayerlabel5"));
     _gamelobbystartbutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_gamelobbystartbutton"));
-
-    // TODO: integrate network manager to game lobby
     
     /** Initialize tutorial page then set invisible */
     _tutorialbackbutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_tutorialback"));
     _tutorialsceneheader = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_tutorialtitle"));
+
+    // TODO: integrate network manager to game lobby
 
     /** Button listener function for menu scene buttons. */
     const auto menuButtonHandler = [=](const std::string& name, bool down) {
@@ -100,8 +102,10 @@ bool MenuScene::init(const std::shared_ptr<AssetManager>& assets) {
                 _status = MenuStatus::MainToJoin;
             else if (name == "settingsbutton")
                 _status = MenuStatus::MainToSetting;
-            else if (name == "newbutton")
+            else if (name == "newbutton") {
                 _status = MenuStatus::MainToLobby;
+                _joinGame = "";
+            }
             else if (name == "tutorialbutton")
                 _status = MenuStatus::MainToTutorial;
             // Join Game buttons
@@ -120,10 +124,12 @@ bool MenuScene::init(const std::shared_ptr<AssetManager>& assets) {
             else if (name == "settingsmusicbutton") {
                 CULog("Music toggle button pressed in settings");
                 // TODO: Toggle game music off/on
+                _musicOn = !_musicOn;
             }
             else if (name == "settingsparallaxbutton") {
                 CULog("Parallax effect toggle button pressed");
                 // TODO: Toggle game's parallax effect
+                _parallaxOn = !_parallaxOn;
             }
             // Tutorial buttons
             else if (name == "tutorialback")
@@ -149,21 +155,44 @@ bool MenuScene::init(const std::shared_ptr<AssetManager>& assets) {
     _gamelobbystartbutton->addListener(menuButtonHandler);
     _tutorialbackbutton->addListener(menuButtonHandler);
 
-    _settingsnameinput->addExitListener([=](const std::string& name, const std::string& value) {
-        CULog("Player Name inputted %s", value.c_str());
-        // TODO: Set player name
-        });
     _settingsvolumeslider->addListener([=](const std::string& name, float value) {
         if (value != _volume) {
             // TODO: Update global game volume
             _volume = value;
         }
         });
+    _settingsnameinput->addTypeListener([=](const std::string& name, const std::string& value) {
+        // Handle size limit on settings name textfield
+        if (value.length() > 12) {
+            _settingsnameinput->setText(value.substr(0, 12));
+        }
+        });
+    _settingsnameinput->addExitListener([=](const std::string& name, const std::string& value) {
+        // Set player name input
+        _playerName = value;
+        CULog("Player Name set to %s", value.c_str());
+        });
 
+    _joingametextinput->addTypeListener([=](const std::string& name, const std::string& value) {
+        // Handle room id textfield with size limit
+        if (value.length() > 5) {
+            _joingametextinput->setText(value.substr(value.length() - 5, 5));
+        }
+        });
     _joingametextinput->addExitListener([=](const std::string& name, const std::string& value) {
-        /** Handles room id input by user */
-        CULog("Room id inputted %s", value.c_str());
-        _joinGame = value;
+        // Set game room id input 
+        std::string val;
+        for (auto c : value) {
+            if (std::isdigit(c)) {
+                val += c;
+            }
+        }
+        while (val.length() < 5) {
+            val = "0" + val;
+        }
+        _joingametextinput->setText(val);
+        _joinGame = val;
+        CULog("Room id set to %s", val.c_str());
         });
 
     _status = MenuStatus::MainMenu;
@@ -294,7 +323,7 @@ void MenuScene::update(float progress) {
     case MenuStatus::Tutorial:
         break;
     case MenuStatus::GameLobby:
-        // TODO: Integrate network manager to create/join games with game lobby labels updating
+        _gamelobbyplayerlabel1->setText(_playerName);
         break;
     case MenuStatus::JoinToLobby:
         _menuSceneInputHelper(false, _joingamebackbutton, _joingamejoinbutton, _joingametextinput);
@@ -340,7 +369,6 @@ void MenuScene::update(float progress) {
         _status = MenuStatus::MainMenu;
         break;
     case MenuStatus::LobbyToGame:
-        /** Handle transition from game lobby to game */
         _menuSceneInputHelper(false, _gamelobbybackbutton, _gamelobbystartbutton);
         _gamelobbyroomidlabel->setVisible(false);
         _gamelobbyplayerlabel1->setVisible(false);

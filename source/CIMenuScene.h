@@ -59,8 +59,14 @@ protected:
     std::shared_ptr<cugl::scene2::Label> _tutorialsceneheader;
 
     // MODEL
+    /** Value for the player name */
+    string _playerName;
     /** Value for the game audio volume */
     float _volume;
+    /** Whether game music is turned on/off */
+    bool _musicOn;
+    /** Whether game parallax effect is turned on/off */
+    bool _parallaxOn;
     /** Whether menu has been initialized previously */
     bool _isLoaded;
 
@@ -123,7 +129,7 @@ public:
      * This constructor does not allocate any objects or start the game.
      * This allows us to use the object without a heap pointer.
      */
-    MenuScene() : cugl::Scene2(), _volume(0.0f), _isLoaded(false), _status(MenuStatus::MainMenu) {}
+    MenuScene() : cugl::Scene2(), _volume(0.0f), _musicOn(true), _parallaxOn(true), _isLoaded(false), _status(MenuStatus::MainMenu) {}
 
     /**
     * Disposes of all (non-static) resources allocated to this mode.
