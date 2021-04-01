@@ -31,13 +31,10 @@ bool MenuScene::init(const std::shared_ptr<AssetManager>& assets) {
     // Initialize the scene to a locked width
     Size dimen = Application::get()->getDisplaySize();
     // Lock the scene to a reasonable resolution
-    auto sratio = SCENE_SIZE / dimen.width;
-    auto rratio = dimen.width / SCENE_SIZE;
-    dimen *= sratio;
+    dimen *= SCENE_SIZE / dimen.width;
     if (assets == nullptr) {
         return false;
-    }
-    else if (!Scene2::init(dimen)) {
+    } else if (!Scene2::init(dimen)) {
         return false;
     }
 
@@ -51,169 +48,124 @@ bool MenuScene::init(const std::shared_ptr<AssetManager>& assets) {
     _teamlogo = assets->get<scene2::SceneNode>("menu_teamlogo");
     _gameTitle = assets->get<scene2::SceneNode>("menu_title");
     _gamePlanet = assets->get<scene2::SceneNode>("menu_world");
-
     /** Set game title/planet position to one from end of loading scene */
-    float rend = dimen.getIWidth()/ 4.0f;
+    const float rend = dimen.getIWidth()/ 4.0f;
     _gameTitle->setPositionX(rend);
     _gamePlanet->setPositionX(rend);
 
     /** Initialize main menu scene */
-    _mainmenu = assets->get<scene2::SceneNode>("menu_mainmenu");
-    _settingsbutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_mainmenu_settingsbutton"));
-    _joinmenubutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_mainmenu_joinbutton"));
-    _newmenubutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_mainmenu_newbutton"));
-    _tutorialmenubutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_mainmenu_tutorialbutton"));
-    _mainmenu->setScale(sratio);
-    _settingsbutton->setScale(rratio);
-    _joinmenubutton->setScale(rratio);
-    _newmenubutton->setScale(rratio);
-    _tutorialmenubutton->setScale(rratio);
-
+    _settingsbutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_settingsbutton"));
+    _joinmenubutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_joinbutton"));
+    _newmenubutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_newbutton"));
+    _tutorialmenubutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_tutorialbutton"));
 
     /** Initialize settings scene */
-    _settings = assets->get<scene2::SceneNode>("menu_settings");
-    _settingsbackbutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_settings_back"));
-    _settingstitle = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_settings_title"));
-    _settingsnamelabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_settings_namelabel"));
-    _settingsnameinput = std::dynamic_pointer_cast<scene2::TextField>(assets->get<scene2::SceneNode>("menu_settings_nameinput"));
-    _settingsmusiclabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_settings_musiclabel"));
-    _settingsmusicbutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_settings_musicinput"));
-    _settingsvolumelabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_settings_volumelabel"));
-    _settingsvolumeslider = std::dynamic_pointer_cast<scene2::Slider>(assets->get<scene2::SceneNode>("menu_settings_volumeinput"));
-    _settingsparallaxlabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_settings_parallaxlabel"));
-    _settingsparallaxbutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_settings_parallaxinput"));
-    
-    _settings->setScale(sratio);
-    _settingsbackbutton->setScale(rratio);
-    _settingstitle->setScale(rratio);
-    _settingsnamelabel->setScale(rratio);
-    _settingsnameinput->setScale(rratio);
-    _settingsmusiclabel->setScale(rratio);
-    _settingsmusicbutton->setScale(rratio);
-    _settingsvolumelabel->setScale(rratio);
-    _settingsvolumeslider->setScale(rratio);
-    _settingsparallaxlabel->setScale(rratio);
-    _settingsparallaxbutton->setScale(rratio);
-    
-    /** Set settings scene to invisible */
-    _settingstitle->setVisible(false);
-    _settingsnamelabel->setVisible(false);
-    _settingsnameinput->setVisible(false);
-    _settingsmusiclabel->setVisible(false);
-    _settingsmusicbutton->setVisible(false);
-    _settingsvolumelabel->setVisible(false);
-    _settingsvolumeslider->setVisible(false);
-    _settingsparallaxlabel->setVisible(false);
-    _settingsparallaxbutton->setVisible(false);
-    _settings->setVisible(false);
+    _settingsbackbutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_settingsback"));
+    _settingstitle = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_settingstitle"));
+    _settingsnamelabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_settingsnamelabel"));
+    _settingsnameinput = std::dynamic_pointer_cast<scene2::TextField>(assets->get<scene2::SceneNode>("menu_settingsnameinput"));
+    _settingsmusiclabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_settingsmusiclabel"));
+    _settingsmusicbutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_settingsmusicbutton"));
+    _settingsvolumelabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_settingsvolumelabel"));
+    _settingsvolumeslider = std::dynamic_pointer_cast<scene2::Slider>(assets->get<scene2::SceneNode>("menu_settingsvolumeinput"));
+    _settingsparallaxlabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_settingsparallaxlabel"));
+    _settingsparallaxbutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_settingsparallaxbutton"));
 
     /** Initialize joingame scene then set invisible */
-    _joingame = assets->get<scene2::SceneNode>("menu_joingame");
-    _joingamebackbutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_joingame_back"));
-    _joingametextinput = std::dynamic_pointer_cast<scene2::TextField>(assets->get<scene2::SceneNode>("menu_joingame_roomidinput"));
-    _joingamejoinbutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_joingame_joinbutton"));
-
-    _joingame->setScale(sratio);
-    _joingamebackbutton->setScale(rratio);
-    _joingametextinput->setScale(rratio);
-    _joingamejoinbutton->setScale(rratio);
-    _tutorialmenubutton->setScale(rratio);
-
-    _joingame->setVisible(false);
+    _joingamebackbutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_joingameback"));
+    _joingametextinput = std::dynamic_pointer_cast<scene2::TextField>(assets->get<scene2::SceneNode>("menu_joingameroomidinput"));
+    _joingamejoinbutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_joingamejoinbutton"));
 
     /** Initialize game lobby then set invisible */
-    _gamelobby = assets->get<scene2::SceneNode>("menu_gamelobby");
-    _gamelobbybackbutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_gamelobby_back"));
-    _gamelobbyroomidlabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_gamelobby_roomidlabel"));
-    _gamelobbyplayerlabel1 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_gamelobby_playerlabel1"));
-    _gamelobbyplayerlabel2 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_gamelobby_playerlabel2"));
-    _gamelobbyplayerlabel3 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_gamelobby_playerlabel3"));
-    _gamelobbyplayerlabel4 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_gamelobby_playerlabel4"));
-    _gamelobbyplayerlabel5 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_gamelobby_playerlabel5"));
-    _gamelobbystartbutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_gamelobby_startbutton"));
-    
-    _gamelobby->setScale(sratio);
-    _gamelobbybackbutton->setScale(rratio);
-    _gamelobbyroomidlabel->setScale(rratio);
-    _gamelobbyplayerlabel1->setScale(rratio);
-    _gamelobbyplayerlabel2->setScale(rratio);
-    _gamelobbyplayerlabel3->setScale(rratio);
-    _gamelobbyplayerlabel4->setScale(rratio);
-    _gamelobbyplayerlabel5->setScale(rratio);
-    _gamelobbystartbutton->setScale(rratio);
-    
-    _gamelobby->setVisible(false);
+    _gamelobbybackbutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_gamelobbyback"));
+    _gamelobbyroomidlabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_gamelobbyroomidlabel"));
+    _gamelobbyplayerlabel1 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_gamelobbyplayerlabel1"));
+    _gamelobbyplayerlabel2 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_gamelobbyplayerlabel2"));
+    _gamelobbyplayerlabel3 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_gamelobbyplayerlabel3"));
+    _gamelobbyplayerlabel4 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_gamelobbyplayerlabel4"));
+    _gamelobbyplayerlabel5 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_gamelobbyplayerlabel5"));
+    _gamelobbystartbutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_gamelobbystartbutton"));
+
     // TODO: integrate network manager to game lobby
     
     /** Initialize tutorial page then set invisible */
-    _tutorial = assets->get<scene2::SceneNode>("menu_tutorial");
-    _tutorialbackbutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_tutorial_back"));
-    _tutorialsceneheader = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_tutorial_title"));
-    _tutorial->setScale(sratio);
-    _tutorialbackbutton->setScale(rratio); 
-    _tutorialsceneheader->setScale(rratio);
-    _tutorial->setVisible(false);
+    _tutorialbackbutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_tutorialback"));
+    _tutorialsceneheader = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_tutorialtitle"));
 
-    /** Add listeners to main menu buttons */
-   _settingsbutton->addListener([=](const std::string& name, bool down) {
+    /** Button listener function for menu scene buttons. */
+    const auto menuButtonHandler = [=](const std::string& name, bool down) {
         if (!down) {
-            /** Removes other buttons' listeners */
-            _joinmenubutton->clearListeners();
-            _newmenubutton->clearListeners();
-            _tutorialmenubutton->clearListeners();
-            _mainmenu->setVisible(false);
-
-            /** Transtition to Settings */
-            _status = MenuStatus::MainToSetting;
+            // Main Menu buttons
+            if (name == "joinbutton")
+                _status = MenuStatus::MainToJoin;
+            else if (name == "settingsbutton")
+                _status = MenuStatus::MainToSetting;
+            else if (name == "newbutton")
+                _status = MenuStatus::MainToLobby;
+            else if (name == "tutorialbutton")
+                _status = MenuStatus::MainToTutorial;
+            // Join Game buttons
+            else if (name == "joingameback")
+                _status = MenuStatus::JoinToMain;
+            else if (name == "joingamejoinbutton")
+                _status = MenuStatus::JoinToLobby;
+            // Game Lobby buttons
+            else if (name == "gamelobbyback")
+                _status = MenuStatus::LobbyToMain;
+            else if (name == "gamelobbystartbutton")
+                _status = MenuStatus::LobbyToGame;
+            // Settings butons
+            else if (name == "settingsback")
+                _status = MenuStatus::SettingToMain;
+            else if (name == "settingsmusicbutton") {
+                CULog("Music toggle button pressed in settings");
+                // TODO: Toggle game music off/on
+            }
+            else if (name == "settingsparallaxbutton") {
+                CULog("Parallax effect toggle button pressed");
+                // TODO: Toggle game's parallax effect
+            }
+            // Tutorial buttons
+            else if (name == "tutorialback")
+                _status = MenuStatus::TutorialToMain;
+            // Invalid buttons
+            else {
+                CULog("Menu scene button not found! Please add update the menuButtonHandler in MenuScene's init method.");
+            }
         }
-   });
+    };
 
-   _joinmenubutton->addListener([=](const std::string& name, bool down) {
-        if (!down) {
-            /** Removes other buttons' listeners */
-            _settingsbutton->clearListeners();
-            _newmenubutton->clearListeners();
-            _tutorialmenubutton->clearListeners();
-            _mainmenu->setVisible(false);
+    /** Add listeners to menu scenes */
+    _settingsbutton->addListener(menuButtonHandler);
+    _joinmenubutton->addListener(menuButtonHandler);
+    _newmenubutton->addListener(menuButtonHandler);
+    _tutorialmenubutton->addListener(menuButtonHandler);
+    _settingsbackbutton->addListener(menuButtonHandler);
+    _settingsmusicbutton->addListener(menuButtonHandler);
+    _settingsparallaxbutton->addListener(menuButtonHandler);
+    _joingamebackbutton->addListener(menuButtonHandler);
+    _joingamejoinbutton->addListener(menuButtonHandler);
+    _gamelobbybackbutton->addListener(menuButtonHandler);
+    _gamelobbystartbutton->addListener(menuButtonHandler);
+    _tutorialbackbutton->addListener(menuButtonHandler);
 
-            /** Transtition to Join Game */
-            _status = MenuStatus::MainToJoin;
+    _settingsnameinput->addExitListener([=](const std::string& name, const std::string& value) {
+        CULog("Player Name inputted %s", value.c_str());
+        // TODO: Set player name
+        });
+    _settingsvolumeslider->addListener([=](const std::string& name, float value) {
+        if (value != _volume) {
+            // TODO: Update global game volume
+            _volume = value;
         }
-   });
+        });
 
-    _newmenubutton->addListener([=](const std::string& name, bool down) {
-        if (!down) {
-            /** Removes other buttons' listeners */
-            _settingsbutton->clearListeners();
-            _joinmenubutton->clearListeners();
-            _tutorialmenubutton->clearListeners();
-            _mainmenu->setVisible(false);
+    _joingametextinput->addExitListener([=](const std::string& name, const std::string& value) {
+        /** Handles room id input by user */
+        CULog("Room id inputted %s", value.c_str());
+        _joinGame = value;
+        });
 
-            /** Transtition to Game Lobby */
-            _status = MenuStatus::MainToLobby;
-        }
-    });
-
-    _tutorialmenubutton->addListener([=](const std::string& name, bool down) {
-        if (!down) {
-            /** Removes other buttons' listeners */
-            _settingsbutton->clearListeners();
-            _joinmenubutton->clearListeners();
-            _newmenubutton->clearListeners();
-            _mainmenu->setVisible(false);
-            
-            /** Transition to Tutorial */
-            _status = MenuStatus::MainToTutorial;
-        }
-    });
-
-    if (_active) {
-        _settingsbutton->activate();
-        _joinmenubutton->activate();
-        _newmenubutton->activate();
-        _tutorialmenubutton->activate();
-
-    }
     _status = MenuStatus::MainMenu;
     Application::get()->setClearColor(Color4(192, 192, 192, 255));
     addChildWithName(layer, "menuScene");
@@ -253,28 +205,23 @@ void MenuScene::dispose() {
     _settingsvolumeslider = nullptr;
     _settingsparallaxlabel = nullptr;
     _settingsparallaxbutton = nullptr;
-    _settings = nullptr;
 
     _assets = nullptr;
     _teamlogo = nullptr;
     _gameTitle = nullptr;
     _gamePlanet = nullptr;
-    _mainmenu = nullptr;
     _joinmenubutton = nullptr;
     _newmenubutton = nullptr;
     _tutorialmenubutton = nullptr;
 
-    _mainmenu = nullptr;
     _joinmenubutton = nullptr;
     _newmenubutton = nullptr;
     _tutorialmenubutton = nullptr;
 
-    _joingame = nullptr;
     _joingamebackbutton = nullptr;
     _joingametextinput = nullptr;
     _joingamejoinbutton = nullptr;
 
-    _gamelobby = nullptr;
     _gamelobbybackbutton = nullptr;
     _gamelobbyroomidlabel = nullptr;
     _gamelobbyplayerlabel1 = nullptr;
@@ -284,39 +231,10 @@ void MenuScene::dispose() {
     _gamelobbyplayerlabel5 = nullptr;
     _gamelobbystartbutton = nullptr;
 
-    _tutorial = nullptr;
     _tutorialbackbutton = nullptr;
+    _tutorialsceneheader = nullptr;
 
     _isLoaded = false;
-}
-
-/**
- * Resets the resources allocated to this mode to default.
- */
-void MenuScene::reset() {
-    if (isActive() && !_isLoaded) {
-        _gameTitle->setVisible(true);
-        _gamePlanet->setVisible(true);
-        _teamlogo->setVisible(true);
-        
-        if (!_joinmenubutton->isActive()) {
-            _joinmenubutton->activate();
-        }
-        if (!_newmenubutton->isActive()) {
-            _newmenubutton->activate();
-        }
-        if (!_tutorialmenubutton->isActive()) {
-            _tutorialmenubutton->activate();
-        }
-        _joinmenubutton->setVisible(true);
-        _newmenubutton->setVisible(true);
-        _tutorialmenubutton->setVisible(true);
-        _mainmenu->setVisible(true);
-
-        _isLoaded = true;
-
-        Scene2::reset();
-    }
 }
 
 #pragma mark -
@@ -330,571 +248,106 @@ void MenuScene::reset() {
  */
 void MenuScene::update(float progress) {
     switch (_status) {
-    case MainMenu:
+    case MenuStatus::MainMenu:
+        if (isActive() && !_isLoaded) {
+            _menuSceneInputHelper(true, _tutorialmenubutton, _settingsbutton, _joinmenubutton, _newmenubutton);
+            _isLoaded = true;
+            Scene2::reset();
+        }
         break;
-    case MainToSetting:
-    {
-        /** Clears/Deactivates previous scene's resources */
-        _settingsbutton->clearListeners();
-        _settingsbutton->deactivate();
-        _joinmenubutton->deactivate();
-        _newmenubutton->deactivate();
-        _tutorialmenubutton->deactivate();
-
-        /** Removes current scene's input listeners then set new listener */
-        if (_settingsbackbutton->hasListener()) {
-            _settingsbackbutton->clearListeners(); // prevent running out of listeners
-        }
-        _settingsbackbutton->addListener([=](const std::string& name, bool down) {
-            if (!down) {
-                /** Handle returning to main menu */
-                _settingsnameinput->clearExitListeners();
-                _settingsmusicbutton->clearListeners();
-                _settingsvolumeslider->clearListeners();
-
-                _settingsvolumeslider->setVisible(false);
-                _settingsvolumelabel->setVisible(false);
-                _settingsnameinput->setVisible(false);
-                _settingsmusicbutton->setVisible(false);
-                _settingsvolumelabel->setVisible(false);
-                _settingsvolumeslider->setVisible(false);
-                _settingsparallaxlabel->setVisible(false);
-                _settingsparallaxbutton->setVisible(false);
-                _settings->setVisible(false);
-
-                _status = MenuStatus::SettingToMain;
-            }
-        });
-
-        if (_settingsnameinput->hasExitListener()) {
-            _settingsnameinput->clearExitListeners();
-        }
-        _settingsnameinput->addExitListener([=](const std::string& name, const std::string& value) {
-            CULog("Player Name inputted %s", value.c_str());
-            // TODO: Set player name
-        });
-
-        if (_settingsmusicbutton->hasListener()) {
-            _settingsmusicbutton->clearListeners();
-        }
-        _settingsmusicbutton->addListener([=](const std::string& name, bool down) {
-            if (!down) {
-                CULog("Music toggle button pressed in settings");
-                // TODO: Toggle game music off/on
-            }
-        });
-
-        if (_settingsvolumeslider->hasListener()) {
-            _settingsvolumeslider->clearListeners();
-        }
-        _settingsvolumeslider->addListener([=](const std::string& name, float value) {
-            if (value != _volume) {
-                // TODO: Update global game volume
-                _volume = value;
-            }
-        });
-
-        if (_settingsparallaxbutton->hasListener()) {
-            _settingsparallaxbutton->clearListeners();
-        }
-        _settingsparallaxbutton->addListener([=](const std::string& name, bool down) {
-            if (!down) {
-                CULog("Parallax effect toggle button pressed");
-                // TODO: Toggle game's parallax effect
-            }
-        });
-
+    case MenuStatus::MainToSetting:
+        _menuSceneInputHelper(false, _joinmenubutton, _newmenubutton, _tutorialmenubutton, _settingsbutton);
+        _menuSceneInputHelper(true, _settingsbackbutton, _settingsnameinput, _settingsmusicbutton, _settingsvolumeslider, _settingsparallaxbutton);
         _settingstitle->setVisible(true);
         _settingsnamelabel->setVisible(true);
         _settingsmusiclabel->setVisible(true);
         _settingsvolumelabel->setVisible(true);
         _settingsparallaxlabel->setVisible(true);
-
-        _settingsbackbutton->activate();
-        _settingsbackbutton->setVisible(true);
-        _settingsnameinput->activate();
-        _settingsnameinput->setVisible(true);
-        _settingsmusicbutton->activate();
-        _settingsmusicbutton->setVisible(true);
-        _settingsvolumeslider->activate();
-        _settingsvolumeslider->setVisible(true);
-        _settingsparallaxbutton->activate();
-        _settingsparallaxbutton->setVisible(true);
-        _settings->setVisible(true);
         _status = MenuStatus::Setting;
         break;
-    }
-    case MainToJoin:
-    {
-        /** Handle transition from main menu to join game scenes */
-        _joinmenubutton->clearListeners();
-        _joinmenubutton->setVisible(false);
-        _settingsbutton->deactivate();
-        _joinmenubutton->deactivate();
-        _newmenubutton->deactivate();
-        _tutorialmenubutton->deactivate();
-
-        if (_joingamebackbutton->hasListener()) {
-            _joingamebackbutton->clearListeners();
-        }
-        _joingamebackbutton->addListener([=](const std::string& name, bool down) {
-            if (!down) {
-                /** Trigger return to main menu */
-                _joingamejoinbutton->clearListeners();
-                _joingametextinput->clearExitListeners();
-                _joingame->setVisible(false);
-                _status = MenuStatus::JoinToMain;
-            }
-        });
-
-        if (_joingametextinput->hasExitListener()) {
-            _joingametextinput->clearExitListeners();
-        }
-        _joingametextinput->addExitListener([=](const std::string& name, const std::string& value) {
-            /** Handles room id input by user */
-            CULog("Room id inputted %s", value.c_str());
-            _joinGame = value;
-        });
-
-        if (_joingamejoinbutton->hasListener()) {
-            _joingamejoinbutton->clearListeners();
-        }
-        _joingamejoinbutton->addListener([=](const std::string& name, bool down) {
-            if (!down) {
-                /** Trigger join game lobby */
-                _joingamebackbutton->clearListeners();
-                _joingametextinput->clearExitListeners();
-                _joingame->setVisible(false);
-                _status = MenuStatus::JoinToLobby;
-            }
-        });
-
-        _joingamebackbutton->activate();
-        _joingamebackbutton->setVisible(true);
-        _joingametextinput->activate();
-        _joingametextinput->setVisible(true);
-        _joingamejoinbutton->activate();
-        _joingamejoinbutton->setVisible(true);
-        _joingame->setVisible(true);
+    case MenuStatus::MainToJoin:
+        _menuSceneInputHelper(false, _joinmenubutton, _newmenubutton, _tutorialmenubutton, _settingsbutton);
+        _menuSceneInputHelper(true, _joingamebackbutton, _joingametextinput, _joingamejoinbutton);
         _status = MenuStatus::JoinRoom;
         break;
-    }
-    case MainToLobby:
-    {
-        /** Handle transition from main menu to game lobby */
-        _newmenubutton->clearListeners();
-        _settingsbutton->deactivate();
-        _joinmenubutton->deactivate();
-        _newmenubutton->deactivate();
-        _tutorialmenubutton->deactivate();
-
-        if (_gamelobbybackbutton->hasListener()) {
-            _gamelobbybackbutton->clearListeners();
-        }
-        _gamelobbybackbutton->addListener([=](const std::string& name, bool down) {
-            if (!down) {
-                /** Trigger return to main menu */
-                _gamelobbystartbutton->clearListeners();
-                _gamelobby->setVisible(false);
-                _status = MenuStatus::LobbyToMain;
-            }
-            });
-        _gamelobbybackbutton->activate();
-        _gamelobbybackbutton->setVisible(true);
-
-        if (_gamelobbystartbutton->hasListener()) {
-            _gamelobbystartbutton->clearListeners();
-        }
-        _gamelobbystartbutton->addListener([=](const std::string& name, bool down) {
-            if (!down) {
-                /** Trigger create new game room */
-                _gamelobbybackbutton->clearListeners();
-                _gamelobby->setVisible(false);
-                _status = MenuStatus::LobbyToGame;
-            }
-        });
-        _gamelobbystartbutton->activate();
-        _gamelobbystartbutton->setVisible(true);
-        
-        _gamelobby->setVisible(true);
+    case MenuStatus::MainToLobby:
+        _menuSceneInputHelper(false, _joinmenubutton, _newmenubutton, _tutorialmenubutton, _settingsbutton);
+        _menuSceneInputHelper(true, _gamelobbybackbutton, _gamelobbystartbutton);
+        _gamelobbyroomidlabel->setVisible(true);
+        _gamelobbyplayerlabel1->setVisible(true);
+        _gamelobbyplayerlabel2->setVisible(true);
+        _gamelobbyplayerlabel3->setVisible(true);
+        _gamelobbyplayerlabel4->setVisible(true);
+        _gamelobbyplayerlabel5->setVisible(true);
         _status = MenuStatus::GameLobby;
         break;
-    }
-    case MainToTutorial:
-    {
-        /** Handle transition from main menu to tutorial */
-        _tutorialmenubutton->clearListeners();
-        _settingsbutton->deactivate();
-        _joinmenubutton->deactivate();
-        _newmenubutton->deactivate();
-        _tutorialmenubutton->deactivate();
-
-        if (_tutorialbackbutton->hasListener()) {
-            _tutorialbackbutton->clearListeners();
-        }
-        _tutorialbackbutton->addListener([=](const std::string& name, bool down) {
-            if (!down) {
-                /** Trigger return to main menu */
-                _tutorial->setVisible(false);
-                _status = MenuStatus::TutorialToMain;
-            }
-        });
-        _tutorialbackbutton->activate();
-        _tutorialbackbutton->setVisible(true);
-
-        _tutorial->setVisible(true);
+    case MenuStatus::MainToTutorial:
+        _menuSceneInputHelper(false, _joinmenubutton, _newmenubutton, _tutorialmenubutton, _settingsbutton);
+        _menuSceneInputHelper(true, _tutorialbackbutton);
+        _tutorialsceneheader->setVisible(true);
         _status = MenuStatus::Tutorial;
         break;
-    }
-    case Setting:
+    case MenuStatus::Setting:
         break;
-    case JoinRoom:
+    case MenuStatus::JoinRoom:
         break;
-    case Tutorial:
+    case MenuStatus::Tutorial:
         break;
-    case GameLobby:
+    case MenuStatus::GameLobby:
         // TODO: Integrate network manager to create/join games with game lobby labels updating
         break;
-    case JoinToLobby:
-    {
-        /** Handle transition from Join Game to Game Lobby */
-        _joingamejoinbutton->clearListeners();
-        _joingamebackbutton->setVisible(false);
-        _joingametextinput->setVisible(false);
-        _joingamejoinbutton->setVisible(false);
-        _joingamebackbutton->deactivate();
-        _joingametextinput->deactivate();
-        _joingamejoinbutton->deactivate();
-
-        if (_gamelobbybackbutton->hasListener()) {
-            _gamelobbybackbutton->clearListeners();
-        }
-        _gamelobbybackbutton->addListener([=](const std::string& name, bool down) {
-            if (!down) {
-                /** Trigger return to main menu */
-                _gamelobbystartbutton->clearListeners();
-                _gamelobby->setVisible(false);
-                _status = MenuStatus::LobbyToMain;
-            }
-        });
-        _gamelobbybackbutton->activate();
-        _gamelobbybackbutton->setVisible(true);
-
-        if (_gamelobbystartbutton->hasListener()) {
-            _gamelobbystartbutton->clearListeners();
-        }
-        _gamelobbystartbutton->addListener([=](const std::string& name, bool down) {
-            if (!down) {
-                /** Trigger launching game from lobby */
-                _gamelobbybackbutton->clearListeners();
-                _gamelobby->setVisible(false);
-                _status = MenuStatus::LobbyToGame;
-            }
-        });
-        _gamelobbystartbutton->activate();
-        _gamelobbystartbutton->setVisible(true);
-        
-        _gamelobby->setVisible(true);
+    case MenuStatus::JoinToLobby:
+        _menuSceneInputHelper(false, _joingamebackbutton, _joingamejoinbutton, _joingametextinput);
+        _menuSceneInputHelper(true, _gamelobbybackbutton, _gamelobbystartbutton);
+        _gamelobbyroomidlabel->setVisible(true);
+        _gamelobbyplayerlabel1->setVisible(true);
+        _gamelobbyplayerlabel2->setVisible(true);
+        _gamelobbyplayerlabel3->setVisible(true);
+        _gamelobbyplayerlabel4->setVisible(true);
+        _gamelobbyplayerlabel5->setVisible(true);
         _status = MenuStatus::GameLobby;
         break;
-    }
-    case SettingToMain:
-    {
-        /** Handles transition from settings back to main menu */
-        _settingsbackbutton->setVisible(false);
+    case MenuStatus::SettingToMain:
+        _menuSceneInputHelper(false, _settingsbackbutton, _settingsnameinput, _settingsmusicbutton, _settingsvolumeslider, _settingsparallaxbutton);
         _settingstitle->setVisible(false);
-        _settingsbackbutton->deactivate();
-
-        _settingsbutton->activate();
-        _joinmenubutton->activate();
-        _newmenubutton->activate();
-        _tutorialmenubutton->activate();
-
-        if (_settingsbutton->hasListener()) {
-            _settingsbutton->clearListeners();
-        }
-        _settingsbutton->addListener([=](const std::string& name, bool down) {
-            if (!down) {
-                /** Trigger transition from main menu to settings */
-                _joinmenubutton->clearListeners();
-                _newmenubutton->clearListeners();
-                _tutorialmenubutton->clearListeners();
-                _mainmenu->setVisible(false);
-                _status = MenuStatus::MainToSetting;
-            }
-        });
-
-        if (_joinmenubutton->hasListener()) {
-            _joinmenubutton->clearListeners();
-        }
-        _joinmenubutton->addListener([=](const std::string& name, bool down) {
-            if (!down) {
-                /** Trigger transition from main menu to join game */
-                _settingsbutton->clearListeners();
-                _newmenubutton->clearListeners();
-                _tutorialmenubutton->clearListeners();
-                _mainmenu->setVisible(false);
-                _status = MenuStatus::MainToJoin;
-            }
-        });
-
-        if (_newmenubutton->hasListener()) {
-            _newmenubutton->clearListeners();
-        }
-        _newmenubutton->addListener([=](const std::string& name, bool down) {
-            if (!down) {
-                /** Trigger transition from main menu to game lobby */
-                _settingsbutton->clearListeners();
-                _joinmenubutton->clearListeners();
-                _tutorialmenubutton->clearListeners();
-                _mainmenu->setVisible(false);
-                _status = MenuStatus::MainToLobby;
-            }
-        });
-
-        if (_tutorialmenubutton->hasListener()) {
-            _tutorialmenubutton->clearListeners();
-        }
-        _tutorialmenubutton->addListener([=](const std::string& name, bool down) {
-            if (!down) {
-                /** Trigger transition from main menu to tutorial */
-                _settingsbutton->clearListeners();
-                _joinmenubutton->clearListeners();
-                _newmenubutton->clearListeners();
-                _mainmenu->setVisible(false);
-                _status = MenuStatus::MainToTutorial;
-            }
-        });
-
-        _mainmenu->setVisible(true);
+        _settingsnamelabel->setVisible(false);
+        _settingsmusiclabel->setVisible(false);
+        _settingsvolumelabel->setVisible(false);
+        _settingsparallaxlabel->setVisible(false);
+        _menuSceneInputHelper(true, _joinmenubutton, _newmenubutton, _tutorialmenubutton, _settingsbutton);
         _status = MenuStatus::MainMenu;
         break;
-    }
-    case JoinToMain:
-    {
-        /** Handle transition from join game back to main menu */
-        _joingamebackbutton->clearListeners();
-        _joingamebackbutton->deactivate();
-        _joingametextinput->deactivate();
-        _joingamejoinbutton->deactivate();
-
-        _settingsbutton->activate();
-        _joinmenubutton->activate();
-        _newmenubutton->activate();
-        _tutorialmenubutton->activate();
-
-        if (_settingsbutton->hasListener()) {
-            _settingsbutton->clearListeners();
-        }
-        _settingsbutton->addListener([=](const std::string& name, bool down) {
-            if (!down) {
-                /** Trigger transition from main menu to settings */
-                _joinmenubutton->clearListeners();
-                _newmenubutton->clearListeners();
-                _tutorialmenubutton->clearListeners();
-                _mainmenu->setVisible(false);
-                _status = MenuStatus::MainToSetting;
-            }
-        });
-
-        if (_joinmenubutton->hasListener()) {
-            _joinmenubutton->clearListeners();
-        }
-        _joinmenubutton->addListener([=](const std::string& name, bool down) {
-            if (!down) {
-                /** Trigger transition from main menu to join game */
-                _settingsbutton->clearListeners();
-                _newmenubutton->clearListeners();
-                _tutorialmenubutton->clearListeners();
-                _mainmenu->setVisible(false);
-                _status = MenuStatus::MainToJoin;
-            }
-        });
-
-        if (_newmenubutton->hasListener()) {
-            _newmenubutton->clearListeners();
-        }
-        _newmenubutton->addListener([=](const std::string& name, bool down) {
-            if (!down) {
-                /** Trigger transition from main menu to game lobby */
-                _settingsbutton->clearListeners();
-                _joinmenubutton->clearListeners();
-                _tutorialmenubutton->clearListeners();
-                _mainmenu->setVisible(false);
-                _status = MenuStatus::MainToLobby;
-            }
-        });
-
-        if (_tutorialmenubutton->hasListener()) {
-            _tutorialmenubutton->clearListeners();
-        }
-        _tutorialmenubutton->addListener([=](const std::string& name, bool down) {
-            if (!down) {
-                /** Trigger transition from main menu to tutorial */
-                _settingsbutton->clearListeners();
-                _joinmenubutton->clearListeners();
-                _newmenubutton->clearListeners();
-                _mainmenu->setVisible(false);
-                _status = MenuStatus::MainToTutorial;
-            }
-        });
-
-        _settingsbutton->setVisible(true);
-        _joinmenubutton->setVisible(true);
-        _newmenubutton->setVisible(true);
-        _tutorialmenubutton->setVisible(true);
-        _mainmenu->setVisible(true);
+    case MenuStatus::JoinToMain:
+        _menuSceneInputHelper(false, _joingamebackbutton, _joingametextinput, _joingamejoinbutton);
+        _menuSceneInputHelper(true, _joinmenubutton, _newmenubutton, _tutorialmenubutton, _settingsbutton);
         _status = MenuStatus::MainMenu;
         break;
-    }
-    case LobbyToMain:
-    {
-        /** Handle transition from game lobby back to main menu */
-        _gamelobbybackbutton->clearListeners();
-        _gamelobbybackbutton->deactivate();
-        _gamelobbystartbutton->deactivate();
-
-        _settingsbutton->activate();
-        _joinmenubutton->activate();
-        _newmenubutton->activate();
-        _tutorialmenubutton->activate();
-
-        if (_settingsbutton->hasListener()) {
-            _settingsbutton->clearListeners();
-        }
-        _settingsbutton->addListener([=](const std::string& name, bool down) {
-            if (!down) {
-                /** Trigger transition from main menu to settings */
-                _joinmenubutton->clearListeners();
-                _newmenubutton->clearListeners();
-                _tutorialmenubutton->clearListeners();
-                _mainmenu->setVisible(false);
-                _status = MenuStatus::MainToSetting;
-            }
-        });
-
-        if (_joinmenubutton->hasListener()) {
-            _joinmenubutton->clearListeners();
-        }
-        _joinmenubutton->addListener([=](const std::string& name, bool down) {
-            if (!down) {
-                /** Trigger transition from main menu to join game */
-                _settingsbutton->clearListeners();
-                _newmenubutton->clearListeners();
-                _tutorialmenubutton->clearListeners();
-                _mainmenu->setVisible(false);
-                _status = MenuStatus::MainToJoin;
-            }
-        });
-
-        if (_newmenubutton->hasListener()) {
-            _newmenubutton->clearListeners();
-        }
-        _newmenubutton->addListener([=](const std::string& name, bool down) {
-            if (!down) {
-                /** Trigger transition from main menu to game lobby */
-                _settingsbutton->clearListeners();
-                _joinmenubutton->clearListeners();
-                _tutorialmenubutton->clearListeners();
-                _mainmenu->setVisible(false);
-                _status = MenuStatus::MainToLobby;
-            }
-        });
-
-        if (_tutorialmenubutton->hasListener()) {
-            _tutorialmenubutton->clearListeners();
-        }
-        _tutorialmenubutton->addListener([=](const std::string& name, bool down) {
-            if (!down) {
-                /** Trigger transition from main menu to tutorial */
-                _settingsbutton->clearListeners();
-                _joinmenubutton->clearListeners();
-                _newmenubutton->clearListeners();
-                _mainmenu->setVisible(false);
-                _status = MenuStatus::MainToTutorial;
-            }
-        });
-
-        _settingsbutton->setVisible(true);
-        _joinmenubutton->setVisible(true);
-        _newmenubutton->setVisible(true);
-        _tutorialmenubutton->setVisible(true);
-        _mainmenu->setVisible(true);
+    case MenuStatus::LobbyToMain:
+        _menuSceneInputHelper(false, _gamelobbybackbutton, _gamelobbystartbutton);
+        _gamelobbyroomidlabel->setVisible(false);
+        _gamelobbyplayerlabel1->setVisible(false);
+        _gamelobbyplayerlabel2->setVisible(false);
+        _gamelobbyplayerlabel3->setVisible(false);
+        _gamelobbyplayerlabel4->setVisible(false);
+        _gamelobbyplayerlabel5->setVisible(false);
+        _menuSceneInputHelper(true, _joinmenubutton, _newmenubutton, _tutorialmenubutton, _settingsbutton);
         _status = MenuStatus::MainMenu;
         break;
-    }
-    case TutorialToMain:
-    {
-        /** Handle transition from tutorial back to main menu */
-        _tutorialbackbutton->deactivate();
-
-        _settingsbutton->activate();
-        _joinmenubutton->activate();
-        _newmenubutton->activate();
-        _tutorialmenubutton->activate();
-
-        if (_settingsbutton->hasListener()) {
-            _settingsbutton->clearListeners();
-        }
-        _settingsbutton->addListener([=](const std::string& name, bool down) {
-            if (!down) {
-                /** Trigger transition from main menu to settings */
-                _joinmenubutton->clearListeners();
-                _newmenubutton->clearListeners();
-                _tutorialmenubutton->clearListeners();
-                _mainmenu->setVisible(false);
-                _status = MenuStatus::MainToSetting;
-            }
-        });
-
-        if (_joinmenubutton->hasListener()) {
-            _joinmenubutton->clearListeners();
-        }
-        _joinmenubutton->addListener([=](const std::string& name, bool down) {
-            if (!down) {
-                /** Trigger transition from main menu to join game */
-                _settingsbutton->clearListeners();
-                _newmenubutton->clearListeners();
-                _tutorialmenubutton->clearListeners();
-                _mainmenu->setVisible(false);
-                _status = MenuStatus::MainToJoin;
-            }
-        });
-
-        if (_newmenubutton->hasListener()) {
-            _newmenubutton->clearListeners();
-        }
-        _newmenubutton->addListener([=](const std::string& name, bool down) {
-            if (!down) {
-                /** Trigger transition from main menu to game lobby */
-                _settingsbutton->clearListeners();
-                _joinmenubutton->clearListeners();
-                _tutorialmenubutton->clearListeners();
-                _mainmenu->setVisible(false);
-                _status = MenuStatus::MainToLobby;
-            }
-        });
-
-        if (_tutorialmenubutton->hasListener()) {
-            _tutorialmenubutton->clearListeners();
-        }
-        _tutorialmenubutton->addListener([=](const std::string& name, bool down) {
-            if (!down) {
-                /** Trigger transition from main menu to tutorial */
-                _settingsbutton->clearListeners();
-                _joinmenubutton->clearListeners();
-                _newmenubutton->clearListeners();
-                _mainmenu->setVisible(false);
-                _status = MenuStatus::MainToTutorial;
-            }
-        });
-
-        _mainmenu->setVisible(true);
+    case MenuStatus::TutorialToMain:
+        _menuSceneInputHelper(false, _tutorialbackbutton);
+        _tutorialsceneheader->setVisible(false);
+        _menuSceneInputHelper(true, _joinmenubutton, _newmenubutton, _tutorialmenubutton, _settingsbutton);
         _status = MenuStatus::MainMenu;
         break;
-    }
-    case LobbyToGame:
+    case MenuStatus::LobbyToGame:
         /** Handle transition from game lobby to game */
+        _menuSceneInputHelper(false, _gamelobbybackbutton, _gamelobbystartbutton);
+        _gamelobbyroomidlabel->setVisible(false);
+        _gamelobbyplayerlabel1->setVisible(false);
+        _gamelobbyplayerlabel2->setVisible(false);
+        _gamelobbyplayerlabel3->setVisible(false);
+        _gamelobbyplayerlabel4->setVisible(false);
+        _gamelobbyplayerlabel5->setVisible(false);
         _active = false;
         break;
     }

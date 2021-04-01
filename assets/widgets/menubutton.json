@@ -16,7 +16,8 @@
     "data": {
       "anchor": [0.5, 0.5],
       "upnode": "up",
-      "downnode": "down"
+      "downnode": "down",
+      "visible": false
     },
     "children": {
       "up": {

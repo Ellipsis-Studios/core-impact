@@ -115,7 +115,6 @@ void CoreImpactApp::update(float timestep) {
     }
     else if (!_startGame && _menu.isActive()) {
         /** Handle menu scene updates */
-        _menu.reset();
         _menu.update(timestep);
     }
     else if (!_startGame) {
@@ -130,7 +129,6 @@ void CoreImpactApp::update(float timestep) {
     else {
         /** Handle game reset */
         _gameplay.reset();
-        //_menu.removeAllChildren();
         _menu.removeChildByName("menuScene");
         _menu.setActive(false);
         _loaded = true;

@@ -12,7 +12,8 @@
     },
     "data": {
       "anchor": [0.5, 0.5],
-      "upnode": "up"
+      "upnode": "up",
+      "visible": false
     },
     "children": {
       "up": {

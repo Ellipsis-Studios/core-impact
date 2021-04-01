@@ -22,14 +22,12 @@ protected:
     std::shared_ptr<cugl::scene2::SceneNode> _gamePlanet;
 
     /** Main Menu */
-    std::shared_ptr<cugl::scene2::SceneNode> _mainmenu;
     std::shared_ptr<cugl::scene2::Button> _settingsbutton;
     std::shared_ptr<cugl::scene2::Button> _joinmenubutton;
     std::shared_ptr<cugl::scene2::Button> _newmenubutton;
     std::shared_ptr<cugl::scene2::Button> _tutorialmenubutton;
 
-    ///** Settings */
-    std::shared_ptr<cugl::scene2::SceneNode> _settings;
+    /** Settings */
     std::shared_ptr<cugl::scene2::Button> _settingsbackbutton;
     std::shared_ptr<cugl::scene2::Label> _settingstitle;
     std::shared_ptr<cugl::scene2::Label> _settingsnamelabel;
@@ -40,13 +38,13 @@ protected:
     std::shared_ptr<cugl::scene2::Slider> _settingsvolumeslider;
     std::shared_ptr<cugl::scene2::Label> _settingsparallaxlabel;
     std::shared_ptr<cugl::scene2::Button> _settingsparallaxbutton;
+
     /** Join Game */
-    std::shared_ptr<cugl::scene2::SceneNode> _joingame;
     std::shared_ptr<cugl::scene2::Button> _joingamebackbutton;
     std::shared_ptr<cugl::scene2::TextField> _joingametextinput;
     std::shared_ptr<cugl::scene2::Button> _joingamejoinbutton;
+
     /** Game Lobby */
-    std::shared_ptr<cugl::scene2::SceneNode> _gamelobby;
     std::shared_ptr<cugl::scene2::Button> _gamelobbybackbutton;
     std::shared_ptr<cugl::scene2::Label> _gamelobbyroomidlabel;
     std::shared_ptr<cugl::scene2::Label> _gamelobbyplayerlabel1;
@@ -55,8 +53,8 @@ protected:
     std::shared_ptr<cugl::scene2::Label> _gamelobbyplayerlabel4;
     std::shared_ptr<cugl::scene2::Label> _gamelobbyplayerlabel5;
     std::shared_ptr<cugl::scene2::Button> _gamelobbystartbutton;
+
     /** Tutorial */
-    std::shared_ptr<cugl::scene2::SceneNode> _tutorial;
     std::shared_ptr<cugl::scene2::Button> _tutorialbackbutton;
     std::shared_ptr<cugl::scene2::Label> _tutorialsceneheader;
 
@@ -66,7 +64,7 @@ protected:
     /** Whether menu has been initialized previously */
     bool _isLoaded;
 
-    enum MenuStatus {
+    enum class MenuStatus {
         MainMenu, // main menu with 3 menu buttons + setting button added
         MainToSetting, // transition to setting
         MainToJoin, // transtition to join room
@@ -88,6 +86,33 @@ protected:
 
     /** Stores the game code for joining as client*/
     string _joinGame;
+
+private:
+#pragma mark -
+#pragma mark Helpers
+
+    /**
+     * Helper to set up/take down menu sub-scenes assets.
+     *
+     * @param value           Whether to set up/take down
+     * @param t, ...args        List of shared pointer to input assets
+     */
+    template <typename T>
+    const void _menuSceneInputHelper(bool value, const std::shared_ptr<T>& t) {
+        t->setVisible(value);
+        if (value) {
+            t->activate();
+        }
+        else {
+            t->deactivate();
+        }
+    }
+
+    template<typename T, typename... Args>
+    const void _menuSceneInputHelper(bool value, const std::shared_ptr<T>& t, Args... args) {
+        _menuSceneInputHelper(value, t);
+        _menuSceneInputHelper(value, args...);
+    }
 
 public:
 #pragma mark -
@@ -112,11 +137,6 @@ public:
      * Disposes of all (non-static) resources allocated to this mode.
      */
     void dispose();
-
-    /**
-     * Resets the resources allocated to this mode to default.
-     */
-    void reset();
 
     /**
      * Initializes the controller contents, making it ready for loading
