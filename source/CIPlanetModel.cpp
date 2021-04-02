@@ -30,9 +30,9 @@
  * @param unlocked The texture on the outside of a locked ring
  */
 void PlanetModel::setTextures(const std::shared_ptr<cugl::Texture>& core,
-                 const std::shared_ptr<cugl::Texture>& ring,
-                 const std::shared_ptr<cugl::Texture>& unlocked,
-                 const std::shared_ptr<cugl::Texture>& locked) {
+                              const std::shared_ptr<cugl::Texture>& ring,
+                              const std::shared_ptr<cugl::Texture>& unlocked,
+                              const std::shared_ptr<cugl::Texture>& locked) {
     _planetNode = PlanetNode::alloc(core, ring, unlocked, locked);
     _planetNode->setAnchor(cugl::Vec2::ANCHOR_CENTER);
     _planetNode->setLayers(&_layers);
@@ -40,6 +40,9 @@ void PlanetModel::setTextures(const std::shared_ptr<cugl::Texture>& core,
     _planetNode->setRadius(_radius);
 }
  
+void PlanetModel::update(float timestep) {
+    _planetNode->update(timestep);
+}
 
 #pragma mark Constructors
 /**
@@ -140,3 +143,4 @@ bool PlanetModel::lockInLayer(float timestep) {
     _planetNode->setLayers(&_layers);
     return true;
 }
+

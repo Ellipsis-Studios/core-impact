@@ -19,7 +19,7 @@
             "file":   "textures/core.png"
         },
         "innerRing": {
-            "file":   "textures/innerRing.png"
+            "file":   "textures/innerLayerAnimation_v2.png"
         },
         "unlockedOuterRing": {
             "file":   "textures/unlockedOuterRing.png"

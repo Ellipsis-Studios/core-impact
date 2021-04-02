@@ -99,7 +99,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     // Create the planet model
     _planet = PlanetModel::alloc(dimen.width/2, dimen.height/2, CIColor::getNoneColor(), 3);
     auto coreTexture = _assets->get<Texture>("core");
-    auto ringTexture = _assets->get<Texture>("innerRing"); 
+    auto ringTexture = _assets->get<Texture>("innerRing");
     auto unlockedTexture = _assets->get<Texture>("unlockedOuterRing");
     auto lockedTexture = _assets->get<Texture>("lockedOuterRing");
     _planet->setTextures(coreTexture, ringTexture, unlockedTexture, lockedTexture);
@@ -156,7 +156,7 @@ void GameScene::update(float timestep) {
     dimen *= SCENE_WIDTH/dimen.width;
     _input.update(timestep);
     
-     _massHUD->setText("Room: " + _networkMessageManager->getRoomId()
+    _massHUD->setText("Room: " + _networkMessageManager->getRoomId()
         + " / Your Core: " + to_string(_planet->getMass()) + "; "
         + CIColor::getString(_planet->getColor()));
     
@@ -177,6 +177,7 @@ void GameScene::update(float timestep) {
          }
      }
     
+    _planet->update(timestep);
     _stardustContainer->update();
     addStardust(dimen);
 
