@@ -15,8 +15,11 @@
 #include "CIPlanetLayer.h"
 #include "CIPlanetNode.h"
 
+#define WIN_PLANET_MASS 200
+
+
 class PlanetModel {
-private:
+protected:
     /** The layers of this planet */
     std::vector<PlanetLayer> _layers;
     
@@ -169,7 +172,7 @@ public:
      * disposed, a planet may not be used until it is initialized again.
      */
     void dispose();
-        
+
     /**
      * Initializes a new planet with the given color
      *
@@ -207,12 +210,12 @@ public:
     /**
      * Decreases the size of the current layer
      */
-    void decreaseLayerSize();
+    virtual void decreaseLayerSize();
     
     /**
      * Increases the size of the current layer
      */
-    void increaseLayerSize();
+    virtual void increaseLayerSize();
     
     /**
      * Stops any current progress towards locking in a layer
@@ -227,7 +230,14 @@ public:
      */
     bool lockInLayer(float timestep);
     
+    /**
+     * Checks if current planet satisfies winning conditions.
+     *
+     * @return bool whether current planet satisfies winning conditions.
+     */
+    bool isWinner() {
+        return (_mass >= WIN_PLANET_MASS);
+    }    
 };
-
 
 #endif /* __CI_PLANET_MODEL_H__ */

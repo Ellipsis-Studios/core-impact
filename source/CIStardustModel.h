@@ -18,11 +18,11 @@ public:
      * Enum representing where the stardust is. Top left, top right, bottom left, and bottom right all represent off screen locations.
      */
     enum Location {
-        ON_SCREEN,
-        TOP_LEFT,
-        TOP_RIGHT,
-        BOTTOM_LEFT,
-        BOTTOM_RIGHT,
+        ON_SCREEN = 0,
+        TOP_LEFT = 1,
+        TOP_RIGHT = 2,
+        BOTTOM_LEFT = 3,
+        BOTTOM_RIGHT = 4,
     };
     
 private:

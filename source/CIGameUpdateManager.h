@@ -19,16 +19,23 @@
 #include "CIGameUpdate.h"
 #include "CIPlanetModel.h"
 #include "CIStardustQueue.h"
+#include "CIOpponentPlanet.h"
 
 class GameUpdateManager {
 private:
     /** The last game update sent to other players */
     std::shared_ptr<GameUpdate> _prev_game_update_sent;
     
+    /** The mass of the planet from the previous game update sent */
+    float _prev_planet_mass;
+    
     std::shared_ptr<GameUpdate> _game_update_to_send;
     
     /** Vector of game updates to process */
     std::vector<std::shared_ptr<GameUpdate>> _game_updates_to_process;
+    
+    /** The player id. Initialized to -1 before a player id is assigned. */
+    int _player_id;
     
 public:
 #pragma mark -
@@ -50,7 +57,7 @@ public:
      * Disposes of all (non-static) resources allocated to this game update manager.
      */
     void dispose();
-    
+
     /**
      * Initializes the game update manager
      *
@@ -100,6 +107,14 @@ public:
     void clearGameUpdateToSend() {
         _game_update_to_send = nullptr;
     }
+    
+    int getPlayerId() {
+        return _player_id;
+    }
+    
+    void setPlayerId(int playerId) {
+        _player_id = playerId;
+    }
 
 #pragma mark Interactions
     /**
@@ -115,9 +130,11 @@ public:
      * Processes current game updates from other players if there are any.
      *
      * @param stardustQueue     A reference to the player's stardust queue
+     * @param planet                    A reference to the player's planet
+     * @param opponentPlanets A vector containing the planets of the other players
      * @param bounds                    The bounds of the screen
      */
-    void processGameUpdate(std::shared_ptr<StardustQueue> stardustQueue, cugl::Size bounds);
+    void processGameUpdate(std::shared_ptr<StardustQueue> stardustQueue, std::shared_ptr<PlanetModel> planet, std::vector<std::shared_ptr<OpponentPlanet>> opponentPlanets, cugl::Size bounds);
 };
 
 #endif /* __CI_GAME_UPDATE_MANAGER_H__ */

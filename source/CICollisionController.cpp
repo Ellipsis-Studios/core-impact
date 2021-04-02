@@ -63,6 +63,11 @@ void collisions::checkForCollision(const std::shared_ptr<PlanetModel>& planet, c
                 // We remove a layer due to different colored stardust
                 else {
                     planet->decreaseLayerSize();
+                    
+                    // another player has hit this planet with a stardust they sent
+                    if (stardust->getPreviousOwner() != -1) {
+                        queue->addToSendQueue(stardust);
+                    }
                 }
 
                 // Destroy the stardust

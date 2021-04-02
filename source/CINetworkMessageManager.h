@@ -30,6 +30,9 @@ private:
     /** The timestamp of the next message to send. */
     int _timestamp;
     
+    /**Thie id of the player who was won the game. -1 if the game is still ongoing. */
+    int _winner_player_id;
+    
 public:
 #pragma mark -
 #pragma mark Constructors
@@ -61,7 +64,7 @@ public:
      * @return true if the game update manager is initialized properly, false otherwise.
      */
     bool init();
-    
+
     /**
      * Returns a newly allocated network message manager.
      *
@@ -102,9 +105,15 @@ public:
     int getPlayerId() {
         if (_conn == nullptr) {
             return -1;
+        } else if (!_conn->getPlayerID().has_value()) {
+            return -1;
+        } else {
+            return _conn->getPlayerID().value();
         }
-        
-        return _conn->getPlayerID().value();
+    }
+    
+    int getWinnerPlayerId() {
+        return _winner_player_id;
     }
 
 

@@ -15,6 +15,7 @@
 #include <cugl/cugl.h>
 #include "CIGameScene.h"
 #include "CILoadingScene.h"
+#include "CINetworkMessageManager.h"
 
 /**
  * This class represents the application root for the ship demo.
@@ -26,6 +27,9 @@ protected:
     /** The global asset manager */
     std::shared_ptr<cugl::AssetManager> _assets;
 
+    // SHARED MANAGER
+    std::shared_ptr<NetworkMessageManager> _networkMessageManager;
+
     // Player modes
     /** The primary controller for the game world */
     GameScene _gameplay;
@@ -34,7 +38,7 @@ protected:
 
     /** Whether or not we have finished loading all assets */
     bool _loaded;
-    
+
 public:
     /**
      * Creates, but does not initialized a new application.

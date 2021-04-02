@@ -12,14 +12,15 @@
 #define __CI_NETWORK_UTILS_H__
 
 #include <cugl/cugl.h>
+#include "CIStardustModel.h"
 
 class NetworkUtils {
 private:
     /** IP of the NAT punchthrough server */
-    static constexpr auto SERVER_ADDRESS = "34.74.68.73";
+    static constexpr auto SERVER_ADDRESS = "34.86.251.233";
     
     /** Port of the NAT punchthrough server */
-    static constexpr uint16_t SERVER_PORT = 61111;
+    static constexpr uint16_t SERVER_PORT = 10032;
     
 public:
     /**
@@ -30,7 +31,8 @@ public:
         StardustSent = 2,
         PlanetUpdate = 3,
         AttemptToWin = 4,
-        WonGame = 5
+        WonGame = 5,
+        StardustHit = 6
     };
     
     /**
@@ -64,6 +66,16 @@ public:
             0
         };
     }
+    
+    /**
+     * Gets the stardust location given our player id and the player id of the opponent.
+     */
+    static StardustModel::Location getStardustLocation(int playerID, int opponentPlayerID);
+    
+    /**
+     * Returns an opponents player id given this player's id and a location
+     */
+    static int getOpponentPlayerID(int playerID, StardustModel::Location location);
 };
 
 #endif /* __CI_NETWORK_UTILS_H__ */
