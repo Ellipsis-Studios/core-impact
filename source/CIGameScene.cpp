@@ -247,6 +247,7 @@ void GameScene::addStardust(const Size bounds) {
         return;
     }
     
+    /** Finds the average mass of the planets in game */
     int avgMass = _planet->getMass();
     int planetCount = 1;
     for (const std::shared_ptr<OpponentPlanet> &op : _opponent_planets){
@@ -261,7 +262,9 @@ void GameScene::addStardust(const Size bounds) {
     /** Pity mechanism: The longer you haven't seen a certain color, the more likely it will be to spawn that color */
     CIColor::Value c = CIColor::getNoneColor();
     int probSum = 0, colorCount = 6;
+    // Sums up the total probability space of the stardust colors, augmented by a mass correction
     probSum = accumulate(_stardustProb, _stardustProb + colorCount, probSum) + massCorrection;
+    // Randomly selects a point in the probability space
     int spawnRand = rand() % probSum;
     for (int i = 0; i < colorCount; i++) {
         spawnRand -= (CIColor::Value(i) == _planet->getColor()) ? _stardustProb[i] - massCorrection : _stardustProb[i];
