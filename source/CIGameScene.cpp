@@ -242,21 +242,32 @@ void GameScene::addStardust(const Size bounds) {
         return;
     }
     
-    size_t spawn_probability = 40 + (_stardustContainer->size() * 16);
+    size_t spawn_probability = 40 + (_stardustContainer->size() * 40);
     if (rand() % spawn_probability != 0) {
         return;
     }
     
+    int avgMass = _planet->getMass();
+    int planetCount = 1;
+    for (const std::shared_ptr<OpponentPlanet> &op : _opponent_planets){
+        if (op != nullptr){
+            avgMass += op->getMass();
+            planetCount++;
+        }
+    }
+    avgMass = avgMass / planetCount;
+    int massCorrection = avgMass - _planet->getMass();
+    
     /** Pity mechanism: The longer you haven't seen a certain color, the more likely it will be to spawn that color */
-    CIColor::Value c = CIColor::getRandomColor();
-    int probSum = 0, colorCount = 5;
-    probSum = accumulate(_stardustProb, _stardustProb + colorCount, probSum);
+    CIColor::Value c = CIColor::getNoneColor();
+    int probSum = 0, colorCount = 6;
+    probSum = accumulate(_stardustProb, _stardustProb + colorCount, probSum) + massCorrection;
     int spawnRand = rand() % probSum;
     for (int i = 0; i < colorCount; i++) {
-        spawnRand -= _stardustProb[i];
+        spawnRand -= (CIColor::Value(i) == _planet->getColor()) ? _stardustProb[i] - massCorrection : _stardustProb[i];
         if (spawnRand <= 0){
             c = CIColor::Value(i);
-            spawnRand = 10032;
+            spawnRand = probSum;
             _stardustProb[i] = max(_stardustProb[i] - 40, 0);
         } else {
             _stardustProb[i] += 10;
@@ -264,5 +275,4 @@ void GameScene::addStardust(const Size bounds) {
     }
     
     _stardustContainer->addStardust(c, bounds);
-    
 }

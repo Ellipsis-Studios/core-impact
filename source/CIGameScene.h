@@ -36,7 +36,7 @@
 class GameScene : public cugl::Scene2 {
 private:
     /** Handles stardust color probability */
-    int _stardustProb[5];
+    int _stardustProb[6];
 protected:
     /** The asset manager for this game mode. */
     std::shared_ptr<cugl::AssetManager> _assets;
@@ -82,7 +82,7 @@ public:
      * This allows us to use the object without a heap pointer.
      */
     GameScene() : cugl::Scene2() {
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 6; i++) {
             _stardustProb[i] = 100;
         }
     }
