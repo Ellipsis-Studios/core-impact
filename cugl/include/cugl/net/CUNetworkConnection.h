@@ -9,6 +9,7 @@
 #include <vector>
 #include <optional>
 #include <variant>
+#include <unordered_set>
 
 #include <slikenet/BitStream.h>
 #include <slikenet/MessageIdentifiers.h>
@@ -21,6 +22,8 @@ namespace SLNet {
 namespace cugl {
 	class CUNetworkConnection {
 	public:
+
+#pragma region Setup
 		/**
 		 * Basic data needed to setup a connection
 		 */
@@ -59,7 +62,9 @@ namespace cugl {
 
 		/** Delete and cleanup this connection. */
 		~CUNetworkConnection();
+#pragma endregion
 
+#pragma region Main Networking Methods
 		/**
 		 * Sends a byte array to all other players.
 		 *
@@ -70,17 +75,54 @@ namespace cugl {
 		void send(const std::vector<uint8_t>& msg);
 
 		/**
-		 * Method to call every frame to process incoming network messages.
+		 * Method to call every network frame to process incoming network messages.
+		 * 
+		 * A network frame can, but need not be, the same as a render frame.
+		 * 
+		 * This method must be called periodically EVEN BEFORE A CONNECTION IS ESTABLISHED.
+		 * Otherwise, the library has no way to receive and process incoming connections.
 		 *
 		 * @param dispatcher Function that will be called on every byte array sent by other players.
 		 */
 		void receive(const std::function<void(const std::vector<uint8_t>&)>& dispatcher);
+#pragma endregion
 
+#pragma region State Management
 		/**
 		 * Mark the game as started and ban incoming connections except for reconnects.
-		 * PRECONDITION: Should only be called by host.
+		 * PRECONDITION: Can only be called by the host.
 		 */
 		void startGame();
+
+		/**
+		 * Potential states the networking could be in
+		 */
+		enum class NetStatus {
+			// No connection
+			Disconnected,
+			// If host, waiting on Room ID from server; if client, waiting on Player ID from host
+			Pending,
+			// If host, accepting connections; if client, successfully connected to host
+			Connected,
+			// Lost connection, attempting to reconnect (failure causes disconnection)
+			Reconnecting,
+			// Room ID does not exist, or room is already full
+			RoomNotFound,
+			// API version numbers do not match between host, client, and Punchthrough Server
+			// (when running your own punchthrough server, you can specify a minimum API version
+			// that your server will require, or else it will reject the connection.
+			// If you're using my demo server, that minimum is 0.
+			ApiMismatch,
+			// Something went wrong and IDK what :(
+			GenericError
+		};
+#pragma endregion
+
+#pragma region Getters
+		/**
+		 * The current status of this network connection.
+		 */
+		NetStatus getStatus();
 
 		/**
 		 * Returns the player ID or empty.
@@ -101,18 +143,30 @@ namespace cugl {
 		 */
 		std::string getRoomID() { return roomID; }
 
+		/**
+		 * Returns true if the given player ID is currently connected to the game.
+		 * 
+		 * Does not return meaningful data until a connection is established.
+		 * 
+		 * As a client, if disconnected from host, player ID 0 will return disconnected.
+		 */
+		bool isPlayerActive(uint8_t playerID) { return connectedPlayers.test(playerID); }
+
 		/** Return the number of players currently connected to this game */
 		uint8_t getNumPlayers() { return numPlayers; }
 
 		/** Return the number of players present when the game was started
 		 *  (including players that may have disconnected) */
 		uint8_t getTotalPlayers() { return maxPlayers;  }
+#pragma endregion
 
 	private:
 		/** Connection object */
 		std::unique_ptr<SLNet::RakPeerInterface> peer;
 
 #pragma region State
+		/** Current status */
+		NetStatus status;
 		/** API version number */
 		const uint8_t apiVer;
 		/** Number of players currently connected */
@@ -136,9 +190,14 @@ namespace cugl {
 
 #pragma region Connection Data Structures
 		struct HostPeers {
+			/** Whether the game has started */
 			bool started;
+			/** Maximum number of players to allow in this game (NOT the max that was in this room) */
 			uint32_t maxPlayers;
+			/** Addresses of all connected players */
 			std::vector<std::unique_ptr<SLNet::SystemAddress>> peers;
+			/** Addresses of all players to reject */
+			std::unordered_set<std::string> toReject;
 
 			HostPeers() : started(false), maxPlayers(6) {
 				for (uint8_t i = 0; i < 5; i++) {
@@ -175,11 +234,57 @@ namespace cugl {
 			JoinRoomFail,
 			Reconnect,
 			PlayerJoined,
-			PlayerLeft
+			PlayerLeft,
+			StartGame
 		};
 
-		/** Initialize the connection */
-		void startupConn(const ConnectionConfig& config);
+#pragma region Connection Handshake
+
+		/*
+		===============================
+		 Connection Handshake Overview
+		===============================
+
+				Host		Punchthrough Server			Client
+				====		===================			======
+		c0		Connect ------------->
+		ch1		  <--------- Conn Req Accepted
+				  <--------- Room ID Assigned
+		ch2		Accept Req
+
+		c0							 <----------------- Connect
+							 Conn Req Accepted ------------>
+		cc1							 <----------------- Try connect to host
+				  <--------- Punch Succeeded -------------->
+		cc2												Save host address
+		cc3		Check hasRoom
+				Connect ----------------------------------->
+		cc4		  <------------------------------------ Incoming connection
+		cc5		Request Accepted -------------------------->
+		cc6												Join Room
+		
+		*/
+
+		/** Step 0: Connect to punchthrough server (both client and host) */
+		void c0StartupConn(const ConnectionConfig& config);
+		/** Host Step 1: Server connection established */
+		void ch1HostConnServer(HostPeers& h);
+		/** Host Step 2: Server gave room ID to host; awaiting incoming connections */
+		void ch2HostGetRoomID(HostPeers& h, SLNet::BitStream& bts);
+		/** Client Step 1: Server connection established; request punchthrough to host from server */
+		void cc1ClientConnServer(ClientPeer& c);
+		/** Client Step 2: Client received successful punchthrough from server */
+		void cc2ClientPunchSuccess(ClientPeer& c, SLNet::Packet* packet);
+		/** Client Step 3: Host received successful punchthrough request passed through from server */
+		void cc3HostReceivedPunch(HostPeers& h, SLNet::Packet* packet);
+		/** Client Step 4: Client received direct connection request from host */
+		void cc4ClientReceiveHostConnection(ClientPeer& c, SLNet::Packet* packet);
+		/** Client Step 5: Host received confirmation of connection from client */
+		void cc5HostConfirmClient(HostPeers& h, SLNet::Packet* packet);
+		/** Client Step 6: Client received player ID from host; connection finished */
+		void cc6ClientAssignedID(ClientPeer& c, const std::vector<uint8_t>& msgConverted);
+
+#pragma endregion
 
 		/**
 		 * Broadcast a message to everyone except the specified connection.
