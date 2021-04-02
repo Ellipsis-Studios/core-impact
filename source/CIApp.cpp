@@ -39,6 +39,7 @@ void CoreImpactApp::onStartup() {
     Input::activate<Touchscreen>();
 #else
     Input::activate<Mouse>();
+    Input::get<Mouse>()->setPointerAwareness(Mouse::PointerAwareness::DRAG);
 #endif
     Input::activate<Keyboard>();
     Input::activate<TextInput>();

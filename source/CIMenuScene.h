@@ -10,53 +10,88 @@
 #define __CI_MENU_SCENE_H__
 #include <cugl/cugl.h>
 
+/**
+ * This class is the menu screens before the actual game play. 
+ * 
+ * There are 5 total menu scenes (Main Menu, Settings, Join Game, Game Lobby, and Tutorial).
+ * The MenuStatus value shows which scene to display. In addition to the 5 pages, MenuStatus 
+ * also handles transition from/to each of the pages. Page transitions work by clearing out 
+ * the previous screen's assets before activating and displaying the new screen's assets. 
+ * 
+ * Many of the scenes possess inputs to configure the gameplay setting by the user. Game Lobby 
+ * is always the last scene before launching gameplay. Clicking the start game button in Game
+ * Lobby will inform the application root to switch to the gameplay mode. 
+ */
 class MenuScene : public cugl::Scene2 {
 protected:
+    /** The asset manager for menu screens. */
     std::shared_ptr<cugl::AssetManager> _assets;
 
-    /** Team logo */
-    std::shared_ptr<cugl::scene2::SceneNode> _teamlogo;
-    /** Game Title */
+    // NO CONTROLLER 
+
+    // VIEW 
+    /** The team logo */
+    std::shared_ptr<cugl::scene2::SceneNode> _teamLogo;
+    /** Background game title */
     std::shared_ptr<cugl::scene2::SceneNode> _gameTitle;
-    /** Game Planet */
+    /** Background game planet */
     std::shared_ptr<cugl::scene2::SceneNode> _gamePlanet;
 
-    /** Main Menu */
-    std::shared_ptr<cugl::scene2::Button> _settingsbutton;
-    std::shared_ptr<cugl::scene2::Button> _joinmenubutton;
-    std::shared_ptr<cugl::scene2::Button> _newmenubutton;
-    std::shared_ptr<cugl::scene2::Button> _tutorialmenubutton;
+    // MAIN MENU 
+    /** Button to switch to Settings screen */
+    std::shared_ptr<cugl::scene2::Button> _settingsBtn;
+    /** Button to switch to Join Game screen */
+    std::shared_ptr<cugl::scene2::Button> _joinBtn;
+    /** Button to create a new game/room as host (Game Lobby) */
+    std::shared_ptr<cugl::scene2::Button> _newBtn;
+    /** Button to switch to Tutorial screen */
+    std::shared_ptr<cugl::scene2::Button> _tutorialBtn;
 
-    /** Settings */
-    std::shared_ptr<cugl::scene2::Button> _settingsbackbutton;
-    std::shared_ptr<cugl::scene2::Label> _settingstitle;
-    std::shared_ptr<cugl::scene2::Label> _settingsnamelabel;
-    std::shared_ptr<cugl::scene2::TextField> _settingsnameinput;
-    std::shared_ptr<cugl::scene2::Label> _settingsmusiclabel;
-    std::shared_ptr<cugl::scene2::Button> _settingsmusicbutton;
-    std::shared_ptr<cugl::scene2::Label> _settingsvolumelabel;
-    std::shared_ptr<cugl::scene2::Slider> _settingsvolumeslider;
-    std::shared_ptr<cugl::scene2::Label> _settingsparallaxlabel;
-    std::shared_ptr<cugl::scene2::Button> _settingsparallaxbutton;
+    /** Back button to return to main menu */
+    std::shared_ptr<cugl::scene2::Button> _backBtn;
 
-    /** Join Game */
-    std::shared_ptr<cugl::scene2::Button> _joingamebackbutton;
-    std::shared_ptr<cugl::scene2::TextField> _joingametextinput;
-    std::shared_ptr<cugl::scene2::Button> _joingamejoinbutton;
+    // SETTINGS         
+    /** Settings screen title */
+    std::shared_ptr<cugl::scene2::Label> _settingsTitle;
+    /** Label for player name input */
+    std::shared_ptr<cugl::scene2::Label> _pnameLabel;
+    /** Label for music toggle button */
+    std::shared_ptr<cugl::scene2::Label> _musicLabel;
+    /** Label for volume slider */
+    std::shared_ptr<cugl::scene2::Label> _volumeLabel;
+    /** Label for parallax toggle button */
+    std::shared_ptr<cugl::scene2::Label> _parallaxLabel;
 
-    /** Game Lobby */
-    std::shared_ptr<cugl::scene2::Button> _gamelobbybackbutton;
-    std::shared_ptr<cugl::scene2::Label> _gamelobbyroomidlabel;
-    std::shared_ptr<cugl::scene2::Label> _gamelobbyplayerlabel1;
-    std::shared_ptr<cugl::scene2::Label> _gamelobbyplayerlabel2;
-    std::shared_ptr<cugl::scene2::Label> _gamelobbyplayerlabel3;
-    std::shared_ptr<cugl::scene2::Label> _gamelobbyplayerlabel4;
-    std::shared_ptr<cugl::scene2::Label> _gamelobbyplayerlabel5;
-    std::shared_ptr<cugl::scene2::Button> _gamelobbystartbutton;
+    /** Player Name input */
+    std::shared_ptr<cugl::scene2::TextField> _pnameInput;
+    /** Button to toggle music */
+    std::shared_ptr<cugl::scene2::Button> _musicBtn;
+    /** Slider for gameplay volume */
+    std::shared_ptr<cugl::scene2::Slider> _volumeSlider;
+    /** Button to toggle parallax effect */
+    std::shared_ptr<cugl::scene2::Button> _parallaxBtn;
 
-    /** Tutorial */
-    std::shared_ptr<cugl::scene2::Button> _tutorialbackbutton;
-    std::shared_ptr<cugl::scene2::Label> _tutorialsceneheader;
+    // JOIN GAME  
+    /** Game room id input */
+    std::shared_ptr<cugl::scene2::TextField> _roomIdInput;
+    /** Button to join game with specified id */
+    std::shared_ptr<cugl::scene2::Button> _roomJoinBtn;
+
+    // GAME LOBBY
+    /** Label for Room Id in Game Lobby */
+    std::shared_ptr<cugl::scene2::Label> _lobbyRoomLabel;
+    /** Each label for a user in the game */
+    std::shared_ptr<cugl::scene2::Label> _gamelobbyplayerlabel1; // top
+    std::shared_ptr<cugl::scene2::Label> _gamelobbyplayerlabel2; // middle left
+    std::shared_ptr<cugl::scene2::Label> _gamelobbyplayerlabel3; // middle right
+    std::shared_ptr<cugl::scene2::Label> _gamelobbyplayerlabel4; // bottom left
+    std::shared_ptr<cugl::scene2::Label> _gamelobbyplayerlabel5; // bottom right
+    /** Button to trigger start of a game with the current room */
+    std::shared_ptr<cugl::scene2::Button> _gameStartBtn;
+
+    // TUTORIAL 
+    /** Label for Tutorial page title */
+    std::shared_ptr<cugl::scene2::Label> _tutorialTitle;
 
     // MODEL
     /** Value for the player name */
@@ -69,7 +104,33 @@ protected:
     bool _parallaxOn;
     /** Whether menu has been initialized previously */
     bool _isLoaded;
+    /** Stores the game code for joining as client*/
+    string _joinGame;
 
+    /**
+     * Enum class for the current state of the menu scene. 
+     * 
+     * MainMenu               - starting point. User starts here once Loading Scene completed. 
+     *                        - 4 buttons (Join Game, New Game, Tutorial + Settings)
+     *                        - Can transition to MainToSettings, MainToJoin, MainToLobby + MainToTutorial
+     * MainToSetting          - When user clicks on Settings button in MainMenu. Transtion to Settings
+     * MainToJoin             - When user clicks on Join Game button in MainMenu. Transition to JoinRoom
+     * MainToLobby            - When user clicks on New Game button in MainMenu. Transition to GameLobby
+     * MainToTutorial         - When user clicks on How To Play button in MainMenu. Transition to Tutorial.
+     * Settings               - Displaying settings page. User can return to MainMenu with Back button.
+     *                        - 5 inputs (Name textfield, Music + Parallax Toggles, Volume Slider, Back button)
+     * JoinRoom               - Displaying join game page. User can input room id and join a game or return to MainMenu.
+     *                        - 3 inputs (Room Id textfield, Join button, Back button)
+     * GameLobby              - Displaying game lobby page. User can start the game or return to MainMenu.
+     *                        - 2 buttons (Start button, Back button)
+     * Tutorial               - Displaying tutorial page. User can return to MainMenu.
+     *                        - 1 button (Back button)
+     * SettingToMain          - When user presses back button to return to main from settings.
+     * JoinToMain             - When user presses back button from join game.
+     * LobbyToMain            - When user presses back button from game lobby.
+     * TutorialToMain         - When user presses back button from tutorial.
+     * LobbyToGame            - Ends menu scene and Triggers gameplay to begin.
+     */
     enum class MenuStatus {
         MainMenu, // main menu with 3 menu buttons + setting button added
         MainToSetting, // transition to setting
@@ -80,18 +141,15 @@ protected:
         JoinRoom, // join room page (with room id input)
         JoinToLobby, // transition to lobby
         GameLobby, // game lobby
+        Tutorial, // tutorial page
         SettingToMain, // go back to main menu from setting
         JoinToMain, // go back to main menu from join room
         LobbyToMain, // go back to main menu from lobby
         TutorialToMain, // go back to main menu from tutorial
-        Tutorial, // tutorial page
         LobbyToGame // transition to a new game (set loading scene inactive)
     };
 
     MenuStatus _status;
-
-    /** Stores the game code for joining as client*/
-    string _joinGame;
 
 private:
 #pragma mark -
@@ -164,7 +222,7 @@ public:
      *
      * This method updates the progress bar amount.
      *
-     * @param timestep  The amount of time (in seconds) since the last frame
+     * @p6aram timestep  The amount of time (in seconds) since the last frame
      */
     void update(float timestep);
 

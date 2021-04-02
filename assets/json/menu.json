@@ -30,6 +30,12 @@
     },
     "clearbutton": {
       "file": "textures/clearbutton.png"
+    },
+    "toggleOn": {
+      "file": "textures/toggleOnButton.png"
+    },
+    "toggleOff": {
+      "file": "textures/toggleOffButton.png"
     }
   },
   "fonts": {
@@ -41,7 +47,8 @@
   "widgets": {
     "menubutton": "widgets/menubutton.json",
     "backbutton": "widgets/backbutton.json",
-    "settingsbutton": "widgets/settingsbutton.json"
+    "settingsbutton": "widgets/settingsbutton.json",
+    "togglebutton": "widgets/togglebutton.json"
   },
   "scene2s": {
     "menu": {
@@ -206,8 +213,7 @@
             "y_offset": -0.25
           }
         },
-
-        "settingsback": {
+        "menubackbutton": {
           "comment": "The back button to return to main menu.",
           "type": "Widget",
           "data": {
@@ -300,19 +306,13 @@
           "comment": "The music toggle button in Settings.",
           "type": "Widget",
           "data": {
-            "key": "menubutton",
-            "variables": {
-              "size": [300, 75],
-              "text": "Toggle Music",
-              "size2": [300, 75],
-              "text2": "Toggle Music"
-            }
+            "key": "togglebutton"
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.3,
-            "y_offset": 0.1
+            "x_offset": 0.4,
+            "y_offset": 0.07
           }
         },
         "settingsvolumelabel": {
@@ -344,13 +344,14 @@
             "tick": 10,
             "snap": true,
             "anchor": [0.5, 0.5],
-            "visible": false
+            "visible": false,
+            "scale": 0.75
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
             "x_offset": 0.3,
-            "y_offset": -0.1
+            "y_offset": -0.12
           }
         },
         "settingsparallaxlabel": {
@@ -376,31 +377,13 @@
           "comment": "The parallax effect toggle button in Settings.",
           "type": "Widget",
           "data": {
-            "key": "menubutton",
-            "variables": {
-              "text": "Toggle Parallax",
-              "text2": "Toggle Parallax"
-            }
+            "key": "togglebutton"
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.3,
-            "y_offset": -0.3
-          }
-        },
-
-        "tutorialback": {
-          "comment": "The back button to return to main menu.",
-          "type": "Widget",
-          "data": {
-            "key": "backbutton"
-          },
-          "layout": {
-            "x_anchor": "center",
-            "y_anchor": "middle",
-            "x_offset": 0.05,
-            "y_offset": 0.38
+            "x_offset": 0.4,
+            "y_offset": -0.32
           }
         },
         "tutorialtitle": {
@@ -420,20 +403,6 @@
             "y_anchor": "middle",
             "x_offset": 0.35,
             "y_offset": 0.3
-          }
-        },
-
-        "joingameback": {
-          "comment": "The back button to return to main menu.",
-          "type": "Widget",
-          "data": {
-            "key": "backbutton"
-          },
-          "layout": {
-            "x_anchor": "center",
-            "y_anchor": "middle",
-            "x_offset": 0.05,
-            "y_offset": 0.38
           }
         },
         "joingamejoinbutton": {
@@ -470,20 +439,6 @@
             "y_anchor": "middle",
             "x_offset": 0.25,
             "y_offset": 0.05
-          }
-        },
-
-        "gamelobbyback": {
-          "comment": "The back button to return to main menu.",
-          "type": "Widget",
-          "data": {
-            "key": "backbutton"
-          },
-          "layout": {
-            "x_anchor": "center",
-            "y_anchor": "middle",
-            "x_offset": 0.05,
-            "y_offset": 0.38
           }
         },
         "gamelobbyroomidlabel": {

@@ -45,155 +45,130 @@ bool MenuScene::init(const std::shared_ptr<AssetManager>& assets) {
     layer->setContentSize(dimen);
     layer->doLayout(); // This rearranges the children to fit the screen
 
-    _teamlogo = assets->get<scene2::SceneNode>("menu_teamlogo");
+    _teamLogo = assets->get<scene2::SceneNode>("menu_teamLogo");
     _gameTitle = assets->get<scene2::SceneNode>("menu_title");
     _gamePlanet = assets->get<scene2::SceneNode>("menu_world");
-    /** Set game title/planet position to one from end of loading scene */
-    const float rend = dimen.getIWidth()/ 4.0f;
+    const float rend = dimen.getIWidth()/ 4.0f; // Set game title/planet position to one from end of loading scene
     _gameTitle->setPositionX(rend);
     _gamePlanet->setPositionX(rend);
 
-    /** Initialize main menu scene */
-    _settingsbutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_settingsbutton"));
-    _joinmenubutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_joinbutton"));
-    _newmenubutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_newbutton"));
-    _tutorialmenubutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_tutorialbutton"));
+    /** Main Menu buttons */
+    _settingsBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_settingsbutton"));
+    _joinBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_joinbutton"));
+    _newBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_newbutton"));
+    _tutorialBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_tutorialbutton"));
 
-    /** Initialize settings scene */
-    _settingsbackbutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_settingsback"));
-    _settingstitle = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_settingstitle"));
-    _settingsnamelabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_settingsnamelabel"));
-    _settingsnameinput = std::dynamic_pointer_cast<scene2::TextField>(assets->get<scene2::SceneNode>("menu_settingsnameinput"));
-    _settingsmusiclabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_settingsmusiclabel"));
-    _settingsmusicbutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_settingsmusicbutton"));
-    _settingsvolumelabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_settingsvolumelabel"));
-    _settingsvolumeslider = std::dynamic_pointer_cast<scene2::Slider>(assets->get<scene2::SceneNode>("menu_settingsvolumeinput"));
-    _settingsparallaxlabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_settingsparallaxlabel"));
-    _settingsparallaxbutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_settingsparallaxbutton"));
-    _playerName = _settingsnameinput->getText();
+    /** Back button */
+    _backBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_menubackbutton"));
 
-    /** Initialize joingame scene then set invisible */
-    _joingamebackbutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_joingameback"));
-    _joingametextinput = std::dynamic_pointer_cast<scene2::TextField>(assets->get<scene2::SceneNode>("menu_joingameroomidinput"));
-    _joingamejoinbutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_joingamejoinbutton"));
-    _joinGame = _joingametextinput->getText();
+    /** Settings labels */
+    _settingsTitle = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_settingstitle"));
+    _pnameLabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_settingsnamelabel"));
+    _musicLabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_settingsmusiclabel"));
+    _volumeLabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_settingsvolumelabel"));
+    _parallaxLabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_settingsparallaxlabel"));
+    /** Settings inputs */
+    _musicBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_settingsmusicbutton"));
+    _parallaxBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_settingsparallaxbutton"));
+    _volumeSlider = std::dynamic_pointer_cast<scene2::Slider>(assets->get<scene2::SceneNode>("menu_settingsvolumeinput"));
+    _pnameInput = std::dynamic_pointer_cast<scene2::TextField>(assets->get<scene2::SceneNode>("menu_settingsnameinput"));
+    _playerName = _pnameInput->getText(); // set player name using name textfield in Settings
 
-    /** Initialize game lobby then set invisible */
-    _gamelobbybackbutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_gamelobbyback"));
-    _gamelobbyroomidlabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_gamelobbyroomidlabel"));
+    /** Join Game inputs */
+    _roomIdInput = std::dynamic_pointer_cast<scene2::TextField>(assets->get<scene2::SceneNode>("menu_joingameroomidinput"));
+    _roomJoinBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_joingamejoinbutton"));
+    _joinGame = _roomIdInput->getText(); // set _joinGame value using room id textfield in Join Game
+
+    /** Game Lobby labels */
+    _lobbyRoomLabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_gamelobbyroomidlabel"));
     _gamelobbyplayerlabel1 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_gamelobbyplayerlabel1"));
     _gamelobbyplayerlabel2 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_gamelobbyplayerlabel2"));
     _gamelobbyplayerlabel3 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_gamelobbyplayerlabel3"));
     _gamelobbyplayerlabel4 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_gamelobbyplayerlabel4"));
     _gamelobbyplayerlabel5 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_gamelobbyplayerlabel5"));
-    _gamelobbystartbutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_gamelobbystartbutton"));
+    /** Game Lobby buttons */
+    _gameStartBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_gamelobbystartbutton"));
     
-    /** Initialize tutorial page then set invisible */
-    _tutorialbackbutton = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_tutorialback"));
-    _tutorialsceneheader = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_tutorialtitle"));
+    /** Tutorial title label */
+    _tutorialTitle = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_tutorialtitle"));
 
     // TODO: integrate network manager to game lobby
 
-    /** Button listener function for menu scene buttons. */
-    const auto menuButtonHandler = [=](const std::string& name, bool down) {
-        if (!down) {
-            // Main Menu buttons
-            if (name == "joinbutton")
-                _status = MenuStatus::MainToJoin;
-            else if (name == "settingsbutton")
-                _status = MenuStatus::MainToSetting;
-            else if (name == "newbutton") {
-                _status = MenuStatus::MainToLobby;
-                _joinGame = "";
-            }
-            else if (name == "tutorialbutton")
-                _status = MenuStatus::MainToTutorial;
-            // Join Game buttons
-            else if (name == "joingameback")
-                _status = MenuStatus::JoinToMain;
-            else if (name == "joingamejoinbutton")
-                _status = MenuStatus::JoinToLobby;
-            // Game Lobby buttons
-            else if (name == "gamelobbyback")
-                _status = MenuStatus::LobbyToMain;
-            else if (name == "gamelobbystartbutton")
-                _status = MenuStatus::LobbyToGame;
-            // Settings butons
-            else if (name == "settingsback")
-                _status = MenuStatus::SettingToMain;
-            else if (name == "settingsmusicbutton") {
-                CULog("Music toggle button pressed in settings");
-                // TODO: Toggle game music off/on
-                _musicOn = !_musicOn;
-            }
-            else if (name == "settingsparallaxbutton") {
-                CULog("Parallax effect toggle button pressed");
-                // TODO: Toggle game's parallax effect
-                _parallaxOn = !_parallaxOn;
-            }
-            // Tutorial buttons
-            else if (name == "tutorialback")
-                _status = MenuStatus::TutorialToMain;
-            // Invalid buttons
-            else {
-                CULog("Menu scene button not found! Please add update the menuButtonHandler in MenuScene's init method.");
-            }
-        }
+    /**
+     * Returns button listener to trigger scene switch.
+     * 
+     * @param ms    MenuStatus to switch to on button click
+     */
+    auto mbuttonListener = [=](MenuStatus ms) {
+        return  [=](const std::string& name, bool down) { if (!down) _status = ms; };
     };
 
-    /** Add listeners to menu scenes */
-    _settingsbutton->addListener(menuButtonHandler);
-    _joinmenubutton->addListener(menuButtonHandler);
-    _newmenubutton->addListener(menuButtonHandler);
-    _tutorialmenubutton->addListener(menuButtonHandler);
-    _settingsbackbutton->addListener(menuButtonHandler);
-    _settingsmusicbutton->addListener(menuButtonHandler);
-    _settingsparallaxbutton->addListener(menuButtonHandler);
-    _joingamebackbutton->addListener(menuButtonHandler);
-    _joingamejoinbutton->addListener(menuButtonHandler);
-    _gamelobbybackbutton->addListener(menuButtonHandler);
-    _gamelobbystartbutton->addListener(menuButtonHandler);
-    _tutorialbackbutton->addListener(menuButtonHandler);
-
-    _settingsvolumeslider->addListener([=](const std::string& name, float value) {
+    /** Add button listeners for triggering menu scene switching. */
+    _joinBtn->addListener(mbuttonListener(MenuStatus::MainToJoin));
+    _settingsBtn->addListener(mbuttonListener(MenuStatus::MainToSetting));
+    _newBtn->addListener(mbuttonListener(MenuStatus::MainToLobby));
+    _tutorialBtn->addListener(mbuttonListener(MenuStatus::MainToTutorial));
+    _roomJoinBtn->addListener(mbuttonListener(MenuStatus::JoinToLobby));
+    _gameStartBtn->addListener(mbuttonListener(MenuStatus::LobbyToGame));
+    /** Back button to trigger return to main menu */
+    _backBtn->addListener([=](const std::string& name, bool down) {
+        if (!down) {
+            switch (_status) {
+            case MenuStatus::Setting:
+                _status = MenuStatus::SettingToMain;
+                break;
+            case MenuStatus::JoinRoom:
+                _status = MenuStatus::JoinToMain;
+                break;
+            case MenuStatus::GameLobby:
+                _status = MenuStatus::LobbyToMain;
+                break;
+            case MenuStatus::Tutorial:
+                _status = MenuStatus::TutorialToMain;
+                break;
+            default:
+                break;
+            }
+        }
+        });
+        
+    /** Handle non-button input listeners */
+    /** Volume slider listeners */
+    _volume = _volumeSlider->getValue(); // update volume using Volume Slider in Settings 
+    _volumeSlider->addListener([=](const std::string& name, float value) {
         if (value != _volume) {
             // TODO: Update global game volume
             _volume = value;
         }
         });
-    _settingsnameinput->addTypeListener([=](const std::string& name, const std::string& value) {
+    /** Player name input listeners */
+    _pnameInput->addTypeListener([=](const std::string& name, const std::string& value) {
         // Handle size limit on settings name textfield
         if (value.length() > 12) {
-            _settingsnameinput->setText(value.substr(0, 12));
+            _pnameInput->setText(value.substr(0, 12));
         }
         });
-    _settingsnameinput->addExitListener([=](const std::string& name, const std::string& value) {
+    _pnameInput->addExitListener([=](const std::string& name, const std::string& value) {
         // Set player name input
         _playerName = value;
         CULog("Player Name set to %s", value.c_str());
         });
-
-    _joingametextinput->addTypeListener([=](const std::string& name, const std::string& value) {
+    /** Join game room id input listeners */
+    _roomIdInput->addTypeListener([=](const std::string& name, const std::string& value) {
         // Handle room id textfield with size limit
         if (value.length() > 5) {
-            _joingametextinput->setText(value.substr(value.length() - 5, 5));
+            _roomIdInput->setText(value.substr(value.length() - 5, 5));
         }
         });
-    _joingametextinput->addExitListener([=](const std::string& name, const std::string& value) {
+    _roomIdInput->addExitListener([=](const std::string& name, const std::string& value) {
         // Set game room id input 
-        std::string val;
-        for (auto c : value) {
-            if (std::isdigit(c)) {
-                val += c;
-            }
-        }
-        while (val.length() < 5) {
-            val = "0" + val;
-        }
-        _joingametextinput->setText(val);
-        _joinGame = val;
-        CULog("Room id set to %s", val.c_str());
+        _joinGame = value;
+        CULog("Room id set to %s", value.c_str());
         });
+
+    /** Set both toggle buttons. */
+    _musicBtn->setToggle(true);
+    _parallaxBtn->setToggle(true);
 
     _status = MenuStatus::MainMenu;
     Application::get()->setClearColor(Color4(192, 192, 192, 255));
@@ -207,61 +182,53 @@ bool MenuScene::init(const std::shared_ptr<AssetManager>& assets) {
 void MenuScene::dispose() {
     // Deactivate the button (platform dependent)
     if (isPending()) {
-        _settingsbutton->deactivate();
-        _joinmenubutton->deactivate();
-        _newmenubutton->deactivate();
-        _tutorialmenubutton->deactivate();
-        _joingamebackbutton->deactivate();
-        _joingametextinput->deactivate();
-        _joingamejoinbutton->deactivate();
-        _gamelobbybackbutton->deactivate();
-        _gamelobbystartbutton->deactivate();
-        _tutorialbackbutton->deactivate();
-        _settingsbackbutton->deactivate();
-        _settingsnameinput->deactivate();
-        _settingsmusicbutton->deactivate();
-        _settingsvolumeslider->deactivate();
-        _settingsparallaxbutton->deactivate();
+        _settingsBtn->deactivate();
+        _joinBtn->deactivate();
+        _newBtn->deactivate();
+        _tutorialBtn->deactivate();
+        _roomIdInput->deactivate();
+        _roomJoinBtn->deactivate();
+        _gameStartBtn->deactivate();
+        _pnameInput->deactivate();
+        _musicBtn->deactivate();
+        _volumeSlider->deactivate();
+        _parallaxBtn->deactivate();
+        _backBtn->deactivate();
     }
-    _settingsbutton = nullptr;
-    _settingsbackbutton = nullptr;
-    _settingstitle = nullptr;
-    _settingsnamelabel = nullptr;
-    _settingsnameinput = nullptr;
-    _settingsmusiclabel = nullptr;
-    _settingsmusicbutton = nullptr;
-    _settingsvolumelabel = nullptr;
-    _settingsvolumeslider = nullptr;
-    _settingsparallaxlabel = nullptr;
-    _settingsparallaxbutton = nullptr;
 
-    _assets = nullptr;
-    _teamlogo = nullptr;
+    _teamLogo = nullptr;
     _gameTitle = nullptr;
     _gamePlanet = nullptr;
-    _joinmenubutton = nullptr;
-    _newmenubutton = nullptr;
-    _tutorialmenubutton = nullptr;
+    _joinBtn = nullptr;
+    _newBtn = nullptr;
+    _tutorialBtn = nullptr;
 
-    _joinmenubutton = nullptr;
-    _newmenubutton = nullptr;
-    _tutorialmenubutton = nullptr;
+    _settingsBtn = nullptr;
+    _settingsTitle = nullptr;
+    _pnameLabel = nullptr;
+    _pnameInput = nullptr;
+    _musicLabel = nullptr;
+    _musicBtn = nullptr;
+    _volumeLabel = nullptr;
+    _volumeSlider = nullptr;
+    _parallaxLabel = nullptr;
+    _parallaxBtn = nullptr;
 
-    _joingamebackbutton = nullptr;
-    _joingametextinput = nullptr;
-    _joingamejoinbutton = nullptr;
+    _roomIdInput = nullptr;
+    _roomJoinBtn = nullptr;
 
-    _gamelobbybackbutton = nullptr;
-    _gamelobbyroomidlabel = nullptr;
+    _lobbyRoomLabel = nullptr;
     _gamelobbyplayerlabel1 = nullptr;
     _gamelobbyplayerlabel2 = nullptr;
     _gamelobbyplayerlabel3 = nullptr;
     _gamelobbyplayerlabel4 = nullptr;
     _gamelobbyplayerlabel5 = nullptr;
-    _gamelobbystartbutton = nullptr;
+    _gameStartBtn = nullptr;
 
-    _tutorialbackbutton = nullptr;
-    _tutorialsceneheader = nullptr;
+    _tutorialTitle = nullptr;
+
+    _backBtn = nullptr;
+    _assets = nullptr;
 
     _isLoaded = false;
 }
@@ -269,40 +236,44 @@ void MenuScene::dispose() {
 #pragma mark -
 #pragma mark Progress Monitoring
 /**
- * The method called to update the game mode.
+ * The method called to update the menu mode and display the correct scene.
  *
- * This method updates the progress bar amount.
- *
+ * This method handles taking down and setting up menu scenes based on 
+ * MenuStatus value. There are 5 scenes within Menu Scene. For each 
+ * scene to properly display, all its assets must be activated and set to visible 
+ * on the previous frame. The transitional statuses handle this by deactivating/setting invisible
+ * previous screen's assets then activating/setting visible the upcoming screen's assets.
+ * 
  * @param timestep  The amount of time (in seconds) since the last frame
  */
-void MenuScene::update(float progress) {
+void MenuScene::update(float timestep) {
     switch (_status) {
     case MenuStatus::MainMenu:
-        if (isActive() && !_isLoaded) {
-            _menuSceneInputHelper(true, _tutorialmenubutton, _settingsbutton, _joinmenubutton, _newmenubutton);
+        if (isActive() && !_isLoaded) { // only on first call after init
+            _menuSceneInputHelper(true, _tutorialBtn, _settingsBtn, _joinBtn, _newBtn);
             _isLoaded = true;
             Scene2::reset();
         }
         break;
     case MenuStatus::MainToSetting:
-        _menuSceneInputHelper(false, _joinmenubutton, _newmenubutton, _tutorialmenubutton, _settingsbutton);
-        _menuSceneInputHelper(true, _settingsbackbutton, _settingsnameinput, _settingsmusicbutton, _settingsvolumeslider, _settingsparallaxbutton);
-        _settingstitle->setVisible(true);
-        _settingsnamelabel->setVisible(true);
-        _settingsmusiclabel->setVisible(true);
-        _settingsvolumelabel->setVisible(true);
-        _settingsparallaxlabel->setVisible(true);
+        _menuSceneInputHelper(false, _joinBtn, _newBtn, _tutorialBtn, _settingsBtn);
+        _menuSceneInputHelper(true, _backBtn, _pnameInput, _musicBtn, _volumeSlider, _parallaxBtn);
+        _settingsTitle->setVisible(true);
+        _pnameLabel->setVisible(true);
+        _musicLabel->setVisible(true);
+        _volumeLabel->setVisible(true);
+        _parallaxLabel->setVisible(true);
         _status = MenuStatus::Setting;
         break;
     case MenuStatus::MainToJoin:
-        _menuSceneInputHelper(false, _joinmenubutton, _newmenubutton, _tutorialmenubutton, _settingsbutton);
-        _menuSceneInputHelper(true, _joingamebackbutton, _joingametextinput, _joingamejoinbutton);
+        _menuSceneInputHelper(false, _joinBtn, _newBtn, _tutorialBtn, _settingsBtn);
+        _menuSceneInputHelper(true, _backBtn, _roomIdInput, _roomJoinBtn);
         _status = MenuStatus::JoinRoom;
         break;
     case MenuStatus::MainToLobby:
-        _menuSceneInputHelper(false, _joinmenubutton, _newmenubutton, _tutorialmenubutton, _settingsbutton);
-        _menuSceneInputHelper(true, _gamelobbybackbutton, _gamelobbystartbutton);
-        _gamelobbyroomidlabel->setVisible(true);
+        _menuSceneInputHelper(false, _joinBtn, _newBtn, _tutorialBtn, _settingsBtn);
+        _menuSceneInputHelper(true, _backBtn, _gameStartBtn);
+        _lobbyRoomLabel->setVisible(true);
         _gamelobbyplayerlabel1->setVisible(true);
         _gamelobbyplayerlabel2->setVisible(true);
         _gamelobbyplayerlabel3->setVisible(true);
@@ -311,12 +282,18 @@ void MenuScene::update(float progress) {
         _status = MenuStatus::GameLobby;
         break;
     case MenuStatus::MainToTutorial:
-        _menuSceneInputHelper(false, _joinmenubutton, _newmenubutton, _tutorialmenubutton, _settingsbutton);
-        _menuSceneInputHelper(true, _tutorialbackbutton);
-        _tutorialsceneheader->setVisible(true);
+        _menuSceneInputHelper(false, _joinBtn, _newBtn, _tutorialBtn, _settingsBtn);
+        _menuSceneInputHelper(true, _backBtn);
+        _tutorialTitle->setVisible(true);
         _status = MenuStatus::Tutorial;
         break;
     case MenuStatus::Setting:
+        if (_musicBtn->isActive()) {
+            _musicOn = !_musicBtn->isDown();
+        } 
+        if (_parallaxBtn->isActive()) {
+            _parallaxOn = !_parallaxBtn->isDown();
+        }
         break;
     case MenuStatus::JoinRoom:
         break;
@@ -326,9 +303,9 @@ void MenuScene::update(float progress) {
         _gamelobbyplayerlabel1->setText(_playerName);
         break;
     case MenuStatus::JoinToLobby:
-        _menuSceneInputHelper(false, _joingamebackbutton, _joingamejoinbutton, _joingametextinput);
-        _menuSceneInputHelper(true, _gamelobbybackbutton, _gamelobbystartbutton);
-        _gamelobbyroomidlabel->setVisible(true);
+        _menuSceneInputHelper(false, _backBtn, _roomJoinBtn, _roomIdInput);
+        _menuSceneInputHelper(true, _backBtn, _gameStartBtn);
+        _lobbyRoomLabel->setVisible(true);
         _gamelobbyplayerlabel1->setVisible(true);
         _gamelobbyplayerlabel2->setVisible(true);
         _gamelobbyplayerlabel3->setVisible(true);
@@ -337,40 +314,40 @@ void MenuScene::update(float progress) {
         _status = MenuStatus::GameLobby;
         break;
     case MenuStatus::SettingToMain:
-        _menuSceneInputHelper(false, _settingsbackbutton, _settingsnameinput, _settingsmusicbutton, _settingsvolumeslider, _settingsparallaxbutton);
-        _settingstitle->setVisible(false);
-        _settingsnamelabel->setVisible(false);
-        _settingsmusiclabel->setVisible(false);
-        _settingsvolumelabel->setVisible(false);
-        _settingsparallaxlabel->setVisible(false);
-        _menuSceneInputHelper(true, _joinmenubutton, _newmenubutton, _tutorialmenubutton, _settingsbutton);
+        _menuSceneInputHelper(false, _backBtn, _pnameInput, _musicBtn, _volumeSlider, _parallaxBtn);
+        _settingsTitle->setVisible(false);
+        _pnameLabel->setVisible(false);
+        _musicLabel->setVisible(false);
+        _volumeLabel->setVisible(false);
+        _parallaxLabel->setVisible(false);
+        _menuSceneInputHelper(true, _joinBtn, _newBtn, _tutorialBtn, _settingsBtn);
         _status = MenuStatus::MainMenu;
         break;
     case MenuStatus::JoinToMain:
-        _menuSceneInputHelper(false, _joingamebackbutton, _joingametextinput, _joingamejoinbutton);
-        _menuSceneInputHelper(true, _joinmenubutton, _newmenubutton, _tutorialmenubutton, _settingsbutton);
+        _menuSceneInputHelper(false, _backBtn, _roomIdInput, _roomJoinBtn);
+        _menuSceneInputHelper(true, _joinBtn, _newBtn, _tutorialBtn, _settingsBtn);
         _status = MenuStatus::MainMenu;
         break;
     case MenuStatus::LobbyToMain:
-        _menuSceneInputHelper(false, _gamelobbybackbutton, _gamelobbystartbutton);
-        _gamelobbyroomidlabel->setVisible(false);
+        _menuSceneInputHelper(false, _backBtn, _gameStartBtn);
+        _lobbyRoomLabel->setVisible(false);
         _gamelobbyplayerlabel1->setVisible(false);
         _gamelobbyplayerlabel2->setVisible(false);
         _gamelobbyplayerlabel3->setVisible(false);
         _gamelobbyplayerlabel4->setVisible(false);
         _gamelobbyplayerlabel5->setVisible(false);
-        _menuSceneInputHelper(true, _joinmenubutton, _newmenubutton, _tutorialmenubutton, _settingsbutton);
+        _menuSceneInputHelper(true, _joinBtn, _newBtn, _tutorialBtn, _settingsBtn);
         _status = MenuStatus::MainMenu;
         break;
     case MenuStatus::TutorialToMain:
-        _menuSceneInputHelper(false, _tutorialbackbutton);
-        _tutorialsceneheader->setVisible(false);
-        _menuSceneInputHelper(true, _joinmenubutton, _newmenubutton, _tutorialmenubutton, _settingsbutton);
+        _menuSceneInputHelper(false, _backBtn);
+        _tutorialTitle->setVisible(false);
+        _menuSceneInputHelper(true, _joinBtn, _newBtn, _tutorialBtn, _settingsBtn);
         _status = MenuStatus::MainMenu;
         break;
     case MenuStatus::LobbyToGame:
-        _menuSceneInputHelper(false, _gamelobbybackbutton, _gamelobbystartbutton);
-        _gamelobbyroomidlabel->setVisible(false);
+        _menuSceneInputHelper(false, _backBtn, _gameStartBtn);
+        _lobbyRoomLabel->setVisible(false);
         _gamelobbyplayerlabel1->setVisible(false);
         _gamelobbyplayerlabel2->setVisible(false);
         _gamelobbyplayerlabel3->setVisible(false);
@@ -387,5 +364,5 @@ void MenuScene::update(float progress) {
  * @return true if loading is complete, but the player has not pressed play
  */
 bool MenuScene::isPending() const {
-    return _settingsbutton != nullptr && _settingsbutton->isVisible();
+    return _settingsBtn != nullptr && _settingsBtn->isVisible();
 }
