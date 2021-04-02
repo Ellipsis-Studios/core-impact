@@ -19,7 +19,7 @@
             "file":   "textures/core.png"
         },
         "innerRing": {
-            "file":   "textures/innerRing.png"
+            "file":   "textures/innerLayerAnimation_v2.png"
         },
         "unlockedOuterRing": {
             "file":   "textures/unlockedOuterRing.png"
@@ -41,6 +41,20 @@
                 "type" : "Anchored"
             },
             "children":  {
+                "innerRing":{
+                  "type": "Animation",
+                  "data": {
+                    "texture": "innerRing",
+                    "span": 91,
+                    "cols": 10,
+                    "frame": 0,
+                    "anchor": [0.5,0.5]
+                  },
+                  "layout": {
+                    "x_anchor" : "center",
+                    "y_anchor" : "middle"
+                  }
+                },
                 "field": {
                     "type": "Node",
                     "format"    : {
