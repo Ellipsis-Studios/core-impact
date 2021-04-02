@@ -201,7 +201,7 @@ void GameScene::update(float timestep) {
         _gameUpdateManager->sendUpdate(_planet, _stardustContainer, dimen);
         _networkMessageManager->receiveMessages();
         _networkMessageManager->sendMessages();
-        _gameUpdateManager->processGameUpdate(_stardustContainer, _opponent_planets, dimen);
+        _gameUpdateManager->processGameUpdate(_stardustContainer, _planet, _opponent_planets, dimen);
     }
 }
 

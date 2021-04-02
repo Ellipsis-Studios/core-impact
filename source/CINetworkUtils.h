@@ -31,7 +31,8 @@ public:
         StardustSent = 2,
         PlanetUpdate = 3,
         AttemptToWin = 4,
-        WonGame = 5
+        WonGame = 5,
+        StardustHit = 6
     };
     
     /**
