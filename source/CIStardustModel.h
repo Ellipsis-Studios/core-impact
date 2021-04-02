@@ -25,6 +25,14 @@ public:
         BOTTOM_RIGHT = 4,
     };
     
+    /**
+     * Enum representing the types of stardust.
+     */
+    enum Type {
+        NORMAL = 0,
+        METEOR = 1,
+    };
+    
 private:
     /** Color code of this stardust */
     CIColor::Value _color;
@@ -38,9 +46,11 @@ private:
     /** The location of the stardust */
     Location _stardust_location;
     
-    // TODO: add in reward structure for player who hits another player's planet with one of their stardust
     /** The player id of the last player to own this stardust. -1 if this stardust does not have a previous owner */
     int _previous_owner;
+    
+    /** The type of stardust this is. By default it will be a normal stardust. */
+    Type _stardust_type;
 
 protected:
     /** Position of the stardust in world space */
@@ -157,6 +167,24 @@ public:
      */
     void setPreviousOwner(int playerId) {
         _previous_owner = playerId;
+    }
+    
+    /**
+     * Returns the type of this stardust
+     *
+     * @return the type of this stardust
+     */
+    Type getStardustType() {
+        return _stardust_type;
+    }
+    
+    /**
+     * Sets the type of the stardust
+     *
+     * @param type      the type of the stardust
+     */
+    void setStardustType(Type type) {
+        _stardust_type = type;
     }
 
 #pragma mark Constructors

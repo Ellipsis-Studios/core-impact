@@ -135,14 +135,33 @@ void GameUpdateManager::processGameUpdate(std::shared_ptr<StardustQueue> stardus
             for (size_t jj = 0; jj < stardustVector.size(); jj++) {
                 std::shared_ptr<StardustModel> stardust = stardustVector[jj];
                 
-                if (stardust->getColor() == CIColor::getNoneColor()) {
-                    CIColor::Value c = planet->getColor() == CIColor::getNoneColor() ? CIColor::getRandomColor() : planet->getColor();
-                    stardustQueue->addStardust(c, bounds);
-                    CULog("Hit another player with stardust!");
+                // a powerup has been applied by another player
+                if (stardust->getStardustType() != StardustModel::Type::NORMAL) {
+                    CULog("APPLYING METEOR SHOWER");
+                    stardust->setPreviousOwner(gameUpdate->getPlayerId());
+                    stardustQueue->addToSendQueue(stardust.get());
                     break;
                 }
                 
-                CULog("New stardust from player %i", gameUpdate->getPlayerId());
+                // this player hit another player with a stardust
+                if (stardust->getColor() == CIColor::getNoneColor()) {
+                    CIColor::Value c = planet->getColor() == CIColor::getNoneColor() ? CIColor::getRandomColor() : planet->getColor();
+                    if (true) {
+                        // meteor shower
+                        stardustQueue->addStardust(CIColor::getTest(), bounds, StardustModel::Type::METEOR);
+                        CULog("Meteor Shower");
+                        break;
+                    } else {
+                        // add 3 stardust, one is guaranteed to be a helpful color, other 2 are random
+                        stardustQueue->addStardust(c, bounds);
+                        stardustQueue->addStardust(CIColor::getRandomColor(), bounds);
+                        stardustQueue->addStardust(CIColor::getRandomColor(), bounds);
+                        CULog("Return Blast");
+                        break;
+                    }
+                }
+                
+//                CULog("New stardust from player %i", gameUpdate->getPlayerId());
                 // adjust stardust position and velocity based on location of player who sent stardust
                 if (opponentLocation == StardustModel::Location::TOP_LEFT) {
                     cugl::Vec2 vel = stardust->getVelocity();
@@ -197,7 +216,7 @@ void GameUpdateManager::processGameUpdate(std::shared_ptr<StardustQueue> stardus
                     int posY = 0 - 20 + (rand() % 20 - 10);
                     stardust->setPosition(cugl::Vec2(posX, posY));
                 }
-                CULog("at position (%f, %f)", stardust->getPosition().x, stardust->getPosition().y);
+//                CULog("at position (%f, %f)", stardust->getPosition().x, stardust->getPosition().y);
                 stardust->setPreviousOwner(gameUpdate->getPlayerId());
                 stardustQueue->addStardust(stardust);
             }

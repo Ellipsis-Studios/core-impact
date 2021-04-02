@@ -66,6 +66,7 @@ bool StardustModel::init(cugl::Vec2 position, cugl::Vec2 velocity, CIColor::Valu
     _velocity = velocity;
     _stardust_location = Location::ON_SCREEN;
     _previous_owner = -1;
+    _stardust_type = Type::NORMAL;
     return true;
 }
 

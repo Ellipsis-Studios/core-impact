@@ -107,8 +107,9 @@ public:
      *
      * @param c the color of the stardust to spawn
      * @param bounds the bounds of the game screen
+     * @param type the type of the stardust to add (defaults to normal)
      */
-    void addStardust(CIColor::Value c, const cugl::Size bounds);
+    void addStardust(CIColor::Value c, const cugl::Size bounds, StardustModel::Type type = StardustModel::Type::NORMAL);
     
     /**
      * Adds a stardust to the active queue given a pointer to the stardust

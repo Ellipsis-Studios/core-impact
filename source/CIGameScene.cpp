@@ -192,6 +192,8 @@ void GameScene::update(float timestep) {
         _planet->stopLockIn();
     }
     
+    processSpecialStardust(dimen, _stardustContainer);
+    
     // attempt to set player id of game update manager
     if (_gameUpdateManager->getPlayerId() < 0) {
         // need to make this call to attempt to connect to game
@@ -204,6 +206,8 @@ void GameScene::update(float timestep) {
         _networkMessageManager->sendMessages();
         _gameUpdateManager->processGameUpdate(_stardustContainer, _planet, _opponent_planets, dimen);
     }
+    
+    processSpecialStardust(dimen, _stardustContainer);
 }
 
 /**
@@ -263,4 +267,35 @@ void GameScene::addStardust(const Size bounds) {
     }
     _stardustContainer->addStardust(c, bounds);
     
+}
+
+/**
+ * This method applies the power ups of special stardust.
+ *
+ * @param bounds the bounds of the game screen
+ * @param stardustQueue the stardustQueue
+ */
+void GameScene::processSpecialStardust(const cugl::Size bounds, const std::shared_ptr<StardustQueue> stardustQueue) {
+    std::vector<std::shared_ptr<StardustModel>> stardustToSendQueue = stardustQueue->getSendQueue();
+    for (size_t ii = 0; ii < stardustToSendQueue.size(); ii++) {
+        std::shared_ptr<StardustModel> stardust = stardustToSendQueue[ii];
+
+        switch (stardust->getStardustType()) {
+            case StardustModel::Type::METEOR:
+                CULog("METEOR SHOWER APPLIED!");
+                stardustQueue->addStardust(stardust->getColor(), bounds);
+                stardustQueue->addStardust(stardust->getColor(), bounds);
+                stardustQueue->addStardust(stardust->getColor(), bounds);
+                stardustQueue->addStardust(CIColor::getRandomColor(), bounds);
+                stardustQueue->addStardust(CIColor::getRandomColor(), bounds);
+                stardustQueue->addStardust(CIColor::getRandomColor(), bounds);
+                
+                if (stardust->getPreviousOwner() != -1) {
+                    stardust = nullptr;
+                }
+                break;
+            default:
+                break;
+        }
+    }
 }
