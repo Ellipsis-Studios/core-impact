@@ -276,9 +276,9 @@ void GameScene::addStardust(const Size bounds) {
  * @param stardustQueue the stardustQueue
  */
 void GameScene::processSpecialStardust(const cugl::Size bounds, const std::shared_ptr<StardustQueue> stardustQueue) {
-    std::vector<std::shared_ptr<StardustModel>> stardustToSendQueue = stardustQueue->getSendQueue();
-    for (size_t ii = 0; ii < stardustToSendQueue.size(); ii++) {
-        std::shared_ptr<StardustModel> stardust = stardustToSendQueue[ii];
+    std::vector<std::shared_ptr<StardustModel>> powerupQueue = stardustQueue->getPowerupQueue();
+    for (size_t ii = 0; ii < powerupQueue.size(); ii++) {
+        std::shared_ptr<StardustModel> stardust = powerupQueue[ii];
 
         switch (stardust->getStardustType()) {
             case StardustModel::Type::METEOR:
@@ -289,13 +289,11 @@ void GameScene::processSpecialStardust(const cugl::Size bounds, const std::share
                 stardustQueue->addStardust(CIColor::getRandomColor(), bounds);
                 stardustQueue->addStardust(CIColor::getRandomColor(), bounds);
                 stardustQueue->addStardust(CIColor::getRandomColor(), bounds);
-                
-                if (stardust->getPreviousOwner() != -1) {
-                    stardust = nullptr;
-                }
                 break;
             default:
                 break;
         }
     }
+    
+    stardustQueue->clearPowerupQueue();
 }

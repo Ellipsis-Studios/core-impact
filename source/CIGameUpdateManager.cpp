@@ -138,8 +138,7 @@ void GameUpdateManager::processGameUpdate(std::shared_ptr<StardustQueue> stardus
                 // a powerup has been applied by another player
                 if (stardust->getStardustType() != StardustModel::Type::NORMAL) {
                     CULog("APPLYING METEOR SHOWER");
-                    stardust->setPreviousOwner(gameUpdate->getPlayerId());
-                    stardustQueue->addToSendQueue(stardust.get());
+                    stardustQueue->addToPowerupQueue(stardust.get());
                     break;
                 }
                 

@@ -35,6 +35,7 @@ void StardustQueue::dispose() {
     _qsize = 0;
     _stardustNode = nullptr;
     _stardust_to_send.clear();
+    _stardust_powerups.clear();
 }
     
 /**
@@ -121,6 +122,10 @@ StardustModel* StardustQueue::get(size_t pos) {
  */
 void StardustQueue::addToSendQueue(StardustModel* stardust) {
     _stardust_to_send.push_back(std::make_shared<StardustModel>(*stardust));
+}
+
+void StardustQueue::addToPowerupQueue(StardustModel* stardust) {
+    _stardust_powerups.push_back(std::make_shared<StardustModel>(*stardust));
 }
 
 /**

@@ -61,6 +61,7 @@ void collisions::checkForCollision(const std::shared_ptr<PlanetModel>& planet, c
                     // special stardust dragged into planet
                     CULog("SPECIAL STARDUST HIT PLANET");
                     queue->addToSendQueue(stardust);
+                    queue->addToPowerupQueue(stardust);
                 }
                 else if (stardust->getColor() == planet->getColor()) {
                     planet->increaseLayerSize();
