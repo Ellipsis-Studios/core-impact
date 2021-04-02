@@ -145,7 +145,7 @@ public:
      * @param unlocked The texture on the outside of a locked ring
      */
     void setTextures(const std::shared_ptr<cugl::Texture>& core,
-                     const std::shared_ptr<cugl::scene2::AnimationNode>& ring,
+                     const std::shared_ptr<cugl::Texture>& ring,
                      const std::shared_ptr<cugl::Texture>& unlocked,
                      const std::shared_ptr<cugl::Texture>& locked);
    

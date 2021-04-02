@@ -69,7 +69,7 @@ void PlanetNode::setLayers(std::vector<PlanetLayer>* layers) {
           prev->outerRing->setScale(_layerScale*LOCK_IN_SCALE_DOWN/_coreScale);
         }
         
-        node->innerRing = cugl::scene2::AnimationNode::alloc(_ringTexture->getTexture(), INNER_RING_ROWS, INNER_RING_COLS);
+        node->innerRing = cugl::scene2::AnimationNode::alloc(_ringTexture, INNER_RING_ROWS, INNER_RING_COLS);
         node->outerRing = cugl::scene2::PolygonNode::allocWithTexture(_unlockedTexture);
         
         node->innerRing->setAnchor(cugl::Vec2::ANCHOR_CENTER);

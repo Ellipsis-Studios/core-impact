@@ -52,7 +52,7 @@ private:
     
 protected:
     /** The texture of an innner ring */
-    std::shared_ptr<cugl::scene2::AnimationNode> _ringTexture;
+    std::shared_ptr<cugl::Texture> _ringTexture;
     /** The texture on the outside of an unlocked ring */
     std::shared_ptr<cugl::Texture> _unlockedTexture;
     /** The texture on the outside of a locked ring */
@@ -66,7 +66,7 @@ public:
     void update(float timestep);
   
     static std::shared_ptr<PlanetNode> alloc(const std::shared_ptr<cugl::Texture>& core,
-                                             const std::shared_ptr<cugl::scene2::AnimationNode> ring,
+                                             const std::shared_ptr<cugl::Texture>& ring,
                                              const std::shared_ptr<cugl::Texture>& unlocked,
                                              const std::shared_ptr<cugl::Texture>& locked) {
         std::shared_ptr<PlanetNode> node = std::make_shared<PlanetNode>();
@@ -82,12 +82,12 @@ public:
     void setLayers(std::vector<PlanetLayer>* layers);
     
     void setRadius(float r) {
-        _layerScale = (2 * r) / (_ringTexture->getWidth());
+        _layerScale = (INNER_RING_COLS * 2 * r) / (_ringTexture->getWidth());
         for (int ii = (int)(_layerNodes.size())-1; ii >= 0; ii--) {
             LayerNode* node = &_layerNodes[ii];
             if (node->innerRing != nullptr) {
                 if (ii == 0) {
-                    _coreScale = (2 * r * PLANET_RING_TEXTURE_INNER_SIZE) / (_ringTexture->getWidth() * getTexture()->getWidth());
+                    _coreScale = (INNER_RING_COLS * r * PLANET_RING_TEXTURE_INNER_SIZE) / (_ringTexture->getWidth() * getTexture()->getWidth());
                     setScale(_coreScale);
                 }
                 node->innerRing->setScale(_layerScale/_coreScale);
