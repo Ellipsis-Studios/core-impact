@@ -98,5 +98,4 @@ public:
     }
 };
 
-
 #endif /* __CI_PLANET_NODE_H__ */

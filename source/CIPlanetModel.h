@@ -152,7 +152,6 @@ public:
     const std::shared_ptr<cugl::scene2::SceneNode> getPlanetNode() const {
         return _planetNode;
     }
-    
 
 #pragma mark Constructors
     /**
