@@ -87,7 +87,7 @@ void NetworkMessageManager::sendMessages() {
                 
                 _conn->send(data);
                data.clear();
-//               CULog("SENT Stardust Hit> SRC[%i], DST[%i], TS[%i]", playerId, dstPlayerId, _timestamp);
+               CULog("SENT Stardust Hit> SRC[%i], DST[%i], TS[%i]", playerId, dstPlayerId, _timestamp);
             } else {
                 int stardustColor = val[jj]->getColor();
                 
@@ -106,7 +106,7 @@ void NetworkMessageManager::sendMessages() {
                 
                  _conn->send(data);
                 data.clear();
-//                CULog("SENT SU> SRC[%i], DST[%i], CLR[%i], VEL[%f,%f]", playerId, dstPlayerId, stardustColor, xVel, yVel);
+                CULog("SENT SU> SRC[%i], DST[%i], CLR[%i], VEL[%f,%f]", playerId, dstPlayerId, stardustColor, xVel, yVel);
             }
         }
     }
@@ -124,7 +124,7 @@ void NetworkMessageManager::sendMessages() {
 
     _conn->send(data);
     data.clear();
-//    CULog("SENT PU> SRC[%i], CLR[%i], SIZE[%f]", playerId, planetColor, planetSize);
+    CULog("SENT PU> SRC[%i], CLR[%i], SIZE[%f]", playerId, planetColor, planetSize);
 
     // TODO: send win game message
     if (gameUpdate->getPlanet()->isWinner()) {
@@ -138,7 +138,7 @@ void NetworkMessageManager::sendMessages() {
             _timestamp++;
             _conn->send(data);
             data.clear();
-//            CULog("SENT WON GAME MESSAGE> PLAYER[%i]", playerId);
+            CULog("SENT WON GAME MESSAGE> PLAYER[%i]", playerId);
         } else {
             NetworkUtils::encodeInt(NetworkUtils::MessageType::AttemptToWin, data);
             NetworkUtils::encodeInt(playerId, data);
@@ -146,7 +146,7 @@ void NetworkMessageManager::sendMessages() {
             _timestamp++;
             _conn->send(data);
             data.clear();
-//            CULog("SENT ATTEMPT TO WIN MESSAGE> SRC[%i]", playerId);
+            CULog("SENT ATTEMPT TO WIN MESSAGE> SRC[%i]", playerId);
         }
     }
     
@@ -173,7 +173,7 @@ void NetworkMessageManager::receiveMessages() {
                 float yVel = NetworkUtils::decodeFloat(recv[20], recv[21], recv[22], recv[23]);
                 int timestamp = NetworkUtils::decodeInt(recv[24], recv[25], recv[26], recv[27]);
 
-//                CULog("RCVD SU> SRC[%i], DST[%i], CLR[%i], VEL[%f,%f]", srcPlayer, dstPlayer, stardustColor, xVel, yVel);
+                CULog("RCVD SU> SRC[%i], DST[%i], CLR[%i], VEL[%f,%f]", srcPlayer, dstPlayer, stardustColor, xVel, yVel);
 
                 std::shared_ptr<StardustModel> stardust = StardustModel::alloc(cugl::Vec2(0, 0), cugl::Vec2(xVel, yVel), static_cast<CIColor::Value>(stardustColor));
                 std::map<int, std::vector<std::shared_ptr<StardustModel>>> map = { { dstPlayer, std::vector<std::shared_ptr<StardustModel>> { stardust } } };
@@ -186,7 +186,7 @@ void NetworkMessageManager::receiveMessages() {
                 float planetSize = NetworkUtils::decodeFloat(recv[12], recv[13], recv[14], recv[15]);
                 int timestamp = NetworkUtils::decodeInt(recv[16], recv[17], recv[18], recv[19]);
                 
-//                CULog("RCVD PU> SRC[%i], CLR[%i], SIZE[%f]", srcPlayer, planetColor, planetSize);
+                CULog("RCVD PU> SRC[%i], CLR[%i], SIZE[%f]", srcPlayer, planetColor, planetSize);
 
                 std::shared_ptr<OpponentPlanet> planet = OpponentPlanet::alloc(0, 0, static_cast<CIColor::Value>(planetColor));
                 planet->setMass(planetSize);
@@ -199,7 +199,7 @@ void NetworkMessageManager::receiveMessages() {
                 int srcPlayer = NetworkUtils::decodeInt(recv[4], recv[5], recv[6], recv[7]);
                 int timestamp = NetworkUtils::decodeInt(recv[8], recv[9], recv[10], recv[11]);
                 
-//                CULog("RCVD Attempt To Win> SRC[%i], TS[%i]", srcPlayer, timestamp);
+                CULog("RCVD Attempt To Win> SRC[%i], TS[%i]", srcPlayer, timestamp);
                 
                 if (_winner_player_id == -1) {
                     _winner_player_id = srcPlayer;
@@ -211,14 +211,14 @@ void NetworkMessageManager::receiveMessages() {
                     _timestamp++;
                     _conn->send(data);
                     data.clear();
-//                    CULog("SENT WON GAME MESSAGE> PLAYER[%i]", srcPlayer);
+                    CULog("SENT WON GAME MESSAGE> PLAYER[%i]", srcPlayer);
                 }
             }
             else if (message_type == NetworkUtils::MessageType::WonGame) {
                 int srcPlayer = NetworkUtils::decodeInt(recv[4], recv[5], recv[6], recv[7]);
                 int timestamp = NetworkUtils::decodeInt(recv[8], recv[9], recv[10], recv[11]);
                 
-//                CULog("RCVD GAME WON> SRC[%i], TS[%i]", srcPlayer, timestamp);
+                CULog("RCVD GAME WON> SRC[%i], TS[%i]", srcPlayer, timestamp);
                 
                 if (_winner_player_id == -1) {
                     _winner_player_id = srcPlayer;
@@ -229,7 +229,7 @@ void NetworkMessageManager::receiveMessages() {
                 int dstPlayer = NetworkUtils::decodeInt(recv[8], recv[9], recv[10], recv[11]);
                 int timestamp = NetworkUtils::decodeInt(recv[12], recv[13], recv[14], recv[15]);
                 
-//                CULog("RCVD Stardust Hit> SRC[%i], DST[%i], TS[%i]", srcPlayer, dstPlayer, timestamp);
+                CULog("RCVD Stardust Hit> SRC[%i], DST[%i], TS[%i]", srcPlayer, dstPlayer, timestamp);
                 
                 if (dstPlayer == getPlayerId()) {
                     // put a grey stardust on the queue to indicate it is a reward stardust

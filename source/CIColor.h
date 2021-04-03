@@ -30,7 +30,6 @@ public:
         blue, 
         grey, 
         lightgrey,
-        test,
     };
 
     
@@ -68,9 +67,6 @@ public:
                 break;
             case lightgrey:
                 color = cugl::Color4(252.0f, 239.0f, 237.0f);
-                break;
-            case test:
-                color = cugl::Color4(252, 252, 3);
                 break;
         }
         
@@ -112,9 +108,6 @@ public:
         case lightgrey:
             color = "lightgrey";
             break;
-        case test:
-            color = "test";
-            break;
         }
 
         return color;
@@ -141,13 +134,6 @@ public:
      */
     static Value getNoneColor() {
         return Value::lightgrey;
-    }
-    
-    /**
-     * Get the CIColor Value representing the lack of a color
-     */
-    static Value getTest() {
-        return Value::test;
     }
 };
 

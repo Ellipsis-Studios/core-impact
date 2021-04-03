@@ -286,7 +286,7 @@ void GameScene::processSpecialStardust(const cugl::Size bounds, const std::share
                 stardustQueue->addStardust(stardust->getColor(), bounds);
                 stardustQueue->addStardust(stardust->getColor(), bounds);
                 stardustQueue->addStardust(stardust->getColor(), bounds);
-                stardustQueue->addStardust(CIColor::getRandomColor(), bounds);
+                stardustQueue->addStardust(stardust->getColor(), bounds);
                 stardustQueue->addStardust(CIColor::getRandomColor(), bounds);
                 stardustQueue->addStardust(CIColor::getRandomColor(), bounds);
                 break;
