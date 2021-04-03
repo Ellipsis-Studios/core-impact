@@ -19,6 +19,9 @@ static std::shared_ptr<OrthographicCamera> cam = nullptr;
 #pragma mark -
 #pragma mark Gameplay Control
 
+/** This is adjusted by screen aspect ratio to get the height */
+#define SCENE_WIDTH 1024
+
 /**
  * The method called after OpenGL is initialized, but before running the application.
  *
@@ -33,6 +36,9 @@ void CoreImpactApp::onStartup() {
     _assets = AssetManager::alloc();
     _batch  = SpriteBatch::alloc();
     cam = OrthographicCamera::alloc(getDisplaySize());
+    _json = JsonValue::allocObject();
+    _jsonReader = JsonReader::alloc(Application::getSaveDirectory().append("save.json"));
+    _jsonWriter = JsonWriter::alloc(Application::getSaveDirectory().append("save.json"));
     
     // Start-up basic input
 #ifdef CU_MOBILE
@@ -73,6 +79,7 @@ void CoreImpactApp::onShutdown() {
     _gameplay.dispose();
     _assets = nullptr;
     _batch = nullptr;
+    _networkMessageManager = nullptr;
     
     // Shutdown input
 #ifdef CU_MOBILE
@@ -82,10 +89,180 @@ void CoreImpactApp::onShutdown() {
 #endif
     Input::deactivate<Keyboard>();
     Input::deactivate<TextInput>();
-
-    _networkMessageManager = nullptr;
     
     Application::onShutdown();  // YOU MUST END with call to parent
+}
+
+/**
+ * The method called when you are running out of memory.
+ *
+ * When this method is called, you should immediately free memory or cause
+ * the application to quit. Texture memory is generally the biggest
+ * candidate for freeing memory; delete all textures you are not using.
+ *
+ * When overriding this method, you do not need to call the parent method
+ * at all. The default implmentation does nothing.
+ */
+void CoreImpactApp::onLowMemory() {
+    CULog("Warning: Low Memory.");
+}
+
+/**
+ * The method called when the application is suspended and put in the background.
+ *
+ * When this method is called, you should store any state that you do not
+ * want to be lost.  There is no guarantee that an application will return
+ * from the background; it may be terminated instead.
+ *
+ * If you are using audio, it is critical that you pause it on suspension.
+ * Otherwise, the audio thread may persist while the application is in
+ * the background.
+ */
+void CoreImpactApp::onSuspend() {
+    int playerId = _networkMessageManager->getPlayerId();
+    _json->appendValue("timestamp", std::to_string(_networkMessageManager->getTimestamp()));
+    _json->appendValue("playerId", std::to_string(playerId));
+    _json->appendValue("gameId", _networkMessageManager->getRoomId());
+    std::shared_ptr<GameUpdate> gameUpdate = _networkMessageManager->getGameUpdateManager()->getGameUpdateToSend();
+
+    // planet JSON
+    std::shared_ptr<PlanetModel> planet = gameUpdate->getPlanet();
+    std::shared_ptr<cugl::JsonValue> planetJson = JsonValue::allocObject();
+    planetJson->appendValue("currLayerStardustAmount", std::to_string(planet->getCurrLayerProgress()));
+    planetJson->appendValue("currLayerLockInStardustNeeded", std::to_string(planet->getLayerLockinTotal()));
+    planetJson->appendValue("radius", std::to_string(planet->getRadius()));
+    planetJson->appendValue("mass", std::to_string(planet->getMass()));
+
+    // layers within planet JSON
+    std::shared_ptr<cugl::JsonValue> layers = JsonValue::allocArray();
+    std::shared_ptr<cugl::JsonValue> layer;
+    for (size_t ii = 0; ii < planet->getLayers().size(); ii++) {
+        layer = JsonValue::allocObject();
+        layer->appendValue("size", std::to_string(planet->getLayers()[ii].layerSize));
+        layer->appendValue("color", std::to_string(planet->getLayers()[ii].layerColor));
+        layer->appendValue("lockedIn", std::to_string(planet->getLayers()[ii].isLockedIn));
+        layers->appendChild(layer);
+    }
+    planetJson->appendChild("layers", layers);
+    _json->appendChild("planet", planetJson);
+
+    // stardust queue JSON
+    std::shared_ptr<cugl::JsonValue> stardustsJson = JsonValue::allocArray();
+    std::shared_ptr<cugl::JsonValue> stardustJson;
+    std::vector<std::shared_ptr<StardustModel>> stardustVector = gameUpdate->getStardustSent()[playerId];
+    for (size_t jj = 0; jj < stardustVector.size(); jj++) {
+        std::shared_ptr<StardustModel> stardust = stardustVector[jj];
+        cugl::Vec2 pos = stardust->getPosition();
+        cugl::Vec2 vel = stardust->getVelocity();
+        stardustJson = JsonValue::allocObject();
+        stardustJson->appendValue("color", std::to_string(stardust->getColor()));
+        stardustJson->appendValue("xPos", pos.x);
+        stardustJson->appendValue("yPos", pos.y);
+        stardustJson->appendValue("xVel", vel.x);
+        stardustJson->appendValue("yVel", vel.y);
+        stardustsJson->appendChild(stardustJson);
+    }
+    _json->appendChild("stardustQueue", stardustsJson);
+
+    std::shared_ptr<cugl::JsonValue> opponentPlanetsJson = JsonValue::allocArray();
+    std::shared_ptr<cugl::JsonValue> opponentPlanetJson;
+    std::vector<std::shared_ptr<OpponentPlanet>> opponentPlanetsVector = _gameplay.getOpponentPlanets();
+    for (size_t kk = 0; kk < opponentPlanetsVector.size(); kk++) {
+        std::shared_ptr<OpponentPlanet> opponentPlanet = opponentPlanetsVector[kk];
+        opponentPlanetJson = JsonValue::allocObject();
+        opponentPlanetJson->appendValue("playerId", std::to_string(kk));
+        opponentPlanetJson->appendValue("mass", std::to_string(opponentPlanet->getMass()));
+        opponentPlanetJson->appendValue("color", std::to_string(opponentPlanet->getColor()));
+        opponentPlanetsJson->appendChild(opponentPlanetJson);
+    }
+    _json->appendChild("otherPlanets", opponentPlanetsJson);
+
+    CULog("JSON saved: %s", _json->toString().c_str());
+    CULog("Save location: %s", Application::getSaveDirectory().c_str());
+    //CULog("DIR size: %u", Application::getSaveDirectory().size());
+    _jsonWriter->writeJson(_json);
+}
+
+/**
+ * The method called when the application resumes and put in the foreground.
+ *
+ * If you saved any state before going into the background, now is the time
+ * to restore it. This guarantees that the application looks the same as
+ * when it was suspended.
+ *
+ * If you are using audio, you should use this method to resume any audio
+ * paused before app suspension.
+ */
+void CoreImpactApp::onResume() {
+    _json = _jsonReader->readJson();
+    CULog("JSON retrieved: %s", _json->toString().c_str());
+    CULog("Save location: %s", Application::getSaveDirectory().c_str());
+
+    // if game has won or more than 50 time intervals
+    if (_networkMessageManager->getWinnerPlayerId() != -1 || _networkMessageManager->getTimestamp() - _json->getInt("timestamp") > 50) {
+        // redirect player to main screen
+        _loading.setActive(true);
+    }
+
+    else {
+        // recreate the planet model
+        Size dimen = Application::get()->getDisplaySize();
+        dimen *= SCENE_WIDTH / dimen.width; // Lock the game to a reasonable resolution
+        std::shared_ptr<cugl::JsonValue> layersJson = _json->get("layers");
+        std::shared_ptr<PlanetModel> planet = PlanetModel::alloc(dimen.width / 2, dimen.height / 2, static_cast<CIColor::Value>(layersJson->get(layersJson->size()-1)->getInt("color")), layersJson->size());
+        auto coreTexture = _assets->get<Texture>("core");
+        auto ringTexture = _assets->get<Texture>("innerRing");
+        auto unlockedTexture = _assets->get<Texture>("unlockedOuterRing");
+        auto lockedTexture = _assets->get<Texture>("lockedOuterRing");
+        planet->setTextures(coreTexture, ringTexture, unlockedTexture, lockedTexture);
+        planet->setCurrLayerProgress(_json->getInt("currLayerStardustAmount"));
+        planet->setLayerLockinTotal(_json->getInt("currLayerLockInStardustNeeded"));
+        planet->setRadius(_json->getFloat("radius"));
+        planet->setMass(_json->getFloat("mass"));
+
+        // recreate the planet layers
+        std::vector<PlanetLayer> layers;
+        layers.resize(layersJson->size());
+        PlanetLayer layer;
+        for (size_t ii = 0; ii < layers.size(); ii++) {
+            layer = {
+            .layerSize = layersJson->get(ii)->getInt("size"),
+            .layerColor = static_cast<CIColor::Value>(layersJson->get(ii)->getInt("color")),
+            .isActive = true,
+            .isLockedIn = layersJson->get(ii)->getBool("lockedIn")
+            };
+            layers[ii] = layer;
+        }
+        planet->setLayers(layers);
+
+        // recreate the stardust queue
+        std::shared_ptr<cugl::JsonValue> stardustsJson = _json->get("stardustQueue");
+        std::shared_ptr<StardustQueue> stardustContainer = StardustQueue::alloc(stardustsJson->size(), _assets->get<Texture>("photon"));
+        std::shared_ptr<cugl::JsonValue> stardustJson;
+        std::shared_ptr<StardustModel> stardust;
+        for (size_t jj = 0; jj < stardustJson->size(); jj++) {
+            stardustJson = stardustsJson->get(jj);
+            Vec2 pos = Vec2(stardustJson->getFloat("xPos"), stardustJson->getFloat("yPos"));
+            Vec2 vel = Vec2(stardustJson->getFloat("xVel"), stardustJson->getFloat("yVel"));
+            stardust = StardustModel::alloc(pos, vel, static_cast<CIColor::Value>(stardustJson->getInt("color")));
+            stardustContainer->addStardust(stardust);
+        }
+
+        // recreate the opponent planets
+        std::shared_ptr<cugl::JsonValue> opponentPlanetsJson = _json->get("otherPlanets");
+        std::vector<std::shared_ptr<OpponentPlanet>> opponent_planets;
+        opponent_planets.resize(opponentPlanetsJson->size());
+        std::shared_ptr<OpponentPlanet> opponent_planet;
+        for (size_t kk = 0; kk < opponent_planets.size(); kk++) {
+            opponent_planet = OpponentPlanet::alloc(0, 0, static_cast<CIColor::Value>(opponentPlanetsJson->get(kk)->getInt("color")));
+            opponent_planet->setMass(opponentPlanetsJson->get(kk)->getFloat("mass"));
+            opponent_planets[kk] = opponent_planet;
+        }
+
+        _gameplay.addChild(planet->getPlanetNode());
+        _gameplay.addChild(stardustContainer->getStardustNode());
+        _gameplay.setOpponentPlanets(opponent_planets);
+    }
 }
 
 /**

@@ -26,6 +26,12 @@ protected:
     std::shared_ptr<cugl::SpriteBatch> _batch;
     /** The global asset manager */
     std::shared_ptr<cugl::AssetManager> _assets;
+    /** The JSON to hold game state */
+    std::shared_ptr<cugl::JsonValue> _json;
+    /** The reader to read JSON files */
+    std::shared_ptr<cugl::JsonReader> _jsonReader;
+    /** The writer to write JSON files */
+    std::shared_ptr<cugl::JsonWriter> _jsonWriter;
 
     // SHARED MANAGER
     std::shared_ptr<NetworkMessageManager> _networkMessageManager;
@@ -84,6 +90,43 @@ public:
      * causing the application to be deleted.
      */
     virtual void onShutdown() override;
+
+    /**
+     * The method called when you are running out of memory.
+     *
+     * When this method is called, you should immediately free memory or cause
+     * the application to quit. Texture memory is generally the biggest
+     * candidate for freeing memory; delete all textures you are not using.
+     *
+     * When overriding this method, you do not need to call the parent method
+     * at all. The default implmentation does nothing.
+     */
+    virtual void onLowMemory() override;
+
+    /**
+     * The method called when the application is suspended and put in the background.
+     *
+     * When this method is called, you should store any state that you do not
+     * want to be lost.  There is no guarantee that an application will return
+     * from the background; it may be terminated instead.
+     *
+     * If you are using audio, it is critical that you pause it on suspension.
+     * Otherwise, the audio thread may persist while the application is in
+     * the background.
+     */
+    virtual void onSuspend() override;
+
+    /**
+     * The method called when the application resumes and put in the foreground.
+     *
+     * If you saved any state before going into the background, now is the time
+     * to restore it. This guarantees that the application looks the same as
+     * when it was suspended.
+     *
+     * If you are using audio, you should use this method to resume any audio
+     * paused before app suspension.
+     */
+    virtual void onResume() override;
     
     /**
      * The method called to update the application data.

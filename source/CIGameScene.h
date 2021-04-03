@@ -60,9 +60,9 @@ protected:
 
     // MODEL
     /** The model representing the planet */
-    std::shared_ptr<PlanetModel>  _planet;
+    std::shared_ptr<PlanetModel> _planet;
     /** Pointer to the model of the stardust that is currently being dragged */
-    StardustModel*  _draggedStardust;
+    StardustModel* _draggedStardust;
     /** Vector of opponent planets */
     std::vector<std::shared_ptr<OpponentPlanet>> _opponent_planets;
     
@@ -111,6 +111,21 @@ public:
               const std::shared_ptr<NetworkMessageManager>& networkMessageManager, 
               bool isHost, std::string gameId);
     
+#pragma mark Properties
+    /**
+     * Returns the opponents planets
+     */
+    std::vector<std::shared_ptr<OpponentPlanet>> getOpponentPlanets() {
+        return _opponent_planets;
+    }
+
+    /**
+     * Sets the opponents planets
+     */
+    void setOpponentPlanets(std::vector<std::shared_ptr<OpponentPlanet>> planets) {
+        _opponent_planets = planets;
+    }
+
 #pragma mark -
 #pragma mark Gameplay Handling
     /**

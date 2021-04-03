@@ -76,10 +76,23 @@ public:
     }
     
 #pragma mark Properties
-    void setGameuUpdateManager(std::shared_ptr<GameUpdateManager> gameUpdateManager) {
+    /**
+     * Returns the timestamp
+     *
+     * @return the current timestamp
+     */
+    int getTimestamp() {
+        return _timestamp;
+    }
+
+    void setGameUpdateManager(std::shared_ptr<GameUpdateManager> gameUpdateManager) {
         _gameUpdateManager = gameUpdateManager;
     }
     
+    std::shared_ptr<GameUpdateManager> getGameUpdateManager() {
+        return _gameUpdateManager;
+    }
+
     /**
      * Returns the game state
      *

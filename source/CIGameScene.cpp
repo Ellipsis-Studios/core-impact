@@ -77,7 +77,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     // Set the game update manager and network message managers
     _gameUpdateManager = GameUpdateManager::alloc();
     _networkMessageManager = networkMessageManager;
-    _networkMessageManager->setGameuUpdateManager(_gameUpdateManager);
+    _networkMessageManager->setGameUpdateManager(_gameUpdateManager);
     if (isHost) {
         _networkMessageManager->createGame();
     }

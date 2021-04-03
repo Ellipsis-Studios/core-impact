@@ -31,6 +31,12 @@
     <Filter Include="Header Files\Scenes">
       <UniqueIdentifier>{f3facb96-22ee-4b6f-8df2-799cf8a617e4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Networking">
+      <UniqueIdentifier>{4569a486-05c5-44ff-8abf-08e8aa0387d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Networking">
+      <UniqueIdentifier>{970338ec-c119-45a5-bd52-807b81e0c266}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -77,6 +83,15 @@
     </ClInclude>
     <ClInclude Include="..\..\source\CIPlanetLayer.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\CINetworkMessageManager.h">
+      <Filter>Header Files\Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\CINetworkUtils.h">
+      <Filter>Header Files\Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\CIOpponentPlanet.h">
+      <Filter>Header Files\Models</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -134,6 +149,15 @@
     </ClCompile>
     <ClCompile Include="..\..\source\CIGameUpdateManager.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\CINetworkMessageManager.cpp">
+      <Filter>Source Files\Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\CINetworkUtils.cpp">
+      <Filter>Source Files\Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\CIOpponentPlanet.cpp">
+      <Filter>Source Files\Models</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

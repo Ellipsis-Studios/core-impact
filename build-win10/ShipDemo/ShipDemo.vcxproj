@@ -198,6 +198,9 @@
     <ClInclude Include="..\..\source\CIGameUpdateManager.h" />
     <ClInclude Include="..\..\source\CIInput.h" />
     <ClInclude Include="..\..\source\CILoadingScene.h" />
+    <ClInclude Include="..\..\source\CINetworkMessageManager.h" />
+    <ClInclude Include="..\..\source\CINetworkUtils.h" />
+    <ClInclude Include="..\..\source\CIOpponentPlanet.h" />
     <ClInclude Include="..\..\source\CIPlanetLayer.h" />
     <ClInclude Include="..\..\source\CIPlanetModel.h" />
     <ClInclude Include="..\..\source\CIPlanetNode.h" />
@@ -225,6 +228,9 @@
     <ClCompile Include="..\..\source\CIGameUpdateManager.cpp" />
     <ClCompile Include="..\..\source\CIInput.cpp" />
     <ClCompile Include="..\..\source\CILoadingScene.cpp" />
+    <ClCompile Include="..\..\source\CINetworkMessageManager.cpp" />
+    <ClCompile Include="..\..\source\CINetworkUtils.cpp" />
+    <ClCompile Include="..\..\source\CIOpponentPlanet.cpp" />
     <ClCompile Include="..\..\source\CIPlanetModel.cpp" />
     <ClCompile Include="..\..\source\CIPlanetNode.cpp" />
     <ClCompile Include="..\..\source\CIStardustModel.cpp" />

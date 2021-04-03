@@ -62,12 +62,35 @@ public:
     }
 
     /**
+     * Returns the layers this planet has
+     *
+     * @return the layers of this planet
+     */
+    std::vector<PlanetLayer> getLayers() const {
+        return _layers;
+    }
+
+    /**
+     * Sets the layers this planet has
+     */
+    void setLayers(std::vector<PlanetLayer> layers) {
+        _layers = layers;
+    }
+
+    /**
      * Returns the number of layers this planet has
      *
-     * @return the numer of layers of this planet
+     * @return the number of layers of this planet
      */
     const int getNumLayers() const {
         return _numLayers;
+    }
+
+    /**
+     * Sets the number of layers this planet has
+     */
+    void setNumLayers(int numLayers) {
+        _numLayers = numLayers;
     }
     
     /**
@@ -78,6 +101,13 @@ public:
     const int getCurrLayerProgress() const {
         return _layers[_numLayers-1].layerSize;
     }
+
+    /**
+     * Sets the total amount of stardust added to the current layer
+     */
+    void setCurrLayerProgress(int layerSize) {
+        _layers[_numLayers - 1].layerSize = layerSize;
+    }
     
     /**
      * Returns the total amount of stardust need to lock in the current layer
@@ -86,6 +116,13 @@ public:
      */
     const int getLayerLockinTotal() const {
         return _layerLockinTotal;
+    }
+
+    /**
+     * Sets the total amount of stardust need to lock in the current layer
+     */
+    void setLayerLockinTotal(int layerSize) {
+        _layerLockinTotal = layerSize;
     }
     
     /**
@@ -100,10 +137,17 @@ public:
     /**
      * Returns the radius of the planet
      *
-     * @return the radisu of the planet
+     * @return the radius of the planet
      */
     const float getRadius() const {
         return _radius;
+    }
+
+    /**
+     * Sets the radius of the planet
+     */
+    void setRadius(float r) {
+        _radius = r;
     }
     
     /**
@@ -113,6 +157,13 @@ public:
      */
     const float getMass() const {
         return _mass;
+    }
+
+    /**
+     * Sets the mass of the planet
+     */
+    void setMass(float m) {
+        _mass = m;
     }
 
     /**
