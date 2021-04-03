@@ -52,8 +52,6 @@ void StardustNode::draw(const std::shared_ptr<cugl::SpriteBatch>& batch,
             const cugl::Color4f stardustColor = CIColor::getColor4(_queue->at(idx).getColor());
             switch (_queue->at(idx).getStardustType()) {
                 case StardustModel::Type::METEOR:
-                    // TODO: draw meteor texture
-                    CULog("DRAWING METEOR");
                     batch->draw(_texture, CIColor::getColor4(CIColor::Value::grey), origin, stardustTransform);
                     break;
                 default:

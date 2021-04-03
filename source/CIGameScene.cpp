@@ -192,8 +192,6 @@ void GameScene::update(float timestep) {
         _planet->stopLockIn();
     }
     
-    processSpecialStardust(dimen, _stardustContainer);
-    
     // attempt to set player id of game update manager
     if (_gameUpdateManager->getPlayerId() < 0) {
         // need to make this call to attempt to connect to game
