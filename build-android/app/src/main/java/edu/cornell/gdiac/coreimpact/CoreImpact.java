@@ -1,7 +1,8 @@
 package edu.cornell.gdiac.shipdemo;
 
-import org.libsdl.app.*;
-import android.os.*;
+import android.os.Bundle;
+
+import org.libsdl.app.SDLActivity;
 
 /**
  * Default application entry point

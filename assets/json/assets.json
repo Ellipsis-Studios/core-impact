@@ -7,16 +7,16 @@
       "file": "textures/photon.png"
     },
     "core": {
-      "file": "textures/core.png"
+        "file":   "textures/core.png"
     },
     "innerRing": {
-      "file": "textures/innerRing.png"
+        "file":   "textures/innerLayerAnimation_v2.png"
     },
     "unlockedOuterRing": {
-      "file": "textures/unlockedOuterRing.png"
+        "file":   "textures/unlockedOuterRing.png"
     },
     "lockedOuterRing": {
-      "file": "textures/lockedOuterRing.png"
+        "file":   "textures/lockedOuterRing.png"
     }
   },
   "fonts": {

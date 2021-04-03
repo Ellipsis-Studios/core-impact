@@ -1,23 +1,20 @@
 package org.libsdl.app;
 
-import android.content.Context;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothGattCallback;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattDescriptor;
+import android.bluetooth.BluetoothGattService;
 import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothProfile;
-import android.bluetooth.BluetoothGattService;
+import android.content.Context;
 import android.hardware.usb.UsbDevice;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
-import android.os.*;
 
-//import com.android.internal.util.HexDump;
-
-import java.lang.Runnable;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.UUID;
@@ -26,17 +23,17 @@ class HIDDeviceBLESteamController extends BluetoothGattCallback implements HIDDe
 
     private static final String TAG = "hidapi";
     private HIDDeviceManager mManager;
-    private BluetoothDevice mDevice;
-    private int mDeviceId;
+    private final BluetoothDevice mDevice;
+    private final int mDeviceId;
     private BluetoothGatt mGatt;
     private boolean mIsRegistered = false;
     private boolean mIsConnected = false;
     private boolean mIsChromebook = false;
     private boolean mIsReconnecting = false;
     private boolean mFrozen = false;
-    private LinkedList<GattOperation> mOperations;
+    private final LinkedList<GattOperation> mOperations;
     GattOperation mCurrentOperation = null;
-    private Handler mHandler;
+    private final Handler mHandler;
 
     private static final int TRANSPORT_AUTO = 0;
     private static final int TRANSPORT_BREDR = 1;
