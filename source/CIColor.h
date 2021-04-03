@@ -24,20 +24,20 @@ public:
     enum Value {
         purple,
         red,
-        orange,
-        turquoise,
+        yellow,
         green,
-        blue, 
-        grey, 
+        turquoise,
+        blue,
+        grey,
         lightgrey,
     };
-
+    
     
     /**
      * Get the Color4 represented by a particular CIColor value
-     * 
-     * @param CIColor Value 
-     * 
+     *
+     * @param CIColor Value
+     *
      * @return Color4 representation of the CIColor Value
      */
     static cugl::Color4 getColor4(Value v) {
@@ -45,22 +45,22 @@ public:
         switch(v)
         {
             case purple:
-                color = cugl::Color4(145.0f, 20.0f, 218.0f);
+                color = cugl::Color4(199.0f, 87.0f, 255.0f);
                 break;
             case red:
-                color = cugl::Color4(252.0f, 67.0f, 34.0f);
+                color = cugl::Color4(255.0f, 10.0f, 10.0f);
                 break;
-            case orange:
-                color = cugl::Color4(211.0f, 132.0f, 19.0f);
-                break;
-            case turquoise:
-                color = cugl::Color4(33.0f, 189.0f, 202.0f);
+            case yellow:
+                color = cugl::Color4(252.0f, 244.0f, 63.0f);
                 break;
             case green:
-                color = cugl::Color4(43.0f, 151.0f, 26.0f);
+                color = cugl::Color4(13.0f, 194.0f, 21.0f);
+                break;
+            case turquoise:
+                color = cugl::Color4(29.0f, 231.0f, 203.0f);
                 break;
             case blue:
-                color = cugl::Color4(33.0f, 49.0f, 165.0f);
+                color = cugl::Color4(25.0f, 50.0f, 255.0f);
                 break;
             case grey:
                 color = cugl::Color4(194.0f, 194.0f, 194.0f);
@@ -72,7 +72,7 @@ public:
         
         return color;
     }
-
+    
     /**
      * Get the string representation of CIColor Value
      *
@@ -84,49 +84,49 @@ public:
         string color;
         switch (v)
         {
-        case purple:
-            color = "purple";
-            break;
-        case red:
-            color = "red";
-            break;
-        case orange:
-            color = "orange";
-            break;
-        case turquoise:
-            color = "turquoise";
-            break;
-        case green:
-            color = "green";
-            break;
-        case blue:
-            color = "blue";
-            break;
-        case grey:
-            color = "grey";
-            break;
-        case lightgrey:
-            color = "lightgrey";
-            break;
+            case purple:
+                color = "purple";
+                break;
+            case red:
+                color = "red";
+                break;
+            case yellow:
+                color = "yellow";
+                break;
+            case green:
+                color = "green";
+                break;
+            case turquoise:
+                color = "turquoise";
+                break;
+            case blue:
+                color = "blue";
+                break;
+            case grey:
+                color = "grey";
+                break;
+            case lightgrey:
+                color = "lightgrey";
+                break;
         }
-
+        
         return color;
     }
-
-    /** 
+    
+    /**
      * Returns a random CIColor Value for a stardust.
-     * 
-     * This method picks out of the first 5 CIColor values since they 
-     * are valid for stardust color. 
-     * 
-     * @return CIColor Value for a stardust 
+     *
+     * This method picks out of the first 5 CIColor values since they
+     * are valid for stardust color.
+     *
+     * @return CIColor Value for a stardust
      */
     static Value getRandomColor() {
         std::random_device rd;
         std::mt19937 mt(rd());
         std::uniform_int_distribution<int> dist(0, 5); // pick out of first 6 colors
         int rand = dist(mt);
-        return Value(rand);  
+        return Value(rand);
     }
     
     /**

@@ -43,7 +43,7 @@ namespace collisions {
  *  @param planet     The planet in the candidate collision
  *  @param queue       The stardust queue
  */
-void checkForCollision(const std::shared_ptr<PlanetModel>& planet, const std::shared_ptr<StardustQueue>& queue);
+void checkForCollision(const std::shared_ptr<PlanetModel>& planet, const std::shared_ptr<StardustQueue>& queue, float timestep);
 
 /**
  *  Handles collisions between stardusts, causing them to bounce off one another.
