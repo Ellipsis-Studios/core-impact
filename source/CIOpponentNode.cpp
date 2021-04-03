@@ -36,7 +36,7 @@ void OpponentNode::draw(const std::shared_ptr<cugl::SpriteBatch>& batch,
     
     cugl::Mat4 verticalBarTransform;
     verticalBarTransform.rotateZ(-M_PI / 2);
-    verticalBarTransform.scale(reflection.x, (_progress * _maxheight * reflection.y) / (2 * origin.x), 1);
+    verticalBarTransform.scale(reflection.x, (_progress * _maxheight * -reflection.y) / (2 * origin.x), 1);
     verticalBarTransform.translate(0, (_progress * _maxheight * reflection.y) / 2, 0);
     verticalBarTransform.multiply(transform);
     batch->draw(_texture, getColor(), origin, verticalBarTransform);
