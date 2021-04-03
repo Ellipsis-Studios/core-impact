@@ -13,6 +13,7 @@
 
 #include <cugl/cugl.h>
 #include "CIStardustModel.h"
+#include "CILocation.h"
 
 class NetworkUtils {
 private:
@@ -70,12 +71,17 @@ public:
     /**
      * Gets the stardust location given our player id and the player id of the opponent.
      */
-    static StardustModel::Location getStardustLocation(int playerID, int opponentPlayerID);
+    static Location getStardustLocation(int playerID, int opponentPlayerID);
     
     /**
      * Returns an opponents player id given this player's id and a location
      */
-    static int getOpponentPlayerID(int playerID, StardustModel::Location location);
+    static int getOpponentPlayerID(int playerID, Location location);
+    
+    /**
+     * Returns the position from the bounds corresponding to a given Location
+     */
+    static cugl::Vec2 getPositionOfLocation(Location location, cugl::Size bounds);
 };
 
 #endif /* __CI_NETWORK_UTILS_H__ */

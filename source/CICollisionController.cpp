@@ -22,6 +22,7 @@
 //  Version: 2/21/21
 //
 #include "CICollisionController.h"
+#include "CILocation.h"
 
 /** Impulse for giving collisions a slight bounce. */
 #define COLLISION_COEFF     0.1f
@@ -226,13 +227,13 @@ void collisions::checkInBounds(const std::shared_ptr<StardustQueue>& queue, cons
                 
                 // set stardust's off screen location if it is not in bounds
                 if (distance.x < 0 && distance.y < 0) {
-                    stardust->setStardustLocation(StardustModel::Location::BOTTOM_LEFT);
+                    stardust->setStardustLocation(Location::BOTTOM_LEFT);
                 } else if (distance.x > 0 && distance.y < 0) {
-                    stardust->setStardustLocation(StardustModel::Location::BOTTOM_RIGHT);
+                    stardust->setStardustLocation(Location::BOTTOM_RIGHT);
                 } else if (distance.x < 0 && distance.y > 0) {
-                    stardust->setStardustLocation(StardustModel::Location::TOP_LEFT);
+                    stardust->setStardustLocation(Location::TOP_LEFT);
                 } else if (distance.x > 0 && distance.y > 0) {
-                    stardust->setStardustLocation(StardustModel::Location::TOP_RIGHT);
+                    stardust->setStardustLocation(Location::TOP_RIGHT);
                 }
                 stardust->destroy();
                 queue->addToSendQueue(stardust);

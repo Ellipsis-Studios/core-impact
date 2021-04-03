@@ -11,20 +11,9 @@
 #ifndef __CI_STARDUST_MODEL_H__
 #define __CI_STARDUST_MODEL_H__
 #include "CIColor.h"
+#include "CILocation.h"
 
 class StardustModel {
-public:
-    /**
-     * Enum representing where the stardust is. Top left, top right, bottom left, and bottom right all represent off screen locations.
-     */
-    enum Location {
-        ON_SCREEN = 0,
-        TOP_LEFT = 1,
-        TOP_RIGHT = 2,
-        BOTTOM_LEFT = 3,
-        BOTTOM_RIGHT = 4,
-    };
-    
 private:
     /** Color code of this stardust */
     CIColor::Value _color;

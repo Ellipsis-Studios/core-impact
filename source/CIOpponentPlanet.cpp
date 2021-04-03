@@ -11,6 +11,15 @@
 //
 
 #include "CIOpponentPlanet.h"
+#include "CIOpponentNode.h"
+#include "CIColor.h"
+
+void OpponentPlanet::setTextures(const std::shared_ptr<cugl::Texture>& texture, cugl::Size bounds) {
+    _opponentNode = OpponentNode::alloc(texture, bounds.width/2, bounds.height/2);
+    _opponentNode->setAnchor(cugl::Vec2::ANCHOR_BOTTOM_RIGHT);
+    _opponentNode->setPosition(_position);
+    _opponentNode->setLocation(_location);
+}
 
 /**
  * Decreases the size of the current layer
@@ -36,4 +45,7 @@ void OpponentPlanet::increaseLayerSize() {
  */
 void OpponentPlanet::setMass(float mass) {
     _mass = mass;
+    if (_opponentNode != nullptr) {
+        _opponentNode->setProgress(mass/WIN_PLANET_MASS, getColor());
+    }
 }

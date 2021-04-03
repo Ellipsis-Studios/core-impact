@@ -15,6 +15,9 @@
         "planet2": {
             "file":   "textures/planet2.png"
         },
+        "opponentProgress": {
+            "file":   "textures/opponentProgress.png"
+        },
         "core": {
             "file":   "textures/core.png"
         },
