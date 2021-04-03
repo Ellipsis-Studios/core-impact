@@ -66,34 +66,13 @@ void NetworkUtils::encodeInt(int x, std::vector<uint8_t>& out) {
 /**
  * Gets the stardust location given our player id and the player id of the opponent.
  */
-Location NetworkUtils::getStardustLocation(int playerID, int opponentPlayerID) {
-    return Location((opponentPlayerID - playerID + 5) % 5);
+CILocation::Value NetworkUtils::getStardustLocation(int playerID, int opponentPlayerID) {
+    return CILocation::Value((opponentPlayerID - playerID + 5) % 5);
 }
 
 /**
  * Returns an opponents player id given this player's id and a location
  */
-int NetworkUtils::getOpponentPlayerID(int playerID, Location location) {
+int NetworkUtils::getOpponentPlayerID(int playerID, CILocation::Value location) {
     return (playerID + location) % 5;
-}
-
-/**
- * Returns the position from the bounds corresponding to a given Location
- */
-cugl::Vec2 NetworkUtils::getPositionOfLocation(Location location, cugl::Size bounds) {
-    switch (location) {
-        case Location::TOP_LEFT:
-            return cugl::Vec2(0, bounds.height);
-            break;
-        case Location::TOP_RIGHT:
-            return cugl::Vec2(bounds);
-            break;
-        case Location::BOTTOM_LEFT:
-        case Location::ON_SCREEN: //this case should not occur
-            return cugl::Vec2(0, 0);
-            break;
-        case Location::BOTTOM_RIGHT:
-            return cugl::Vec2(bounds.width, 0);
-            break;
-    }
 }

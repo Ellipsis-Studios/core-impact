@@ -25,23 +25,23 @@ private:
     /** The maximum height of the progress bar */
     float _maxheight;
     /** The corner that this opponent node is in */
-    Location _location;
+    CILocation::Value _location;
     
-    cugl::Vec2 getReflectFromLocation(Location location) {
+    cugl::Vec2 getReflectFromLocation(CILocation::Value location) {
         switch (location) {
-            case Location::TOP_LEFT:
+            case CILocation::Value::TOP_LEFT:
                 return cugl::Vec2(1, -1);
                 break;
-            case Location::TOP_RIGHT:
+            case CILocation::Value::TOP_RIGHT:
                 return cugl::Vec2(-1, -1);
                 break;
-            case Location::BOTTOM_LEFT:
+            case CILocation::Value::BOTTOM_LEFT:
                 return cugl::Vec2(1, 1);
                 break;
-            case Location::BOTTOM_RIGHT:
+            case CILocation::Value::BOTTOM_RIGHT:
                 return cugl::Vec2(-1, 1);
                 break;
-            case Location::ON_SCREEN: //this case should not occur
+            case CILocation::Value::ON_SCREEN: //this case should not occur
                 return cugl::Vec2(0, 0);
         }
     }
@@ -110,7 +110,7 @@ public:
         setColor(CIColor::getColor4(color));
     }
     
-    void setLocation(Location location) {
+    void setLocation(CILocation::Value location) {
         _location = location;
     }
     

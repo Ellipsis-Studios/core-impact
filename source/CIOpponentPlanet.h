@@ -22,7 +22,7 @@ private:
     /** Scene graph node for the opponent planet */
     std::shared_ptr<OpponentNode> _opponentNode;
     /** The corner that this opponent planet is in */
-    Location _location;
+    CILocation::Value _location;
 
 public:
 #pragma mark Properties
@@ -34,11 +34,11 @@ public:
      */
     void setTextures(const std::shared_ptr<cugl::Texture>& texture, cugl::Size bounds);
     
-    void setLocation(Location location) {
+    void setLocation(CILocation::Value location) {
         _location = location;
     }
     
-    const Location getLocation() const {
+    const CILocation::Value getLocation() const {
         return _location;
     }
     
@@ -60,7 +60,7 @@ public:
      *
      * @return a newly allocated opponent planet at the given location with the given color.
      */
-    static std::shared_ptr<OpponentPlanet> alloc(float x, float y, CIColor::Value c, Location location) {
+    static std::shared_ptr<OpponentPlanet> alloc(float x, float y, CIColor::Value c, CILocation::Value location) {
         std::shared_ptr<OpponentPlanet> result = std::make_shared<OpponentPlanet>();
         result->setLocation(location);
         return (result->init(x, y, c, 1) ? result : nullptr);

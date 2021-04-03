@@ -64,7 +64,7 @@ void NetworkMessageManager::sendMessages() {
         
         // send stardust sent
         for (size_t jj = 0; jj < val.size(); jj++) {
-            if (val[jj]->getStardustLocation() == Location::ON_SCREEN) {
+            if (val[jj]->getStardustLocation() == CILocation::Value::ON_SCREEN) {
                 NetworkUtils::encodeInt(NetworkUtils::MessageType::StardustHit, data);
                 NetworkUtils::encodeInt(playerId, data);
                 NetworkUtils::encodeInt(dstPlayerId, data);
@@ -176,8 +176,8 @@ void NetworkMessageManager::receiveMessages(cugl::Size bounds) {
                 
                 CULog("RCVD PU> SRC[%i], CLR[%i], SIZE[%f]", srcPlayer, planetColor, planetSize);
                 
-                Location corner = NetworkUtils::getStardustLocation(getPlayerId(), srcPlayer);
-                cugl::Vec2 pos = NetworkUtils::getPositionOfLocation(corner, bounds);
+                CILocation::Value corner = NetworkUtils::getStardustLocation(getPlayerId(), srcPlayer);
+                cugl::Vec2 pos = CILocation::getPositionOfLocation(corner, bounds);
                 std::shared_ptr<OpponentPlanet> planet = OpponentPlanet::alloc(pos.x, pos.y, CIColor::Value(planetColor), corner);
                 planet->setMass(planetSize);
                 std::map<int, std::vector<std::shared_ptr<StardustModel>>> map = {};

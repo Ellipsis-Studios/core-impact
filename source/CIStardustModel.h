@@ -25,7 +25,7 @@ private:
     float _mass;
     
     /** The location of the stardust */
-    Location _stardust_location;
+    CILocation::Value _stardust_location;
     
     // TODO: add in reward structure for player who hits another player's planet with one of their stardust
     /** The player id of the last player to own this stardust. -1 if this stardust does not have a previous owner */
@@ -117,7 +117,7 @@ public:
      *
      * @return the stardust's location
      */
-    Location getStardustLocation() {
+    CILocation::Value getStardustLocation() {
         return _stardust_location;
     }
     
@@ -126,7 +126,7 @@ public:
      *
      * @param location      the stardust's location
      */
-    void setStardustLocation(Location location) {
+    void setStardustLocation(CILocation::Value location) {
         _stardust_location = location;
     }
     
