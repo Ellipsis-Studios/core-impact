@@ -27,6 +27,11 @@ private:
     /** The corner that this opponent node is in */
     CILocation::Value _location;
     
+    /**
+     * Helper function to get the x and y reflection of the progress bar
+     *
+     * @param location The location of this opponent node
+     */
     cugl::Vec2 getReflectFromLocation(CILocation::Value location) {
         switch (location) {
             case CILocation::Value::TOP_LEFT:
@@ -110,10 +115,14 @@ public:
         setColor(CIColor::getColor4(color));
     }
     
+    /**
+     * Set the location of this opponent node
+     *
+     * @param location The location of this opponent node
+     */
     void setLocation(CILocation::Value location) {
         _location = location;
     }
-    
 };
 
 #endif /* __CI_OPPONENT_NODE_H__ */

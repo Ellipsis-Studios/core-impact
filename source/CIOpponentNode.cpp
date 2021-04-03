@@ -25,7 +25,6 @@ void OpponentNode::draw(const std::shared_ptr<cugl::SpriteBatch>& batch,
         return;
     }
     
-//    batch->setBlendFunc(GL_ZERO, GL_ZERO); // Additive blending
     cugl::Vec2 origin = _texture->getSize()/2;
     cugl::Vec2 reflection = getReflectFromLocation(_location);
     
@@ -41,5 +40,4 @@ void OpponentNode::draw(const std::shared_ptr<cugl::SpriteBatch>& batch,
     verticalBarTransform.translate(0, (_progress * _maxheight * reflection.y) / 2, 0);
     verticalBarTransform.multiply(transform);
     batch->draw(_texture, getColor(), origin, verticalBarTransform);
-//    batch->setBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }

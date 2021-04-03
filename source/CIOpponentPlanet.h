@@ -34,14 +34,27 @@ public:
      */
     void setTextures(const std::shared_ptr<cugl::Texture>& texture, cugl::Size bounds);
     
+    /**
+     * Set the location of this opponent planet
+     *
+     * @param location The location of this opponent planet
+     */
     void setLocation(CILocation::Value location) {
         _location = location;
     }
     
+    /**
+     * Returns the location of this opponent planet
+     *
+     * @return The location of this opponent planet
+     */
     const CILocation::Value getLocation() const {
         return _location;
     }
     
+    /**
+     * Get the OpponentNode associated with this opponent planet
+     */
     const std::shared_ptr<cugl::scene2::SceneNode> getOpponentNode() const {
         return _opponentNode;
     }
