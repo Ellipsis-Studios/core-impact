@@ -192,12 +192,24 @@ public:
     }
     
 
+    /**
+     * Adds a stardust to the powerup queue.
+     *
+     * @param stardust the stardust to add to the powerup queue
+     */
     void addToPowerupQueue(StardustModel* stardust);
     
+    /**
+     * Returns the powerup queue
+     * @return the powerup queue
+     */
     std::vector<std::shared_ptr<StardustModel>> getPowerupQueue() {
         return _stardust_powerups;
     }
     
+    /**
+     * Clears the powerup queue.
+     */
     void clearPowerupQueue() {
         _stardust_powerups.clear();
     }

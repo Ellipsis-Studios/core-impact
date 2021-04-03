@@ -59,7 +59,6 @@ void collisions::checkForCollision(const std::shared_ptr<PlanetModel>& planet, c
                 }
                 else if (stardust->getStardustType() != StardustModel::Type::NORMAL) {
                     // special stardust dragged into planet
-                    CULog("SPECIAL STARDUST HIT PLANET");
                     queue->addToSendQueue(stardust);
                     queue->addToPowerupQueue(stardust);
                 }

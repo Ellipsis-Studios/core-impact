@@ -282,7 +282,7 @@ void GameScene::processSpecialStardust(const cugl::Size bounds, const std::share
 
         switch (stardust->getStardustType()) {
             case StardustModel::Type::METEOR:
-                CULog("METEOR SHOWER APPLIED!");
+                CULog("METEOR SHOWER!");
                 stardustQueue->addStardust(stardust->getColor(), bounds);
                 stardustQueue->addStardust(stardust->getColor(), bounds);
                 stardustQueue->addStardust(stardust->getColor(), bounds);

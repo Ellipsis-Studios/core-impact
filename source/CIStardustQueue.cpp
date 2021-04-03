@@ -124,6 +124,11 @@ void StardustQueue::addToSendQueue(StardustModel* stardust) {
     _stardust_to_send.push_back(std::make_shared<StardustModel>(*stardust));
 }
 
+/**
+ * Adds a stardust to the powerup queue.
+ *
+ * @param stardust the stardust to add to the powerup queue
+ */
 void StardustQueue::addToPowerupQueue(StardustModel* stardust) {
     _stardust_powerups.push_back(std::make_shared<StardustModel>(*stardust));
 }
