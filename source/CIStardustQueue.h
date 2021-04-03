@@ -73,8 +73,8 @@ public:
      *  Returns a newly allocated (empty) StardustQueue
      *
      *  @param max  The maximum number of stardust to support
-     *  @param texture The pointer to the shared stardust texture 
-     * 
+     *  @param texture The pointer to the shared stardust texture
+     *
      *  @return a newly allocated (empty) StardustQueue
      */
     static std::shared_ptr<StardustQueue> alloc(size_t max, const std::shared_ptr<cugl::Texture>& texture) {

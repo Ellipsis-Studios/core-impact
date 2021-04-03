@@ -39,18 +39,21 @@ void CoreImpactApp::onStartup() {
     Input::activate<Touchscreen>();
 #else
     Input::activate<Mouse>();
+    Input::get<Mouse>()->setPointerAwareness(Mouse::PointerAwareness::DRAG);
 #endif
     Input::activate<Keyboard>();
     Input::activate<TextInput>();
     
     _assets->attach<Font>(FontLoader::alloc()->getHook());
     _assets->attach<Texture>(TextureLoader::alloc()->getHook());
+    _assets->attach<WidgetValue>(WidgetLoader::alloc()->getHook());
     _assets->attach<scene2::SceneNode>(Scene2Loader::alloc()->getHook());
 
     // Create a "loading" screen
     _loaded = false;
     _loading.init(_assets);
-
+    _startGame = false;
+    
     // Queue up the other assets
     _assets->loadDirectoryAsync("json/assets.json",nullptr);
 
@@ -69,7 +72,10 @@ void CoreImpactApp::onStartup() {
  * causing the application to be deleted.
  */
 void CoreImpactApp::onShutdown() {
-    _loading.dispose();
+    if (_loading.isActive())
+        _loading.dispose();
+    if (_menu.isActive())
+        _menu.dispose();
     _gameplay.dispose();
     _assets = nullptr;
     _batch = nullptr;
@@ -102,14 +108,28 @@ void CoreImpactApp::onShutdown() {
 void CoreImpactApp::update(float timestep) {
     if (!_loaded && _loading.isActive()) {
         _loading.update(0.01f);
-    } else if (!_loaded) { 
-        _loading.dispose(); // Disables the input listeners to this mode
+    }
+    else if (!_loaded) {
+        /** Transition to menu scene */
+        _loading.dispose();
+        _menu.init(_assets);
+        _loaded = true;
+    }
+    else if (!_startGame && _menu.isActive()) {
+        /** Handle menu scene updates */
+        _menu.update(timestep);
+    }
+    else if (!_startGame) {
+        /** Transition from menu to game scene */
+        _menu.dispose(); // Disables the input listeners to this mode
         if (_networkMessageManager == nullptr) {
             _networkMessageManager = NetworkMessageManager::alloc();
         }
-        _gameplay.init(_assets, _networkMessageManager, _loading._joinGame.empty(), _loading._joinGame);
-        _loaded = true;
-    } else if (_gameplay.isActive()) { 
+        _gameplay.init(_assets, _networkMessageManager, _menu.getJoinGameId().empty(), _menu.getJoinGameId());
+        _startGame = true;
+    }
+    else if (_gameplay.isActive()) {
+        /** Handle game play updates */
         _gameplay.update(timestep);
     } else {
         // handle game reset
@@ -118,9 +138,11 @@ void CoreImpactApp::update(float timestep) {
 
         _networkMessageManager = nullptr;
 
-        _loading.removeAllChildren();
-        _loaded = false;
-        _loading.init(_assets);
+        _menu.removeChildByName("menuScene");
+        _menu.setActive(false);
+        _loaded = true;
+        _startGame = false;
+        _menu.init(_assets);
     }
 }
 
@@ -136,6 +158,8 @@ void CoreImpactApp::update(float timestep) {
 void CoreImpactApp::draw() {
     if (!_loaded) {
         _loading.render(_batch);
+    } else if (!_startGame) {
+        _menu.render(_batch);
     } else {
         _gameplay.render(_batch);
     }

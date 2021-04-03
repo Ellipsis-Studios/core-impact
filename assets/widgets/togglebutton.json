@@ -1,0 +1,32 @@
+{
+  "variables": {
+    "scale": ["data", "scale"]
+  },
+  "contents": {
+    "type": "Button",
+    "format": {
+      "type": "Anchored"
+    },
+    "data": {
+      "anchor": [0.5, 0.5],
+      "upnode": "up",
+      "downnode": "down",
+      "visible": false,
+      "scale": 0.5
+    },
+    "children": {
+      "up": {
+        "type": "Image",
+        "data": {
+          "texture": "toggleOn"
+        }
+      },
+      "down": {
+        "type": "Image",
+        "data": {
+          "texture": "toggleOff"
+        }
+      }
+    }
+  }
+}
