@@ -43,6 +43,9 @@ protected:
 
 public:
 #pragma mark Properties
+  
+    void update(float timestep);
+  
     /**
      * Returns the color of this planet's current layer
      *
@@ -145,12 +148,7 @@ public:
                      const std::shared_ptr<cugl::Texture>& ring,
                      const std::shared_ptr<cugl::Texture>& unlocked,
                      const std::shared_ptr<cugl::Texture>& locked);
-    
-    /**
-     * Returns the scene graph node for this planet
-     *
-     * @return the image texture for this planet
-     */
+   
     const std::shared_ptr<cugl::scene2::SceneNode> getPlanetNode() const {
         return _planetNode;
     }

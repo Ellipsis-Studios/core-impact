@@ -63,24 +63,36 @@ void NetworkMessageManager::sendMessages() {
         
         // send stardust sent
         for (size_t jj = 0; jj < val.size(); jj++) {
-            int stardustColor = val[jj]->getColor();
-            
-            // TODO: only send speed of stardust
-            float xVel = val[jj]->getVelocity().x;
-            float yVel = val[jj]->getVelocity().y;
-            
-            NetworkUtils::encodeInt(NetworkUtils::MessageType::StardustSent, data);
-            NetworkUtils::encodeInt(playerId, data);
-            NetworkUtils::encodeInt(dstPlayerId, data);
-            NetworkUtils::encodeInt(stardustColor, data);
-            NetworkUtils::encodeFloat(xVel, data);
-            NetworkUtils::encodeFloat(yVel, data);
-            NetworkUtils::encodeInt(_timestamp, data);
-            _timestamp++;
-            
-             _conn->send(data);
-            data.clear();
-            CULog("SENT SU> SRC[%i], DST[%i], CLR[%i], VEL[%f,%f]", playerId, dstPlayerId, stardustColor, xVel, yVel);
+            if (val[jj]->getStardustLocation() == StardustModel::Location::ON_SCREEN) {
+                NetworkUtils::encodeInt(NetworkUtils::MessageType::StardustHit, data);
+                NetworkUtils::encodeInt(playerId, data);
+                NetworkUtils::encodeInt(dstPlayerId, data);
+                NetworkUtils::encodeInt(_timestamp, data);
+                _timestamp++;
+                
+                _conn->send(data);
+               data.clear();
+               CULog("SENT Stardust Hit> SRC[%i], DST[%i], TS[%i]", playerId, dstPlayerId, _timestamp);
+            } else {
+                int stardustColor = val[jj]->getColor();
+                
+                // TODO: only send speed of stardust
+                float xVel = val[jj]->getVelocity().x;
+                float yVel = val[jj]->getVelocity().y;
+                
+                NetworkUtils::encodeInt(NetworkUtils::MessageType::StardustSent, data);
+                NetworkUtils::encodeInt(playerId, data);
+                NetworkUtils::encodeInt(dstPlayerId, data);
+                NetworkUtils::encodeInt(stardustColor, data);
+                NetworkUtils::encodeFloat(xVel, data);
+                NetworkUtils::encodeFloat(yVel, data);
+                NetworkUtils::encodeInt(_timestamp, data);
+                _timestamp++;
+                
+                 _conn->send(data);
+                data.clear();
+                CULog("SENT SU> SRC[%i], DST[%i], CLR[%i], VEL[%f,%f]", playerId, dstPlayerId, stardustColor, xVel, yVel);
+            }
         }
     }
     
@@ -195,6 +207,21 @@ void NetworkMessageManager::receiveMessages() {
                 
                 if (_winner_player_id == -1) {
                     _winner_player_id = srcPlayer;
+                }
+            }
+            else if (message_type == NetworkUtils::MessageType::StardustHit) {
+                int srcPlayer = NetworkUtils::decodeInt(recv[4], recv[5], recv[6], recv[7]);
+                int dstPlayer = NetworkUtils::decodeInt(recv[8], recv[9], recv[10], recv[11]);
+                int timestamp = NetworkUtils::decodeInt(recv[12], recv[13], recv[14], recv[15]);
+                
+                CULog("RCVD Stardust Hit> SRC[%i], DST[%i], TS[%i]", srcPlayer, dstPlayer, timestamp);
+                
+                if (dstPlayer == getPlayerId()) {
+                    // put a grey stardust on the queue to indicate it is a reward stardust
+                    std::shared_ptr<StardustModel> stardust = StardustModel::alloc(cugl::Vec2(0, 0), cugl::Vec2(0, 0), CIColor::getNoneColor());
+                    std::map<int, std::vector<std::shared_ptr<StardustModel>>> map = { { dstPlayer, std::vector<std::shared_ptr<StardustModel>> { stardust } } };
+                    std::shared_ptr<GameUpdate> gameUpdate = GameUpdate::alloc(_conn->getRoomID(), dstPlayer, map, nullptr, timestamp);
+                    _gameUpdateManager->addGameUpdate(gameUpdate);
                 }
             }
             else {
