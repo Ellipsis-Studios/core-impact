@@ -27,7 +27,7 @@ void PlanetNode::update(float timestep) {
     _timeElapsed = 0;
     
     unsigned int coreFrame = getFrame();
-    coreFrame = (coreFrame == CORE_END) ? CORE_START: coreFrame += 1;
+    coreFrame = (coreFrame == CORE_END) ? CORE_START : coreFrame + 1;
     setFrame(coreFrame);
     
     for (int ii = 0; ii < _layers->size(); ii++) {
@@ -42,7 +42,7 @@ void PlanetNode::update(float timestep) {
 void PlanetNode::advanceFrame(LayerNode* node) {
   // Our animation depends on the current frame
   unsigned int frame = node->innerRing->getFrame();
-  frame = (frame == INNER_RING_END) ? INNER_RING_START: frame += 1;
+  frame = (frame == INNER_RING_END) ? INNER_RING_START : frame + 1;
   node->innerRing->setFrame(frame);
 }
 
