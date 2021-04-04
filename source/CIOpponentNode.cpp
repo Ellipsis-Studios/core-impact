@@ -26,6 +26,7 @@ void OpponentNode::draw(const std::shared_ptr<cugl::SpriteBatch>& batch,
     }
     
     cugl::Vec2 origin = _texture->getSize()/2;
+    origin.y = 0;
     cugl::Vec2 reflection = getReflectFromLocation(_location);
     
     cugl::Mat4 horizontalBarTransform;

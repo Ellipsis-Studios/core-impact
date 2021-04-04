@@ -211,8 +211,7 @@ void GameUpdateManager::processGameUpdate(std::shared_ptr<StardustQueue> stardus
         
         int playerId = gameUpdate->getPlayerId();
         if (opponentPlanets[playerId] == nullptr) {
-            CILocation::Value corner = NetworkUtils::getStardustLocation(getPlayerId(), playerId);
-            cugl::Vec2 pos = CILocation::getPositionOfLocation(corner, bounds);
+            cugl::Vec2 pos = CILocation::getPositionOfLocation(planet->getLocation(), bounds);
             opponentPlanets[playerId] = OpponentPlanet::alloc(pos.x, pos.y, planet->getColor(), planet->getLocation());
         }
         opponentPlanets[playerId]->setColor(planet->getColor());
