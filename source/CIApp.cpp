@@ -39,6 +39,9 @@ void CoreImpactApp::onStartup() {
     _json = JsonValue::allocObject();
     _jsonReader = JsonReader::alloc(Application::getSaveDirectory().append("save.json"));
     _jsonWriter = JsonWriter::alloc(Application::getSaveDirectory().append("save.json"));
+    CULog("%s", Application::getSaveDirectory().append("save.json").c_str());
+    //_json->appendValue("test1", "test2");
+    //_jsonWriter->writeJson(_json);
     
     // Start-up basic input
 #ifdef CU_MOBILE
@@ -119,68 +122,76 @@ void CoreImpactApp::onLowMemory() {
  * the background.
  */
 void CoreImpactApp::onSuspend() {
-    int playerId = _networkMessageManager->getPlayerId();
-    _json->appendValue("timestamp", std::to_string(_networkMessageManager->getTimestamp()));
-    _json->appendValue("playerId", std::to_string(playerId));
-    _json->appendValue("gameId", _networkMessageManager->getRoomId());
-    std::shared_ptr<GameUpdate> gameUpdate = _networkMessageManager->getGameUpdateManager()->getGameUpdateToSend();
+    if (_networkMessageManager) {
+        int playerId = _networkMessageManager->getPlayerId();
+        _json->appendValue("timestamp", std::to_string(_networkMessageManager->getTimestamp()));
+        _json->appendValue("playerId", std::to_string(playerId));
+        _json->appendValue("gameId", _networkMessageManager->getRoomId());
 
-    // planet JSON
-    std::shared_ptr<PlanetModel> planet = gameUpdate->getPlanet();
-    std::shared_ptr<cugl::JsonValue> planetJson = JsonValue::allocObject();
-    planetJson->appendValue("currLayerStardustAmount", std::to_string(planet->getCurrLayerProgress()));
-    planetJson->appendValue("currLayerLockInStardustNeeded", std::to_string(planet->getLayerLockinTotal()));
-    planetJson->appendValue("radius", std::to_string(planet->getRadius()));
-    planetJson->appendValue("mass", std::to_string(planet->getMass()));
+        // planet JSON
+        std::shared_ptr<PlanetModel> planet = _gameplay.getPlanet();
+        std::shared_ptr<cugl::JsonValue> planetJson = JsonValue::allocObject();
+        planetJson->appendValue("currLayerStardustAmount", std::to_string(planet->getCurrLayerProgress()));
+        planetJson->appendValue("currLayerLockInStardustNeeded", std::to_string(planet->getLayerLockinTotal()));
+        planetJson->appendValue("radius", planet->getRadius());
+        planetJson->appendValue("mass", planet->getMass());
 
-    // layers within planet JSON
-    std::shared_ptr<cugl::JsonValue> layers = JsonValue::allocArray();
-    std::shared_ptr<cugl::JsonValue> layer;
-    for (size_t ii = 0; ii < planet->getLayers().size(); ii++) {
-        layer = JsonValue::allocObject();
-        layer->appendValue("size", std::to_string(planet->getLayers()[ii].layerSize));
-        layer->appendValue("color", std::to_string(planet->getLayers()[ii].layerColor));
-        layer->appendValue("lockedIn", std::to_string(planet->getLayers()[ii].isLockedIn));
-        layers->appendChild(layer);
+        // layers within planet JSON
+        std::shared_ptr<cugl::JsonValue> layers = JsonValue::allocArray();
+        std::shared_ptr<cugl::JsonValue> layer;
+        for (size_t ii = 0; ii < planet->getLayers().size(); ii++) {
+            layer = JsonValue::allocObject();
+            layer->appendValue("size", std::to_string(planet->getLayers()[ii].layerSize));
+            layer->appendValue("color", std::to_string(planet->getLayers()[ii].layerColor));
+            layer->appendValue("lockedIn", planet->getLayers()[ii].isLockedIn);
+            layers->appendChild(layer);
+        }
+        planetJson->appendChild("layers", layers);
+        _json->appendChild("planet", planetJson);
+
+        // stardust queue JSON
+        std::shared_ptr<cugl::JsonValue> stardustsJson = JsonValue::allocArray();
+        std::shared_ptr<cugl::JsonValue> stardustJson;
+        std::shared_ptr<StardustQueue> stardustQueue = _gameplay.getStardustContainer();
+        StardustModel* stardust;
+        for (size_t jj = 0; jj < stardustQueue->size(); jj++) {
+            stardust = stardustQueue->get(jj);
+            if (stardust != nullptr) {
+                cugl::Vec2 pos = stardust->getPosition();
+                cugl::Vec2 vel = stardust->getVelocity();
+                stardustJson = JsonValue::allocObject();
+                stardustJson->appendValue("color", std::to_string(stardust->getColor()));
+                stardustJson->appendValue("xPos", pos.x);
+                stardustJson->appendValue("yPos", pos.y);
+                stardustJson->appendValue("xVel", vel.x);
+                stardustJson->appendValue("yVel", vel.y);
+                stardustsJson->appendChild(stardustJson);
+            }
+        }
+        _json->appendChild("stardustQueue", stardustsJson);
+
+        std::shared_ptr<cugl::JsonValue> opponentPlanetsJson = JsonValue::allocArray();
+        std::shared_ptr<cugl::JsonValue> opponentPlanetJson;
+        std::vector<std::shared_ptr<OpponentPlanet>> opponentPlanetsVector = _gameplay.getOpponentPlanets();
+        std::shared_ptr<OpponentPlanet> opponentPlanet;
+        for (size_t kk = 0; kk < opponentPlanetsVector.size(); kk++) {
+            opponentPlanet = opponentPlanetsVector[kk];
+            if (opponentPlanet != nullptr) {
+                opponentPlanetJson = JsonValue::allocObject();
+                opponentPlanetJson->appendValue("playerId", std::to_string(kk));
+                opponentPlanetJson->appendValue("mass", std::to_string(opponentPlanet->getMass()));
+                opponentPlanetJson->appendValue("color", std::to_string(opponentPlanet->getColor()));
+                opponentPlanetsJson->appendChild(opponentPlanetJson);
+            }
+        }
+        _json->appendChild("otherPlanets", opponentPlanetsJson);
+
+        CULog("JSON saved: %s", _json->toString().c_str());
+        CULog("Save location: %s", Application::getSaveDirectory().c_str());
+        //CULog("DIR size: %u", Application::getSaveDirectory().size());
+        // _jsonWriter = JsonWriter::alloc(Application::getSaveDirectory().append("save.json"));
+        _jsonWriter->writeJson(_json);
     }
-    planetJson->appendChild("layers", layers);
-    _json->appendChild("planet", planetJson);
-
-    // stardust queue JSON
-    std::shared_ptr<cugl::JsonValue> stardustsJson = JsonValue::allocArray();
-    std::shared_ptr<cugl::JsonValue> stardustJson;
-    std::vector<std::shared_ptr<StardustModel>> stardustVector = gameUpdate->getStardustSent()[playerId];
-    for (size_t jj = 0; jj < stardustVector.size(); jj++) {
-        std::shared_ptr<StardustModel> stardust = stardustVector[jj];
-        cugl::Vec2 pos = stardust->getPosition();
-        cugl::Vec2 vel = stardust->getVelocity();
-        stardustJson = JsonValue::allocObject();
-        stardustJson->appendValue("color", std::to_string(stardust->getColor()));
-        stardustJson->appendValue("xPos", pos.x);
-        stardustJson->appendValue("yPos", pos.y);
-        stardustJson->appendValue("xVel", vel.x);
-        stardustJson->appendValue("yVel", vel.y);
-        stardustsJson->appendChild(stardustJson);
-    }
-    _json->appendChild("stardustQueue", stardustsJson);
-
-    std::shared_ptr<cugl::JsonValue> opponentPlanetsJson = JsonValue::allocArray();
-    std::shared_ptr<cugl::JsonValue> opponentPlanetJson;
-    std::vector<std::shared_ptr<OpponentPlanet>> opponentPlanetsVector = _gameplay.getOpponentPlanets();
-    for (size_t kk = 0; kk < opponentPlanetsVector.size(); kk++) {
-        std::shared_ptr<OpponentPlanet> opponentPlanet = opponentPlanetsVector[kk];
-        opponentPlanetJson = JsonValue::allocObject();
-        opponentPlanetJson->appendValue("playerId", std::to_string(kk));
-        opponentPlanetJson->appendValue("mass", std::to_string(opponentPlanet->getMass()));
-        opponentPlanetJson->appendValue("color", std::to_string(opponentPlanet->getColor()));
-        opponentPlanetsJson->appendChild(opponentPlanetJson);
-    }
-    _json->appendChild("otherPlanets", opponentPlanetsJson);
-
-    CULog("JSON saved: %s", _json->toString().c_str());
-    CULog("Save location: %s", Application::getSaveDirectory().c_str());
-    //CULog("DIR size: %u", Application::getSaveDirectory().size());
-    _jsonWriter->writeJson(_json);
 }
 
 /**
@@ -194,6 +205,7 @@ void CoreImpactApp::onSuspend() {
  * paused before app suspension.
  */
 void CoreImpactApp::onResume() {
+    //_jsonReader = JsonReader::alloc(Application::getSaveDirectory().append("save.json"));
     _json = _jsonReader->readJson();
     CULog("JSON retrieved: %s", _json->toString().c_str());
     CULog("Save location: %s", Application::getSaveDirectory().c_str());

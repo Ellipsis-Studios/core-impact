@@ -113,6 +113,13 @@ public:
     
 #pragma mark Properties
     /**
+     * Returns the player's planet
+     */
+    std::shared_ptr<PlanetModel> getPlanet() {
+        return _planet;
+    }
+
+    /**
      * Returns the opponents planets
      */
     std::vector<std::shared_ptr<OpponentPlanet>> getOpponentPlanets() {
@@ -124,6 +131,13 @@ public:
      */
     void setOpponentPlanets(std::vector<std::shared_ptr<OpponentPlanet>> planets) {
         _opponent_planets = planets;
+    }
+
+    /**
+     * Returns the stardust container
+     */
+    std::shared_ptr<StardustQueue> getStardustContainer() {
+        return _stardustContainer;
     }
 
 #pragma mark -
