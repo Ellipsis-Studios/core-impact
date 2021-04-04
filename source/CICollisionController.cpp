@@ -37,7 +37,7 @@ using namespace cugl;
  *  @param planet     The planet in the candidate collision
  *  @param queue       The stardust queue
  */
-void collisions::checkForCollision(const std::shared_ptr<PlanetModel>& planet, const std::shared_ptr<StardustQueue>& queue) {
+void collisions::checkForCollision(const std::shared_ptr<PlanetModel>& planet, const std::shared_ptr<StardustQueue>& queue, float timestep) {
     // Get the stardust size from the texture
     float sdRadius = getStardustRadius(queue);
     
@@ -74,7 +74,9 @@ void collisions::checkForCollision(const std::shared_ptr<PlanetModel>& planet, c
                 // Destroy the stardust
                 stardust->destroy();
             } else {
-                float force = 9.81f * stardust->getMass() * planet->getMass() / (distance * distance);
+                float force = timestep * 60 * 9.81f *
+                    (stardust->getMass() * stardust->getMass()) *
+                    planet->getMass() / (distance * distance);
                 stardust->setVelocity(((force / stardust->getMass()) * 1.0f)*norm + stardust->getVelocity());
             }
         }

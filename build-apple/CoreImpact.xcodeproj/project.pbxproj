@@ -33,6 +33,12 @@
 		CA5B0F452617F05200859BEF /* CIOpponentNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA5B0F432617F05200859BEF /* CIOpponentNode.cpp */; };
 		CA5B0F462617F05200859BEF /* CIOpponentNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA5B0F432617F05200859BEF /* CIOpponentNode.cpp */; };
 		CA5B0F472617F05200859BEF /* CIOpponentNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA5B0F432617F05200859BEF /* CIOpponentNode.cpp */; };
+		426951F0260FCE5000E675E9 /* CIMenuScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 426951EF260FCE5000E675E9 /* CIMenuScene.cpp */; };
+		426951F1260FCE5000E675E9 /* CIMenuScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 426951EF260FCE5000E675E9 /* CIMenuScene.cpp */; };
+		426951F2260FCE5000E675E9 /* CIMenuScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 426951EF260FCE5000E675E9 /* CIMenuScene.cpp */; };
+		426951FA260FCE9D00E675E9 /* widgets in Resources */ = {isa = PBXBuildFile; fileRef = 426951F9260FCE9D00E675E9 /* widgets */; };
+		426951FB260FCE9D00E675E9 /* widgets in Resources */ = {isa = PBXBuildFile; fileRef = 426951F9260FCE9D00E675E9 /* widgets */; };
+		426951FC260FCE9D00E675E9 /* widgets in Resources */ = {isa = PBXBuildFile; fileRef = 426951F9260FCE9D00E675E9 /* widgets */; };
 		CA68E30B25F53BC200B4617D /* CICollisionController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA68E30625F53BC200B4617D /* CICollisionController.cpp */; };
 		CA68E30C25F53BC200B4617D /* CICollisionController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA68E30625F53BC200B4617D /* CICollisionController.cpp */; };
 		CA68E30D25F53BC200B4617D /* CICollisionController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA68E30625F53BC200B4617D /* CICollisionController.cpp */; };
@@ -45,7 +51,6 @@
 		CADCA31225FE9AEE0048FCA1 /* CIPlanetNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D563BF725F6D5B7006641B1 /* CIPlanetNode.cpp */; };
 		EB0FF6172016EFB200517030 /* iOS.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB7454A71D74D846002FBAE6 /* iOS.xcassets */; };
 		EB0FF6182016EFB200517030 /* Landscape.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB7454A81D74D846002FBAE6 /* Landscape.storyboard */; };
-		EB0FF6192016EFB200517030 /* Portrait.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB7454A91D74D846002FBAE6 /* Portrait.storyboard */; };
 		EB0FF61A2016EFC500517030 /* json in Resources */ = {isa = PBXBuildFile; fileRef = EBFE7C041E19B496001007C2 /* json */; };
 		EB0FF61B2016EFC500517030 /* textures in Resources */ = {isa = PBXBuildFile; fileRef = EB2BE9BA1D7498D2002FE78B /* textures */; };
 		EB0FF61C2016EFC500517030 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = EB2BE9B81D7498C9002FE78B /* fonts */; };
@@ -60,7 +65,6 @@
 		EB4EB1A81E340511007BCF09 /* libcugl-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EB4EB1A41E3404F3007BCF09 /* libcugl-ios.a */; };
 		EB7454AB1D74D846002FBAE6 /* iOS.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB7454A71D74D846002FBAE6 /* iOS.xcassets */; };
 		EB7454AC1D74D846002FBAE6 /* Landscape.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB7454A81D74D846002FBAE6 /* Landscape.storyboard */; };
-		EB7454AD1D74D846002FBAE6 /* Portrait.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB7454A91D74D846002FBAE6 /* Portrait.storyboard */; };
 		EB7454AE1D74D891002FBAE6 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB2BE9B41D74952A002FE78B /* main.cpp */; };
 		EB7454D01D750623002FBAE6 /* textures in Resources */ = {isa = PBXBuildFile; fileRef = EB2BE9BA1D7498D2002FE78B /* textures */; };
 		EB7454D11D750623002FBAE6 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = EB2BE9B81D7498C9002FE78B /* fonts */; };
@@ -169,6 +173,9 @@
 		CA5B0F432617F05200859BEF /* CIOpponentNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CIOpponentNode.cpp; sourceTree = "<group>"; };
 		CA5B0F442617F05200859BEF /* CIOpponentNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIOpponentNode.h; sourceTree = "<group>"; };
 		CA5B0F512618E5BD00859BEF /* CILocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CILocation.h; sourceTree = "<group>"; };
+		426951EE260FCE4000E675E9 /* CIMenuScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIMenuScene.h; sourceTree = "<group>"; };
+		426951EF260FCE5000E675E9 /* CIMenuScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CIMenuScene.cpp; sourceTree = "<group>"; };
+		426951F9260FCE9D00E675E9 /* widgets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = widgets; sourceTree = "<group>"; };
 		CA68E30625F53BC200B4617D /* CICollisionController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CICollisionController.cpp; sourceTree = "<group>"; };
 		CA68E30A25F53BC200B4617D /* CICollisionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CICollisionController.h; sourceTree = "<group>"; };
 		CA80926026123A8300599B99 /* CIOpponentPlanet.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CIOpponentPlanet.cpp; sourceTree = "<group>"; };
@@ -187,7 +194,6 @@
 		EB7454A61D74D846002FBAE6 /* iOS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "iOS-Info.plist"; sourceTree = "<group>"; };
 		EB7454A71D74D846002FBAE6 /* iOS.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = iOS.xcassets; sourceTree = "<group>"; };
 		EB7454A81D74D846002FBAE6 /* Landscape.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Landscape.storyboard; sourceTree = "<group>"; };
-		EB7454A91D74D846002FBAE6 /* Portrait.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Portrait.storyboard; sourceTree = "<group>"; };
 		EB97E88725D1822600753535 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		EB97E88825D1822600753535 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		EB97E88925D1822600753535 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -305,6 +311,7 @@
 			isa = PBXGroup;
 			children = (
 				EBFE7C041E19B496001007C2 /* json */,
+				426951F9260FCE9D00E675E9 /* widgets */,
 				EB2BE9BA1D7498D2002FE78B /* textures */,
 				EB2BE9B81D7498C9002FE78B /* fonts */,
 			);
@@ -402,7 +409,6 @@
 				EB7454A61D74D846002FBAE6 /* iOS-Info.plist */,
 				EB7454A71D74D846002FBAE6 /* iOS.xcassets */,
 				EB7454A81D74D846002FBAE6 /* Landscape.storyboard */,
-				EB7454A91D74D846002FBAE6 /* Portrait.storyboard */,
 				EBBF189A1D74904A008E2001 /* Mac.xcassets */,
 				EBBF189F1D74904A008E2001 /* Mac-Info.plist */,
 			);
@@ -449,6 +455,8 @@
 				CA80926126123A8300599B99 /* CIOpponentPlanet.h */,
 				CA5B0F432617F05200859BEF /* CIOpponentNode.cpp */,
 				CA5B0F442617F05200859BEF /* CIOpponentNode.h */,
+				426951EE260FCE4000E675E9 /* CIMenuScene.h */,
+				426951EF260FCE5000E675E9 /* CIMenuScene.cpp */,
 			);
 			name = Source;
 			path = ../source;
@@ -591,7 +599,7 @@
 				EB0FF61C2016EFC500517030 /* fonts in Resources */,
 				EB0FF6172016EFB200517030 /* iOS.xcassets in Resources */,
 				EB0FF6182016EFB200517030 /* Landscape.storyboard in Resources */,
-				EB0FF6192016EFB200517030 /* Portrait.storyboard in Resources */,
+				426951FC260FCE9D00E675E9 /* widgets in Resources */,
 				EB42669721F68F6900A9DE61 /* DeviceMargins.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -605,7 +613,7 @@
 				EB7454AB1D74D846002FBAE6 /* iOS.xcassets in Resources */,
 				EB7454AC1D74D846002FBAE6 /* Landscape.storyboard in Resources */,
 				EBFE7C051E19B496001007C2 /* json in Resources */,
-				EB7454AD1D74D846002FBAE6 /* Portrait.storyboard in Resources */,
+				426951FB260FCE9D00E675E9 /* widgets in Resources */,
 				EB42669621F68F6900A9DE61 /* DeviceMargins.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -618,6 +626,7 @@
 				EB2BE9BB1D7498D2002FE78B /* textures in Resources */,
 				EB2BE9B91D7498C9002FE78B /* fonts in Resources */,
 				EBBF189B1D74904A008E2001 /* Mac.xcassets in Resources */,
+				426951FA260FCE9D00E675E9 /* widgets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -645,6 +654,7 @@
 				EBFA529E21FA5D1000CCC2C5 /* CILoadingScene.cpp in Sources */,
 				3DCF91202607B5B600B97FA1 /* CINetworkUtils.cpp in Sources */,
 				EBFA52A021FA5D1300CCC2C5 /* CIGameScene.cpp in Sources */,
+				426951F2260FCE5000E675E9 /* CIMenuScene.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -669,6 +679,7 @@
 				EBFA529D21FA5D0F00CCC2C5 /* CILoadingScene.cpp in Sources */,
 				3DCF911F2607B5B600B97FA1 /* CINetworkUtils.cpp in Sources */,
 				EBFA529F21FA5D1300CCC2C5 /* CIGameScene.cpp in Sources */,
+				426951F1260FCE5000E675E9 /* CIMenuScene.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -693,6 +704,7 @@
 				EBFA528C21FA5AAC00CCC2C5 /* CILoadingScene.cpp in Sources */,
 				3DCF911E2607B5B600B97FA1 /* CINetworkUtils.cpp in Sources */,
 				EB2BE9B61D74952A002FE78B /* main.cpp in Sources */,
+				426951F0260FCE5000E675E9 /* CIMenuScene.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

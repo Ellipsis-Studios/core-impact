@@ -1,0 +1,71 @@
+{
+  "variables": {
+    "size": ["children", "up", "data", "size"],
+    "text": ["children", "up", "children", "label", "data", "text"],
+    "font": ["children", "up", "children", "label", "data", "font"],
+    "interior": ["children", "up", "children", "patch", "data", "interior"]
+  },
+  "contents": {
+    "type": "Button",
+    "format": {
+      "type": "Anchored"
+    },
+    "data": {
+      "anchor": [0.5, 0.5],
+      "upnode": "up",
+      "visible": false
+    },
+    "children": {
+      "up": {
+        "type": "Node",
+        "format": {
+          "type": "Anchored"
+        },
+        "data": {
+          "size": [65, 75],
+          "anchor": [0.5, 0.5]
+        },
+        "children": {
+          "patch": {
+            "type": "NinePatch",
+            "format": {
+              "type": "Anchored"
+            },
+            "data": {
+              "texture": "clearbutton",
+              "anchor": [0.5, 0.5],
+              "interior": [10, 10, 100, 60]
+            },
+            "layout": {
+              "x_anchor": "fill",
+              "y_anchor": "fill"
+            }
+          },
+          "label": {
+            "type": "Label",
+            "format": {
+              "type": "Anchored"
+            },
+            "data": {
+              "font": "saira32",
+              "text": "Back",
+              "foreground": [255, 255, 255, 255],
+              "background": [0, 0, 0, 0],
+              "anchor": [0.5, 0.5],
+              "halign": "center",
+              "valign": "middle"
+            },
+            "layout": {
+              "x_anchor": "fill",
+              "y_anchor": "fill"
+            }
+          }
+        },
+        "layout": {
+          "x_anchor": "fill",
+          "y_anchor": "fill"
+        }
+      }
+    }
+  }
+}

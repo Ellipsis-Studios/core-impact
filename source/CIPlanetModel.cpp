@@ -25,7 +25,7 @@
  * Sets the textures for this planet.
  *
  * @param core          The texture of the core
- * @param ring          The texture of an innner ring
+ * @param ring          The texture of an inner ring
  * @param unlocked The texture on the outside of an unlocked ring
  * @param unlocked The texture on the outside of a locked ring
  */

@@ -181,7 +181,7 @@ void GameScene::update(float timestep) {
     _stardustContainer->update();
     addStardust(dimen);
 
-    collisions::checkForCollision(_planet, _stardustContainer);
+    collisions::checkForCollision(_planet, _stardustContainer, timestep);
     collisions::checkInBounds(_stardustContainer, dimen);
     collisions::checkForCollisions(_stardustContainer);
     updateDraggedStardust();
@@ -250,24 +250,40 @@ void GameScene::addStardust(const Size bounds) {
         return;
     }
     
-    size_t spawn_probability = 100 + (_stardustContainer->size() * 25);
+    size_t spawn_probability = 40 + (_stardustContainer->size() * 40);
     if (rand() % spawn_probability != 0) {
         return;
     }
     
-    int planetRadius = _planet->getRadius() - 30;
-    bool correctColorStardust = rand() % planetRadius == 0;
-    CIColor::Value c = _planet->getColor();
-    if (!correctColorStardust) {
-        while (c == _planet->getColor()) {
-            c = CIColor::getRandomColor();
+    /** Finds the average mass of the planets in game */
+    int avgMass = _planet->getMass();
+    int planetCount = 1;
+    for (const std::shared_ptr<OpponentPlanet> &op : _opponent_planets){
+        if (op != nullptr){
+            avgMass += op->getMass();
+            planetCount++;
+        }
+    }
+    avgMass = avgMass / planetCount;
+    int massCorrection = avgMass - _planet->getMass();
+    
+    /** Pity mechanism: The longer you haven't seen a certain color, the more likely it will be to spawn that color */
+    CIColor::Value c = CIColor::getNoneColor();
+    int probSum = 0, colorCount = 6;
+    // Sums up the total probability space of the stardust colors, augmented by a mass correction
+    probSum = accumulate(_stardustProb, _stardustProb + colorCount, probSum) + massCorrection;
+    // Randomly selects a point in the probability space
+    int spawnRand = rand() % probSum;
+    for (int i = 0; i < colorCount; i++) {
+        spawnRand -= (CIColor::Value(i) == _planet->getColor()) ? _stardustProb[i] - massCorrection : _stardustProb[i];
+        if (spawnRand <= 0){
+            c = CIColor::Value(i);
+            spawnRand = probSum;
+            _stardustProb[i] = max(_stardustProb[i] - 40, 0);
+        } else {
+            _stardustProb[i] += 10;
         }
     }
     
-    // do not want to spawn grey stardust
-    if (c == CIColor::getNoneColor()) {
-        c = CIColor::getRandomColor();
-    }
     _stardustContainer->addStardust(c, bounds);
-    
 }
