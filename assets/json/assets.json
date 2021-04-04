@@ -13,10 +13,10 @@
         "file":   "textures/innerLayerAnimation_v2.png"
     },
     "unlockedOuterRing": {
-        "file":   "textures/unlockedOuterRing.png"
+        "file":   "textures/unlockedOuterRing_v2.png"
     },
     "lockedOuterRing": {
-        "file":   "textures/lockedOuterRing.png"
+        "file":   "textures/lockedOuterRing_v2.png"
     }
   },
   "fonts": {
