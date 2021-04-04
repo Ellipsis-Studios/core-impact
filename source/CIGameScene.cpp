@@ -207,6 +207,7 @@ void GameScene::update(float timestep) {
             std::shared_ptr<OpponentPlanet> opponent = _opponent_planets[ii];
             if (opponent != nullptr && getChildByTag(ii) == nullptr) {
                 opponent->setTextures(_assets->get<Texture>("opponentProgress"), dimen);
+                //TODO: call opponent->setName with name and font
                 addChildWithTag(opponent->getOpponentNode(), ii);
             }
         }

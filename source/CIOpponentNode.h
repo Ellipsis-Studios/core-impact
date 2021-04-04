@@ -14,6 +14,11 @@
 #include "CIColor.h"
 #include "CILocation.h"
 
+/** The x offset of the nametag from the corner of the screen */
+#define NAMETAG_X_OFFSET 45
+/** The y offset of the nametag from the corner of the screen */
+#define NAMETAG_Y_OFFSET 80
+
 class OpponentNode : public cugl::scene2::SceneNode {
 private:
     /** Graphic asset used to display progress */
@@ -26,6 +31,8 @@ private:
     float _maxheight;
     /** The corner that this opponent node is in */
     CILocation::Value _location;
+    /** The Label used to display the player name of this oppoent */
+    std::shared_ptr<cugl::scene2::Label> _nameLabel;
     
     /**
      * Helper function to get the x and y reflection of the progress bar
@@ -122,6 +129,25 @@ public:
      */
     void setLocation(CILocation::Value location) {
         _location = location;
+    }
+    
+    /**
+     * Set the player name associated with this opponent node
+     *
+     * @param name The name to display
+     * @param font The font to use for the name
+     */
+    void setName(std::string name, std::shared_ptr<cugl::Font> font) {
+        if (_nameLabel == nullptr) {
+            _nameLabel = cugl::scene2::Label::alloc(name, font);
+            cugl::Vec2 pos = getReflectFromLocation(_location) * cugl::Vec2(NAMETAG_X_OFFSET, NAMETAG_Y_OFFSET);
+            _nameLabel->setPosition(pos);
+            _nameLabel->setRelativeColor(false);
+            _nameLabel->setForeground(cugl::Color4::WHITE);
+            addChild(_nameLabel);
+        } else {
+            _nameLabel->setText(name);
+        }
     }
 };
 

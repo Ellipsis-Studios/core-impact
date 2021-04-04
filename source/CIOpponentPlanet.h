@@ -35,6 +35,14 @@ public:
     void setTextures(const std::shared_ptr<cugl::Texture>& texture, cugl::Size bounds);
     
     /**
+     * Set the player name associated with this opponent planet
+     *
+     * @param name The name to display
+     * @param font The font to use for the name
+     */
+    void setName(std::string name, std::shared_ptr<cugl::Font> font);
+    
+    /**
      * Set the location of this opponent planet
      *
      * @param location The location of this opponent planet

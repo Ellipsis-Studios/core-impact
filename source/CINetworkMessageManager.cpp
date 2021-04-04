@@ -176,9 +176,7 @@ void NetworkMessageManager::receiveMessages(cugl::Size bounds) {
                 
                 CULog("RCVD PU> SRC[%i], CLR[%i], SIZE[%f]", srcPlayer, planetColor, planetSize);
                 
-                CILocation::Value corner = NetworkUtils::getStardustLocation(getPlayerId(), srcPlayer);
-                cugl::Vec2 pos = CILocation::getPositionOfLocation(corner, bounds);
-                std::shared_ptr<OpponentPlanet> planet = OpponentPlanet::alloc(pos.x, pos.y, CIColor::Value(planetColor), corner);
+                std::shared_ptr<OpponentPlanet> planet = OpponentPlanet::alloc(0, 0, CIColor::Value(planetColor), corner);
                 planet->setMass(planetSize);
                 std::map<int, std::vector<std::shared_ptr<StardustModel>>> map = {};
                 std::shared_ptr<GameUpdate> gameUpdate = GameUpdate::alloc(_conn->getRoomID(), srcPlayer, map, planet, timestamp);

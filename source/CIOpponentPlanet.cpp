@@ -14,12 +14,30 @@
 #include "CIOpponentNode.h"
 #include "CIColor.h"
 
+/**
+ * Sets the textures for this opponent planet.
+ *
+ * @param texture  The texture of the progress bar
+ * @param bounds    The size of the game screen
+ */
 void OpponentPlanet::setTextures(const std::shared_ptr<cugl::Texture>& texture, cugl::Size bounds) {
     _opponentNode = OpponentNode::alloc(texture, bounds.width/2, bounds.height/2);
     _opponentNode->setAnchor(cugl::Vec2::ANCHOR_BOTTOM_RIGHT);
     _opponentNode->setPosition(_position);
     _opponentNode->setLocation(_location);
     _opponentNode->setProgress(_mass/WIN_PLANET_MASS, getColor());
+}
+
+/**
+ * Set the player name associated with this opponent planet
+ *
+ * @param name The name to display
+ * @param font The font to use for the name
+ */
+void OpponentPlanet::setName(std::string name, std::shared_ptr<cugl::Font> font) {
+    if (_opponentNode != nullptr) {
+        _opponentNode->setName(name, font);
+    }
 }
 
 /**
