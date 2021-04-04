@@ -7,7 +7,7 @@
       "file": "textures/photon.png"
     },
     "core": {
-        "file":   "textures/core.png"
+        "file":   "textures/coreAnimation_v1.png"
     },
     "innerRing": {
         "file":   "textures/innerLayerAnimation_v2.png"
