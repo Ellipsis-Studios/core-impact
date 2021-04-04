@@ -18,13 +18,18 @@
 
 void PlanetNode::draw(const std::shared_ptr<cugl::SpriteBatch>& batch,
                       const cugl::Mat4& transform, cugl::Color4 tint) {
-  PolygonNode::draw(batch,transform, tint);
+  AnimationNode::draw(batch,transform, tint);
 }
 
 void PlanetNode::update(float timestep) {
   _timeElapsed += timestep;
   if (_timeElapsed > SPF) {
     _timeElapsed = 0;
+    
+    unsigned int coreFrame = getFrame();
+    coreFrame = (coreFrame == CORE_END) ? CORE_START : coreFrame + 1;
+    setFrame(coreFrame);
+    
     for (int ii = 0; ii < _layers->size(); ii++) {
       LayerNode* node = &_layerNodes[ii];
       if (node != nullptr && node->innerRing) {
@@ -37,12 +42,7 @@ void PlanetNode::update(float timestep) {
 void PlanetNode::advanceFrame(LayerNode* node) {
   // Our animation depends on the current frame
   unsigned int frame = node->innerRing->getFrame();
-  if (frame == INNER_RING_END) {
-    frame = INNER_RING_START;
-  }
-  else {
-    frame += 1;
-  }
+  frame = (frame == INNER_RING_END) ? INNER_RING_START : frame + 1;
   node->innerRing->setFrame(frame);
 }
 
@@ -74,7 +74,7 @@ void PlanetNode::setLayers(std::vector<PlanetLayer>* layers) {
         
         node->innerRing->setAnchor(cugl::Vec2::ANCHOR_CENTER);
         node->outerRing->setAnchor(cugl::Vec2::ANCHOR_CENTER);
-        cugl::Vec2 pos = cugl::Vec2(getTexture()->getSize()) * 0.5f;
+        cugl::Vec2 pos = cugl::Vec2(getTexture()->getSize()) * 0.5f / CORE_COLS;
         node->innerRing->setPosition(pos);
         node->outerRing->setPosition(pos);
         node->innerRing->setRelativeColor(false);
