@@ -33,7 +33,8 @@ public:
         PlanetUpdate = 3,
         AttemptToWin = 4,
         WonGame = 5,
-        StardustHit = 6
+        StardustHit = 6,
+        PowerupApplied = 7
     };
     
     /**

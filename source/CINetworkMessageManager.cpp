@@ -64,7 +64,22 @@ void NetworkMessageManager::sendMessages() {
         
         // send stardust sent
         for (size_t jj = 0; jj < val.size(); jj++) {
-            if (val[jj]->getStardustLocation() == CILocation::Value::ON_SCREEN) {
+            if (val[jj]->getStardustType() != StardustModel::Type::NORMAL) {
+                int powerup = val[jj]->getStardustType();
+                int stardustColor = val[jj]->getColor();
+                
+                NetworkUtils::encodeInt(NetworkUtils::MessageType::PowerupApplied, data);
+                NetworkUtils::encodeInt(playerId, data);
+                NetworkUtils::encodeInt(powerup, data);
+                NetworkUtils::encodeInt(stardustColor, data);
+                NetworkUtils::encodeInt(_timestamp, data);
+                _timestamp++;
+                
+                _conn->send(data);
+               data.clear();
+               CULog("SENT Powerup> SRC[%i], POWERUP[%i], CLR[%i], TS[%i]", playerId, powerup, stardustColor, _timestamp);
+            }
+            else if (val[jj]->getStardustLocation() == StardustModel::Location::ON_SCREEN) {
                 NetworkUtils::encodeInt(NetworkUtils::MessageType::StardustHit, data);
                 NetworkUtils::encodeInt(playerId, data);
                 NetworkUtils::encodeInt(dstPlayerId, data);
@@ -227,6 +242,20 @@ void NetworkMessageManager::receiveMessages(cugl::Size bounds) {
                     std::shared_ptr<GameUpdate> gameUpdate = GameUpdate::alloc(_conn->getRoomID(), dstPlayer, map, nullptr, timestamp);
                     _gameUpdateManager->addGameUpdate(gameUpdate);
                 }
+            }
+            else if (message_type == NetworkUtils::MessageType::PowerupApplied) {
+                int srcPlayer = NetworkUtils::decodeInt(recv[4], recv[5], recv[6], recv[7]);
+                int powerup = NetworkUtils::decodeInt(recv[8], recv[9], recv[10], recv[11]);
+                int stardustColor = NetworkUtils::decodeInt(recv[12], recv[13], recv[14], recv[15]);
+                int timestamp = NetworkUtils::decodeInt(recv[16], recv[17], recv[18], recv[19]);
+                
+                CULog("RCVD Powerup Applied> SRC[%i], POWERUP[%i], CLR[%i], TS[%i]", srcPlayer, powerup, stardustColor, timestamp);
+                
+                std::shared_ptr<StardustModel> stardust = StardustModel::alloc(cugl::Vec2(0, 0), cugl::Vec2(0, 0), CIColor::Value(stardustColor));
+                stardust->setStardustType(StardustModel::Type(powerup));
+                std::map<int, std::vector<std::shared_ptr<StardustModel>>> map = { { getPlayerId(), std::vector<std::shared_ptr<StardustModel>> { stardust } } };
+                std::shared_ptr<GameUpdate> gameUpdate = GameUpdate::alloc(_conn->getRoomID(), srcPlayer, map, nullptr, timestamp);
+                _gameUpdateManager->addGameUpdate(gameUpdate);
             }
             else {
                 CULog("WRONG MESSAGE TYPE");

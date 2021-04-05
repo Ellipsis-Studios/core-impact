@@ -14,6 +14,25 @@
 #include "CILocation.h"
 
 class StardustModel {
+public:
+    /**
+     * Enum representing where the stardust is. Top left, top right, bottom left, and bottom right all represent off screen locations.
+     */
+    enum Location {
+        ON_SCREEN = 0,
+        TOP_LEFT = 1,
+        TOP_RIGHT = 2,
+        BOTTOM_LEFT = 3,
+        BOTTOM_RIGHT = 4,
+    };
+    
+    /**
+     * Enum representing the types of stardust.
+     */
+    enum Type {
+        NORMAL = 0,
+        METEOR = 1,
+    };
 private:
     /** Color code of this stardust */
     CIColor::Value _color;
@@ -27,9 +46,11 @@ private:
     /** The location of the stardust */
     CILocation::Value _stardust_location;
     
-    // TODO: add in reward structure for player who hits another player's planet with one of their stardust
     /** The player id of the last player to own this stardust. -1 if this stardust does not have a previous owner */
     int _previous_owner;
+    
+    /** The type of stardust this is. By default it will be a normal stardust. */
+    Type _stardust_type;
 
 protected:
     /** Position of the stardust in world space */
@@ -146,6 +167,24 @@ public:
      */
     void setPreviousOwner(int playerId) {
         _previous_owner = playerId;
+    }
+    
+    /**
+     * Returns the type of this stardust
+     *
+     * @return the type of this stardust
+     */
+    Type getStardustType() {
+        return _stardust_type;
+    }
+    
+    /**
+     * Sets the type of the stardust
+     *
+     * @param type      the type of the stardust
+     */
+    void setStardustType(Type type) {
+        _stardust_type = type;
     }
 
 #pragma mark Constructors

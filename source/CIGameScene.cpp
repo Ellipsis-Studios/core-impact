@@ -213,6 +213,8 @@ void GameScene::update(float timestep) {
             }
         }
     }
+    
+    processSpecialStardust(dimen, _stardustContainer);
 }
 
 /**
@@ -288,4 +290,33 @@ void GameScene::addStardust(const Size bounds) {
     }
     
     _stardustContainer->addStardust(c, bounds);
+}
+
+/**
+ * This method applies the power ups of special stardust.
+ *
+ * @param bounds the bounds of the game screen
+ * @param stardustQueue the stardustQueue
+ */
+void GameScene::processSpecialStardust(const cugl::Size bounds, const std::shared_ptr<StardustQueue> stardustQueue) {
+    std::vector<std::shared_ptr<StardustModel>> powerupQueue = stardustQueue->getPowerupQueue();
+    for (size_t ii = 0; ii < powerupQueue.size(); ii++) {
+        std::shared_ptr<StardustModel> stardust = powerupQueue[ii];
+
+        switch (stardust->getStardustType()) {
+            case StardustModel::Type::METEOR:
+                CULog("METEOR SHOWER!");
+                stardustQueue->addStardust(stardust->getColor(), bounds);
+                stardustQueue->addStardust(stardust->getColor(), bounds);
+                stardustQueue->addStardust(stardust->getColor(), bounds);
+                stardustQueue->addStardust(stardust->getColor(), bounds);
+                stardustQueue->addStardust(CIColor::getRandomColor(), bounds);
+                stardustQueue->addStardust(CIColor::getRandomColor(), bounds);
+                break;
+            default:
+                break;
+        }
+    }
+    
+    stardustQueue->clearPowerupQueue();
 }
