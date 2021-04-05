@@ -40,7 +40,6 @@ bool MenuScene::init(const std::shared_ptr<AssetManager>& assets) {
 
     // IMMEDIATELY load the splash screen assets
     _assets = assets;
-    _assets->loadDirectory("json/menu.json");
     auto layer = assets->get<scene2::SceneNode>("menu");
     layer->setContentSize(dimen);
     layer->doLayout(); // This rearranges the children to fit the screen
@@ -88,9 +87,6 @@ bool MenuScene::init(const std::shared_ptr<AssetManager>& assets) {
     _gamelobbyplayerlabel5 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_gamelobbyplayerlabel5"));
     /** Game Lobby buttons */
     _gameStartBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_gamelobbystartbutton"));
-    
-    /** Tutorial title label */
-    _tutorialTitle = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_tutorialtitle"));
 
     // TODO: integrate network manager to game lobby
 
@@ -225,7 +221,7 @@ void MenuScene::dispose() {
     _gamelobbyplayerlabel5 = nullptr;
     _gameStartBtn = nullptr;
 
-    _tutorialTitle = nullptr;
+    _tutorial = nullptr;
 
     _backBtn = nullptr;
     _assets = nullptr;
@@ -251,6 +247,13 @@ void MenuScene::update(float timestep) {
     case MenuStatus::MainMenu:
         if (isActive() && !_isLoaded) { // only on first call after init
             _menuSceneInputHelper(true, _tutorialBtn, _settingsBtn, _joinBtn, _newBtn);
+            auto root = getChildByName("menuScene");
+
+            /** Tutorial screen */
+            _tutorial = TutorialMenu::alloc(_assets);
+            _tutorial->setDisplay(false);
+            root->addChild(_tutorial->getLayer());
+
             _isLoaded = true;
             Scene2::reset();
         }
@@ -284,7 +287,7 @@ void MenuScene::update(float timestep) {
     case MenuStatus::MainToTutorial:
         _menuSceneInputHelper(false, _joinBtn, _newBtn, _tutorialBtn, _settingsBtn);
         _menuSceneInputHelper(true, _backBtn);
-        _tutorialTitle->setVisible(true);
+        _tutorial->setDisplay(true);
         _status = MenuStatus::Tutorial;
         break;
     case MenuStatus::Setting:
@@ -341,7 +344,7 @@ void MenuScene::update(float timestep) {
         break;
     case MenuStatus::TutorialToMain:
         _menuSceneInputHelper(false, _backBtn);
-        _tutorialTitle->setVisible(false);
+        _tutorial->setDisplay(false);
         _menuSceneInputHelper(true, _joinBtn, _newBtn, _tutorialBtn, _settingsBtn);
         _status = MenuStatus::MainMenu;
         break;

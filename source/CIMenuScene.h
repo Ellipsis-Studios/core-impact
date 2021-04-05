@@ -9,6 +9,8 @@
 #ifndef __CI_MENU_SCENE_H__
 #define __CI_MENU_SCENE_H__
 #include <cugl/cugl.h>
+#include "CITutorialMenu.h"
+
 
 /**
  * This class is the menu screens before the actual game play. 
@@ -91,8 +93,8 @@ protected:
 
     // TUTORIAL 
     /** Label for Tutorial page title */
-    std::shared_ptr<cugl::scene2::Label> _tutorialTitle;
-
+    std::shared_ptr<TutorialMenu> _tutorial;
+    
     // MODEL
     /** Value for the player name */
     string _playerName;

@@ -51,6 +51,41 @@
     "togglebutton": "widgets/togglebutton.json"
   },
   "scene2s": {
+      "tutorial": {
+          "comment": "Tutorial screen within Menu",
+          "type": "Solid",
+          "format": {
+            "type": "Anchored"
+          },
+          "data": {
+            "color": [0, 0, 0, 0]
+          },
+          "children": {
+            "title": {
+              "comment": "The 'How To Play' page heading.",
+              "type": "Label",
+              "format": {
+                "type": "Anchored"
+              },
+              "data": {
+                "font": "saira32",
+                "text": "How to Play",
+                "foreground": [255, 255, 255, 255],
+                "background": [0, 0, 0, 0],
+                "size": [300, 80],
+                "anchor": [0.5, 0.5],
+                "halign": "center",
+                "valign": "middle"
+              },
+              "layout": {
+                "x_anchor": "center",
+                "y_anchor": "middle",
+                "x_offset": 0.25,
+                "y_offset": 0.3
+              }
+            }
+          }
+        },
     "menu": {
       "type": "Solid",
       "format": {

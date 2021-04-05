@@ -55,6 +55,7 @@ void CoreImpactApp::onStartup() {
     _startGame = false;
     
     // Queue up the other assets
+    _assets->loadDirectoryAsync("json/menu.json",nullptr);
     _assets->loadDirectoryAsync("json/assets.json",nullptr);
 
     Application::onStartup(); // YOU MUST END with call to parent
