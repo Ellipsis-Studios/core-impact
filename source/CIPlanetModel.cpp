@@ -12,8 +12,9 @@
 #include "CIPlanetNode.h"
 #include "CIColor.h"
 
-#define LAYER_RADIUS_MULTIPLIER       1.9
+#define PLANET_RADIUS_DELTA           1.5
 #define INITIAL_PLANET_RADIUS          32
+#define LAYER_RADIUS_MULTIPLIER      1.85
 #define PLANET_MASS_DELTA              10
 #define INITIAL_PLANET_MASS            25
 #define INIT_LAYER_LOCKIN_TOTAL         5
@@ -89,7 +90,9 @@ bool PlanetModel::init(float x, float y, CIColor::Value c, int maxLayers) {
 void PlanetModel::decreaseLayerSize() {
     PlanetLayer* currentLayer = &_layers[_numLayers-1];
     if (currentLayer->layerSize > 0) {
+        _radius -= PLANET_RADIUS_DELTA;
         currentLayer->layerSize--;
+        _planetNode->setRadius(_radius);
         if (currentLayer->layerSize == 0) {
             currentLayer->layerColor = CIColor::getNoneColor();
         }
@@ -103,8 +106,10 @@ void PlanetModel::decreaseLayerSize() {
  */
 void PlanetModel::increaseLayerSize() {
     _layers[_numLayers-1].layerSize++;
+    _radius += PLANET_RADIUS_DELTA;
     _mass += PLANET_MASS_DELTA;
 
+    _planetNode->setRadius(_radius);
     _planetNode->setLayers(&_layers);
 }
 
