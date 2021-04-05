@@ -11,6 +11,7 @@
 #ifndef __CI_STARDUST_MODEL_H__
 #define __CI_STARDUST_MODEL_H__
 #include "CIColor.h"
+#include "CILocation.h"
 
 class StardustModel {
 public:
@@ -32,7 +33,6 @@ public:
         NORMAL = 0,
         METEOR = 1,
     };
-    
 private:
     /** Color code of this stardust */
     CIColor::Value _color;
@@ -44,7 +44,7 @@ private:
     float _mass;
     
     /** The location of the stardust */
-    Location _stardust_location;
+    CILocation::Value _stardust_location;
     
     /** The player id of the last player to own this stardust. -1 if this stardust does not have a previous owner */
     int _previous_owner;
@@ -138,7 +138,7 @@ public:
      *
      * @return the stardust's location
      */
-    Location getStardustLocation() {
+    CILocation::Value getStardustLocation() {
         return _stardust_location;
     }
     
@@ -147,7 +147,7 @@ public:
      *
      * @param location      the stardust's location
      */
-    void setStardustLocation(Location location) {
+    void setStardustLocation(CILocation::Value location) {
         _stardust_location = location;
     }
     

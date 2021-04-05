@@ -35,13 +35,13 @@
  */
 package org.libsdl.app;
 
+import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.content.Context;
-import android.util.DisplayMetrics;
-import android.view.*;
+import android.view.Display;
+import android.view.WindowManager;
 
 @SuppressWarnings( "deprecation" )
 public class DeviceOrientation {
@@ -55,10 +55,10 @@ public class DeviceOrientation {
     private float averageRoll = 0;
     private int orientation = SDLActivity.SDL_ORIENTATION_UNKNOWN;
 
-    private float[] pitches;
-    private float[] rolls;
+    private final float[] pitches;
+    private final float[] rolls;
     
-    private boolean standard;
+    private final boolean standard;
 
     public DeviceOrientation(boolean portrait) {
     	standard = portrait;
@@ -87,11 +87,11 @@ public class DeviceOrientation {
                 mGeomagnetic = event.values;
             }
             if (mGravity != null && mGeomagnetic != null) {
-                float R[] = new float[9];
-                float I[] = new float[9];
+                float[] R = new float[9];
+                float[] I = new float[9];
                 boolean success = SensorManager.getRotationMatrix(R, I, mGravity, mGeomagnetic);
                 if (success) {
-                    float orientationData[] = new float[3];
+                    float[] orientationData = new float[3];
                     SensorManager.getOrientation(R, orientationData);
                     averagePitch = addValue(orientationData[1], pitches);
                     averageRoll = addValue(orientationData[2], rolls);

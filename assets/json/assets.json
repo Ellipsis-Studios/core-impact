@@ -1,101 +1,84 @@
 {
-	"textures": {
-		"ship": {
-            "file":   "textures/ships.png"
-        },
-        "space": {
-            "file":  "textures/background01.png"
-        },
-        "photon": {
-            "file":  "textures/photon.png"
-        },
-        "planet1": {
-            "file":   "textures/samplePlanet.png"
-        },
-        "planet2": {
-            "file":   "textures/planet2.png"
-        },
-        "core": {
-            "file":   "textures/core.png"
-        },
-        "innerRing": {
-            "file":   "textures/innerLayerAnimation_v2.png"
-        },
-        "unlockedOuterRing": {
-            "file":   "textures/unlockedOuterRing.png"
-        },
-        "lockedOuterRing": {
-            "file":   "textures/lockedOuterRing.png"
-        }
-	},
-	"fonts": {
-		"felt32": {
-			"file":     "fonts/MarkerFelt.ttf",
-			"size":     32
-		}
-	},
-    "scene2s" : {
-        "game": {
-            "type"      : "Node",
-            "format"    : {
-                "type" : "Anchored"
-            },
-            "children":  {
-                "field": {
-                    "type": "Node",
-                    "format"    : {
-                        "type" : "Anchored"
-                    },
-                    "data": {
-                        "size":     [2560,2560],
-                        "anchor":   [0.5,0.5]
-                    },
-                    "layout" : {
-                        "x_anchor" : "center",
-                        "y_anchor" : "middle"
-                    },
-                    "children" : {
-                        "player": {
-                            "type": "Animation",
-                            "data": {
-                                "texture":  "ship",
-                                "span":     18,
-                                "cols":     5,
-                                "frame":    9,
-                                "position": [1280,1280],
-                                "anchor":   [0.5,0.5]
-                            }
-                        },
-                        "far": {
-                            "type": "Image",
-                            "data": {
-                                "texture":  "space",
-                                "scale": 0.6,
-                                "position": [1280,1280],
-                                "anchor":   [0.5,0.5]
-                            }
-                        }
-                    }
-                },
-                "hud" : {
-                    "type": "Label",
-                    "data": {
-                        "font"       : "felt32",
-                        "text"       : "Coords: (128, 128)  ",
-                        "foreground" : [255,255,255,255],
-                        "size"       : [500,70],
-                        "valign"     : "bottom",
-                        "halign"     : "left"
-                    },
-                    "layout" : {
-                        "x_anchor" : "left",
-                        "y_anchor" : "bottom",
-                        "x_offset" : 10,
-                        "y_offset" : 10,
-                        "absolute" : true
-                    }
-                }
-            }
-        }
+  "textures": {
+    "space": {
+      "file": "textures/background01.png"
+    },
+    "photon": {
+      "file": "textures/photon.png"
+    },
+    "opponentProgress": {
+      "file":   "textures/opponentProgress.png"
+    },
+    "core": {
+        "file":   "textures/coreAnimation_v1.png"
+    },
+    "innerRing": {
+        "file":   "textures/innerLayerAnimation_v2.png"
+    },
+    "unlockedOuterRing": {
+        "file":   "textures/unlockedOuterRing_v2.png"
+    },
+    "lockedOuterRing": {
+        "file":   "textures/lockedOuterRing_v2.png"
     }
+  },
+  "fonts": {
+    "saira32": {
+      "file": "fonts/SairaSemicondensed.ttf",
+      "size": 32
+    }
+  },
+  "scene2s": {
+    "game": {
+      "type": "Node",
+      "format": {
+        "type": "Anchored"
+      },
+      "children": {
+        "field": {
+          "type": "Node",
+          "format": {
+            "type": "Anchored"
+          },
+          "data": {
+            "size": [2560, 2560],
+            "anchor": [0.5, 0.5]
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle"
+          },
+          "children": {
+            "far": {
+              "type": "Image",
+              "data": {
+                "texture": "space",
+                "scale": 0.6,
+                "position": [1280, 1280],
+                "anchor": [0.5, 0.5]
+              }
+            }
+          }
+        },
+        "hud": {
+          "type": "Label",
+          "data": {
+            "font": "saira32",
+            "text": "Coords: (128, 128)  ",
+            "foreground": [255, 255, 255, 255],
+            "size": [500, 70],
+            "valign": "bottom",
+            "halign": "left"
+          },
+          "layout": {
+            "x_anchor": "left",
+            "y_anchor": "bottom",
+            "x_offset": 10,
+            "y_offset": 10,
+            "absolute": true
+          }
+        }
+      }
+    }
+  }
 }

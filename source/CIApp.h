@@ -15,6 +15,7 @@
 #include <cugl/cugl.h>
 #include "CIGameScene.h"
 #include "CILoadingScene.h"
+#include "CIMenuScene.h"
 #include "CINetworkMessageManager.h"
 
 /**
@@ -35,10 +36,14 @@ protected:
     GameScene _gameplay;
     /** The controller for the loading screen */
     LoadingScene _loading;
-
+    /** The controller for the menu screen */
+    MenuScene _menu;
+    
     /** Whether or not we have finished loading all assets */
     bool _loaded;
-
+    /** Whether or not we have initialized a new game */
+    bool _startGame;
+    
 public:
     /**
      * Creates, but does not initialized a new application.
@@ -49,7 +54,7 @@ public:
      * of initialization from the constructor allows main.cpp to perform
      * advanced configuration of the application before it starts.
      */
-    CoreImpactApp() : cugl::Application(), _loaded(false) {}
+    CoreImpactApp() : cugl::Application(), _loaded(false), _startGame(false) {}
     
     /**
      * Disposes of this application, releasing all resources.

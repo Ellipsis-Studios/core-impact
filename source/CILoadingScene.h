@@ -42,20 +42,21 @@ protected:
     std::shared_ptr<cugl::scene2::ProgressBar>  _bar;
     /** The engine name */
     std::shared_ptr<cugl::scene2::SceneNode>   _brand;
-    /** The "play" button */
-    std::shared_ptr<cugl::scene2::Button>      _button;
-    /** The "join game" textfield */
-    std::shared_ptr<cugl::scene2::TextField>   _joinText;
+    /** Team logo */
+    std::shared_ptr<cugl::scene2::SceneNode> _teamlogo;
+    /** Game Title */
+    std::shared_ptr<cugl::scene2::SceneNode> _gameTitle;
+    /** Game Planet */
+    std::shared_ptr<cugl::scene2::SceneNode> _gamePlanet;
+
 
     // MODEL
     /** The progress displayed on the screen */
     float _progress;
-    /** Whether or not the player has pressed play to continue */
-    bool  _completed;
-
+    /** Whether the progress is filled */
+    bool _isLoaded;
+    
 public:
-    /** Stores the game code for joining as client*/
-    string _joinGame;
 #pragma mark -
 #pragma mark Constructors
     /**
@@ -64,7 +65,7 @@ public:
      * This constructor does not allocate any objects or start the game.
      * This allows us to use the object without a heap pointer.
      */
-    LoadingScene() : cugl::Scene2(), _progress(0.0f) {}
+    LoadingScene() : cugl::Scene2(), _progress(0.0f), _isLoaded(false) {}
     
     /**
      * Disposes of all (non-static) resources allocated to this mode.
@@ -103,13 +104,7 @@ public:
      * @param timestep  The amount of time (in seconds) since the last frame
      */
     void update(float timestep);
-
-    /**
-     * Returns true if loading is complete, but the player has not pressed play
-     *
-     * @return true if loading is complete, but the player has not pressed play
-     */
-    bool isPending( ) const;
+    
 };
 
 #endif /* __CI_LOADING_SCENE_H__ */

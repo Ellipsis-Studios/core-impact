@@ -24,7 +24,12 @@
 #define INNER_RING_END    90
 #define INNER_RING_START  0
 
-class PlanetNode : public cugl::scene2::PolygonNode {
+#define CORE_ROWS   12
+#define CORE_COLS   13
+#define CORE_END    151
+#define CORE_START  0
+
+class PlanetNode : public cugl::scene2::AnimationNode {
 private:
     class LayerNode {
     public:
@@ -59,7 +64,7 @@ protected:
     std::shared_ptr<cugl::Texture> _lockedTexture;
     
 public:
-    PlanetNode() : PolygonNode(), _timeElapsed(0) {}
+    PlanetNode() : AnimationNode(), _timeElapsed(0) {}
     
     ~PlanetNode() { dispose(); }
 
@@ -73,7 +78,7 @@ public:
         node->_ringTexture = ring;
         node->_unlockedTexture = unlocked;
         node->_lockedTexture = locked;
-        return (node->initWithTexture(core) ? node : nullptr);
+        return (node->AnimationNode::initWithFilmstrip(core, CORE_ROWS, CORE_COLS) ? node : nullptr);
     }
     
     void draw(const std::shared_ptr<cugl::SpriteBatch>& batch,
@@ -87,7 +92,7 @@ public:
             LayerNode* node = &_layerNodes[ii];
             if (node->innerRing != nullptr) {
                 if (ii == 0) {
-                    _coreScale = (INNER_RING_COLS * r * PLANET_RING_TEXTURE_INNER_SIZE) / (_ringTexture->getWidth() * getTexture()->getWidth());
+                    _coreScale = (CORE_COLS * INNER_RING_COLS * 2 * r * PLANET_RING_TEXTURE_INNER_SIZE) / (_ringTexture->getWidth() * getTexture()->getWidth());
                     setScale(_coreScale);
                 }
                 node->innerRing->setScale(_layerScale/_coreScale);

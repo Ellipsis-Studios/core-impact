@@ -1,0 +1,77 @@
+{
+  "variables": {
+    "settingsbutton_xoffset": ["children", "settingsbutton", "layout", "x_offset"],
+    "settingsbutton_yoffset": ["children", "settingsbutton", "layout", "y_offset"]
+  },
+  "contents": {
+              "type": "Node",
+          "format": {
+            "type": "Anchored"
+          },
+          "children": {
+            "settingsbutton": {
+              "comment": "The settings button with 3 dots in a circle.",
+              "type": "Widget",
+              "data": {
+                "key": "settingsbutton"
+              },
+              "layout": {
+                "x_anchor": "right",
+                "y_anchor": "top",
+                "x_offset": -0.1,
+                "y_offset": -0.1
+              }
+            },
+            "joinbutton": {
+              "comment": "The join game button in main menu.",
+              "type": "Widget",
+              "data": {
+                "key": "menubutton",
+                "variables": {
+                  "text": "Join Game",
+                  "text2": "Join Game"
+                }
+              },
+              "layout": {
+                "x_anchor": "center",
+                "y_anchor": "middle",
+                "x_offset": 0.2,
+                "y_offset": 0.25
+              }
+            },
+            "newbutton": {
+              "comment": "The new game button in main menu.",
+              "type": "Widget",
+              "data": {
+                "key": "menubutton",
+                "variables": {
+                  "text": "New Game",
+                  "text2": "New Game"
+                }
+              },
+              "layout": {
+                "x_anchor": "center",
+                "y_anchor": "middle",
+                "x_offset": 0.2
+              }
+            },
+            "tutorialbutton": {
+              "comment": "The 'How to Play' button in main menu.",
+              "type": "Widget",
+              "data": {
+                "key": "menubutton",
+                "variables": {
+                  "text": "How to Play",
+                  "text2": "How to Play"
+                }
+              },
+              "layout": {
+                "x_anchor": "center",
+                "y_anchor": "middle",
+                "x_offset": 0.2,
+                "y_offset": -0.25
+              }
+            }
+          }
+  }
+}

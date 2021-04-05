@@ -52,7 +52,6 @@ int main(int argc, char * argv[]) {
     
     // Set the window properties (Only applies to OS X/Windows Desktop)
     app.setSize(1024, 576);
-    //app.setFullscreen(true);
     app.setFPS(60.0f);
     
 

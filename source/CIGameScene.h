@@ -34,6 +34,9 @@
  * so that we can have a separate mode for the loading screen.
  */
 class GameScene : public cugl::Scene2 {
+private:
+    /** Handles stardust color probability */
+    int _stardustProb[6];
 protected:
     /** The asset manager for this game mode. */
     std::shared_ptr<cugl::AssetManager> _assets;
@@ -78,7 +81,11 @@ public:
      * This constructor does not allocate any objects or start the game.
      * This allows us to use the object without a heap pointer.
      */
-    GameScene() : cugl::Scene2() {}
+    GameScene() : cugl::Scene2() {
+        for (int i = 0; i < 6; i++) {
+            _stardustProb[i] = 100;
+        }
+    }
     
     /**
      * Disposes of all (non-static) resources allocated to this mode.
