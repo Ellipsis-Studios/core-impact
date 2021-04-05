@@ -73,6 +73,7 @@ bool PlanetModel::init(float x, float y, CIColor::Value c, int maxLayers) {
     
     _numLayers = 1;
     _layers[_numLayers-1] = getNewLayer();
+    setColor(c);
     
     _layerLockinTotal = INIT_LAYER_LOCKIN_TOTAL;
     

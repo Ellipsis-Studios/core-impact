@@ -196,14 +196,22 @@ void GameScene::update(float timestep) {
     // attempt to set player id of game update manager
     if (_gameUpdateManager->getPlayerId() < 0) {
         // need to make this call to attempt to connect to game
-        _networkMessageManager->receiveMessages();
+        _networkMessageManager->receiveMessages(dimen);
         _gameUpdateManager->setPlayerId(_networkMessageManager->getPlayerId());
     } else {
         // send and receive game updates to other players
         _gameUpdateManager->sendUpdate(_planet, _stardustContainer, dimen);
-        _networkMessageManager->receiveMessages();
+        _networkMessageManager->receiveMessages(dimen);
         _networkMessageManager->sendMessages();
         _gameUpdateManager->processGameUpdate(_stardustContainer, _planet, _opponent_planets, dimen);
+        for (int ii = 0; ii < _opponent_planets.size() ; ii++) {
+            std::shared_ptr<OpponentPlanet> opponent = _opponent_planets[ii];
+            if (opponent != nullptr && getChildByTag(ii) == nullptr) {
+                opponent->setTextures(_assets->get<Texture>("opponentProgress"), dimen);
+                //TODO: call opponent->setName with name and font
+                addChildWithTag(opponent->getOpponentNode(), ii);
+            }
+        }
     }
 }
 

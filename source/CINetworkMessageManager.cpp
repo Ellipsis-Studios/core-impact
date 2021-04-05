@@ -15,6 +15,7 @@
 #include "CIStardustModel.h"
 #include "CIOpponentPlanet.h"
 #include "CINetworkUtils.h"
+#include "CILocation.h"
 
 /**
  * Disposes of all (non-static) resources allocated to this network message manager.
@@ -63,7 +64,7 @@ void NetworkMessageManager::sendMessages() {
         
         // send stardust sent
         for (size_t jj = 0; jj < val.size(); jj++) {
-            if (val[jj]->getStardustLocation() == StardustModel::Location::ON_SCREEN) {
+            if (val[jj]->getStardustLocation() == CILocation::Value::ON_SCREEN) {
                 NetworkUtils::encodeInt(NetworkUtils::MessageType::StardustHit, data);
                 NetworkUtils::encodeInt(playerId, data);
                 NetworkUtils::encodeInt(dstPlayerId, data);
@@ -103,7 +104,7 @@ void NetworkMessageManager::sendMessages() {
     NetworkUtils::encodeInt(NetworkUtils::MessageType::PlanetUpdate, data);
     NetworkUtils::encodeInt(playerId, data);
     NetworkUtils::encodeInt(planetColor, data);
-    NetworkUtils::encodeInt(planetSize, data);
+    NetworkUtils::encodeFloat(planetSize, data);
     NetworkUtils::encodeInt(_timestamp, data);
     _timestamp++;
 
@@ -141,12 +142,14 @@ void NetworkMessageManager::sendMessages() {
 
 /**
  * Receives messages sent over the network and adds them to the queue in game update manager.
+ *
+ * @param bounds The bounds of the screen
  */
-void NetworkMessageManager::receiveMessages() {
+void NetworkMessageManager::receiveMessages(cugl::Size bounds) {
     if (_conn == nullptr)
         return;
 
-    _conn->receive([this](const std::vector<uint8_t>& recv) {
+    _conn->receive([this, bounds](const std::vector<uint8_t>& recv) {
         if (!recv.empty()) {
             int message_type = NetworkUtils::decodeInt(recv[0], recv[1], recv[2], recv[3]);
 
@@ -172,8 +175,9 @@ void NetworkMessageManager::receiveMessages() {
                 int timestamp = NetworkUtils::decodeInt(recv[16], recv[17], recv[18], recv[19]);
                 
                 CULog("RCVD PU> SRC[%i], CLR[%i], SIZE[%f]", srcPlayer, planetColor, planetSize);
-
-                std::shared_ptr<OpponentPlanet> planet = OpponentPlanet::alloc(0, 0, static_cast<CIColor::Value>(planetColor));
+                
+                CILocation::Value corner = NetworkUtils::getStardustLocation(getPlayerId(), srcPlayer);
+                std::shared_ptr<OpponentPlanet> planet = OpponentPlanet::alloc(0, 0, CIColor::Value(planetColor), corner);
                 planet->setMass(planetSize);
                 std::map<int, std::vector<std::shared_ptr<StardustModel>>> map = {};
                 std::shared_ptr<GameUpdate> gameUpdate = GameUpdate::alloc(_conn->getRoomID(), srcPlayer, map, planet, timestamp);

@@ -11,20 +11,9 @@
 #ifndef __CI_STARDUST_MODEL_H__
 #define __CI_STARDUST_MODEL_H__
 #include "CIColor.h"
+#include "CILocation.h"
 
 class StardustModel {
-public:
-    /**
-     * Enum representing where the stardust is. Top left, top right, bottom left, and bottom right all represent off screen locations.
-     */
-    enum Location {
-        ON_SCREEN = 0,
-        TOP_LEFT = 1,
-        TOP_RIGHT = 2,
-        BOTTOM_LEFT = 3,
-        BOTTOM_RIGHT = 4,
-    };
-    
 private:
     /** Color code of this stardust */
     CIColor::Value _color;
@@ -36,7 +25,7 @@ private:
     float _mass;
     
     /** The location of the stardust */
-    Location _stardust_location;
+    CILocation::Value _stardust_location;
     
     // TODO: add in reward structure for player who hits another player's planet with one of their stardust
     /** The player id of the last player to own this stardust. -1 if this stardust does not have a previous owner */
@@ -128,7 +117,7 @@ public:
      *
      * @return the stardust's location
      */
-    Location getStardustLocation() {
+    CILocation::Value getStardustLocation() {
         return _stardust_location;
     }
     
@@ -137,7 +126,7 @@ public:
      *
      * @param location      the stardust's location
      */
-    void setStardustLocation(Location location) {
+    void setStardustLocation(CILocation::Value location) {
         _stardust_location = location;
     }
     
