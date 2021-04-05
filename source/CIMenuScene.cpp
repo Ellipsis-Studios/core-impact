@@ -60,11 +60,6 @@ bool MenuScene::init(const std::shared_ptr<AssetManager>& assets) {
     /** Back button */
     _backBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_menubackbutton"));
 
-    /** Join Game inputs */
-    _roomIdInput = std::dynamic_pointer_cast<scene2::TextField>(assets->get<scene2::SceneNode>("menu_joingameroomidinput"));
-    _roomJoinBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_joingamejoinbutton"));
-    _joinGame = _roomIdInput->getText(); // set _joinGame value using room id textfield in Join Game
-
     /** Game Lobby labels */
     _lobbyRoomLabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_gamelobbyroomidlabel"));
     _gamelobbyplayerlabel1 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_gamelobbyplayerlabel1"));
@@ -76,7 +71,7 @@ bool MenuScene::init(const std::shared_ptr<AssetManager>& assets) {
     _gameStartBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_gamelobbystartbutton"));
 
     // TODO: integrate network manager to game lobby
-
+    
     /**
      * Returns button listener to trigger scene switch.
      *
@@ -85,14 +80,15 @@ bool MenuScene::init(const std::shared_ptr<AssetManager>& assets) {
     auto mbuttonListener = [=](MenuStatus ms) {
         return  [=](const std::string& name, bool down) { if (!down) _status = ms; };
     };
+    
 
     /** Add button listeners for triggering menu scene switching. */
     _joinBtn->addListener(mbuttonListener(MenuStatus::MainToJoin));
     _settingsBtn->addListener(mbuttonListener(MenuStatus::MainToSetting));
     _newBtn->addListener(mbuttonListener(MenuStatus::MainToLobby));
     _tutorialBtn->addListener(mbuttonListener(MenuStatus::MainToTutorial));
-    _roomJoinBtn->addListener(mbuttonListener(MenuStatus::JoinToLobby));
     _gameStartBtn->addListener(mbuttonListener(MenuStatus::LobbyToGame));
+    
     /** Back button to trigger return to main menu */
     _backBtn->addListener([=](const std::string& name, bool down) {
         if (!down) {
@@ -116,19 +112,7 @@ bool MenuScene::init(const std::shared_ptr<AssetManager>& assets) {
         });
         
     /** Handle non-button input listeners */
-    /** Join game room id input listeners */
-    _roomIdInput->addTypeListener([=](const std::string& name, const std::string& value) {
-        // Handle room id textfield with size limit
-        if (value.length() > 5) {
-            _roomIdInput->setText(value.substr(value.length() - 5, 5));
-        }
-        });
-    _roomIdInput->addExitListener([=](const std::string& name, const std::string& value) {
-        // Set game room id input 
-        _joinGame = value;
-        CULog("Room id set to %s", value.c_str());
-        });
-
+    
     _status = MenuStatus::MainMenu;
     Application::get()->setClearColor(Color4(192, 192, 192, 255));
     addChildWithName(layer, "menuScene");
@@ -145,13 +129,12 @@ void MenuScene::dispose() {
         _joinBtn->deactivate();
         _newBtn->deactivate();
         _tutorialBtn->deactivate();
-        _roomIdInput->deactivate();
-        _roomJoinBtn->deactivate();
         _gameStartBtn->deactivate();
         _backBtn->deactivate();
     }
     _tutorial->setDisplay(false);
     _settings->setDisplay(false);
+    _join->setDisplay(false);
 
     _teamLogo = nullptr;
     _gameTitle = nullptr;
@@ -160,9 +143,6 @@ void MenuScene::dispose() {
     _newBtn = nullptr;
     _tutorialBtn = nullptr;
     _settingsBtn = nullptr;
-    
-    _roomIdInput = nullptr;
-    _roomJoinBtn = nullptr;
 
     _lobbyRoomLabel = nullptr;
     _gamelobbyplayerlabel1 = nullptr;
@@ -174,6 +154,7 @@ void MenuScene::dispose() {
 
     _tutorial = nullptr;
     _settings = nullptr;
+    _join = nullptr;
 
     _backBtn = nullptr;
     _assets = nullptr;
@@ -211,6 +192,11 @@ void MenuScene::update(float timestep) {
             _settings->setDisplay(false);
             root->addChild(_settings->getLayer());
             
+            /** Join Game screen */
+            _join = JoinMenu::alloc(_assets);
+            _join->setDisplay(false);
+            root->addChild(_join->getLayer());
+            
             _isLoaded = true;
             Scene2::reset();
         }
@@ -223,7 +209,8 @@ void MenuScene::update(float timestep) {
         break;
     case MenuStatus::MainToJoin:
         _menuSceneInputHelper(false, _joinBtn, _newBtn, _tutorialBtn, _settingsBtn);
-        _menuSceneInputHelper(true, _backBtn, _roomIdInput, _roomJoinBtn);
+        _menuSceneInputHelper(true, _backBtn);
+        _join->setDisplay(true);
         _status = MenuStatus::JoinRoom;
         break;
     case MenuStatus::MainToLobby:
@@ -247,6 +234,11 @@ void MenuScene::update(float timestep) {
         _settings->update(timestep);
         break;
     case MenuStatus::JoinRoom:
+        _join->update(timestep);
+        if (_join->getPressedJoin()) {
+            _status = MenuStatus::JoinToLobby;
+            _join->resetPress();
+        }
         break;
     case MenuStatus::Tutorial:
         break;
@@ -254,8 +246,8 @@ void MenuScene::update(float timestep) {
         _gamelobbyplayerlabel1->setText(_settings->getPlayerName());
         break;
     case MenuStatus::JoinToLobby:
-        _menuSceneInputHelper(false, _backBtn, _roomJoinBtn, _roomIdInput);
-        _menuSceneInputHelper(true, _backBtn, _gameStartBtn);
+        _join->setDisplay(false);
+        _menuSceneInputHelper(true, _gameStartBtn);
         _lobbyRoomLabel->setVisible(true);
         _gamelobbyplayerlabel1->setVisible(true);
         _gamelobbyplayerlabel2->setVisible(true);
@@ -272,7 +264,8 @@ void MenuScene::update(float timestep) {
         _status = MenuStatus::MainMenu;
         break;
     case MenuStatus::JoinToMain:
-        _menuSceneInputHelper(false, _backBtn, _roomIdInput, _roomJoinBtn);
+        _join->setDisplay(false);
+        _menuSceneInputHelper(false, _backBtn);
         _menuSceneInputHelper(true, _joinBtn, _newBtn, _tutorialBtn, _settingsBtn);
         _status = MenuStatus::MainMenu;
         break;

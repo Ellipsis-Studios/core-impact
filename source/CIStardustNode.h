@@ -46,7 +46,7 @@ public:
     
     /** 
      * Returns the newly allocated Stardust Node
-     * 
+     *
      * @param texture   The pointer to the shared stardust texture
      * @param queue     The pointer to the stardust queue 
      * @param head      The pointer to the stardust queue head
@@ -62,13 +62,13 @@ public:
     }
 
     /** Initializes a new stardust node with the pointers.
-     * 
+     *
      * @param texture   The pointer to the shared stardust texture
      * @param queue     The pointer to the stardust queue
      * @param head      The pointer to the stardust queue head
      * @param tail      The pointer to the stardust queue tail
      * @param size      The pointer to the stardust queue size
-     * 
+     *
      * @return bool true if new node initialized successfully else false 
      */
     bool init(const std::shared_ptr<cugl::Texture>& texture, 
