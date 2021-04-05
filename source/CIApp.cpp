@@ -191,6 +191,7 @@ void CoreImpactApp::onSuspend() {
         //CULog("DIR size: %u", Application::getSaveDirectory().size());
         // _jsonWriter = JsonWriter::alloc(Application::getSaveDirectory().append("save.json"));
         _jsonWriter->writeJson(_json);
+        CULog("Finished saving!");
     }
 }
 
