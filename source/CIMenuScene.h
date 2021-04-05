@@ -10,6 +10,7 @@
 #define __CI_MENU_SCENE_H__
 #include <cugl/cugl.h>
 #include "CITutorialMenu.h"
+#include "CISettingsMenu.h"
 
 
 /**
@@ -52,27 +53,6 @@ protected:
     /** Back button to return to main menu */
     std::shared_ptr<cugl::scene2::Button> _backBtn;
 
-    // SETTINGS         
-    /** Settings screen title */
-    std::shared_ptr<cugl::scene2::Label> _settingsTitle;
-    /** Label for player name input */
-    std::shared_ptr<cugl::scene2::Label> _pnameLabel;
-    /** Label for music toggle button */
-    std::shared_ptr<cugl::scene2::Label> _musicLabel;
-    /** Label for volume slider */
-    std::shared_ptr<cugl::scene2::Label> _volumeLabel;
-    /** Label for parallax toggle button */
-    std::shared_ptr<cugl::scene2::Label> _parallaxLabel;
-
-    /** Player Name input */
-    std::shared_ptr<cugl::scene2::TextField> _pnameInput;
-    /** Button to toggle music */
-    std::shared_ptr<cugl::scene2::Button> _musicBtn;
-    /** Slider for gameplay volume */
-    std::shared_ptr<cugl::scene2::Slider> _volumeSlider;
-    /** Button to toggle parallax effect */
-    std::shared_ptr<cugl::scene2::Button> _parallaxBtn;
-
     // JOIN GAME  
     /** Game room id input */
     std::shared_ptr<cugl::scene2::TextField> _roomIdInput;
@@ -92,18 +72,12 @@ protected:
     std::shared_ptr<cugl::scene2::Button> _gameStartBtn;
 
     // TUTORIAL 
-    /** Label for Tutorial page title */
     std::shared_ptr<TutorialMenu> _tutorial;
     
+    // SETTINGS
+    std::shared_ptr<SettingsMenu> _settings;
+    
     // MODEL
-    /** Value for the player name */
-    string _playerName;
-    /** Value for the game audio volume */
-    float _volume;
-    /** Whether game music is turned on/off */
-    bool _musicOn;
-    /** Whether game parallax effect is turned on/off */
-    bool _parallaxOn;
     /** Whether menu has been initialized previously */
     bool _isLoaded;
     /** Stores the game code for joining as client*/
@@ -189,7 +163,7 @@ public:
      * This constructor does not allocate any objects or start the game.
      * This allows us to use the object without a heap pointer.
      */
-    MenuScene() : cugl::Scene2(), _volume(0.0f), _musicOn(true), _parallaxOn(true), _isLoaded(false), _status(MenuStatus::MainMenu) {}
+    MenuScene() : cugl::Scene2(), _isLoaded(false), _status(MenuStatus::MainMenu) {}
 
     /**
     * Disposes of all (non-static) resources allocated to this mode.

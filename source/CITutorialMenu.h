@@ -18,60 +18,60 @@
  */
 class TutorialMenu {
 private:
-/** The asset manager for menu screens. */
-std::shared_ptr<cugl::AssetManager> _assets;
+    /** The asset manager for menu screens. */
+    std::shared_ptr<cugl::AssetManager> _assets;
 
-// Tutorial Screen Layer
-std::shared_ptr<cugl::scene2::SceneNode> _layer;
-/** Label for Tutorial screen title */
-std::shared_ptr<cugl::scene2::Label> _tutorialTitle;
+    // Tutorial Screen Layer
+    std::shared_ptr<cugl::scene2::SceneNode> _layer;
+    /** Label for Tutorial screen title */
+    std::shared_ptr<cugl::scene2::Label> _tutorialTitle;
 
 public:
-/**
- * Creates a new tutorial Menu mode with the default values.
- */
-TutorialMenu() {}
+    /**
+     * Creates a new tutorial Menu mode with the default values.
+     */
+    TutorialMenu() {}
 
-/**
- * Disposes of all (non-static) resources allocated to this mode.
- */
-~TutorialMenu() { dispose(); }
+    /**
+     * Disposes of all (non-static) resources allocated to this mode.
+     */
+    ~TutorialMenu() { dispose(); }
 
-/**
- * Disposes of all (non-static) resources allocated to this mode.
- */
-void dispose();
+    /**
+     * Disposes of all (non-static) resources allocated to this mode.
+     */
+    void dispose();
 
-bool init(const std::shared_ptr<cugl::AssetManager>& assets);
+    bool init(const std::shared_ptr<cugl::AssetManager>& assets);
 
-static std::shared_ptr<TutorialMenu> alloc(const std::shared_ptr<cugl::AssetManager>& assets) {
-    std::shared_ptr<TutorialMenu> result = std::make_shared<TutorialMenu>();
-    return (result->init(assets) ? result : nullptr);
-}
-
-/**
- * Put-up/take-down the current mode to the overall display.
- *
- * Sets all assets' visible value and activates/deactivates all inputs in
- * the current mode.
- *
- * @param value Whether to put-up or take-down the current mode.
- */
-void setDisplay(bool value) {
-    if (_layer != nullptr) {
-        _tutorialTitle->setVisible(value);
-        _layer->setVisible(value);
+    static std::shared_ptr<TutorialMenu> alloc(const std::shared_ptr<cugl::AssetManager>& assets) {
+        std::shared_ptr<TutorialMenu> result = std::make_shared<TutorialMenu>();
+        return (result->init(assets) ? result : nullptr);
     }
-}
 
-/**
-* Returns the layer node of the current mode.
-*
-* @return layer The layer node of the current mode.
-*/
-const std::shared_ptr<cugl::scene2::SceneNode>& getLayer() const {
-    return _layer;
-}
+    /**
+     * Put-up/take-down the current mode to the overall display.
+     *
+     * Sets all assets' visible value and activates/deactivates all inputs in
+     * the current mode.
+     *
+     * @param value Whether to put-up or take-down the current mode.
+     */
+    void setDisplay(bool value) {
+        if (_layer != nullptr) {
+            _tutorialTitle->setVisible(value);
+            _layer->setVisible(value);
+        }
+    }
+
+    /**
+    * Returns the layer node of the current mode.
+    *
+    * @return layer The layer node of the current mode.
+    */
+    const std::shared_ptr<cugl::scene2::SceneNode>& getLayer() const {
+        return _layer;
+    }
 
 };
 

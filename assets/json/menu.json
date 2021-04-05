@@ -51,6 +51,178 @@
     "togglebutton": "widgets/togglebutton.json"
   },
   "scene2s": {
+      "settings": {
+          "comment": "Settings screen within Menu",
+          "type": "Solid",
+          "format": {
+              "type": "Anchored"
+          },
+          "data": {
+              "color": [0, 0, 0, 0]
+          },
+          "children": {
+              "title": {
+                "comment": "Static text label for Setting page heading.",
+                "type": "Label",
+                "data": {
+                  "font": "saira32",
+                  "text": "Settings",
+                  "foreground": [255, 255, 255, 255],
+                  "background": [0, 0, 0, 0],
+                  "size": [300, 80],
+                  "anchor": [0.5, 0.5],
+                  "visible": false
+                },
+                "layout": {
+                  "x_anchor": "center",
+                  "y_anchor": "middle",
+                  "x_offset": 0.35,
+                  "y_offset": 0.35
+                }
+              },
+              "namelabel": {
+                "comment": "The 'Name' label for the player name section.",
+                "type": "Label",
+                "data": {
+                  "font": "saira32",
+                  "text": "Name",
+                  "foreground": [255, 255, 255, 255],
+                  "background": [0, 0, 0, 0],
+                  "size": [300, 80],
+                  "anchor": [0.5, 0.5],
+                  "visible": false
+                },
+                "layout": {
+                  "x_anchor": "center",
+                  "y_anchor": "middle",
+                  "x_offset": 0.15,
+                  "y_offset": 0.25
+                }
+              },
+              "nameinput": {
+                "comment": "The player name text input in Settings.",
+                "type": "TextField",
+                "data": {
+                  "font": "saira32",
+                  "text": "Player Name",
+                  "foreground": [255, 255, 255, 255],
+                  "background": [0, 0, 0, 0],
+                  "size": [300, 80],
+                  "anchor": [0.5, 0.5],
+                  "visible": false
+                },
+                "layout": {
+                  "x_anchor": "center",
+                  "y_anchor": "middle",
+                  "x_offset": 0.25,
+                  "y_offset": 0.25
+                }
+              },
+              "musiclabel": {
+                "comment": "The 'Music' label for the toggle music section.",
+                "type": "Label",
+                "data": {
+                  "font": "saira32",
+                  "text": "Music",
+                  "foreground": [255, 255, 255, 255],
+                  "background": [0, 0, 0, 0],
+                  "size": [300, 80],
+                  "anchor": [0.5, 0.5],
+                  "visible": false
+                },
+                "layout": {
+                  "x_anchor": "center",
+                  "y_anchor": "middle",
+                  "x_offset": 0.15,
+                  "y_offset": 0.1
+                }
+              },
+              "musicinput": {
+                "comment": "The music toggle button in Settings.",
+                "type": "Widget",
+                "data": {
+                  "key": "togglebutton"
+                },
+                "layout": {
+                  "x_anchor": "center",
+                  "y_anchor": "middle",
+                  "x_offset": 0.4,
+                  "y_offset": 0.07
+                }
+              },
+              "volumelabel": {
+                "comment": "The 'Volume' label for the volume slider section.",
+                "type": "Label",
+                "data": {
+                  "font": "saira32",
+                  "text": "Volume",
+                  "foreground": [255, 255, 255, 255],
+                  "background": [0, 0, 0, 0],
+                  "size": [300, 80],
+                  "anchor": [0.5, 0.5],
+                  "visible": false
+                },
+                "layout": {
+                  "x_anchor": "center",
+                  "y_anchor": "middle",
+                  "x_offset": 0.15,
+                  "y_offset": -0.1
+                }
+              },
+              "volumeinput": {
+                "comment": "The volume slider in Settings.",
+                "type": "Slider",
+                "data": {
+                  "bounds": [40, 0, 300, 0],
+                  "range": [1, 100],
+                  "value": 50,
+                  "tick": 10,
+                  "snap": true,
+                  "anchor": [0.5, 0.5],
+                  "visible": false,
+                  "scale": 0.75
+                },
+                "layout": {
+                  "x_anchor": "center",
+                  "y_anchor": "middle",
+                  "x_offset": 0.3,
+                  "y_offset": -0.12
+                }
+              },
+              "parallaxlabel": {
+                "comment": "The 'Parallax Effect' label for the parallax toggle section.",
+                "type": "Label",
+                "data": {
+                  "font": "saira32",
+                  "text": "Parallax Effect",
+                  "foreground": [255, 255, 255, 255],
+                  "background": [0, 0, 0, 0],
+                  "size": [300, 80],
+                  "anchor": [0.5, 0.5],
+                  "visible": false
+                },
+                "layout": {
+                  "x_anchor": "center",
+                  "y_anchor": "middle",
+                  "x_offset": 0.15,
+                  "y_offset": -0.3
+                }
+              },
+              "parallaxinput": {
+                "comment": "The parallax effect toggle button in Settings.",
+                "type": "Widget",
+                "data": {
+                  "key": "togglebutton"
+                },
+                "layout": {
+                  "x_anchor": "center",
+                  "y_anchor": "middle",
+                  "x_offset": 0.4,
+                  "y_offset": -0.32
+                }
+              }
+          }
+      },
       "tutorial": {
           "comment": "Tutorial screen within Menu",
           "type": "Solid",
@@ -261,185 +433,7 @@
             "y_offset": 0.38
           }
         },
-        "settingstitle": {
-          "comment": "Static text label for Setting page heading.",
-          "type": "Label",
-          "data": {
-            "font": "saira32",
-            "text": "Settings",
-            "foreground": [255, 255, 255, 255],
-            "background": [0, 0, 0, 0],
-            "size": [300, 80],
-            "anchor": [0.5, 0.5],
-            "visible": false
-          },
-          "layout": {
-            "x_anchor": "center",
-            "y_anchor": "middle",
-            "x_offset": 0.35,
-            "y_offset": 0.35
-          }
-        },
-        "settingsnamelabel": {
-          "comment": "The 'Name' label for the player name section.",
-          "type": "Label",
-          "data": {
-            "font": "saira32",
-            "text": "Name",
-            "foreground": [255, 255, 255, 255],
-            "background": [0, 0, 0, 0],
-            "size": [300, 80],
-            "anchor": [0.5, 0.5],
-            "visible": false
-          },
-          "layout": {
-            "x_anchor": "center",
-            "y_anchor": "middle",
-            "x_offset": 0.15,
-            "y_offset": 0.25
-          }
-        },
-        "settingsnameinput": {
-          "comment": "The player name text input in Settings.",
-          "type": "TextField",
-          "data": {
-            "font": "saira32",
-            "text": "Player Name",
-            "foreground": [255, 255, 255, 255],
-            "background": [0, 0, 0, 0],
-            "size": [300, 80],
-            "anchor": [0.5, 0.5],
-            "visible": false
-          },
-          "layout": {
-            "x_anchor": "center",
-            "y_anchor": "middle",
-            "x_offset": 0.25,
-            "y_offset": 0.25
-          }
-        },
-        "settingsmusiclabel": {
-          "comment": "The 'Music' label for the toggle music section.",
-          "type": "Label",
-          "data": {
-            "font": "saira32",
-            "text": "Music",
-            "foreground": [255, 255, 255, 255],
-            "background": [0, 0, 0, 0],
-            "size": [300, 80],
-            "anchor": [0.5, 0.5],
-            "visible": false
-          },
-          "layout": {
-            "x_anchor": "center",
-            "y_anchor": "middle",
-            "x_offset": 0.15,
-            "y_offset": 0.1
-          }
-        },
-        "settingsmusicbutton": {
-          "comment": "The music toggle button in Settings.",
-          "type": "Widget",
-          "data": {
-            "key": "togglebutton"
-          },
-          "layout": {
-            "x_anchor": "center",
-            "y_anchor": "middle",
-            "x_offset": 0.4,
-            "y_offset": 0.07
-          }
-        },
-        "settingsvolumelabel": {
-          "comment": "The 'Volume' label for the volume slider section.",
-          "type": "Label",
-          "data": {
-            "font": "saira32",
-            "text": "Volume",
-            "foreground": [255, 255, 255, 255],
-            "background": [0, 0, 0, 0],
-            "size": [300, 80],
-            "anchor": [0.5, 0.5],
-            "visible": false
-          },
-          "layout": {
-            "x_anchor": "center",
-            "y_anchor": "middle",
-            "x_offset": 0.15,
-            "y_offset": -0.1
-          }
-        },
-        "settingsvolumeinput": {
-          "comment": "The volume slider in Settings.",
-          "type": "Slider",
-          "data": {
-            "bounds": [40, 0, 300, 0],
-            "range": [1, 100],
-            "value": 50,
-            "tick": 10,
-            "snap": true,
-            "anchor": [0.5, 0.5],
-            "visible": false,
-            "scale": 0.75
-          },
-          "layout": {
-            "x_anchor": "center",
-            "y_anchor": "middle",
-            "x_offset": 0.3,
-            "y_offset": -0.12
-          }
-        },
-        "settingsparallaxlabel": {
-          "comment": "The 'Parallax Effect' label for the parallax toggle section.",
-          "type": "Label",
-          "data": {
-            "font": "saira32",
-            "text": "Parallax Effect",
-            "foreground": [255, 255, 255, 255],
-            "background": [0, 0, 0, 0],
-            "size": [300, 80],
-            "anchor": [0.5, 0.5],
-            "visible": false
-          },
-          "layout": {
-            "x_anchor": "center",
-            "y_anchor": "middle",
-            "x_offset": 0.15,
-            "y_offset": -0.3
-          }
-        },
-        "settingsparallaxbutton": {
-          "comment": "The parallax effect toggle button in Settings.",
-          "type": "Widget",
-          "data": {
-            "key": "togglebutton"
-          },
-          "layout": {
-            "x_anchor": "center",
-            "y_anchor": "middle",
-            "x_offset": 0.4,
-            "y_offset": -0.32
-          }
-        },
-        "tutorialtitle": {
-          "comment": "The 'How To Play' page heading.",
-          "type": "Label",
-          "data": {
-            "font": "saira32",
-            "text": "How to Play",
-            "foreground": [255, 255, 255, 255],
-            "background": [0, 0, 0, 0],
-            "size": [300, 80],
-            "anchor": [0.5, 0.5],
-            "visible": false
-          },
-          "layout": {
-            "x_anchor": "center",
-            "y_anchor": "middle",
-            "x_offset": 0.35,
-            "y_offset": 0.3
-          }
-        },
+        
         "joingamejoinbutton": {
           "comment": "The 'Join Game' button to join the game lobby.",
           "type": "Widget",
