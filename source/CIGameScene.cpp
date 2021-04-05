@@ -206,10 +206,10 @@ void GameScene::update(float timestep) {
         _gameUpdateManager->processGameUpdate(_stardustContainer, _planet, _opponent_planets, dimen);
         for (int ii = 0; ii < _opponent_planets.size() ; ii++) {
             std::shared_ptr<OpponentPlanet> opponent = _opponent_planets[ii];
-            if (opponent != nullptr && getChildByTag(ii) == nullptr) {
+            if (opponent != nullptr && getChildByName(to_string(ii)) == nullptr) {
                 opponent->setTextures(_assets->get<Texture>("opponentProgress"), dimen);
                 //TODO: call opponent->setName with name and font
-                addChildWithTag(opponent->getOpponentNode(), ii);
+                addChildWithName(opponent->getOpponentNode(), to_string(ii));
             }
         }
     }
