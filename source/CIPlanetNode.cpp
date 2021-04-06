@@ -23,7 +23,6 @@ void PlanetNode::draw(const std::shared_ptr<cugl::SpriteBatch>& batch,
 
 void PlanetNode::update(float timestep, bool isLockingIn, int numLayers) {
   _timeElapsed += timestep;
-  CULog("Is Locking in:  %i", isLockingIn);
   if (_timeElapsed > SPF) {
     _timeElapsed = 0;
     
@@ -51,17 +50,11 @@ void PlanetNode::advanceInnerLayerFrame(LayerNode* node){
 void PlanetNode::advanceOuterLayerFrame(LayerNode* node, bool isLockedIn, bool isLockingIn, int ii, int numLayers){
   unsigned int outerFrame = node->outerRing->getFrame();
   if (isLockingIn and ii == numLayers-1){
-    if (outerFrame < OUTER_RING_LOCKIN_START or outerFrame > OUTER_RING_LOCKIN_END){
-      outerFrame = OUTER_RING_LOCKIN_START;
-    } else{
-      outerFrame += 1;
-    }
-  }else{
-    if(isLockedIn){
-      outerFrame = (outerFrame >= OUTER_RING_LOCK_END) ? OUTER_RING_LOCK_START : outerFrame + 1;
-    }else{
-      outerFrame = (outerFrame >= OUTER_RING_UNLOCK_END) ? OUTER_RING_UNLOCK_START : outerFrame + 1;
-    }
+    outerFrame = (outerFrame < OUTER_RING_LOCKIN_START or outerFrame > OUTER_RING_LOCKIN_END) ?  OUTER_RING_LOCKIN_START : outerFrame += 1;
+  } else if (isLockedIn){
+    outerFrame = (outerFrame >= OUTER_RING_LOCK_END) ? OUTER_RING_LOCK_START : outerFrame + 1;
+  } else {
+    outerFrame = (outerFrame >= OUTER_RING_UNLOCK_END) ? OUTER_RING_UNLOCK_START : outerFrame + 1;
   }
   node->outerRing->setFrame(outerFrame);
 }
