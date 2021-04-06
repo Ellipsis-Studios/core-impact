@@ -13,6 +13,7 @@
 #include "CITutorialMenu.h"
 #include "CISettingsMenu.h"
 #include "CIJoinMenu.h"
+#include "CILobbyMenu.h"
 
 
 /**
@@ -56,16 +57,7 @@ protected:
     std::shared_ptr<cugl::scene2::Button> _backBtn;
 
     // GAME LOBBY
-    /** Label for Room Id in Game Lobby */
-    std::shared_ptr<cugl::scene2::Label> _lobbyRoomLabel;
-    /** Each label for a user in the game */
-    std::shared_ptr<cugl::scene2::Label> _gamelobbyplayerlabel1; // top
-    std::shared_ptr<cugl::scene2::Label> _gamelobbyplayerlabel2; // middle left
-    std::shared_ptr<cugl::scene2::Label> _gamelobbyplayerlabel3; // middle right
-    std::shared_ptr<cugl::scene2::Label> _gamelobbyplayerlabel4; // bottom left
-    std::shared_ptr<cugl::scene2::Label> _gamelobbyplayerlabel5; // bottom right
-    /** Button to trigger start of a game with the current room */
-    std::shared_ptr<cugl::scene2::Button> _gameStartBtn;
+    std::shared_ptr<LobbyMenu> _lobby;
 
     // TUTORIAL 
     std::shared_ptr<TutorialMenu> _tutorial;

@@ -60,16 +60,6 @@ bool MenuScene::init(const std::shared_ptr<AssetManager>& assets) {
     /** Back button */
     _backBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_menubackbutton"));
 
-    /** Game Lobby labels */
-    _lobbyRoomLabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_gamelobbyroomidlabel"));
-    _gamelobbyplayerlabel1 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_gamelobbyplayerlabel1"));
-    _gamelobbyplayerlabel2 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_gamelobbyplayerlabel2"));
-    _gamelobbyplayerlabel3 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_gamelobbyplayerlabel3"));
-    _gamelobbyplayerlabel4 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_gamelobbyplayerlabel4"));
-    _gamelobbyplayerlabel5 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("menu_gamelobbyplayerlabel5"));
-    /** Game Lobby buttons */
-    _gameStartBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_gamelobbystartbutton"));
-
     // TODO: integrate network manager to game lobby
     
     /**
@@ -87,8 +77,7 @@ bool MenuScene::init(const std::shared_ptr<AssetManager>& assets) {
     _settingsBtn->addListener(mbuttonListener(MenuStatus::MainToSetting));
     _newBtn->addListener(mbuttonListener(MenuStatus::MainToLobby));
     _tutorialBtn->addListener(mbuttonListener(MenuStatus::MainToTutorial));
-    _gameStartBtn->addListener(mbuttonListener(MenuStatus::LobbyToGame));
-    
+
     /** Back button to trigger return to main menu */
     _backBtn->addListener([=](const std::string& name, bool down) {
         if (!down) {
@@ -129,12 +118,17 @@ void MenuScene::dispose() {
         _joinBtn->deactivate();
         _newBtn->deactivate();
         _tutorialBtn->deactivate();
-        _gameStartBtn->deactivate();
         _backBtn->deactivate();
     }
     _tutorial->setDisplay(false);
     _settings->setDisplay(false);
     _join->setDisplay(false);
+    _lobby->setDisplay(false);
+
+    _tutorial = nullptr;
+    _settings = nullptr;
+    _join = nullptr;
+    _lobby = nullptr;
 
     _teamLogo = nullptr;
     _gameTitle = nullptr;
@@ -143,18 +137,6 @@ void MenuScene::dispose() {
     _newBtn = nullptr;
     _tutorialBtn = nullptr;
     _settingsBtn = nullptr;
-
-    _lobbyRoomLabel = nullptr;
-    _gamelobbyplayerlabel1 = nullptr;
-    _gamelobbyplayerlabel2 = nullptr;
-    _gamelobbyplayerlabel3 = nullptr;
-    _gamelobbyplayerlabel4 = nullptr;
-    _gamelobbyplayerlabel5 = nullptr;
-    _gameStartBtn = nullptr;
-
-    _tutorial = nullptr;
-    _settings = nullptr;
-    _join = nullptr;
 
     _backBtn = nullptr;
     _assets = nullptr;
@@ -197,6 +179,11 @@ void MenuScene::update(float timestep) {
             _join->setDisplay(false);
             root->addChild(_join->getLayer());
             
+            /** Game Lobby screen */
+            _lobby = LobbyMenu::alloc(_assets);
+            _lobby->setDisplay(false);
+            root->addChild(_lobby->getLayer());
+
             _isLoaded = true;
             Scene2::reset();
         }
@@ -215,13 +202,8 @@ void MenuScene::update(float timestep) {
         break;
     case MenuStatus::MainToLobby:
         _menuSceneInputHelper(false, _joinBtn, _newBtn, _tutorialBtn, _settingsBtn);
-        _menuSceneInputHelper(true, _backBtn, _gameStartBtn);
-        _lobbyRoomLabel->setVisible(true);
-        _gamelobbyplayerlabel1->setVisible(true);
-        _gamelobbyplayerlabel2->setVisible(true);
-        _gamelobbyplayerlabel3->setVisible(true);
-        _gamelobbyplayerlabel4->setVisible(true);
-        _gamelobbyplayerlabel5->setVisible(true);
+        _lobby->setDisplay(true);
+        _menuSceneInputHelper(true, _backBtn);
         _status = MenuStatus::GameLobby;
         break;
     case MenuStatus::MainToTutorial:
@@ -243,17 +225,16 @@ void MenuScene::update(float timestep) {
     case MenuStatus::Tutorial:
         break;
     case MenuStatus::GameLobby:
-        _gamelobbyplayerlabel1->setText(_settings->getPlayerName());
+        _lobby->setPlayerLabel1(_settings->getPlayerName());
+        _lobby->update(timestep);
+        if (_lobby->getPressedStart()) {
+            _status = MenuStatus::LobbyToGame;
+            _lobby->resetPress();
+        }
         break;
     case MenuStatus::JoinToLobby:
         _join->setDisplay(false);
-        _menuSceneInputHelper(true, _gameStartBtn);
-        _lobbyRoomLabel->setVisible(true);
-        _gamelobbyplayerlabel1->setVisible(true);
-        _gamelobbyplayerlabel2->setVisible(true);
-        _gamelobbyplayerlabel3->setVisible(true);
-        _gamelobbyplayerlabel4->setVisible(true);
-        _gamelobbyplayerlabel5->setVisible(true);
+        _lobby->setDisplay(true);
         _status = MenuStatus::GameLobby;
         break;
     case MenuStatus::SettingToMain:
@@ -270,13 +251,8 @@ void MenuScene::update(float timestep) {
         _status = MenuStatus::MainMenu;
         break;
     case MenuStatus::LobbyToMain:
-        _menuSceneInputHelper(false, _backBtn, _gameStartBtn);
-        _lobbyRoomLabel->setVisible(false);
-        _gamelobbyplayerlabel1->setVisible(false);
-        _gamelobbyplayerlabel2->setVisible(false);
-        _gamelobbyplayerlabel3->setVisible(false);
-        _gamelobbyplayerlabel4->setVisible(false);
-        _gamelobbyplayerlabel5->setVisible(false);
+        _menuSceneInputHelper(false, _backBtn);
+        _lobby->setDisplay(false);
         _menuSceneInputHelper(true, _joinBtn, _newBtn, _tutorialBtn, _settingsBtn);
         _status = MenuStatus::MainMenu;
         break;
@@ -287,13 +263,8 @@ void MenuScene::update(float timestep) {
         _status = MenuStatus::MainMenu;
         break;
     case MenuStatus::LobbyToGame:
-        _menuSceneInputHelper(false, _backBtn, _gameStartBtn);
-        _lobbyRoomLabel->setVisible(false);
-        _gamelobbyplayerlabel1->setVisible(false);
-        _gamelobbyplayerlabel2->setVisible(false);
-        _gamelobbyplayerlabel3->setVisible(false);
-        _gamelobbyplayerlabel4->setVisible(false);
-        _gamelobbyplayerlabel5->setVisible(false);
+        _menuSceneInputHelper(false, _backBtn);
+        _lobby->setDisplay(false);
         _active = false;
         break;
     }
