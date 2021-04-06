@@ -29,6 +29,15 @@
 #define CORE_END    151
 #define CORE_START  0
 
+#define OUTER_RING_ROWS             17
+#define OUTER_RING_COLS             13
+#define OUTER_RING_UNLOCK_START     0
+#define OUTER_RING_UNLOCK_END       12
+#define OUTER_RING_LOCKIN_START     13
+#define OUTER_RING_LOCKIN_END       117
+#define OUTER_RING_LOCK_START       118
+#define OUTER_RING_LOCK_END         216
+
 class PlanetNode : public cugl::scene2::AnimationNode {
 private:
     class LayerNode {
@@ -37,7 +46,7 @@ private:
         std::shared_ptr<cugl::scene2::AnimationNode> innerRing;
       
         /** The node representing the outer ring of the layer */
-        std::shared_ptr<cugl::scene2::PolygonNode> outerRing;
+        std::shared_ptr<cugl::scene2::AnimationNode> outerRing;
         
     };
     
@@ -53,7 +62,9 @@ private:
     /** The nodes representing the layers of this planet */
     std::vector<LayerNode> _layerNodes;
   
-    void advanceFrame(LayerNode* node);
+//    void advanceFrame(LayerNode* node, bool isLockedIn, bool isLockingIn);
+    void advanceInnerLayerFrame(LayerNode* node);
+    void advanceOuterLayerFrame(LayerNode* node, bool isLockedIn, bool isLockingIn, int ii, int numLayers);
     
 protected:
     /** The texture of an innner ring */
@@ -68,7 +79,7 @@ public:
     
     ~PlanetNode() { dispose(); }
 
-    void update(float timestep);
+    void update(float timestep, bool isLockingIn, int numLayers);
   
     static std::shared_ptr<PlanetNode> alloc(const std::shared_ptr<cugl::Texture>& core,
                                              const std::shared_ptr<cugl::Texture>& ring,

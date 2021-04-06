@@ -21,8 +21,9 @@ void PlanetNode::draw(const std::shared_ptr<cugl::SpriteBatch>& batch,
   AnimationNode::draw(batch,transform, tint);
 }
 
-void PlanetNode::update(float timestep) {
+void PlanetNode::update(float timestep, bool isLockingIn, int numLayers) {
   _timeElapsed += timestep;
+  CULog("Is Locking in:  %i", isLockingIn);
   if (_timeElapsed > SPF) {
     _timeElapsed = 0;
     
@@ -33,18 +34,49 @@ void PlanetNode::update(float timestep) {
     for (int ii = 0; ii < _layers->size(); ii++) {
       LayerNode* node = &_layerNodes[ii];
       if (node != nullptr && node->innerRing) {
-        advanceFrame(node);
+        bool isLockedIn = _layers->at(ii).isLockedIn;
+        advanceInnerLayerFrame(node);
+        advanceOuterLayerFrame(node, isLockedIn, isLockingIn, ii, numLayers);
       }
     }
   }
 }
 
-void PlanetNode::advanceFrame(LayerNode* node) {
-  // Our animation depends on the current frame
-  unsigned int frame = node->innerRing->getFrame();
-  frame = (frame == INNER_RING_END) ? INNER_RING_START : frame + 1;
-  node->innerRing->setFrame(frame);
+void PlanetNode::advanceInnerLayerFrame(LayerNode* node){
+  unsigned int innerFrame = node->innerRing->getFrame();
+  innerFrame = (innerFrame == INNER_RING_END) ? INNER_RING_START : innerFrame + 1;
+  node->innerRing->setFrame(innerFrame);
 }
+
+void PlanetNode::advanceOuterLayerFrame(LayerNode* node, bool isLockedIn, bool isLockingIn, int ii, int numLayers){
+  unsigned int outerFrame = node->outerRing->getFrame();
+  CULog("Layer Index: %i", ii);
+  if (isLockingIn and ii == numLayers-1){
+    CULog("locking in animation");
+    if (outerFrame < OUTER_RING_LOCKIN_START or outerFrame > OUTER_RING_LOCKIN_END){
+      outerFrame = OUTER_RING_LOCKIN_START;
+    } else{
+      outerFrame += 1;
+    }
+  }else{
+    if(isLockedIn){
+      CULog("locked in");
+      outerFrame = (outerFrame >= OUTER_RING_LOCK_END) ? OUTER_RING_LOCK_START : outerFrame + 1;
+    }else{
+      CULog("unlocked");
+      outerFrame = (outerFrame >= OUTER_RING_UNLOCK_END) ? OUTER_RING_UNLOCK_START : outerFrame + 1;
+    }
+  }
+  CULog("OUTER FRAME: %i", outerFrame);
+  node->outerRing->setFrame(outerFrame);
+}
+
+//void PlanetNode::advanceFrame(LayerNode* node, bool isLockedIn, bool isLockingIn) {
+//  // Our animation depends on the current frame
+//  unsigned int innerFrame = node->innerRing->getFrame();
+//  innerFrame = (innerFrame == INNER_RING_END) ? INNER_RING_START : innerFrame + 1;
+//  node->innerRing->setFrame(innerFrame);
+//}
 
 
 void PlanetNode::setLayers(std::vector<PlanetLayer>* layers) {
@@ -70,7 +102,7 @@ void PlanetNode::setLayers(std::vector<PlanetLayer>* layers) {
         }
         
         node->innerRing = cugl::scene2::AnimationNode::alloc(_ringTexture, INNER_RING_ROWS, INNER_RING_COLS);
-        node->outerRing = cugl::scene2::PolygonNode::allocWithTexture(_unlockedTexture);
+        node->outerRing = cugl::scene2::AnimationNode::alloc(_unlockedTexture, OUTER_RING_ROWS, OUTER_RING_COLS);
         
         node->innerRing->setAnchor(cugl::Vec2::ANCHOR_CENTER);
         node->outerRing->setAnchor(cugl::Vec2::ANCHOR_CENTER);
@@ -87,9 +119,9 @@ void PlanetNode::setLayers(std::vector<PlanetLayer>* layers) {
       }
       node->innerRing->setColor(CIColor::getColor4(layers->at(ii).layerColor));
       node->outerRing->setColor(CIColor::getColor4(layers->at(ii).layerColor));
-      if (layers->at(ii).isLockedIn) {
-        node->outerRing->setTexture(_lockedTexture);
-      }
+//      if (layers->at(ii).isLockedIn) {
+//        node->outerRing->setTexture(_lockedTexture);
+//      }
     }
   }
 }
