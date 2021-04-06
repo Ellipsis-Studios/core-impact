@@ -2,7 +2,6 @@ package org.libsdl.app;
 
 import android.content.Context;
 
-import java.lang.Class;
 import java.lang.reflect.Method;
 
 /**

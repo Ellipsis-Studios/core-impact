@@ -35,6 +35,7 @@ void StardustQueue::dispose() {
     _qsize = 0;
     _stardustNode = nullptr;
     _stardust_to_send.clear();
+    _stardust_powerups.clear();
 }
     
 /**
@@ -61,8 +62,9 @@ bool StardustQueue::init(size_t max, const std::shared_ptr<cugl::Texture>& textu
  *
  * @param c the color of the stardust to spawn
  * @param bounds the bounds of the game screen
+ * @param type the type of the stardust to add (defaults to normal)
  */
-void StardustQueue::addStardust(CIColor::Value c, const Size bounds) {
+void StardustQueue::addStardust(CIColor::Value c, const Size bounds, StardustModel::Type type) {
     // Add a new stardust at the end.
     // Already declared, so just initialize.
     int posX = ((rand()%2==0) ? bounds.width + 20 : -20) + (rand() % 20 - 10);
@@ -74,6 +76,7 @@ void StardustQueue::addStardust(CIColor::Value c, const Size bounds) {
     dir.y *= (rand() % 3)+2;
 
     std::shared_ptr<StardustModel> stardust = StardustModel::alloc(pos, dir, c);
+    stardust->setStardustType(type);
     addStardust(stardust);
 }
 
@@ -119,6 +122,15 @@ StardustModel* StardustQueue::get(size_t pos) {
  */
 void StardustQueue::addToSendQueue(StardustModel* stardust) {
     _stardust_to_send.push_back(std::make_shared<StardustModel>(*stardust));
+}
+
+/**
+ * Adds a stardust to the powerup queue.
+ *
+ * @param stardust the stardust to add to the powerup queue
+ */
+void StardustQueue::addToPowerupQueue(StardustModel* stardust) {
+    _stardust_powerups.push_back(std::make_shared<StardustModel>(*stardust));
 }
 
 /**

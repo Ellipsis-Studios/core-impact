@@ -18,6 +18,7 @@
 #include <cugl/cugl.h>
 #include <iostream>
 #include <sstream>
+#include <numeric>
 
 #include "CIGameScene.h"
 #include "CICollisionController.h"
@@ -74,6 +75,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     // Start up the input handler and managers
     _assets = assets;
     _input.init(getBounds());
+    srand(time(NULL));
     // Set the game update manager and network message managers
     _gameUpdateManager = GameUpdateManager::alloc();
     _networkMessageManager = networkMessageManager;
@@ -181,7 +183,7 @@ void GameScene::update(float timestep) {
     _stardustContainer->update();
     addStardust(dimen);
 
-    collisions::checkForCollision(_planet, _stardustContainer);
+    collisions::checkForCollision(_planet, _stardustContainer, timestep);
     collisions::checkInBounds(_stardustContainer, dimen);
     collisions::checkForCollisions(_stardustContainer);
     updateDraggedStardust();
@@ -195,15 +197,25 @@ void GameScene::update(float timestep) {
     // attempt to set player id of game update manager
     if (_gameUpdateManager->getPlayerId() < 0) {
         // need to make this call to attempt to connect to game
-        _networkMessageManager->receiveMessages();
+        _networkMessageManager->receiveMessages(dimen);
         _gameUpdateManager->setPlayerId(_networkMessageManager->getPlayerId());
     } else {
         // send and receive game updates to other players
         _gameUpdateManager->sendUpdate(_planet, _stardustContainer, dimen);
-        _networkMessageManager->receiveMessages();
+        _networkMessageManager->receiveMessages(dimen);
         _networkMessageManager->sendMessages();
         _gameUpdateManager->processGameUpdate(_stardustContainer, _planet, _opponent_planets, dimen);
+        for (int ii = 0; ii < _opponent_planets.size() ; ii++) {
+            std::shared_ptr<OpponentPlanet> opponent = _opponent_planets[ii];
+            if (opponent != nullptr && getChildByName(to_string(ii)) == nullptr) {
+                opponent->setTextures(_assets->get<Texture>("opponentProgress"), dimen);
+                //TODO: call opponent->setName with name and font
+                addChildWithName(opponent->getOpponentNode(), to_string(ii));
+            }
+        }
     }
+    
+    processSpecialStardust(dimen, _stardustContainer);
 }
 
 /**
@@ -243,24 +255,69 @@ void GameScene::addStardust(const Size bounds) {
         return;
     }
     
-    size_t spawn_probability = 100 + (_stardustContainer->size() * 25);
+    size_t spawn_probability = 40 + (_stardustContainer->size() * 40);
     if (rand() % spawn_probability != 0) {
         return;
     }
     
-    int planetRadius = _planet->getRadius() - 30;
-    bool correctColorStardust = rand() % planetRadius == 0;
-    CIColor::Value c = _planet->getColor();
-    if (!correctColorStardust) {
-        while (c == _planet->getColor()) {
-            c = CIColor::getRandomColor();
+    /** Finds the average mass of the planets in game */
+    int avgMass = _planet->getMass();
+    int planetCount = 1;
+    for (const std::shared_ptr<OpponentPlanet> &op : _opponent_planets){
+        if (op != nullptr){
+            avgMass += op->getMass();
+            planetCount++;
+        }
+    }
+    avgMass = avgMass / planetCount;
+    int massCorrection = avgMass - _planet->getMass();
+    
+    /** Pity mechanism: The longer you haven't seen a certain color, the more likely it will be to spawn that color */
+    CIColor::Value c = CIColor::getNoneColor();
+    int probSum = 0, colorCount = 6;
+    // Sums up the total probability space of the stardust colors, augmented by a mass correction
+    probSum = accumulate(_stardustProb, _stardustProb + colorCount, probSum) + massCorrection;
+    // Randomly selects a point in the probability space
+    int spawnRand = rand() % probSum;
+    for (int i = 0; i < colorCount; i++) {
+        spawnRand -= (CIColor::Value(i) == _planet->getColor()) ? _stardustProb[i] - massCorrection : _stardustProb[i];
+        if (spawnRand <= 0){
+            c = CIColor::Value(i);
+            spawnRand = probSum;
+            _stardustProb[i] = max(_stardustProb[i] - 40, 0);
+        } else {
+            _stardustProb[i] += 10;
         }
     }
     
-    // do not want to spawn grey stardust
-    if (c == CIColor::getNoneColor()) {
-        c = CIColor::getRandomColor();
-    }
     _stardustContainer->addStardust(c, bounds);
+}
+
+/**
+ * This method applies the power ups of special stardust.
+ *
+ * @param bounds the bounds of the game screen
+ * @param stardustQueue the stardustQueue
+ */
+void GameScene::processSpecialStardust(const cugl::Size bounds, const std::shared_ptr<StardustQueue> stardustQueue) {
+    std::vector<std::shared_ptr<StardustModel>> powerupQueue = stardustQueue->getPowerupQueue();
+    for (size_t ii = 0; ii < powerupQueue.size(); ii++) {
+        std::shared_ptr<StardustModel> stardust = powerupQueue[ii];
+
+        switch (stardust->getStardustType()) {
+            case StardustModel::Type::METEOR:
+                CULog("METEOR SHOWER!");
+                stardustQueue->addStardust(stardust->getColor(), bounds);
+                stardustQueue->addStardust(stardust->getColor(), bounds);
+                stardustQueue->addStardust(stardust->getColor(), bounds);
+                stardustQueue->addStardust(stardust->getColor(), bounds);
+                stardustQueue->addStardust(CIColor::getRandomColor(), bounds);
+                stardustQueue->addStardust(CIColor::getRandomColor(), bounds);
+                break;
+            default:
+                break;
+        }
+    }
     
+    stardustQueue->clearPowerupQueue();
 }

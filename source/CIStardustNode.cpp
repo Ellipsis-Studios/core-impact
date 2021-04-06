@@ -50,7 +50,13 @@ void StardustNode::draw(const std::shared_ptr<cugl::SpriteBatch>& batch,
             
             // Handle stardust color 
             const cugl::Color4f stardustColor = CIColor::getColor4(_queue->at(idx).getColor());
-            batch->draw(_texture, stardustColor, origin, stardustTransform);    
+            switch (_queue->at(idx).getStardustType()) {
+                case StardustModel::Type::METEOR:
+                    batch->draw(_texture, CIColor::getColor4(CIColor::Value::grey), origin, stardustTransform);
+                    break;
+                default:
+                    batch->draw(_texture, stardustColor, origin, stardustTransform);
+            }
         }
     }
     batch->setBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

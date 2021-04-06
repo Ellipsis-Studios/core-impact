@@ -13,18 +13,22 @@
 #include "CIPlanetNode.h"
 #include <cugl/cugl.h>
 
-#define LOCK_IN_SCALE_DOWN  .75
 #define SPF .033 //seconds per frame
 
 void PlanetNode::draw(const std::shared_ptr<cugl::SpriteBatch>& batch,
                       const cugl::Mat4& transform, cugl::Color4 tint) {
-  PolygonNode::draw(batch,transform, tint);
+  AnimationNode::draw(batch,transform, tint);
 }
 
 void PlanetNode::update(float timestep) {
   _timeElapsed += timestep;
   if (_timeElapsed > SPF) {
     _timeElapsed = 0;
+    
+    unsigned int coreFrame = getFrame();
+    coreFrame = (coreFrame == CORE_END) ? CORE_START : coreFrame + 1;
+    setFrame(coreFrame);
+    
     for (int ii = 0; ii < _layers->size(); ii++) {
       LayerNode* node = &_layerNodes[ii];
       if (node != nullptr && node->innerRing) {
@@ -37,12 +41,7 @@ void PlanetNode::update(float timestep) {
 void PlanetNode::advanceFrame(LayerNode* node) {
   // Our animation depends on the current frame
   unsigned int frame = node->innerRing->getFrame();
-  if (frame == INNER_RING_END) {
-    frame = INNER_RING_START;
-  }
-  else {
-    frame += 1;
-  }
+  frame = (frame == INNER_RING_END) ? INNER_RING_START : frame + 1;
   node->innerRing->setFrame(frame);
 }
 
@@ -58,23 +57,12 @@ void PlanetNode::setLayers(std::vector<PlanetLayer>* layers) {
     LayerNode* node = &_layerNodes[ii];
     if (layers->at(ii).isActive) {
       if (node->innerRing == nullptr) {
-        if (ii > 0) {
-          // decrease size of locked in layer slightly
-          if (ii == 1) {
-            _coreScale *= .8;
-            setScale(_coreScale);
-          }
-          LayerNode* prev = &_layerNodes[ii-1];
-          prev->innerRing->setScale(_layerScale*LOCK_IN_SCALE_DOWN/_coreScale);
-          prev->outerRing->setScale(_layerScale*LOCK_IN_SCALE_DOWN/_coreScale);
-        }
-        
         node->innerRing = cugl::scene2::AnimationNode::alloc(_ringTexture, INNER_RING_ROWS, INNER_RING_COLS);
         node->outerRing = cugl::scene2::PolygonNode::allocWithTexture(_unlockedTexture);
         
         node->innerRing->setAnchor(cugl::Vec2::ANCHOR_CENTER);
         node->outerRing->setAnchor(cugl::Vec2::ANCHOR_CENTER);
-        cugl::Vec2 pos = cugl::Vec2(getTexture()->getSize()) * 0.5f;
+        cugl::Vec2 pos = cugl::Vec2(getTexture()->getSize()) * 0.5f / CORE_COLS;
         node->innerRing->setPosition(pos);
         node->outerRing->setPosition(pos);
         node->innerRing->setRelativeColor(false);

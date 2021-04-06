@@ -6,17 +6,20 @@
     "photon": {
       "file": "textures/photon.png"
     },
+    "opponentProgress": {
+      "file":   "textures/opponentProgress.png"
+    },
     "core": {
-      "file": "textures/core.png"
+        "file":   "textures/coreAnimation_v1.png"
     },
     "innerRing": {
-      "file": "textures/innerRing.png"
+        "file":   "textures/innerLayerAnimation_v2.png"
     },
     "unlockedOuterRing": {
-      "file": "textures/unlockedOuterRing.png"
+        "file":   "textures/unlockedOuterRing_v2.png"
     },
     "lockedOuterRing": {
-      "file": "textures/lockedOuterRing.png"
+        "file":   "textures/lockedOuterRing_v2.png"
     }
   },
   "fonts": {

@@ -134,7 +134,7 @@ public:
      * @param opponentPlanets A vector containing the planets of the other players
      * @param bounds                    The bounds of the screen
      */
-    void processGameUpdate(std::shared_ptr<StardustQueue> stardustQueue, std::shared_ptr<PlanetModel> planet, std::vector<std::shared_ptr<OpponentPlanet>> opponentPlanets, cugl::Size bounds);
+    void processGameUpdate(std::shared_ptr<StardustQueue> stardustQueue, std::shared_ptr<PlanetModel> planet, std::vector<std::shared_ptr<OpponentPlanet>> &opponentPlanets, cugl::Size bounds);
 };
 
 #endif /* __CI_GAME_UPDATE_MANAGER_H__ */

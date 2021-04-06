@@ -125,8 +125,10 @@ public:
     
     /**
      * Receives messages sent over the network and adds them to the queue in game update manager.
+     *
+     * @param bounds The bounds of the screen
      */
-    void receiveMessages();
+    void receiveMessages(cugl::Size bounds);
     
     /**
      * Creates a game instance with this player as the host.

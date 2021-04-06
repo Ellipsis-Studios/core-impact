@@ -14,6 +14,7 @@
 #include <map>
 #include <cugl/cugl.h>
 #include "CINetworkUtils.h"
+#include "CILocation.h"
 
 /** Max unprocessed updates at a given time */
 #define MAX_PENDING_UPDATES     25
@@ -75,7 +76,7 @@ void GameUpdateManager::sendUpdate(const std::shared_ptr<PlanetModel> planet, co
             playerIdToSend = stardust->getPreviousOwner();
             
             // send stardust to the correct corner if the stardust went off screen
-            if (stardust->getStardustLocation() != StardustModel::Location::ON_SCREEN) {
+            if (stardust->getStardustLocation() != CILocation::Value::ON_SCREEN) {
                 playerIdToSend = NetworkUtils::getOpponentPlayerID(getPlayerId(), stardust->getStardustLocation());
             }
             
@@ -120,7 +121,7 @@ void GameUpdateManager::sendUpdate(const std::shared_ptr<PlanetModel> planet, co
  * @param planet                    A reference to the player's planet
  * @param bounds                    The bounds of the screen
  */
-void GameUpdateManager::processGameUpdate(std::shared_ptr<StardustQueue> stardustQueue, std::shared_ptr<PlanetModel> planet, std::vector<std::shared_ptr<OpponentPlanet>> opponentPlanets, cugl::Size bounds) {
+void GameUpdateManager::processGameUpdate(std::shared_ptr<StardustQueue> stardustQueue, std::shared_ptr<PlanetModel> planet, std::vector<std::shared_ptr<OpponentPlanet>> &opponentPlanets, cugl::Size bounds) {
     if (_game_updates_to_process.empty() || getPlayerId() < 0) {
         return;
     }
@@ -129,22 +130,39 @@ void GameUpdateManager::processGameUpdate(std::shared_ptr<StardustQueue> stardus
         std::shared_ptr<GameUpdate> gameUpdate = _game_updates_to_process[ii];
         if (gameUpdate == nullptr) break;
         std::map<int, std::vector<std::shared_ptr<StardustModel>>> stardustSent = gameUpdate->getStardustSent();
-        StardustModel::Location opponentLocation = NetworkUtils::getStardustLocation(getPlayerId(), gameUpdate->getPlayerId());
+        CILocation::Value opponentLocation = NetworkUtils::getStardustLocation(getPlayerId(), gameUpdate->getPlayerId());
         if (stardustSent.count(getPlayerId()) > 0) {
             std::vector<std::shared_ptr<StardustModel>> stardustVector = stardustSent[getPlayerId()];
             for (size_t jj = 0; jj < stardustVector.size(); jj++) {
                 std::shared_ptr<StardustModel> stardust = stardustVector[jj];
                 
+                // a powerup has been applied by another player
+                if (stardust->getStardustType() != StardustModel::Type::NORMAL) {
+                    stardustQueue->addToPowerupQueue(stardust.get());
+                    break;
+                }
+                
+                // this player hit another player with a stardust
                 if (stardust->getColor() == CIColor::getNoneColor()) {
                     CIColor::Value c = planet->getColor() == CIColor::getNoneColor() ? CIColor::getRandomColor() : planet->getColor();
-                    stardustQueue->addStardust(c, bounds);
-                    CULog("Hit another player with stardust!");
-                    break;
+                    if (rand() % 10 == 0) {
+                        // meteor shower
+                        stardustQueue->addStardust(c, bounds, StardustModel::Type::METEOR);
+                        CULog("Received Meteor Powerup!");
+                        break;
+                    } else {
+                        // add 3 stardust, one is guaranteed to be a helpful color, other 2 are random
+                        stardustQueue->addStardust(c, bounds);
+                        stardustQueue->addStardust(CIColor::getRandomColor(), bounds);
+                        stardustQueue->addStardust(CIColor::getRandomColor(), bounds);
+                        CULog("Return Blast");
+                        break;
+                    }
                 }
                 
                 CULog("New stardust from player %i", gameUpdate->getPlayerId());
                 // adjust stardust position and velocity based on location of player who sent stardust
-                if (opponentLocation == StardustModel::Location::TOP_LEFT) {
+                if (opponentLocation == CILocation::Value::TOP_LEFT) {
                     cugl::Vec2 vel = stardust->getVelocity();
                     if (vel.x < 0) {
                         vel.x = -vel.x;
@@ -157,7 +175,7 @@ void GameUpdateManager::processGameUpdate(std::shared_ptr<StardustQueue> stardus
                     int posX = 0 - 20 + (rand() % 20 - 10);
                     int posY = bounds.height + 20 + (rand() % 20 - 10);
                     stardust->setPosition(cugl::Vec2(posX, posY));
-                } else if (opponentLocation == StardustModel::Location::TOP_RIGHT) {
+                } else if (opponentLocation == CILocation::Value::TOP_RIGHT) {
                     cugl::Vec2 vel = stardust->getVelocity();
                     if (vel.x > 0) {
                         vel.x = -vel.x;
@@ -170,7 +188,7 @@ void GameUpdateManager::processGameUpdate(std::shared_ptr<StardustQueue> stardus
                     int posX = bounds.width + 20 + (rand() % 20 - 10);
                     int posY = bounds.height + 20 + (rand() % 20 - 10);
                     stardust->setPosition(cugl::Vec2(posX, posY));
-                } else if (opponentLocation == StardustModel::Location::BOTTOM_LEFT) {
+                } else if (opponentLocation == CILocation::Value::BOTTOM_LEFT) {
                     cugl::Vec2 vel = stardust->getVelocity();
                     if (vel.x < 0) {
                         vel.x = -vel.x;
@@ -183,7 +201,7 @@ void GameUpdateManager::processGameUpdate(std::shared_ptr<StardustQueue> stardus
                     int posX = 0 - 20 + (rand() % 20 - 10);
                     int posY = 0 - 20 + (rand() % 20 - 10);
                     stardust->setPosition(cugl::Vec2(posX, posY));
-                } else if (opponentLocation == StardustModel::Location::BOTTOM_RIGHT) {
+                } else if (opponentLocation == CILocation::Value::BOTTOM_RIGHT) {
                     cugl::Vec2 vel = stardust->getVelocity();
                     if (vel.x > 0) {
                         vel.x = -vel.x;
@@ -210,12 +228,11 @@ void GameUpdateManager::processGameUpdate(std::shared_ptr<StardustQueue> stardus
         
         int playerId = gameUpdate->getPlayerId();
         if (opponentPlanets[playerId] == nullptr) {
-            opponentPlanets[playerId] = planet;
-        } else {
-            opponentPlanets[playerId]->setMass(planet->getMass());
-            opponentPlanets[playerId]->setColor(planet->getColor());
+            cugl::Vec2 pos = CILocation::getPositionOfLocation(planet->getLocation(), bounds);
+            opponentPlanets[playerId] = OpponentPlanet::alloc(pos.x, pos.y, planet->getColor(), planet->getLocation());
         }
-        
+        opponentPlanets[playerId]->setColor(planet->getColor());
+        opponentPlanets[playerId]->setMass(planet->getMass());
     }
     
     _game_updates_to_process.clear();
