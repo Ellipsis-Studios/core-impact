@@ -107,7 +107,7 @@ public:
                     setScale(_coreScale);
                 }
                 node->innerRing->setScale(_layerScale/_coreScale);
-                node->outerRing->setScale(_layerScale/_coreScale);
+                node->outerRing->setScale(_layerScale/(1.2*_coreScale));
                 break;
             }
         }
