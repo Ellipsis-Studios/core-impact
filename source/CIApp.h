@@ -28,11 +28,7 @@ protected:
     std::shared_ptr<cugl::AssetManager> _assets;
     /** The JSON to hold game state */
     std::shared_ptr<cugl::JsonValue> _json;
-    /** The reader to read JSON files */
-    std::shared_ptr<cugl::JsonReader> _jsonReader;
-    /** The writer to write JSON files */
-    std::shared_ptr<cugl::JsonWriter> _jsonWriter;
-
+    
     // SHARED MANAGER
     std::shared_ptr<NetworkMessageManager> _networkMessageManager;
 

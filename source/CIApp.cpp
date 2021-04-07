@@ -37,11 +37,7 @@ void CoreImpactApp::onStartup() {
     _batch  = SpriteBatch::alloc();
     cam = OrthographicCamera::alloc(getDisplaySize());
     _json = JsonValue::allocObject();
-    _jsonReader = JsonReader::alloc(Application::getSaveDirectory().append("save.json"));
-    _jsonWriter = JsonWriter::alloc(Application::getSaveDirectory().append("save.json"));
     CULog("%s", Application::getSaveDirectory().append("save.json").c_str());
-    //_json->appendValue("test1", "test2");
-    //_jsonWriter->writeJson(_json);
     
     // Start-up basic input
 #ifdef CU_MOBILE
@@ -123,6 +119,7 @@ void CoreImpactApp::onLowMemory() {
  */
 void CoreImpactApp::onSuspend() {
     if (_networkMessageManager) {
+        std::shared_ptr<cugl::JsonWriter> _jsonWriter = JsonWriter::alloc(Application::getSaveDirectory().append("save.json"));
         int playerId = _networkMessageManager->getPlayerId();
         _json->appendValue("timestamp", std::to_string(_networkMessageManager->getTimestamp()));
         _json->appendValue("playerId", std::to_string(playerId));
@@ -191,6 +188,9 @@ void CoreImpactApp::onSuspend() {
         //CULog("DIR size: %u", Application::getSaveDirectory().size());
         // _jsonWriter = JsonWriter::alloc(Application::getSaveDirectory().append("save.json"));
         _jsonWriter->writeJson(_json);
+        _gameplay.dispose();
+//        _gameplay.removeChildByName("planet");
+//        _gameplay.removeChildByName("stardustQueue");
         CULog("Finished saving!");
     }
 }
@@ -206,6 +206,11 @@ void CoreImpactApp::onSuspend() {
  * paused before app suspension.
  */
 void CoreImpactApp::onResume() {
+    CULog(_networkMessageManager == nullptr ? "true" : "false");
+    _loaded = true;
+    _gameplay.setActive(true);
+//    _gameplay.init(_assets, _networkMessageManager, _loading._joinGame.empty(), _loading._joinGame);
+    std::shared_ptr<cugl::JsonReader> _jsonReader = JsonReader::alloc(Application::getSaveDirectory().append("save.json"));
     //_jsonReader = JsonReader::alloc(Application::getSaveDirectory().append("save.json"));
     _json = _jsonReader->readJson();
     CULog("JSON retrieved: %s", _json->toString().c_str());
@@ -221,7 +226,7 @@ void CoreImpactApp::onResume() {
         // recreate the planet model
         Size dimen = Application::get()->getDisplaySize();
         dimen *= SCENE_WIDTH / dimen.width; // Lock the game to a reasonable resolution
-        std::shared_ptr<cugl::JsonValue> layersJson = _json->get("layers");
+        std::shared_ptr<cugl::JsonValue> layersJson = _json->get("planet")->get("layers");
         std::shared_ptr<PlanetModel> planet = PlanetModel::alloc(dimen.width / 2, dimen.height / 2, static_cast<CIColor::Value>(layersJson->get(layersJson->size()-1)->getInt("color")), layersJson->size());
         auto coreTexture = _assets->get<Texture>("core");
         auto ringTexture = _assets->get<Texture>("innerRing");
@@ -253,7 +258,7 @@ void CoreImpactApp::onResume() {
         std::shared_ptr<StardustQueue> stardustContainer = StardustQueue::alloc(stardustsJson->size(), _assets->get<Texture>("photon"));
         std::shared_ptr<cugl::JsonValue> stardustJson;
         std::shared_ptr<StardustModel> stardust;
-        for (size_t jj = 0; jj < stardustJson->size(); jj++) {
+        for (size_t jj = 0; jj < stardustsJson->size(); jj++) {
             stardustJson = stardustsJson->get(jj);
             Vec2 pos = Vec2(stardustJson->getFloat("xPos"), stardustJson->getFloat("yPos"));
             Vec2 vel = Vec2(stardustJson->getFloat("xVel"), stardustJson->getFloat("yVel"));
@@ -272,9 +277,11 @@ void CoreImpactApp::onResume() {
             opponent_planets[kk] = opponent_planet;
         }
 
-        _gameplay.addChild(planet->getPlanetNode());
-        _gameplay.addChild(stardustContainer->getStardustNode());
-        _gameplay.setOpponentPlanets(opponent_planets);
+//        _gameplay.addChildWithName(planet->getPlanetNode(), "planet");
+//        _gameplay.addChildWithName(stardustContainer->getStardustNode(), "stardustQueue");
+//        _gameplay.setOpponentPlanets(opponent_planets);
+        
+        _json = JsonValue::allocObject();
     }
 }
 
