@@ -51,6 +51,194 @@
     "togglebutton": "widgets/togglebutton.json"
   },
   "scene2s": {
+    "menu": {
+      "type": "Solid",
+      "format": {
+        "type": "Anchored"
+      },
+      "data": {
+        "color": [11, 0, 1, 255]
+      },
+      "children": {
+        "nebula": {
+          "type": "Image",
+          "format": {
+            "type": "Anchored",
+            "visible": true
+          },
+          "data": {
+            "texture": "nebula",
+            "anchor": [0.5, 1],
+            "scale": 0.75
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "top"
+          }
+        },
+        "title": {
+          "type": "Image",
+          "format": {
+            "type": "Anchored"
+          },
+          "data": {
+            "texture": "title",
+            "anchor": [0.5, 0.5],
+            "scale": 0.5,
+            "visible": true
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "y_offset": 120,
+            "absolute": true
+          },
+          "children": {
+            "stardust": {
+              "type": "Image",
+              "data": {
+                "texture": "stardust",
+                "anchor": [0.5, 0.2],
+                "scale": 1,
+                "visible": true
+              },
+              "layout": {
+                "x_anchor": "center",
+                "y_anchor": "middle",
+                "x_offset": -60,
+                "y_offset": 50,
+                "absolute": true
+              }
+            }
+          }
+        },
+        "world": {
+          "type": "Image",
+          "format": {
+            "type": "Anchored"
+          },
+          "data": {
+            "texture": "world",
+            "anchor": [0.5, 0.5],
+            "scale": 0.5,
+            "visible": true
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "bottom",
+            "y_offset": 5,
+            "absolute": true
+          }
+        },
+        "teamlogo": {
+          "comment": "The scene graph for team logo in bottom right corner.",
+          "type": "Image",
+          "format": {
+            "type": "Anchored"
+          },
+          "data": {
+            "texture": "teamlogo",
+            "anchor": [0.5, 0.5],
+            "scale": 0.1,
+            "visible": true
+          },
+          "layout": {
+            "x_anchor": "right",
+            "y_anchor": "bottom",
+            "x_offset": -0.1,
+            "y_offset": 0.05
+          }
+        },
+        "menubackbutton": {
+          "comment": "The back button to return to main menu.",
+          "type": "Widget",
+          "data": {
+            "key": "backbutton"
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": 0.05,
+            "y_offset": 0.38
+          }
+        }
+      }
+    },
+    "mainmenu": {
+      "comment": "Main menu screen",
+      "type": "Solid",
+      "format": {
+        "type": "Anchored"
+      },
+      "data": {
+        "color": [0, 0, 0, 0]
+      },
+      "children": {
+        "joinbutton": {
+          "comment": "The join game button in main menu.",
+          "type": "Widget",
+          "data": {
+            "key": "menubutton",
+            "variables": {
+              "text": "Join Game",
+              "text2": "Join Game"
+            }
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": 0.2,
+            "y_offset": 0.25
+          }
+        },
+        "settingsbutton": {
+          "comment": "The settings button with 3 dots in a circle.",
+          "type": "Widget",
+          "data": {
+            "key": "settingsbutton"
+          },
+          "layout": {
+            "x_anchor": "right",
+            "y_anchor": "top",
+            "x_offset": -0.1,
+            "y_offset": -0.1
+          }
+        },
+        "newbutton": {
+          "comment": "The new game button in main menu.",
+          "type": "Widget",
+          "data": {
+            "key": "menubutton",
+            "variables": {
+              "text": "New Game",
+              "text2": "New Game"
+            }
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": 0.2
+          }
+        },
+        "tutorialbutton": {
+          "comment": "The 'How to Play' button in main menu.",
+          "type": "Widget",
+          "data": {
+            "key": "menubutton",
+            "variables": {
+              "text": "How to Play",
+              "text2": "How to Play"
+            }
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": 0.2,
+            "y_offset": -0.25
+          }
+        }
+      }
+    },
     "lobby": {
       "comment": "Game Lobby menu screen",
       "type": "Solid",
@@ -445,183 +633,6 @@
             "y_anchor": "middle",
             "x_offset": 0.25,
             "y_offset": 0.3
-          }
-        }
-      }
-    },
-    "menu": {
-      "type": "Solid",
-      "format": {
-        "type": "Anchored"
-      },
-      "data": {
-        "color": [11, 0, 1, 255]
-      },
-      "children": {
-        "nebula": {
-          "type": "Image",
-          "format": {
-            "type": "Anchored",
-            "visible": true
-          },
-          "data": {
-            "texture": "nebula",
-            "anchor": [0.5, 1],
-            "scale": 0.75
-          },
-          "layout": {
-            "x_anchor": "center",
-            "y_anchor": "top"
-          }
-        },
-        "title": {
-          "type": "Image",
-          "format": {
-            "type": "Anchored"
-          },
-          "data": {
-            "texture": "title",
-            "anchor": [0.5, 0.5],
-            "scale": 0.5,
-            "visible": true
-          },
-          "layout": {
-            "x_anchor": "center",
-            "y_anchor": "middle",
-            "y_offset": 120,
-            "absolute": true
-          },
-          "children": {
-            "stardust": {
-              "type": "Image",
-              "data": {
-                "texture": "stardust",
-                "anchor": [0.5, 0.2],
-                "scale": 1,
-                "visible": true
-              },
-              "layout": {
-                "x_anchor": "center",
-                "y_anchor": "middle",
-                "x_offset": -60,
-                "y_offset": 50,
-                "absolute": true
-              }
-            }
-          }
-        },
-        "world": {
-          "type": "Image",
-          "format": {
-            "type": "Anchored"
-          },
-          "data": {
-            "texture": "world",
-            "anchor": [0.5, 0.5],
-            "scale": 0.5,
-            "visible": true
-          },
-          "layout": {
-            "x_anchor": "center",
-            "y_anchor": "bottom",
-            "y_offset": 5,
-            "absolute": true
-          }
-        },
-        "teamlogo": {
-          "comment": "The scene graph for team logo in bottom right corner.",
-          "type": "Image",
-          "format": {
-            "type": "Anchored"
-          },
-          "data": {
-            "texture": "teamlogo",
-            "anchor": [0.5, 0.5],
-            "scale": 0.1,
-            "visible": true
-          },
-          "layout": {
-            "x_anchor": "right",
-            "y_anchor": "bottom",
-            "x_offset": -0.1,
-            "y_offset": 0.05
-          }
-        },
-
-        "joinbutton": {
-          "comment": "The join game button in main menu.",
-          "type": "Widget",
-          "data": {
-            "key": "menubutton",
-            "variables": {
-              "text": "Join Game",
-              "text2": "Join Game"
-            }
-          },
-          "layout": {
-            "x_anchor": "center",
-            "y_anchor": "middle",
-            "x_offset": 0.2,
-            "y_offset": 0.25
-          }
-        },
-        "settingsbutton": {
-          "comment": "The settings button with 3 dots in a circle.",
-          "type": "Widget",
-          "data": {
-            "key": "settingsbutton"
-          },
-          "layout": {
-            "x_anchor": "right",
-            "y_anchor": "top",
-            "x_offset": -0.1,
-            "y_offset": -0.1
-          }
-        },
-        "newbutton": {
-          "comment": "The new game button in main menu.",
-          "type": "Widget",
-          "data": {
-            "key": "menubutton",
-            "variables": {
-              "text": "New Game",
-              "text2": "New Game"
-            }
-          },
-          "layout": {
-            "x_anchor": "center",
-            "y_anchor": "middle",
-            "x_offset": 0.2
-          }
-        },
-        "tutorialbutton": {
-          "comment": "The 'How to Play' button in main menu.",
-          "type": "Widget",
-          "data": {
-            "key": "menubutton",
-            "variables": {
-              "text": "How to Play",
-              "text2": "How to Play"
-            }
-          },
-          "layout": {
-            "x_anchor": "center",
-            "y_anchor": "middle",
-            "x_offset": 0.2,
-            "y_offset": -0.25
-          }
-        },
-        "menubackbutton": {
-          "comment": "The back button to return to main menu.",
-          "type": "Widget",
-          "data": {
-            "key": "backbutton"
-          },
-          "layout": {
-            "x_anchor": "center",
-            "y_anchor": "middle",
-            "x_offset": 0.05,
-            "y_offset": 0.38
           }
         }
       }

@@ -12,6 +12,12 @@ using namespace cugl;
 
 #define SCENE_SIZE  1024
 
+#pragma mark -
+#pragma mark Constructors
+
+/**
+ * Disposes of all (non-static) resources allocated to this menu.
+ */
 void SettingsMenu::dispose() {
     if (_pnameInput != nullptr && _pnameInput->isActive()) {
         _pnameInput->deactivate();
@@ -19,7 +25,6 @@ void SettingsMenu::dispose() {
         _volumeSlider->deactivate();
         _parallaxBtn->deactivate();
     }
-    
     _settingsTitle = nullptr;
     _pnameLabel = nullptr;
     _musicLabel = nullptr;
@@ -32,10 +37,16 @@ void SettingsMenu::dispose() {
     _parallaxBtn = nullptr;
     
     _layer = nullptr;
-
-    _assets = nullptr;
+    _nextState = MenuState::Setting;
 }
 
+/**
+ * Initializes a new settings menu with the state pointer.
+ *
+ * @param assets        The (loaded) assets for this settings menu
+ *
+ * @return true if initialization was successful, false otherwise
+ */
 bool SettingsMenu::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     // Initialize the scene to a locked width
     Size dimen = Application::get()->getDisplaySize();
@@ -45,7 +56,6 @@ bool SettingsMenu::init(const std::shared_ptr<cugl::AssetManager>& assets) {
         return false;
     }
 
-    _assets = assets;
     _layer = assets->get<scene2::SceneNode>("settings");
     _layer->setContentSize(dimen);
     _layer->doLayout();
@@ -56,51 +66,48 @@ bool SettingsMenu::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     _volumeLabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("settings_volumelabel"));
     _parallaxLabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("settings_parallaxlabel"));
     
-    _pnameInput = std::dynamic_pointer_cast<scene2::TextField>(assets->get<scene2::SceneNode>("settings_nameinput"));
+    // Music toggle button
     _musicBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("settings_musicinput"));
-    _volumeSlider = std::dynamic_pointer_cast<scene2::Slider>(assets->get<scene2::SceneNode>("settings_volumeinput"));
+    _musicBtn->setToggle(true);
+
+    // Parallax toggle button
     _parallaxBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("settings_parallaxinput"));
-    _playerName = _pnameInput->getText();
-    _volume = _volumeSlider->getValue();
-    /** Volume slider listeners */
-    _volumeSlider->addListener([=](const std::string& name, float value) {
-        if (value != _volume) {
-            // TODO: Update global game volume
-            _volume = value;
-        }
-        });
-    /** Player name input listeners */
-    _pnameInput->addTypeListener([=](const std::string& name, const std::string& value) {
-        // Handle size limit on settings name textfield
+    _parallaxBtn->setToggle(true);
+
+    // Player name input
+    _pnameInput = std::dynamic_pointer_cast<scene2::TextField>(assets->get<scene2::SceneNode>("settings_nameinput"));
+    _pnameInput->addTypeListener([&](const std::string& name, const std::string& value) {
+        // Handle size limit
         if (value.length() > 12) {
             _pnameInput->setText(value.substr(0, 12));
         }
         });
-    _pnameInput->addExitListener([=](const std::string& name, const std::string& value) {
-        // Set player name input
-        _playerName = value;
-        CULog("Player Name set to %s", value.c_str());
-        });
-    /** Set both toggle buttons. */
-    _musicBtn->setToggle(true);
-    _parallaxBtn->setToggle(true);
-    
+
+    // Volume slider 
+    _volumeSlider = std::dynamic_pointer_cast<scene2::Slider>(assets->get<scene2::SceneNode>("settings_volumeinput"));
+
+    _nextState = MenuState::Setting;
     return true;
 }
 
+#pragma mark -
+#pragma mark Menu Monitoring
+/**
+ * Sets whether the settings menu is currently active and visible.
+ *
+ * @param value     Whether the settings menu is currently active and visible
+ */
 void SettingsMenu::setDisplay(bool value) {
     if (_layer != nullptr) {
         _settingsTitle->setVisible(value);
         _pnameLabel->setVisible(value);
-        _musicLabel->setVisible(value);
-        _volumeLabel->setVisible(value);
-        _parallaxLabel->setVisible(value);
-        
         _pnameInput->setVisible(value);
+        _musicLabel->setVisible(value);
         _musicBtn->setVisible(value);
+        _volumeLabel->setVisible(value);
         _volumeSlider->setVisible(value);
+        _parallaxLabel->setVisible(value);
         _parallaxBtn->setVisible(value);
-        
         _layer->setVisible(value);
         
         if (value) {
@@ -114,5 +121,46 @@ void SettingsMenu::setDisplay(bool value) {
             _volumeSlider->deactivate();
             _parallaxBtn->deactivate();
         }
+    }
+}
+
+/**
+ * The method called to update this menu.
+ *
+ * The menu screen is only visible during the Setting state. Transition
+ * states into Setting state puts the screen on display. The screen
+ * is taken down once menu state exits Setting.
+ */
+void SettingsMenu::update(MenuState& state, string& playername, float& volume, bool& musicon, bool& parallaxon) {
+    if (_layer == nullptr) {
+        return;
+    }
+    // handle Settings menu
+    switch (state) {
+    case MenuState::MainToSetting:
+        // handle transitioning into Settings 
+        setDisplay(true);
+        _pnameInput->setText(playername);
+        _volumeSlider->setValue(volume);
+        _musicBtn->setDown(!musicon);
+        _parallaxBtn->setDown(!parallaxon);
+
+        state = MenuState::Setting;
+        _nextState = MenuState::Setting;
+        break;
+    case MenuState::Setting:
+        // handle updating asset visuals and transitioning out of Settings
+        playername = _pnameInput->getText();
+        volume = _volumeSlider->getValue();
+        musicon = !_musicBtn->isDown();
+        parallaxon = !_parallaxBtn->isDown();
+        state = _nextState;
+        break;
+    default:
+        // hide menu screen 
+        if (_layer != nullptr && _layer->isVisible()) {
+            setDisplay(false);
+        }
+        break;
     }
 }

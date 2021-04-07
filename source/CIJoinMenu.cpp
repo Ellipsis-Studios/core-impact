@@ -12,6 +12,12 @@ using namespace cugl;
 
 #define SCENE_SIZE  1024
 
+#pragma mark -
+#pragma mark Constructors
+
+/**
+ * Disposes of all (non-static) resources allocated to this menu.
+ */
 void JoinMenu::dispose() {
     if (_roomIdInput != nullptr && _roomIdInput->isActive()) {
         _roomIdInput->deactivate();
@@ -20,9 +26,18 @@ void JoinMenu::dispose() {
     _roomJoinBtn = nullptr;
     _roomIdInput = nullptr;
     _layer = nullptr;
-    _assets = nullptr;
+
+    _nextState = MenuState::JoinRoom;
+    _joinRoomId = "00000";
 }
 
+/**
+ * Initializes a new join game menu with the state pointer.
+ *
+ * @param assets    The (loaded) assets for this join game menu
+ *
+ * @return true if initialization was successful, false otherwise
+ */
 bool JoinMenu::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     // Initialize the scene to a locked width
     Size dimen = Application::get()->getDisplaySize();
@@ -32,39 +47,45 @@ bool JoinMenu::init(const std::shared_ptr<cugl::AssetManager>& assets) {
         return false;
     }
     
-    _assets = assets;
     _layer = assets->get<scene2::SceneNode>("join");
     _layer->setContentSize(dimen);
     _layer->doLayout();
     
+    // Room id Input 
     _roomIdInput = std::dynamic_pointer_cast<scene2::TextField>(assets->get<scene2::SceneNode>("join_roomidinput"));
-    _roomJoinBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("join_joingamebutton"));
-    
-    _joinGame = _roomIdInput->getText();
-    _pressedJoin = false;
-    
-    /** Join game room id input listeners */
-    _roomIdInput->addTypeListener([=](const std::string& name, const std::string& value) {
-        // Handle room id textfield with size limit
+    _roomIdInput->addTypeListener([&](const std::string& name, const std::string& value) {
+        // Handle room id size limit 
         if (value.length() > 5) {
             _roomIdInput->setText(value.substr(value.length() - 5, 5));
         }
         });
-    _roomIdInput->addExitListener([=](const std::string& name, const std::string& value) {
-        // Set game room id input
-        _joinGame = value;
+    _roomIdInput->addExitListener([&](const std::string& name, const std::string& value) {
+        // Set game room id value
+        _joinRoomId = value;
         CULog("Room id set to %s", value.c_str());
         });
-    
-    _roomJoinBtn->addListener([=](const std::string& name, bool down) {
+
+    // Join game button 
+    _roomJoinBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("join_joingamebutton"));
+    _roomJoinBtn->addListener([&](const std::string& name, bool down) {
         if (!down) {
-            _pressedJoin = true;
+            _nextState = MenuState::JoinToLobby;
         }
-    });
-    
+        });
+
+    // TODO: Implement RoomIdInput with 5 digits with focus switching 
+
+    _nextState = MenuState::JoinRoom;
     return true;
 }
 
+#pragma mark -
+#pragma mark Menu Monitoring
+/**
+ * Sets whether the join game menu is currently active and visible.
+ *
+ * @param value     Whether the join game menu is currently active and visible
+ */
 void JoinMenu::setDisplay(bool value) {
     if (_layer != nullptr) {
         _roomJoinBtn->setVisible(value);
@@ -78,5 +99,41 @@ void JoinMenu::setDisplay(bool value) {
             _roomJoinBtn->deactivate();
             _roomIdInput->deactivate();
         }
+    }
+}
+
+/**
+ * The method called to update this menu.
+ *
+ * The menu screen is only visible during the JoinRoom state. The
+ * screen is put on display on states transitioning into JoinRoom.
+ * Screen is taken down once menu state exits JoinRoom.
+ */
+void JoinMenu::update(MenuState& state, string& joingame) {
+    if (_layer == nullptr) {
+        return;
+    }
+    // handle JoinRoom menu
+    switch (state) {
+    case MenuState::MainToJoin:
+        // handle transitioning into JoinRoom
+        setDisplay(true);
+        joingame = "00000";
+        _joinRoomId = "00000";
+        _roomIdInput->setText(_joinRoomId);
+        state = MenuState::JoinRoom;
+        _nextState = MenuState::JoinRoom;
+        break;
+    case MenuState::JoinRoom:
+        // handle roomid input and transition out of JoinRoom
+        joingame = _joinRoomId;
+        state = _nextState;
+        break;
+    default:
+        // hide menu screen 
+        if (_layer != nullptr && _layer->isVisible()) {
+            setDisplay(false);
+        }
+        break;
     }
 }

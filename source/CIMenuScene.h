@@ -9,12 +9,13 @@
 #ifndef __CI_MENU_SCENE_H__
 #define __CI_MENU_SCENE_H__
 #include <cugl/cugl.h>
-#include "CIMenuStatus.h"
-#include "CITutorialMenu.h"
+
+#include  "CIMenuState.h"
+#include "CIMainMenu.h"
 #include "CISettingsMenu.h"
 #include "CIJoinMenu.h"
 #include "CILobbyMenu.h"
-
+#include "CITutorialMenu.h"
 
 /**
  * This class is the menu screens before the actual game play. 
@@ -33,8 +34,6 @@ protected:
     /** The asset manager for menu screens. */
     std::shared_ptr<cugl::AssetManager> _assets;
 
-    // NO CONTROLLER 
-
     // VIEW 
     /** The team logo */
     std::shared_ptr<cugl::scene2::SceneNode> _teamLogo;
@@ -43,63 +42,34 @@ protected:
     /** Background game planet */
     std::shared_ptr<cugl::scene2::SceneNode> _gamePlanet;
 
-    // MAIN MENU 
-    /** Button to switch to Settings screen */
-    std::shared_ptr<cugl::scene2::Button> _settingsBtn;
-    /** Button to switch to Join Game screen */
-    std::shared_ptr<cugl::scene2::Button> _joinBtn;
-    /** Button to create a new game/room as host (Game Lobby) */
-    std::shared_ptr<cugl::scene2::Button> _newBtn;
-    /** Button to switch to Tutorial screen */
-    std::shared_ptr<cugl::scene2::Button> _tutorialBtn;
-
     /** Back button to return to main menu */
     std::shared_ptr<cugl::scene2::Button> _backBtn;
 
-    // GAME LOBBY
-    std::shared_ptr<LobbyMenu> _lobby;
-
-    // TUTORIAL 
-    std::shared_ptr<TutorialMenu> _tutorial;
-    
-    // SETTINGS
+    // References to menu screens 
+    std::shared_ptr<MainMenu> _mainmenu;
     std::shared_ptr<SettingsMenu> _settings;
-    
-    // JOIN GAME
     std::shared_ptr<JoinMenu> _join;
-    
-    // MODEL
-    /** Whether menu has been initialized previously */
-    bool _isLoaded;
+    std::shared_ptr<LobbyMenu> _lobby;
+    std::shared_ptr<TutorialMenu> _tutorial;
 
-    MenuStatus _status;
+    // Preserved over game reset
+    /** Value for the player name */
+    string _playerName;
+    /** Value for the game audio volume */
+    float _volume;
+    /** Whether game music is turned on/off */
+    bool _musicOn;
+    /** Whether game parallax effect is turned on/off */
+    bool _parallaxOn;
 
-private:
-#pragma mark -
-#pragma mark Helpers
+    // Preserved until reset
+    /** Stores the game code for joining as client*/
+    string _joinGame;
+    /** Value for other players' names */
+    vector<string> _otherNames;
 
-    /**
-     * Helper to set up/take down menu sub-scenes assets.
-     *
-     * @param value           Whether to set up/take down
-     * @param t, ...args        List of shared pointer to input assets
-     */
-    template <typename T>
-    const void _menuSceneInputHelper(bool value, const std::shared_ptr<T>& t) {
-        t->setVisible(value);
-        if (value) {
-            t->activate();
-        }
-        else {
-            t->deactivate();
-        }
-    }
-
-    template<typename T, typename... Args>
-    const void _menuSceneInputHelper(bool value, const std::shared_ptr<T>& t, Args... args) {
-        _menuSceneInputHelper(value, t);
-        _menuSceneInputHelper(value, args...);
-    }
+    // Menu scene state value
+    MenuState _state;
 
 public:
 #pragma mark -
@@ -110,7 +80,7 @@ public:
      * This constructor does not allocate any objects or start the game.
      * This allows us to use the object without a heap pointer.
      */
-    MenuScene() : cugl::Scene2(), _isLoaded(false), _status(MenuStatus::MainMenu) {}
+    MenuScene() : cugl::Scene2(), _volume(0.0f), _musicOn(true), _parallaxOn(true) {}
 
     /**
     * Disposes of all (non-static) resources allocated to this mode.
@@ -138,6 +108,24 @@ public:
      */
     bool init(const std::shared_ptr<cugl::AssetManager>& assets);
 
+    /**
+     * Initializes the controller contents, making it ready for loading
+     *
+     * The constructor does not allocate any objects or memory.  This allows
+     * us to have a non-pointer reference to this controller, reducing our
+     * memory allocation.  Instead, allocation happens in this method.
+     *
+     * @param assets        The (loaded) assets for this game mode
+     * @param playerName    The player name value
+     * @param volume        The game volume setting value
+     * @param musicOn       The musicOn setting value
+     * @param parallaxOn    The parallax effect setting value
+     *
+     * @return true if the controller is initialized properly, false otherwise.
+     */
+    bool init(const std::shared_ptr<cugl::AssetManager>& assets,
+        string playerName, float volume, bool musicOn, bool parallaxOn);
+
 #pragma mark -
 #pragma mark Menu Monitoring
     /**
@@ -150,22 +138,50 @@ public:
     void update(float timestep);
 
     /**
-     * Returns true if loading is complete, but game has not launched yet
-     *
-     * @return true if loading is complete, but game has not launched yet
-     */
-    bool isPending() const;
-
-    /**
      * Returns the room id value of game to join.
      *
      * @return string room id value of game to join.
      */
-    string getJoinGameId() {
-        if (_join == nullptr) {
-            return "";
-        }
-        return _join->getRoomId();
+    string getJoinGameId() const {
+        return _joinGame;
+    }
+
+    /**
+     * Returns the player name set in settings
+     *
+     * @return string player name set in settings
+     */
+    string getPlayerName() const {
+        return _playerName;
+    }
+
+    /**
+     * Returns the volume set in settings
+     *
+     * @return float volume value set in settings
+     */
+    float getVolume() const {
+        return _volume;
+    }
+
+    /**
+     * Returns the music toggle value set in settings.
+     * Whether music is on/off.
+     *
+     * @return bool music toggle value set in settings
+     */
+    bool isMusicOn() const {
+        return _musicOn;
+    }
+
+    /**
+     * Returns the parallax toggle value set in settings.
+     * Whether parallax effect is on/off.
+     *
+     * @return bool parallax toggle value set in settings
+     */
+    bool isParallaxOn() const {
+        return _parallaxOn;
     }
 };
 

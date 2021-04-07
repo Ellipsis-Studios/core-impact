@@ -23,11 +23,16 @@ using namespace cugl;
  * us to have a non-pointer reference to this controller, reducing our
  * memory allocation.  Instead, allocation happens in this method.
  *
- * @param assets    The (loaded) assets for this game mode
+ * @param assets        The (loaded) assets for this game mode
+ * @param playerName    The player name value
+ * @param volume        The game volume setting value
+ * @param musicOn       The musicOn setting value
+ * @param parallaxOn    The parallax effect setting value
  *
  * @return true if the controller is initialized properly, false otherwise.
  */
-bool MenuScene::init(const std::shared_ptr<AssetManager>& assets) {
+bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
+    string playerName, float volume, bool musicOn, bool parallaxOn) {
     // Initialize the scene to a locked width
     Size dimen = Application::get()->getDisplaySize();
     // Lock the scene to a reasonable resolution
@@ -38,11 +43,10 @@ bool MenuScene::init(const std::shared_ptr<AssetManager>& assets) {
         return false;
     }
 
-    // IMMEDIATELY load the splash screen assets
     _assets = assets;
     auto layer = assets->get<scene2::SceneNode>("menu");
     layer->setContentSize(dimen);
-    layer->doLayout(); // This rearranges the children to fit the screen
+    layer->doLayout();
 
     _teamLogo = assets->get<scene2::SceneNode>("menu_teamLogo");
     _gameTitle = assets->get<scene2::SceneNode>("menu_title");
@@ -51,61 +55,75 @@ bool MenuScene::init(const std::shared_ptr<AssetManager>& assets) {
     _gameTitle->setPositionX(rend);
     _gamePlanet->setPositionX(rend);
 
-    /** Main Menu buttons */
-    _settingsBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_settingsbutton"));
-    _joinBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_joinbutton"));
-    _newBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_newbutton"));
-    _tutorialBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_tutorialbutton"));
-
-    /** Back button */
+    /** Back button to return to main menu */
     _backBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_menubackbutton"));
-
-    // TODO: integrate network manager to game lobby
-    
-    /**
-     * Returns button listener to trigger scene switch.
-     *
-     * @param ms    MenuStatus to switch to on button click
-     */
-    auto mbuttonListener = [=](MenuStatus ms) {
-        return  [=](const std::string& name, bool down) { if (!down) _status = ms; };
-    };
-    
-
-    /** Add button listeners for triggering menu scene switching. */
-    _joinBtn->addListener(mbuttonListener(MenuStatus::MainToJoin));
-    _settingsBtn->addListener(mbuttonListener(MenuStatus::MainToSetting));
-    _newBtn->addListener(mbuttonListener(MenuStatus::MainToLobby));
-    _tutorialBtn->addListener(mbuttonListener(MenuStatus::MainToTutorial));
-
-    /** Back button to trigger return to main menu */
     _backBtn->addListener([=](const std::string& name, bool down) {
         if (!down) {
-            switch (_status) {
-            case MenuStatus::Setting:
-                _status = MenuStatus::SettingToMain;
+            switch (_state) {
+            case MenuState::Setting:
+                _state = MenuState::SettingToMain;
                 break;
-            case MenuStatus::JoinRoom:
-                _status = MenuStatus::JoinToMain;
+            case MenuState::JoinRoom:
+                _state = MenuState::JoinToMain;
                 break;
-            case MenuStatus::GameLobby:
-                _status = MenuStatus::LobbyToMain;
+            case MenuState::GameLobby:
+                _state = MenuState::LobbyToMain;
                 break;
-            case MenuStatus::Tutorial:
-                _status = MenuStatus::TutorialToMain;
+            case MenuState::Tutorial:
+                _state = MenuState::TutorialToMain;
                 break;
             default:
                 break;
             }
         }
         });
-        
-    /** Handle non-button input listeners */
-    
-    _status = MenuStatus::MainMenu;
+
+    // TODO: integrate network manager to game lobby
+
+    _playerName = playerName;
+    _volume = volume;
+    _musicOn = musicOn;
+    _parallaxOn = parallaxOn;
+
+    _otherNames = vector<string>{ "N/A", "N/A", "N/A", "N/A" };
+    _joinGame = "";
+
+    _state = MenuState::LoadToMain;
+
     Application::get()->setClearColor(Color4(192, 192, 192, 255));
     addChildWithName(layer, "menuScene");
+
+    _mainmenu = MainMenu::alloc(_assets);
+    _mainmenu->setDisplay(false);
+
+    _tutorial = TutorialMenu::alloc(_assets);
+    _tutorial->setDisplay(false);
+
+    _settings = SettingsMenu::alloc(_assets);
+    _settings->setDisplay(false);
+
+    _join = JoinMenu::alloc(_assets);
+    _join->setDisplay(false);
+
+    _lobby = LobbyMenu::alloc(_assets);
+    _lobby->setDisplay(false);
+
+    addChild(_mainmenu->getLayer(), 3);
+    addChild(_tutorial->getLayer(), 3);
+    addChild(_settings->getLayer(), 3);
+    addChild(_join->getLayer(), 3);
+    addChild(_lobby->getLayer(), 3);
+
     return true;
+}
+
+/**
+ * The method initializes the menu scene using its current values.
+ *
+ * Meant to be used to re-initialize the menu scene on game reset.
+ */
+bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
+    return init(assets, _playerName, _volume, _musicOn, _parallaxOn);
 }
 
 /**
@@ -113,35 +131,28 @@ bool MenuScene::init(const std::shared_ptr<AssetManager>& assets) {
  */
 void MenuScene::dispose() {
     // Deactivate the button (platform dependent)
-    if (isPending()) {
-        _settingsBtn->deactivate();
-        _joinBtn->deactivate();
-        _newBtn->deactivate();
-        _tutorialBtn->deactivate();
+    if (_backBtn != nullptr && _backBtn->isVisible()) {
         _backBtn->deactivate();
     }
-    _tutorial->setDisplay(false);
+    _mainmenu->setDisplay(false);
     _settings->setDisplay(false);
     _join->setDisplay(false);
     _lobby->setDisplay(false);
+    _tutorial->setDisplay(false);
 
-    _tutorial = nullptr;
+    _mainmenu = nullptr;
     _settings = nullptr;
     _join = nullptr;
     _lobby = nullptr;
+    _tutorial = nullptr;
 
     _teamLogo = nullptr;
     _gameTitle = nullptr;
     _gamePlanet = nullptr;
-    _joinBtn = nullptr;
-    _newBtn = nullptr;
-    _tutorialBtn = nullptr;
-    _settingsBtn = nullptr;
-
     _backBtn = nullptr;
     _assets = nullptr;
 
-    _isLoaded = false;
+    _active = false;
 }
 
 #pragma mark -
@@ -158,123 +169,48 @@ void MenuScene::dispose() {
  * @param timestep  The amount of time (in seconds) since the last frame
  */
 void MenuScene::update(float timestep) {
-    switch (_status) {
-    case MenuStatus::MainMenu:
-        if (isActive() && !_isLoaded) { // only on first call after init
-            _menuSceneInputHelper(true, _tutorialBtn, _settingsBtn, _joinBtn, _newBtn);
-            auto root = getChildByName("menuScene");
+    if (!isActive() || _backBtn == nullptr) {
+        return;
+    }
+    // handle back button
+    switch (_state) {
+    case MenuState::Setting:
+    case MenuState::JoinRoom:
+    case MenuState::GameLobby:
+    case MenuState::Tutorial:
+        // display back button
+        if (!_backBtn->isVisible()) {
+            _backBtn->setVisible(true);
+            _backBtn->activate();
+        }
+        break;
+    default:
+        // hide back button
+        if (_backBtn->isVisible()) {
+            _backBtn->setVisible(false);
+            _backBtn->deactivate();
+        }
+        break;
+    }
 
-            /** Tutorial screen */
-            _tutorial = TutorialMenu::alloc(_assets);
-            _tutorial->setDisplay(false);
-            root->addChild(_tutorial->getLayer());
-            
-            /** Settings screen */
-            _settings = SettingsMenu::alloc(_assets);
-            _settings->setDisplay(false);
-            root->addChild(_settings->getLayer());
-            
-            /** Join Game screen */
-            _join = JoinMenu::alloc(_assets);
-            _join->setDisplay(false);
-            root->addChild(_join->getLayer());
-            
-            /** Game Lobby screen */
-            _lobby = LobbyMenu::alloc(_assets);
-            _lobby->setDisplay(false);
-            root->addChild(_lobby->getLayer());
-
-            _isLoaded = true;
-            Scene2::reset();
-        }
+    // handle menu screens 
+    switch (_state) {
+    case MenuState::LoadToMain:
+        // menu scene start
+        _mainmenu->setDisplay(true);
+        _state = MenuState::MainMenu;
         break;
-    case MenuStatus::MainToSetting:
-        _menuSceneInputHelper(false, _joinBtn, _newBtn, _tutorialBtn, _settingsBtn);
-        _menuSceneInputHelper(true, _backBtn);
-        _settings->setDisplay(true);
-        _status = MenuStatus::Setting;
-        break;
-    case MenuStatus::MainToJoin:
-        _menuSceneInputHelper(false, _joinBtn, _newBtn, _tutorialBtn, _settingsBtn);
-        _menuSceneInputHelper(true, _backBtn);
-        _join->setDisplay(true);
-        _status = MenuStatus::JoinRoom;
-        break;
-    case MenuStatus::MainToLobby:
-        _menuSceneInputHelper(false, _joinBtn, _newBtn, _tutorialBtn, _settingsBtn);
-        _lobby->setDisplay(true);
-        _menuSceneInputHelper(true, _backBtn);
-        _status = MenuStatus::GameLobby;
-        break;
-    case MenuStatus::MainToTutorial:
-        _menuSceneInputHelper(false, _joinBtn, _newBtn, _tutorialBtn, _settingsBtn);
-        _menuSceneInputHelper(true, _backBtn);
-        _tutorial->setDisplay(true);
-        _status = MenuStatus::Tutorial;
-        break;
-    case MenuStatus::Setting:
-        _settings->update(timestep);
-        break;
-    case MenuStatus::JoinRoom:
-        _join->update(timestep);
-        if (_join->getPressedJoin()) {
-            _status = MenuStatus::JoinToLobby;
-            _join->resetPress();
-        }
-        break;
-    case MenuStatus::Tutorial:
-        break;
-    case MenuStatus::GameLobby:
-        _lobby->setPlayerLabel1(_settings->getPlayerName());
-        _lobby->update(timestep);
-        if (_lobby->getPressedStart()) {
-            _status = MenuStatus::LobbyToGame;
-            _lobby->resetPress();
-        }
-        break;
-    case MenuStatus::JoinToLobby:
-        _join->setDisplay(false);
-        _lobby->setDisplay(true);
-        _status = MenuStatus::GameLobby;
-        break;
-    case MenuStatus::SettingToMain:
-        _settings->setDisplay(false);
-        _menuSceneInputHelper(false, _backBtn);
-        
-        _menuSceneInputHelper(true, _joinBtn, _newBtn, _tutorialBtn, _settingsBtn);
-        _status = MenuStatus::MainMenu;
-        break;
-    case MenuStatus::JoinToMain:
-        _join->setDisplay(false);
-        _menuSceneInputHelper(false, _backBtn);
-        _menuSceneInputHelper(true, _joinBtn, _newBtn, _tutorialBtn, _settingsBtn);
-        _status = MenuStatus::MainMenu;
-        break;
-    case MenuStatus::LobbyToMain:
-        _menuSceneInputHelper(false, _backBtn);
-        _lobby->setDisplay(false);
-        _menuSceneInputHelper(true, _joinBtn, _newBtn, _tutorialBtn, _settingsBtn);
-        _status = MenuStatus::MainMenu;
-        break;
-    case MenuStatus::TutorialToMain:
-        _menuSceneInputHelper(false, _backBtn);
-        _tutorial->setDisplay(false);
-        _menuSceneInputHelper(true, _joinBtn, _newBtn, _tutorialBtn, _settingsBtn);
-        _status = MenuStatus::MainMenu;
-        break;
-    case MenuStatus::LobbyToGame:
-        _menuSceneInputHelper(false, _backBtn);
+    case MenuState::LobbyToGame:
+        // menu scene end
         _lobby->setDisplay(false);
         _active = false;
         break;
+    default:
+        _mainmenu->update(_state);
+        _settings->update(_state, _playerName, _volume, _musicOn, _parallaxOn);
+        _join->update(_state, _joinGame);
+        _lobby->update(_state, _joinGame, _playerName, _otherNames);
+        _tutorial->update(_state);
+        break;
     }
-}
-
-/**
- * Returns true if loading is complete, but the player has not pressed play
- *
- * @return true if loading is complete, but the player has not pressed play
- */
-bool MenuScene::isPending() const {
-    return _settingsBtn != nullptr && _settingsBtn->isVisible();
 }

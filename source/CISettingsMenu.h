@@ -10,89 +10,109 @@
 #define __CI_SETTINGS_MENU_H__
 #include <cugl/cugl.h>
 
+#include  "CIMenuState.h"
+
+/**
+ * Model class representing a Settings menu scene.
+ *
+ * The scene contains inputs for player name, volume,
+ * music and parallax effect toggles to edit the gameplay
+ * settings. All these values are not located inside this class
+ * (in parent MenuScene class) while this class only contains
+ * pointers.
+ */
 class SettingsMenu {
 private:
-    /** The asset manager for menu screens. */
-    std::shared_ptr<cugl::AssetManager> _assets;
+    /** Menu state for the upcoming frame */
+    MenuState _nextState;
 
-    // Settings Screen Layer
+    // Asset references
+    /** Reference to the node for the group representing this menu scene */
     std::shared_ptr<cugl::scene2::SceneNode> _layer;
-    /** Label for Settings screen title */
+    /** Reference to the settings page title label */
     std::shared_ptr<cugl::scene2::Label> _settingsTitle;
-    /** Label for player name input */
+    /** Reference to the player name input label */
     std::shared_ptr<cugl::scene2::Label> _pnameLabel;
-    /** Label for music toggle button */
+    /** Reference to the music toggle button label */
     std::shared_ptr<cugl::scene2::Label> _musicLabel;
-    /** Label for volume slider */
+    /** Reference to the volume slider label */
     std::shared_ptr<cugl::scene2::Label> _volumeLabel;
-    /** Label for parallax toggle button */
+    /** Reference to the parallax toggle button label */
     std::shared_ptr<cugl::scene2::Label> _parallaxLabel;
-    
-    /** Player Name input */
+    /** Reference to player name input */
     std::shared_ptr<cugl::scene2::TextField> _pnameInput;
-    /** Button to toggle music */
+    /** Reference to music toggle button */
     std::shared_ptr<cugl::scene2::Button> _musicBtn;
-    /** Slider for gameplay volume */
+    /** Reference to volume slider */
     std::shared_ptr<cugl::scene2::Slider> _volumeSlider;
-    /** Button to toggle parallax effect */
+    /** Reference to parallax toggle button */
     std::shared_ptr<cugl::scene2::Button> _parallaxBtn;
-    
-    /** Value for the player name */
-    string _playerName;
-    /** Value for the game audio volume */
-    float _volume;
-    /** Whether game music is turned on/off */
-    bool _musicOn;
-    /** Whether game parallax effect is turned on/off */
-    bool _parallaxOn;
 
 public:
 #pragma mark -
 #pragma mark Constructors
-    SettingsMenu() : _volume(0.0f), _musicOn(true), _parallaxOn(true) {}
+    /**
+     * Creates a new settings menu with default values.
+     */
+    SettingsMenu() {}
 
+    /**
+     * Disposes of all (non-static) resources allocated to this menu.
+     */
     ~SettingsMenu() { dispose(); }
 
+    /**
+     * Disposes of all (non-static) resources allocated to this menu.
+     */
     void dispose();
-    
+
+    /**
+     * Initializes a new settings menu with the state pointer.
+     *
+     * @param assets        The (loaded) assets for this settings menu
+     *
+     * @return true if initialization was successful, false otherwise
+     */
     bool init(const std::shared_ptr<cugl::AssetManager>& assets);
 
+    /**
+     * Returns a newly allocated settings menu.
+     *
+     * @param assets        The (loaded) assets for this settings menu
+     *
+     * @return a newly allocated settings menu
+     */
     static std::shared_ptr<SettingsMenu> alloc(const std::shared_ptr<cugl::AssetManager>& assets) {
         std::shared_ptr<SettingsMenu> result = std::make_shared<SettingsMenu>();
         return (result->init(assets) ? result : nullptr);
     }
-    
+
+#pragma mark -
+#pragma mark Menu Monitoring
+    /**
+     * Sets whether the settings menu is currently active and visible.
+     *
+     * @param value     Whether the settings menu is currently active and visible
+     */
     void setDisplay(bool value);
-    
+
+    /**
+     * The method called to update the settings menu.
+     *
+     * This method handles transitions into and out of settings menu along
+     * with any updates within the settings menu scene.
+     */
+    void update(MenuState& state, string& playername, float& volume, bool& musicon, bool& parallaxon);
+
+    /**
+     * Returns the root scene node for the settings menu layer.
+     *
+     * @return a shared pointer to settings menu layer root scene node
+     */
     const std::shared_ptr<cugl::scene2::SceneNode>& getLayer() const {
         return _layer;
     }
-    
-    std::string getPlayerName() {
-        return _playerName;
-    }
-    
-    float getVolume() {
-        return _volume;
-    }
-    
-    bool getMusicOn() {
-        return _musicOn;
-    }
-    
-    bool getParallaxOn() {
-        return _parallaxOn;
-    }
-    
-    void update(float timestep) {
-        if (_musicBtn->isActive()) {
-            _musicOn = !_musicBtn->isDown();
-        }
-        if (_parallaxBtn->isActive()) {
-            _parallaxOn = !_parallaxBtn->isDown();
-        }
-    }
-    
+
 };
 
 #endif /* __CI_SETTINGS_MENU_H__ */

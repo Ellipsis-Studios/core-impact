@@ -113,7 +113,12 @@ void CoreImpactApp::update(float timestep) {
     else if (!_loaded) {
         /** Transition to menu scene */
         _loading.dispose();
-        _menu.init(_assets);
+        // TODO: store settings in file 
+        string pname("Player Name");
+        float vol = 50.0f;
+        bool musicOn = true;
+        bool parallaxOn = true;
+        _menu.init(_assets, pname, vol, musicOn, parallaxOn);
         _loaded = true;
     }
     else if (!_startGame && _menu.isActive()) {
@@ -138,9 +143,8 @@ void CoreImpactApp::update(float timestep) {
         _gameplay.dispose();
 
         _networkMessageManager = nullptr;
-
-        _menu.removeChildByName("menuScene");
-        _menu.setActive(false);
+        
+        _menu.removeAllChildren();
         _loaded = true;
         _startGame = false;
         _menu.init(_assets);

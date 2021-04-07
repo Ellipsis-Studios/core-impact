@@ -10,25 +10,30 @@
 #define __CI_TUTORIAL_MENU_H__
 #include <cugl/cugl.h>
 
+#include  "CIMenuState.h"
+
 /**
- * This class is the Tutorial screen within the Menu scene.
+ * Model class representing the Tutorial menu scene.
  *
  * The screen will display a page title 'How to Play' along with
  * directions on how to play the game.
  */
 class TutorialMenu {
 private:
-    /** The asset manager for menu screens. */
-    std::shared_ptr<cugl::AssetManager> _assets;
+    /** Menu state for the upcoming frame */
+    MenuState _nextState;
 
-    // Tutorial Screen Layer
+    // Asset references
+    /** Reference to the node for the group representing this menu scene */
     std::shared_ptr<cugl::scene2::SceneNode> _layer;
-    /** Label for Tutorial screen title */
+    /** Reference to the tutorial page title label */
     std::shared_ptr<cugl::scene2::Label> _tutorialTitle;
 
 public:
+#pragma mark -
+#pragma mark Constructors
     /**
-     * Creates a new tutorial Menu mode with the default values.
+     * Creates a new tutorial menu with default values.
      */
     TutorialMenu() {}
 
@@ -42,33 +47,49 @@ public:
      */
     void dispose();
 
+    /**
+     * Initializes a new tutorial menu with the state pointer.
+     *
+     * @param assets    The (loaded) assets for this tutorial menu
+     *
+     * @return true if initialization was successful, false otherwise
+     */
     bool init(const std::shared_ptr<cugl::AssetManager>& assets);
 
+    /**
+     * Returns a newly allocated tutorial menu.
+     *
+     * @param assets    The (loaded) assets for this tutorial menu
+     *
+     * @return a newly allocated tutorial menu
+     */
     static std::shared_ptr<TutorialMenu> alloc(const std::shared_ptr<cugl::AssetManager>& assets) {
         std::shared_ptr<TutorialMenu> result = std::make_shared<TutorialMenu>();
         return (result->init(assets) ? result : nullptr);
     }
 
+#pragma mark -
+#pragma mark Menu Monitoring
     /**
-     * Put-up/take-down the current mode to the overall display.
+     * Sets whether the settings menu is currently active and visible.
      *
-     * Sets all assets' visible value and activates/deactivates all inputs in
-     * the current mode.
-     *
-     * @param value Whether to put-up or take-down the current mode.
+     * @param value     Whether the settings menu is currently active and visible
      */
-    void setDisplay(bool value) {
-        if (_layer != nullptr) {
-            _tutorialTitle->setVisible(value);
-            _layer->setVisible(value);
-        }
-    }
+    void setDisplay(bool value);
 
     /**
-    * Returns the layer node of the current mode.
-    *
-    * @return layer The layer node of the current mode.
-    */
+     * The method called to update the tutorial menu.
+     *
+     * This method handles transitions into and out of tutorial menu along
+     * with any updates within the tutorial menu scene.
+     */
+    void update(MenuState& state);
+
+    /**
+     * Returns the root scene node for the tutorial menu layer.
+     *
+     * @return a shared pointer to tutorial menu layer root scene node
+     */
     const std::shared_ptr<cugl::scene2::SceneNode>& getLayer() const {
         return _layer;
     }
