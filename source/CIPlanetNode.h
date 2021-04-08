@@ -17,6 +17,7 @@
 #include "CIPlanetLayer.h"
 
 #define PLANET_RING_TEXTURE_INNER_SIZE 140
+#define PLANET_OUTER_RING_SCALE 0.833
 
 /** Number of rows and cols in inner ring film strip */
 #define INNER_RING_ROWS   10
@@ -62,9 +63,11 @@ private:
     /** The nodes representing the layers of this planet */
     std::vector<LayerNode> _layerNodes;
   
-//    void advanceFrame(LayerNode* node, bool isLockedIn, bool isLockingIn);
+    /* Updates the animation frame for the inner layer */
     void advanceInnerLayerFrame(LayerNode* node);
-    void advanceOuterLayerFrame(LayerNode* node, bool isLockedIn, bool isLockingIn, int ii, int numLayers);
+  
+    /* Updates the animation frame for the outer layer */
+    void advanceOuterLayerFrame(LayerNode* node, bool isLockedIn, bool isLockingIn);
     
 protected:
     /** The texture of an innner ring */
@@ -107,7 +110,7 @@ public:
                     setScale(_coreScale);
                 }
                 node->innerRing->setScale(_layerScale/_coreScale);
-                node->outerRing->setScale(_layerScale/(1.2*_coreScale));
+                node->outerRing->setScale(PLANET_OUTER_RING_SCALE * _layerScale/_coreScale);
                 break;
             }
         }
