@@ -30,9 +30,6 @@
 		3DCF911E2607B5B600B97FA1 /* CINetworkUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCF911D2607B5B600B97FA1 /* CINetworkUtils.cpp */; };
 		3DCF911F2607B5B600B97FA1 /* CINetworkUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCF911D2607B5B600B97FA1 /* CINetworkUtils.cpp */; };
 		3DCF91202607B5B600B97FA1 /* CINetworkUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCF911D2607B5B600B97FA1 /* CINetworkUtils.cpp */; };
-		CA5B0F452617F05200859BEF /* CIOpponentNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA5B0F432617F05200859BEF /* CIOpponentNode.cpp */; };
-		CA5B0F462617F05200859BEF /* CIOpponentNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA5B0F432617F05200859BEF /* CIOpponentNode.cpp */; };
-		CA5B0F472617F05200859BEF /* CIOpponentNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA5B0F432617F05200859BEF /* CIOpponentNode.cpp */; };
 		426951F0260FCE5000E675E9 /* CIMenuScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 426951EF260FCE5000E675E9 /* CIMenuScene.cpp */; };
 		426951F1260FCE5000E675E9 /* CIMenuScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 426951EF260FCE5000E675E9 /* CIMenuScene.cpp */; };
 		426951F2260FCE5000E675E9 /* CIMenuScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 426951EF260FCE5000E675E9 /* CIMenuScene.cpp */; };
@@ -48,6 +45,15 @@
 		42B54D67261B97110097D816 /* CIJoinMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42B54D66261B97110097D816 /* CIJoinMenu.cpp */; };
 		42B54D68261B97110097D816 /* CIJoinMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42B54D66261B97110097D816 /* CIJoinMenu.cpp */; };
 		42B54D69261B97110097D816 /* CIJoinMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42B54D66261B97110097D816 /* CIJoinMenu.cpp */; };
+		CA525027261FEDBF00854B7B /* CIMainMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA525023261FEDBF00854B7B /* CIMainMenu.cpp */; };
+		CA525028261FEDBF00854B7B /* CIMainMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA525023261FEDBF00854B7B /* CIMainMenu.cpp */; };
+		CA525029261FEDBF00854B7B /* CIMainMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA525023261FEDBF00854B7B /* CIMainMenu.cpp */; };
+		CA52502A261FEDBF00854B7B /* CILobbyMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA525024261FEDBF00854B7B /* CILobbyMenu.cpp */; };
+		CA52502B261FEDBF00854B7B /* CILobbyMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA525024261FEDBF00854B7B /* CILobbyMenu.cpp */; };
+		CA52502C261FEDBF00854B7B /* CILobbyMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA525024261FEDBF00854B7B /* CILobbyMenu.cpp */; };
+		CA5B0F452617F05200859BEF /* CIOpponentNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA5B0F432617F05200859BEF /* CIOpponentNode.cpp */; };
+		CA5B0F462617F05200859BEF /* CIOpponentNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA5B0F432617F05200859BEF /* CIOpponentNode.cpp */; };
+		CA5B0F472617F05200859BEF /* CIOpponentNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA5B0F432617F05200859BEF /* CIOpponentNode.cpp */; };
 		CA68E30B25F53BC200B4617D /* CICollisionController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA68E30625F53BC200B4617D /* CICollisionController.cpp */; };
 		CA68E30C25F53BC200B4617D /* CICollisionController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA68E30625F53BC200B4617D /* CICollisionController.cpp */; };
 		CA68E30D25F53BC200B4617D /* CICollisionController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA68E30625F53BC200B4617D /* CICollisionController.cpp */; };
@@ -179,9 +185,6 @@
 		3DCF9118260657A900B97FA1 /* CIGameState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIGameState.h; sourceTree = "<group>"; };
 		3DCF911C2607B5A100B97FA1 /* CINetworkUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CINetworkUtils.h; sourceTree = "<group>"; };
 		3DCF911D2607B5B600B97FA1 /* CINetworkUtils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CINetworkUtils.cpp; sourceTree = "<group>"; };
-		CA5B0F432617F05200859BEF /* CIOpponentNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CIOpponentNode.cpp; sourceTree = "<group>"; };
-		CA5B0F442617F05200859BEF /* CIOpponentNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIOpponentNode.h; sourceTree = "<group>"; };
-		CA5B0F512618E5BD00859BEF /* CILocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CILocation.h; sourceTree = "<group>"; };
 		426951EE260FCE4000E675E9 /* CIMenuScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIMenuScene.h; sourceTree = "<group>"; };
 		426951EF260FCE5000E675E9 /* CIMenuScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CIMenuScene.cpp; sourceTree = "<group>"; };
 		426951F9260FCE9D00E675E9 /* widgets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = widgets; sourceTree = "<group>"; };
@@ -191,7 +194,14 @@
 		42B54D5B261B8C110097D816 /* CISettingsMenu.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CISettingsMenu.cpp; sourceTree = "<group>"; };
 		42B54D65261B97020097D816 /* CIJoinMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIJoinMenu.h; sourceTree = "<group>"; };
 		42B54D66261B97110097D816 /* CIJoinMenu.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CIJoinMenu.cpp; sourceTree = "<group>"; };
-		42B54D71261B9B380097D816 /* CIMenuStatus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIMenuStatus.h; sourceTree = "<group>"; };
+		CA525022261FEDBF00854B7B /* CILobbyMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CILobbyMenu.h; sourceTree = "<group>"; };
+		CA525023261FEDBF00854B7B /* CIMainMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CIMainMenu.cpp; sourceTree = "<group>"; };
+		CA525024261FEDBF00854B7B /* CILobbyMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CILobbyMenu.cpp; sourceTree = "<group>"; };
+		CA525025261FEDBF00854B7B /* CIMainMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIMainMenu.h; sourceTree = "<group>"; };
+		CA525026261FEDBF00854B7B /* CIMenuState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIMenuState.h; sourceTree = "<group>"; };
+		CA5B0F432617F05200859BEF /* CIOpponentNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CIOpponentNode.cpp; sourceTree = "<group>"; };
+		CA5B0F442617F05200859BEF /* CIOpponentNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIOpponentNode.h; sourceTree = "<group>"; };
+		CA5B0F512618E5BD00859BEF /* CILocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CILocation.h; sourceTree = "<group>"; };
 		CA68E30625F53BC200B4617D /* CICollisionController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CICollisionController.cpp; sourceTree = "<group>"; };
 		CA68E30A25F53BC200B4617D /* CICollisionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CICollisionController.h; sourceTree = "<group>"; };
 		CA80926026123A8300599B99 /* CIOpponentPlanet.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CIOpponentPlanet.cpp; sourceTree = "<group>"; };
@@ -434,6 +444,11 @@
 		EBBF18B11D749176008E2001 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				CA525024261FEDBF00854B7B /* CILobbyMenu.cpp */,
+				CA525022261FEDBF00854B7B /* CILobbyMenu.h */,
+				CA525023261FEDBF00854B7B /* CIMainMenu.cpp */,
+				CA525025261FEDBF00854B7B /* CIMainMenu.h */,
+				CA525026261FEDBF00854B7B /* CIMenuState.h */,
 				EBFA528421FA5AAB00CCC2C5 /* CIApp.cpp */,
 				EBFA528821FA5AAB00CCC2C5 /* CIApp.h */,
 				CA68E30625F53BC200B4617D /* CICollisionController.cpp */,
@@ -479,7 +494,6 @@
 				42B54D5B261B8C110097D816 /* CISettingsMenu.cpp */,
 				42B54D65261B97020097D816 /* CIJoinMenu.h */,
 				42B54D66261B97110097D816 /* CIJoinMenu.cpp */,
-				42B54D71261B9B380097D816 /* CIMenuStatus.h */,
 			);
 			name = Source;
 			path = ../source;
@@ -661,9 +675,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				EBFA529C21FA5D0C00CCC2C5 /* CIApp.cpp in Sources */,
+				CA525029261FEDBF00854B7B /* CIMainMenu.cpp in Sources */,
 				CA5B0F472617F05200859BEF /* CIOpponentNode.cpp in Sources */,
 				CADCA31225FE9AEE0048FCA1 /* CIPlanetNode.cpp in Sources */,
 				3D94040925FFC52400043357 /* CIGameUpdateManager.cpp in Sources */,
+				CA52502C261FEDBF00854B7B /* CILobbyMenu.cpp in Sources */,
 				EB0FF61D2016F06000517030 /* main.cpp in Sources */,
 				3D563B9F25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */,
 				CA9A2DD325EDBD6A0048D02F /* CIStardustModel.cpp in Sources */,
@@ -689,9 +705,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				EBFA529821FA5D0C00CCC2C5 /* CIApp.cpp in Sources */,
+				CA525028261FEDBF00854B7B /* CIMainMenu.cpp in Sources */,
 				CA5B0F462617F05200859BEF /* CIOpponentNode.cpp in Sources */,
 				EB7454AE1D74D891002FBAE6 /* main.cpp in Sources */,
 				3D94040825FFC52400043357 /* CIGameUpdateManager.cpp in Sources */,
+				CA52502B261FEDBF00854B7B /* CILobbyMenu.cpp in Sources */,
 				3D563B9E25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */,
 				CA9A2DD225EDBD6A0048D02F /* CIStardustModel.cpp in Sources */,
 				EBFA52A121FA5D1700CCC2C5 /* CIInput.cpp in Sources */,
@@ -717,9 +735,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				EBFA528F21FA5AAC00CCC2C5 /* CIGameScene.cpp in Sources */,
+				CA525027261FEDBF00854B7B /* CIMainMenu.cpp in Sources */,
 				CA5B0F452617F05200859BEF /* CIOpponentNode.cpp in Sources */,
 				EBFA529021FA5AAC00CCC2C5 /* CIInput.cpp in Sources */,
 				3D94040725FFC52400043357 /* CIGameUpdateManager.cpp in Sources */,
+				CA52502A261FEDBF00854B7B /* CILobbyMenu.cpp in Sources */,
 				3D563B9D25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */,
 				CA9A2DD125EDBD6A0048D02F /* CIStardustModel.cpp in Sources */,
 				EBFA528D21FA5AAC00CCC2C5 /* CIApp.cpp in Sources */,
