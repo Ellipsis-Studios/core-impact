@@ -13,8 +13,13 @@
 #include <cugl/cugl.h>
 #include "CIStardustModel.h"
 
+#define STARDUST_ROWS   12
+#define STARDUST_COLS   13
+#define STARDUST_END    151
+#define STARDUST_START  0
 
-class StardustNode : public cugl::scene2::SceneNode {
+
+class StardustNode : public cugl::scene2::AnimationNode {
 private:
     /** Graphic asset representing a single stardust. */
     std::shared_ptr<cugl::Texture> _texture;
@@ -28,11 +33,14 @@ private:
     /** Pointer to Stardust queue size */
     int* _qsize;
 
+    /** The amount of time since last animation frame change */
+    float _timeElapsed;
+
 public:
     /** 
      * Creates a stardust node with default values.
      */
-    StardustNode() : SceneNode(), _qhead(), _qtail(), _qsize() {}
+    StardustNode() : AnimationNode(), _qhead(), _qtail(), _qsize() {}
 
     /**
      * Disposes the stardust node, releasing all resources.
@@ -58,7 +66,7 @@ public:
     static std::shared_ptr<StardustNode> alloc(const std::shared_ptr<cugl::Texture>& texture, 
         std::vector<StardustModel>* queue, int* head, int* tail, int* size) {
         std::shared_ptr<StardustNode> node = std::make_shared<StardustNode>();
-        return (node->init(texture, queue, head, tail, size) ? node : nullptr);
+        return (node->AnimationNode::initWithFilmstrip(texture, STARDUST_ROWS, STARDUST_COLS) && node->init(texture, queue, head, tail, size) ? node : nullptr);
     }
 
     /** Initializes a new stardust node with the pointers.
@@ -79,7 +87,8 @@ public:
         _qtail = tail;
         _qsize = size;
 
-        return SceneNode::init();
+        _timeElapsed = 0;        
+        return true;
     }
     
     /** 
@@ -99,6 +108,11 @@ public:
     const std::shared_ptr<cugl::Texture> getTexture() const {
         return _texture;
     }
+    
+    /**
+     * Updates the frame of the stardust animation
+     */
+    void update(float timestep);
 };
 
 #endif /* __CI_STARDUST_NODE_H__ */

@@ -222,6 +222,13 @@ public:
      * to the collision controller where they belong.
      */
     void update();
+    
+    /**
+     * Returns the radius of a stardust. Returns 0 if the stardust texture has not been set yet.
+     *
+     * @return the radius of a stardust
+     */
+    float getStardustRadius();
 };
 
 #endif /* __CI_STARDUST_QUEUE_H__ */

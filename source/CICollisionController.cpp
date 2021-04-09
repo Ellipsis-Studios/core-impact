@@ -39,7 +39,7 @@ using namespace cugl;
  */
 void collisions::checkForCollision(const std::shared_ptr<PlanetModel>& planet, const std::shared_ptr<StardustQueue>& queue, float timestep) {
     // Get the stardust size from the texture
-    float sdRadius = getStardustRadius(queue);
+    float sdRadius = queue->getStardustRadius();
     
     for(size_t ii = 0; ii < queue->size(); ii++) {
         // This returns a reference
@@ -99,7 +99,7 @@ void collisions::checkForCollision(const std::shared_ptr<PlanetModel>& planet, c
  */
 void collisions::checkForCollisions(const std::shared_ptr<StardustQueue>& queue) {
     // Get the stardust size from the texture
-    float sdRadius = getStardustRadius(queue);
+    float sdRadius = queue->getStardustRadius();
 
     for (size_t ii = 0; ii < queue->size(); ii++) {
         // This returns a reference
@@ -158,7 +158,7 @@ bool collisions::checkForCollision(const std::shared_ptr<PlanetModel>& planet, V
  * @param queue        The stardust queue
  */
 StardustModel* collisions::getNearestStardust(Vec2 inputPos, const std::shared_ptr<StardustQueue>& queue) {
-    float sdRadius = getStardustRadius(queue);
+    float sdRadius = queue->getStardustRadius();
     StardustModel* closest = NULL;
     float closestDistance = 0;
 
@@ -198,21 +198,6 @@ void collisions::moveDraggedStardust(Vec2 inputPos, StardustModel* stardust, flo
     } else {
         stardust->setVelocity(norm * sqrt(distance));
     }
-}
-
-
-/**
- * Get the radius of a stardust for use in collisions and physics
- *
- * @param queue The stardust queue
- */
-float collisions::getStardustRadius(const std::shared_ptr<StardustQueue>& queue) {
-    float sdRadius = 0;
-    auto texture = queue->getTexture();
-    if (texture != nullptr) {
-        sdRadius = std::max(texture->getWidth(), texture->getHeight()) / 2.0f;
-    }
-    return sdRadius;
 }
 
 /**

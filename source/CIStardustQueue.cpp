@@ -159,3 +159,21 @@ void StardustQueue::update() {
         _queue[idx].update();
     }
 }
+
+/**
+ * Returns the radius of a stardust. Returns 0 if the stardust texture has not been set yet.
+ *
+ * @return the radius of a stardust
+ */
+float StardustQueue::getStardustRadius() {
+    if (_stardustNode == nullptr) {
+        return 0;
+    }
+    
+    float sdRadius = 0;
+    auto texture = _stardustNode->getTexture();
+    if (texture != nullptr) {
+        sdRadius = std::max(texture->getWidth(), texture->getHeight()) / (2.0f * 13.0f);
+    }
+    return sdRadius / 2;
+}
