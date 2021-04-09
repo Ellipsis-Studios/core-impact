@@ -12,8 +12,9 @@
 #include "CIPlanetNode.h"
 #include "CIColor.h"
 
-#define PLANET_RADIUS_DELTA             2
+#define PLANET_RADIUS_DELTA           1.5
 #define INITIAL_PLANET_RADIUS          32
+#define LAYER_RADIUS_MULTIPLIER      1.85
 #define PLANET_MASS_DELTA              10
 #define INITIAL_PLANET_MASS            25
 #define INIT_LAYER_LOCKIN_TOTAL         5
@@ -72,6 +73,7 @@ bool PlanetModel::init(float x, float y, CIColor::Value c, int maxLayers) {
     
     _numLayers = 1;
     _layers[_numLayers-1] = getNewLayer();
+    setColor(c);
     
     _layerLockinTotal = INIT_LAYER_LOCKIN_TOTAL;
     
@@ -89,13 +91,13 @@ bool PlanetModel::init(float x, float y, CIColor::Value c, int maxLayers) {
 void PlanetModel::decreaseLayerSize() {
     PlanetLayer* currentLayer = &_layers[_numLayers-1];
     if (currentLayer->layerSize > 0) {
+        _radius -= PLANET_RADIUS_DELTA;
         currentLayer->layerSize--;
+        _planetNode->setRadius(_radius);
         if (currentLayer->layerSize == 0) {
             currentLayer->layerColor = CIColor::getNoneColor();
         }
-        _radius -= PLANET_RADIUS_DELTA;
         _mass -= PLANET_MASS_DELTA;
-        _planetNode->setRadius(_radius);
         _planetNode->setLayers(&_layers);
     }
 }
@@ -140,7 +142,9 @@ bool PlanetModel::lockInLayer(float timestep) {
     _layerLockinTotal += LAYER_LOCKIN_TOTAL_INCREASE;
     _layers[_numLayers-1] = getNewLayer();
     _lockInProgress = 0;
+    _radius *= LAYER_RADIUS_MULTIPLIER;
     _planetNode->setLayers(&_layers);
+    _planetNode->setRadius(_radius);
     return true;
 }
 

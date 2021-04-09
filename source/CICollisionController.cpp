@@ -22,6 +22,7 @@
 //  Version: 2/21/21
 //
 #include "CICollisionController.h"
+#include "CILocation.h"
 
 /** Impulse for giving collisions a slight bounce. */
 #define COLLISION_COEFF     0.1f
@@ -52,8 +53,13 @@ void collisions::checkForCollision(const std::shared_ptr<PlanetModel>& planet, c
 
             // If this normal is too small, there was a collision
             if (distance < impactDistance) {
+                if (stardust->getStardustType() != StardustModel::Type::NORMAL) {
+                    // special stardust dragged into planet
+                    queue->addToSendQueue(stardust);
+                    queue->addToPowerupQueue(stardust);
+                }
                 // We add a layer due to own colored stardust
-                if (planet->getColor() == CIColor::getNoneColor()) {
+                else if (planet->getColor() == CIColor::getNoneColor()) {
                     planet->setColor(stardust->getColor());
                     planet->increaseLayerSize();
                 }
@@ -228,13 +234,13 @@ void collisions::checkInBounds(const std::shared_ptr<StardustQueue>& queue, cons
                 
                 // set stardust's off screen location if it is not in bounds
                 if (distance.x < 0 && distance.y < 0) {
-                    stardust->setStardustLocation(StardustModel::Location::BOTTOM_LEFT);
+                    stardust->setStardustLocation(CILocation::Value::BOTTOM_LEFT);
                 } else if (distance.x > 0 && distance.y < 0) {
-                    stardust->setStardustLocation(StardustModel::Location::BOTTOM_RIGHT);
+                    stardust->setStardustLocation(CILocation::Value::BOTTOM_RIGHT);
                 } else if (distance.x < 0 && distance.y > 0) {
-                    stardust->setStardustLocation(StardustModel::Location::TOP_LEFT);
+                    stardust->setStardustLocation(CILocation::Value::TOP_LEFT);
                 } else if (distance.x > 0 && distance.y > 0) {
-                    stardust->setStardustLocation(StardustModel::Location::TOP_RIGHT);
+                    stardust->setStardustLocation(CILocation::Value::TOP_RIGHT);
                 }
                 stardust->destroy();
                 queue->addToSendQueue(stardust);

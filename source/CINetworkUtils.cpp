@@ -9,6 +9,7 @@
 //
 
 #include "CINetworkUtils.h"
+#include "CILocation.h"
 
 /**
  * Decodes 4 bytes into a float.
@@ -65,13 +66,14 @@ void NetworkUtils::encodeInt(int x, std::vector<uint8_t>& out) {
 /**
  * Gets the stardust location given our player id and the player id of the opponent.
  */
-StardustModel::Location NetworkUtils::getStardustLocation(int playerID, int opponentPlayerID) {
-    return StardustModel::Location((opponentPlayerID - playerID + 5) % 5);
+CILocation::Value NetworkUtils::getStardustLocation(int playerID, int opponentPlayerID) {
+    int location = (opponentPlayerID < playerID ? opponentPlayerID + 1 : opponentPlayerID);
+    return CILocation::Value(location);
 }
 
 /**
  * Returns an opponents player id given this player's id and a location
  */
-int NetworkUtils::getOpponentPlayerID(int playerID, StardustModel::Location location) {
-    return (playerID + location) % 5;
+int NetworkUtils::getOpponentPlayerID(int playerID, CILocation::Value location) {
+    return (location <= playerID ? location - 1 : location);
 }

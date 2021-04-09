@@ -13,7 +13,6 @@
 #include "CIPlanetNode.h"
 #include <cugl/cugl.h>
 
-#define LOCK_IN_SCALE_DOWN  .75
 #define SPF .033 //seconds per frame
 
 void PlanetNode::draw(const std::shared_ptr<cugl::SpriteBatch>& batch,

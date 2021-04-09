@@ -74,6 +74,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     // Start up the input handler and managers
     _assets = assets;
     _input.init(getBounds());
+    srand(time(NULL));
     // Set the game update manager and network message managers
     _gameUpdateManager = GameUpdateManager::alloc();
     _networkMessageManager = networkMessageManager;
@@ -195,15 +196,25 @@ void GameScene::update(float timestep) {
     // attempt to set player id of game update manager
     if (_gameUpdateManager->getPlayerId() < 0) {
         // need to make this call to attempt to connect to game
-        _networkMessageManager->receiveMessages();
+        _networkMessageManager->receiveMessages(dimen);
         _gameUpdateManager->setPlayerId(_networkMessageManager->getPlayerId());
     } else {
         // send and receive game updates to other players
         _gameUpdateManager->sendUpdate(_planet, _stardustContainer, dimen);
-        _networkMessageManager->receiveMessages();
+        _networkMessageManager->receiveMessages(dimen);
         _networkMessageManager->sendMessages();
         _gameUpdateManager->processGameUpdate(_stardustContainer, _planet, _opponent_planets, dimen);
+        for (int ii = 0; ii < _opponent_planets.size() ; ii++) {
+            std::shared_ptr<OpponentPlanet> opponent = _opponent_planets[ii];
+            if (opponent != nullptr && getChildByName(to_string(ii)) == nullptr) {
+                opponent->setTextures(_assets->get<Texture>("opponentProgress"), dimen);
+                //TODO: call opponent->setName with name and font
+                addChildWithName(opponent->getOpponentNode(), to_string(ii));
+            }
+        }
     }
+    
+    processSpecialStardust(dimen, _stardustContainer);
 }
 
 /**
@@ -279,4 +290,33 @@ void GameScene::addStardust(const Size bounds) {
     }
     
     _stardustContainer->addStardust(c, bounds);
+}
+
+/**
+ * This method applies the power ups of special stardust.
+ *
+ * @param bounds the bounds of the game screen
+ * @param stardustQueue the stardustQueue
+ */
+void GameScene::processSpecialStardust(const cugl::Size bounds, const std::shared_ptr<StardustQueue> stardustQueue) {
+    std::vector<std::shared_ptr<StardustModel>> powerupQueue = stardustQueue->getPowerupQueue();
+    for (size_t ii = 0; ii < powerupQueue.size(); ii++) {
+        std::shared_ptr<StardustModel> stardust = powerupQueue[ii];
+
+        switch (stardust->getStardustType()) {
+            case StardustModel::Type::METEOR:
+                CULog("METEOR SHOWER!");
+                stardustQueue->addStardust(stardust->getColor(), bounds);
+                stardustQueue->addStardust(stardust->getColor(), bounds);
+                stardustQueue->addStardust(stardust->getColor(), bounds);
+                stardustQueue->addStardust(stardust->getColor(), bounds);
+                stardustQueue->addStardust(CIColor::getRandomColor(), bounds);
+                stardustQueue->addStardust(CIColor::getRandomColor(), bounds);
+                break;
+            default:
+                break;
+        }
+    }
+    
+    stardustQueue->clearPowerupQueue();
 }

@@ -38,6 +38,9 @@ private:
     
     /** stardust to be sent to other players in the game. */
     std::vector<std::shared_ptr<StardustModel>> _stardust_to_send;
+    
+    /** Special stardust that need to be applied to the game. */
+    std::vector<std::shared_ptr<StardustModel>> _stardust_powerups;
 
 #pragma mark The Queue
 public:
@@ -107,8 +110,9 @@ public:
      *
      * @param c the color of the stardust to spawn
      * @param bounds the bounds of the game screen
+     * @param type the type of the stardust to add (defaults to normal)
      */
-    void addStardust(CIColor::Value c, const cugl::Size bounds);
+    void addStardust(CIColor::Value c, const cugl::Size bounds, StardustModel::Type type = StardustModel::Type::NORMAL);
     
     /**
      * Adds a stardust to the active queue given a pointer to the stardust
@@ -185,6 +189,29 @@ public:
      */
     void clearSendQueue() {
         _stardust_to_send.clear();
+    }
+    
+
+    /**
+     * Adds a stardust to the powerup queue.
+     *
+     * @param stardust the stardust to add to the powerup queue
+     */
+    void addToPowerupQueue(StardustModel* stardust);
+    
+    /**
+     * Returns the powerup queue
+     * @return the powerup queue
+     */
+    std::vector<std::shared_ptr<StardustModel>> getPowerupQueue() {
+        return _stardust_powerups;
+    }
+    
+    /**
+     * Clears the powerup queue.
+     */
+    void clearPowerupQueue() {
+        _stardust_powerups.clear();
     }
     
     /**

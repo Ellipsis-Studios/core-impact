@@ -146,6 +146,14 @@ public:
      *  @param bounds the bounds of the game screen
      */
     void addStardust(const cugl::Size bounds);
+    
+    /**
+     * This method applies the power ups of special stardust.
+     *
+     * @param bounds the bounds of the game screen
+     * @param stardustQueue the stardustQueue
+     */
+    void processSpecialStardust(const cugl::Size bounds, const std::shared_ptr<StardustQueue> stardustQueue);
 
 };
 
