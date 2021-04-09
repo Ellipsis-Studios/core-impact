@@ -177,8 +177,6 @@ void GameScene::update(float timestep) {
              return;
          }
      }
-    
-    _planet->update(timestep);
     _stardustContainer->update();
     addStardust(dimen);
 
@@ -193,6 +191,8 @@ void GameScene::update(float timestep) {
         _planet->stopLockIn();
     }
     
+    _planet->update(timestep);
+  
     // attempt to set player id of game update manager
     if (_gameUpdateManager->getPlayerId() < 0) {
         // need to make this call to attempt to connect to game
