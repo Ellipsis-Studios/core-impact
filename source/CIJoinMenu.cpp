@@ -84,15 +84,15 @@ bool JoinMenu::init(const std::shared_ptr<cugl::AssetManager>& assets) {
 /**
  * Sets whether the join game menu is currently active and visible.
  *
- * @param value     Whether the join game menu is currently active and visible
+ * @param onDisplay     Whether the join game menu is currently active and visible
  */
-void JoinMenu::setDisplay(bool value) {
+void JoinMenu::setDisplay(bool onDisplay) {
     if (_layer != nullptr) {
-        _roomJoinBtn->setVisible(value);
-        _roomIdInput->setVisible(value);
-        _layer->setVisible(value);
+        _roomJoinBtn->setVisible(onDisplay);
+        _roomIdInput->setVisible(onDisplay);
+        _layer->setVisible(onDisplay);
         
-        if (value) {
+        if (onDisplay) {
             _roomJoinBtn->activate();
             _roomIdInput->activate();
         } else {
@@ -114,26 +114,27 @@ void JoinMenu::update(MenuState& state, string& joingame) {
         return;
     }
     // handle JoinRoom menu
-    switch (state) {
-    case MenuState::MainToJoin:
-        // handle transitioning into JoinRoom
-        setDisplay(true);
-        joingame = "00000";
-        _joinRoomId = "00000";
-        _roomIdInput->setText(_joinRoomId);
-        state = MenuState::JoinRoom;
-        _nextState = MenuState::JoinRoom;
-        break;
-    case MenuState::JoinRoom:
-        // handle roomid input and transition out of JoinRoom
-        joingame = _joinRoomId;
-        state = _nextState;
-        break;
-    default:
-        // hide menu screen 
-        if (_layer != nullptr && _layer->isVisible()) {
-            setDisplay(false);
-        }
-        break;
+    switch (state) 
+    {
+        case MenuState::MainToJoin:
+            // handle transitioning into JoinRoom
+            setDisplay(true);
+            joingame = "00000";
+            _joinRoomId = "00000";
+            _roomIdInput->setText(_joinRoomId);
+            state = MenuState::JoinRoom;
+            _nextState = MenuState::JoinRoom;
+            break;
+        case MenuState::JoinRoom:
+            // handle roomid input and transition out of JoinRoom
+            joingame = _joinRoomId;
+            state = _nextState;
+            break;
+        default:
+            // hide menu screen 
+            if (_layer != nullptr && _layer->isVisible()) {
+                setDisplay(false);
+            }
+            break;
     }
 }

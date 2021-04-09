@@ -95,22 +95,22 @@ bool SettingsMenu::init(const std::shared_ptr<cugl::AssetManager>& assets) {
 /**
  * Sets whether the settings menu is currently active and visible.
  *
- * @param value     Whether the settings menu is currently active and visible
+ * @param onDisplay     Whether the settings menu is currently active and visible
  */
-void SettingsMenu::setDisplay(bool value) {
+void SettingsMenu::setDisplay(bool onDisplay) {
     if (_layer != nullptr) {
-        _settingsTitle->setVisible(value);
-        _pnameLabel->setVisible(value);
-        _pnameInput->setVisible(value);
-        _musicLabel->setVisible(value);
-        _musicBtn->setVisible(value);
-        _volumeLabel->setVisible(value);
-        _volumeSlider->setVisible(value);
-        _parallaxLabel->setVisible(value);
-        _parallaxBtn->setVisible(value);
-        _layer->setVisible(value);
+        _settingsTitle->setVisible(onDisplay);
+        _pnameLabel->setVisible(onDisplay);
+        _pnameInput->setVisible(onDisplay);
+        _musicLabel->setVisible(onDisplay);
+        _musicBtn->setVisible(onDisplay);
+        _volumeLabel->setVisible(onDisplay);
+        _volumeSlider->setVisible(onDisplay);
+        _parallaxLabel->setVisible(onDisplay);
+        _parallaxBtn->setVisible(onDisplay);
+        _layer->setVisible(onDisplay);
         
-        if (value) {
+        if (onDisplay) {
             _pnameInput->activate();
             _musicBtn->activate();
             _volumeSlider->activate();
@@ -136,31 +136,32 @@ void SettingsMenu::update(MenuState& state, string& playername, float& volume, b
         return;
     }
     // handle Settings menu
-    switch (state) {
-    case MenuState::MainToSetting:
-        // handle transitioning into Settings 
-        setDisplay(true);
-        _pnameInput->setText(playername);
-        _volumeSlider->setValue(volume);
-        _musicBtn->setDown(!musicon);
-        _parallaxBtn->setDown(!parallaxon);
+    switch (state) 
+    {
+        case MenuState::MainToSetting:
+            // handle transitioning into Settings 
+            setDisplay(true);
+            _pnameInput->setText(playername);
+            _volumeSlider->setValue(volume);
+            _musicBtn->setDown(!musicon);
+            _parallaxBtn->setDown(!parallaxon);
 
-        state = MenuState::Setting;
-        _nextState = MenuState::Setting;
-        break;
-    case MenuState::Setting:
-        // handle updating asset visuals and transitioning out of Settings
-        playername = _pnameInput->getText();
-        volume = _volumeSlider->getValue();
-        musicon = !_musicBtn->isDown();
-        parallaxon = !_parallaxBtn->isDown();
-        state = _nextState;
-        break;
-    default:
-        // hide menu screen 
-        if (_layer != nullptr && _layer->isVisible()) {
-            setDisplay(false);
-        }
-        break;
+            state = MenuState::Setting;
+            _nextState = MenuState::Setting;
+            break;
+        case MenuState::Setting:
+            // handle updating asset visuals and transitioning out of Settings
+            playername = _pnameInput->getText();
+            volume = _volumeSlider->getValue();
+            musicon = !_musicBtn->isDown();
+            parallaxon = !_parallaxBtn->isDown();
+            state = _nextState;
+            break;
+        default:
+            // hide menu screen 
+            if (_layer != nullptr && _layer->isVisible()) {
+                setDisplay(false);
+            }
+            break;
     }
 }

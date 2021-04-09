@@ -89,17 +89,17 @@ bool MainMenu::init(const std::shared_ptr<cugl::AssetManager>& assets) {
 /**
  * Sets whether the main menu is currently active and visible.
  *
- * @param value     Whether the main menu is currently active and visible
+ * @param onDisplay     Whether the main menu is currently active and visible
  */
-void MainMenu::setDisplay(bool value) {
+void MainMenu::setDisplay(bool onDisplay) {
     if (_layer != nullptr) {
-        _settingsBtn->setVisible(value);
-        _joinBtn->setVisible(value);
-        _newBtn->setVisible(value);
-        _tutorialBtn->setVisible(value);
-        _layer->setVisible(value);
+        _settingsBtn->setVisible(onDisplay);
+        _joinBtn->setVisible(onDisplay);
+        _newBtn->setVisible(onDisplay);
+        _tutorialBtn->setVisible(onDisplay);
+        _layer->setVisible(onDisplay);
 
-        if (value) {
+        if (onDisplay) {
             _settingsBtn->activate();
             _joinBtn->activate();
             _newBtn->activate();
@@ -126,25 +126,26 @@ void MainMenu::update(MenuState& state) {
         return;
     }
     // handle MainMenu
-    switch (state) {
-    case MenuState::SettingToMain:
-    case MenuState::JoinToMain:
-    case MenuState::LobbyToMain:
-    case MenuState::TutorialToMain:
-        // handle transitioning into MainMenu
-        setDisplay(true);
-        state = MenuState::MainMenu;
-        _nextState = MenuState::MainMenu;
-        break;
-    case MenuState::MainMenu:
-        // handle transitioning out of MainMenu
-        state = _nextState;
-        break;
-    default:
-        // hide menu screen
-        if (_layer != nullptr && _layer->isVisible()) {
-            setDisplay(false);
-        }
-        break;
+    switch (state) 
+    {
+        case MenuState::SettingToMain:
+        case MenuState::JoinToMain:
+        case MenuState::LobbyToMain:
+        case MenuState::TutorialToMain:
+            // handle transitioning into MainMenu
+            setDisplay(true);
+            state = MenuState::MainMenu;
+            _nextState = MenuState::MainMenu;
+            break;
+        case MenuState::MainMenu:
+            // handle transitioning out of MainMenu
+            state = _nextState;
+            break;
+        default:
+            // hide menu screen
+            if (_layer != nullptr && _layer->isVisible()) {
+                setDisplay(false);
+            }
+            break;
     }
 }

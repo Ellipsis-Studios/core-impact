@@ -87,9 +87,9 @@ public:
     /**
      * Sets whether the game lobby menu is currently active and visible.
      *
-     * @param value     Whether the game lobby menu is currently active and visible
+     * @param onDisplay     Whether the game lobby menu is currently active and visible
      */
-    void setDisplay(bool value);
+    void setDisplay(bool onDisplay);
 
     /**
      * The method called to update the game lobby menu.

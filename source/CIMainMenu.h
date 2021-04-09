@@ -85,9 +85,9 @@ public:
     /**
      * Sets whether the main menu is currently active and visible.
      *
-     * @param value     Whether the main menu is currently active and visible
+     * @param onDisplay     Whether the main menu is currently active and visible
      */
-    void setDisplay(bool value);
+    void setDisplay(bool onDisplay);
 
     /**
      * The method called to update the main menu.

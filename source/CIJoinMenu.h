@@ -82,9 +82,9 @@ public:
     /**
      * Sets whether the join game menu is currently active and visible.
      *
-     * @param value     Whether the join game menu is currently active and visible
+     * @param onDisplay     Whether the join game menu is currently active and visible
      */
-    void setDisplay(bool value);
+    void setDisplay(bool onDisplay);
 
     /**
      * The method called to update the join game menu.

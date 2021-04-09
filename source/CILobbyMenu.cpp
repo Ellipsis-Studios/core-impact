@@ -76,20 +76,20 @@ bool LobbyMenu::init(const std::shared_ptr<cugl::AssetManager>& assets) {
 /**
  * Sets whether the game lobby menu is currently active and visible.
  *
- * @param value     Whether the game lobby menu is currently active and visible
+ * @param onDisplay     Whether the game lobby menu is currently active and visible
  */
-void LobbyMenu::setDisplay(bool value) {
+void LobbyMenu::setDisplay(bool onDisplay) {
     if (_layer != nullptr) {
-        _gameStartBtn->setVisible(value);
-        _lobbyRoomLabel->setVisible(value);
-        _gamelobbyplayerlabel1->setVisible(value);
-        _gamelobbyplayerlabel2->setVisible(value);
-        _gamelobbyplayerlabel3->setVisible(value);
-        _gamelobbyplayerlabel4->setVisible(value);
-        _gamelobbyplayerlabel5->setVisible(value);
-        _layer->setVisible(value);
+        _gameStartBtn->setVisible(onDisplay);
+        _lobbyRoomLabel->setVisible(onDisplay);
+        _gamelobbyplayerlabel1->setVisible(onDisplay);
+        _gamelobbyplayerlabel2->setVisible(onDisplay);
+        _gamelobbyplayerlabel3->setVisible(onDisplay);
+        _gamelobbyplayerlabel4->setVisible(onDisplay);
+        _gamelobbyplayerlabel5->setVisible(onDisplay);
+        _layer->setVisible(onDisplay);
 
-        if (value) {
+        if (onDisplay) {
             _gameStartBtn->activate();
         }
         else {
@@ -116,33 +116,34 @@ void LobbyMenu::update(MenuState& state, string& joingame, string& playername,
         return;
     }
     // handle GameLobby menu
-    switch (state) {
-    case MenuState::MainToLobby:
-        joingame = ""; // HOST
-    case MenuState::JoinToLobby:
-        // handle transitioning into GameLobby
-        setDisplay(true);
-        _lobbyRoomLabel->setText(joingame);
-        _gamelobbyplayerlabel1->setText(playername);
-        state = MenuState::GameLobby;
-        _nextState = MenuState::GameLobby;
-        break;
-    case MenuState::GameLobby:
-        // handle room player updates and triggering game start
-        if (othernames.size() == 4) {
-            // update other players' labels
-            _gamelobbyplayerlabel2->setText(othernames.at(0));
-            _gamelobbyplayerlabel3->setText(othernames.at(1));
-            _gamelobbyplayerlabel4->setText(othernames.at(2));
-            _gamelobbyplayerlabel5->setText(othernames.at(3));
-        }
-        state = _nextState;
-        break;
-    default:
-        // hide menu screen
-        if (_layer != nullptr && _layer->isVisible()) {
-            setDisplay(false);
-        }
-        break;
+    switch (state) 
+    {
+        case MenuState::MainToLobby:
+            joingame = ""; // HOST
+        case MenuState::JoinToLobby:
+            // handle transitioning into GameLobby
+            setDisplay(true);
+            _lobbyRoomLabel->setText(joingame);
+            _gamelobbyplayerlabel1->setText(playername);
+            state = MenuState::GameLobby;
+            _nextState = MenuState::GameLobby;
+            break;
+        case MenuState::GameLobby:
+            // handle room player updates and triggering game start
+            if (othernames.size() == 4) {
+                // update other players' labels
+                _gamelobbyplayerlabel2->setText(othernames.at(0));
+                _gamelobbyplayerlabel3->setText(othernames.at(1));
+                _gamelobbyplayerlabel4->setText(othernames.at(2));
+                _gamelobbyplayerlabel5->setText(othernames.at(3));
+            }
+            state = _nextState;
+            break;
+        default:
+            // hide menu screen
+            if (_layer != nullptr && _layer->isVisible()) {
+                setDisplay(false);
+            }
+            break;
     }
 }

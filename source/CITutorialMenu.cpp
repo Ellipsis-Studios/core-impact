@@ -53,12 +53,12 @@ bool TutorialMenu::init(const std::shared_ptr<cugl::AssetManager>& assets) {
 /**
  * Sets whether the settings menu is currently active and visible.
  *
- * @param value     Whether the settings menu is currently active and visible
+ * @param onDisplay     Whether the settings menu is currently active and visible
  */
-void TutorialMenu::setDisplay(bool value) {
+void TutorialMenu::setDisplay(bool onDisplay) {
     if (_layer != nullptr) {
-        _tutorialTitle->setVisible(value);
-        _layer->setVisible(value);
+        _tutorialTitle->setVisible(onDisplay);
+        _layer->setVisible(onDisplay);
     }
 }
 
@@ -74,22 +74,23 @@ void TutorialMenu::update(MenuState& state) {
         return;
     }
     // handle Tutorial menu
-    switch (state) {
-    case MenuState::MainToTutorial:
-        // handle transitioning into Tutorial
-        setDisplay(true);
-        state = MenuState::Tutorial;
-        _nextState = MenuState::Tutorial;
-        break;
-    case MenuState::Tutorial:
-        // handle transitioning out of Tutorial
-        state = _nextState;
-        break;
-    default:
-        // hide menu screen
-        if (_layer != nullptr && _layer->isVisible()) {
-            setDisplay(false);
-        }
-        break;
+    switch (state) 
+    {
+        case MenuState::MainToTutorial:
+            // handle transitioning into Tutorial
+            setDisplay(true);
+            state = MenuState::Tutorial;
+            _nextState = MenuState::Tutorial;
+            break;
+        case MenuState::Tutorial:
+            // handle transitioning out of Tutorial
+            state = _nextState;
+            break;
+        default:
+            // hide menu screen
+            if (_layer != nullptr && _layer->isVisible()) {
+                setDisplay(false);
+            }
+            break;
     }
 }

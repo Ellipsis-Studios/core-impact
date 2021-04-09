@@ -59,21 +59,22 @@ bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _backBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_menubackbutton"));
     _backBtn->addListener([=](const std::string& name, bool down) {
         if (!down) {
-            switch (_state) {
-            case MenuState::Setting:
-                _state = MenuState::SettingToMain;
-                break;
-            case MenuState::JoinRoom:
-                _state = MenuState::JoinToMain;
-                break;
-            case MenuState::GameLobby:
-                _state = MenuState::LobbyToMain;
-                break;
-            case MenuState::Tutorial:
-                _state = MenuState::TutorialToMain;
-                break;
-            default:
-                break;
+            switch (_state) 
+            {
+                case MenuState::Setting:
+                    _state = MenuState::SettingToMain;
+                    break;
+                case MenuState::JoinRoom:
+                    _state = MenuState::JoinToMain;
+                    break;
+                case MenuState::GameLobby:
+                    _state = MenuState::LobbyToMain;
+                    break;
+                case MenuState::Tutorial:
+                    _state = MenuState::TutorialToMain;
+                    break;
+                default:
+                    break;
             }
         }
         });
@@ -108,10 +109,10 @@ bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _lobby = LobbyMenu::alloc(_assets);
     _lobby->setDisplay(false);
 
-    addChild(_mainmenu->getLayer(), 3);
-    addChild(_tutorial->getLayer(), 3);
-    addChild(_settings->getLayer(), 3);
-    addChild(_join->getLayer(), 3);
+    addChild(_mainmenu->getLayer(), 0);
+    addChild(_tutorial->getLayer(), 1);
+    addChild(_settings->getLayer(), 1);
+    addChild(_join->getLayer(), 2);
     addChild(_lobby->getLayer(), 3);
 
     return true;
@@ -173,44 +174,46 @@ void MenuScene::update(float timestep) {
         return;
     }
     // handle back button
-    switch (_state) {
-    case MenuState::Setting:
-    case MenuState::JoinRoom:
-    case MenuState::GameLobby:
-    case MenuState::Tutorial:
-        // display back button
-        if (!_backBtn->isVisible()) {
-            _backBtn->setVisible(true);
-            _backBtn->activate();
-        }
-        break;
-    default:
-        // hide back button
-        if (_backBtn->isVisible()) {
-            _backBtn->setVisible(false);
-            _backBtn->deactivate();
-        }
-        break;
+    switch (_state) 
+    {
+        case MenuState::Setting:
+        case MenuState::JoinRoom:
+        case MenuState::GameLobby:
+        case MenuState::Tutorial:
+            // display back button
+            if (!_backBtn->isVisible()) {
+                _backBtn->setVisible(true);
+                _backBtn->activate();
+            }
+            break;
+        default:
+            // hide back button
+            if (_backBtn->isVisible()) {
+                _backBtn->setVisible(false);
+                _backBtn->deactivate();
+            }
+            break;
     }
 
     // handle menu screens 
-    switch (_state) {
-    case MenuState::LoadToMain:
-        // menu scene start
-        _mainmenu->setDisplay(true);
-        _state = MenuState::MainMenu;
-        break;
-    case MenuState::LobbyToGame:
-        // menu scene end
-        _lobby->setDisplay(false);
-        _active = false;
-        break;
-    default:
-        _mainmenu->update(_state);
-        _settings->update(_state, _playerName, _volume, _musicOn, _parallaxOn);
-        _join->update(_state, _joinGame);
-        _lobby->update(_state, _joinGame, _playerName, _otherNames);
-        _tutorial->update(_state);
-        break;
+    switch (_state) 
+    {
+        case MenuState::LoadToMain:
+            // menu scene start
+            _mainmenu->setDisplay(true);
+            _state = MenuState::MainMenu;
+            break;
+        case MenuState::LobbyToGame:
+            // menu scene end
+            _lobby->setDisplay(false);
+            _active = false;
+            break;
+        default:
+            _mainmenu->update(_state);
+            _settings->update(_state, _playerName, _volume, _musicOn, _parallaxOn);
+            _join->update(_state, _joinGame);
+            _lobby->update(_state, _joinGame, _playerName, _otherNames);
+            _tutorial->update(_state);
+            break;
     }
 }
