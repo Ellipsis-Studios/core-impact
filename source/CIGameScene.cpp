@@ -104,10 +104,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     auto unlockedTexture = _assets->get<Texture>("unlockedOuterRing");
     auto lockedTexture = _assets->get<Texture>("lockedOuterRing");
     _planet->setTextures(coreTexture, ringTexture, unlockedTexture, lockedTexture);
-    
-    auto photon = _assets->get<Texture>("photon");
-    CULog("PHOTON: %u, %u", photon->getWidth(), photon->getHeight());
-    CULog("CORE: %u, %u", coreTexture->getWidth(), coreTexture->getHeight());
+
     _draggedStardust = NULL;
     _stardustContainer = StardustQueue::alloc(MAX_STARDUST, coreTexture);
 
