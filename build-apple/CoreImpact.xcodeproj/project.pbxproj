@@ -444,11 +444,6 @@
 		EBBF18B11D749176008E2001 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				CA525024261FEDBF00854B7B /* CILobbyMenu.cpp */,
-				CA525022261FEDBF00854B7B /* CILobbyMenu.h */,
-				CA525023261FEDBF00854B7B /* CIMainMenu.cpp */,
-				CA525025261FEDBF00854B7B /* CIMainMenu.h */,
-				CA525026261FEDBF00854B7B /* CIMenuState.h */,
 				EBFA528421FA5AAB00CCC2C5 /* CIApp.cpp */,
 				EBFA528821FA5AAB00CCC2C5 /* CIApp.h */,
 				CA68E30625F53BC200B4617D /* CICollisionController.cpp */,
@@ -494,6 +489,11 @@
 				42B54D5B261B8C110097D816 /* CISettingsMenu.cpp */,
 				42B54D65261B97020097D816 /* CIJoinMenu.h */,
 				42B54D66261B97110097D816 /* CIJoinMenu.cpp */,
+				CA525024261FEDBF00854B7B /* CILobbyMenu.cpp */,
+				CA525022261FEDBF00854B7B /* CILobbyMenu.h */,
+				CA525023261FEDBF00854B7B /* CIMainMenu.cpp */,
+				CA525025261FEDBF00854B7B /* CIMainMenu.h */,
+				CA525026261FEDBF00854B7B /* CIMenuState.h */,
 			);
 			name = Source;
 			path = ../source;
@@ -569,7 +569,7 @@
 					};
 					EB74548B1D74D75C002FBAE6 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = B836CXCFQ5;
+						DevelopmentTeam = PLK746L3X4;
 					};
 					EBBF18901D74904A008E2001 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -838,7 +838,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = B836CXCFQ5;
+				DEVELOPMENT_TEAM = PLK746L3X4;
 				ENABLE_BITCODE = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/iOS-Info.plist";
@@ -860,7 +860,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = T94KCPYTY4;
+				DEVELOPMENT_TEAM = PLK746L3X4;
 				ENABLE_BITCODE = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/iOS-Info.plist";
