@@ -18,6 +18,7 @@
 #include <cugl/cugl.h>
 #include <iostream>
 #include <sstream>
+#include <numeric>
 
 #include "CIGameScene.h"
 #include "CICollisionController.h"
