@@ -126,7 +126,7 @@ void CoreImpactApp::update(float timestep) {
         
         // Load in saved settings file
         string pname("Player Name");
-        float vol = 50.0f;
+        float vol = 0.5f;
         bool musicOn = true;
         bool parallaxOn = true;
         std::shared_ptr<cugl::JsonReader> _reader = JsonReader::alloc(Application::getSaveDirectory().append("settings.json"));
