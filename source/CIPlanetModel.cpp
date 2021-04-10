@@ -42,7 +42,7 @@ void PlanetModel::setTextures(const std::shared_ptr<cugl::Texture>& core,
 }
  
 void PlanetModel::update(float timestep) {
-    _planetNode->update(timestep);
+    _planetNode->update(timestep, isLockingIn(), _numLayers);
 }
 
 #pragma mark Constructors
