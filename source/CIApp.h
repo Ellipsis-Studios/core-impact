@@ -91,6 +91,19 @@ public:
     virtual void onShutdown() override;
     
     /**
+     * The method called when the application is suspended and put in the background.
+     *
+     * When this method is called, you should store any state that you do not
+     * want to be lost.  There is no guarantee that an application will return
+     * from the background; it may be terminated instead.
+     *
+     * If you are using audio, it is critical that you pause it on suspension.
+     * Otherwise, the audio thread may persist while the application is in
+     * the background.
+     */
+    virtual void onSuspend() override;
+    
+    /**
      * The method called to update the application data.
      *
      * This is your core loop and should be replaced with your custom implementation.

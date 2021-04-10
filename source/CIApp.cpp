@@ -55,6 +55,7 @@ void CoreImpactApp::onStartup() {
     _startGame = false;
     
     // Queue up the other assets
+    _assets->loadDirectoryAsync("json/menu.json",nullptr);
     _assets->loadDirectoryAsync("json/assets.json",nullptr);
 
     Application::onStartup(); // YOU MUST END with call to parent
@@ -72,6 +73,16 @@ void CoreImpactApp::onStartup() {
  * causing the application to be deleted.
  */
 void CoreImpactApp::onShutdown() {
+    // save settings file
+    std::shared_ptr<cugl::JsonWriter> _writer = JsonWriter::alloc(Application::getSaveDirectory().append("settings.json"));
+    std::shared_ptr<cugl::JsonValue> _settings = JsonValue::allocObject();
+    _settings->appendValue("PlayerName", _menu.getPlayerName());
+    _settings->appendValue("Volume", _menu.getVolume());
+    _settings->appendValue("MusicOn", _menu.isMusicOn());
+    _settings->appendValue("ParallaxOn", _menu.isParallaxOn());
+    _writer->writeJson(_settings);
+    CULog("Saving current game settings.");
+    
     if (_loading.isActive())
         _loading.dispose();
     if (_menu.isActive())
@@ -112,7 +123,29 @@ void CoreImpactApp::update(float timestep) {
     else if (!_loaded) {
         /** Transition to menu scene */
         _loading.dispose();
-        _menu.init(_assets);
+        
+        // Load in saved settings file
+        string pname("Player Name");
+        float vol = 0.5f;
+        bool musicOn = true;
+        bool parallaxOn = true;
+        std::shared_ptr<cugl::JsonReader> _reader = JsonReader::alloc(Application::getSaveDirectory().append("settings.json"));
+        if (_reader != nullptr && _reader->ready()) {
+            std::shared_ptr<cugl::JsonValue> _settings = _reader->readJson();
+            if (_settings != nullptr) {
+                string name = _settings->getString("PlayerName", "Player Name");
+                if (!name.empty()) {
+                    pname = name;
+                }
+                vol = _settings->get("Volume")->asFloat();
+                musicOn = _settings->get("MusicOn")->asBool();
+                parallaxOn = _settings->get("ParallaxOn")->asBool();
+
+                CULog("Using saved settings.");
+            }
+        }
+
+        _menu.init(_assets, pname, vol, musicOn, parallaxOn);
         _loaded = true;
     }
     else if (!_startGame && _menu.isActive()) {
@@ -137,13 +170,35 @@ void CoreImpactApp::update(float timestep) {
         _gameplay.dispose();
 
         _networkMessageManager = nullptr;
-
-        _menu.removeChildByName("menuScene");
-        _menu.setActive(false);
+        
+        _menu.removeAllChildren();
         _loaded = true;
         _startGame = false;
         _menu.init(_assets);
     }
+}
+
+/**
+ * The method called when the application is suspended and put in the background.
+ *
+ * When this method is called, you should store any state that you do not
+ * want to be lost.  There is no guarantee that an application will return
+ * from the background; it may be terminated instead.
+ *
+ * If you are using audio, it is critical that you pause it on suspension.
+ * Otherwise, the audio thread may persist while the application is in
+ * the background.
+ */
+void CoreImpactApp::onSuspend() {
+    // save settings file
+    std::shared_ptr<cugl::JsonWriter> _writer = JsonWriter::alloc(Application::getSaveDirectory().append("settings.json"));
+    std::shared_ptr<cugl::JsonValue> _settings = JsonValue::allocObject();
+    _settings->appendValue("PlayerName", _menu.getPlayerName());
+    _settings->appendValue("Volume", _menu.getVolume());
+    _settings->appendValue("MusicOn", _menu.isMusicOn());
+    _settings->appendValue("ParallaxOn", _menu.isParallaxOn());
+    _writer->writeJson(_settings);
+    CULog("Saving current game settings.");
 }
 
 /**
