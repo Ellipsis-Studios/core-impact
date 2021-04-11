@@ -175,5 +175,5 @@ float StardustQueue::getStardustRadius() {
     if (texture != nullptr) {
         sdRadius = std::max(texture->getWidth(), texture->getHeight()) / (2.0f * 13.0f);
     }
-    return sdRadius / 2;
+    return sdRadius / 3;
 }

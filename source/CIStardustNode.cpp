@@ -47,7 +47,7 @@ void StardustNode::draw(const std::shared_ptr<cugl::SpriteBatch>& batch,
             cugl::Mat4 stardustTransform;
             // this translation is what batch->draw does with the origin field
             stardustTransform.translate(-64,-64,0);
-            stardustTransform.scale(_queue->at(idx).getRadius() / 2);
+            stardustTransform.scale(_queue->at(idx).getRadius() / 3);
             stardustTransform.translate(_queue->at(idx).getPosition().x,
                                         _queue->at(idx).getPosition().y, 0);
             stardustTransform.multiply(transform);
