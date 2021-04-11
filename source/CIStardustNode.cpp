@@ -60,6 +60,10 @@ void StardustNode::draw(const std::shared_ptr<cugl::SpriteBatch>& batch,
                     break;
                 default:
                     AnimationNode::draw(batch, stardustTransform, stardustColor);
+                    cugl::Color4 tailColor = cugl::Color4(stardustColor);
+                    tailColor.a = 125;
+                    stardustTransform.translate(-_queue->at(idx).getVelocity().x * 2, -_queue->at(idx).getVelocity().y * 2, 0);
+                    AnimationNode::draw(batch, stardustTransform, tailColor);
             }
         }
     }
