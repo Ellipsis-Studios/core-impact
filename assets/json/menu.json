@@ -48,7 +48,8 @@
     "menubutton": "widgets/menubutton.json",
     "backbutton": "widgets/backbutton.json",
     "settingsbutton": "widgets/settingsbutton.json",
-    "togglebutton": "widgets/togglebutton.json"
+    "togglebutton": "widgets/togglebutton.json",
+    "nameinput": "widgets/nameinput.json"
   },
   "scene2s": {
     "menu": {
@@ -474,27 +475,21 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.15,
-            "y_offset": 0.25
+            "x_offset": 0.2,
+            "y_offset": 0.21
           }
         },
         "nameinput": {
           "comment": "The player name text input in Settings.",
-          "type": "TextField",
+          "type": "Widget",
           "data": {
-            "font": "saira32",
-            "text": "Player Name",
-            "foreground": [255, 255, 255, 255],
-            "background": [0, 0, 0, 0],
-            "size": [300, 80],
-            "anchor": [0.5, 0.5],
-            "visible": false
+            "key": "nameinput"
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.25,
-            "y_offset": 0.25
+            "x_offset": 0.3,
+            "y_offset": 0.18
           }
         },
         "musiclabel": {
@@ -512,8 +507,8 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.15,
-            "y_offset": 0.1
+            "x_offset": 0.2,
+            "y_offset": 0.07
           }
         },
         "musicinput": {
@@ -526,7 +521,7 @@
             "x_anchor": "center",
             "y_anchor": "middle",
             "x_offset": 0.4,
-            "y_offset": 0.07
+            "y_offset": 0.04
           }
         },
         "volumelabel": {
@@ -544,8 +539,8 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.15,
-            "y_offset": -0.1
+            "x_offset": 0.2,
+            "y_offset": -0.06
           }
         },
         "volumeinput": {
@@ -563,7 +558,7 @@
             "x_anchor": "center",
             "y_anchor": "middle",
             "x_offset": 0.3,
-            "y_offset": -0.12
+            "y_offset": -0.09
           }
         },
         "parallaxlabel": {
@@ -581,8 +576,8 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.15,
-            "y_offset": -0.3
+            "x_offset": 0.2,
+            "y_offset": -0.2
           }
         },
         "parallaxinput": {
@@ -595,7 +590,7 @@
             "x_anchor": "center",
             "y_anchor": "middle",
             "x_offset": 0.4,
-            "y_offset": -0.32
+            "y_offset": -0.22
           }
         }
       }
