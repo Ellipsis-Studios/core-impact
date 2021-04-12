@@ -139,8 +139,10 @@ void StardustQueue::addToPowerupQueue(StardustModel* stardust) {
  * Each stardust is advanced according to its velocity. Stardusts which are too old
  * are deleted.  This method does not bounce off walls.  We moved all collisions
  * to the collision controller where they belong.
+ *
+ * @param timestep  How much time has passed since the last frame
  */
-void StardustQueue::update() {
+void StardustQueue::update(float timestep) {
     // First, delete all old stardust.
     // INVARIANT: Stardusts are in queue in decending age order.
     // That means we just remove the head until the stardusts are young enough.
@@ -158,4 +160,24 @@ void StardustQueue::update() {
         // Move the stardust according to velocity.
         _queue[idx].update();
     }
+    
+    _stardustNode->update(timestep);
+}
+
+/**
+ * Returns the radius of a stardust. Returns 0 if the stardust texture has not been set yet.
+ *
+ * @return the radius of a stardust
+ */
+float StardustQueue::getStardustRadius() {
+    if (_stardustNode == nullptr) {
+        return 0;
+    }
+    
+    float sdRadius = 0;
+    auto texture = _stardustNode->getTexture();
+    if (texture != nullptr) {
+        sdRadius = std::max(texture->getWidth(), texture->getHeight()) / (2.0f * 13.0f);
+    }
+    return sdRadius / 3;
 }

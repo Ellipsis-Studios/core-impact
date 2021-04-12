@@ -220,8 +220,17 @@ public:
      * Each stardust is advanced according to its velocity. Stardusts which are too old
      * are deleted.  This method does not bounce off walls.  We moved all collisions
      * to the collision controller where they belong.
+     *
+     * @param timestep  How much time has passed since the last frame
      */
-    void update();
+    void update(float timestep);
+    
+    /**
+     * Returns the radius of a stardust. Returns 0 if the stardust texture has not been set yet.
+     *
+     * @return the radius of a stardust
+     */
+    float getStardustRadius();
 };
 
 #endif /* __CI_STARDUST_QUEUE_H__ */
