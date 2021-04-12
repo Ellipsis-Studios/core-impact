@@ -139,8 +139,10 @@ void StardustQueue::addToPowerupQueue(StardustModel* stardust) {
  * Each stardust is advanced according to its velocity. Stardusts which are too old
  * are deleted.  This method does not bounce off walls.  We moved all collisions
  * to the collision controller where they belong.
+ *
+ * @param timestep  How much time has passed since the last frame
  */
-void StardustQueue::update() {
+void StardustQueue::update(float timestep) {
     // First, delete all old stardust.
     // INVARIANT: Stardusts are in queue in decending age order.
     // That means we just remove the head until the stardusts are young enough.
@@ -158,6 +160,8 @@ void StardustQueue::update() {
         // Move the stardust according to velocity.
         _queue[idx].update();
     }
+    
+    _stardustNode->update(timestep);
 }
 
 /**

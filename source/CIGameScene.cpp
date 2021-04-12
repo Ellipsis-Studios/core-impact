@@ -179,8 +179,7 @@ void GameScene::update(float timestep) {
      }
     
     _planet->update(timestep);
-    _stardustContainer->update();
-    _stardustContainer->getStardustNode()->update(timestep);
+    _stardustContainer->update(timestep);
     addStardust(dimen);
 
     collisions::checkForCollision(_planet, _stardustContainer, timestep);
