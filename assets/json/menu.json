@@ -551,8 +551,8 @@
             "range": [0, 1],
             "value": 0.5,
             "anchor": [0.5, 0.5],
-            "visible": false,
-            "scale": 0.75
+            "scale": 0.75,
+            "visible": false
           },
           "layout": {
             "x_anchor": "center",

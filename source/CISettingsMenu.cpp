@@ -85,7 +85,11 @@ bool SettingsMenu::init(const std::shared_ptr<cugl::AssetManager>& assets) {
 
     // Volume slider 
     _volumeSlider = std::dynamic_pointer_cast<scene2::Slider>(assets->get<scene2::SceneNode>("settings_volumeinput"));
-
+    
+    // TEMP
+    auto _volumeKnob = _volumeSlider->getKnob();
+    _volumeKnob->setColor(Color4::WHITE);
+    
     _nextState = MenuState::Setting;
     return true;
 }
