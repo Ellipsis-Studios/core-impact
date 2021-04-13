@@ -38,6 +38,7 @@ void LobbyMenu::dispose() {
     _gamelobbyplayerlabel3 = nullptr;
     _gamelobbyplayerlabel4 = nullptr;
     _gamelobbyplayerlabel5 = nullptr;
+
     _gamelobbyplayerName1 = nullptr;
     _gamelobbyplayerName2 = nullptr;
     _gamelobbyplayerName3 = nullptr;
@@ -108,37 +109,33 @@ bool LobbyMenu::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     _colorCountBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("lobby_colorcountbutton"));
     _winCondBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("lobby_wincondbutton"));
 
-    _spawnRateBtn->addListener([&](const std::string& name, bool down) {
+    _spawnRateBtn->addListener([=](const std::string& name, bool down) {
         if (!down) {
             _currSpawn = (_currSpawn + 1) % 7;
             _lobbySpawnRate = _spawnRates[_currSpawn];
-            _spawnRateLabel->setText(cugl::strtool::to_string(_lobbySpawnRate, 1) + "X");
         }
         });
-    _gravStrengthBtn->addListener([&](const std::string& name, bool down) {
+    _gravStrengthBtn->addListener([=](const std::string& name, bool down) {
         if (!down) {
             _currGrav = (_currGrav + 1) % 7;
             _lobbyGravityStrength = _gravStrengths[_currGrav];
-            _gravStrengthLabel->setText(cugl::strtool::to_string(_lobbyGravityStrength, 1) + "X");
         }
         });
-    _colorCountBtn->addListener([&](const std::string& name, bool down) {
+    _colorCountBtn->addListener([=](const std::string& name, bool down) {
         if (!down) {
             _currColor = (_currColor + 1) % 5;
             _lobbyColorCount = _colorCounts[_currColor];
-            _colorCountLabel->setText(cugl::strtool::to_string(_lobbyColorCount));
         }
         });
-    _winCondBtn->addListener([&](const std::string& name, bool down) {
+    _winCondBtn->addListener([=](const std::string& name, bool down) {
         if (!down) {
             _currWin = (_currWin + 1) % 5;
             _lobbyWinCond = _winConds[_currWin];
-            _winCondLabel->setText(cugl::strtool::to_string(_lobbyWinCond));
         }
         });
 
     _gameStartBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("lobby_startgamebutton"));
-    _gameStartBtn->addListener([&](const std::string& name, bool down) {
+    _gameStartBtn->addListener([=](const std::string& name, bool down) {
         if (!down) {
             _nextState = MenuState::LobbyToGame;
         }
@@ -155,10 +152,11 @@ bool LobbyMenu::init(const std::shared_ptr<cugl::AssetManager>& assets) {
  * Sets whether the game lobby menu is currently active and visible.
  *
  * @param onDisplay     Whether the game lobby menu is currently active and visible
+ * @param state         Current menu state (display different assets for Host/Client)
  */
-void LobbyMenu::setDisplay(bool onDisplay) {
+void LobbyMenu::setDisplay(bool onDisplay, MenuState& state) {
     if (_layer != nullptr) {
-        if (!(onDisplay && _isClient) && _spawnRateBtn->isVisible() != onDisplay) {
+        if (state != MenuState::JoinToLobby && _spawnRateBtn->isVisible() != onDisplay) {
             _spawnRateLabel->setVisible(onDisplay);
             _gravStrengthLabel->setVisible(onDisplay);
             _colorCountLabel->setVisible(onDisplay);
@@ -172,13 +170,16 @@ void LobbyMenu::setDisplay(bool onDisplay) {
             _gravStrengthBtnLabel->setVisible(onDisplay);
             _colorCountBtnLabel->setVisible(onDisplay);
             _winCondBtnLabel->setVisible(onDisplay);
-
-            //_gameStartBtn->setVisible(onDisplay);
-            // TODO: Remove start button from client once networking is integrated
         }
-        _gameStartBtn->setVisible(onDisplay); 
+        _gameStartBtn->setVisible(onDisplay);
 
         _lobbyRoomLabel->setVisible(onDisplay);
+        //_gamelobbyplayerlabel1->setVisible(onDisplay);
+        //_gamelobbyplayerlabel2->setVisible(onDisplay);
+        //_gamelobbyplayerlabel3->setVisible(onDisplay);
+        //_gamelobbyplayerlabel4->setVisible(onDisplay);
+        //_gamelobbyplayerlabel5->setVisible(onDisplay);
+
         _gamelobbyplayerName1->setVisible(onDisplay);
         _gamelobbyplayerName2->setVisible(onDisplay);
         _gamelobbyplayerName3->setVisible(onDisplay);
@@ -188,7 +189,7 @@ void LobbyMenu::setDisplay(bool onDisplay) {
 
         if (onDisplay) {
             _gameStartBtn->activate();
-            if (!(onDisplay && _isClient) && !_spawnRateBtn->isActive()) {
+            if (state == MenuState::MainToLobby) {
                 _spawnRateBtn->activate();
                 _gravStrengthBtn->activate();
                 _colorCountBtn->activate();
@@ -233,10 +234,9 @@ void LobbyMenu::update(MenuState& state, string& joingame, string& playername, s
             // handle displaying for Host
             joingame = "";
             _isClient = false;
-            setDisplay(true);
+            setDisplay(true, state);
             _lobbyRoomLabel->setText(joingame);
             _gamelobbyplayerlabel1->setText(playername);
-            state = _nextState = MenuState::GameLobby;
 
             // handle game lobby settings
             _currSpawn = _currGrav = _currWin = 2;
@@ -246,21 +246,22 @@ void LobbyMenu::update(MenuState& state, string& joingame, string& playername, s
             _lobbyGravityStrength = gravStrength = _gravStrengths[_currGrav];
             _lobbyColorCount = colorCount = _colorCounts[_currColor];
             _lobbyWinCond = winCond = _winConds[_currWin];
+
             _spawnRateLabel->setText(cugl::strtool::to_string(_lobbySpawnRate, 1) + "X");
             _gravStrengthLabel->setText(cugl::strtool::to_string(_lobbyGravityStrength, 1) + "X");
             _colorCountLabel->setText(cugl::strtool::to_string(_lobbyColorCount));
             _winCondLabel->setText(cugl::strtool::to_string(_lobbyWinCond));
             
+            state = _nextState = MenuState::GameLobby;
             break;
         }
         case MenuState::JoinToLobby:
         {
             // handle displaying for Clients
             _isClient = true;
-            setDisplay(true);
+            setDisplay(true, state);
             _lobbyRoomLabel->setText(joingame);
             _gamelobbyplayerlabel1->setText(playername);
-            state = _nextState = MenuState::GameLobby;
 
             // offset player name labels to center for clients
             const float clientOffset = _layer->getContentHeight() / 6.0f;
@@ -270,6 +271,7 @@ void LobbyMenu::update(MenuState& state, string& joingame, string& playername, s
             _gamelobbyplayerName4->setPositionY(_gamelobbyplayerName4->getPositionY() - clientOffset);
             _gamelobbyplayerName5->setPositionY(_gamelobbyplayerName5->getPositionY() - clientOffset);
 
+            state = _nextState = MenuState::GameLobby;
             break;
         }
         case MenuState::GameLobby:
@@ -286,19 +288,24 @@ void LobbyMenu::update(MenuState& state, string& joingame, string& playername, s
                 _gamelobbyplayerlabel5->setText(othernames.at(3));
             }
 
-            // handle game lobby settings
+            // handle game lobby settings for the Host 
             if (!_isClient) {
                 spawnRate = _lobbySpawnRate;
                 gravStrength = _lobbyGravityStrength;
                 colorCount = _lobbyColorCount;
                 winCond = _lobbyWinCond;
+
+                _spawnRateLabel->setText(cugl::strtool::to_string(_lobbySpawnRate, 1) + "X");
+                _gravStrengthLabel->setText(cugl::strtool::to_string(_lobbyGravityStrength, 1) + "X");
+                _colorCountLabel->setText(cugl::strtool::to_string(_lobbyColorCount));
+                _winCondLabel->setText(cugl::strtool::to_string(_lobbyWinCond));
             }
             state = _nextState;
             break;
         }
         default:
         {
-            // undo player name labels offsets
+            // undo player name labels offsets for clients
             if (_isClient) {
                 const float clientOffset = _layer->getContentHeight() / 6.0f;
                 _gamelobbyplayerName1->setPositionY(_gamelobbyplayerName1->getPositionY() + clientOffset);
@@ -312,7 +319,7 @@ void LobbyMenu::update(MenuState& state, string& joingame, string& playername, s
 
             // hide menu screen
             if (_layer != nullptr && _layer->isVisible()) {
-                setDisplay(false);
+                setDisplay(false, state);
             }
             break;
         }

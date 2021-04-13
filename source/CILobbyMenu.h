@@ -138,6 +138,14 @@ public:
     void setDisplay(bool onDisplay);
 
     /**
+     * Sets whether the game lobby menu is currently active and visible.
+     *
+     * @param onDisplay     Whether the game lobby menu is currently active and visible
+     * @param state         Current menu state (display different assets for Host/Client)
+     */
+    void setDisplay(bool onDisplay, MenuState& state);
+
+    /**
      * The method called to update the game lobby menu.
      *
      * This method handles transitions into and out of game lobby menu along
