@@ -23,10 +23,18 @@
       "magfilter": "linear"
     },
     "menubuttonup": {
-      "file": "textures/buttonUp.png"
+      "file": "textures/buttonUp.png",
+      "wrapS": "clamp",
+      "wrapT": "clamp",
+      "minfilter": "linear",
+      "magfilter": "linear"
     },
     "menubuttondown": {
-      "file": "textures/buttonDown.png"
+      "file": "textures/buttonDown.png",
+      "wrapS": "clamp",
+      "wrapT": "clamp",
+      "minfilter": "linear",
+      "magfilter": "linear"
     },
     "clearbutton": {
       "file": "textures/clearbutton.png"

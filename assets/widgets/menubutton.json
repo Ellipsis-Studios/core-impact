@@ -5,8 +5,8 @@
     "size2": ["children", "down", "data", "size"],
     "text2": ["children", "down", "children", "label", "data", "text"],
     "font": ["children", "up", "children", "label", "data", "font"],
-    "texture": ["children", "up", "children", "patch", "data", "texture"],
-    "interior": ["children", "up", "children", "patch", "data", "interior"]
+    "texture": ["children", "up", "children", "menuup", "data", "texture"],
+    "interior": ["children", "up", "children", "menuup", "data", "interior"]
   },
   "contents": {
     "type": "Button",
@@ -17,6 +17,7 @@
       "anchor": [0.5, 0.5],
       "upnode": "up",
       "downnode": "down",
+      "size": [300, 80],
       "visible": false
     },
     "children": {
@@ -26,11 +27,11 @@
           "type": "Anchored"
         },
         "data": {
-          "size": [300, 75],
+          "size": [240, 80],
           "anchor": [0.5, 0.5]
         },
         "children": {
-          "patch": {
+          "menuup": {
             "type": "NinePatch",
             "format": {
               "type": "Anchored"
@@ -38,7 +39,7 @@
             "data": {
               "texture": "menubuttonup",
               "anchor": [0.5, 0.5],
-              "interior": [10, 10, 100, 60]
+              "interior": [5, 5, 120, 55]
             },
             "layout": {
               "x_anchor": "fill",
@@ -55,6 +56,7 @@
               "text": "text",
               "foreground": [255, 255, 255, 255],
               "background": [0, 0, 0, 0],
+              "size": [200, 60],
               "anchor": [0.5, 0.5],
               "halign": "center",
               "valign": "middle"
@@ -77,12 +79,12 @@
         },
         "data": {
           "comment": "Without this size, the up button fills the screen (because that is default)",
-          "size": [300, 75],
+          "size": [300, 80],
           "anchor": [0.5, 0.5]
         },
         "children": {
           "comment": "The children fit snug to the up button and do not need sizes",
-          "patch": {
+          "menudownpatch": {
             "type": "NinePatch",
             "format": {
               "type": "Anchored"
@@ -107,6 +109,7 @@
               "text": "text",
               "foreground": [0, 0, 0, 255],
               "background": [0, 0, 0, 0],
+              "size": [200, 60],
               "anchor": [0.5, 0.5],
               "halign": "center",
               "valign": "middle"

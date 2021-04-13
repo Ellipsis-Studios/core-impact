@@ -38,6 +38,11 @@ void LobbyMenu::dispose() {
     _gamelobbyplayerlabel3 = nullptr;
     _gamelobbyplayerlabel4 = nullptr;
     _gamelobbyplayerlabel5 = nullptr;
+    _gamelobbyplayerName1 = nullptr;
+    _gamelobbyplayerName2 = nullptr;
+    _gamelobbyplayerName3 = nullptr;
+    _gamelobbyplayerName4 = nullptr;
+    _gamelobbyplayerName5 = nullptr;
     _spawnRateLabel = nullptr;
     _gravStrengthLabel = nullptr;
     _colorCountLabel = nullptr;
@@ -73,12 +78,17 @@ bool LobbyMenu::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     _layer->doLayout();
 
     _lobbyRoomLabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_roomidlabel"));
-    _gamelobbyplayerlabel1 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_playerlabel1"));
-    _gamelobbyplayerlabel2 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_playerlabel2"));
-    _gamelobbyplayerlabel3 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_playerlabel3"));
-    _gamelobbyplayerlabel4 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_playerlabel4"));
-    _gamelobbyplayerlabel5 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_playerlabel5"));
-    
+    _gamelobbyplayerName1 = assets->get<scene2::SceneNode>("lobby_playerlabel1");
+    _gamelobbyplayerName2 = assets->get<scene2::SceneNode>("lobby_playerlabel2");
+    _gamelobbyplayerName3 = assets->get<scene2::SceneNode>("lobby_playerlabel3");
+    _gamelobbyplayerName4 = assets->get<scene2::SceneNode>("lobby_playerlabel4");
+    _gamelobbyplayerName5 = assets->get<scene2::SceneNode>("lobby_playerlabel5");
+    _gamelobbyplayerlabel1 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_playerlabel1_label"));
+    _gamelobbyplayerlabel2 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_playerlabel2_label"));
+    _gamelobbyplayerlabel3 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_playerlabel3_label"));
+    _gamelobbyplayerlabel4 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_playerlabel4_label"));
+    _gamelobbyplayerlabel5 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_playerlabel5_label"));
+
     // Game lobby settings 
     _spawnRateLabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_spawnratebutton_up_label"));
     _gravStrengthLabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_gravstrengthbutton_up_label"));
@@ -171,6 +181,11 @@ void LobbyMenu::setDisplay(bool onDisplay, MenuState& state) {
         _gameStartBtn->setVisible(onDisplay); 
 
         _lobbyRoomLabel->setVisible(onDisplay);
+        _gamelobbyplayerName1->setVisible(onDisplay);
+        _gamelobbyplayerName2->setVisible(onDisplay);
+        _gamelobbyplayerName3->setVisible(onDisplay);
+        _gamelobbyplayerName4->setVisible(onDisplay);
+        _gamelobbyplayerName5->setVisible(onDisplay);
         _gamelobbyplayerlabel1->setVisible(onDisplay);
         _gamelobbyplayerlabel2->setVisible(onDisplay);
         _gamelobbyplayerlabel3->setVisible(onDisplay);
@@ -260,6 +275,11 @@ void LobbyMenu::update(MenuState& state, string& joingame, string& playername, s
 
             // offset player name labels to center
             const float clientOffset = _layer->getContentHeight() / 4.0f;
+            _gamelobbyplayerName1->setPositionY(_gamelobbyplayerName1->getPositionY() - clientOffset);
+            _gamelobbyplayerName2->setPositionY(_gamelobbyplayerName2->getPositionY() - clientOffset);
+            _gamelobbyplayerName3->setPositionY(_gamelobbyplayerName3->getPositionY() - clientOffset);
+            _gamelobbyplayerName4->setPositionY(_gamelobbyplayerName4->getPositionY() - clientOffset);
+            _gamelobbyplayerName5->setPositionY(_gamelobbyplayerName5->getPositionY() - clientOffset);
             _gamelobbyplayerlabel1->setPositionY(_gamelobbyplayerlabel1->getPositionY() - clientOffset);
             _gamelobbyplayerlabel2->setPositionY(_gamelobbyplayerlabel2->getPositionY() - clientOffset);
             _gamelobbyplayerlabel3->setPositionY(_gamelobbyplayerlabel3->getPositionY() - clientOffset);
@@ -300,6 +320,11 @@ void LobbyMenu::update(MenuState& state, string& joingame, string& playername, s
             // offset player name labels to center
             if (_isClient) {
                 const float clientOffset = _layer->getContentHeight() / 4.0f;
+                _gamelobbyplayerName1->setPositionY(_gamelobbyplayerName1->getPositionY() + clientOffset);
+                _gamelobbyplayerName2->setPositionY(_gamelobbyplayerName2->getPositionY() + clientOffset);
+                _gamelobbyplayerName3->setPositionY(_gamelobbyplayerName3->getPositionY() + clientOffset);
+                _gamelobbyplayerName4->setPositionY(_gamelobbyplayerName4->getPositionY() + clientOffset);
+                _gamelobbyplayerName5->setPositionY(_gamelobbyplayerName5->getPositionY() + clientOffset);
                 _gamelobbyplayerlabel1->setPositionY(_gamelobbyplayerlabel1->getPositionY() + clientOffset);
                 _gamelobbyplayerlabel2->setPositionY(_gamelobbyplayerlabel2->getPositionY() + clientOffset);
                 _gamelobbyplayerlabel3->setPositionY(_gamelobbyplayerlabel3->getPositionY() + clientOffset);
