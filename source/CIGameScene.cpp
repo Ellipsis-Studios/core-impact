@@ -132,6 +132,14 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     addChild(_stardustContainer->getStardustNode());
 
     _countdown = INACTIVE_COUNTDOWN;
+
+    CULog("GameScene initializing.");
+    CULog("Game Room Id: %s", gameId.c_str());
+    CULog("SpawnRate: %f", spawnRate);
+    CULog("Gravity Strength: %f", gravStrength);
+    CULog("Color Count: %i", colorCount);
+    CULog("Game Length (win cond): %i", gameLength);
+
     return true;
 }
 
@@ -296,7 +304,7 @@ void GameScene::addStardust(const Size bounds) {
     // Sums up the total probability space of the stardust colors, augmented by a mass correction
     probSum = accumulate(_stardustProb, _stardustProb + _colorCount, probSum) + massCorrection;
     // Randomly selects a point in the probability space
-    int spawnRand = rand() % probSum;
+    int spawnRand = rand() % max(1, probSum);
     for (int i = 0; i < _colorCount; i++) {
         spawnRand -= (CIColor::Value(i) == _planet->getColor()) ? _stardustProb[i] - massCorrection : _stardustProb[i];
         if (spawnRand <= 0){

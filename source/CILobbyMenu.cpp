@@ -151,8 +151,6 @@ void LobbyMenu::setDisplay(bool onDisplay, MenuState& state) {
     if (_layer != nullptr) {
         if (state != MenuState::JoinToLobby && _spawnRateBtn->isVisible() != onDisplay) {
             // host only
-            _gameStartBtn->setVisible(onDisplay);
-
             _spawnRateLabel->setVisible(onDisplay);
             _gravStrengthLabel->setVisible(onDisplay);
             _colorCountLabel->setVisible(onDisplay);
@@ -166,7 +164,12 @@ void LobbyMenu::setDisplay(bool onDisplay, MenuState& state) {
             _gravStrengthBtnLabel->setVisible(onDisplay);
             _colorCountBtnLabel->setVisible(onDisplay);
             _winCondBtnLabel->setVisible(onDisplay);
+
+            //_gameStartBtn->setVisible(onDisplay);
+    
+            // TODO: Remove start button from client once networking is integrated
         }
+        _gameStartBtn->setVisible(onDisplay); 
 
         _lobbyRoomLabel->setVisible(onDisplay);
         _gamelobbyplayerlabel1->setVisible(onDisplay);
@@ -177,8 +180,9 @@ void LobbyMenu::setDisplay(bool onDisplay, MenuState& state) {
         _layer->setVisible(onDisplay);
 
         if (onDisplay) {
-            if (state == MenuState::MainToLobby && !_gameStartBtn->isActive()) {
-                _gameStartBtn->activate();
+            _gameStartBtn->activate();
+            if (state == MenuState::MainToLobby && !_spawnRateBtn->isActive()) {
+                //_gameStartBtn->activate();
                 _spawnRateBtn->activate();
                 _gravStrengthBtn->activate();
                 _colorCountBtn->activate();
@@ -186,8 +190,9 @@ void LobbyMenu::setDisplay(bool onDisplay, MenuState& state) {
             }
         }
         else {
-            if (_gameStartBtn->isActive()) {
-                _gameStartBtn->deactivate();
+            _gameStartBtn->deactivate();
+            if (_spawnRateBtn->isActive()) {
+                //_gameStartBtn->deactivate();
                 _spawnRateBtn->deactivate();
                 _gravStrengthBtn->deactivate();
                 _colorCountBtn->deactivate();

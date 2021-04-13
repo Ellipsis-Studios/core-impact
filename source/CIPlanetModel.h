@@ -15,10 +15,6 @@
 #include "CIPlanetLayer.h"
 #include "CIPlanetNode.h"
 
-/** Gravitational strength factor */
-static float _gravStrength = 1.0f;
-/** Win condition value */
-static uint16_t _winCond = 200;
 
 class PlanetModel {
 protected:
@@ -39,6 +35,11 @@ protected:
     float _mass;
     /** Position of the planet in world space */
     cugl::Vec2 _position;
+
+    /** Gravitational strength factor */
+    static float _gravStrength;
+    /** Win condition value */
+    static uint16_t _winCond;
     
     /** Scene graph node for the planet */
     std::shared_ptr<PlanetNode> _planetNode;
@@ -155,6 +156,24 @@ public:
         return _planetNode;
     }
 
+    /** 
+     * Returns the planet's gravity strength value.
+     * 
+     * @return float planet's gravity strength factor value
+     */
+    float getGravStrength() const {
+        return _gravStrength;
+    }
+
+    /** 
+     * Returns the win condition (game length) for the planet.
+     * 
+     * @return uint16_t planet's win condition (game length)
+     */
+    uint16_t getWinCond() const {
+        return _winCond;
+    }
+
 #pragma mark Constructors
     /**
      * Creates a new planet at the center of the screen
@@ -255,7 +274,7 @@ public:
      *
      * @return bool whether current planet satisfies winning conditions.
      */
-    bool isWinner() {
+    bool isWinner() const {
         // TODO: switch to number of layers
         return (_mass >= _winCond);
     }

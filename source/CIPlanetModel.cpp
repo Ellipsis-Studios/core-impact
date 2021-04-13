@@ -21,6 +21,10 @@
 #define LAYER_LOCKIN_TOTAL_INCREASE     1
 #define LAYER_LOCKIN_TIME               3
 
+/** Initialize PlanetModel's static variables */
+float PlanetModel::_gravStrength = 1.0f;
+uint16_t PlanetModel::_winCond = 200;
+
 #pragma mark Properties
 /**
  * Sets the textures for this planet.

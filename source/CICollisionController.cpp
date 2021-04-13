@@ -84,7 +84,8 @@ void collisions::checkForCollision(const std::shared_ptr<PlanetModel>& planet, c
                     planet->getMass() / (distance * distance);
                 
                 // handle game settings 
-                force *= _gravStrength;
+                auto pGrav = planet->getGravStrength();
+                force *= pGrav;
 
                 stardust->setVelocity(((force / stardust->getMass()) * 1.0f)*norm + stardust->getVelocity());
             }
