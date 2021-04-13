@@ -15,8 +15,10 @@
 #include "CIPlanetLayer.h"
 #include "CIPlanetNode.h"
 
-#define WIN_PLANET_MASS 200
-
+/** Gravitational strength factor */
+static float _gravStrength = 1.0f;
+/** Win condition value */
+static uint16_t _winCond = 200;
 
 class PlanetModel {
 protected:
@@ -182,11 +184,28 @@ public:
      * @param y The initial y-coordinate of the center
      * @param c The initial color code of the planet
      * @param maxLayers The maximum number of layers the planet can have
+     * @param gravStrength The planet's gravitational strength factor
+     * @param winCond The condition value for the planet to win
      *
      * @return true if the initialization was successful
      */
-    bool init(float x, float y, CIColor::Value c, int maxLayers);
-        
+    virtual bool init(float x, float y, CIColor::Value c, int maxLayers, float gravStrength, uint16_t winCond);
+
+    /**
+     * Initializes a new planet with the given color
+     *
+     * This method does NOT create a scene graph node for this planet.  You
+     * must call setTexture for that.
+     *
+     * @param x The initial x-coordinate of the center
+     * @param y The initial y-coordinate of the center
+     * @param c The initial color code of the planet
+     * @param maxLayers The maximum number of layers the planet can have
+     *
+     * @return true if the initialization was successful
+     */
+    virtual bool init(float x, float y, CIColor::Value c, int maxLayers);
+
     /**
      * Returns a newly allocated planet with the given color
      *
@@ -197,12 +216,14 @@ public:
      * @param y The initial y-coordinate of the center
      * @param c The initial color code of the planet
      * @param maxLayers The maximum number of layers the planet can have
+     * @param gravStrength The planet's gravitational strength factor
+     * @param winCond The condition value for the planet to win
      *
      * @return a newly allocated planet at the given location with the given color.
      */
-    static std::shared_ptr<PlanetModel> alloc(float x, float y, CIColor::Value c, int maxLayers) {
+    static std::shared_ptr<PlanetModel> alloc(float x, float y, CIColor::Value c, int maxLayers, float gravStrength, uint16_t winCond) {
         std::shared_ptr<PlanetModel> result = std::make_shared<PlanetModel>();
-        return (result->init(x, y, c, maxLayers) ? result : nullptr);
+        return (result->init(x, y, c, maxLayers, gravStrength, winCond) ? result : nullptr);
     }
 
 #pragma mark Interactions
@@ -235,8 +256,9 @@ public:
      * @return bool whether current planet satisfies winning conditions.
      */
     bool isWinner() {
-        return (_mass >= WIN_PLANET_MASS);
-    }    
+        // TODO: switch to number of layers
+        return (_mass >= _winCond);
+    }
 };
 
 #endif /* __CI_PLANET_MODEL_H__ */

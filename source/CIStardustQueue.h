@@ -191,7 +191,6 @@ public:
         _stardust_to_send.clear();
     }
     
-
     /**
      * Adds a stardust to the powerup queue.
      *

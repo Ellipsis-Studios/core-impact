@@ -42,6 +42,10 @@
     "saira32": {
       "file": "fonts/SairaSemicondensed.ttf",
       "size": 32
+    },
+    "saira24": {
+      "file": "fonts/SairaSemicondensed.ttf",
+      "size": 24
     }
   },
   "widgets": {
@@ -49,7 +53,10 @@
     "backbutton": "widgets/backbutton.json",
     "settingsbutton": "widgets/settingsbutton.json",
     "togglebutton": "widgets/togglebutton.json",
-    "nameinput": "widgets/nameinput.json"
+    "nameinput": "widgets/nameinput.json",
+    "lobbybutton": "widgets/lobbybutton.json",
+    "lobbybtnlabel": "widgets/lobbylabel.json",
+    "pnamelabel": "widgets/pnamelabel.json"
   },
   "scene2s": {
     "menu": {
@@ -146,7 +153,7 @@
           "layout": {
             "x_anchor": "right",
             "y_anchor": "bottom",
-            "x_offset": -0.1,
+            "x_offset": -0.05,
             "y_offset": 0.05
           }
         },
@@ -159,7 +166,6 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.05,
             "y_offset": 0.38
           }
         }
@@ -201,8 +207,8 @@
           "layout": {
             "x_anchor": "right",
             "y_anchor": "top",
-            "x_offset": -0.1,
-            "y_offset": -0.1
+            "x_offset": -0.05,
+            "y_offset": -0.08
           }
         },
         "newbutton": {
@@ -258,110 +264,222 @@
             "text": "",
             "foreground": [255, 255, 255, 255],
             "background": [0, 0, 0, 0],
-            "size": [300, 80],
+            "size": [200, 80],
             "anchor": [0.5, 0.5],
+            "halign": "center",
+            "valign": "middle",
             "visible": false
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.35,
+            "x_offset": 0.425,
             "y_offset": 0.4
           }
         },
         "playerlabel1": {
-          "comment": "The label at the top for current player's info.",
-          "type": "Label",
+          "comment": "The label at the top for current player's name.",
+          "type": "Widget",
           "data": {
-            "font": "saira32",
-            "text": "",
-            "foreground": [255, 255, 255, 255],
-            "background": [0, 0, 0, 0],
-            "size": [300, 80],
-            "anchor": [0.5, 0.5],
-            "visible": false
+            "key": "pnamelabel"
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.35,
-            "y_offset": 0.3
+            "x_offset": 0.245,
+            "y_offset": 0.365
           }
         },
         "playerlabel2": {
-          "comment": "The label at the middle-left for opponent player's info",
-          "type": "Label",
+          "comment": "The label at the middle-left for opponent player's name",
+          "type": "Widget",
           "data": {
-            "font": "saira32",
-            "text": "N/A",
-            "foreground": [255, 255, 255, 255],
-            "background": [0, 0, 0, 0],
-            "size": [300, 80],
-            "anchor": [0.5, 0.5],
-            "visible": false
+            "key": "pnamelabel",
+            "variables": {
+              "text": "N/A"
+            }
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.25,
-            "y_offset": 0.15
+            "x_offset": 0.125,
+            "y_offset": 0.2
           }
         },
         "playerlabel3": {
           "comment": "The label at the middle-right for opponent player's info",
-          "type": "Label",
+          "type": "Widget",
           "data": {
-            "font": "saira32",
-            "text": "N/A",
-            "foreground": [255, 255, 255, 255],
-            "background": [0, 0, 0, 0],
-            "size": [300, 80],
-            "anchor": [0.5, 0.5],
-            "visible": false
+            "key": "pnamelabel",
+            "variables": {
+              "text": "N/A"
+            }
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.45,
-            "y_offset": 0.15
+            "x_offset": 0.37,
+            "y_offset": 0.2
           }
         },
         "playerlabel4": {
           "comment": "The label at the bottom-left for opponent player's info",
-          "type": "Label",
+          "type": "Widget",
           "data": {
-            "font": "saira32",
-            "text": "N/A",
-            "foreground": [255, 255, 255, 255],
-            "background": [0, 0, 0, 0],
-            "size": [300, 80],
-            "anchor": [0.5, 0.5],
-            "visible": false
+            "key": "pnamelabel",
+            "variables": {
+              "text": "N/A"
+            }
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.25,
-            "y_offset": -0.05
+            "x_offset": 0.125,
+            "y_offset": 0.05
           }
         },
         "playerlabel5": {
           "comment": "The label at the bottom-right for opponent player's info",
-          "type": "Label",
+          "type": "Widget",
           "data": {
-            "font": "saira32",
-            "text": "N/A",
-            "foreground": [255, 255, 255, 255],
-            "background": [0, 0, 0, 0],
-            "size": [300, 80],
-            "anchor": [0.5, 0.5],
-            "visible": false
+            "key": "pnamelabel",
+            "variables": {
+              "text": "N/A"
+            }
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.45,
-            "y_offset": -0.05
+            "x_offset": 0.37,
+            "y_offset": 0.05
+          }
+        },
+        "spawnratebuttonlabel": {
+          "type": "Widget",
+          "data": {
+            "key": "lobbybtnlabel",
+            "variables": {
+              "text": "Stardust",
+              "text2": "Spawn"
+            }
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": 0.07,
+            "y_offset": -0.2
+          }
+        },
+        "spawnratebutton": {
+          "comment": "Button to edit the game stardust spawn rate",
+          "type": "Widget",
+          "data": {
+            "key": "lobbybutton",
+            "variables": {
+              "text": "1.0X"
+            }
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": 0.07,
+            "y_offset": -0.2
+          }
+        },
+        "gravstrengthbuttonlabel": {
+          "type": "Widget",
+          "data": {
+            "key": "lobbybtnlabel",
+            "variables": {
+              "text": "Planet",
+              "text2": "Gravity"
+            }
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": 0.19,
+            "y_offset": -0.2
+          }
+        },
+        "gravstrengthbutton": {
+          "comment": "Button to edit the game planet gravity strength",
+          "type": "Widget",
+          "data": {
+            "key": "lobbybutton",
+            "variables": {
+              "text": "1.0X"
+            }
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": 0.19,
+            "y_offset": -0.2
+          }
+        },
+        "colorcountbuttonlabel": {
+          "type": "Widget",
+          "data": {
+            "key": "lobbybtnlabel",
+            "variables": {
+              "text": "Available",
+              "text2": "Colors"
+            }
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": 0.31,
+            "y_offset": -0.2
+          }
+        },
+        "colorcountbutton": {
+          "comment": "Button to edit the game stardust color count",
+          "type": "Widget",
+          "data": {
+            "key": "lobbybutton",
+            "variables": {
+              "text": "6"
+            }
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": 0.31,
+            "y_offset": -0.2
+          }
+        },
+        "wincondbuttonlabel": {
+          "type": "Widget",
+          "data": {
+            "key": "lobbybtnlabel",
+            "variables": {
+              "text": "Game",
+              "text2": "Length"
+            }
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": 0.43,
+            "y_offset": -0.2
+          }
+        },
+        "wincondbutton": {
+          "comment": "Button to edit the game planet win condition",
+          "type": "Widget",
+          "data": {
+            "key": "lobbybutton",
+            "variables": {
+              "text": "200"
+            }
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": 0.43,
+            "y_offset": -0.2
           }
         },
         "startgamebutton": {
@@ -371,14 +489,16 @@
             "key": "menubutton",
             "variables": {
               "text": "Start",
-              "text2": "Start"
+              "text2": "Start",
+              "size": [240, 50],
+              "size2": [240, 50]
             }
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
             "x_offset": 0.25,
-            "y_offset": -0.3
+            "y_offset": -0.4
           }
         }
       }
@@ -420,6 +540,8 @@
             "background": [0, 0, 0, 255],
             "size": [300, 80],
             "anchor": [0.5, 0.5],
+            "halign": "center",
+            "valign": "middle",
             "visible": false
           },
           "layout": {

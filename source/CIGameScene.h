@@ -68,7 +68,13 @@ protected:
     StardustModel*  _draggedStardust;
     /** Vector of opponent planets */
     std::vector<std::shared_ptr<OpponentPlanet>> _opponent_planets;
-    
+
+    // Game Settings
+    /** Rate of stardust spawning */
+    float _spawnRate;
+    /** Number of stardust colors available in game */
+    uint8_t _colorCount;
+
     /** Countdown to reset the game after winning/losing */
     float _countdown;
     
@@ -81,7 +87,7 @@ public:
      * This constructor does not allocate any objects or start the game.
      * This allows us to use the object without a heap pointer.
      */
-    GameScene() : cugl::Scene2() {
+    GameScene() : cugl::Scene2(), _spawnRate(40.0f), _colorCount(6), _countdown(-10.0f) {
         for (int i = 0; i < 6; i++) {
             _stardustProb[i] = 100;
         }
@@ -109,14 +115,17 @@ public:
      *
      * @param assets                The (loaded) assets for this game mode
      * @param networkMessageManager The reference to network message manager
-     * @param isHost                Whether or not this instance is hosting the game
      * @param gameId                The gameId for a client game
+     * @param spawnRate             The rate for spawning new stardusts
+     * @param gravStrength          The strength for planet's gravity
+     * @param colorCount            The number of stardust colors available
+     * @param gameLength            The game winning condition value
      *
      * @return true if the controller is initialized properly, false otherwise.
      */
-    bool init(const std::shared_ptr<cugl::AssetManager>& assets, 
-              const std::shared_ptr<NetworkMessageManager>& networkMessageManager, 
-              bool isHost, std::string gameId);
+    bool init(const std::shared_ptr<cugl::AssetManager>& assets,
+        const std::shared_ptr<NetworkMessageManager>& networkMessageManager,
+        const string gameId, const float spawnRate, const float gravStrength, const uint8_t colorCount, const uint16_t gameLength);
     
 #pragma mark -
 #pragma mark Gameplay Handling

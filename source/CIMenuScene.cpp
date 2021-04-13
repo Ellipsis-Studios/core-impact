@@ -17,11 +17,9 @@ using namespace cugl;
 #pragma mark Constructors
 
 /**
- * Initializes the controller contents, making it ready for loading
+ * Initializes the menu scene with the provided menu settings values.
  *
- * The constructor does not allocate any objects or memory.  This allows
- * us to have a non-pointer reference to this controller, reducing our
- * memory allocation.  Instead, allocation happens in this method.
+ * Used only as a helper to the other init methods.
  *
  * @param assets        The (loaded) assets for this game mode
  * @param playerName    The player name value
@@ -80,14 +78,20 @@ bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
         });
 
     // TODO: integrate network manager to game lobby
-
+    
+    /** Player settings */
     _playerName = playerName;
     _volume = volume;
     _musicOn = musicOn;
     _parallaxOn = parallaxOn;
 
+    /** Default game settings */
     _otherNames = vector<string>{ "N/A", "N/A", "N/A", "N/A" };
     _joinGame = "";
+    _spawnRate = 1.0f;
+    _gravStrength = 1.0f;
+    _colorCount = 6;
+    _gameLength = 200;
 
     _state = MenuState::LoadToMain;
 
@@ -107,7 +111,7 @@ bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _join->setDisplay(false);
 
     _lobby = LobbyMenu::alloc(_assets);
-    _lobby->setDisplay(false);
+    _lobby->setDisplay(false, _state);
 
     addChild(_mainmenu->getLayer(), 0);
     addChild(_tutorial->getLayer(), 1);
@@ -116,6 +120,36 @@ bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     addChild(_lobby->getLayer(), 3);
 
     return true;
+}
+
+/**
+ * The method initializes the menu scene using player settings json value.
+ *
+ * Meant to be used to initialize the menu scene only on initial load
+ *
+ * @param assets            The (loaded) assets for this game mode
+ * @param playerSettings    The player's saved settings value
+ *
+ * @return true if the controller is initialized properly, false otherwise.
+ */
+bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
+    const std::shared_ptr<cugl::JsonValue>& playerSettings) {
+    // Load in saved settings file
+    _playerName = "Player Name";
+    _volume = 0.5f;
+    _musicOn = true;
+    _parallaxOn = true;
+    if (playerSettings != nullptr) {
+        string pname = playerSettings->getString("PlayerName", "Player Name");
+        if (!pname.empty()) {
+            _playerName = pname;
+        }
+        _volume = playerSettings->getFloat("Volume", 0.5f);
+        _musicOn = playerSettings->getBool("MusicOn", true);
+        _parallaxOn = playerSettings->getBool("ParallaxOn", true);
+    }
+
+    return init(assets, _playerName, _volume, _musicOn, _parallaxOn);
 }
 
 /**
@@ -138,7 +172,7 @@ void MenuScene::dispose() {
     _mainmenu->setDisplay(false);
     _settings->setDisplay(false);
     _join->setDisplay(false);
-    _lobby->setDisplay(false);
+    _lobby->setDisplay(false, _state);
     _tutorial->setDisplay(false);
 
     _mainmenu = nullptr;
@@ -205,14 +239,15 @@ void MenuScene::update(float timestep) {
             break;
         case MenuState::LobbyToGame:
             // menu scene end
-            _lobby->setDisplay(false);
+            _lobby->setDisplay(false, _state);
             _active = false;
             break;
         default:
             _mainmenu->update(_state);
             _settings->update(_state, _playerName, _volume, _musicOn, _parallaxOn);
             _join->update(_state, _joinGame);
-            _lobby->update(_state, _joinGame, _playerName, _otherNames);
+            _lobby->update(_state, _joinGame, _playerName, _otherNames,
+                _spawnRate, _gravStrength, _colorCount, _gameLength);
             _tutorial->update(_state);
             break;
     }

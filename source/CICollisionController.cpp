@@ -82,6 +82,10 @@ void collisions::checkForCollision(const std::shared_ptr<PlanetModel>& planet, c
                 float force = timestep * 60 * 9.81f *
                     (stardust->getMass() * stardust->getMass()) *
                     planet->getMass() / (distance * distance);
+                
+                // handle game settings 
+                force *= _gravStrength;
+
                 stardust->setVelocity(((force / stardust->getMass()) * 1.0f)*norm + stardust->getVelocity());
             }
         }

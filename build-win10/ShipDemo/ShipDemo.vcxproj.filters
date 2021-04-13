@@ -31,6 +31,24 @@
     <Filter Include="Header Files\Scenes">
       <UniqueIdentifier>{f3facb96-22ee-4b6f-8df2-799cf8a617e4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Helpers">
+      <UniqueIdentifier>{5211990c-208a-4858-9325-4ab3dea28c40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Helpers">
+      <UniqueIdentifier>{fc5afa54-ac2c-46b6-b2ed-dccc95e287c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scenes\Menus">
+      <UniqueIdentifier>{d2767531-36a9-48bf-8e81-b7cea53818bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scenes\Menus">
+      <UniqueIdentifier>{f1ea3012-1882-4fee-8471-82b239430b2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scenes\Nodes">
+      <UniqueIdentifier>{e1744e5f-cc9d-4753-a803-a69820881955}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scenes\Nodes">
+      <UniqueIdentifier>{b11eca23-42e4-40dd-9cba-7cf13d32a179}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -57,26 +75,65 @@
     <ClInclude Include="..\..\source\CILoadingScene.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\source\CIPlanetNode.h">
+    <ClInclude Include="..\..\source\CIJoinMenu.h">
+      <Filter>Header Files\Scenes\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\CILobbyMenu.h">
+      <Filter>Header Files\Scenes\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\CIMainMenu.h">
+      <Filter>Header Files\Scenes\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\CISettingsMenu.h">
+      <Filter>Header Files\Scenes\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\CITutorialMenu.h">
+      <Filter>Header Files\Scenes\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\CIMenuScene.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\source\CIStardustNode.h">
-      <Filter>Header Files\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\source\CIStardustQueue.h">
-      <Filter>Header Files\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\source\CIColor.h">
+    <ClInclude Include="..\..\source\CIOpponentPlanet.h">
       <Filter>Header Files\Models</Filter>
     </ClInclude>
     <ClInclude Include="..\..\source\CIGameUpdate.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Models</Filter>
     </ClInclude>
     <ClInclude Include="..\..\source\CIGameUpdateManager.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\CINetworkMessageManager.h">
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\CINetworkUtils.h">
+      <Filter>Header Files\Helpers</Filter>
     </ClInclude>
     <ClInclude Include="..\..\source\CIPlanetLayer.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\CIMenuState.h">
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\CILocation.h">
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\CIGameState.h">
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\CIColor.h">
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\CIOpponentNode.h">
+      <Filter>Header Files\Scenes\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\CIPlanetNode.h">
+      <Filter>Header Files\Scenes\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\CIStardustNode.h">
+      <Filter>Header Files\Scenes\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\CIStardustQueue.h">
+      <Filter>Header Files\Scenes\Nodes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -114,26 +171,56 @@
     <ClCompile Include="..\..\source\CIGameScene.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\source\CIPlanetNode.cpp">
-      <Filter>Source Files\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\source\CIStardustNode.cpp">
-      <Filter>Source Files\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\source\CIStardustQueue.cpp">
-      <Filter>Source Files\Scenes</Filter>
+    <ClCompile Include="..\..\source\CIGameUpdate.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\source\CIGameUpdateManager.cpp">
-      <Filter>Source Files\Controllers</Filter>
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\CIJoinMenu.cpp">
+      <Filter>Source Files\Scenes\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\CILobbyMenu.cpp">
+      <Filter>Source Files\Scenes\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\CIMainMenu.cpp">
+      <Filter>Source Files\Scenes\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\CISettingsMenu.cpp">
+      <Filter>Source Files\Scenes\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\CITutorialMenu.cpp">
+      <Filter>Source Files\Scenes\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\CIMenuScene.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\CIOpponentPlanet.cpp">
+      <Filter>Source Files\Models</Filter>
     </ClCompile>
     <ClCompile Include="..\..\source\CIGameUpdate.cpp">
       <Filter>Source Files\Models</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\source\CIGameUpdate.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\source\CIGameUpdateManager.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\CINetworkMessageManager.cpp">
+      <Filter>Source Files\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\CINetworkUtils.cpp">
+      <Filter>Source Files\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\CIOpponentNode.cpp">
+      <Filter>Source Files\Scenes\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\CIPlanetNode.cpp">
+      <Filter>Source Files\Scenes\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\CIStardustNode.cpp">
+      <Filter>Source Files\Scenes\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\CIStardustQueue.cpp">
+      <Filter>Source Files\Scenes\Nodes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

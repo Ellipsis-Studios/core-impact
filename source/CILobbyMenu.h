@@ -28,6 +28,14 @@ class LobbyMenu {
 private:
     /** Menu state for the upcoming frame */
     MenuState _nextState;
+    /** Game lobby spawn rate value */
+    float _lobbySpawnRate;
+    /** Game lobby gravity strength value */
+    float _lobbyGravityStrength;
+    /** Game lobby stardust color count value */
+    uint8_t _lobbyColorCount;
+    /** Game lobby win condition value (game length) */
+    uint16_t _lobbyWinCond;
 
     // Asset references
     /** Reference to the node for the group representing this menu scene */
@@ -40,8 +48,38 @@ private:
     std::shared_ptr<cugl::scene2::Label> _gamelobbyplayerlabel3; // middle right
     std::shared_ptr<cugl::scene2::Label> _gamelobbyplayerlabel4; // bottom left
     std::shared_ptr<cugl::scene2::Label> _gamelobbyplayerlabel5; // bottom right
+
+    // game lobby settings
+    /** Reference to stardust spawn rate button + label + value list */
+    std::shared_ptr<cugl::scene2::Button> _spawnRateBtn;
+    std::shared_ptr<cugl::scene2::Label> _spawnRateLabel;
+    std::shared_ptr<cugl::scene2::SceneNode> _spawnRateBtnLabel;
+    const float _spawnRates[5] = { 0.6f, 0.8f, 1.0f, 1.2f, 1.4f };
+    uint8_t _currSpawn;
+    /** Reference to planet gravity strength button + label + value list */
+    std::shared_ptr<cugl::scene2::Button> _gravStrengthBtn;
+    std::shared_ptr<cugl::scene2::Label> _gravStrengthLabel;
+    std::shared_ptr<cugl::scene2::SceneNode> _gravStrengthBtnLabel;
+    const float _gravStrengths[5] = { 0.6f, 0.8f, 1.0f, 1.2f, 1.4f };
+    uint8_t _currGrav;
+    /** Reference to stardust color count button + label + value list */
+    std::shared_ptr<cugl::scene2::Button> _colorCountBtn;
+    std::shared_ptr<cugl::scene2::Label> _colorCountLabel;
+    std::shared_ptr<cugl::scene2::SceneNode> _colorCountBtnLabel;
+    const uint8_t _colorCounts[5] = { 2, 3, 4, 5, 6 };
+    uint8_t _currColor;
+    /** Reference to win condition (game length) button + label + value list */
+    std::shared_ptr<cugl::scene2::Button> _winCondBtn;
+    std::shared_ptr<cugl::scene2::Label> _winCondLabel;
+    std::shared_ptr<cugl::scene2::SceneNode> _winCondBtnLabel;
+    const uint16_t _winConds[5] = { 100, 150, 200, 250, 300 };
+    uint8_t _currWin;
+
     /** Reference to game lobby's button to start gameplay */
     std::shared_ptr<cugl::scene2::Button> _gameStartBtn;
+
+    /** Whether the current player is client of the game lobby */
+    bool _isClient;
 
 public:
 #pragma mark -
@@ -49,7 +87,7 @@ public:
     /**
      * Creates a new game lobby with default values.
      */
-    LobbyMenu() {}
+    LobbyMenu() : _currSpawn(2), _currGrav(2), _currColor(4), _currWin(2), _isClient(false) {}
 
     /**
      * Disposes of all (non-static) resources allocated to this menu.
@@ -88,8 +126,9 @@ public:
      * Sets whether the game lobby menu is currently active and visible.
      *
      * @param onDisplay     Whether the game lobby menu is currently active and visible
+     * @param state         Current menu state (display different assets for Host/Client)
      */
-    void setDisplay(bool onDisplay);
+    void setDisplay(bool onDisplay, MenuState& state);
 
     /**
      * The method called to update the game lobby menu.
@@ -97,7 +136,8 @@ public:
      * This method handles transitions into and out of game lobby menu along
      * with any updates within the game lobby menu scene.
      */
-    void update(MenuState& state, string& joingame, string& playername, std::vector<string>& othernames);
+    void update(MenuState& state, string& joingame, string& playername, std::vector<string>& othernames,
+        float& spawnRate, float& gravStrength, uint8_t& colorCount, uint16_t& winCond);
 
     /**
      * Returns the root scene node for the game lobby menu layer.

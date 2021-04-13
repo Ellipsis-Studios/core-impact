@@ -64,6 +64,27 @@ void PlanetModel::dispose() {
  * @param y The initial y-coordinate of the center
  * @param c The initial color code of the planet
  * @param maxLayers The maximum number of layers the planet can have
+ * @param gravStrength The planet's gravitational strength factor
+ * @param winCond The condition value for the planet to win
+ *
+ * @return true if the initialization was successful
+ */
+bool PlanetModel::init(float x, float y, CIColor::Value c, int maxLayers, float gravStrength, uint16_t winCond) {
+    _gravStrength = gravStrength;
+    _winCond = winCond;
+    return init(x, y, c, maxLayers);
+}
+
+/**
+ * Initializes a new planet with the given color
+ *
+ * This method does NOT create a scene graph node for this planet.  You
+ * must call setTexture for that.
+ *
+ * @param x The initial x-coordinate of the center
+ * @param y The initial y-coordinate of the center
+ * @param c The initial color code of the planet
+ * @param maxLayers The maximum number of layers the planet can have
  *
  * @return true if the initialization was successful
  */
@@ -81,7 +102,6 @@ bool PlanetModel::init(float x, float y, CIColor::Value c, int maxLayers) {
     _mass = INITIAL_PLANET_MASS;
     return true;
 }
-
 
 #pragma mark Interactions
 
