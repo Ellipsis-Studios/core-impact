@@ -100,14 +100,14 @@ bool LobbyMenu::init(const std::shared_ptr<cugl::AssetManager>& assets) {
 
     _spawnRateBtn->addListener([&](const std::string& name, bool down) {
         if (!down) {
-            _currSpawn = (_currSpawn + 1) % 5;
+            _currSpawn = (_currSpawn + 1) % 7;
             _lobbySpawnRate = _spawnRates[_currSpawn];
             _spawnRateLabel->setText(cugl::strtool::to_string(_lobbySpawnRate, 1) + "X");
         }
         });
     _gravStrengthBtn->addListener([&](const std::string& name, bool down) {
         if (!down) {
-            _currGrav = (_currGrav + 1) % 5;
+            _currGrav = (_currGrav + 1) % 7;
             _lobbyGravityStrength = _gravStrengths[_currGrav];
             _gravStrengthLabel->setText(cugl::strtool::to_string(_lobbyGravityStrength, 1) + "X");
         }
@@ -166,7 +166,6 @@ void LobbyMenu::setDisplay(bool onDisplay, MenuState& state) {
             _winCondBtnLabel->setVisible(onDisplay);
 
             //_gameStartBtn->setVisible(onDisplay);
-    
             // TODO: Remove start button from client once networking is integrated
         }
         _gameStartBtn->setVisible(onDisplay); 

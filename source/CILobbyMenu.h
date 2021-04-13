@@ -54,13 +54,13 @@ private:
     std::shared_ptr<cugl::scene2::Button> _spawnRateBtn;
     std::shared_ptr<cugl::scene2::Label> _spawnRateLabel;
     std::shared_ptr<cugl::scene2::SceneNode> _spawnRateBtnLabel;
-    const float _spawnRates[5] = { 0.6f, 0.8f, 1.0f, 1.2f, 1.4f };
+    const float _spawnRates[7] = { 0.1f, 0.5f, 1.0f, 1.5f, 2.0f, 5.0f, 9.9f };
     uint8_t _currSpawn;
     /** Reference to planet gravity strength button + label + value list */
     std::shared_ptr<cugl::scene2::Button> _gravStrengthBtn;
     std::shared_ptr<cugl::scene2::Label> _gravStrengthLabel;
     std::shared_ptr<cugl::scene2::SceneNode> _gravStrengthBtnLabel;
-    const float _gravStrengths[5] = { 0.6f, 0.8f, 1.0f, 1.2f, 1.4f };
+    const float _gravStrengths[7] = { 0.1f, 0.5f, 1.0f, 1.5f, 2.0f, 5.0f, 9.9f };
     uint8_t _currGrav;
     /** Reference to stardust color count button + label + value list */
     std::shared_ptr<cugl::scene2::Button> _colorCountBtn;
