@@ -179,8 +179,6 @@ void GameScene::update(float timestep) {
              return;
          }
      }
-
-    
     
     _timeElapsed += timestep;
     if (_timeElapsed > SPF) {
