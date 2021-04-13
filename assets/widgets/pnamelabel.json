@@ -9,6 +9,7 @@
       "type": "Anchored"
     },
     "data": {
+      "comment": "The node for game lobby player name labels. Outer node is for positioning and sizing only.",
       "size": [240, 80],
       "anchor": [0.5, 0.5]
     },
@@ -19,6 +20,7 @@
           "type": "Anchored"
         },
         "data": {
+          "comment": "White border background for the name labels.",
           "texture": "menubuttonup",
           "anchor": [0.5, 0.5],
           "interior": [5, 5, 120, 55]
@@ -34,6 +36,7 @@
           "type": "Anchored"
         },
         "data": {
+          "comment": "Player name label.",
           "font": "saira32",
           "text": "",
           "foreground": [255, 255, 255, 255],
@@ -41,8 +44,7 @@
           "size": [200, 60],
           "anchor": [0.5, 0.5],
           "halign": "center",
-          "valign": "middle",
-          "visible": false
+          "valign": "middle"
         },
         "layout": {
           "x_anchor": "fill",

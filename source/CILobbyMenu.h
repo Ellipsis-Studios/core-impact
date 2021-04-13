@@ -3,7 +3,7 @@
 //  CoreImpact
 //
 //  Created by Richard Yoon on 4/5/21.
-//  Copyright © 2021 Game Design Initiative at Cornell. All rights reserved.
+//  Copyright ï¿½ 2021 Game Design Initiative at Cornell. All rights reserved.
 //
 
 #ifndef __CI_LOBBY_MENU_H__
@@ -42,37 +42,44 @@ private:
     std::shared_ptr<cugl::scene2::SceneNode> _layer;
     /** Reference to the game lobby's label for game room id */
     std::shared_ptr<cugl::scene2::Label> _lobbyRoomLabel;
-    /** References to the game lobby's labels for player name */
+    /** References to the game lobby's player name labels */
     std::shared_ptr<cugl::scene2::SceneNode> _gamelobbyplayerName1;
-    std::shared_ptr<cugl::scene2::SceneNode> _gamelobbyplayerName2;
-    std::shared_ptr<cugl::scene2::SceneNode> _gamelobbyplayerName3;
-    std::shared_ptr<cugl::scene2::SceneNode> _gamelobbyplayerName4;
-    std::shared_ptr<cugl::scene2::SceneNode> _gamelobbyplayerName5;
     std::shared_ptr<cugl::scene2::Label> _gamelobbyplayerlabel1; // top
+    
+    std::shared_ptr<cugl::scene2::SceneNode> _gamelobbyplayerName2;
     std::shared_ptr<cugl::scene2::Label> _gamelobbyplayerlabel2; // middle left
+    
+    std::shared_ptr<cugl::scene2::SceneNode> _gamelobbyplayerName3;
     std::shared_ptr<cugl::scene2::Label> _gamelobbyplayerlabel3; // middle right
+    
+    std::shared_ptr<cugl::scene2::SceneNode> _gamelobbyplayerName4;
     std::shared_ptr<cugl::scene2::Label> _gamelobbyplayerlabel4; // bottom left
+    
+    std::shared_ptr<cugl::scene2::SceneNode> _gamelobbyplayerName5;
     std::shared_ptr<cugl::scene2::Label> _gamelobbyplayerlabel5; // bottom right
 
     // game lobby settings
     /** Reference to stardust spawn rate button + label + value list */
-    std::shared_ptr<cugl::scene2::Button> _spawnRateBtn;
-    std::shared_ptr<cugl::scene2::Label> _spawnRateLabel;
-    std::shared_ptr<cugl::scene2::SceneNode> _spawnRateBtnLabel;
-    const float _spawnRates[7] = { 0.1f, 0.5f, 1.0f, 1.5f, 2.0f, 5.0f, 9.9f };
-    uint8_t _currSpawn;
+    std::shared_ptr<cugl::scene2::Button> _spawnRateBtn; // button
+    std::shared_ptr<cugl::scene2::Label> _spawnRateLabel; // rate value label
+    std::shared_ptr<cugl::scene2::SceneNode> _spawnRateBtnLabel; // button label
+    const float _spawnRates[7] = { 0.1f, 0.5f, 1.0f, 1.5f, 2.0f, 5.0f, 9.9f }; // rate value list
+    uint8_t _currSpawn; // index to cycle the value list
+    
     /** Reference to planet gravity strength button + label + value list */
     std::shared_ptr<cugl::scene2::Button> _gravStrengthBtn;
     std::shared_ptr<cugl::scene2::Label> _gravStrengthLabel;
     std::shared_ptr<cugl::scene2::SceneNode> _gravStrengthBtnLabel;
     const float _gravStrengths[7] = { 0.1f, 0.5f, 1.0f, 1.5f, 2.0f, 5.0f, 9.9f };
     uint8_t _currGrav;
+    
     /** Reference to stardust color count button + label + value list */
     std::shared_ptr<cugl::scene2::Button> _colorCountBtn;
     std::shared_ptr<cugl::scene2::Label> _colorCountLabel;
     std::shared_ptr<cugl::scene2::SceneNode> _colorCountBtnLabel;
     const uint8_t _colorCounts[5] = { 2, 3, 4, 5, 6 };
     uint8_t _currColor;
+    
     /** Reference to win condition (game length) button + label + value list */
     std::shared_ptr<cugl::scene2::Button> _winCondBtn;
     std::shared_ptr<cugl::scene2::Label> _winCondLabel;
@@ -131,9 +138,8 @@ public:
      * Sets whether the game lobby menu is currently active and visible.
      *
      * @param onDisplay     Whether the game lobby menu is currently active and visible
-     * @param state         Current menu state (display different assets for Host/Client)
      */
-    void setDisplay(bool onDisplay, MenuState& state);
+    void setDisplay(bool onDisplay);
 
     /**
      * The method called to update the game lobby menu.

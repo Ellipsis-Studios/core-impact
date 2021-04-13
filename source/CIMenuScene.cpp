@@ -111,7 +111,7 @@ bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _join->setDisplay(false);
 
     _lobby = LobbyMenu::alloc(_assets);
-    _lobby->setDisplay(false, _state);
+    _lobby->setDisplay(false);
 
     addChild(_mainmenu->getLayer(), 0);
     addChild(_tutorial->getLayer(), 1);
@@ -172,7 +172,7 @@ void MenuScene::dispose() {
     _mainmenu->setDisplay(false);
     _settings->setDisplay(false);
     _join->setDisplay(false);
-    _lobby->setDisplay(false, _state);
+    _lobby->setDisplay(false);
     _tutorial->setDisplay(false);
 
     _mainmenu = nullptr;
@@ -239,7 +239,7 @@ void MenuScene::update(float timestep) {
             break;
         case MenuState::LobbyToGame:
             // menu scene end
-            _lobby->setDisplay(false, _state);
+            _lobby->setDisplay(false);
             _active = false;
             break;
         default:
