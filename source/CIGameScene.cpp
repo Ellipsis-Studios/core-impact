@@ -105,9 +105,9 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     auto unlockedTexture = _assets->get<Texture>("unlockedOuterRing");
     auto lockedTexture = _assets->get<Texture>("lockedOuterRing");
     _planet->setTextures(coreTexture, ringTexture, unlockedTexture, lockedTexture);
-    
+
     _draggedStardust = NULL;
-    _stardustContainer = StardustQueue::alloc(MAX_STARDUST, _assets->get<Texture>("photon"));
+    _stardustContainer = StardustQueue::alloc(MAX_STARDUST, coreTexture);
 
     // TODO: resize to number of players in the game and add opponent planet nodes to scene graph
     _opponent_planets.resize(5);
@@ -178,7 +178,8 @@ void GameScene::update(float timestep) {
              return;
          }
      }
-    _stardustContainer->update();
+
+    _stardustContainer->update(timestep);
     addStardust(dimen);
 
     collisions::checkForCollision(_planet, _stardustContainer, timestep);
@@ -231,7 +232,7 @@ void GameScene::updateDraggedStardust() {
         }
         // this is structured like this to update a recently dragged stardust
         if (_draggedStardust != NULL) {
-            float sdRadius = collisions::getStardustRadius(_stardustContainer);
+            float sdRadius = _stardustContainer->getStardustRadius();
             collisions::moveDraggedStardust(_input.getPosition(), _draggedStardust, sdRadius);
         }
     } else if (!_input.fingerDown() && _draggedStardust != NULL) {
