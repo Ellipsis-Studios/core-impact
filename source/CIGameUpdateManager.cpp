@@ -145,19 +145,13 @@ void GameUpdateManager::processGameUpdate(std::shared_ptr<StardustQueue> stardus
                 // this player hit another player with a stardust
                 if (stardust->getColor() == CIColor::getNoneColor()) {
                     CIColor::Value c = planet->getColor() == CIColor::getNoneColor() ? CIColor::getRandomColor() : planet->getColor();
-                    if (rand() % 10 == 0) {
-                        // meteor shower
-                        stardustQueue->addStardust(c, bounds, StardustModel::Type::METEOR);
-                        CULog("Received Meteor Powerup!");
-                        break;
-                    } else {
-                        // add 3 stardust, one is guaranteed to be a helpful color, other 2 are random
-                        stardustQueue->addStardust(c, bounds);
-                        stardustQueue->addStardust(CIColor::getRandomColor(), bounds);
-                        stardustQueue->addStardust(CIColor::getRandomColor(), bounds);
-                        CULog("Return Blast");
-                        break;
-                    }
+
+                    // add 3 stardust, one is guaranteed to be a helpful color, other 2 are random
+                    stardustQueue->addStardust(c, bounds);
+                    stardustQueue->addStardust(CIColor::getRandomColor(), bounds);
+                    stardustQueue->addStardust(CIColor::getRandomColor(), bounds);
+                    CULog("Return Blast");
+                    break;
                 }
                 
                 CULog("New stardust from player %i", gameUpdate->getPlayerId());

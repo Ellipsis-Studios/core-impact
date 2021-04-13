@@ -81,6 +81,26 @@ void StardustQueue::addStardust(CIColor::Value c, const Size bounds, StardustMod
 }
 
 /**
+ * Adds a stardust that will move fast and be aimed directly at the core.
+ * This is the result of the shooting star powerup.
+ *
+ * @param c the color of the stardust to spawn
+ * @param bounds the bounds of the game screen
+ */
+void StardustQueue::addShootingStardust(CIColor::Value c, const cugl::Size bounds) {
+    int posX = ((rand()%2==0) ? bounds.width + 5 : -5) + (rand() % 20 - 10);
+    int posY = ((rand()%2==0) ? bounds.height + 5 : -5) + (rand() % 20 - 10);
+    Vec2 pos = Vec2(posX, posY);
+    Vec2 dir = Vec2(bounds.width/2, bounds.height/2) - pos;
+    dir.normalize();
+    dir.x *= 10;
+    dir.y *= 10;
+
+    std::shared_ptr<StardustModel> stardust = StardustModel::alloc(pos, dir, c);
+    addStardust(stardust);
+}
+
+/**
  * Adds a stardust to the active queue given a pointer to the stardust
  *
  * @param stardust the stardust to add to the queue
@@ -131,6 +151,36 @@ void StardustQueue::addToSendQueue(StardustModel* stardust) {
  */
 void StardustQueue::addToPowerupQueue(StardustModel* stardust) {
     _stardust_powerups.push_back(std::make_shared<StardustModel>(*stardust));
+}
+
+/**
+ * Adds a powerup to the powerup queue.
+ *
+ * @param color the color of layer that was just locked in
+ * @param addToSendQueue whether to add the stardust to the send queue
+ */
+void StardustQueue::addToPowerupQueue(CIColor::Value color, bool addToSendQueue) {
+    std::shared_ptr<StardustModel> stardust = StardustModel::alloc(cugl::Vec2(), cugl::Vec2(), CIColor::getRandomColor());
+    switch (color) {
+        case CIColor::Value::red:
+            stardust->setStardustType(StardustModel::Type::METEOR);
+            _stardust_powerups.push_back(stardust);
+            break;
+        case CIColor::Value::yellow:
+            stardust->setStardustType(StardustModel::Type::SHOOTING_STAR);
+            _stardust_powerups.push_back(stardust);
+            break;
+        case CIColor::Value::purple:
+            stardust->setStardustType(StardustModel::Type::GRAYSCALE);
+            break;
+        default:
+            break;
+    }
+    
+    if (addToSendQueue && stardust->getStardustType() != StardustModel::Type::NORMAL) {
+        _stardust_to_send.push_back(stardust);
+    }
+    
 }
 
 /**
