@@ -208,7 +208,7 @@ public:
      *
      * @return true if the initialization was successful
      */
-    virtual bool init(float x, float y, CIColor::Value c, int maxLayers, float gravStrength, uint16_t winCond);
+    bool init(float x, float y, CIColor::Value c, int maxLayers, float gravStrength, uint16_t winCond);
 
     /**
      * Initializes a new planet with the given color
@@ -223,7 +223,7 @@ public:
      *
      * @return true if the initialization was successful
      */
-    virtual bool init(float x, float y, CIColor::Value c, int maxLayers);
+    bool init(float x, float y, CIColor::Value c, int maxLayers);
 
     /**
      * Returns a newly allocated planet with the given color
