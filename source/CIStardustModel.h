@@ -16,22 +16,14 @@
 class StardustModel {
 public:
     /**
-     * Enum representing where the stardust is. Top left, top right, bottom left, and bottom right all represent off screen locations.
-     */
-    enum Location {
-        ON_SCREEN = 0,
-        TOP_LEFT = 1,
-        TOP_RIGHT = 2,
-        BOTTOM_LEFT = 3,
-        BOTTOM_RIGHT = 4,
-    };
-    
-    /**
      * Enum representing the types of stardust.
      */
     enum Type {
         NORMAL = 0,
         METEOR = 1,
+        SHOOTING_STAR = 2,
+        GRAYSCALE = 3,
+        FOG = 4,
     };
 private:
     /** Color code of this stardust */

@@ -35,6 +35,9 @@ private:
 
     /** The amount of time since last animation frame change */
     float _timeElapsed;
+    
+    /** The amount of time the stardust should be drawn gray. This will only be set if a power up has been used. */
+    float _grayScaleTime;
 
 public:
     /** 
@@ -87,7 +90,8 @@ public:
         _qtail = tail;
         _qsize = size;
 
-        _timeElapsed = 0;        
+        _timeElapsed = 0;
+        _grayScaleTime = 0;
         return true;
     }
     
@@ -108,6 +112,11 @@ public:
     const std::shared_ptr<cugl::Texture> getTexture() const {
         return _texture;
     }
+    
+    /**
+     * Applies a greyscale to all stardust for a period of time.
+     */
+    void applyGreyScale();
     
     /**
      * Updates the frame of the stardust animation
