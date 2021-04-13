@@ -24,6 +24,7 @@ void StardustNode::dispose() {
     _qtail = NULL;
     _qsize = NULL;
     _timeElapsed = 0;
+    _grayScaleTime = 0;
     _texture = nullptr;
 }
 
