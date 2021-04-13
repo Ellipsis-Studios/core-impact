@@ -115,6 +115,15 @@ public:
     void addStardust(CIColor::Value c, const cugl::Size bounds, StardustModel::Type type = StardustModel::Type::NORMAL);
     
     /**
+     * Adds a stardust that will move fast and be aimed directly at the core.
+     * This is the result of the shooting star powerup.
+     *
+     * @param c the color of the stardust to spawn
+     * @param bounds the bounds of the game screen
+     */
+    void addShootingStardust(CIColor::Value c, const cugl::Size bounds);
+    
+    /**
      * Adds a stardust to the active queue given a pointer to the stardust
      *
      * @param stardust the stardust to add to the queue
@@ -197,6 +206,14 @@ public:
      * @param stardust the stardust to add to the powerup queue
      */
     void addToPowerupQueue(StardustModel* stardust);
+    
+    /**
+     * Adds a powerup to the powerup queue.
+     *
+     * @param color the color of layer that was just locked in
+     * @param addToSendQueue whether to add the stardust to the send queue
+     */
+    void addToPowerupQueue(CIColor::Value color, bool addToSendQueue);
     
     /**
      * Returns the powerup queue

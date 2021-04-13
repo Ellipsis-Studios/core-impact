@@ -132,14 +132,8 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     addChild(_stardustContainer->getStardustNode());
 
     _countdown = INACTIVE_COUNTDOWN;
-
-    CULog("GameScene initializing.");
-    CULog("Game Room Id: %s", gameId.c_str());
-    CULog("SpawnRate: %f", spawnRate);
-    CULog("Gravity Strength: %f", gravStrength);
-    CULog("Color Count: %i", colorCount);
-    CULog("Game Length (win cond): %i", gameLength);
-
+    
+    CULog("Game Room Id: %s Spawn Rate: %f Gravity Strength: %f Color Count: %i Game Length (win cond): %i", gameId.c_str(), spawnRate, gravStrength, colorCount, gameLength);
     return true;
 }
 
@@ -211,7 +205,12 @@ void GameScene::update(float timestep) {
     updateDraggedStardust();
     
     if (collisions::checkForCollision(_planet, _input.getPosition())) {
-        _planet->lockInLayer(timestep);
+        CIColor::Value planetColor = _planet->getColor();
+        if (_planet->lockInLayer(timestep)) {
+            // Layer Locked In
+            CULog("LAYER LOCKED IN");
+            _stardustContainer->addToPowerupQueue(planetColor, true);
+        }
     } else if (_planet->isLockingIn()) {
         _planet->stopLockIn();
     }
@@ -299,7 +298,7 @@ void GameScene::addStardust(const Size bounds) {
     int massCorrection = avgMass - _planet->getMass();
     
     /** Pity mechanism: The longer you haven't seen a certain color, the more likely it will be to spawn that color */
-    CIColor::Value c = CIColor::getNoneColor();
+    CIColor::Value c = CIColor::getRandomColor();
     int probSum = 0;
     // Sums up the total probability space of the stardust colors, augmented by a mass correction
     probSum = accumulate(_stardustProb, _stardustProb + _colorCount, probSum) + massCorrection;
@@ -315,7 +314,7 @@ void GameScene::addStardust(const Size bounds) {
             _stardustProb[i] += 10;
         }
     }
-    
+
     _stardustContainer->addStardust(c, bounds);
 }
 
@@ -340,6 +339,13 @@ void GameScene::processSpecialStardust(const cugl::Size bounds, const std::share
                 stardustQueue->addStardust(CIColor::getRandomColor(), bounds);
                 stardustQueue->addStardust(CIColor::getRandomColor(), bounds);
                 break;
+            case StardustModel::Type::SHOOTING_STAR:
+                CULog("SHOOTING STAR");
+                stardustQueue->addShootingStardust(stardust->getColor(), bounds);
+                stardustQueue->addShootingStardust(stardust->getColor(), bounds);
+            case StardustModel::Type::GRAYSCALE:
+                CULog("GRAYSCALE");
+                stardustQueue->getStardustNode()->applyGreyScale();
             default:
                 break;
         }

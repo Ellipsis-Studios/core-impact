@@ -42,20 +42,16 @@ private:
     std::shared_ptr<cugl::scene2::SceneNode> _layer;
     /** Reference to the game lobby's label for game room id */
     std::shared_ptr<cugl::scene2::Label> _lobbyRoomLabel;
-    /** References to the game lobby's player name labels */
+    /** References to the game lobby's labels for player name */
     std::shared_ptr<cugl::scene2::SceneNode> _gamelobbyplayerName1;
-    std::shared_ptr<cugl::scene2::Label> _gamelobbyplayerlabel1; // top
-    
     std::shared_ptr<cugl::scene2::SceneNode> _gamelobbyplayerName2;
-    std::shared_ptr<cugl::scene2::Label> _gamelobbyplayerlabel2; // middle left
-    
     std::shared_ptr<cugl::scene2::SceneNode> _gamelobbyplayerName3;
-    std::shared_ptr<cugl::scene2::Label> _gamelobbyplayerlabel3; // middle right
-    
     std::shared_ptr<cugl::scene2::SceneNode> _gamelobbyplayerName4;
-    std::shared_ptr<cugl::scene2::Label> _gamelobbyplayerlabel4; // bottom left
-    
     std::shared_ptr<cugl::scene2::SceneNode> _gamelobbyplayerName5;
+    std::shared_ptr<cugl::scene2::Label> _gamelobbyplayerlabel1; // top
+    std::shared_ptr<cugl::scene2::Label> _gamelobbyplayerlabel2; // middle left
+    std::shared_ptr<cugl::scene2::Label> _gamelobbyplayerlabel3; // middle right
+    std::shared_ptr<cugl::scene2::Label> _gamelobbyplayerlabel4; // bottom left
     std::shared_ptr<cugl::scene2::Label> _gamelobbyplayerlabel5; // bottom right
 
     // game lobby settings

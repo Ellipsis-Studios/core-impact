@@ -158,7 +158,7 @@ bool LobbyMenu::init(const std::shared_ptr<cugl::AssetManager>& assets) {
  */
 void LobbyMenu::setDisplay(bool onDisplay) {
     if (_layer != nullptr) {
-        if (!_isClient && _spawnRateBtn->isVisible() != onDisplay) {
+        if (!(onDisplay && _isClient) && _spawnRateBtn->isVisible() != onDisplay) {
             _spawnRateLabel->setVisible(onDisplay);
             _gravStrengthLabel->setVisible(onDisplay);
             _colorCountLabel->setVisible(onDisplay);
@@ -184,30 +184,22 @@ void LobbyMenu::setDisplay(bool onDisplay) {
         _gamelobbyplayerName3->setVisible(onDisplay);
         _gamelobbyplayerName4->setVisible(onDisplay);
         _gamelobbyplayerName5->setVisible(onDisplay);
-        _gamelobbyplayerlabel1->setVisible(onDisplay);
-        _gamelobbyplayerlabel2->setVisible(onDisplay);
-        _gamelobbyplayerlabel3->setVisible(onDisplay);
-        _gamelobbyplayerlabel4->setVisible(onDisplay);
-        _gamelobbyplayerlabel5->setVisible(onDisplay);
         _layer->setVisible(onDisplay);
 
         if (onDisplay) {
             _gameStartBtn->activate();
-            if (!_isClient && !_spawnRateBtn->isActive()) {
+            if (!(onDisplay && _isClient) && !_spawnRateBtn->isActive()) {
                 _spawnRateBtn->activate();
                 _gravStrengthBtn->activate();
                 _colorCountBtn->activate();
                 _winCondBtn->activate();
             }
-        }
-        else {
+        } else {
             _gameStartBtn->deactivate();
-            if (_spawnRateBtn->isActive()) {
-                _spawnRateBtn->deactivate();
-                _gravStrengthBtn->deactivate();
-                _colorCountBtn->deactivate();
-                _winCondBtn->deactivate();
-            }
+            _spawnRateBtn->deactivate();
+            _gravStrengthBtn->deactivate();
+            _colorCountBtn->deactivate();
+            _winCondBtn->deactivate();
         }
     }
 }
@@ -233,82 +225,53 @@ void LobbyMenu::update(MenuState& state, string& joingame, string& playername, s
     if (_layer == nullptr) {
         return;
     }
-    
-    // handle player name labels positioning for clients + displaying host only assets
-    switch(state)
+    // handle GameLobby menu
+    switch (state)
     {
         case MenuState::MainToLobby:
         {
-            _isClient = false;
+            // handle displaying for Host
             joingame = "";
-            
-            // handle game lobby settings (only for host)
+            _isClient = false;
+            setDisplay(true);
+            _lobbyRoomLabel->setText(joingame);
+            _gamelobbyplayerlabel1->setText(playername);
+            state = _nextState = MenuState::GameLobby;
+
+            // handle game lobby settings
             _currSpawn = _currGrav = _currWin = 2;
             _currColor = 4;
-            
+            // only visible for the host
             _lobbySpawnRate = spawnRate = _spawnRates[_currSpawn];
             _lobbyGravityStrength = gravStrength = _gravStrengths[_currGrav];
             _lobbyColorCount = colorCount = _colorCounts[_currColor];
             _lobbyWinCond = winCond = _winConds[_currWin];
-            
             _spawnRateLabel->setText(cugl::strtool::to_string(_lobbySpawnRate, 1) + "X");
             _gravStrengthLabel->setText(cugl::strtool::to_string(_lobbyGravityStrength, 1) + "X");
             _colorCountLabel->setText(cugl::strtool::to_string(_lobbyColorCount));
             _winCondLabel->setText(cugl::strtool::to_string(_lobbyWinCond));
+            
             break;
         }
         case MenuState::JoinToLobby:
         {
+            // handle displaying for Clients
             _isClient = true;
-            
-            // offset player name labels to center
-            const float clientOffset = _layer->getContentHeight() / 4.0f;
+            setDisplay(true);
+            _lobbyRoomLabel->setText(joingame);
+            _gamelobbyplayerlabel1->setText(playername);
+            state = _nextState = MenuState::GameLobby;
+
+            // offset player name labels to center for clients
+            const float clientOffset = _layer->getContentHeight() / 6.0f;
             _gamelobbyplayerName1->setPositionY(_gamelobbyplayerName1->getPositionY() - clientOffset);
             _gamelobbyplayerName2->setPositionY(_gamelobbyplayerName2->getPositionY() - clientOffset);
             _gamelobbyplayerName3->setPositionY(_gamelobbyplayerName3->getPositionY() - clientOffset);
             _gamelobbyplayerName4->setPositionY(_gamelobbyplayerName4->getPositionY() - clientOffset);
             _gamelobbyplayerName5->setPositionY(_gamelobbyplayerName5->getPositionY() - clientOffset);
-            
-            _gamelobbyplayerlabel1->setPositionY(_gamelobbyplayerlabel1->getPositionY() - clientOffset);
-            _gamelobbyplayerlabel2->setPositionY(_gamelobbyplayerlabel2->getPositionY() - clientOffset);
-            _gamelobbyplayerlabel3->setPositionY(_gamelobbyplayerlabel3->getPositionY() - clientOffset);
-            _gamelobbyplayerlabel4->setPositionY(_gamelobbyplayerlabel4->getPositionY() - clientOffset);
-            _gamelobbyplayerlabel5->setPositionY(_gamelobbyplayerlabel5->getPositionY() - clientOffset);
+
             break;
         }
-        default:
-        {
-            // undo player name label offsets
-            if (_isClient) {
-                const float clientOffset = _layer->getContentHeight() / 4.0f;
-                _gamelobbyplayerName1->setPositionY(_gamelobbyplayerName1->getPositionY() + clientOffset);
-                _gamelobbyplayerName2->setPositionY(_gamelobbyplayerName2->getPositionY() + clientOffset);
-                _gamelobbyplayerName3->setPositionY(_gamelobbyplayerName3->getPositionY() + clientOffset);
-                _gamelobbyplayerName4->setPositionY(_gamelobbyplayerName4->getPositionY() + clientOffset);
-                _gamelobbyplayerName5->setPositionY(_gamelobbyplayerName5->getPositionY() + clientOffset);
-                
-                _gamelobbyplayerlabel1->setPositionY(_gamelobbyplayerlabel1->getPositionY() + clientOffset);
-                _gamelobbyplayerlabel2->setPositionY(_gamelobbyplayerlabel2->getPositionY() + clientOffset);
-                _gamelobbyplayerlabel3->setPositionY(_gamelobbyplayerlabel3->getPositionY() + clientOffset);
-                _gamelobbyplayerlabel4->setPositionY(_gamelobbyplayerlabel4->getPositionY() + clientOffset);
-                _gamelobbyplayerlabel5->setPositionY(_gamelobbyplayerlabel5->getPositionY() + clientOffset);
-                
-                _isClient = false;
-            }
-            break;
-        }
-    }
-    
-    // handle GameLobby menu
-    switch (state)
-    {
-        case MenuState::MainToLobby:
-        case MenuState::JoinToLobby:
-            setDisplay(true);
-            _lobbyRoomLabel->setText(joingame);
-            _gamelobbyplayerlabel1->setText(playername);
-            state = _nextState = MenuState::GameLobby;
-            break;
         case MenuState::GameLobby:
         {
             // handle room player updates and triggering game start
@@ -334,10 +297,24 @@ void LobbyMenu::update(MenuState& state, string& joingame, string& playername, s
             break;
         }
         default:
+        {
+            // undo player name labels offsets
+            if (_isClient) {
+                const float clientOffset = _layer->getContentHeight() / 6.0f;
+                _gamelobbyplayerName1->setPositionY(_gamelobbyplayerName1->getPositionY() + clientOffset);
+                _gamelobbyplayerName2->setPositionY(_gamelobbyplayerName2->getPositionY() + clientOffset);
+                _gamelobbyplayerName3->setPositionY(_gamelobbyplayerName3->getPositionY() + clientOffset);
+                _gamelobbyplayerName4->setPositionY(_gamelobbyplayerName4->getPositionY() + clientOffset);
+                _gamelobbyplayerName5->setPositionY(_gamelobbyplayerName5->getPositionY() + clientOffset);
+                
+                _isClient = false;
+            }
+
             // hide menu screen
             if (_layer != nullptr && _layer->isVisible()) {
                 setDisplay(false);
             }
             break;
+        }
     }
 }

@@ -53,13 +53,8 @@ void collisions::checkForCollision(const std::shared_ptr<PlanetModel>& planet, c
 
             // If this normal is too small, there was a collision
             if (distance < impactDistance) {
-                if (stardust->getStardustType() != StardustModel::Type::NORMAL) {
-                    // special stardust dragged into planet
-                    queue->addToSendQueue(stardust);
-                    queue->addToPowerupQueue(stardust);
-                }
                 // We add a layer due to own colored stardust
-                else if (planet->getColor() == CIColor::getNoneColor()) {
+                if (planet->getColor() == CIColor::getNoneColor()) {
                     planet->setColor(stardust->getColor());
                     planet->increaseLayerSize();
                 }
