@@ -109,25 +109,25 @@ bool LobbyMenu::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     _colorCountBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("lobby_colorcountbutton"));
     _winCondBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("lobby_wincondbutton"));
 
-    _spawnRateBtn->addListener([=](const std::string& name, bool down) {
+    _spawnRateBtn->addListener([&](const std::string& name, bool down) {
         if (!down) {
             _currSpawn = (_currSpawn + 1) % 7;
             _lobbySpawnRate = _spawnRates[_currSpawn];
         }
         });
-    _gravStrengthBtn->addListener([=](const std::string& name, bool down) {
+    _gravStrengthBtn->addListener([&](const std::string& name, bool down) {
         if (!down) {
             _currGrav = (_currGrav + 1) % 7;
             _lobbyGravityStrength = _gravStrengths[_currGrav];
         }
         });
-    _colorCountBtn->addListener([=](const std::string& name, bool down) {
+    _colorCountBtn->addListener([&](const std::string& name, bool down) {
         if (!down) {
             _currColor = (_currColor + 1) % 5;
             _lobbyColorCount = _colorCounts[_currColor];
         }
         });
-    _winCondBtn->addListener([=](const std::string& name, bool down) {
+    _winCondBtn->addListener([&](const std::string& name, bool down) {
         if (!down) {
             _currWin = (_currWin + 1) % 5;
             _lobbyWinCond = _winConds[_currWin];
@@ -135,7 +135,7 @@ bool LobbyMenu::init(const std::shared_ptr<cugl::AssetManager>& assets) {
         });
 
     _gameStartBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("lobby_startgamebutton"));
-    _gameStartBtn->addListener([=](const std::string& name, bool down) {
+    _gameStartBtn->addListener([&](const std::string& name, bool down) {
         if (!down) {
             _nextState = MenuState::LobbyToGame;
         }
@@ -174,12 +174,6 @@ void LobbyMenu::setDisplay(bool onDisplay, MenuState& state) {
         _gameStartBtn->setVisible(onDisplay);
 
         _lobbyRoomLabel->setVisible(onDisplay);
-        //_gamelobbyplayerlabel1->setVisible(onDisplay);
-        //_gamelobbyplayerlabel2->setVisible(onDisplay);
-        //_gamelobbyplayerlabel3->setVisible(onDisplay);
-        //_gamelobbyplayerlabel4->setVisible(onDisplay);
-        //_gamelobbyplayerlabel5->setVisible(onDisplay);
-
         _gamelobbyplayerName1->setVisible(onDisplay);
         _gamelobbyplayerName2->setVisible(onDisplay);
         _gamelobbyplayerName3->setVisible(onDisplay);
