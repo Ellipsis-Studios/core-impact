@@ -404,8 +404,6 @@
 		CAD792742624A699001CC6E8 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				EBFA528421FA5AAB00CCC2C5 /* CIApp.cpp */,
-				EBFA528821FA5AAB00CCC2C5 /* CIApp.h */,
 				CA68E30625F53BC200B4617D /* CICollisionController.cpp */,
 				CA68E30A25F53BC200B4617D /* CICollisionController.h */,
 				EBFA528B21FA5AAC00CCC2C5 /* CIInputController.cpp */,
@@ -541,6 +539,8 @@
 				CAD792732624A688001CC6E8 /* Network */,
 				CA626E3D262743E900C4A68F /* Scene */,
 				CA626E36262743E100C4A68F /* View */,
+				EBFA528421FA5AAB00CCC2C5 /* CIApp.cpp */,
+				EBFA528821FA5AAB00CCC2C5 /* CIApp.h */,
 				EB2BE9B41D74952A002FE78B /* main.cpp */,
 			);
 			name = Source;
