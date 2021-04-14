@@ -135,6 +135,14 @@ public:
     int getTimestamp() {
         return _timestamp;
     }
+
+    /**
+     * Returns whether the player sending the game update has won.
+     */
+    bool didPlayerWin() {
+        return _planet->isWinner();
+    }
+
 };
 
 #endif /* __CI_GAME_UPDATE_H__ */

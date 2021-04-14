@@ -55,7 +55,6 @@ void LobbyMenu::dispose() {
     _lobbyGravityStrength = 1.0f;
     _lobbyColorCount = 6;
     _lobbyWinCond = 200;
-    _isClient = false;
 }
 
 /**
@@ -104,6 +103,7 @@ bool LobbyMenu::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     _currSpawn = _currGrav = _currWin = 2;
     _currColor = 4;
 
+    // Setting buttons 
     _spawnRateBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("lobby_spawnratebutton"));
     _gravStrengthBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("lobby_gravstrengthbutton"));
     _colorCountBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("lobby_colorcountbutton"));
@@ -141,8 +141,11 @@ bool LobbyMenu::init(const std::shared_ptr<cugl::AssetManager>& assets) {
         }
         });
 
-    _isClient = false;
     _nextState = MenuState::GameLobby;
+    _lobbySpawnRate = 1.0f;
+    _lobbyGravityStrength = 1.0f;
+    _lobbyColorCount = 6;
+    _lobbyWinCond = 200;
     return true;
 }
 
@@ -152,49 +155,48 @@ bool LobbyMenu::init(const std::shared_ptr<cugl::AssetManager>& assets) {
  * Sets whether the game lobby menu is currently active and visible.
  *
  * @param onDisplay     Whether the game lobby menu is currently active and visible
- * @param state         Current menu state (display different assets for Host/Client)
  */
-void LobbyMenu::setDisplay(bool onDisplay, MenuState& state) {
+void LobbyMenu::setDisplay(bool onDisplay) {
     if (_layer != nullptr) {
-        if (state != MenuState::JoinToLobby && _spawnRateBtn->isVisible() != onDisplay) {
-            _spawnRateLabel->setVisible(onDisplay);
-            _gravStrengthLabel->setVisible(onDisplay);
-            _colorCountLabel->setVisible(onDisplay);
-            _winCondLabel->setVisible(onDisplay);
-            _spawnRateBtn->setVisible(onDisplay);
-            _gravStrengthBtn->setVisible(onDisplay);
-            _colorCountBtn->setVisible(onDisplay);
-            _winCondBtn->setVisible(onDisplay);
-
+        if (!onDisplay || _nextState == MenuState::MainToLobby) {
             _spawnRateBtnLabel->setVisible(onDisplay);
             _gravStrengthBtnLabel->setVisible(onDisplay);
             _colorCountBtnLabel->setVisible(onDisplay);
             _winCondBtnLabel->setVisible(onDisplay);
-        }
-        _gameStartBtn->setVisible(onDisplay);
 
-        _lobbyRoomLabel->setVisible(onDisplay);
+            _spawnRateLabel->setVisible(onDisplay);
+            _gravStrengthLabel->setVisible(onDisplay);
+            _colorCountLabel->setVisible(onDisplay);
+            _winCondLabel->setVisible(onDisplay);
+
+            _spawnRateBtn->setVisible(onDisplay);
+            _gravStrengthBtn->setVisible(onDisplay);
+            _colorCountBtn->setVisible(onDisplay);
+            _winCondBtn->setVisible(onDisplay);
+        }
         _gamelobbyplayerName1->setVisible(onDisplay);
         _gamelobbyplayerName2->setVisible(onDisplay);
         _gamelobbyplayerName3->setVisible(onDisplay);
         _gamelobbyplayerName4->setVisible(onDisplay);
         _gamelobbyplayerName5->setVisible(onDisplay);
+        _gameStartBtn->setVisible(onDisplay);
+        _lobbyRoomLabel->setVisible(onDisplay);
         _layer->setVisible(onDisplay);
 
-        if (onDisplay) {
-            _gameStartBtn->activate();
-            if (state == MenuState::MainToLobby) {
-                _spawnRateBtn->activate();
-                _gravStrengthBtn->activate();
-                _colorCountBtn->activate();
-                _winCondBtn->activate();
-            }
-        } else {
+        if (!onDisplay) {
             _gameStartBtn->deactivate();
             _spawnRateBtn->deactivate();
             _gravStrengthBtn->deactivate();
             _colorCountBtn->deactivate();
             _winCondBtn->deactivate();
+        } else {
+            _gameStartBtn->activate();
+            if (_nextState == MenuState::MainToLobby) {
+                _spawnRateBtn->activate();
+                _gravStrengthBtn->activate();
+                _colorCountBtn->activate();
+                _winCondBtn->activate();
+            }
         }
     }
 }
@@ -226,16 +228,15 @@ void LobbyMenu::update(MenuState& state, string& joingame, string& playername, s
         case MenuState::MainToLobby:
         {
             // handle displaying for Host
-            joingame = "";
-            _isClient = false;
-            setDisplay(true, state);
+            joingame.clear();
+            _nextState = state; // prep to setDisplay
+            setDisplay(true);
             _lobbyRoomLabel->setText(joingame);
             _gamelobbyplayerlabel1->setText(playername);
 
-            // handle game lobby settings
+            // handle game lobby settings (only visible to the host)
             _currSpawn = _currGrav = _currWin = 2;
             _currColor = 4;
-            // only visible for the host
             _lobbySpawnRate = spawnRate = _spawnRates[_currSpawn];
             _lobbyGravityStrength = gravStrength = _gravStrengths[_currGrav];
             _lobbyColorCount = colorCount = _colorCounts[_currColor];
@@ -245,19 +246,19 @@ void LobbyMenu::update(MenuState& state, string& joingame, string& playername, s
             _gravStrengthLabel->setText(cugl::strtool::to_string(_lobbyGravityStrength, 1) + "X");
             _colorCountLabel->setText(cugl::strtool::to_string(_lobbyColorCount));
             _winCondLabel->setText(cugl::strtool::to_string(_lobbyWinCond));
-            
-            state = _nextState = MenuState::GameLobby;
+
+            state = _nextState = MenuState::GameLobby; // reset 
             break;
         }
         case MenuState::JoinToLobby:
-        {
-            // handle displaying for Clients
-            _isClient = true;
-            setDisplay(true, state);
+        {          
+            // handle setting up the lobby
+            _nextState = state; // prep to setDisplay
+            setDisplay(true);
             _lobbyRoomLabel->setText(joingame);
             _gamelobbyplayerlabel1->setText(playername);
-
-            // offset player name labels to center for clients
+            
+            // undo player name label offsets for clients
             const float clientOffset = _layer->getContentHeight() / 6.0f;
             _gamelobbyplayerName1->setPositionY(_gamelobbyplayerName1->getPositionY() - clientOffset);
             _gamelobbyplayerName2->setPositionY(_gamelobbyplayerName2->getPositionY() - clientOffset);
@@ -265,7 +266,7 @@ void LobbyMenu::update(MenuState& state, string& joingame, string& playername, s
             _gamelobbyplayerName4->setPositionY(_gamelobbyplayerName4->getPositionY() - clientOffset);
             _gamelobbyplayerName5->setPositionY(_gamelobbyplayerName5->getPositionY() - clientOffset);
 
-            state = _nextState = MenuState::GameLobby;
+            state = _nextState = MenuState::GameLobby; // reset 
             break;
         }
         case MenuState::GameLobby:
@@ -282,38 +283,36 @@ void LobbyMenu::update(MenuState& state, string& joingame, string& playername, s
                 _gamelobbyplayerlabel5->setText(othernames.at(3));
             }
 
-            // handle game lobby settings for the Host 
-            if (!_isClient) {
-                spawnRate = _lobbySpawnRate;
-                gravStrength = _lobbyGravityStrength;
-                colorCount = _lobbyColorCount;
-                winCond = _lobbyWinCond;
+            // Update game settings in global MenuScene  
+            spawnRate = _lobbySpawnRate;
+            gravStrength = _lobbyGravityStrength;
+            colorCount = _lobbyColorCount;
+            winCond = _lobbyWinCond;
 
-                _spawnRateLabel->setText(cugl::strtool::to_string(_lobbySpawnRate, 1) + "X");
-                _gravStrengthLabel->setText(cugl::strtool::to_string(_lobbyGravityStrength, 1) + "X");
-                _colorCountLabel->setText(cugl::strtool::to_string(_lobbyColorCount));
-                _winCondLabel->setText(cugl::strtool::to_string(_lobbyWinCond));
-            }
+            // Update game setting button labels for the Host
+            _spawnRateLabel->setText(cugl::strtool::to_string(_lobbySpawnRate, 1) + "X");
+            _gravStrengthLabel->setText(cugl::strtool::to_string(_lobbyGravityStrength, 1) + "X");
+            _colorCountLabel->setText(cugl::strtool::to_string(_lobbyColorCount));
+            _winCondLabel->setText(cugl::strtool::to_string(_lobbyWinCond));
+
             state = _nextState;
             break;
         }
         default:
-        {
-            // undo player name labels offsets for clients
-            if (_isClient) {
-                const float clientOffset = _layer->getContentHeight() / 6.0f;
-                _gamelobbyplayerName1->setPositionY(_gamelobbyplayerName1->getPositionY() + clientOffset);
-                _gamelobbyplayerName2->setPositionY(_gamelobbyplayerName2->getPositionY() + clientOffset);
-                _gamelobbyplayerName3->setPositionY(_gamelobbyplayerName3->getPositionY() + clientOffset);
-                _gamelobbyplayerName4->setPositionY(_gamelobbyplayerName4->getPositionY() + clientOffset);
-                _gamelobbyplayerName5->setPositionY(_gamelobbyplayerName5->getPositionY() + clientOffset);
-                
-                _isClient = false;
-            }
-
+        {            
             // hide menu screen
             if (_layer != nullptr && _layer->isVisible()) {
-                setDisplay(false, state);
+                // undo player name labels offsets for clients
+                if (!_spawnRateLabel->isVisible() && !joingame.empty()) {
+                    const float clientOffset = _layer->getContentHeight() / 6.0f;
+                    _gamelobbyplayerName1->setPositionY(_gamelobbyplayerName1->getPositionY() + clientOffset);
+                    _gamelobbyplayerName2->setPositionY(_gamelobbyplayerName2->getPositionY() + clientOffset);
+                    _gamelobbyplayerName3->setPositionY(_gamelobbyplayerName3->getPositionY() + clientOffset);
+                    _gamelobbyplayerName4->setPositionY(_gamelobbyplayerName4->getPositionY() + clientOffset);
+                    _gamelobbyplayerName5->setPositionY(_gamelobbyplayerName5->getPositionY() + clientOffset);
+                }
+                setDisplay(false);
+                _nextState = MenuState::GameLobby;
             }
             break;
         }

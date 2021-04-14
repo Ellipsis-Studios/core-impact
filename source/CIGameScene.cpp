@@ -67,13 +67,13 @@ using namespace std;
  * @param spawnRate             The rate for spawning new stardusts
  * @param gravStrength          The strength for planet's gravity
  * @param colorCount            The number of stardust colors available
- * @param gameLength            The game winning condition value
+ * @param winCondition          The game winning condition value
  *
  * @return true if the controller is initialized properly, false otherwise.
  */
 bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     const std::shared_ptr<NetworkMessageManager>& networkMessageManager,
-    const string gameId, const float spawnRate, const float gravStrength, const uint8_t colorCount, const uint16_t gameLength) {
+    string gameId, float spawnRate, float gravStrength, uint8_t colorCount, uint16_t winCondition) {
     // Initialize the scene to a locked width
     Size dimen = Application::get()->getDisplaySize();
     dimen *= SCENE_WIDTH/dimen.width; // Lock the game to a reasonable resolution
@@ -110,7 +110,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _massHUD  = std::dynamic_pointer_cast<scene2::Label>(_assets->get<scene2::SceneNode>("game_hud"));
 
     // Create the planet model
-    _planet = PlanetModel::alloc(dimen.width / 2, dimen.height / 2, CIColor::getNoneColor(), MAX_PLANET_LAYERS, gravStrength, gameLength);
+    _planet = PlanetModel::alloc(dimen.width / 2, dimen.height / 2, CIColor::getNoneColor(), MAX_PLANET_LAYERS, gravStrength, winCondition);
     auto coreTexture = _assets->get<Texture>("core");
     auto ringTexture = _assets->get<Texture>("innerRing");
     auto unlockedTexture = _assets->get<Texture>("unlockedOuterRing");
@@ -133,7 +133,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 
     _countdown = INACTIVE_COUNTDOWN;
     
-    CULog("Game Room Id: %s Spawn Rate: %f Gravity Strength: %f Color Count: %i Game Length (win cond): %i", gameId.c_str(), spawnRate, gravStrength, colorCount, gameLength);
+    CULog("Game Room Id: %s Spawn Rate: %f Gravity Strength: %f Color Count: %i Game Win Cond: %i", gameId.c_str(), spawnRate, gravStrength, colorCount, winCondition);
     return true;
 }
 

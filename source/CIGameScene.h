@@ -119,13 +119,13 @@ public:
      * @param spawnRate             The rate for spawning new stardusts
      * @param gravStrength          The strength for planet's gravity
      * @param colorCount            The number of stardust colors available
-     * @param gameLength            The game winning condition value
+     * @param winCondition          The game winning condition value (planet mass)
      *
      * @return true if the controller is initialized properly, false otherwise.
      */
     bool init(const std::shared_ptr<cugl::AssetManager>& assets,
         const std::shared_ptr<NetworkMessageManager>& networkMessageManager,
-        const string gameId, const float spawnRate, const float gravStrength, const uint8_t colorCount, const uint16_t gameLength);
+        string gameId, float spawnRate, float gravStrength, uint8_t colorCount, uint16_t winCondition);
     
 #pragma mark -
 #pragma mark Gameplay Handling

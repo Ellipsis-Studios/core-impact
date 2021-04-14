@@ -74,8 +74,9 @@ protected:
     float _gravStrength;
     /** Value for the number of stardust colors available */
     uint8_t _colorCount;
-    /** Condition value for winning the game */
-    uint16_t _gameLength;
+    /** Criteria for the planet to win the game (min planet mass to win) */
+    // TODO: switch to the planet's layers instead of mass
+    uint16_t _winCondition;
 
     // Menu scene state value
     MenuState _state;
@@ -90,7 +91,7 @@ public:
      * This allows us to use the object without a heap pointer.
      */
     MenuScene() : cugl::Scene2(), _volume(0.0f), _musicOn(true), _parallaxOn(true),
-        _spawnRate(1.0f), _gravStrength(1.0f), _colorCount(6), _gameLength(200) {}
+        _spawnRate(1.0f), _gravStrength(1.0f), _colorCount(6), _winCondition(200) {}
 
     /**
     * Disposes of all (non-static) resources allocated to this mode.
@@ -217,7 +218,7 @@ public:
      *
      * @param playerSettings reference to the json value for player settings from App
      */
-    void getPlayerSettings(std::shared_ptr<cugl::JsonValue>& playerSettings) {
+    void appendPlayerSettings(std::shared_ptr<cugl::JsonValue>& playerSettings) {
         playerSettings->appendValue("PlayerName", _playerName);
         playerSettings->appendValue("Volume", _volume);
         playerSettings->appendValue("MusicOn", _musicOn);
@@ -265,8 +266,8 @@ public:
      *
      * @return uint16_t win planet condition value (mass/num of layeres)
      */
-    const uint16_t getGameLength() const {
-        return _gameLength;
+    const uint16_t getGameWinCondition() const {
+        return _winCondition;
     }
 
 };

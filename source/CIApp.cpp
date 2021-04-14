@@ -76,7 +76,7 @@ void CoreImpactApp::onShutdown() {
     // save settings file
     auto _writer = JsonWriter::alloc(Application::getSaveDirectory().append("playersettings.json"));
     auto _settings = JsonValue::allocObject();
-    _menu.getPlayerSettings(_settings);
+    _menu.appendPlayerSettings(_settings);
     _writer->writeJson(_settings);
     CULog("Saving current player settings.");
     
@@ -142,7 +142,7 @@ void CoreImpactApp::update(float timestep) {
             _networkMessageManager = NetworkMessageManager::alloc();
         }
         _gameplay.init(_assets, _networkMessageManager, _menu.getJoinGameId(),
-            _menu.getSpawnRate(), _menu.getGravStrength(), _menu.getColorCount(), _menu.getGameLength());
+            _menu.getSpawnRate(), _menu.getGravStrength(), _menu.getColorCount(), _menu.getGameWinCondition());
         _startGame = true;
     }
     else if (_gameplay.isActive()) {
@@ -177,7 +177,7 @@ void CoreImpactApp::onSuspend() {
     // save settings file
     auto _writer = JsonWriter::alloc(Application::getSaveDirectory().append("playersettings.json"));
     auto _settings = JsonValue::allocObject();
-    _menu.getPlayerSettings(_settings);
+    _menu.appendPlayerSettings(_settings);
     _writer->writeJson(_settings);
     CULog("Saving current player settings.");
 }
@@ -200,5 +200,3 @@ void CoreImpactApp::draw() {
         _gameplay.render(_batch);
     }
 }
-
-

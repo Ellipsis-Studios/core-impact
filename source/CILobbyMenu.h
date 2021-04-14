@@ -34,7 +34,7 @@ private:
     float _lobbyGravityStrength;
     /** Game lobby stardust color count value */
     uint8_t _lobbyColorCount;
-    /** Game lobby win condition value (game length) */
+    /** Game lobby winning condition for the planet */
     uint16_t _lobbyWinCond;
 
     // Asset references
@@ -76,7 +76,7 @@ private:
     const uint8_t _colorCounts[5] = { 2, 3, 4, 5, 6 };
     uint8_t _currColor;
     
-    /** Reference to win condition (game length) button + label + value list */
+    /** Reference to win condition button + label + value list */
     std::shared_ptr<cugl::scene2::Button> _winCondBtn;
     std::shared_ptr<cugl::scene2::Label> _winCondLabel;
     std::shared_ptr<cugl::scene2::SceneNode> _winCondBtnLabel;
@@ -86,16 +86,14 @@ private:
     /** Reference to game lobby's button to start gameplay */
     std::shared_ptr<cugl::scene2::Button> _gameStartBtn;
 
-    /** Whether the current player is client of the game lobby */
-    bool _isClient;
-
 public:
 #pragma mark -
 #pragma mark Constructors
     /**
      * Creates a new game lobby with default values.
      */
-    LobbyMenu() : _currSpawn(2), _currGrav(2), _currColor(4), _currWin(2), _isClient(false) {}
+    LobbyMenu() : _nextState(MenuState::GameLobby), _lobbySpawnRate(1.0f), _lobbyGravityStrength(1.0f), _lobbyColorCount(6), _lobbyWinCond(200), 
+        _currSpawn(2), _currGrav(2), _currColor(4), _currWin(2) {}
 
     /**
      * Disposes of all (non-static) resources allocated to this menu.
@@ -134,9 +132,8 @@ public:
      * Sets whether the game lobby menu is currently active and visible.
      *
      * @param onDisplay     Whether the game lobby menu is currently active and visible
-     * @param state         Current menu state (display different assets for Host/Client)
      */
-    void setDisplay(bool onDisplay, MenuState& state);
+    void setDisplay(bool onDisplay);
 
     /**
      * The method called to update the game lobby menu.
