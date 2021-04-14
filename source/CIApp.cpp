@@ -74,7 +74,7 @@ void CoreImpactApp::onStartup() {
  */
 void CoreImpactApp::onShutdown() {
     // save settings file
-    auto _writer = JsonWriter::alloc(Application::getSaveDirectory().append("playersettings.json"));
+    std::shared_ptr<cugl::JsonWriter> _writer = JsonWriter::alloc(Application::getSaveDirectory().append("playersettings.json"));
     auto _settings = JsonValue::allocObject();
     _menu.appendPlayerSettings(_settings);
     _writer->writeJson(_settings);

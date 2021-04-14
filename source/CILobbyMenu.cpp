@@ -3,7 +3,7 @@
 //  CoreImpact
 //
 //  Created by Richard Yoon on 4/5/21.
-//  Copyright � 2021 Game Design Initiative at Cornell. All rights reserved.
+//  Copyright © 2021 Game Design Initiative at Cornell. All rights reserved.
 //
 
 #include "CILobbyMenu.h"
@@ -24,13 +24,13 @@ void LobbyMenu::dispose() {
         _spawnRateBtn->deactivate();
         _gravStrengthBtn->deactivate();
         _colorCountBtn->deactivate();
-        _winCondBtn->deactivate();
+        _winMassBtn->deactivate();
     }
     _gameStartBtn = nullptr;
     _spawnRateBtn = nullptr;
     _gravStrengthBtn = nullptr;
     _colorCountBtn = nullptr;
-    _winCondBtn = nullptr;
+    _winMassBtn = nullptr;
 
     _lobbyRoomLabel = nullptr;
     _gamelobbyplayerlabel1 = nullptr;
@@ -47,14 +47,14 @@ void LobbyMenu::dispose() {
     _spawnRateLabel = nullptr;
     _gravStrengthLabel = nullptr;
     _colorCountLabel = nullptr;
-    _winCondLabel = nullptr;
+    _winMassLabel = nullptr;
 
     _layer = nullptr;
     _nextState = MenuState::GameLobby;
     _lobbySpawnRate = 1.0f;
     _lobbyGravityStrength = 1.0f;
     _lobbyColorCount = 6;
-    _lobbyWinCond = 200;
+    _lobbyWinPlanetMass = 200;
 }
 
 /**
@@ -93,12 +93,12 @@ bool LobbyMenu::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     _spawnRateLabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_spawnratebutton_up_label"));
     _gravStrengthLabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_gravstrengthbutton_up_label"));
     _colorCountLabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_colorcountbutton_up_label"));
-    _winCondLabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_wincondbutton_up_label"));
+    _winMassLabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_wincondbutton_up_label"));
 
     _spawnRateBtnLabel = assets->get<scene2::SceneNode>("lobby_spawnratebuttonlabel");
     _gravStrengthBtnLabel = assets->get<scene2::SceneNode>("lobby_gravstrengthbuttonlabel");
     _colorCountBtnLabel = assets->get<scene2::SceneNode>("lobby_colorcountbuttonlabel");
-    _winCondBtnLabel = assets->get<scene2::SceneNode>("lobby_wincondbuttonlabel");
+    _winMassBtnLabel = assets->get<scene2::SceneNode>("lobby_wincondbuttonlabel");
 
     _currSpawn = _currGrav = _currWin = 2;
     _currColor = 4;
@@ -107,7 +107,7 @@ bool LobbyMenu::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     _spawnRateBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("lobby_spawnratebutton"));
     _gravStrengthBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("lobby_gravstrengthbutton"));
     _colorCountBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("lobby_colorcountbutton"));
-    _winCondBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("lobby_wincondbutton"));
+    _winMassBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("lobby_wincondbutton"));
 
     _spawnRateBtn->addListener([&](const std::string& name, bool down) {
         if (!down) {
@@ -127,10 +127,10 @@ bool LobbyMenu::init(const std::shared_ptr<cugl::AssetManager>& assets) {
             _lobbyColorCount = _colorCounts[_currColor];
         }
         });
-    _winCondBtn->addListener([&](const std::string& name, bool down) {
+    _winMassBtn->addListener([&](const std::string& name, bool down) {
         if (!down) {
             _currWin = (_currWin + 1) % 5;
-            _lobbyWinCond = _winConds[_currWin];
+            _lobbyWinPlanetMass = _winMass[_currWin];
         }
         });
 
@@ -145,7 +145,7 @@ bool LobbyMenu::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     _lobbySpawnRate = 1.0f;
     _lobbyGravityStrength = 1.0f;
     _lobbyColorCount = 6;
-    _lobbyWinCond = 200;
+    _lobbyWinPlanetMass = 200;
     return true;
 }
 
@@ -162,17 +162,17 @@ void LobbyMenu::setDisplay(bool onDisplay) {
             _spawnRateBtnLabel->setVisible(onDisplay);
             _gravStrengthBtnLabel->setVisible(onDisplay);
             _colorCountBtnLabel->setVisible(onDisplay);
-            _winCondBtnLabel->setVisible(onDisplay);
+            _winMassBtnLabel->setVisible(onDisplay);
 
             _spawnRateLabel->setVisible(onDisplay);
             _gravStrengthLabel->setVisible(onDisplay);
             _colorCountLabel->setVisible(onDisplay);
-            _winCondLabel->setVisible(onDisplay);
+            _winMassLabel->setVisible(onDisplay);
 
             _spawnRateBtn->setVisible(onDisplay);
             _gravStrengthBtn->setVisible(onDisplay);
             _colorCountBtn->setVisible(onDisplay);
-            _winCondBtn->setVisible(onDisplay);
+            _winMassBtn->setVisible(onDisplay);
         }
         _gamelobbyplayerName1->setVisible(onDisplay);
         _gamelobbyplayerName2->setVisible(onDisplay);
@@ -188,14 +188,14 @@ void LobbyMenu::setDisplay(bool onDisplay) {
             _spawnRateBtn->deactivate();
             _gravStrengthBtn->deactivate();
             _colorCountBtn->deactivate();
-            _winCondBtn->deactivate();
+            _winMassBtn->deactivate();
         } else {
             _gameStartBtn->activate();
             if (_nextState == MenuState::MainToLobby) {
                 _spawnRateBtn->activate();
                 _gravStrengthBtn->activate();
                 _colorCountBtn->activate();
-                _winCondBtn->activate();
+                _winMassBtn->activate();
             }
         }
     }
@@ -208,17 +208,17 @@ void LobbyMenu::setDisplay(bool onDisplay) {
  * screen is put on display on states transitioning into GameLobby.
  * Screen is taken down once menu state exits the Lobby.
  *
- * @param state         MenuScene's state value
- * @param joingame      Game lobby's room id value
- * @param playername    Player's name
- * @param othernames    List of names of other players in current game lobby
- * @param spawnRate     Stardust spawn rate factor
- * @param gravStrength  Planet gravity strength factor
- * @param colorCount    Available stardust color count
- * @param winCond       Win condition for planet (game length)
+ * @param state             MenuScene's state value
+ * @param joingame          Game lobby's room id value
+ * @param playername        Player's name
+ * @param othernames        List of names of other players in current game lobby
+ * @param spawnRate         Stardust spawn rate factor
+ * @param gravStrength      Planet gravity strength factor
+ * @param colorCount        Available stardust color count
+ * @param winPlanetMass     Win condition for planet (mass)
  */
 void LobbyMenu::update(MenuState& state, string& joingame, string& playername, std::vector<string>& othernames,
-    float& spawnRate, float& gravStrength, uint8_t& colorCount, uint16_t& winCond) {
+    float& spawnRate, float& gravStrength, uint8_t& colorCount, uint16_t& winPlanetMass) {
     if (_layer == nullptr) {
         return;
     }
@@ -240,12 +240,12 @@ void LobbyMenu::update(MenuState& state, string& joingame, string& playername, s
             _lobbySpawnRate = spawnRate = _spawnRates[_currSpawn];
             _lobbyGravityStrength = gravStrength = _gravStrengths[_currGrav];
             _lobbyColorCount = colorCount = _colorCounts[_currColor];
-            _lobbyWinCond = winCond = _winConds[_currWin];
+            _lobbyWinPlanetMass = winPlanetMass = _winMass[_currWin];
 
             _spawnRateLabel->setText(cugl::strtool::to_string(_lobbySpawnRate, 1) + "X");
             _gravStrengthLabel->setText(cugl::strtool::to_string(_lobbyGravityStrength, 1) + "X");
             _colorCountLabel->setText(cugl::strtool::to_string(_lobbyColorCount));
-            _winCondLabel->setText(cugl::strtool::to_string(_lobbyWinCond));
+            _winMassLabel->setText(cugl::strtool::to_string(_lobbyWinPlanetMass));
 
             state = _nextState = MenuState::GameLobby; // reset 
             break;
@@ -287,13 +287,13 @@ void LobbyMenu::update(MenuState& state, string& joingame, string& playername, s
             spawnRate = _lobbySpawnRate;
             gravStrength = _lobbyGravityStrength;
             colorCount = _lobbyColorCount;
-            winCond = _lobbyWinCond;
+            winPlanetMass = _lobbyWinPlanetMass;
 
             // Update game setting button labels for the Host
             _spawnRateLabel->setText(cugl::strtool::to_string(_lobbySpawnRate, 1) + "X");
             _gravStrengthLabel->setText(cugl::strtool::to_string(_lobbyGravityStrength, 1) + "X");
             _colorCountLabel->setText(cugl::strtool::to_string(_lobbyColorCount));
-            _winCondLabel->setText(cugl::strtool::to_string(_lobbyWinCond));
+            _winMassLabel->setText(cugl::strtool::to_string(_lobbyWinPlanetMass));
 
             state = _nextState;
             break;

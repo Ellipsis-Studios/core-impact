@@ -38,8 +38,9 @@ protected:
 
     /** Gravitational strength factor */
     static float _gravStrength;
+    /** Planet mass to win the game */
     /** Win condition value */
-    static uint16_t _winCond;
+    static uint16_t _winPlanetMass;
     
     /** Scene graph node for the planet */
     std::shared_ptr<PlanetNode> _planetNode;
@@ -168,10 +169,10 @@ public:
     /** 
      * Returns the win condition (game length) for the planet.
      * 
-     * @return uint16_t planet's win condition (game length)
+     * @return uint16_t planet's win condition (planet mass)
      */
-    uint16_t getWinCond() const {
-        return _winCond;
+    uint16_t getWinPlanetMass() const {
+        return _winPlanetMass;
     }
 
 #pragma mark Constructors
@@ -236,13 +237,13 @@ public:
      * @param c The initial color code of the planet
      * @param maxLayers The maximum number of layers the planet can have
      * @param gravStrength The planet's gravitational strength factor
-     * @param winCond The condition value for the planet to win
+     * @param winPlanetMass The planet mass for winning the game
      *
      * @return a newly allocated planet at the given location with the given color.
      */
-    static std::shared_ptr<PlanetModel> alloc(float x, float y, CIColor::Value c, int maxLayers, float gravStrength, uint16_t winCond) {
+    static std::shared_ptr<PlanetModel> alloc(float x, float y, CIColor::Value c, int maxLayers, float gravStrength, uint16_t winPlanetMass) {
         std::shared_ptr<PlanetModel> result = std::make_shared<PlanetModel>();
-        return (result->init(x, y, c, maxLayers, gravStrength, winCond) ? result : nullptr);
+        return (result->init(x, y, c, maxLayers, gravStrength, winPlanetMass) ? result : nullptr);
     }
 
 #pragma mark Interactions
@@ -276,7 +277,7 @@ public:
      */
     bool isWinner() const {
         // TODO: switch to number of layers
-        return (_mass >= _winCond);
+        return (_mass >= _winPlanetMass);
     }
 };
 

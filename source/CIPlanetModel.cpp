@@ -23,7 +23,7 @@
 
 /** Initialize PlanetModel's static variables */
 float PlanetModel::_gravStrength = 1.0f;
-uint16_t PlanetModel::_winCond = 200;
+uint16_t PlanetModel::_winPlanetMass = 200;
 
 #pragma mark Properties
 /**
@@ -69,13 +69,13 @@ void PlanetModel::dispose() {
  * @param c The initial color code of the planet
  * @param maxLayers The maximum number of layers the planet can have
  * @param gravStrength The planet's gravitational strength factor
- * @param winCond The condition value for the planet to win
+ * @param winPlanetMass The condition value for the planet to win
  *
  * @return true if the initialization was successful
  */
-bool PlanetModel::init(float x, float y, CIColor::Value c, int maxLayers, float gravStrength, uint16_t winCond) {
+bool PlanetModel::init(float x, float y, CIColor::Value c, int maxLayers, float gravStrength, uint16_t winPlanetMass) {
     _gravStrength = gravStrength;
-    _winCond = winCond;
+    _winPlanetMass = winPlanetMass;
     return init(x, y, c, maxLayers);
 }
 

@@ -121,10 +121,10 @@ public:
      *
      * @return CIColor Value for a stardust
      */
-    static Value getRandomColor() {
+    static Value getRandomColor(int ccount = 5) {
         std::random_device rd;
         std::mt19937 mt(rd());
-        std::uniform_int_distribution<int> dist(0, 5); // pick out of first 6 colors
+        std::uniform_int_distribution<int> dist(0, ccount); // pick out of first 6 colors
         int rand = dist(mt);
         return Value(rand);
     }

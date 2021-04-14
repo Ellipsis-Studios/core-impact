@@ -34,8 +34,8 @@ private:
     float _lobbyGravityStrength;
     /** Game lobby stardust color count value */
     uint8_t _lobbyColorCount;
-    /** Game lobby winning condition for the planet */
-    uint16_t _lobbyWinCond;
+    /** Game lobby winning condition for the planet (mass) */
+    uint16_t _lobbyWinPlanetMass;
 
     // Asset references
     /** Reference to the node for the group representing this menu scene */
@@ -77,10 +77,10 @@ private:
     uint8_t _currColor;
     
     /** Reference to win condition button + label + value list */
-    std::shared_ptr<cugl::scene2::Button> _winCondBtn;
-    std::shared_ptr<cugl::scene2::Label> _winCondLabel;
-    std::shared_ptr<cugl::scene2::SceneNode> _winCondBtnLabel;
-    const uint16_t _winConds[5] = { 100, 150, 200, 250, 300 };
+    std::shared_ptr<cugl::scene2::Button> _winMassBtn;
+    std::shared_ptr<cugl::scene2::Label> _winMassLabel;
+    std::shared_ptr<cugl::scene2::SceneNode> _winMassBtnLabel;
+    const uint16_t _winMass[5] = { 100, 150, 200, 250, 300 };
     uint8_t _currWin;
 
     /** Reference to game lobby's button to start gameplay */
@@ -92,7 +92,7 @@ public:
     /**
      * Creates a new game lobby with default values.
      */
-    LobbyMenu() : _nextState(MenuState::GameLobby), _lobbySpawnRate(1.0f), _lobbyGravityStrength(1.0f), _lobbyColorCount(6), _lobbyWinCond(200), 
+    LobbyMenu() : _nextState(MenuState::GameLobby), _lobbySpawnRate(1.0f), _lobbyGravityStrength(1.0f), _lobbyColorCount(6), _lobbyWinPlanetMass(200),
         _currSpawn(2), _currGrav(2), _currColor(4), _currWin(2) {}
 
     /**
@@ -142,7 +142,7 @@ public:
      * with any updates within the game lobby menu scene.
      */
     void update(MenuState& state, string& joingame, string& playername, std::vector<string>& othernames,
-        float& spawnRate, float& gravStrength, uint8_t& colorCount, uint16_t& winCond);
+        float& spawnRate, float& gravStrength, uint8_t& colorCount, uint16_t& winPlayerMass);
 
     /**
      * Returns the root scene node for the game lobby menu layer.
