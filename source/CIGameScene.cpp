@@ -94,7 +94,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     
     // Get the scene components.
     _allSpace  = _assets->get<scene2::SceneNode>("game_field");
-    _farSpace  = _assets->get<scene2::SceneNode>("game_field_far");
+    _farSpace = std::dynamic_pointer_cast<scene2::AnimationNode>(_assets->get<scene2::SceneNode>("game_field_far"));
     _nearSpace = _assets->get<scene2::SceneNode>("game_field_near");
     _massHUD  = std::dynamic_pointer_cast<scene2::Label>(_assets->get<scene2::SceneNode>("game_hud"));
 
@@ -105,9 +105,9 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     auto unlockedTexture = _assets->get<Texture>("unlockedOuterRing");
     auto lockedTexture = _assets->get<Texture>("lockedOuterRing");
     _planet->setTextures(coreTexture, ringTexture, unlockedTexture, lockedTexture);
-    
+
     _draggedStardust = NULL;
-    _stardustContainer = StardustQueue::alloc(MAX_STARDUST, _assets->get<Texture>("photon"));
+    _stardustContainer = StardustQueue::alloc(MAX_STARDUST, coreTexture);
 
     // TODO: resize to number of players in the game and add opponent planet nodes to scene graph
     _opponent_planets.resize(5);
@@ -117,6 +117,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     addChild(_stardustContainer->getStardustNode());
 
     _countdown = START_COUNTDOWN;
+    _timeElapsed = 0;
     return true;
 }
 
@@ -179,8 +180,14 @@ void GameScene::update(float timestep) {
          }
      }
     
-    _planet->update(timestep);
-    _stardustContainer->update();
+    _timeElapsed += timestep;
+    if (_timeElapsed > SPF) {
+        unsigned int bkgrdFrame = _farSpace->getFrame();
+        _timeElapsed = 0;
+        bkgrdFrame = (bkgrdFrame == BACKGROUND_END) ? BACKGROUND_START : bkgrdFrame + 1;
+        _farSpace->setFrame(bkgrdFrame);
+    }
+    _stardustContainer->update(timestep);
     addStardust(dimen);
 
     collisions::checkForCollision(_planet, _stardustContainer, timestep);
@@ -189,11 +196,18 @@ void GameScene::update(float timestep) {
     updateDraggedStardust();
     
     if (collisions::checkForCollision(_planet, _input.getPosition())) {
-        _planet->lockInLayer(timestep);
+        CIColor::Value planetColor = _planet->getColor();
+        if (_planet->lockInLayer(timestep)) {
+            // Layer Locked In
+            CULog("LAYER LOCKED IN");
+            _stardustContainer->addToPowerupQueue(planetColor, true);
+        }
     } else if (_planet->isLockingIn()) {
         _planet->stopLockIn();
     }
     
+    _planet->update(timestep);
+  
     // attempt to set player id of game update manager
     if (_gameUpdateManager->getPlayerId() < 0) {
         // need to make this call to attempt to connect to game
@@ -231,7 +245,7 @@ void GameScene::updateDraggedStardust() {
         }
         // this is structured like this to update a recently dragged stardust
         if (_draggedStardust != NULL) {
-            float sdRadius = collisions::getStardustRadius(_stardustContainer);
+            float sdRadius = _stardustContainer->getStardustRadius();
             collisions::moveDraggedStardust(_input.getPosition(), _draggedStardust, sdRadius);
         }
     } else if (!_input.fingerDown() && _draggedStardust != NULL) {
@@ -273,7 +287,7 @@ void GameScene::addStardust(const Size bounds) {
     int massCorrection = avgMass - _planet->getMass();
     
     /** Pity mechanism: The longer you haven't seen a certain color, the more likely it will be to spawn that color */
-    CIColor::Value c = CIColor::getNoneColor();
+    CIColor::Value c = CIColor::getRandomColor();
     int probSum = 0, colorCount = 6;
     // Sums up the total probability space of the stardust colors, augmented by a mass correction
     probSum = accumulate(_stardustProb, _stardustProb + colorCount, probSum) + massCorrection;
@@ -289,7 +303,7 @@ void GameScene::addStardust(const Size bounds) {
             _stardustProb[i] += 10;
         }
     }
-    
+
     _stardustContainer->addStardust(c, bounds);
 }
 
@@ -314,6 +328,13 @@ void GameScene::processSpecialStardust(const cugl::Size bounds, const std::share
                 stardustQueue->addStardust(CIColor::getRandomColor(), bounds);
                 stardustQueue->addStardust(CIColor::getRandomColor(), bounds);
                 break;
+            case StardustModel::Type::SHOOTING_STAR:
+                CULog("SHOOTING STAR");
+                stardustQueue->addShootingStardust(stardust->getColor(), bounds);
+                stardustQueue->addShootingStardust(stardust->getColor(), bounds);
+            case StardustModel::Type::GRAYSCALE:
+                CULog("GRAYSCALE");
+                stardustQueue->getStardustNode()->applyGreyScale();
             default:
                 break;
         }

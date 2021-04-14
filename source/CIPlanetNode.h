@@ -17,6 +17,7 @@
 #include "CIPlanetLayer.h"
 
 #define PLANET_RING_TEXTURE_INNER_SIZE 140
+#define PLANET_OUTER_RING_SCALE 0.833
 
 /** Number of rows and cols in inner ring film strip */
 #define INNER_RING_ROWS   10
@@ -29,6 +30,15 @@
 #define CORE_END    151
 #define CORE_START  0
 
+#define OUTER_RING_ROWS             17
+#define OUTER_RING_COLS             13
+#define OUTER_RING_UNLOCK_START     0
+#define OUTER_RING_UNLOCK_END       12
+#define OUTER_RING_LOCKIN_START     13
+#define OUTER_RING_LOCKIN_END       117
+#define OUTER_RING_LOCK_START       118
+#define OUTER_RING_LOCK_END         216
+
 class PlanetNode : public cugl::scene2::AnimationNode {
 private:
     class LayerNode {
@@ -37,7 +47,7 @@ private:
         std::shared_ptr<cugl::scene2::AnimationNode> innerRing;
       
         /** The node representing the outer ring of the layer */
-        std::shared_ptr<cugl::scene2::PolygonNode> outerRing;
+        std::shared_ptr<cugl::scene2::AnimationNode> outerRing;
         
     };
     
@@ -53,7 +63,11 @@ private:
     /** The nodes representing the layers of this planet */
     std::vector<LayerNode> _layerNodes;
   
-    void advanceFrame(LayerNode* node);
+    /* Updates the animation frame for the inner layer */
+    void advanceInnerLayerFrame(LayerNode* node);
+  
+    /* Updates the animation frame for the outer layer */
+    void advanceOuterLayerFrame(LayerNode* node, bool isLockedIn, bool isLockingIn);
     
 protected:
     /** The texture of an innner ring */
@@ -68,7 +82,7 @@ public:
     
     ~PlanetNode() { dispose(); }
 
-    void update(float timestep);
+    void update(float timestep, bool isLockingIn, int numLayers);
   
     static std::shared_ptr<PlanetNode> alloc(const std::shared_ptr<cugl::Texture>& core,
                                              const std::shared_ptr<cugl::Texture>& ring,
@@ -96,7 +110,7 @@ public:
                     setScale(_coreScale);
                 }
                 node->innerRing->setScale(_layerScale/_coreScale);
-                node->outerRing->setScale(_layerScale/_coreScale);
+                node->outerRing->setScale(PLANET_OUTER_RING_SCALE * _layerScale/_coreScale);
                 break;
             }
         }

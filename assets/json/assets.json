@@ -1,7 +1,7 @@
 {
   "textures": {
     "space": {
-      "file": "textures/background01.png"
+      "file": "textures/backgroundAnimation_v5.png"
     },
     "photon": {
       "file": "textures/photon.png"
@@ -16,7 +16,7 @@
         "file":   "textures/innerLayerAnimation_v2.png"
     },
     "unlockedOuterRing": {
-        "file":   "textures/unlockedOuterRing_v2.png"
+        "file":   "textures/outerLayerAnimation_v1.png"
     },
     "lockedOuterRing": {
         "file":   "textures/lockedOuterRing_v2.png"
@@ -50,12 +50,15 @@
           },
           "children": {
             "far": {
-              "type": "Image",
+              "type": "Animation",
               "data": {
                 "texture": "space",
-                "scale": 0.6,
+                "scale": 1.6,
                 "position": [1280, 1280],
-                "anchor": [0.5, 0.5]
+                "anchor": [0.5, 0.5],
+                "span": 241,
+                "cols": 13,
+                "frame": 0
               }
             }
           }

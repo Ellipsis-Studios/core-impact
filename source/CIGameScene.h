@@ -20,11 +20,15 @@
 #include <cugl/cugl.h>
 #include <vector>
 #include "CIPlanetModel.h"
-#include "CIInput.h"
+#include "CIInputController.h"
 #include "CIStardustQueue.h"
 #include "CIGameUpdateManager.h"
 #include "CINetworkMessageManager.h"
 #include "CIOpponentPlanet.h"
+
+#define SPF .066 //seconds per frame
+#define BACKGROUND_START 0
+#define BACKGROUND_END 240
 
 /**
  * This class is the primary gameplay constroller for the demo.
@@ -55,7 +59,7 @@ protected:
     /** Node to hold all of our graphics. Necesary for resolution indepedence. */
     std::shared_ptr<cugl::scene2::SceneNode> _allSpace;
     /** Background in animation parallax. Stores the field of stars */
-    std::shared_ptr<cugl::scene2::SceneNode> _farSpace;
+    std::shared_ptr<cugl::scene2::AnimationNode> _farSpace;
     /** Foreground in animation parallax. Stores the planets. */
     std::shared_ptr<cugl::scene2::SceneNode> _nearSpace;
     /** Shared memory pool for stardust. (MODEL CLASS) */
@@ -71,6 +75,9 @@ protected:
     
     /** Countdown to reset the game after winning/losing */
     float _countdown;
+    
+    /** Time since last animation frame update */
+    float _timeElapsed;
     
 public:
 #pragma mark -

@@ -115,6 +115,15 @@ public:
     void addStardust(CIColor::Value c, const cugl::Size bounds, StardustModel::Type type = StardustModel::Type::NORMAL);
     
     /**
+     * Adds a stardust that will move fast and be aimed directly at the core.
+     * This is the result of the shooting star powerup.
+     *
+     * @param c the color of the stardust to spawn
+     * @param bounds the bounds of the game screen
+     */
+    void addShootingStardust(CIColor::Value c, const cugl::Size bounds);
+    
+    /**
      * Adds a stardust to the active queue given a pointer to the stardust
      *
      * @param stardust the stardust to add to the queue
@@ -191,13 +200,20 @@ public:
         _stardust_to_send.clear();
     }
     
-
     /**
      * Adds a stardust to the powerup queue.
      *
      * @param stardust the stardust to add to the powerup queue
      */
     void addToPowerupQueue(StardustModel* stardust);
+    
+    /**
+     * Adds a powerup to the powerup queue.
+     *
+     * @param color the color of layer that was just locked in
+     * @param addToSendQueue whether to add the stardust to the send queue
+     */
+    void addToPowerupQueue(CIColor::Value color, bool addToSendQueue);
     
     /**
      * Returns the powerup queue
@@ -220,8 +236,17 @@ public:
      * Each stardust is advanced according to its velocity. Stardusts which are too old
      * are deleted.  This method does not bounce off walls.  We moved all collisions
      * to the collision controller where they belong.
+     *
+     * @param timestep  How much time has passed since the last frame
      */
-    void update();
+    void update(float timestep);
+    
+    /**
+     * Returns the radius of a stardust. Returns 0 if the stardust texture has not been set yet.
+     *
+     * @return the radius of a stardust
+     */
+    float getStardustRadius();
 };
 
 #endif /* __CI_STARDUST_QUEUE_H__ */

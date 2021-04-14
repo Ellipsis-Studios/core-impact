@@ -79,7 +79,7 @@ void NetworkMessageManager::sendMessages() {
                data.clear();
                CULog("SENT Powerup> SRC[%i], POWERUP[%i], CLR[%i], TS[%i]", playerId, powerup, stardustColor, _timestamp);
             }
-            else if (val[jj]->getStardustLocation() == StardustModel::Location::ON_SCREEN) {
+            else if (val[jj]->getStardustLocation() == CILocation::Value::ON_SCREEN) {
                 NetworkUtils::encodeInt(NetworkUtils::MessageType::StardustHit, data);
                 NetworkUtils::encodeInt(playerId, data);
                 NetworkUtils::encodeInt(dstPlayerId, data);

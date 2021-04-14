@@ -81,6 +81,26 @@ void StardustQueue::addStardust(CIColor::Value c, const Size bounds, StardustMod
 }
 
 /**
+ * Adds a stardust that will move fast and be aimed directly at the core.
+ * This is the result of the shooting star powerup.
+ *
+ * @param c the color of the stardust to spawn
+ * @param bounds the bounds of the game screen
+ */
+void StardustQueue::addShootingStardust(CIColor::Value c, const cugl::Size bounds) {
+    int posX = ((rand()%2==0) ? bounds.width + 5 : -5) + (rand() % 20 - 10);
+    int posY = ((rand()%2==0) ? bounds.height + 5 : -5) + (rand() % 20 - 10);
+    Vec2 pos = Vec2(posX, posY);
+    Vec2 dir = Vec2(bounds.width/2, bounds.height/2) - pos;
+    dir.normalize();
+    dir.x *= 10;
+    dir.y *= 10;
+
+    std::shared_ptr<StardustModel> stardust = StardustModel::alloc(pos, dir, c);
+    addStardust(stardust);
+}
+
+/**
  * Adds a stardust to the active queue given a pointer to the stardust
  *
  * @param stardust the stardust to add to the queue
@@ -134,13 +154,45 @@ void StardustQueue::addToPowerupQueue(StardustModel* stardust) {
 }
 
 /**
+ * Adds a powerup to the powerup queue.
+ *
+ * @param color the color of layer that was just locked in
+ * @param addToSendQueue whether to add the stardust to the send queue
+ */
+void StardustQueue::addToPowerupQueue(CIColor::Value color, bool addToSendQueue) {
+    std::shared_ptr<StardustModel> stardust = StardustModel::alloc(cugl::Vec2(), cugl::Vec2(), CIColor::getRandomColor());
+    switch (color) {
+        case CIColor::Value::red:
+            stardust->setStardustType(StardustModel::Type::METEOR);
+            _stardust_powerups.push_back(stardust);
+            break;
+        case CIColor::Value::yellow:
+            stardust->setStardustType(StardustModel::Type::SHOOTING_STAR);
+            _stardust_powerups.push_back(stardust);
+            break;
+        case CIColor::Value::purple:
+            stardust->setStardustType(StardustModel::Type::GRAYSCALE);
+            break;
+        default:
+            break;
+    }
+    
+    if (addToSendQueue && stardust->getStardustType() != StardustModel::Type::NORMAL) {
+        _stardust_to_send.push_back(stardust);
+    }
+    
+}
+
+/**
  * Moves all the stardust in the active queue.
  *
  * Each stardust is advanced according to its velocity. Stardusts which are too old
  * are deleted.  This method does not bounce off walls.  We moved all collisions
  * to the collision controller where they belong.
+ *
+ * @param timestep  How much time has passed since the last frame
  */
-void StardustQueue::update() {
+void StardustQueue::update(float timestep) {
     // First, delete all old stardust.
     // INVARIANT: Stardusts are in queue in decending age order.
     // That means we just remove the head until the stardusts are young enough.
@@ -158,4 +210,24 @@ void StardustQueue::update() {
         // Move the stardust according to velocity.
         _queue[idx].update();
     }
+    
+    _stardustNode->update(timestep);
+}
+
+/**
+ * Returns the radius of a stardust. Returns 0 if the stardust texture has not been set yet.
+ *
+ * @return the radius of a stardust
+ */
+float StardustQueue::getStardustRadius() {
+    if (_stardustNode == nullptr) {
+        return 0;
+    }
+    
+    float sdRadius = 0;
+    auto texture = _stardustNode->getTexture();
+    if (texture != nullptr) {
+        sdRadius = std::max(texture->getWidth(), texture->getHeight()) / (2.0f * 13.0f);
+    }
+    return sdRadius / 3;
 }
