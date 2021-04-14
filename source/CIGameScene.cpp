@@ -94,7 +94,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     
     // Get the scene components.
     _allSpace  = _assets->get<scene2::SceneNode>("game_field");
-    _farSpace  = _assets->get<scene2::SceneNode>("game_field_far");
+    _farSpace = std::dynamic_pointer_cast<scene2::AnimationNode>(_assets->get<scene2::SceneNode>("game_field_far"));
     _nearSpace = _assets->get<scene2::SceneNode>("game_field_near");
     _massHUD  = std::dynamic_pointer_cast<scene2::Label>(_assets->get<scene2::SceneNode>("game_hud"));
 
@@ -117,6 +117,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     addChild(_stardustContainer->getStardustNode());
 
     _countdown = START_COUNTDOWN;
+    _timeElapsed = 0;
     return true;
 }
 
@@ -178,7 +179,14 @@ void GameScene::update(float timestep) {
              return;
          }
      }
-
+    
+    _timeElapsed += timestep;
+    if (_timeElapsed > SPF) {
+        unsigned int bkgrdFrame = _farSpace->getFrame();
+        _timeElapsed = 0;
+        bkgrdFrame = (bkgrdFrame == BACKGROUND_END) ? BACKGROUND_START : bkgrdFrame + 1;
+        _farSpace->setFrame(bkgrdFrame);
+    }
     _stardustContainer->update(timestep);
     addStardust(dimen);
 
