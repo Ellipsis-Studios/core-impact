@@ -1,5 +1,5 @@
 //
-//  CIInput.h
+//  CIInputController.h
 //  CoreImpact
 //
 //  This input controller is primarily designed for keyboard control.  On mobile
@@ -10,8 +10,8 @@
 //  Author: Walker White
 //  Version: 1/10/17
 //
-#ifndef __CI_INPUT_H__
-#define __CI_INPUT_H__
+#ifndef __CI_INPUT_CONTROLLER_H__
+#define __CI_INPUT_CONTROLLER_H__
 #include <cugl/cugl.h>
 
 /**
@@ -259,4 +259,4 @@ public:
     void processEnded();
 };
 
-#endif /* __CI_INPUT_H__ */
+#endif /* __CI_INPUT_CONTROLLER_H__ */

@@ -20,7 +20,7 @@
 #include <cugl/cugl.h>
 #include <vector>
 #include "CIPlanetModel.h"
-#include "CIInput.h"
+#include "CIInputController.h"
 #include "CIStardustQueue.h"
 #include "CIGameUpdateManager.h"
 #include "CINetworkMessageManager.h"
