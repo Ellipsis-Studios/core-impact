@@ -11,6 +11,7 @@
 #ifndef __CI_OPPONENT_NODE_H__
 #define __CI_OPPONENT_NODE_H__
 #include <cugl/cugl.h>
+#include <cmath>
 #include "CIColor.h"
 #include "CILocation.h"
 
@@ -64,6 +65,30 @@ private:
                 break;
             case CILocation::Value::ON_SCREEN: //this case should not occur
                 return cugl::Vec2(0, 0);
+        }
+    }
+    
+    /**
+     * Helper function to get rotation for the fog asset.
+     *
+     * @param location The location of this oppoent node
+     */
+    float getFogRotationFromLocation(CILocation::Value location) {
+        switch (location) {
+            case CILocation::Value::TOP_LEFT:
+                return -M_PI / 2;
+                break;
+            case CILocation::Value::TOP_RIGHT:
+                return -M_PI;
+                break;
+            case CILocation::Value::BOTTOM_LEFT:
+                return 0;
+                break;
+            case CILocation::Value::BOTTOM_RIGHT:
+                return M_PI / 2;
+                break;
+            case CILocation::Value::ON_SCREEN: //this case should not occur
+                return 0;
         }
     }
     
