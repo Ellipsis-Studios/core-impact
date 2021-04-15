@@ -51,10 +51,10 @@ void PlanetNode::advanceInnerLayerFrame(LayerNode* node){
 
 void PlanetNode::advanceOuterLayerFrame(LayerNode* node, bool isLockedIn, bool isLockingIn, bool canLockIn){
     unsigned int outerFrame = node->outerRing->getFrame();
-    if (canLockIn){
-        outerFrame = (outerFrame < OUTER_RING_PULSE_START or outerFrame > OUTER_RING_PULSE_END) ?  OUTER_RING_PULSE_START : outerFrame += 1;
-    } else if (isLockingIn){
+    if (isLockingIn){
         outerFrame = (outerFrame < OUTER_RING_LOCKIN_START or outerFrame > OUTER_RING_LOCKIN_END) ?  OUTER_RING_LOCKIN_START : outerFrame += 1;
+    } else if (canLockIn){
+        outerFrame = (outerFrame < OUTER_RING_PULSE_START or outerFrame > OUTER_RING_PULSE_END) ?  OUTER_RING_PULSE_START : outerFrame += 1;
     } else if (isLockedIn){
         outerFrame = (outerFrame >= OUTER_RING_LOCK_END) ? OUTER_RING_LOCK_START : outerFrame + 1;
     } else {

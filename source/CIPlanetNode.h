@@ -17,7 +17,7 @@
 #include "CIPlanetLayer.h"
 
 #define PLANET_RING_TEXTURE_INNER_SIZE 140
-#define PLANET_OUTER_RING_SCALE 0.833
+#define PLANET_OUTER_RING_SCALE 0.7
 
 /** Number of rows and cols in inner ring film strip */
 #define INNER_RING_ROWS   10
@@ -33,12 +33,12 @@
 #define OUTER_RING_ROWS             24
 #define OUTER_RING_COLS             13
 #define OUTER_RING_UNLOCK_START     0
-#define OUTER_RING_UNLOCK_END       52
-#define OUTER_RING_PULSE_START      72
-#define OUTER_RING_PULSE_END        96
-#define OUTER_RING_LOCKIN_START     132
-#define OUTER_RING_LOCKIN_END       227
-#define OUTER_RING_LOCK_START       228
+#define OUTER_RING_UNLOCK_END       60
+#define OUTER_RING_PULSE_START      61
+#define OUTER_RING_PULSE_END        87
+#define OUTER_RING_LOCKIN_START     118
+#define OUTER_RING_LOCKIN_END       221
+#define OUTER_RING_LOCK_START       222
 #define OUTER_RING_LOCK_END         299
 
 class PlanetNode : public cugl::scene2::AnimationNode {

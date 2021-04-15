@@ -17,9 +17,6 @@
     },
     "unlockedOuterRing": {
         "file":   "textures/outerLayerAnimation_v3.png"
-    },
-    "lockedOuterRing": {
-        "file":   "textures/lockedOuterRing_v2.png"
     }
   },
   "fonts": {
