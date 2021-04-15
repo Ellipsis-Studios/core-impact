@@ -90,7 +90,7 @@ public:
      * This constructor does not allocate any objects or start the game.
      * This allows us to use the object without a heap pointer.
      */
-    MenuScene() : cugl::Scene2(), _volume(0.0f), _musicOn(true), _parallaxOn(true),
+    MenuScene() : cugl::Scene2(), _volume(0.5f), _musicOn(true), _parallaxOn(true),
         _spawnRate(1.0f), _gravStrength(1.0f), _colorCount(6), _winCondition(200) {}
 
     /**

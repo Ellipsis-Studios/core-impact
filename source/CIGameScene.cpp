@@ -351,11 +351,9 @@ void GameScene::processSpecialStardust(const cugl::Size bounds, const std::share
                 CULog("SHOOTING STAR");
                 stardustQueue->addShootingStardust(stardust->getColor(), bounds);
                 stardustQueue->addShootingStardust(stardust->getColor(), bounds);
-                [[fallthrough]];
             case StardustModel::Type::GRAYSCALE:
                 CULog("GRAYSCALE");
                 stardustQueue->getStardustNode()->applyGreyScale();
-                [[fallthrough]];
             default:
                 break;
         }

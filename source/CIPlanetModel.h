@@ -200,31 +200,17 @@ public:
      * This method does NOT create a scene graph node for this planet.  You
      * must call setTexture for that.
      *
-     * @param x The initial x-coordinate of the center
-     * @param y The initial y-coordinate of the center
-     * @param c The initial color code of the planet
-     * @param maxLayers The maximum number of layers the planet can have
-     * @param gravStrength The planet's gravitational strength factor
-     * @param winCond The condition value for the planet to win
+     * @param x                 The initial x-coordinate of the center
+     * @param y                 The initial y-coordinate of the center
+     * @param c                 The initial color code of the planet
+     * @param maxLayers         The max number of layers in the planet  (default to 1)
+     * @param gravStrength      The planet's gravitational strength     (default to 1.0f)
+     * @param winPlanetMass     The mass required for the planet to win (default to 200)
      *
      * @return true if the initialization was successful
      */
-    bool init(float x, float y, CIColor::Value c, int maxLayers, float gravStrength, uint16_t winCond);
-
-    /**
-     * Initializes a new planet with the given color
-     *
-     * This method does NOT create a scene graph node for this planet.  You
-     * must call setTexture for that.
-     *
-     * @param x The initial x-coordinate of the center
-     * @param y The initial y-coordinate of the center
-     * @param c The initial color code of the planet
-     * @param maxLayers The maximum number of layers the planet can have
-     *
-     * @return true if the initialization was successful
-     */
-    bool init(float x, float y, CIColor::Value c, int maxLayers);
+    bool init(float x, float y, CIColor::Value c, 
+        int maxLayers = 1, float gravStrength = 1.0f, uint16_t winPlanetMass = 200);
 
     /**
      * Returns a newly allocated planet with the given color

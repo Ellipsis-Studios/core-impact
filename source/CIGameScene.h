@@ -105,7 +105,6 @@ public:
      */
     GameScene() : cugl::Scene2(), _spawnRate(BASE_SPAWN_RATE), _colorCount(DEFAULT_COLOR_COUNTS), _countdown(INACTIVE_WIN_COUNTER) {
         for (int i = 0; i < 6; i++) {
-            //_stardustProb[i] = 100;
             _stardustProb[i] = 0;
         }
     }

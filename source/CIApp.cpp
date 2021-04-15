@@ -75,7 +75,7 @@ void CoreImpactApp::onStartup() {
 void CoreImpactApp::onShutdown() {
     // save settings file
     std::shared_ptr<cugl::JsonWriter> _writer = JsonWriter::alloc(Application::getSaveDirectory().append("playersettings.json"));
-    auto _settings = JsonValue::allocObject();
+    std::shared_ptr<cugl::JsonValue> _settings = JsonValue::allocObject();
     _menu.appendPlayerSettings(_settings);
     _writer->writeJson(_settings);
     CULog("Saving current player settings.");
@@ -122,8 +122,8 @@ void CoreImpactApp::update(float timestep) {
         _loading.dispose();
         
         // Load in saved settings file
-        auto _reader = JsonReader::alloc(Application::getSaveDirectory().append("playersettings.json"));
-        auto _playerSettings = JsonValue::allocObject();
+        std::shared_ptr<cugl::JsonReader> _reader = JsonReader::alloc(Application::getSaveDirectory().append("playersettings.json"));
+        std::shared_ptr<cugl::JsonValue> _playerSettings = JsonValue::allocObject();
         if (_reader != nullptr && _reader->ready()) {
             _playerSettings = _reader->readJson();
         }
@@ -175,8 +175,8 @@ void CoreImpactApp::update(float timestep) {
  */
 void CoreImpactApp::onSuspend() {
     // save settings file
-    auto _writer = JsonWriter::alloc(Application::getSaveDirectory().append("playersettings.json"));
-    auto _settings = JsonValue::allocObject();
+    std::shared_ptr<cugl::JsonWriter> _writer = JsonWriter::alloc(Application::getSaveDirectory().append("playersettings.json"));
+    std::shared_ptr<cugl::JsonValue> _settings = JsonValue::allocObject();
     _menu.appendPlayerSettings(_settings);
     _writer->writeJson(_settings);
     CULog("Saving current player settings.");
