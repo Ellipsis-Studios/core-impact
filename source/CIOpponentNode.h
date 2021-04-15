@@ -23,6 +23,8 @@ class OpponentNode : public cugl::scene2::SceneNode {
 private:
     /** Graphic asset used to display progress */
     std::shared_ptr<cugl::Texture> _texture;
+    /** Graphic asset used to display the fog power up */
+    std::shared_ptr<cugl::Texture> _fogTexture;
     /** Progress of the opponent towards winning, between 0 and 1 */
     float _progress;
     /** The maximum width of the progress bar */
@@ -33,6 +35,13 @@ private:
     CILocation::Value _location;
     /** The Label used to display the player name of this oppoent */
     std::shared_ptr<cugl::scene2::Label> _nameLabel;
+    
+    /** The amount of time the full fog texture has be on the screen */
+    float _fogTimeOnScreen;
+    /** How many frames the fog animation has been going for. */
+    int _fogAnimationProgress;
+    /** Whether or not the fog power up is still on going */
+    bool _fogOngoing;
     
     /**
      * Helper function to get the x and y reflection of the progress bar
@@ -102,6 +111,9 @@ public:
         _texture = texture;
         _maxwidth = maxwidth;
         _maxheight = maxheight;
+        _fogTimeOnScreen = 0;
+        _fogAnimationProgress = 0;
+        _fogOngoing = false;
         return SceneNode::init();
     }
     
@@ -110,6 +122,26 @@ public:
      */
     void draw(const std::shared_ptr<cugl::SpriteBatch>& batch,
               const cugl::Mat4& transform, cugl::Color4 tint) override;
+    
+    /**
+     * Sets the fog texture
+     *
+     * @param fogTexture The texture for the fog powerup
+     */
+    void setFogTexture(const std::shared_ptr<cugl::Texture>& fogTexture) {
+        _fogTexture = fogTexture;
+    }
+    
+    /**
+     * Applies the fog power up.
+     */
+    void applyFogPower() {
+        if (!_fogOngoing) {
+            _fogTimeOnScreen = 0;
+            _fogAnimationProgress = 0;
+            _fogOngoing = true;
+        }
+    }
     
     /**
      * Set the progress and color of the opponent node.
@@ -149,6 +181,13 @@ public:
             _nameLabel->setText(name);
         }
     }
+    
+    /**
+     * Updates the animations for this opponent node.
+     *
+     * @param timestep The amount of time since the last animation frame
+     */
+    void update(float timestep);
 };
 
 #endif /* __CI_OPPONENT_NODE_H__ */

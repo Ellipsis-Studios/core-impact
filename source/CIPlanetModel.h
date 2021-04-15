@@ -44,7 +44,7 @@ protected:
 public:
 #pragma mark Properties
   
-    void update(float timestep);
+    virtual void update(float timestep);
   
     /**
      * Returns the color of this planet's current layer

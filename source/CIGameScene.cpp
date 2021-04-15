@@ -214,9 +214,13 @@ void GameScene::update(float timestep) {
         for (int ii = 0; ii < _opponent_planets.size() ; ii++) {
             std::shared_ptr<OpponentPlanet> opponent = _opponent_planets[ii];
             if (opponent != nullptr && getChildByName(to_string(ii)) == nullptr) {
-                opponent->setTextures(_assets->get<Texture>("opponentProgress"), dimen);
+                opponent->setTextures(_assets->get<Texture>("opponentProgress"), _assets->get<Texture>("fog"), dimen);
                 //TODO: call opponent->setName with name and font
                 addChildWithName(opponent->getOpponentNode(), to_string(ii));
+            }
+            
+            if (opponent != nullptr) {
+                opponent->update(timestep);
             }
         }
     }
@@ -324,9 +328,19 @@ void GameScene::processSpecialStardust(const cugl::Size bounds, const std::share
                 CULog("SHOOTING STAR");
                 stardustQueue->addShootingStardust(stardust->getColor(), bounds);
                 stardustQueue->addShootingStardust(stardust->getColor(), bounds);
+                break;
             case StardustModel::Type::GRAYSCALE:
                 CULog("GRAYSCALE");
                 stardustQueue->getStardustNode()->applyGreyScale();
+                break;
+            case StardustModel::Type::FOG: {
+                CULog("FOG");
+                std::shared_ptr<OpponentPlanet> opponent = _opponent_planets[stardust->getPreviousOwner()];
+                if (opponent != nullptr) {
+                    opponent->getOpponentNode()->applyFogPower();
+                }
+                break;
+            }
             default:
                 break;
         }
