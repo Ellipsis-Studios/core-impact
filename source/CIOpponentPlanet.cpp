@@ -20,12 +20,13 @@
  * @param texture  The texture of the progress bar
  * @param bounds    The size of the game screen
  */
-void OpponentPlanet::setTextures(const std::shared_ptr<cugl::Texture>& texture, cugl::Size bounds) {
+void OpponentPlanet::setTextures(const std::shared_ptr<cugl::Texture>& texture, const std::shared_ptr<cugl::Texture>& fogTexture, cugl::Size bounds) {
     _opponentNode = OpponentNode::alloc(texture, bounds.width/2, bounds.height/2);
     _opponentNode->setAnchor(cugl::Vec2::ANCHOR_BOTTOM_RIGHT);
     _opponentNode->setPosition(_position);
     _opponentNode->setLocation(_location);
     _opponentNode->setProgress(_mass / _winPlanetMass, getColor());
+    _opponentNode->setFogTexture(fogTexture);
 }
 
 /**
@@ -67,4 +68,13 @@ void OpponentPlanet::setMass(float mass) {
     if (_opponentNode != nullptr) {
         _opponentNode->setProgress(mass / _winPlanetMass, getColor());
     }
+}
+
+/**
+ * Updates the animations for this opponent planet.
+ *
+ * @param timestep the amount of time since the last animation frame
+ */
+void OpponentPlanet::update(float timestep) {
+    _opponentNode->update(timestep);
 }

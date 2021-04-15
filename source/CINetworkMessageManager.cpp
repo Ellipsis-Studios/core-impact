@@ -253,6 +253,7 @@ void NetworkMessageManager::receiveMessages(cugl::Size bounds) {
                 
                 std::shared_ptr<StardustModel> stardust = StardustModel::alloc(cugl::Vec2(0, 0), cugl::Vec2(0, 0), CIColor::Value(stardustColor));
                 stardust->setStardustType(StardustModel::Type(powerup));
+                stardust->setPreviousOwner(srcPlayer);
                 std::map<int, std::vector<std::shared_ptr<StardustModel>>> map = { { getPlayerId(), std::vector<std::shared_ptr<StardustModel>> { stardust } } };
                 std::shared_ptr<GameUpdate> gameUpdate = GameUpdate::alloc(_conn->getRoomID(), srcPlayer, map, nullptr, timestamp);
                 _gameUpdateManager->addGameUpdate(gameUpdate);
