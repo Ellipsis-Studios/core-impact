@@ -45,10 +45,11 @@ void OpponentNode::draw(const std::shared_ptr<cugl::SpriteBatch>& batch,
     batch->draw(_texture, getColor(), origin, verticalBarTransform);
     
     if (_fogAnimationProgress > 0) {
+        float fogProgress = _fogAnimationEasingFunction->evaluate((float) _fogAnimationProgress / FOG_FRAMES);
         cugl::Vec2 fogOrigin = _fogTexture->getSize() / 2;
         cugl::Mat4 fogTransform;
         fogTransform.rotateZ(getFogRotationFromLocation(_location));
-        fogTransform.translate(fogOrigin.x * reflection.x * _fogAnimationProgress * 2 / FOG_FRAMES - (fogOrigin.x * reflection.x), fogOrigin.y * reflection.y * _fogAnimationProgress * 2 / FOG_FRAMES - (fogOrigin.y * reflection.y), 0);
+        fogTransform.translate(fogOrigin.x * reflection.x * fogProgress * 2 - (fogOrigin.x * reflection.x), fogOrigin.y * reflection.y * fogProgress * 2 - (fogOrigin.y * reflection.y), 0);
         fogTransform.multiply(transform);
         batch->draw(_fogTexture, cugl::Color4::GRAY, fogOrigin, fogTransform);
     }

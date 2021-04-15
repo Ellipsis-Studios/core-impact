@@ -43,6 +43,8 @@ private:
     int _fogAnimationProgress;
     /** Whether or not the fog power up is still on going */
     bool _fogOngoing;
+    /** Bezier easing function for the fog animation */
+    std::shared_ptr<cugl::EasingBezier> _fogAnimationEasingFunction;
     
     /**
      * Helper function to get the x and y reflection of the progress bar
@@ -155,6 +157,8 @@ public:
      */
     void setFogTexture(const std::shared_ptr<cugl::Texture>& fogTexture) {
         _fogTexture = fogTexture;
+        cugl::Vec2 fogOrigin = _fogTexture->getSize() / 2;;
+        _fogAnimationEasingFunction = cugl::EasingBezier::alloc(-fogOrigin, fogOrigin);
     }
     
     /**
