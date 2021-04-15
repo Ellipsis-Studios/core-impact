@@ -25,7 +25,7 @@ void OpponentPlanet::setTextures(const std::shared_ptr<cugl::Texture>& texture, 
     _opponentNode->setAnchor(cugl::Vec2::ANCHOR_BOTTOM_RIGHT);
     _opponentNode->setPosition(_position);
     _opponentNode->setLocation(_location);
-    _opponentNode->setProgress(_mass/WIN_PLANET_MASS, getColor());
+    _opponentNode->setProgress(_mass / _winPlanetMass, getColor());
     _opponentNode->setFogTexture(fogTexture);
 }
 
@@ -66,7 +66,7 @@ void OpponentPlanet::increaseLayerSize() {
 void OpponentPlanet::setMass(float mass) {
     _mass = mass;
     if (_opponentNode != nullptr) {
-        _opponentNode->setProgress(mass/WIN_PLANET_MASS, getColor());
+        _opponentNode->setProgress(mass / _winPlanetMass, getColor());
     }
 }
 

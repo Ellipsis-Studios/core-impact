@@ -49,7 +49,6 @@ protected:
     /** Game Planet */
     std::shared_ptr<cugl::scene2::SceneNode> _gamePlanet;
 
-
     // MODEL
     /** The progress displayed on the screen */
     float _progress;

@@ -84,7 +84,7 @@ public:
     static std::shared_ptr<OpponentPlanet> alloc(float x, float y, CIColor::Value c, CILocation::Value location) {
         std::shared_ptr<OpponentPlanet> result = std::make_shared<OpponentPlanet>();
         result->setLocation(location);
-        return (result->init(x, y, c, 1) ? result : nullptr);
+        return (result->init(x, y, c) ? result : nullptr);
     }
     
 #pragma mark Interactions
