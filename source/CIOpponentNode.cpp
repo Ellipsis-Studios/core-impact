@@ -13,7 +13,7 @@
 #include <cmath>
 
 #define FOG_SEC_ON_SCREEN  10
-#define FOG_FRAMES  50
+#define FOG_FRAMES  60
 
 /**
  * Disposes the Stardust node, releasing all resources.
@@ -48,9 +48,9 @@ void OpponentNode::draw(const std::shared_ptr<cugl::SpriteBatch>& batch,
     if (_fogAnimationProgress > 0) {
         cugl::Vec2 fogOrigin = _fogTexture->getSize() / 2;
         cugl::Mat4 fogTransform;
-        fogTransform.translate(fogOrigin.x * reflection.x * _fogAnimationProgress / FOG_FRAMES, fogOrigin.y * reflection.y * _fogAnimationProgress / FOG_FRAMES, 0);
+        fogTransform.translate(fogOrigin.x * reflection.x * _fogAnimationProgress * 2 / FOG_FRAMES - (fogOrigin.x * reflection.x), fogOrigin.y * reflection.y * _fogAnimationProgress * 2 / FOG_FRAMES - (fogOrigin.y * reflection.y), 0);
         fogTransform.multiply(transform);
-        batch->draw(_fogTexture, fogOrigin , fogTransform);
+        batch->draw(_fogTexture, cugl::Color4::GRAY, fogOrigin, fogTransform);
     }
 }
 
