@@ -7,3 +7,5 @@ Debug
 x86
 x64
 Lib/*Unicode*
+Lib/
+ShipDemo/

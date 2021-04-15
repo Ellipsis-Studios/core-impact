@@ -93,7 +93,7 @@ void PlanetNode::setLayers(std::vector<PlanetLayer>* layers) {
                 node->innerRing->setRelativeColor(false);
                 node->outerRing->setRelativeColor(false);
                 node->innerRing->setScale(_layerScale/_coreScale);
-                node->outerRing->setScale(_layerScale/_coreScale);
+                node->outerRing->setScale(PLANET_OUTER_RING_SCALE * _layerScale/_coreScale);
                 
                 addChild(node->innerRing);
                 addChild(node->outerRing);

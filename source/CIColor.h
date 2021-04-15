@@ -118,13 +118,15 @@ public:
      *
      * This method picks out of the first 5 CIColor values since they
      * are valid for stardust color.
+     * 
+     * @param ccount Number of stardust colors in game minus one (default 5)
      *
      * @return CIColor Value for a stardust
      */
-    static Value getRandomColor() {
+    static Value getRandomColor(int ccount = 5) {
         std::random_device rd;
         std::mt19937 mt(rd());
-        std::uniform_int_distribution<int> dist(0, 5); // pick out of first 6 colors
+        std::uniform_int_distribution<int> dist(0, ccount);
         int rand = dist(mt);
         return Value(rand);
     }

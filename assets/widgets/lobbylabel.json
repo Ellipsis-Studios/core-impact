@@ -1,0 +1,62 @@
+{
+  "variables": {
+    "text": ["children", "buttonlabel", "data", "text"],
+    "text2": ["children", "buttonlabel2", "data", "text"]
+  },
+  "contents": {
+    "type": "Node",
+    "format": {
+      "type": "Anchored"
+    },
+    "data": {
+      "comment": "Without this size, the up button fills the screen (because that is default)",
+      "size": [80, 80],
+      "anchor": [0.5, 0.5],
+      "visible": false
+    },
+    "children": {
+      "buttonlabel": {
+        "type": "Label",
+        "format": {
+          "type": "Anchored"
+        },
+        "data": {
+          "font": "saira24",
+          "text": "text",
+          "foreground": [255, 255, 255, 255],
+          "background": [0, 0, 0, 0],
+          "size": [80, 20],
+          "anchor": [0.5, 1.0],
+          "halign": "center",
+          "valign": "middle"
+        },
+        "layout": {
+          "x_anchor": "center",
+          "y_anchor": "top",
+          "y_offset": 0.55
+        }
+      },
+      "buttonlabel2": {
+        "type": "Label",
+        "format": {
+          "type": "Anchored"
+        },
+        "data": {
+          "font": "saira24",
+          "text": "text",
+          "foreground": [255, 255, 255, 255],
+          "background": [0, 0, 0, 0],
+          "size": [80, 20],
+          "anchor": [0.5, 1.0],
+          "halign": "center",
+          "valign": "middle"
+        },
+        "layout": {
+          "x_anchor": "center",
+          "y_anchor": "top",
+          "y_offset": 0.3
+        }
+      }
+    }
+  }
+}
