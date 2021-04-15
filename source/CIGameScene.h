@@ -26,6 +26,15 @@
 #include "CINetworkMessageManager.h"
 #include "CIOpponentPlanet.h"
 
+/** Base stardust spawn rate */
+#define BASE_SPAWN_RATE 40
+
+/** Default number of stardust color counts */
+#define DEFAULT_COLOR_COUNTS 6
+
+/** Value for the winning counter when inactive (game not won) */
+#define INACTIVE_WIN_COUNTER -10.0f
+
 #define SPF .066 //seconds per frame
 #define BACKGROUND_START 0
 #define BACKGROUND_END 240
@@ -72,7 +81,13 @@ protected:
     StardustModel*  _draggedStardust;
     /** Vector of opponent planets */
     std::vector<std::shared_ptr<OpponentPlanet>> _opponent_planets;
-    
+
+    // Game Settings
+    /** Rate of stardust spawning */
+    float _spawnRate;
+    /** Number of stardust colors available in game */
+    uint8_t _colorCount;
+
     /** Countdown to reset the game after winning/losing */
     float _countdown;
     
@@ -88,9 +103,9 @@ public:
      * This constructor does not allocate any objects or start the game.
      * This allows us to use the object without a heap pointer.
      */
-    GameScene() : cugl::Scene2() {
+    GameScene() : cugl::Scene2(), _spawnRate(BASE_SPAWN_RATE), _colorCount(DEFAULT_COLOR_COUNTS), _countdown(INACTIVE_WIN_COUNTER) {
         for (int i = 0; i < 6; i++) {
-            _stardustProb[i] = 100;
+            _stardustProb[i] = 0;
         }
     }
     
@@ -116,14 +131,17 @@ public:
      *
      * @param assets                The (loaded) assets for this game mode
      * @param networkMessageManager The reference to network message manager
-     * @param isHost                Whether or not this instance is hosting the game
      * @param gameId                The gameId for a client game
+     * @param spawnRate             The rate for spawning new stardusts
+     * @param gravStrength          The strength for planet's gravity
+     * @param colorCount            The number of stardust colors available
+     * @param playerWinMass         The game winning condition value (planet mass)
      *
      * @return true if the controller is initialized properly, false otherwise.
      */
-    bool init(const std::shared_ptr<cugl::AssetManager>& assets, 
-              const std::shared_ptr<NetworkMessageManager>& networkMessageManager, 
-              bool isHost, std::string gameId);
+    bool init(const std::shared_ptr<cugl::AssetManager>& assets,
+        const std::shared_ptr<NetworkMessageManager>& networkMessageManager,
+        string gameId, float spawnRate, float gravStrength, uint8_t colorCount, uint16_t playerWinMass);
     
 #pragma mark -
 #pragma mark Gameplay Handling

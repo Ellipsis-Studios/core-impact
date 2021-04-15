@@ -15,8 +15,6 @@
 #include "CIPlanetLayer.h"
 #include "CIPlanetNode.h"
 
-#define WIN_PLANET_MASS 200
-
 
 class PlanetModel {
 protected:
@@ -37,6 +35,12 @@ protected:
     float _mass;
     /** Position of the planet in world space */
     cugl::Vec2 _position;
+
+    /** Gravitational strength factor */
+    static float _gravStrength;
+    /** Planet mass to win the game */
+    /** Win condition value */
+    static uint16_t _winPlanetMass;
     
     /** Scene graph node for the planet */
     std::shared_ptr<PlanetNode> _planetNode;
@@ -162,6 +166,24 @@ public:
         return _planetNode;
     }
 
+    /** 
+     * Returns the planet's gravity strength value.
+     * 
+     * @return float planet's gravity strength factor value
+     */
+    float getGravStrength() const {
+        return _gravStrength;
+    }
+
+    /** 
+     * Returns the win condition (game length) for the planet.
+     * 
+     * @return uint16_t planet's win condition (planet mass)
+     */
+    uint16_t getWinPlanetMass() const {
+        return _winPlanetMass;
+    }
+
 #pragma mark Constructors
     /**
      * Creates a new planet at the center of the screen
@@ -187,15 +209,18 @@ public:
      * This method does NOT create a scene graph node for this planet.  You
      * must call setTexture for that.
      *
-     * @param x The initial x-coordinate of the center
-     * @param y The initial y-coordinate of the center
-     * @param c The initial color code of the planet
-     * @param maxLayers The maximum number of layers the planet can have
+     * @param x                 The initial x-coordinate of the center
+     * @param y                 The initial y-coordinate of the center
+     * @param c                 The initial color code of the planet
+     * @param maxLayers         The max number of layers in the planet  (default to 1)
+     * @param gravStrength      The planet's gravitational strength     (default to 1.0f)
+     * @param winPlanetMass     The mass required for the planet to win (default to 200)
      *
      * @return true if the initialization was successful
      */
-    bool init(float x, float y, CIColor::Value c, int maxLayers);
-        
+    bool init(float x, float y, CIColor::Value c, 
+        int maxLayers = 1, float gravStrength = 1.0f, uint16_t winPlanetMass = 200);
+
     /**
      * Returns a newly allocated planet with the given color
      *
@@ -206,12 +231,14 @@ public:
      * @param y The initial y-coordinate of the center
      * @param c The initial color code of the planet
      * @param maxLayers The maximum number of layers the planet can have
+     * @param gravStrength The planet's gravitational strength factor
+     * @param winPlanetMass The planet mass for winning the game
      *
      * @return a newly allocated planet at the given location with the given color.
      */
-    static std::shared_ptr<PlanetModel> alloc(float x, float y, CIColor::Value c, int maxLayers) {
+    static std::shared_ptr<PlanetModel> alloc(float x, float y, CIColor::Value c, int maxLayers, float gravStrength, uint16_t winPlanetMass) {
         std::shared_ptr<PlanetModel> result = std::make_shared<PlanetModel>();
-        return (result->init(x, y, c, maxLayers) ? result : nullptr);
+        return (result->init(x, y, c, maxLayers, gravStrength, winPlanetMass) ? result : nullptr);
     }
 
 #pragma mark Interactions
@@ -243,9 +270,10 @@ public:
      *
      * @return bool whether current planet satisfies winning conditions.
      */
-    bool isWinner() {
-        return (_mass >= WIN_PLANET_MASS);
-    }    
+    bool isWinner() const {
+        // TODO: switch to number of layers
+        return (_mass >= _winPlanetMass);
+    }
 };
 
 #endif /* __CI_PLANET_MODEL_H__ */
