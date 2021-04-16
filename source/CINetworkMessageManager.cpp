@@ -127,7 +127,6 @@ void NetworkMessageManager::sendMessages() {
     data.clear();
     CULog("SENT PU> SRC[%i], CLR[%i], SIZE[%f]", playerId, planetColor, planetSize);
 
-    // TODO: send win game message
     if (gameUpdate->getPlanet()->isWinner()) {
         if (playerId == 0) {
             // if we are the host and win first then we immediately send the won game message
@@ -157,14 +156,12 @@ void NetworkMessageManager::sendMessages() {
 
 /**
  * Receives messages sent over the network and adds them to the queue in game update manager.
- *
- * @param bounds The bounds of the screen
  */
-void NetworkMessageManager::receiveMessages(cugl::Size bounds) {
+void NetworkMessageManager::receiveMessages() {
     if (_conn == nullptr)
         return;
 
-    _conn->receive([this, bounds](const std::vector<uint8_t>& recv) {
+    _conn->receive([this](const std::vector<uint8_t>& recv) {
         if (!recv.empty()) {
             int message_type = NetworkUtils::decodeInt(recv[0], recv[1], recv[2], recv[3]);
 

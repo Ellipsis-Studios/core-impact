@@ -34,6 +34,8 @@ void CoreImpactApp::onStartup() {
     _batch  = SpriteBatch::alloc();
     cam = OrthographicCamera::alloc(getDisplaySize());
     
+    _gameSettings = GameSettings::alloc();
+    
     // Start-up basic input
 #ifdef CU_MOBILE
     Input::activate<Touchscreen>();
@@ -98,6 +100,7 @@ void CoreImpactApp::onShutdown() {
     Input::deactivate<TextInput>();
 
     _networkMessageManager = nullptr;
+    _gameSettings = nullptr;
     
     Application::onShutdown();  // YOU MUST END with call to parent
 }
@@ -141,8 +144,13 @@ void CoreImpactApp::update(float timestep) {
         if (_networkMessageManager == nullptr) {
             _networkMessageManager = NetworkMessageManager::alloc();
         }
-        _gameplay.init(_assets, _networkMessageManager, _menu.getJoinGameId(),
-            _menu.getSpawnRate(), _menu.getGravStrength(), _menu.getColorCount(), _menu.getGameWinCondition());
+        
+        _gameSettings->setGameId(_menu.getJoinGameId());
+        _gameSettings->setSpawnRate(_menu.getSpawnRate());
+        _gameSettings->setGravStrength( _menu.getGravStrength());
+        _gameSettings->setColorCount(_menu.getColorCount());
+        _gameSettings->setPlanetMassToWin( _menu.getGameWinCondition());
+        _gameplay.init(_assets, _networkMessageManager, _gameSettings);
         _startGame = true;
     }
     else if (_gameplay.isActive()) {
