@@ -25,16 +25,14 @@
 #include "CIGameUpdateManager.h"
 #include "CINetworkMessageManager.h"
 #include "CIOpponentPlanet.h"
+#include "CIWinScene.h"
 #include "CIGameSettings.h"
 
 /** Base stardust spawn rate */
 #define BASE_SPAWN_RATE 40
 
 /** Default number of stardust color counts */
-#define DEFAULT_COLOR_COUNTS 6
-
-/** Value for the winning counter when inactive (game not won) */
-#define INACTIVE_WIN_COUNTER -10.0f
+#define DEFAULT_COLOR_COUNTS 4
 
 #define SPF .066 //seconds per frame
 #define BACKGROUND_START 0
@@ -89,11 +87,11 @@ protected:
     /** Number of stardust colors available in game */
     uint8_t _colorCount;
 
-    /** Countdown to reset the game after winning/losing */
-    float _countdown;
-    
     /** Time since last animation frame update */
     float _timeElapsed;
+    
+    /** Pointer to the win scene */
+    std::shared_ptr<WinScene> _winScene;
     
 public:
 #pragma mark -
@@ -104,7 +102,7 @@ public:
      * This constructor does not allocate any objects or start the game.
      * This allows us to use the object without a heap pointer.
      */
-    GameScene() : cugl::Scene2(), _spawnRate(BASE_SPAWN_RATE), _colorCount(DEFAULT_COLOR_COUNTS), _countdown(INACTIVE_WIN_COUNTER) {
+    GameScene() : cugl::Scene2(), _spawnRate(BASE_SPAWN_RATE), _colorCount(DEFAULT_COLOR_COUNTS) {
         for (int i = 0; i < 6; i++) {
             _stardustProb[i] = 0;
         }

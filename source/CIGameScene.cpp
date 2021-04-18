@@ -41,9 +41,6 @@ using namespace std;
 /** Maximum number of layers in planet model */
 #define MAX_PLANET_LAYERS 3
 
-/** Starting value for the winning countdown (game was won) */
-#define START_WIN_COUNTER 2.0f
-
 
 #pragma mark -
 #pragma mark Constructors
@@ -99,6 +96,9 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _farSpace = std::dynamic_pointer_cast<scene2::AnimationNode>(_assets->get<scene2::SceneNode>("game_field_far"));
     _nearSpace = _assets->get<scene2::SceneNode>("game_field_near");
     _massHUD  = std::dynamic_pointer_cast<scene2::Label>(_assets->get<scene2::SceneNode>("game_hud"));
+    
+    // create the win scene
+    _winScene = WinScene::alloc(assets);
 
     // Create the planet model
     _planet = PlanetModel::alloc(dimen.width / 2, dimen.height / 2, CIColor::getNoneColor(), MAX_PLANET_LAYERS, gameSettings->getGravStrength(), gameSettings->getPlanetMassToWin());
@@ -123,10 +123,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
         _stardustProb[i] = 100;
     }
     CIColor::setNumColors(_colorCount);
-    
-    _countdown = INACTIVE_WIN_COUNTER;
-    _timeElapsed = 0;
-    
+
     addChild(scene);
     addChild(_planet->getPlanetNode());
     addChild(_stardustContainer->getStardustNode());
@@ -153,6 +150,8 @@ void GameScene::dispose() {
     _planet = nullptr;
     _draggedStardust = NULL;
     _opponent_planets.clear();
+    
+    _winScene = nullptr;
 }
 
 
@@ -177,19 +176,17 @@ void GameScene::update(float timestep) {
     
      // Handle counting down then switching to loading screen
      if (_networkMessageManager->getWinnerPlayerId() != -1) {
-         if (_countdown <= INACTIVE_WIN_COUNTER) {
+         if (!_winScene->displayActive()) {
              // handle winning. starts off win countdown
              CULog("Game won.");
-             _countdown = START_WIN_COUNTER;
-         } else if (_countdown > 0.0f) {
-             // handle win countdown
-             _countdown -= timestep;
-             return;
-         } else if (_countdown > INACTIVE_WIN_COUNTER) {
+             _winScene->setWinner(_networkMessageManager->getWinnerPlayerId(), _networkMessageManager->getPlayerId());
+             _winScene->setDisplay(true);
+         } else if (_winScene->goBackToHome()) {
              // handle resetting game
+             _winScene->setDisplay(false);
              setActive(false);
-             return;
          }
+         return;
      }
     
     _timeElapsed += timestep;
