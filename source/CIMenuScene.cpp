@@ -59,20 +59,20 @@ bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
         if (!down) {
             switch (_state)
             {
-            case MenuState::Setting:
-                _state = MenuState::SettingToMain;
-                break;
-            case MenuState::JoinRoom:
-                _state = MenuState::JoinToMain;
-                break;
-            case MenuState::GameLobby:
-                _state = MenuState::LobbyToMain;
-                break;
-            case MenuState::Tutorial:
-                _state = MenuState::TutorialToMain;
-                break;
-            default:
-                break;
+                case MenuState::Setting:
+                    _state = MenuState::SettingToMain;
+                    break;
+                case MenuState::JoinRoom:
+                    _state = MenuState::JoinToMain;
+                    break;
+                case MenuState::GameLobby:
+                    _state = MenuState::LobbyToMain;
+                    break;
+                case MenuState::Tutorial:
+                    _state = MenuState::TutorialToMain;
+                    break;
+                default:
+                    break;
             }
         }
         });

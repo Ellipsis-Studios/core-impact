@@ -14,7 +14,7 @@
 #include <cugl/cugl.h>
 
 #define LOCK_IN_SCALE_DOWN  .75
-#define SPF .033 //seconds per frame
+#define PLANETNODE_SPF .033 //seconds per frame
 
 void PlanetNode::draw(const std::shared_ptr<cugl::SpriteBatch>& batch,
                       const cugl::Mat4& transform, cugl::Color4 tint) {
@@ -23,7 +23,7 @@ void PlanetNode::draw(const std::shared_ptr<cugl::SpriteBatch>& batch,
 
 void PlanetNode::update(float timestep, bool isLockingIn, int numLayers) {
     _timeElapsed += timestep;
-    if (_timeElapsed > SPF) {
+    if (_timeElapsed > PLANETNODE_SPF) {
         _timeElapsed = 0;
         
         unsigned int coreFrame = getFrame();
