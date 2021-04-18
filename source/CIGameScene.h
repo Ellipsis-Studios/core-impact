@@ -26,6 +26,7 @@
 #include "CINetworkMessageManager.h"
 #include "CIOpponentPlanet.h"
 #include "CIWinScene.h"
+#include "CIGameSettings.h"
 
 /** Base stardust spawn rate */
 #define BASE_SPAWN_RATE 40
@@ -129,17 +130,13 @@ public:
      *
      * @param assets                The (loaded) assets for this game mode
      * @param networkMessageManager The reference to network message manager
-     * @param gameId                The gameId for a client game
-     * @param spawnRate             The rate for spawning new stardusts
-     * @param gravStrength          The strength for planet's gravity
-     * @param colorCount            The number of stardust colors available
-     * @param playerWinMass         The game winning condition value (planet mass)
+     * @param gameSettings  The settings for the current game
      *
      * @return true if the controller is initialized properly, false otherwise.
      */
     bool init(const std::shared_ptr<cugl::AssetManager>& assets,
         const std::shared_ptr<NetworkMessageManager>& networkMessageManager,
-        string gameId, float spawnRate, float gravStrength, uint8_t colorCount, uint16_t playerWinMass);
+        const std::shared_ptr<GameSettings>& gameSettings);
     
 #pragma mark -
 #pragma mark Gameplay Handling

@@ -183,6 +183,7 @@
 		3D94040625FFC52400043357 /* CIGameUpdateManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CIGameUpdateManager.cpp; sourceTree = "<group>"; };
 		3DA35B17262B569400A578DF /* CIWinScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIWinScene.h; sourceTree = "<group>"; };
 		3DA35B1B262B56A500A578DF /* CIWinScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CIWinScene.cpp; sourceTree = "<group>"; };
+		3DA35AE2262929B300A578DF /* CIGameSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIGameSettings.h; sourceTree = "<group>"; };
 		3DCE833625FDB914007EBA2D /* CIGameUpdate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIGameUpdate.h; sourceTree = "<group>"; };
 		3DCE833725FDC3B8007EBA2D /* CIGameUpdate.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CIGameUpdate.cpp; sourceTree = "<group>"; };
 		3DCF90D22605198D00B97FA1 /* CINetworkMessageManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CINetworkMessageManager.h; sourceTree = "<group>"; };
@@ -350,6 +351,7 @@
 				CA9A2DC725EDBD6A0048D02F /* CIStardustModel.h */,
 				0A5AFAD825F0B5320003669C /* CIStardustQueue.cpp */,
 				0A5AFAD725F0B5320003669C /* CIStardustQueue.h */,
+				3DA35AE2262929B300A578DF /* CIGameSettings.h */,
 			);
 			name = Model;
 			sourceTree = "<group>";

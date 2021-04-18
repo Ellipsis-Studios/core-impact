@@ -55,17 +55,13 @@ using namespace std;
  *
  * @param assets                The (loaded) assets for this game mode
  * @param networkMessageManager The reference to network message manager
- * @param gameId                The gameId for a client game
- * @param spawnRate             The rate for spawning new stardusts
- * @param gravStrength          The strength for planet's gravity
- * @param colorCount            The number of stardust colors available
- * @param planetMassToWin       The planet mass requirement for winning the game 
+ * @param gameSettings  The settings for the current game
  *
  * @return true if the controller is initialized properly, false otherwise.
  */
 bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     const std::shared_ptr<NetworkMessageManager>& networkMessageManager,
-    string gameId, float spawnRate, float gravStrength, uint8_t colorCount, uint16_t planetMassToWin) {
+    const std::shared_ptr<GameSettings>& gameSettings) {
     // Initialize the scene to a locked width
     Size dimen = Application::get()->getDisplaySize();
     dimen *= SCENE_WIDTH/dimen.width; // Lock the game to a reasonable resolution
@@ -83,11 +79,11 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _gameUpdateManager = GameUpdateManager::alloc();
     _networkMessageManager = networkMessageManager;
     _networkMessageManager->setGameuUpdateManager(_gameUpdateManager);
-    if (_networkMessageManager->getPlayerId() == 0 || gameId.empty()) { // Host
+    if (_networkMessageManager->getPlayerId() == 0 || gameSettings->getGameId().empty()) { // Host
         _networkMessageManager->createGame();
     }
     else {
-        _networkMessageManager->joinGame(gameId);
+        _networkMessageManager->joinGame(gameSettings->getGameId());
     }
     
     // Acquire the scene built by the asset loader and resize it the scene
@@ -105,7 +101,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _winScene = WinScene::alloc(assets);
 
     // Create the planet model
-    _planet = PlanetModel::alloc(dimen.width / 2, dimen.height / 2, CIColor::getNoneColor(), MAX_PLANET_LAYERS, gravStrength, planetMassToWin);
+    _planet = PlanetModel::alloc(dimen.width / 2, dimen.height / 2, CIColor::getNoneColor(), MAX_PLANET_LAYERS, gameSettings->getGravStrength(), gameSettings->getPlanetMassToWin());
     auto coreTexture = _assets->get<Texture>("core");
     auto ringTexture = _assets->get<Texture>("innerRing");
     auto unlockedTexture = _assets->get<Texture>("unlockedOuterRing");
@@ -119,20 +115,21 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _opponent_planets.resize(5);
 
     // Game settings
-    _spawnRate = spawnRate;
-    _colorCount = colorCount;
+    _spawnRate = gameSettings->getSpawnRate();
+    _colorCount = gameSettings->getColorCount();
     
     // update stardustProb to match colorCount
-    for (int i = 0; i < colorCount; i++) {
+    for (int i = 0; i < _colorCount; i++) {
         _stardustProb[i] = 100;
     }
+    CIColor::setNumColors(_colorCount);
+    
+    _countdown = INACTIVE_WIN_COUNTER;
+    _timeElapsed = 0;
     
     addChild(scene);
     addChild(_planet->getPlanetNode());
     addChild(_stardustContainer->getStardustNode());
-
-    CULog("Game Room Id: %s Spawn Rate: %f Gravity Strength: %f Color Count: %i Game Win Cond: %i", gameId.c_str(), spawnRate, gravStrength, colorCount, planetMassToWin);
-    _timeElapsed = 0;
     return true;
 }
 
@@ -226,12 +223,12 @@ void GameScene::update(float timestep) {
     // attempt to set player id of game update manager
     if (_gameUpdateManager->getPlayerId() < 0) {
         // need to make this call to attempt to connect to game
-        _networkMessageManager->receiveMessages(dimen);
+        _networkMessageManager->receiveMessages();
         _gameUpdateManager->setPlayerId(_networkMessageManager->getPlayerId());
     } else {
         // send and receive game updates to other players
         _gameUpdateManager->sendUpdate(_planet, _stardustContainer, dimen);
-        _networkMessageManager->receiveMessages(dimen);
+        _networkMessageManager->receiveMessages();
         _networkMessageManager->sendMessages();
         _gameUpdateManager->processGameUpdate(_stardustContainer, _planet, _opponent_planets, dimen);
         for (int ii = 0; ii < _opponent_planets.size() ; ii++) {
@@ -308,7 +305,7 @@ void GameScene::addStardust(const Size bounds) {
     int massCorrection = avgMass - _planet->getMass();
     
     /** Pity mechanism: The longer you haven't seen a certain color, the more likely it will be to spawn that color */
-    CIColor::Value c = CIColor::getRandomColor(_colorCount);
+    CIColor::Value c = CIColor::getRandomColor();
     int probSum = 0;
     // Sums up the total probability space of the stardust colors, augmented by a mass correction
     probSum = accumulate(_stardustProb, _stardustProb + _colorCount, probSum) + massCorrection;
@@ -345,9 +342,9 @@ void GameScene::processSpecialStardust(const cugl::Size bounds, const std::share
                 stardustQueue->addStardust(stardust->getColor(), bounds);
                 stardustQueue->addStardust(stardust->getColor(), bounds);
                 stardustQueue->addStardust(stardust->getColor(), bounds);
-                stardustQueue->addStardust(stardust->getColor(), bounds);
-                stardustQueue->addStardust(CIColor::getRandomColor(_colorCount), bounds);
-                stardustQueue->addStardust(CIColor::getRandomColor(_colorCount), bounds);
+                stardustQueue->addStardust(CIColor::getRandomColor(), bounds);
+                stardustQueue->addStardust(CIColor::getRandomColor(), bounds);
+                stardustQueue->addStardust(CIColor::getRandomColor(), bounds);
                 break;
             case StardustModel::Type::SHOOTING_STAR:
                 CULog("SHOOTING STAR");
