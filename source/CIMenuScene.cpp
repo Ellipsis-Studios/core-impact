@@ -10,34 +10,34 @@
 
 using namespace cugl;
 
-/** This is the ideal size of the logo */
-#define SCENE_SIZE  1024
-
 #pragma mark -
 #pragma mark Constructors
 
+
 /**
- * Initializes the menu scene with the provided menu settings values.
+ * Initializes the controller contents, making it ready for loading
  *
- * Used only as a helper to the other init methods.
+ * The constructor does not allocate any objects or memory.  This allows
+ * us to have a non-pointer reference to this controller, reducing our
+ * memory allocation.  Instead, allocation happens in this method.
  *
- * @param assets        The (loaded) assets for this game mode
- * @param playerName    The player name value
- * @param volume        The game volume setting value
- * @param musicOn       The musicOn setting value
- * @param parallaxOn    The parallax effect setting value
+ * @param assets            The (loaded) assets for this game mode
+ * @param playerSettings    The player's saved settings value
+ * @param gameSettings      The settings for the current game
  *
  * @return true if the controller is initialized properly, false otherwise.
  */
 bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
-    string playerName, float volume, bool musicOn, bool parallaxOn) {
+    const std::shared_ptr<PlayerSettings>& playerSettings,
+    const std::shared_ptr<GameSettings>& gameSettings) {
     // Initialize the scene to a locked width
     Size dimen = Application::get()->getDisplaySize();
     // Lock the scene to a reasonable resolution
-    dimen *= SCENE_SIZE / dimen.width;
+    dimen *= constants::SCENE_WIDTH / dimen.width;
     if (assets == nullptr) {
         return false;
-    } else if (!Scene2::init(dimen)) {
+    }
+    else if (!Scene2::init(dimen)) {
         return false;
     }
 
@@ -49,7 +49,7 @@ bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _teamLogo = assets->get<scene2::SceneNode>("menu_teamLogo");
     _gameTitle = assets->get<scene2::SceneNode>("menu_title");
     _gamePlanet = assets->get<scene2::SceneNode>("menu_world");
-    const float rend = dimen.getIWidth()/ 4.0f; // Set game title/planet position to one from end of loading scene
+    const float rend = dimen.getIWidth() / 4.0f; // Set game title/planet position to one from end of loading scene
     _gameTitle->setPositionX(rend);
     _gamePlanet->setPositionX(rend);
 
@@ -57,41 +57,34 @@ bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _backBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_menubackbutton"));
     _backBtn->addListener([=](const std::string& name, bool down) {
         if (!down) {
-            switch (_state) 
+            switch (_state)
             {
-                case MenuState::Setting:
-                    _state = MenuState::SettingToMain;
-                    break;
-                case MenuState::JoinRoom:
-                    _state = MenuState::JoinToMain;
-                    break;
-                case MenuState::GameLobby:
-                    _state = MenuState::LobbyToMain;
-                    break;
-                case MenuState::Tutorial:
-                    _state = MenuState::TutorialToMain;
-                    break;
-                default:
-                    break;
+            case MenuState::Setting:
+                _state = MenuState::SettingToMain;
+                break;
+            case MenuState::JoinRoom:
+                _state = MenuState::JoinToMain;
+                break;
+            case MenuState::GameLobby:
+                _state = MenuState::LobbyToMain;
+                break;
+            case MenuState::Tutorial:
+                _state = MenuState::TutorialToMain;
+                break;
+            default:
+                break;
             }
         }
         });
 
     // TODO: integrate network manager to game lobby
-    
-    /** Player settings */
-    _playerName = playerName;
-    _volume = volume;
-    _musicOn = musicOn;
-    _parallaxOn = parallaxOn;
 
-    /** Default game settings */
+    // game settings 
+    _gameSettings = gameSettings;
+    // player settings
+    _playerSettings = playerSettings;
+
     _otherNames = vector<string>{ "N/A", "N/A", "N/A", "N/A" };
-    _joinGame = "";
-    _spawnRate = 1.0f;
-    _gravStrength = 1.0f;
-    _colorCount = 6;
-    _winCondition = 200;
 
     _state = MenuState::LoadToMain;
 
@@ -123,42 +116,12 @@ bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 }
 
 /**
- * The method initializes the menu scene using player settings json value.
- *
- * Meant to be used to initialize the menu scene only on initial load
- *
- * @param assets            The (loaded) assets for this game mode
- * @param playerSettings    The player's saved settings value
- *
- * @return true if the controller is initialized properly, false otherwise.
- */
-bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
-    const std::shared_ptr<cugl::JsonValue>& playerSettings) {
-    // Load in saved settings file
-    _playerName = "Player Name";
-    _volume = 0.5f;
-    _musicOn = true;
-    _parallaxOn = true;
-    if (playerSettings != nullptr) {
-        string pname = playerSettings->getString("PlayerName", "Player Name");
-        if (!pname.empty()) {
-            _playerName = pname;
-        }
-        _volume = playerSettings->getFloat("Volume", 0.5f);
-        _musicOn = playerSettings->getBool("MusicOn", true);
-        _parallaxOn = playerSettings->getBool("ParallaxOn", true);
-    }
-
-    return init(assets, _playerName, _volume, _musicOn, _parallaxOn);
-}
-
-/**
  * The method initializes the menu scene using its current values.
  *
  * Meant to be used to re-initialize the menu scene on game reset.
  */
 bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
-    return init(assets, _playerName, _volume, _musicOn, _parallaxOn);
+    return init(assets, _playerSettings, _gameSettings);
 }
 
 /**
@@ -243,11 +206,10 @@ void MenuScene::update(float timestep) {
             _active = false;
             break;
         default:
-            _lobby->update(_state, _joinGame, _playerName, _otherNames,
-                _spawnRate, _gravStrength, _colorCount, _winCondition);
+            _lobby->update(_state, _playerSettings, _gameSettings);
             _mainmenu->update(_state);
-            _settings->update(_state, _playerName, _volume, _musicOn, _parallaxOn);
-            _join->update(_state, _joinGame);
+            _settings->update(_state, _playerSettings);
+            _join->update(_state, _gameSettings);
             _tutorial->update(_state);
             break;
     }

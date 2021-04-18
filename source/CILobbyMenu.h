@@ -11,6 +11,9 @@
 #include <cugl/cugl.h>
 
 #include  "CIMenuState.h"
+#include "CIPlayerSettings.h"
+#include "CIGameSettings.h"
+#include "CIGameConstants.h"
 
 /**
  * Model class representing the Game Lobby menu scene.
@@ -82,6 +85,10 @@ private:
     std::shared_ptr<cugl::scene2::SceneNode> _winMassBtnLabel;
     const uint16_t _winMass[5] = { 100, 150, 200, 250, 300 };
     uint8_t _currWin;
+    
+    // TODO: replace with calls to network manager
+    /** Value for other players' names */
+    vector<string> _otherNames;
 
     /** Reference to game lobby's button to start gameplay */
     std::shared_ptr<cugl::scene2::Button> _gameStartBtn;
@@ -92,8 +99,17 @@ public:
     /**
      * Creates a new game lobby with default values.
      */
-    LobbyMenu() : _nextState(MenuState::GameLobby), _lobbySpawnRate(1.0f), _lobbyGravityStrength(1.0f), _lobbyColorCount(6), _lobbyWinPlanetMass(200),
-        _currSpawn(2), _currGrav(2), _currColor(4), _currWin(2) {}
+    LobbyMenu() {
+        using namespace constants;
+        _nextState = MenuState::GameLobby;
+        _lobbySpawnRate = gamesettings::DEFAULT_SPAWN_RATE;
+        _lobbyGravityStrength = gamesettings::DEFAULT_GRAV_STRENGTH;
+        _lobbyColorCount = gamesettings::DEFAULT_COLOR_COUNT;
+        _lobbyWinPlanetMass = gamesettings::DEFAULT_WIN_MASS;
+        _otherNames = vector<string>{ "N/A", "N/A", "N/A", "N/A" };
+
+        _currSpawn = _currGrav = _currWin = _currColor = 2;
+    }
 
     /**
      * Disposes of all (non-static) resources allocated to this menu.
@@ -141,8 +157,8 @@ public:
      * This method handles transitions into and out of game lobby menu along
      * with any updates within the game lobby menu scene.
      */
-    void update(MenuState& state, string& joingame, string& playername, std::vector<string>& othernames,
-        float& spawnRate, float& gravStrength, uint8_t& colorCount, uint16_t& winPlayerMass);
+    void update(MenuState& state, const std::shared_ptr<PlayerSettings>& playerSettings,
+        const std::shared_ptr<GameSettings>& gameSettings);
 
     /**
      * Returns the root scene node for the game lobby menu layer.

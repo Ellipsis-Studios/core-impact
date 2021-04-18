@@ -10,8 +10,6 @@
 
 using namespace cugl;
 
-#define SCENE_SIZE  1024
-
 #pragma mark -
 #pragma mark Constructors
 
@@ -51,10 +49,11 @@ void LobbyMenu::dispose() {
 
     _layer = nullptr;
     _nextState = MenuState::GameLobby;
-    _lobbySpawnRate = 1.0f;
-    _lobbyGravityStrength = 1.0f;
-    _lobbyColorCount = 6;
-    _lobbyWinPlanetMass = 200;
+    _lobbySpawnRate = constants::gamesettings::DEFAULT_SPAWN_RATE;
+    _lobbyGravityStrength = constants::gamesettings::DEFAULT_GRAV_STRENGTH;
+    _lobbyColorCount = constants::gamesettings::DEFAULT_COLOR_COUNT;
+    _lobbyWinPlanetMass = constants::gamesettings::DEFAULT_WIN_MASS;
+    _currSpawn = _currGrav = _currWin = _currColor = 2;
 }
 
 /**
@@ -68,7 +67,7 @@ bool LobbyMenu::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     // Initialize the scene to a locked width
     Size dimen = Application::get()->getDisplaySize();
     // Lock the scene to a reasonable resolution
-    dimen *= SCENE_SIZE / dimen.width;
+    dimen *= constants::SCENE_WIDTH / dimen.width;
     if (assets == nullptr) {
         return false;
     }
@@ -100,8 +99,7 @@ bool LobbyMenu::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     _colorCountBtnLabel = assets->get<scene2::SceneNode>("lobby_colorcountbuttonlabel");
     _winMassBtnLabel = assets->get<scene2::SceneNode>("lobby_wincondbuttonlabel");
 
-    _currSpawn = _currGrav = _currWin = 2;
-    _currColor = 4;
+    _currSpawn = _currGrav = _currWin = _currColor = 2;
 
     // Setting buttons 
     _spawnRateBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("lobby_spawnratebutton"));
@@ -142,10 +140,13 @@ bool LobbyMenu::init(const std::shared_ptr<cugl::AssetManager>& assets) {
         });
 
     _nextState = MenuState::GameLobby;
-    _lobbySpawnRate = 1.0f;
-    _lobbyGravityStrength = 1.0f;
-    _lobbyColorCount = 6;
-    _lobbyWinPlanetMass = 200;
+    _lobbySpawnRate = constants::gamesettings::DEFAULT_SPAWN_RATE;
+    _lobbyGravityStrength = constants::gamesettings::DEFAULT_GRAV_STRENGTH;
+    _lobbyColorCount = constants::gamesettings::DEFAULT_COLOR_COUNT;
+    _lobbyWinPlanetMass = constants::gamesettings::DEFAULT_WIN_MASS;
+
+    // TODO: replace with calls to network manager
+    _otherNames = vector<string>{ "N/A", "N/A", "N/A", "N/A" };
     return true;
 }
 
@@ -209,16 +210,11 @@ void LobbyMenu::setDisplay(bool onDisplay) {
  * Screen is taken down once menu state exits the Lobby.
  *
  * @param state             MenuScene's state value
- * @param joingame          Game lobby's room id value
- * @param playername        Player's name
- * @param othernames        List of names of other players in current game lobby
- * @param spawnRate         Stardust spawn rate factor
- * @param gravStrength      Planet gravity strength factor
- * @param colorCount        Available stardust color count
- * @param winPlanetMass     Win condition for planet (mass)
+ * @param playerSettings    The player's saved settings value
+ * @param gameSettings      The settings for the current game
  */
-void LobbyMenu::update(MenuState& state, string& joingame, string& playername, std::vector<string>& othernames,
-    float& spawnRate, float& gravStrength, uint8_t& colorCount, uint16_t& winPlanetMass) {
+void LobbyMenu::update(MenuState& state, const std::shared_ptr<PlayerSettings>& playerSettings, 
+    const std::shared_ptr<GameSettings>& gameSettings) {
     if (_layer == nullptr) {
         return;
     }
@@ -228,19 +224,26 @@ void LobbyMenu::update(MenuState& state, string& joingame, string& playername, s
         case MenuState::MainToLobby:
         {
             // handle displaying for Host
-            joingame.clear();
+            gameSettings->setGameId("");
+
             _nextState = state; // prep to setDisplay
             setDisplay(true);
-            _lobbyRoomLabel->setText(joingame);
-            _gamelobbyplayerlabel1->setText(playername);
+
+            _lobbyRoomLabel->setText(gameSettings->getGameId());
+            _gamelobbyplayerlabel1->setText(playerSettings->getPlayerName());
 
             // handle game lobby settings (only visible to the host)
-            _currSpawn = _currGrav = _currWin = 2;
-            _currColor = 2;
-            _lobbySpawnRate = spawnRate = _spawnRates[_currSpawn];
-            _lobbyGravityStrength = gravStrength = _gravStrengths[_currGrav];
-            _lobbyColorCount = colorCount = _colorCounts[_currColor];
-            _lobbyWinPlanetMass = winPlanetMass = _winMass[_currWin];
+            _currSpawn = _currGrav = _currWin = _currColor = 2;
+
+            _lobbySpawnRate = _spawnRates[_currSpawn];
+            _lobbyGravityStrength = _gravStrengths[_currGrav];
+            _lobbyColorCount = _colorCounts[_currColor];
+            _lobbyWinPlanetMass = _winMass[_currWin];
+
+            gameSettings->setSpawnRate(_lobbySpawnRate);
+            gameSettings->setGravStrength(_lobbyGravityStrength);
+            gameSettings->setColorCount(_lobbyColorCount);
+            gameSettings->setPlanetMassToWin(_lobbyWinPlanetMass);
 
             _spawnRateLabel->setText(cugl::strtool::to_string(_lobbySpawnRate, 1) + "X");
             _gravStrengthLabel->setText(cugl::strtool::to_string(_lobbyGravityStrength, 1) + "X");
@@ -255,8 +258,8 @@ void LobbyMenu::update(MenuState& state, string& joingame, string& playername, s
             // handle setting up the lobby
             _nextState = state; // prep to setDisplay
             setDisplay(true);
-            _lobbyRoomLabel->setText(joingame);
-            _gamelobbyplayerlabel1->setText(playername);
+            _lobbyRoomLabel->setText(gameSettings->getGameId());
+            _gamelobbyplayerlabel1->setText(playerSettings->getPlayerName());
             
             // undo player name label offsets for clients
             const float clientOffset = _layer->getContentHeight() / 6.0f;
@@ -275,19 +278,19 @@ void LobbyMenu::update(MenuState& state, string& joingame, string& playername, s
             if (_lobbyRoomLabel->getText().empty()) {
                 // TODO: update lobby room label using room id from network connection
             }
-            if (othernames.size() == 4) {
+            if (_otherNames.size() == 4) {
                 // update other players' labels
-                _gamelobbyplayerlabel2->setText(othernames.at(0));
-                _gamelobbyplayerlabel3->setText(othernames.at(1));
-                _gamelobbyplayerlabel4->setText(othernames.at(2));
-                _gamelobbyplayerlabel5->setText(othernames.at(3));
+                _gamelobbyplayerlabel2->setText(_otherNames.at(0));
+                _gamelobbyplayerlabel3->setText(_otherNames.at(1));
+                _gamelobbyplayerlabel4->setText(_otherNames.at(2));
+                _gamelobbyplayerlabel5->setText(_otherNames.at(3));
             }
 
             // Update game settings in global MenuScene  
-            spawnRate = _lobbySpawnRate;
-            gravStrength = _lobbyGravityStrength;
-            colorCount = _lobbyColorCount;
-            winPlanetMass = _lobbyWinPlanetMass;
+            gameSettings->setSpawnRate(_lobbySpawnRate);
+            gameSettings->setGravStrength(_lobbyGravityStrength);
+            gameSettings->setColorCount(_lobbyColorCount);
+            gameSettings->setPlanetMassToWin(_lobbyWinPlanetMass);
 
             // Update game setting button labels for the Host
             _spawnRateLabel->setText(cugl::strtool::to_string(_lobbySpawnRate, 1) + "X");
@@ -303,7 +306,7 @@ void LobbyMenu::update(MenuState& state, string& joingame, string& playername, s
             // hide menu screen
             if (_layer != nullptr && _layer->isVisible()) {
                 // undo player name labels offsets for clients
-                if (!_spawnRateLabel->isVisible() && !joingame.empty()) {
+                if (!_spawnRateLabel->isVisible() && !gameSettings->getGameId().empty()) {
                     const float clientOffset = _layer->getContentHeight() / 6.0f;
                     _gamelobbyplayerName1->setPositionY(_gamelobbyplayerName1->getPositionY() + clientOffset);
                     _gamelobbyplayerName2->setPositionY(_gamelobbyplayerName2->getPositionY() + clientOffset);

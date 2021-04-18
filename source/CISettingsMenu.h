@@ -11,6 +11,8 @@
 #include <cugl/cugl.h>
 
 #include  "CIMenuState.h"
+#include "CIPlayerSettings.h"
+#include "CIGameConstants.h"
 
 /**
  * Model class representing a Settings menu scene.
@@ -102,7 +104,7 @@ public:
      * This method handles transitions into and out of settings menu along
      * with any updates within the settings menu scene.
      */
-    void update(MenuState& state, string& playername, float& volume, bool& musicon, bool& parallaxon);
+    void update(MenuState& state, const std::shared_ptr<PlayerSettings>& playerSettings);
 
     /**
      * Returns the root scene node for the settings menu layer.

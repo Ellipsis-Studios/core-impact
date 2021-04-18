@@ -10,12 +10,16 @@
 #define __CI_MENU_SCENE_H__
 #include <cugl/cugl.h>
 
-#include  "CIMenuState.h"
+#include "CIMenuState.h"
 #include "CIMainMenu.h"
 #include "CISettingsMenu.h"
 #include "CIJoinMenu.h"
 #include "CILobbyMenu.h"
 #include "CITutorialMenu.h"
+#include "CIGameSettings.h"
+#include "CIPlayerSettings.h"
+#include "CIGameConstants.h"
+
 
 /**
  * This class is the menu screens before the actual game play. 
@@ -53,30 +57,13 @@ protected:
     std::shared_ptr<TutorialMenu> _tutorial;
 
     // Player settings (preserved over game reset)
-    /** Value for the player name */
-    string _playerName;
-    /** Value for the game audio volume */
-    float _volume;
-    /** Whether game music is turned on/off */
-    bool _musicOn;
-    /** Whether game parallax effect is turned on/off */
-    bool _parallaxOn;
+    std::shared_ptr<PlayerSettings> _playerSettings;
 
-    /** Stores the game code for joining as client*/
-    string _joinGame;
+    // Game settings
+    std::shared_ptr<GameSettings> _gameSettings;
+
     /** Value for other players' names */
     vector<string> _otherNames;
-
-    // Game lobby settings
-    /** Value for the rate of stardust spawning */
-    float _spawnRate;
-    /** Value for the strength of planet's gravity */
-    float _gravStrength;
-    /** Value for the number of stardust colors available */
-    uint8_t _colorCount;
-    /** Criteria for the planet to win the game (min planet mass to win) */
-    // TODO: switch to the planet's layers instead of mass
-    uint16_t _winCondition;
 
     // Menu scene state value
     MenuState _state;
@@ -90,8 +77,7 @@ public:
      * This constructor does not allocate any objects or start the game.
      * This allows us to use the object without a heap pointer.
      */
-    MenuScene() : cugl::Scene2(), _volume(0.5f), _musicOn(true), _parallaxOn(true),
-        _spawnRate(1.0f), _gravStrength(1.0f), _colorCount(6), _winCondition(200) {}
+    MenuScene() : cugl::Scene2() {}
 
     /**
     * Disposes of all (non-static) resources allocated to this mode.
@@ -128,29 +114,13 @@ public:
      *
      * @param assets            The (loaded) assets for this game mode
      * @param playerSettings    The player's saved settings value
+     * @param gameSettings      The settings for the current game
      *
      * @return true if the controller is initialized properly, false otherwise.
      */
     bool init(const std::shared_ptr<cugl::AssetManager>& assets,
-        const std::shared_ptr<cugl::JsonValue>& playerSettings);
-
-    /**
-     * Initializes the controller contents, making it ready for loading
-     *
-     * The constructor does not allocate any objects or memory.  This allows
-     * us to have a non-pointer reference to this controller, reducing our
-     * memory allocation.  Instead, allocation happens in this method.
-     *
-     * @param assets        The (loaded) assets for this game mode
-     * @param playerName    The player name value
-     * @param volume        The game volume setting value
-     * @param musicOn       The musicOn setting value
-     * @param parallaxOn    The parallax effect setting value
-     *
-     * @return true if the controller is initialized properly, false otherwise.
-     */
-    bool init(const std::shared_ptr<cugl::AssetManager>& assets,
-        string playerName, float volume, bool musicOn, bool parallaxOn);
+        const std::shared_ptr<PlayerSettings>& playerSettings,
+        const std::shared_ptr<GameSettings>& gameSettings);
 
 #pragma mark -
 #pragma mark Menu Monitoring
@@ -169,7 +139,10 @@ public:
      * @return string room id value of game to join.
      */
     const string getJoinGameId() const {
-        return _joinGame;
+        if (_gameSettings == nullptr) {
+            return constants::gamesettings::DEFAULT_GAME_ID;
+        }
+        return _gameSettings->getGameId();
     }
 
     /**
@@ -178,7 +151,10 @@ public:
      * @return string player name set in settings
      */
     const string getPlayerName() const {
-        return _playerName;
+        if (_playerSettings == nullptr) {
+            return constants::playersettings::DEFAULT_PLAYER_NAME;
+        }
+        return _playerSettings->getPlayerName();
     }
 
     /**
@@ -187,7 +163,10 @@ public:
      * @return float volume value set in settings
      */
     const float getVolume() const {
-        return _volume;
+        if (_playerSettings == nullptr) {
+            return constants::playersettings::DEFAULT_VOLUME;
+        }
+        return _playerSettings->getVolume();
     }
 
     /**
@@ -197,7 +176,10 @@ public:
      * @return bool music toggle value set in settings
      */
     const bool isMusicOn() const {
-        return _musicOn;
+        if (_playerSettings == nullptr) {
+            return constants::playersettings::DEFAULT_MUSIC_ON;
+        }
+        return _playerSettings->getMusicOn();
     }
 
     /**
@@ -207,7 +189,10 @@ public:
      * @return bool parallax toggle value set in settings
      */
     const bool isParallaxOn() const {
-        return _parallaxOn;
+        if (_playerSettings == nullptr) {
+            return constants::playersettings::DEFAULT_PARALLAX_ON;
+        }
+        return _playerSettings->getParallaxOn();
     }
 
     /**
@@ -219,10 +204,10 @@ public:
      * @param playerSettings reference to the json value for player settings from App
      */
     void appendPlayerSettings(std::shared_ptr<cugl::JsonValue>& playerSettings) {
-        playerSettings->appendValue("PlayerName", _playerName);
-        playerSettings->appendValue("Volume", _volume);
-        playerSettings->appendValue("MusicOn", _musicOn);
-        playerSettings->appendValue("ParallaxOn", _parallaxOn);
+        playerSettings->appendValue("PlayerName", getPlayerName());
+        playerSettings->appendValue("Volume", getVolume());
+        playerSettings->appendValue("MusicOn", isMusicOn());
+        playerSettings->appendValue("ParallaxOn", isParallaxOn());
     }
 
     /**
@@ -240,7 +225,10 @@ public:
      * @return float stardust spawn rate (multiplicative)
      */
     const float getSpawnRate() const {
-        return _spawnRate;
+        if (_gameSettings == nullptr) {
+            return constants::gamesettings::DEFAULT_SPAWN_RATE;
+        }
+        return _gameSettings->getSpawnRate();
     }
 
     /**
@@ -249,7 +237,10 @@ public:
      * @return float stardust spawn rate (multiplicative)
      */
     const float getGravStrength() const {
-        return _gravStrength;
+        if (_gameSettings == nullptr) {
+            return constants::gamesettings::DEFAULT_GRAV_STRENGTH;
+        }
+        return _gameSettings->getGravStrength();
     }
 
     /**
@@ -258,16 +249,22 @@ public:
      * @return uint8_t number of stardust colors supported
      */
     const uint8_t getColorCount() const {
-        return _colorCount;
+        if (_gameSettings == nullptr) {
+            return constants::gamesettings::DEFAULT_COLOR_COUNT;
+        }
+        return _gameSettings->getColorCount();
     }
 
     /**
-     * Returns the game win planet condition value set in game lobby.
+     * Returns the planet mass required to win set in game lobby.
      *
-     * @return uint16_t win planet condition value (mass/num of layeres)
+     * @return uint16_t planet mass required to win
      */
-    const uint16_t getGameWinCondition() const {
-        return _winCondition;
+    const uint16_t getPlanetMassToWinGame() const {
+        if (_gameSettings == nullptr) {
+            return constants::gamesettings::DEFAULT_WIN_MASS;
+        }
+        return _gameSettings->getPlanetMassToWin();
     }
 
 };

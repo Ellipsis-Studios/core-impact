@@ -25,30 +25,27 @@
 
 using namespace cugl;
 using namespace std;
+using namespace constants;
 
-#pragma mark -
-#pragma mark Level Layout
-
-/** This is adjusted by screen aspect ratio to get the height */
-#define SCENE_WIDTH 1024
-
-/** The parallax for each layer */
-#define PARALLAX_AMT 0.1f
-
-/** Maximum number of stardusts allowed on screen at a time. */
-#define MAX_STARDUST 512
-
-/** Maximum number of layers in planet model */
-#define MAX_PLANET_LAYERS 3
+/** Value for the winning counter when inactive (game not won) */
+#define INACTIVE_WIN_COUNTER -10.0f
 
 /** Starting value for the winning countdown (game was won) */
 #define START_WIN_COUNTER 2.0f
 
+#pragma mark -
+#pragma mark Animations
+/** Seconds per frame for Game Scene background animation */
+#define GAMESCENE_SPF .066
+/** Game Scene background animation start frame */
+#define BACKGROUND_START 0
+
+/** Game Scene background animation end frame */
+#define BACKGROUND_END 240
+
 
 #pragma mark -
 #pragma mark Constructors
-
-
 /**
  * Initializes the controller contents, and starts the game
  *
@@ -58,12 +55,14 @@ using namespace std;
  *
  * @param assets                The (loaded) assets for this game mode
  * @param networkMessageManager The reference to network message manager
- * @param gameSettings  The settings for the current game
+ * @param playerSettings        The player's saved settings value
+ * @param gameSettings          The settings for the current game
  *
  * @return true if the controller is initialized properly, false otherwise.
  */
 bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     const std::shared_ptr<NetworkMessageManager>& networkMessageManager,
+    const std::shared_ptr<PlayerSettings>& playerSettings,
     const std::shared_ptr<GameSettings>& gameSettings) {
     // Initialize the scene to a locked width
     Size dimen = Application::get()->getDisplaySize();
@@ -101,7 +100,8 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _massHUD  = std::dynamic_pointer_cast<scene2::Label>(_assets->get<scene2::SceneNode>("game_hud"));
 
     // Create the planet model
-    _planet = PlanetModel::alloc(dimen.width / 2, dimen.height / 2, CIColor::getNoneColor(), MAX_PLANET_LAYERS, gameSettings->getGravStrength(), gameSettings->getPlanetMassToWin());
+    _planet = PlanetModel::alloc(dimen.width / 2, dimen.height / 2, CIColor::getNoneColor(), 
+        gamescene::MAX_PLANET_LAYERS, gameSettings->getGravStrength(), gameSettings->getPlanetMassToWin());
     auto coreTexture = _assets->get<Texture>("core");
     auto ringTexture = _assets->get<Texture>("innerRing");
     auto unlockedTexture = _assets->get<Texture>("unlockedOuterRing");
@@ -109,20 +109,22 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _planet->setTextures(coreTexture, ringTexture, unlockedTexture, lockedTexture);
 
     _draggedStardust = NULL;
-    _stardustContainer = StardustQueue::alloc(MAX_STARDUST, coreTexture);
+    _stardustContainer = StardustQueue::alloc(gamescene::MAX_STARDUSTS, coreTexture);
 
     // TODO: resize to number of players in the game and add opponent planet nodes to scene graph
     _opponent_planets.resize(5);
 
+    // Player Settings
+    _playerSettings = playerSettings;
+
     // Game settings
-    _spawnRate = gameSettings->getSpawnRate();
-    _colorCount = gameSettings->getColorCount();
+    _gameSettings = gameSettings;
     
     // update stardustProb to match colorCount
-    for (int i = 0; i < _colorCount; i++) {
+    for (int i = 0; i < gameSettings->getColorCount(); i++) {
         _stardustProb[i] = 100;
     }
-    CIColor::setNumColors(_colorCount);
+    CIColor::setNumColors(gameSettings->getColorCount());
     
     _countdown = INACTIVE_WIN_COUNTER;
     _timeElapsed = 0;
@@ -193,7 +195,7 @@ void GameScene::update(float timestep) {
      }
     
     _timeElapsed += timestep;
-    if (_timeElapsed > SPF) {
+    if (_timeElapsed > GAMESCENE_SPF) {
         unsigned int bkgrdFrame = _farSpace->getFrame();
         _timeElapsed = 0;
         bkgrdFrame = (bkgrdFrame == BACKGROUND_END) ? BACKGROUND_START : bkgrdFrame + 1;
@@ -281,13 +283,13 @@ void GameScene::updateDraggedStardust() {
  *  @param bounds the bounds of the game screen
  */
 void GameScene::addStardust(const Size bounds) {
-    if (_stardustContainer->size() == MAX_STARDUST) {
+    if (_stardustContainer->size() == gamescene::MAX_STARDUSTS) {
         return;
     }
     
     // handle game settings
-    size_t spawn_probability = BASE_SPAWN_RATE + (_stardustContainer->size() * BASE_SPAWN_RATE);
-    spawn_probability = spawn_probability / _spawnRate;
+    size_t spawn_probability = gamescene::BASE_SPAWN_RATE + (_stardustContainer->size() * gamescene::BASE_SPAWN_RATE);
+    spawn_probability = spawn_probability / _gameSettings->getSpawnRate();
     if (rand() % spawn_probability != 0) {
         return;
     }
@@ -308,15 +310,15 @@ void GameScene::addStardust(const Size bounds) {
     CIColor::Value c = CIColor::getRandomColor();
     int probSum = 0;
     // Sums up the total probability space of the stardust colors, augmented by a mass correction
-    probSum = accumulate(_stardustProb, _stardustProb + _colorCount, probSum) + massCorrection;
+    probSum = accumulate(_stardustProb, _stardustProb + _gameSettings->getColorCount(), probSum) + massCorrection;
     // Randomly selects a point in the probability space
     int spawnRand = rand() % max(1, probSum);
-    for (int i = 0; i < _colorCount; i++) {
+    for (int i = 0; i < _gameSettings->getColorCount(); i++) {
         spawnRand -= (CIColor::Value(i) == _planet->getColor()) ? _stardustProb[i] - massCorrection : _stardustProb[i];
         if (spawnRand <= 0){
             c = CIColor::Value(i);
             spawnRand = probSum;
-            _stardustProb[i] = max(_stardustProb[i] - BASE_SPAWN_RATE, 0);
+            _stardustProb[i] = max(_stardustProb[i] - gamescene::BASE_SPAWN_RATE, 0);
         } else {
             _stardustProb[i] += 10;
         }

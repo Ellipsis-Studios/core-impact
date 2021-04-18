@@ -11,6 +11,8 @@
 #include <cugl/cugl.h>
 
 #include  "CIMenuState.h"
+#include "CIGameSettings.h"
+#include  "CIGameConstants.h"
 
 /**
  * Model class representing the Join Game menu scene.
@@ -92,7 +94,7 @@ public:
      * This method handles transitions into and out of join game menu along
      * with any updates within the join game menu scene.
      */
-    void update(MenuState& state, string& joingame);
+    void update(MenuState& state, const std::shared_ptr<GameSettings>& gameSettings);
 
     /**
      * Returns the root scene node for the join game menu layer.

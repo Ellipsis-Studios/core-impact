@@ -34,6 +34,7 @@ void CoreImpactApp::onStartup() {
     _batch  = SpriteBatch::alloc();
     cam = OrthographicCamera::alloc(getDisplaySize());
     
+    _playerSettings = PlayerSettings::alloc();
     _gameSettings = GameSettings::alloc();
     
     // Start-up basic input
@@ -78,8 +79,9 @@ void CoreImpactApp::onShutdown() {
     // save settings file
     std::shared_ptr<cugl::JsonWriter> _writer = JsonWriter::alloc(Application::getSaveDirectory().append("playersettings.json"));
     std::shared_ptr<cugl::JsonValue> _settings = JsonValue::allocObject();
-    _menu.appendPlayerSettings(_settings);
+    _playerSettings->appendSettings(_settings);
     _writer->writeJson(_settings);
+
     CULog("Saving current player settings.");
     
     if (_loading.isActive())
@@ -101,7 +103,8 @@ void CoreImpactApp::onShutdown() {
 
     _networkMessageManager = nullptr;
     _gameSettings = nullptr;
-    
+    _playerSettings = nullptr;
+
     Application::onShutdown();  // YOU MUST END with call to parent
 }
 
@@ -126,12 +129,14 @@ void CoreImpactApp::update(float timestep) {
         
         // Load in saved settings file
         std::shared_ptr<cugl::JsonReader> _reader = JsonReader::alloc(Application::getSaveDirectory().append("playersettings.json"));
-        std::shared_ptr<cugl::JsonValue> _playerSettings = JsonValue::allocObject();
+        std::shared_ptr<cugl::JsonValue> prevPlayerSettings = JsonValue::allocObject();
         if (_reader != nullptr && _reader->ready()) {
-            _playerSettings = _reader->readJson();
+            prevPlayerSettings = _reader->readJson();
         }
-
-        _menu.init(_assets, _playerSettings);
+        // prepare both settings 
+        _playerSettings->setPlayerSettings(prevPlayerSettings);
+        _gameSettings->reset(); 
+        _menu.init(_assets, _playerSettings, _gameSettings);
         _loaded = true;
     }
     else if (!_startGame && _menu.isActive()) {
@@ -144,13 +149,7 @@ void CoreImpactApp::update(float timestep) {
         if (_networkMessageManager == nullptr) {
             _networkMessageManager = NetworkMessageManager::alloc();
         }
-        
-        _gameSettings->setGameId(_menu.getJoinGameId());
-        _gameSettings->setSpawnRate(_menu.getSpawnRate());
-        _gameSettings->setGravStrength( _menu.getGravStrength());
-        _gameSettings->setColorCount(_menu.getColorCount());
-        _gameSettings->setPlanetMassToWin( _menu.getGameWinCondition());
-        _gameplay.init(_assets, _networkMessageManager, _gameSettings);
+        _gameplay.init(_assets, _networkMessageManager, _playerSettings, _gameSettings);
         _startGame = true;
     }
     else if (_gameplay.isActive()) {
@@ -185,7 +184,7 @@ void CoreImpactApp::onSuspend() {
     // save settings file
     std::shared_ptr<cugl::JsonWriter> _writer = JsonWriter::alloc(Application::getSaveDirectory().append("playersettings.json"));
     std::shared_ptr<cugl::JsonValue> _settings = JsonValue::allocObject();
-    _menu.appendPlayerSettings(_settings);
+    _playerSettings->appendSettings(_settings);
     _writer->writeJson(_settings);
     CULog("Saving current player settings.");
 }

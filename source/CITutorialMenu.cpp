@@ -10,8 +10,6 @@
 
 using namespace cugl;
 
-#define SCENE_SIZE  1024
-
 #pragma mark -
 #pragma mark Constructors
 /**
@@ -34,7 +32,7 @@ bool TutorialMenu::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     // Initialize the scene to a locked width
     Size dimen = Application::get()->getDisplaySize();
     // Lock the scene to a reasonable resolution
-    dimen *= SCENE_SIZE / dimen.width;
+    dimen *= constants::SCENE_WIDTH / dimen.width;
     if (assets == nullptr) {
         return false;
     }
