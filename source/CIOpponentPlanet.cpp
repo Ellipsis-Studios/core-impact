@@ -22,7 +22,7 @@
  */
 void OpponentPlanet::setTextures(const std::shared_ptr<cugl::Texture>& texture, const std::shared_ptr<cugl::Texture>& fogTexture, cugl::Size bounds) {
     _opponentNode = OpponentNode::alloc(texture, bounds.width/2, bounds.height/2);
-    _opponentNode->setAnchor(cugl::Vec2::ANCHOR_BOTTOM_RIGHT);
+    _opponentNode->setAnchor(cugl::Vec2::ANCHOR_BOTTOM_LEFT);
     _opponentNode->setPosition(_position);
     _opponentNode->setLocation(_location);
     _opponentNode->setProgress(_mass / _winPlanetMass, getColor());
@@ -38,6 +38,15 @@ void OpponentPlanet::setTextures(const std::shared_ptr<cugl::Texture>& texture, 
 void OpponentPlanet::setName(std::string name, std::shared_ptr<cugl::Font> font) {
     if (_opponentNode != nullptr) {
         _opponentNode->setName(name, font);
+    }
+}
+
+/**
+ * Starts the animation of the progress bar flashing
+ */
+void OpponentPlanet::startHitAnimation() {
+    if (_opponentNode != nullptr) {
+        _opponentNode->startHitAnimation();
     }
 }
 
