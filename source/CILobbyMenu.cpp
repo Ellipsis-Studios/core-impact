@@ -49,10 +49,10 @@ void LobbyMenu::dispose() {
 
     _layer = nullptr;
     _nextState = MenuState::GameLobby;
-    _lobbySpawnRate = constants::gamesettings::DEFAULT_SPAWN_RATE;
-    _lobbyGravityStrength = constants::gamesettings::DEFAULT_GRAV_STRENGTH;
-    _lobbyColorCount = constants::gamesettings::DEFAULT_COLOR_COUNT;
-    _lobbyWinPlanetMass = constants::gamesettings::DEFAULT_WIN_MASS;
+    _lobbySpawnRate = constants::DEFAULT_SPAWN_RATE;
+    _lobbyGravityStrength = constants::DEFAULT_GRAV_STRENGTH;
+    _lobbyColorCount = constants::DEFAULT_COLOR_COUNT;
+    _lobbyWinPlanetMass = constants::DEFAULT_WIN_MASS;
     _currSpawn = _currGrav = _currWin = _currColor = 2;
 }
 
@@ -140,10 +140,10 @@ bool LobbyMenu::init(const std::shared_ptr<cugl::AssetManager>& assets) {
         });
 
     _nextState = MenuState::GameLobby;
-    _lobbySpawnRate = constants::gamesettings::DEFAULT_SPAWN_RATE;
-    _lobbyGravityStrength = constants::gamesettings::DEFAULT_GRAV_STRENGTH;
-    _lobbyColorCount = constants::gamesettings::DEFAULT_COLOR_COUNT;
-    _lobbyWinPlanetMass = constants::gamesettings::DEFAULT_WIN_MASS;
+    _lobbySpawnRate = constants::DEFAULT_SPAWN_RATE;
+    _lobbyGravityStrength = constants::DEFAULT_GRAV_STRENGTH;
+    _lobbyColorCount = constants::DEFAULT_COLOR_COUNT;
+    _lobbyWinPlanetMass = constants::DEFAULT_WIN_MASS;
 
     // TODO: replace with calls to network manager
     _otherNames = vector<string>{ "N/A", "N/A", "N/A", "N/A" };

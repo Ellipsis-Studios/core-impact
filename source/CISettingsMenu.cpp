@@ -136,32 +136,32 @@ void SettingsMenu::update(MenuState& state, const std::shared_ptr<PlayerSettings
     // handle Settings menu
     switch (state)
     {
-    case MenuState::MainToSetting:
-        // handle transitioning into Settings 
-        setDisplay(true);
+        case MenuState::MainToSetting:
+            // handle transitioning into Settings 
+            setDisplay(true);
         
-        _pnameInput->setText(playerSettings->getPlayerName());
-        _volumeSlider->setValue(playerSettings->getVolume());
-        _musicBtn->setDown(!playerSettings->getMusicOn());
-        _parallaxBtn->setDown(!playerSettings->getParallaxOn());
+            _pnameInput->setText(playerSettings->getPlayerName());
+            _volumeSlider->setValue(playerSettings->getVolume());
+            _musicBtn->setDown(!playerSettings->getMusicOn());
+            _parallaxBtn->setDown(!playerSettings->getParallaxOn());
 
-        state = MenuState::Setting;
-        _nextState = MenuState::Setting;
-        break;
-    case MenuState::Setting:
-        // handle updating asset visuals and transitioning out of Settings
-        playerSettings->setPlayerName(_pnameInput->getText());
-        playerSettings->setVolume(_volumeSlider->getValue());
-        playerSettings->setMusicOn(!_musicBtn->isDown());
-        playerSettings->setParallaxOn(!_parallaxBtn->isDown());
+            state = MenuState::Setting;
+            _nextState = MenuState::Setting;
+            break;
+        case MenuState::Setting:
+            // handle updating asset visuals and transitioning out of Settings
+            playerSettings->setPlayerName(_pnameInput->getText());
+            playerSettings->setVolume(_volumeSlider->getValue());
+            playerSettings->setMusicOn(!_musicBtn->isDown());
+            playerSettings->setParallaxOn(!_parallaxBtn->isDown());
 
-        state = _nextState;
-        break;
-    default:
-        // hide menu screen 
-        if (_layer != nullptr && _layer->isVisible()) {
-            setDisplay(false);
-        }
-        break;
+            state = _nextState;
+            break;
+        default:
+            // hide menu screen 
+            if (_layer != nullptr && _layer->isVisible()) {
+                setDisplay(false);
+            }
+            break;
     }
 }

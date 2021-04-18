@@ -140,7 +140,7 @@ public:
      */
     const string getJoinGameId() const {
         if (_gameSettings == nullptr) {
-            return constants::gamesettings::DEFAULT_GAME_ID;
+            return constants::DEFAULT_GAME_ID;
         }
         return _gameSettings->getGameId();
     }
@@ -152,7 +152,7 @@ public:
      */
     const string getPlayerName() const {
         if (_playerSettings == nullptr) {
-            return constants::playersettings::DEFAULT_PLAYER_NAME;
+            return constants::DEFAULT_PLAYER_NAME;
         }
         return _playerSettings->getPlayerName();
     }
@@ -164,7 +164,7 @@ public:
      */
     const float getVolume() const {
         if (_playerSettings == nullptr) {
-            return constants::playersettings::DEFAULT_VOLUME;
+            return constants::DEFAULT_VOLUME;
         }
         return _playerSettings->getVolume();
     }
@@ -177,7 +177,7 @@ public:
      */
     const bool isMusicOn() const {
         if (_playerSettings == nullptr) {
-            return constants::playersettings::DEFAULT_MUSIC_ON;
+            return constants::DEFAULT_MUSIC_ON;
         }
         return _playerSettings->getMusicOn();
     }
@@ -190,7 +190,7 @@ public:
      */
     const bool isParallaxOn() const {
         if (_playerSettings == nullptr) {
-            return constants::playersettings::DEFAULT_PARALLAX_ON;
+            return constants::DEFAULT_PARALLAX_ON;
         }
         return _playerSettings->getParallaxOn();
     }
@@ -226,7 +226,7 @@ public:
      */
     const float getSpawnRate() const {
         if (_gameSettings == nullptr) {
-            return constants::gamesettings::DEFAULT_SPAWN_RATE;
+            return constants::DEFAULT_SPAWN_RATE;
         }
         return _gameSettings->getSpawnRate();
     }
@@ -238,7 +238,7 @@ public:
      */
     const float getGravStrength() const {
         if (_gameSettings == nullptr) {
-            return constants::gamesettings::DEFAULT_GRAV_STRENGTH;
+            return constants::DEFAULT_GRAV_STRENGTH;
         }
         return _gameSettings->getGravStrength();
     }
@@ -250,7 +250,7 @@ public:
      */
     const uint8_t getColorCount() const {
         if (_gameSettings == nullptr) {
-            return constants::gamesettings::DEFAULT_COLOR_COUNT;
+            return constants::DEFAULT_COLOR_COUNT;
         }
         return _gameSettings->getColorCount();
     }
@@ -262,7 +262,7 @@ public:
      */
     const uint16_t getPlanetMassToWinGame() const {
         if (_gameSettings == nullptr) {
-            return constants::gamesettings::DEFAULT_WIN_MASS;
+            return constants::DEFAULT_WIN_MASS;
         }
         return _gameSettings->getPlanetMassToWin();
     }

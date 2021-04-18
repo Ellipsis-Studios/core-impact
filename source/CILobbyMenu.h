@@ -10,7 +10,7 @@
 #define __CI_LOBBY_MENU_H__
 #include <cugl/cugl.h>
 
-#include  "CIMenuState.h"
+#include "CIMenuState.h"
 #include "CIPlayerSettings.h"
 #include "CIGameSettings.h"
 #include "CIGameConstants.h"
@@ -100,12 +100,11 @@ public:
      * Creates a new game lobby with default values.
      */
     LobbyMenu() {
-        using namespace constants;
         _nextState = MenuState::GameLobby;
-        _lobbySpawnRate = gamesettings::DEFAULT_SPAWN_RATE;
-        _lobbyGravityStrength = gamesettings::DEFAULT_GRAV_STRENGTH;
-        _lobbyColorCount = gamesettings::DEFAULT_COLOR_COUNT;
-        _lobbyWinPlanetMass = gamesettings::DEFAULT_WIN_MASS;
+        _lobbySpawnRate = constants::DEFAULT_SPAWN_RATE;
+        _lobbyGravityStrength = constants::DEFAULT_GRAV_STRENGTH;
+        _lobbyColorCount = constants::DEFAULT_COLOR_COUNT;
+        _lobbyWinPlanetMass = constants::DEFAULT_WIN_MASS;
         _otherNames = vector<string>{ "N/A", "N/A", "N/A", "N/A" };
 
         _currSpawn = _currGrav = _currWin = _currColor = 2;

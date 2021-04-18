@@ -25,7 +25,6 @@
 
 using namespace cugl;
 using namespace std;
-using namespace constants;
 
 /** Value for the winning counter when inactive (game not won) */
 #define INACTIVE_WIN_COUNTER -10.0f
@@ -66,7 +65,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     const std::shared_ptr<GameSettings>& gameSettings) {
     // Initialize the scene to a locked width
     Size dimen = Application::get()->getDisplaySize();
-    dimen *= SCENE_WIDTH/dimen.width; // Lock the game to a reasonable resolution
+    dimen *= constants::SCENE_WIDTH/dimen.width; // Lock the game to a reasonable resolution
     if (assets == nullptr) {
         return false;
     } else if (!Scene2::init(dimen)) {
@@ -101,7 +100,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 
     // Create the planet model
     _planet = PlanetModel::alloc(dimen.width / 2, dimen.height / 2, CIColor::getNoneColor(), 
-        gamescene::MAX_PLANET_LAYERS, gameSettings->getGravStrength(), gameSettings->getPlanetMassToWin());
+        constants::MAX_PLANET_LAYERS, gameSettings->getGravStrength(), gameSettings->getPlanetMassToWin());
     auto coreTexture = _assets->get<Texture>("core");
     auto ringTexture = _assets->get<Texture>("innerRing");
     auto unlockedTexture = _assets->get<Texture>("unlockedOuterRing");
@@ -109,7 +108,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _planet->setTextures(coreTexture, ringTexture, unlockedTexture, lockedTexture);
 
     _draggedStardust = NULL;
-    _stardustContainer = StardustQueue::alloc(gamescene::MAX_STARDUSTS, coreTexture);
+    _stardustContainer = StardustQueue::alloc(constants::MAX_STARDUSTS, coreTexture);
 
     // TODO: resize to number of players in the game and add opponent planet nodes to scene graph
     _opponent_planets.resize(5);
@@ -170,7 +169,7 @@ void GameScene::dispose() {
  */
 void GameScene::update(float timestep) {
     Size dimen = Application::get()->getDisplaySize();
-    dimen *= SCENE_WIDTH/dimen.width;
+    dimen *= constants::SCENE_WIDTH/dimen.width;
     _input.update(timestep);
     
     _massHUD->setText("Room: " + _networkMessageManager->getRoomId()
@@ -283,12 +282,12 @@ void GameScene::updateDraggedStardust() {
  *  @param bounds the bounds of the game screen
  */
 void GameScene::addStardust(const Size bounds) {
-    if (_stardustContainer->size() == gamescene::MAX_STARDUSTS) {
+    if (_stardustContainer->size() == constants::MAX_STARDUSTS) {
         return;
     }
     
     // handle game settings
-    size_t spawn_probability = gamescene::BASE_SPAWN_RATE + (_stardustContainer->size() * gamescene::BASE_SPAWN_RATE);
+    size_t spawn_probability = constants::BASE_SPAWN_RATE + (_stardustContainer->size() * constants::BASE_SPAWN_RATE);
     spawn_probability = spawn_probability / _gameSettings->getSpawnRate();
     if (rand() % spawn_probability != 0) {
         return;
@@ -318,7 +317,7 @@ void GameScene::addStardust(const Size bounds) {
         if (spawnRand <= 0){
             c = CIColor::Value(i);
             spawnRand = probSum;
-            _stardustProb[i] = max(_stardustProb[i] - gamescene::BASE_SPAWN_RATE, 0);
+            _stardustProb[i] = max(_stardustProb[i] - constants::BASE_SPAWN_RATE, 0);
         } else {
             _stardustProb[i] += 10;
         }

@@ -9,10 +9,6 @@
 #ifndef __CI_GAME_CONSTANTS_H__ 
 #define __CI_GAME_CONSTANTS_H__
 
-#include <array>
-//#include <string>
-
-
 /** 
  * Namespace of constants used in the game.
  */
@@ -23,35 +19,29 @@ namespace constants {
     /** Scene height for all the scenes */
     inline constexpr int SCENE_HEIGHT = 576;
 
-    // Player Settings 
-    namespace playersettings {
-        /** Default values for Player Setting */
-        inline constexpr auto  DEFAULT_PLAYER_NAME = "Player Name";
-        inline constexpr float DEFAULT_VOLUME = 0.5f;
-        inline constexpr bool  DEFAULT_MUSIC_ON = true;
-        inline constexpr bool  DEFAULT_PARALLAX_ON = true;
-    }
+#pragma mark GameScene
+    /** Max values for initializing stardusts and planet layers */
+    inline constexpr int MAX_STARDUSTS = 512;
+    inline constexpr int MAX_PLANET_LAYERS = 3;
 
-    // Game Settings
-    namespace gamesettings {
-        /** Default values for Game Setting */
-        inline constexpr auto  DEFAULT_GAME_ID = "";
-        inline constexpr float DEFAULT_SPAWN_RATE = 1.0f;
-        inline constexpr float DEFAULT_GRAV_STRENGTH = 1.0f;
-        inline constexpr int   DEFAULT_COLOR_COUNT = 4;
-        inline constexpr int   DEFAULT_WIN_MASS = 200;
-    }
+    /** Base values for the game scene */
+    inline constexpr int   BASE_SPAWN_RATE = 40;
+    inline constexpr float BASE_PARALLAX_AMT = 0.1f;
 
-    // GameScene 
-    namespace gamescene {
-        /** Max values for initializing stardusts and planet layers */
-        inline constexpr int MAX_STARDUSTS = 512;
-        inline constexpr int MAX_PLANET_LAYERS = 3;
+#pragma mark PlayerSettings
+    /** Default values for Player Setting */
+    inline constexpr auto  DEFAULT_PLAYER_NAME = "Player Name";
+    inline constexpr float DEFAULT_VOLUME = 0.5f;
+    inline constexpr bool  DEFAULT_MUSIC_ON = true;
+    inline constexpr bool  DEFAULT_PARALLAX_ON = true;
 
-        /** Base values for the game scene */
-        inline constexpr int   BASE_SPAWN_RATE = 40; 
-        inline constexpr float BASE_PARALLAX_AMT = 0.1f;
-    }
+#pragma mark GameSettings
+    /** Default values for Game Setting */
+    inline constexpr auto  DEFAULT_GAME_ID = "";
+    inline constexpr float DEFAULT_SPAWN_RATE = 1.0f;
+    inline constexpr float DEFAULT_GRAV_STRENGTH = 1.0f;
+    inline constexpr int   DEFAULT_COLOR_COUNT = 4;
+    inline constexpr int   DEFAULT_WIN_MASS = 200;
 
 }
 

@@ -10,9 +10,9 @@
 #define __CI_JOIN_MENU_H__
 #include <cugl/cugl.h>
 
-#include  "CIMenuState.h"
+#include "CIMenuState.h"
 #include "CIGameSettings.h"
-#include  "CIGameConstants.h"
+#include "CIGameConstants.h"
 
 /**
  * Model class representing the Join Game menu scene.
