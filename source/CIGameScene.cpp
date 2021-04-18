@@ -123,10 +123,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
         _stardustProb[i] = 100;
     }
     CIColor::setNumColors(_colorCount);
-    
-    _countdown = INACTIVE_WIN_COUNTER;
-    _timeElapsed = 0;
-    
+
     addChild(scene);
     addChild(_planet->getPlanetNode());
     addChild(_stardustContainer->getStardustNode());
