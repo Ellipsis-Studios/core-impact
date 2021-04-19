@@ -15,12 +15,19 @@
 #include "CIColor.h"
 #include "CILocation.h"
 
+#define PROGRESS_ROWS           14
+#define PROGRESS_COLS           15
+#define PROGRESS_NORMAL_END    119
+#define PROGRESS_NORMAL_START    0
+#define PROGRESS_FLASH_END     209
+#define PROGRESS_FLASH_START   120
+
 /** The x offset of the nametag from the corner of the screen */
 #define NAMETAG_X_OFFSET 45
 /** The y offset of the nametag from the corner of the screen */
 #define NAMETAG_Y_OFFSET 80
 
-class OpponentNode : public cugl::scene2::SceneNode {
+class OpponentNode : public cugl::scene2::AnimationNode {
 private:
     /** Graphic asset used to display progress */
     std::shared_ptr<cugl::Texture> _texture;
@@ -36,6 +43,9 @@ private:
     CILocation::Value _location;
     /** The Label used to display the player name of this oppoent */
     std::shared_ptr<cugl::scene2::Label> _nameLabel;
+    
+    /** The amount of time since last animation frame change */
+    float _timeElapsed;
     
     /** The amount of time the full fog texture has be on the screen */
     float _fogTimeOnScreen;
@@ -98,7 +108,7 @@ public:
     /**
      * Creates an opponent node with default values.
      */
-    OpponentNode() : SceneNode(), _progress(0) {} 
+    OpponentNode() : AnimationNode(), _progress(0) {}
     
     /**
      * Disposes the opponent node, releasing all resources.
@@ -122,7 +132,7 @@ public:
     static std::shared_ptr<OpponentNode> alloc(const std::shared_ptr<cugl::Texture>& texture,
                                                float maxwidth, float maxheight) {
         std::shared_ptr<OpponentNode> node = std::make_shared<OpponentNode>();
-        return (node->init(texture, maxwidth, maxheight) ? node : nullptr);
+        return (node->AnimationNode::initWithFilmstrip(texture, PROGRESS_ROWS, PROGRESS_COLS) && node->init(texture, maxwidth, maxheight) ? node : nullptr);
     }
     
     /**
@@ -138,10 +148,11 @@ public:
         _texture = texture;
         _maxwidth = maxwidth;
         _maxheight = maxheight;
+        _timeElapsed = 0;
         _fogTimeOnScreen = 0;
         _fogAnimationProgress = 0;
         _fogOngoing = false;
-        return SceneNode::init();
+        return true;
     }
     
     /**
@@ -169,6 +180,15 @@ public:
             _fogTimeOnScreen = 0;
             _fogAnimationProgress = 0;
             _fogOngoing = true;
+        }
+    }
+    
+    /**
+     * Starts the animation of the progress bar flashing
+     */
+    void startHitAnimation() {
+        if (getFrame() < PROGRESS_FLASH_START) {
+            setFrame(PROGRESS_FLASH_START);
         }
     }
     

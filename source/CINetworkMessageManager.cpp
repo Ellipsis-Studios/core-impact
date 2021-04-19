@@ -236,7 +236,7 @@ void NetworkMessageManager::receiveMessages() {
                     // put a grey stardust on the queue to indicate it is a reward stardust
                     std::shared_ptr<StardustModel> stardust = StardustModel::alloc(cugl::Vec2(0, 0), cugl::Vec2(0, 0), CIColor::getNoneColor());
                     std::map<int, std::vector<std::shared_ptr<StardustModel>>> map = { { dstPlayer, std::vector<std::shared_ptr<StardustModel>> { stardust } } };
-                    std::shared_ptr<GameUpdate> gameUpdate = GameUpdate::alloc(_conn->getRoomID(), dstPlayer, map, nullptr, timestamp);
+                    std::shared_ptr<GameUpdate> gameUpdate = GameUpdate::alloc(_conn->getRoomID(), srcPlayer, map, nullptr, timestamp);
                     _gameUpdateManager->addGameUpdate(gameUpdate);
                 }
             }

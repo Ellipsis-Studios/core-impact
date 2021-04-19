@@ -43,6 +43,11 @@ public:
     void setName(std::string name, std::shared_ptr<cugl::Font> font);
     
     /**
+     * Starts the animation of the progress bar flashing
+     */
+    void startHitAnimation();
+    
+    /**
      * Set the location of this opponent planet
      *
      * @param location The location of this opponent planet

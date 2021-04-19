@@ -25,6 +25,7 @@
 #include "CIGameUpdateManager.h"
 #include "CINetworkMessageManager.h"
 #include "CIOpponentPlanet.h"
+#include "CIWinScene.h"
 #include "CIGameSettings.h"
 #include "CIPlayerSettings.h"
 #include "CIGameConstants.h"
@@ -76,11 +77,11 @@ protected:
     // Game Settings
     std::shared_ptr<GameSettings> _gameSettings;
 
-    /** Countdown to reset the game after winning/losing */
-    float _countdown;
-    
     /** Time since last animation frame update */
     float _timeElapsed;
+    
+    /** Pointer to the win scene */
+    std::shared_ptr<WinScene> _winScene;
     
 public:
 #pragma mark -

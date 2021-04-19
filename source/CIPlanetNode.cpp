@@ -21,7 +21,7 @@ void PlanetNode::draw(const std::shared_ptr<cugl::SpriteBatch>& batch,
     AnimationNode::draw(batch,transform, tint);
 }
 
-void PlanetNode::update(float timestep, bool isLockingIn, int numLayers) {
+void PlanetNode::update(float timestep, bool isLockingIn, int numLayers, bool canLockIn) {
     _timeElapsed += timestep;
     if (_timeElapsed > PLANETNODE_SPF) {
         _timeElapsed = 0;
@@ -35,8 +35,9 @@ void PlanetNode::update(float timestep, bool isLockingIn, int numLayers) {
             if (node != nullptr && node->innerRing) {
                 bool isLockedIn = _layers->at(ii).isLockedIn;
                 bool locking = (ii == numLayers-1) && isLockingIn;
+                bool lockingAvaliable = (ii == numLayers-1) && canLockIn;
                 advanceInnerLayerFrame(node);
-                advanceOuterLayerFrame(node, isLockedIn, locking);
+                advanceOuterLayerFrame(node, isLockedIn, locking, lockingAvaliable);
             }
         }
     }
@@ -48,10 +49,12 @@ void PlanetNode::advanceInnerLayerFrame(LayerNode* node){
     node->innerRing->setFrame(innerFrame);
 }
 
-void PlanetNode::advanceOuterLayerFrame(LayerNode* node, bool isLockedIn, bool isLockingIn){
+void PlanetNode::advanceOuterLayerFrame(LayerNode* node, bool isLockedIn, bool isLockingIn, bool canLockIn){
     unsigned int outerFrame = node->outerRing->getFrame();
     if (isLockingIn){
         outerFrame = (outerFrame < OUTER_RING_LOCKIN_START or outerFrame > OUTER_RING_LOCKIN_END) ?  OUTER_RING_LOCKIN_START : outerFrame += 1;
+    } else if (canLockIn){
+        outerFrame = (outerFrame < OUTER_RING_PULSE_START or outerFrame > OUTER_RING_PULSE_END) ?  OUTER_RING_PULSE_START : outerFrame += 1;
     } else if (isLockedIn){
         outerFrame = (outerFrame >= OUTER_RING_LOCK_END) ? OUTER_RING_LOCK_START : outerFrame + 1;
     } else {
