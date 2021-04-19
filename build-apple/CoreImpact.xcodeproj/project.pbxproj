@@ -21,6 +21,9 @@
 		3D94040725FFC52400043357 /* CIGameUpdateManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D94040625FFC52400043357 /* CIGameUpdateManager.cpp */; };
 		3D94040825FFC52400043357 /* CIGameUpdateManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D94040625FFC52400043357 /* CIGameUpdateManager.cpp */; };
 		3D94040925FFC52400043357 /* CIGameUpdateManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D94040625FFC52400043357 /* CIGameUpdateManager.cpp */; };
+		3DA35B1C262B56A500A578DF /* CIWinScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DA35B1B262B56A500A578DF /* CIWinScene.cpp */; };
+		3DA35B1D262B56A500A578DF /* CIWinScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DA35B1B262B56A500A578DF /* CIWinScene.cpp */; };
+		3DA35B1E262B56A500A578DF /* CIWinScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DA35B1B262B56A500A578DF /* CIWinScene.cpp */; };
 		3DCE833825FDC3B8007EBA2D /* CIGameUpdate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCE833725FDC3B8007EBA2D /* CIGameUpdate.cpp */; };
 		3DCE833925FDC3B8007EBA2D /* CIGameUpdate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCE833725FDC3B8007EBA2D /* CIGameUpdate.cpp */; };
 		3DCE833A25FDC3B8007EBA2D /* CIGameUpdate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCE833725FDC3B8007EBA2D /* CIGameUpdate.cpp */; };
@@ -178,6 +181,9 @@
 		3D563BF725F6D5B7006641B1 /* CIPlanetNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CIPlanetNode.cpp; sourceTree = "<group>"; };
 		3D94040225FFC50C00043357 /* CIGameUpdateManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIGameUpdateManager.h; sourceTree = "<group>"; };
 		3D94040625FFC52400043357 /* CIGameUpdateManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CIGameUpdateManager.cpp; sourceTree = "<group>"; };
+		3DA35B17262B569400A578DF /* CIWinScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIWinScene.h; sourceTree = "<group>"; };
+		3DA35B1B262B56A500A578DF /* CIWinScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CIWinScene.cpp; sourceTree = "<group>"; };
+		3DA35AE2262929B300A578DF /* CIGameSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIGameSettings.h; sourceTree = "<group>"; };
 		3DCE833625FDB914007EBA2D /* CIGameUpdate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIGameUpdate.h; sourceTree = "<group>"; };
 		3DCE833725FDC3B8007EBA2D /* CIGameUpdate.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CIGameUpdate.cpp; sourceTree = "<group>"; };
 		3DCF90D22605198D00B97FA1 /* CINetworkMessageManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CINetworkMessageManager.h; sourceTree = "<group>"; };
@@ -345,6 +351,7 @@
 				CA9A2DC725EDBD6A0048D02F /* CIStardustModel.h */,
 				0A5AFAD825F0B5320003669C /* CIStardustQueue.cpp */,
 				0A5AFAD725F0B5320003669C /* CIStardustQueue.h */,
+				3DA35AE2262929B300A578DF /* CIGameSettings.h */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -382,6 +389,8 @@
 				42B54D5A261B8C000097D816 /* CISettingsMenu.h */,
 				42B54D46261B854D0097D816 /* CITutorialMenu.cpp */,
 				42B54D42261B83F80097D816 /* CITutorialMenu.h */,
+				3DA35B17262B569400A578DF /* CIWinScene.h */,
+				3DA35B1B262B56A500A578DF /* CIWinScene.cpp */,
 			);
 			name = Scene;
 			sourceTree = "<group>";
@@ -745,6 +754,7 @@
 				3DCF91202607B5B600B97FA1 /* CINetworkUtils.cpp in Sources */,
 				EBFA52A021FA5D1300CCC2C5 /* CIGameScene.cpp in Sources */,
 				426951F2260FCE5000E675E9 /* CIMenuScene.cpp in Sources */,
+				3DA35B1E262B56A500A578DF /* CIWinScene.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -775,6 +785,7 @@
 				3DCF911F2607B5B600B97FA1 /* CINetworkUtils.cpp in Sources */,
 				EBFA529F21FA5D1300CCC2C5 /* CIGameScene.cpp in Sources */,
 				426951F1260FCE5000E675E9 /* CIMenuScene.cpp in Sources */,
+				3DA35B1D262B56A500A578DF /* CIWinScene.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -805,6 +816,7 @@
 				3DCF911E2607B5B600B97FA1 /* CINetworkUtils.cpp in Sources */,
 				EB2BE9B61D74952A002FE78B /* main.cpp in Sources */,
 				426951F0260FCE5000E675E9 /* CIMenuScene.cpp in Sources */,
+				3DA35B1C262B56A500A578DF /* CIWinScene.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

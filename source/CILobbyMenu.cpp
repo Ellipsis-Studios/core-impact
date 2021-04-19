@@ -236,7 +236,7 @@ void LobbyMenu::update(MenuState& state, string& joingame, string& playername, s
 
             // handle game lobby settings (only visible to the host)
             _currSpawn = _currGrav = _currWin = 2;
-            _currColor = 4;
+            _currColor = 2;
             _lobbySpawnRate = spawnRate = _spawnRates[_currSpawn];
             _lobbyGravityStrength = gravStrength = _gravStrengths[_currGrav];
             _lobbyColorCount = colorCount = _colorCounts[_currColor];

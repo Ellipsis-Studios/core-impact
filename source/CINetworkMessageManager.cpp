@@ -127,7 +127,6 @@ void NetworkMessageManager::sendMessages() {
     data.clear();
     CULog("SENT PU> SRC[%i], CLR[%i], SIZE[%f]", playerId, planetColor, planetSize);
 
-    // TODO: send win game message
     if (gameUpdate->getPlanet()->isWinner()) {
         if (playerId == 0) {
             // if we are the host and win first then we immediately send the won game message
@@ -157,14 +156,12 @@ void NetworkMessageManager::sendMessages() {
 
 /**
  * Receives messages sent over the network and adds them to the queue in game update manager.
- *
- * @param bounds The bounds of the screen
  */
-void NetworkMessageManager::receiveMessages(cugl::Size bounds) {
+void NetworkMessageManager::receiveMessages() {
     if (_conn == nullptr)
         return;
 
-    _conn->receive([this, bounds](const std::vector<uint8_t>& recv) {
+    _conn->receive([this](const std::vector<uint8_t>& recv) {
         if (!recv.empty()) {
             int message_type = NetworkUtils::decodeInt(recv[0], recv[1], recv[2], recv[3]);
 
@@ -239,7 +236,7 @@ void NetworkMessageManager::receiveMessages(cugl::Size bounds) {
                     // put a grey stardust on the queue to indicate it is a reward stardust
                     std::shared_ptr<StardustModel> stardust = StardustModel::alloc(cugl::Vec2(0, 0), cugl::Vec2(0, 0), CIColor::getNoneColor());
                     std::map<int, std::vector<std::shared_ptr<StardustModel>>> map = { { dstPlayer, std::vector<std::shared_ptr<StardustModel>> { stardust } } };
-                    std::shared_ptr<GameUpdate> gameUpdate = GameUpdate::alloc(_conn->getRoomID(), dstPlayer, map, nullptr, timestamp);
+                    std::shared_ptr<GameUpdate> gameUpdate = GameUpdate::alloc(_conn->getRoomID(), srcPlayer, map, nullptr, timestamp);
                     _gameUpdateManager->addGameUpdate(gameUpdate);
                 }
             }
@@ -253,6 +250,7 @@ void NetworkMessageManager::receiveMessages(cugl::Size bounds) {
                 
                 std::shared_ptr<StardustModel> stardust = StardustModel::alloc(cugl::Vec2(0, 0), cugl::Vec2(0, 0), CIColor::Value(stardustColor));
                 stardust->setStardustType(StardustModel::Type(powerup));
+                stardust->setPreviousOwner(srcPlayer);
                 std::map<int, std::vector<std::shared_ptr<StardustModel>>> map = { { getPlayerId(), std::vector<std::shared_ptr<StardustModel>> { stardust } } };
                 std::shared_ptr<GameUpdate> gameUpdate = GameUpdate::alloc(_conn->getRoomID(), srcPlayer, map, nullptr, timestamp);
                 _gameUpdateManager->addGameUpdate(gameUpdate);

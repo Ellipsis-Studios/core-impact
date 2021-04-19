@@ -17,6 +17,7 @@
 #include "CILoadingScene.h"
 #include "CIMenuScene.h"
 #include "CINetworkMessageManager.h"
+#include "CIGameSettings.h"
 
 /**
  * This class represents the application root for the ship demo.
@@ -30,6 +31,9 @@ protected:
 
     // SHARED MANAGER
     std::shared_ptr<NetworkMessageManager> _networkMessageManager;
+    
+    /** The settings for the current game */
+    std::shared_ptr<GameSettings> _gameSettings;
 
     // Player modes
     /** The primary controller for the game world */
