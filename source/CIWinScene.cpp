@@ -62,7 +62,7 @@ void WinScene::setWinner(int winnerPlayerId, int playerId) {
     if (winnerPlayerId == playerId) {
         _gameOutcomeLabel->setText("Congratulations! You won the game!");
     } else {
-        _gameOutcomeLabel->setText("Sorry! Player " + std::to_string(playerId) + " won the game.");
+        _gameOutcomeLabel->setText("Sorry! Player " + std::to_string(winnerPlayerId) + " won the game.");
     }
 }
 
