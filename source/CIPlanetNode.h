@@ -17,7 +17,7 @@
 #include "CIPlanetLayer.h"
 
 #define PLANET_RING_TEXTURE_INNER_SIZE 140
-#define PLANET_OUTER_RING_SCALE 1.770
+#define PLANET_OUTER_RING_SCALE 0.7
 
 /** Number of rows and cols in inner ring film strip */
 #define INNER_RING_ROWS   10
@@ -30,14 +30,16 @@
 #define CORE_END    151
 #define CORE_START  0
 
-#define OUTER_RING_ROWS             17
+#define OUTER_RING_ROWS             24
 #define OUTER_RING_COLS             13
 #define OUTER_RING_UNLOCK_START     0
-#define OUTER_RING_UNLOCK_END       12
-#define OUTER_RING_LOCKIN_START     13
-#define OUTER_RING_LOCKIN_END       117
-#define OUTER_RING_LOCK_START       118
-#define OUTER_RING_LOCK_END         216
+#define OUTER_RING_UNLOCK_END       60
+#define OUTER_RING_PULSE_START      61
+#define OUTER_RING_PULSE_END        87
+#define OUTER_RING_LOCKIN_START     118
+#define OUTER_RING_LOCKIN_END       221
+#define OUTER_RING_LOCK_START       222
+#define OUTER_RING_LOCK_END         299
 
 class PlanetNode : public cugl::scene2::AnimationNode {
 private:
@@ -67,7 +69,7 @@ private:
     void advanceInnerLayerFrame(LayerNode* node);
   
     /* Updates the animation frame for the outer layer */
-    void advanceOuterLayerFrame(LayerNode* node, bool isLockedIn, bool isLockingIn);
+    void advanceOuterLayerFrame(LayerNode* node, bool isLockedIn, bool isLockingIn, bool canLockIn);
     
 protected:
     /** The texture of an innner ring */
@@ -82,7 +84,7 @@ public:
     
     ~PlanetNode() { dispose(); }
 
-    void update(float timestep, bool isLockingIn, int numLayers);
+    void update(float timestep, bool isLockingIn, int numLayers, bool canLockIn);
   
     static std::shared_ptr<PlanetNode> alloc(const std::shared_ptr<cugl::Texture>& core,
                                              const std::shared_ptr<cugl::Texture>& ring,

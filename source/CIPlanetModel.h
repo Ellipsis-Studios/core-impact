@@ -87,6 +87,15 @@ public:
     }
     
     /**
+     * Returns if the player can lock in the layer
+     *
+     * @return true if the layer can be locked in, false otherwise
+     */
+    const bool canLockIn() const {
+        return getCurrLayerProgress() >= _layerLockinTotal;
+    }
+    
+    /**
      * Returns the total amount of stardust need to lock in the current layer
      *
      * @return the amount of stardust needed to lock in the current layer
