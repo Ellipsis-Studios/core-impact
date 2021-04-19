@@ -27,6 +27,8 @@ class SettingsMenu {
 private:
     /** Menu state for the upcoming frame */
     MenuState _nextState;
+    /** Reference to the player settings */
+    std::shared_ptr<PlayerSettings> _playerSettings;
 
     // Asset references
     /** Reference to the node for the group representing this menu scene */
@@ -71,22 +73,24 @@ public:
     /**
      * Initializes a new settings menu with the state pointer.
      *
-     * @param assets        The (loaded) assets for this settings menu
+     * @param assets            The (loaded) assets for this settings menu
+     * @param playerSettings    The player's saved settings value
      *
      * @return true if initialization was successful, false otherwise
      */
-    bool init(const std::shared_ptr<cugl::AssetManager>& assets);
+    bool init(const std::shared_ptr<cugl::AssetManager>& assets, const std::shared_ptr<PlayerSettings>& playerSettings);
 
     /**
      * Returns a newly allocated settings menu.
      *
-     * @param assets        The (loaded) assets for this settings menu
+     * @param assets            The (loaded) assets for this settings menu
+     * @param playerSettings    The player's saved settings value
      *
      * @return a newly allocated settings menu
      */
-    static std::shared_ptr<SettingsMenu> alloc(const std::shared_ptr<cugl::AssetManager>& assets) {
+    static std::shared_ptr<SettingsMenu> alloc(const std::shared_ptr<cugl::AssetManager>& assets, const std::shared_ptr<PlayerSettings>& playerSettings) {
         std::shared_ptr<SettingsMenu> result = std::make_shared<SettingsMenu>();
-        return (result->init(assets) ? result : nullptr);
+        return (result->init(assets, playerSettings) ? result : nullptr);
     }
 
 #pragma mark -
@@ -104,7 +108,7 @@ public:
      * This method handles transitions into and out of settings menu along
      * with any updates within the settings menu scene.
      */
-    void update(MenuState& state, const std::shared_ptr<PlayerSettings>& playerSettings);
+    void update(MenuState& state);
 
     /**
      * Returns the root scene node for the settings menu layer.

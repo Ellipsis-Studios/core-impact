@@ -36,10 +36,10 @@ public:
      * @return true if the initialization was successful
      */
     bool init() {
-        _playerName = constants::DEFAULT_PLAYER_NAME;
-        _volume = constants::DEFAULT_VOLUME;
-        _musicOn = constants::DEFAULT_MUSIC_ON;
-        _parallaxOn = constants::DEFAULT_PARALLAX_ON;
+        _playerName = CONSTANTS::DEFAULT_PLAYER_NAME;
+        _volume = CONSTANTS::DEFAULT_VOLUME;
+        _musicOn = CONSTANTS::DEFAULT_MUSIC_ON;
+        _parallaxOn = CONSTANTS::DEFAULT_PARALLAX_ON;
         return true;
     }
 
@@ -68,10 +68,10 @@ public:
      * Sets the values of player settings from a json value.
      */
     void setPlayerSettings(const std::shared_ptr<cugl::JsonValue>& playerSettings) {
-        _playerName = constants::DEFAULT_PLAYER_NAME;
-        _volume = constants::DEFAULT_VOLUME;
-        _musicOn = constants::DEFAULT_MUSIC_ON;
-        _parallaxOn = constants::DEFAULT_PARALLAX_ON;
+        _playerName = CONSTANTS::DEFAULT_PLAYER_NAME;
+        _volume = CONSTANTS::DEFAULT_VOLUME;
+        _musicOn = CONSTANTS::DEFAULT_MUSIC_ON;
+        _parallaxOn = CONSTANTS::DEFAULT_PARALLAX_ON;
 
         if (playerSettings != nullptr) {
             string pname = playerSettings->getString("PlayerName", "Player Name");

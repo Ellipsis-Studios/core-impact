@@ -26,8 +26,6 @@
 using namespace cugl;
 using namespace std;
 
-/** Value for the winning counter when inactive (game not won) */
-#define INACTIVE_WIN_COUNTER -10.0f
 
 /** Starting value for the winning countdown (game was won) */
 #define START_WIN_COUNTER 2.0f
@@ -35,10 +33,9 @@ using namespace std;
 #pragma mark -
 #pragma mark Animations
 /** Seconds per frame for Game Scene background animation */
-#define GAMESCENE_SPF .066
+#define BACKGROUND_SPF .066
 /** Game Scene background animation start frame */
 #define BACKGROUND_START 0
-
 /** Game Scene background animation end frame */
 #define BACKGROUND_END 240
 
@@ -54,18 +51,16 @@ using namespace std;
  *
  * @param assets                The (loaded) assets for this game mode
  * @param networkMessageManager The reference to network message manager
- * @param playerSettings        The player's saved settings value
  * @param gameSettings          The settings for the current game
  *
  * @return true if the controller is initialized properly, false otherwise.
  */
 bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     const std::shared_ptr<NetworkMessageManager>& networkMessageManager,
-    const std::shared_ptr<PlayerSettings>& playerSettings,
     const std::shared_ptr<GameSettings>& gameSettings) {
     // Initialize the scene to a locked width
     Size dimen = Application::get()->getDisplaySize();
-    dimen *= constants::SCENE_WIDTH/dimen.width; // Lock the game to a reasonable resolution
+    dimen *= CONSTANTS::SCENE_WIDTH/dimen.width; // Lock the game to a reasonable resolution
     if (assets == nullptr) {
         return false;
     } else if (!Scene2::init(dimen)) {
@@ -100,7 +95,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 
     // Create the planet model
     _planet = PlanetModel::alloc(dimen.width / 2, dimen.height / 2, CIColor::getNoneColor(), 
-        constants::MAX_PLANET_LAYERS, gameSettings->getGravStrength(), gameSettings->getPlanetMassToWin());
+        CONSTANTS::MAX_PLANET_LAYERS, gameSettings->getGravStrength(), gameSettings->getPlanetMassToWin());
     auto coreTexture = _assets->get<Texture>("core");
     auto ringTexture = _assets->get<Texture>("innerRing");
     auto unlockedTexture = _assets->get<Texture>("unlockedOuterRing");
@@ -108,13 +103,10 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _planet->setTextures(coreTexture, ringTexture, unlockedTexture, lockedTexture);
 
     _draggedStardust = NULL;
-    _stardustContainer = StardustQueue::alloc(constants::MAX_STARDUSTS, coreTexture);
+    _stardustContainer = StardustQueue::alloc(CONSTANTS::MAX_STARDUSTS, coreTexture);
 
     // TODO: resize to number of players in the game and add opponent planet nodes to scene graph
     _opponent_planets.resize(5);
-
-    // Player Settings
-    _playerSettings = playerSettings;
 
     // Game settings
     _gameSettings = gameSettings;
@@ -125,7 +117,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     }
     CIColor::setNumColors(gameSettings->getColorCount());
     
-    _countdown = INACTIVE_WIN_COUNTER;
+    _countdown = -10.0f;
     _timeElapsed = 0;
     
     addChild(scene);
@@ -169,7 +161,7 @@ void GameScene::dispose() {
  */
 void GameScene::update(float timestep) {
     Size dimen = Application::get()->getDisplaySize();
-    dimen *= constants::SCENE_WIDTH/dimen.width;
+    dimen *= CONSTANTS::SCENE_WIDTH/dimen.width;
     _input.update(timestep);
     
     _massHUD->setText("Room: " + _networkMessageManager->getRoomId()
@@ -178,7 +170,7 @@ void GameScene::update(float timestep) {
     
      // Handle counting down then switching to loading screen
      if (_networkMessageManager->getWinnerPlayerId() != -1) {
-         if (_countdown <= INACTIVE_WIN_COUNTER) {
+         if (_countdown <= -10.0f) {
              // handle winning. starts off win countdown
              CULog("Game won.");
              _countdown = START_WIN_COUNTER;
@@ -186,7 +178,7 @@ void GameScene::update(float timestep) {
              // handle win countdown
              _countdown -= timestep;
              return;
-         } else if (_countdown > INACTIVE_WIN_COUNTER) {
+         } else if (_countdown > 10.0f) {
              // handle resetting game
              setActive(false);
              return;
@@ -194,7 +186,7 @@ void GameScene::update(float timestep) {
      }
     
     _timeElapsed += timestep;
-    if (_timeElapsed > GAMESCENE_SPF) {
+    if (_timeElapsed > BACKGROUND_SPF) {
         unsigned int bkgrdFrame = _farSpace->getFrame();
         _timeElapsed = 0;
         bkgrdFrame = (bkgrdFrame == BACKGROUND_END) ? BACKGROUND_START : bkgrdFrame + 1;
@@ -282,12 +274,12 @@ void GameScene::updateDraggedStardust() {
  *  @param bounds the bounds of the game screen
  */
 void GameScene::addStardust(const Size bounds) {
-    if (_stardustContainer->size() == constants::MAX_STARDUSTS) {
+    if (_stardustContainer->size() == CONSTANTS::MAX_STARDUSTS) {
         return;
     }
     
     // handle game settings
-    size_t spawn_probability = constants::BASE_SPAWN_RATE + (_stardustContainer->size() * constants::BASE_SPAWN_RATE);
+    size_t spawn_probability = CONSTANTS::BASE_SPAWN_RATE + (_stardustContainer->size() * CONSTANTS::BASE_SPAWN_RATE);
     spawn_probability = spawn_probability / _gameSettings->getSpawnRate();
     if (rand() % spawn_probability != 0) {
         return;
@@ -317,7 +309,7 @@ void GameScene::addStardust(const Size bounds) {
         if (spawnRand <= 0){
             c = CIColor::Value(i);
             spawnRand = probSum;
-            _stardustProb[i] = max(_stardustProb[i] - constants::BASE_SPAWN_RATE, 0);
+            _stardustProb[i] = max(_stardustProb[i] - CONSTANTS::BASE_SPAWN_RATE, 0);
         } else {
             _stardustProb[i] += 10;
         }

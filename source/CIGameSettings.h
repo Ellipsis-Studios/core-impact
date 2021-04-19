@@ -60,11 +60,11 @@ public:
      * Resets the setting values to default. 
      */
     void reset() {
-        _gameId = constants::DEFAULT_GAME_ID;
-        _spawnRate = constants::DEFAULT_SPAWN_RATE;
-        _gravStrength = constants::DEFAULT_GRAV_STRENGTH;
-        _colorCount = constants::DEFAULT_COLOR_COUNT;
-        _planetMassToWin = constants::DEFAULT_WIN_MASS;
+        _gameId = CONSTANTS::DEFAULT_GAME_ID;
+        _spawnRate = CONSTANTS::DEFAULT_SPAWN_RATE;
+        _gravStrength = CONSTANTS::DEFAULT_GRAV_STRENGTH;
+        _colorCount = CONSTANTS::DEFAULT_COLOR_COUNT;
+        _planetMassToWin = CONSTANTS::DEFAULT_WIN_MASS;
     }
 
     /** 

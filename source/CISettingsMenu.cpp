@@ -45,11 +45,11 @@ void SettingsMenu::dispose() {
  *
  * @return true if initialization was successful, false otherwise
  */
-bool SettingsMenu::init(const std::shared_ptr<cugl::AssetManager>& assets) {
+bool SettingsMenu::init(const std::shared_ptr<cugl::AssetManager>& assets, const std::shared_ptr<PlayerSettings>& playerSettings) {
     // Initialize the scene to a locked width
     Size dimen = Application::get()->getDisplaySize();
     // Lock the scene to a reasonable resolution
-    dimen *= constants::SCENE_WIDTH / dimen.width;
+    dimen *= CONSTANTS::SCENE_WIDTH / dimen.width;
     if (assets == nullptr) {
         return false;
     }
@@ -57,6 +57,8 @@ bool SettingsMenu::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     _layer = assets->get<scene2::SceneNode>("settings");
     _layer->setContentSize(dimen);
     _layer->doLayout();
+
+    _playerSettings = playerSettings;
 
     _settingsTitle = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("settings_title"));
     _pnameLabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("settings_namelabel"));
@@ -129,7 +131,7 @@ void SettingsMenu::setDisplay(bool onDisplay) {
  * states into Setting state puts the screen on display. The screen
  * is taken down once menu state exits Setting.
  */
-void SettingsMenu::update(MenuState& state, const std::shared_ptr<PlayerSettings>& playerSettings) {
+void SettingsMenu::update(MenuState& state) {
     if (_layer == nullptr) {
         return;
     }
@@ -140,20 +142,20 @@ void SettingsMenu::update(MenuState& state, const std::shared_ptr<PlayerSettings
             // handle transitioning into Settings 
             setDisplay(true);
         
-            _pnameInput->setText(playerSettings->getPlayerName());
-            _volumeSlider->setValue(playerSettings->getVolume());
-            _musicBtn->setDown(!playerSettings->getMusicOn());
-            _parallaxBtn->setDown(!playerSettings->getParallaxOn());
+            _pnameInput->setText(_playerSettings->getPlayerName());
+            _volumeSlider->setValue(_playerSettings->getVolume());
+            _musicBtn->setDown(!_playerSettings->getMusicOn());
+            _parallaxBtn->setDown(!_playerSettings->getParallaxOn());
 
             state = MenuState::Setting;
             _nextState = MenuState::Setting;
             break;
         case MenuState::Setting:
             // handle updating asset visuals and transitioning out of Settings
-            playerSettings->setPlayerName(_pnameInput->getText());
-            playerSettings->setVolume(_volumeSlider->getValue());
-            playerSettings->setMusicOn(!_musicBtn->isDown());
-            playerSettings->setParallaxOn(!_parallaxBtn->isDown());
+            _playerSettings->setPlayerName(_pnameInput->getText());
+            _playerSettings->setVolume(_volumeSlider->getValue());
+            _playerSettings->setMusicOn(!_musicBtn->isDown());
+            _playerSettings->setParallaxOn(!_parallaxBtn->isDown());
 
             state = _nextState;
             break;

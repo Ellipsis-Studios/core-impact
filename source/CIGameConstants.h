@@ -12,7 +12,7 @@
 /** 
  * Namespace of constants used in the game.
  */
-namespace constants {
+namespace CONSTANTS {
 #pragma mark Scenes 
     /** Scene width for all the scenes */
     inline constexpr int SCENE_WIDTH = 1024;

@@ -33,7 +33,7 @@ bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     // Initialize the scene to a locked width
     Size dimen = Application::get()->getDisplaySize();
     // Lock the scene to a reasonable resolution
-    dimen *= constants::SCENE_WIDTH / dimen.width;
+    dimen *= CONSTANTS::SCENE_WIDTH / dimen.width;
     if (assets == nullptr) {
         return false;
     }
@@ -97,13 +97,13 @@ bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _tutorial = TutorialMenu::alloc(_assets);
     _tutorial->setDisplay(false);
 
-    _settings = SettingsMenu::alloc(_assets);
+    _settings = SettingsMenu::alloc(_assets, playerSettings);
     _settings->setDisplay(false);
 
-    _join = JoinMenu::alloc(_assets);
+    _join = JoinMenu::alloc(_assets, gameSettings);
     _join->setDisplay(false);
 
-    _lobby = LobbyMenu::alloc(_assets);
+    _lobby = LobbyMenu::alloc(_assets, playerSettings, gameSettings);
     _lobby->setDisplay(false);
 
     addChild(_mainmenu->getLayer(), 0);
@@ -206,10 +206,10 @@ void MenuScene::update(float timestep) {
             _active = false;
             break;
         default:
-            _lobby->update(_state, _playerSettings, _gameSettings);
+            _lobby->update(_state);
             _mainmenu->update(_state);
-            _settings->update(_state, _playerSettings);
-            _join->update(_state, _gameSettings);
+            _settings->update(_state);
+            _join->update(_state);
             _tutorial->update(_state);
             break;
     }
