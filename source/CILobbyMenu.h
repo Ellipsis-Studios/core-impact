@@ -11,6 +11,7 @@
 #include <cugl/cugl.h>
 
 #include  "CIMenuState.h"
+#include  "CINetworkMessageManager.h"
 
 /**
  * Model class representing the Game Lobby menu scene.
@@ -85,6 +86,8 @@ private:
 
     /** Reference to game lobby's button to start gameplay */
     std::shared_ptr<cugl::scene2::Button> _gameStartBtn;
+    /** The network message manager for managing connections to other players */
+    std::shared_ptr<NetworkMessageManager> _networkMessageManager;
 
 public:
 #pragma mark -
@@ -112,7 +115,7 @@ public:
      *
      * @return true if initialization was successful, false otherwise
      */
-    bool init(const std::shared_ptr<cugl::AssetManager>& assets);
+    bool init(const std::shared_ptr<cugl::AssetManager>& assets, std::shared_ptr<NetworkMessageManager> networkMessageManager);
 
     /**
      * Returns a newly allocated game lobby menu.
@@ -121,9 +124,10 @@ public:
      *
      * @return a newly allocated game lobby menu
      */
-    static std::shared_ptr<LobbyMenu> alloc(const std::shared_ptr<cugl::AssetManager>& assets) {
+    static std::shared_ptr<LobbyMenu> alloc(const std::shared_ptr<cugl::AssetManager>& assets,
+        std::shared_ptr<NetworkMessageManager> networkMessageManager) {
         std::shared_ptr<LobbyMenu> result = std::make_shared<LobbyMenu>();
-        return (result->init(assets) ? result : nullptr);
+        return (result->init(assets, networkMessageManager) ? result : nullptr);
     }
 
 #pragma mark -
@@ -141,7 +145,7 @@ public:
      * This method handles transitions into and out of game lobby menu along
      * with any updates within the game lobby menu scene.
      */
-    void update(MenuState& state, string& joingame, string& playername, std::vector<string>& othernames,
+    void update(MenuState& state, string& joingame, string& playername,
         float& spawnRate, float& gravStrength, uint8_t& colorCount, uint16_t& winPlayerMass);
 
     /**

@@ -7,6 +7,7 @@
 //
 
 #include "CIMenuScene.h"
+#include "CINetworkMessageManager.h"
 
 using namespace cugl;
 
@@ -30,7 +31,7 @@ using namespace cugl;
  * @return true if the controller is initialized properly, false otherwise.
  */
 bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
-    string playerName, float volume, bool musicOn, bool parallaxOn) {
+    string playerName, float volume, bool musicOn, bool parallaxOn, std::shared_ptr<NetworkMessageManager> networkMessageManager) {
     // Initialize the scene to a locked width
     Size dimen = Application::get()->getDisplaySize();
     // Lock the scene to a reasonable resolution
@@ -67,6 +68,7 @@ bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
                     break;
                 case MenuState::GameLobby:
                     _state = MenuState::LobbyToMain;
+                    networkMessageManager->setGameState(GameState::OnMenuScreen);
                     break;
                 case MenuState::Tutorial:
                     _state = MenuState::TutorialToMain;
@@ -84,9 +86,6 @@ bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _volume = volume;
     _musicOn = musicOn;
     _parallaxOn = parallaxOn;
-
-    /** Default game settings */
-    _otherNames = vector<string>{ "N/A", "N/A", "N/A", "N/A" };
     _joinGame = "";
     _spawnRate = 1.0f;
     _gravStrength = 1.0f;
@@ -110,7 +109,7 @@ bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _join = JoinMenu::alloc(_assets);
     _join->setDisplay(false);
 
-    _lobby = LobbyMenu::alloc(_assets);
+    _lobby = LobbyMenu::alloc(_assets, networkMessageManager);
     _lobby->setDisplay(false);
 
     addChild(_mainmenu->getLayer(), 0);
@@ -133,7 +132,7 @@ bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
  * @return true if the controller is initialized properly, false otherwise.
  */
 bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
-    const std::shared_ptr<cugl::JsonValue>& playerSettings) {
+    const std::shared_ptr<cugl::JsonValue>& playerSettings, std::shared_ptr<NetworkMessageManager> networkMessageManager) {
     // Load in saved settings file
     _playerName = "Player Name";
     _volume = 0.5f;
@@ -149,7 +148,7 @@ bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
         _parallaxOn = playerSettings->getBool("ParallaxOn", true);
     }
 
-    return init(assets, _playerName, _volume, _musicOn, _parallaxOn);
+    return init(assets, _playerName, _volume, _musicOn, _parallaxOn, networkMessageManager);
 }
 
 /**
@@ -158,7 +157,7 @@ bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
  * Meant to be used to re-initialize the menu scene on game reset.
  */
 bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
-    return init(assets, _playerName, _volume, _musicOn, _parallaxOn);
+    return init(assets, _playerName, _volume, _musicOn, _parallaxOn, _networkMessageManager);
 }
 
 /**
@@ -202,6 +201,7 @@ void MenuScene::dispose() {
  * previous screen's assets then activating/setting visible the upcoming screen's assets.
  * 
  * @param timestep  The amount of time (in seconds) since the last frame
+ * @param networkMessageManager  The network message manager for managing connections to other players
  */
 void MenuScene::update(float timestep) {
     if (!isActive() || _backBtn == nullptr) {
@@ -243,7 +243,7 @@ void MenuScene::update(float timestep) {
             _active = false;
             break;
         default:
-            _lobby->update(_state, _joinGame, _playerName, _otherNames,
+            _lobby->update(_state, _joinGame, _playerName,
                 _spawnRate, _gravStrength, _colorCount, _winCondition);
             _mainmenu->update(_state);
             _settings->update(_state, _playerName, _volume, _musicOn, _parallaxOn);

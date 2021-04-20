@@ -64,8 +64,6 @@ protected:
 
     /** Stores the game code for joining as client*/
     string _joinGame;
-    /** Value for other players' names */
-    vector<string> _otherNames;
 
     // Game lobby settings
     /** Value for the rate of stardust spawning */
@@ -80,6 +78,9 @@ protected:
 
     // Menu scene state value
     MenuState _state;
+
+    /** The network message manager for managing connections to other players */
+    std::shared_ptr<NetworkMessageManager> _networkMessageManager;
 
 public:
 #pragma mark -
@@ -132,7 +133,7 @@ public:
      * @return true if the controller is initialized properly, false otherwise.
      */
     bool init(const std::shared_ptr<cugl::AssetManager>& assets,
-        const std::shared_ptr<cugl::JsonValue>& playerSettings);
+        const std::shared_ptr<cugl::JsonValue>& playerSettings, std::shared_ptr<NetworkMessageManager> networkMessageManager);
 
     /**
      * Initializes the controller contents, making it ready for loading
@@ -149,8 +150,8 @@ public:
      *
      * @return true if the controller is initialized properly, false otherwise.
      */
-    bool init(const std::shared_ptr<cugl::AssetManager>& assets,
-        string playerName, float volume, bool musicOn, bool parallaxOn);
+    bool init(const std::shared_ptr<cugl::AssetManager>& assets, 
+        string playerName, float volume, bool musicOn, bool parallaxOn, std::shared_ptr<NetworkMessageManager> networkMessageManager);
 
 #pragma mark -
 #pragma mark Menu Monitoring
@@ -159,7 +160,8 @@ public:
      *
      * This method updates the progress bar amount.
      *
-     * @p6aram timestep  The amount of time (in seconds) since the last frame
+     * @param timestep  The amount of time (in seconds) since the last frame
+     * @param networkMessageManager  The network message manager for managing connections to other players
      */
     void update(float timestep);
 
@@ -223,15 +225,6 @@ public:
         playerSettings->appendValue("Volume", _volume);
         playerSettings->appendValue("MusicOn", _musicOn);
         playerSettings->appendValue("ParallaxOn", _parallaxOn);
-    }
-
-    /**
-     * Returns the list of other player names in the game lobby.
-     *
-     * @return vector<string> list of other player names
-     */
-    const vector<string>& getOtherPlayerNames() const {
-        return _otherNames;
     }
 
     /**
