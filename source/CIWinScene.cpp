@@ -29,10 +29,15 @@ void WinScene::dispose() {
  * Initializes a new win scene.
  *
  * @param assets    The (loaded) assets for this win scene
+ * @param dimen      The size of the screen
  *
  * @return true if initialization was successful, false otherwise
  */
-bool WinScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
+bool WinScene::init(const std::shared_ptr<cugl::AssetManager>& assets, cugl::Size dimen) {
+    auto win = assets->get<cugl::scene2::SceneNode>("game_win");
+    win->setContentSize(dimen);
+    win->doLayout();
+    
     _gameOutcomeLabel = std::dynamic_pointer_cast<cugl::scene2::Label>(assets->get<cugl::scene2::SceneNode>("game_win_gameOutcomeLabel"));
     _backToHomeButton = std::dynamic_pointer_cast<cugl::scene2::Button>(assets->get<cugl::scene2::SceneNode>("game_win_backToHomeButton"));
     _backToHomeButton->addListener([&](const std::string& name, bool down) {
