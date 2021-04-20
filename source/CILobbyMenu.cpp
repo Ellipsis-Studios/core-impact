@@ -54,7 +54,7 @@ void LobbyMenu::dispose() {
     _nextState = MenuState::GameLobby;
     _lobbySpawnRate = 1.0f;
     _lobbyGravityStrength = 1.0f;
-    _lobbyColorCount = 6;
+    _lobbyColorCount = 4;
     _lobbyWinPlanetMass = 200;
 }
 
@@ -149,7 +149,7 @@ bool LobbyMenu::init(const std::shared_ptr<cugl::AssetManager>& assets, std::sha
     _nextState = MenuState::GameLobby;
     _lobbySpawnRate = 1.0f;
     _lobbyGravityStrength = 1.0f;
-    _lobbyColorCount = 6;
+    _lobbyColorCount = 4;
     _lobbyWinPlanetMass = 200;
     return true;
 }

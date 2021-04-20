@@ -92,7 +92,7 @@ public:
      * This allows us to use the object without a heap pointer.
      */
     MenuScene() : cugl::Scene2(), _volume(0.5f), _musicOn(true), _parallaxOn(true),
-        _spawnRate(1.0f), _gravStrength(1.0f), _colorCount(6), _winCondition(200) {}
+        _spawnRate(1.0f), _gravStrength(1.0f), _colorCount(4), _winCondition(200) {}
 
     /**
     * Disposes of all (non-static) resources allocated to this mode.
