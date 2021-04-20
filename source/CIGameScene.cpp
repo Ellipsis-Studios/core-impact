@@ -98,7 +98,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _massHUD  = std::dynamic_pointer_cast<scene2::Label>(_assets->get<scene2::SceneNode>("game_hud"));
     
     // create the win scene
-    _winScene = WinScene::alloc(assets);
+    _winScene = WinScene::alloc(assets, dimen);
 
     // Create the planet model
     _planet = PlanetModel::alloc(dimen.width / 2, dimen.height / 2, CIColor::getNoneColor(), MAX_PLANET_LAYERS, gameSettings->getGravStrength(), gameSettings->getPlanetMassToWin());
