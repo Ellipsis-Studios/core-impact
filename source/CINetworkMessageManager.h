@@ -30,8 +30,17 @@ private:
     /** The timestamp of the next message to send. */
     int _timestamp;
     
-    /**Thie id of the player who was won the game. -1 if the game is still ongoing. */
-    int _winner_player_id;
+    /** The id of the player who was won the game. -1 if the game is still ongoing. */
+    int _winnerPlayerId;
+
+    /* string containing player name */
+    string _playerName;
+
+    /* vector containing other player names */
+    std::vector<string> _otherNames;
+
+    /* string containing room ID for non-hosts */
+    string _roomId;
     
 public:
 #pragma mark -
@@ -79,6 +88,18 @@ public:
     void setGameuUpdateManager(std::shared_ptr<GameUpdateManager> gameUpdateManager) {
         _gameUpdateManager = gameUpdateManager;
     }
+
+    std::vector<string> getOtherNames() {
+        return _otherNames;
+    }
+
+    void setPlayerName(string playerName) {
+        _playerName = playerName;
+    }
+
+    void setOtherNames(std::vector<string> otherNames) {
+        _otherNames = otherNames;
+    }
     
     /**
      * Returns the game state
@@ -87,6 +108,10 @@ public:
      */
     GameState getGameState() {
         return _gameState;
+    }
+
+    void setGameState(GameState gameState) {
+        _gameState = gameState;
     }
     
     /**
@@ -98,8 +123,17 @@ public:
         if (_conn == nullptr) {
             return "";
         }
+
+        // if player is non host, return saved room ID
+        if (getPlayerId() > 0) {
+            return _roomId;
+        }
         
         return _conn->getRoomID();
+    }
+
+    void setRoomID(string roomID) {
+        _roomId = roomID;
     }
     
     int getPlayerId() {
@@ -113,7 +147,7 @@ public:
     }
     
     int getWinnerPlayerId() {
-        return _winner_player_id;
+        return _winnerPlayerId;
     }
 
 

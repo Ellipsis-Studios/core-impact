@@ -131,7 +131,10 @@ void CoreImpactApp::update(float timestep) {
             _playerSettings = _reader->readJson();
         }
 
-        _menu.init(_assets, _playerSettings);
+        if (_networkMessageManager == nullptr) {
+            _networkMessageManager = NetworkMessageManager::alloc();
+        }
+        _menu.init(_assets, _playerSettings, _networkMessageManager);
         _loaded = true;
     }
     else if (!_startGame && _menu.isActive()) {
