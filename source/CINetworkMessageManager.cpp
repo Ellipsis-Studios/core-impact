@@ -288,10 +288,10 @@ void NetworkMessageManager::receiveMessages() {
                 CULog("RCVD PLAYERNAME> PLAYERNAME[%s], PLAYER[%i], TS[%i]", player_name.c_str(), playerId, timestamp);
 
                 if (playerId > getPlayerId()) {
-                    _otherNames.insert(_otherNames.begin() + playerId - 1, player_name);
+                    _otherNames[(playerId - 1)] = player_name;
                 }
                 else {
-                    _otherNames.insert( _otherNames.begin() + playerId, player_name);
+                    _otherNames[playerId] = player_name;
                 }
             }
             else if (message_type == NetworkUtils::MessageType::StardustHit) {
