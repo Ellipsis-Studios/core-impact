@@ -11,9 +11,10 @@
 #include <cugl/cugl.h>
 #include "CIOpponentNode.h"
 
-#define SPF .033 //seconds per frame
-#define FOG_SEC_ON_SCREEN  10
-#define FOG_FRAMES  60
+#define BAR_PROGRESS_DELTA  .003
+#define SPF                 .033 //seconds per frame
+#define FOG_SEC_ON_SCREEN     10
+#define FOG_FRAMES            60
 
 /**
  * Disposes the Stardust node, releasing all resources.
@@ -33,15 +34,15 @@ void OpponentNode::draw(const std::shared_ptr<cugl::SpriteBatch>& batch,
     cugl::Vec2 reflection = getReflectFromLocation(_location);
     
     cugl::Mat4 horizontalBarTransform;
-    horizontalBarTransform.scale((_progress * _maxwidth * reflection.x) / width, reflection.y, 1);
-    horizontalBarTransform.translate(0, height * reflection.x / 2, 0);
+    horizontalBarTransform.scale((_maxwidth * reflection.x) / width, reflection.y, 1);
+    horizontalBarTransform.translate(_maxwidth * -reflection.x * (1 - _barProgress), height * -reflection.y / 2, 0);
     horizontalBarTransform.multiply(transform);
     AnimationNode::draw(batch, horizontalBarTransform, tint);
     
     cugl::Mat4 verticalBarTransform;
     verticalBarTransform.rotateZ(-M_PI / 2);
-    verticalBarTransform.scale(reflection.x, (_progress * _maxheight * -reflection.y) / width, 1);
-    verticalBarTransform.translate(height * reflection.y / 2, 0, 0);
+    verticalBarTransform.scale(reflection.x, (_maxheight * -reflection.y) / width, 1);
+    verticalBarTransform.translate(height * -reflection.x / 2, _maxheight * -reflection.y * (1 - _barProgress), 0);
     verticalBarTransform.multiply(transform);
     AnimationNode::draw(batch, verticalBarTransform, tint);
     
@@ -70,6 +71,11 @@ void OpponentNode::update(float timestep) {
         } else {
             setFrame(getFrame() + 1);
         }
+    }
+    
+    float progressDifference = _progress - _barProgress;
+    if (abs(progressDifference) > BAR_PROGRESS_DELTA) {
+        _barProgress += BAR_PROGRESS_DELTA * (progressDifference < 0 ? -1 : 1);
     }
     
     if (_fogOngoing) {
