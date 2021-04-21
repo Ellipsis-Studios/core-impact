@@ -15,6 +15,7 @@
 #include <string>
 #include "CIGameUpdateManager.h"
 #include "CIGameState.h"
+#include "CIGameSettings.h"
 
 class NetworkMessageManager {
 private:
@@ -41,6 +42,9 @@ private:
 
     /* string containing room ID for non-hosts */
     string _roomId;
+
+    /** Reference to the game settings */
+    std::shared_ptr<GameSettings> _gameSettings;
     
 public:
 #pragma mark -
@@ -99,6 +103,10 @@ public:
 
     void setOtherNames(std::vector<string> otherNames) {
         _otherNames = otherNames;
+    }
+
+    void setGameSettings(std::shared_ptr<GameSettings>& gameSettings) {
+        _gameSettings = gameSettings;
     }
     
     /**
