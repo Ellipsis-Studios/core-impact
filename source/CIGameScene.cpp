@@ -48,12 +48,14 @@ using namespace std;
  * @param assets                The (loaded) assets for this game mode
  * @param networkMessageManager The reference to network message manager
  * @param gameSettings          The settings for the current game
+ * @param playerSettings        The settings for the current player
  *
  * @return true if the controller is initialized properly, false otherwise.
  */
 bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     const std::shared_ptr<NetworkMessageManager>& networkMessageManager,
-    const std::shared_ptr<GameSettings>& gameSettings) {
+    const std::shared_ptr<GameSettings>& gameSettings,
+    const std::shared_ptr<PlayerSettings>& playerSettings) {
     // Initialize the scene to a locked width
     Size dimen = Application::get()->getDisplaySize();
     dimen *= CONSTANTS::SCENE_WIDTH/dimen.width; // Lock the game to a reasonable resolution
@@ -109,6 +111,8 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 
     // Game settings
     _gameSettings = gameSettings;
+    // Player settings
+    _playerSettings = playerSettings;
     
     // update stardustProb to match colorCount
     for (int i = 0; i < gameSettings->getColorCount(); i++) {
@@ -169,7 +173,6 @@ void GameScene::update(float timestep) {
     // Handle counting down then switching to loading screen
     if (_networkMessageManager->getWinnerPlayerId() != -1) {
         if (!_winScene->displayActive()) {
-            // handle winning. starts off win countdown
             CULog("Game won.");
             _winScene->setWinner(_networkMessageManager->getWinnerPlayerId(), _networkMessageManager->getPlayerId());
             _winScene->setDisplay(true);

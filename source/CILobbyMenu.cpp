@@ -228,13 +228,6 @@ void LobbyMenu::update(MenuState& state) {
             _gamelobbyplayerlabel1->setText(_playerSettings->getPlayerName());
 
             // handle game lobby settings (only visible to the host)
-            _currSpawn = _currGrav = _currWin = _currColor = 2;
-
-            _gameSettings->setSpawnRate(_spawnRates[_currSpawn]);
-            _gameSettings->setGravStrength(_gravStrengths[_currGrav]);
-            _gameSettings->setColorCount(_colorCounts[_currColor]);
-            _gameSettings->setPlanetMassToWin(_winMass[_currWin]);
-
             _spawnRateLabel->setText(cugl::strtool::to_string(_gameSettings->getSpawnRate(), 1) + "X");
             _gravStrengthLabel->setText(cugl::strtool::to_string(_gameSettings->getGravStrength(), 1) + "X");
             _colorCountLabel->setText(cugl::strtool::to_string(_gameSettings->getColorCount()));
@@ -275,12 +268,6 @@ void LobbyMenu::update(MenuState& state) {
                 _gamelobbyplayerlabel4->setText(_otherNames.at(2));
                 _gamelobbyplayerlabel5->setText(_otherNames.at(3));
             }
-
-            // Update game settings in global MenuScene  
-            _gameSettings->setSpawnRate(_spawnRates[_currSpawn]);
-            _gameSettings->setGravStrength(_gravStrengths[_currGrav]);
-            _gameSettings->setColorCount(_colorCounts[_currColor]);
-            _gameSettings->setPlanetMassToWin(_winMass[_currWin]);
 
             // Update game setting button labels for the Host
             _spawnRateLabel->setText(cugl::strtool::to_string(_gameSettings->getSpawnRate(), 1) + "X");

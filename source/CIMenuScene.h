@@ -139,10 +139,7 @@ public:
      * @return string room id value of game to join.
      */
     const string getJoinGameId() const {
-        if (_gameSettings == nullptr) {
-            return CONSTANTS::DEFAULT_GAME_ID;
-        }
-        return _gameSettings->getGameId();
+        return (_gameSettings == nullptr) ? CONSTANTS::DEFAULT_GAME_ID : _gameSettings->getGameId();
     }
 
     /**
@@ -151,10 +148,7 @@ public:
      * @return string player name set in settings
      */
     const string getPlayerName() const {
-        if (_playerSettings == nullptr) {
-            return CONSTANTS::DEFAULT_PLAYER_NAME;
-        }
-        return _playerSettings->getPlayerName();
+        return (_playerSettings == nullptr) ? CONSTANTS::DEFAULT_PLAYER_NAME : _playerSettings->getPlayerName();
     }
 
     /**
@@ -163,10 +157,7 @@ public:
      * @return float volume value set in settings
      */
     const float getVolume() const {
-        if (_playerSettings == nullptr) {
-            return CONSTANTS::DEFAULT_VOLUME;
-        }
-        return _playerSettings->getVolume();
+        return (_playerSettings == nullptr) ? CONSTANTS::DEFAULT_VOLUME : _playerSettings->getVolume();
     }
 
     /**
@@ -176,10 +167,7 @@ public:
      * @return bool music toggle value set in settings
      */
     const bool isMusicOn() const {
-        if (_playerSettings == nullptr) {
-            return CONSTANTS::DEFAULT_MUSIC_ON;
-        }
-        return _playerSettings->getMusicOn();
+        return (_playerSettings == nullptr) ? CONSTANTS::DEFAULT_MUSIC_ON : _playerSettings->getMusicOn();
     }
 
     /**
@@ -189,10 +177,7 @@ public:
      * @return bool parallax toggle value set in settings
      */
     const bool isParallaxOn() const {
-        if (_playerSettings == nullptr) {
-            return CONSTANTS::DEFAULT_PARALLAX_ON;
-        }
-        return _playerSettings->getParallaxOn();
+        return (_playerSettings == nullptr) ? CONSTANTS::DEFAULT_PARALLAX_ON : _playerSettings->getParallaxOn();
     }
 
     /**
@@ -225,10 +210,7 @@ public:
      * @return float stardust spawn rate (multiplicative)
      */
     const float getSpawnRate() const {
-        if (_gameSettings == nullptr) {
-            return CONSTANTS::DEFAULT_SPAWN_RATE;
-        }
-        return _gameSettings->getSpawnRate();
+        return (_gameSettings == nullptr) ? CONSTANTS::DEFAULT_SPAWN_RATE : _gameSettings->getSpawnRate();
     }
 
     /**
@@ -237,10 +219,7 @@ public:
      * @return float stardust spawn rate (multiplicative)
      */
     const float getGravStrength() const {
-        if (_gameSettings == nullptr) {
-            return CONSTANTS::DEFAULT_GRAV_STRENGTH;
-        }
-        return _gameSettings->getGravStrength();
+        return (_gameSettings == nullptr) ? CONSTANTS::DEFAULT_GRAV_STRENGTH : _gameSettings->getGravStrength();
     }
 
     /**
@@ -249,10 +228,7 @@ public:
      * @return uint8_t number of stardust colors supported
      */
     const uint8_t getColorCount() const {
-        if (_gameSettings == nullptr) {
-            return CONSTANTS::DEFAULT_COLOR_COUNT;
-        }
-        return _gameSettings->getColorCount();
+        return (_gameSettings == nullptr) ? CONSTANTS::DEFAULT_COLOR_COUNT : _gameSettings->getColorCount();
     }
 
     /**
@@ -261,10 +237,7 @@ public:
      * @return uint16_t planet mass required to win
      */
     const uint16_t getPlanetMassToWinGame() const {
-        if (_gameSettings == nullptr) {
-            return CONSTANTS::DEFAULT_WIN_MASS;
-        }
-        return _gameSettings->getPlanetMassToWin();
+        return (_gameSettings == nullptr) ? CONSTANTS::DEFAULT_WIN_MASS : _gameSettings->getPlanetMassToWin();
     }
 
 };

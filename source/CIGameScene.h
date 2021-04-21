@@ -77,6 +77,9 @@ protected:
     // Game Settings
     std::shared_ptr<GameSettings> _gameSettings;
 
+    // Player Settings
+    std::shared_ptr<PlayerSettings> _playerSettings;
+
     /** Time since last animation frame update */
     float _timeElapsed;
     
@@ -121,12 +124,14 @@ public:
      * @param assets                The (loaded) assets for this game mode
      * @param networkMessageManager The reference to network message manager
      * @param gameSettings          The settings for the current game
+     * @param playerSettings        The settings for the current player
      *
      * @return true if the controller is initialized properly, false otherwise.
      */
     bool init(const std::shared_ptr<cugl::AssetManager>& assets,
         const std::shared_ptr<NetworkMessageManager>& networkMessageManager,
-        const std::shared_ptr<GameSettings>& gameSettings);
+        const std::shared_ptr<GameSettings>& gameSettings, 
+        const std::shared_ptr<PlayerSettings>& playerSettings);
     
 #pragma mark -
 #pragma mark Gameplay Handling

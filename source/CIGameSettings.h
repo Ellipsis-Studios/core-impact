@@ -13,9 +13,7 @@
 #include <cugl/cugl.h>
 #include "CIGameConstants.h"
 
-/** 
- * This model class represents the game settings that user can change from game lobby menu screen.
- */
+
 class GameSettings {
 private:
     /** The game id of the current game */
