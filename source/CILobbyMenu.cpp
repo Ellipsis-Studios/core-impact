@@ -141,6 +141,7 @@ bool LobbyMenu::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _gameStartBtn->addListener([&](const std::string& name, bool down) {
         if (!down) {
             _networkMessageManager->setGameState(GameState::GameStarted);
+            _networkMessageManager->setGameSettings(_gameSettings);
             _networkMessageManager->sendMessages();
             _nextState = MenuState::LobbyToGame;
         }

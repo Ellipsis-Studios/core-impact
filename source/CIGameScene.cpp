@@ -276,6 +276,7 @@ void GameScene::addStardust(const Size bounds) {
     
     // handle game settings
     size_t spawn_probability = CONSTANTS::BASE_SPAWN_RATE + (_stardustContainer->size() * CONSTANTS::BASE_SPAWN_RATE);
+    CULog("%f", _gameSettings->getSpawnRate());
     spawn_probability = spawn_probability / _gameSettings->getSpawnRate();
     if (rand() % spawn_probability != 0) {
         return;

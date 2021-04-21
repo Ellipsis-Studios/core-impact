@@ -68,12 +68,20 @@ void NetworkMessageManager::sendMessages() {
     }
     if (_gameState == GameState::GameStarted) {
         NetworkUtils::encodeInt(NetworkUtils::MessageType::StartGame, data);
+        NetworkUtils::encodeFloat(_gameSettings->getSpawnRate(), data);
+        NetworkUtils::encodeFloat(_gameSettings->getGravStrength(), data);
+        NetworkUtils::encodeInt(_gameSettings->getColorCount(), data);
+        NetworkUtils::encodeInt(_gameSettings->getPlanetMassToWin(), data);
         NetworkUtils::encodeInt(_timestamp, data);
         _timestamp++;
         _conn->send(data);
         data.clear();
-        CULog("SENT START GAME MESSAGE");
+        CULog("SENT START GAME MESSAGE> SPAWNRATE[%f], GRAVSTRENGTH[%f], COLORCOUNT[%i], PLANETMASS[%i]",
+            _gameSettings->getSpawnRate(), _gameSettings->getGravStrength(), _gameSettings->getColorCount(), _gameSettings->getPlanetMassToWin());
         _gameState = GameState::GameInProgress;
+        if (getPlayerId() == 0) {
+            _conn->startGame();
+        }
         return;
     }
 
@@ -255,9 +263,18 @@ void NetworkMessageManager::receiveMessages() {
                 }
             }
             else if (message_type == NetworkUtils::MessageType::StartGame) {
-                int timestamp = NetworkUtils::decodeInt(recv[4], recv[5], recv[6], recv[7]);
+                float spawnRate = NetworkUtils::decodeFloat(recv[4], recv[5], recv[6], recv[7]);
+                float gravStrength = NetworkUtils::decodeFloat(recv[8], recv[9], recv[10], recv[11]);
+                int colorCount = NetworkUtils::decodeInt(recv[12], recv[13], recv[14], recv[15]);
+                int planetMass = NetworkUtils::decodeInt(recv[16], recv[17], recv[18], recv[19]);
+                int timestamp = NetworkUtils::decodeInt(recv[20], recv[21], recv[22], recv[23]);
 
-                CULog("RCVD STARTGAME> TS[%i]", timestamp);
+                CULog("RCVD START GAME MESSAGE> SPAWNRATE[%f], GRAVSTRENGTH[%f], COLORCOUNT[%i], PLANETMASS[%i], TS[%i]", spawnRate, gravStrength, colorCount, planetMass, timestamp);
+
+                _gameSettings->setSpawnRate(spawnRate);
+                _gameSettings->setGravStrength(gravStrength);
+                _gameSettings->setColorCount(colorCount);
+                _gameSettings->setPlanetMassToWin(planetMass);
 
                 _gameState = GameState::GameInProgress;
             }
@@ -293,7 +310,7 @@ void NetworkMessageManager::receiveMessages() {
                 CULog("RCVD PLAYERNAME> PLAYERNAME[%s], PLAYER[%i], TS[%i]", player_name.c_str(), playerId, timestamp);
 
                 if (playerId > getPlayerId()) {
-                    _otherNames[(playerId - 1)] = player_name;
+                    _otherNames[playerId - 1] = player_name;
                 }
                 else {
                     _otherNames[playerId] = player_name;
