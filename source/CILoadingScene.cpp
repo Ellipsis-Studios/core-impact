@@ -72,9 +72,11 @@ bool LoadingScene::init(const std::shared_ptr<AssetManager>& assets) {
  * Disposes of all (non-static) resources allocated to this mode.
  */
 void LoadingScene::dispose() {
-    _teamlogo->setVisible(false);
-    _gameTitle->setVisible(false);
-    _gamePlanet->setVisible(false);
+    if (_teamlogo != nullptr) {
+        _teamlogo->setVisible(false);
+        _gameTitle->setVisible(false);
+        _gamePlanet->setVisible(false);
+    }
     _brand = nullptr;
     _bar = nullptr;
     _assets = nullptr;

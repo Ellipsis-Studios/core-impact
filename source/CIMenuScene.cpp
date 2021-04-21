@@ -130,6 +130,8 @@ bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
  * Disposes of all (non-static) resources allocated to this mode.
  */
 void MenuScene::dispose() {
+    removeAllChildren();
+    
     // Deactivate the button (platform dependent)
     if (_backBtn != nullptr && _backBtn->isVisible()) {
         _backBtn->deactivate();

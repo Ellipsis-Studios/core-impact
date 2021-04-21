@@ -168,9 +168,8 @@ void CoreImpactApp::update(float timestep) {
         _networkMessageManager = nullptr;
         
         _menu.removeAllChildren();
-        _loaded = true;
+        _loaded = false;
         _startGame = false;
-        _menu.init(_assets);
     }
 }
 
