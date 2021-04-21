@@ -10,8 +10,6 @@
 
 using namespace cugl;
 
-#define SCENE_SIZE  1024
-
 #pragma mark -
 #pragma mark Constructors
 
@@ -28,7 +26,6 @@ void JoinMenu::dispose() {
     _layer = nullptr;
 
     _nextState = MenuState::JoinRoom;
-    _joinRoomId = "00000";
 }
 
 /**
@@ -38,11 +35,12 @@ void JoinMenu::dispose() {
  *
  * @return true if initialization was successful, false otherwise
  */
-bool JoinMenu::init(const std::shared_ptr<cugl::AssetManager>& assets) {
+bool JoinMenu::init(const std::shared_ptr<cugl::AssetManager>& assets,
+    const std::shared_ptr<GameSettings>& gameSettings) {    
     // Initialize the scene to a locked width
     Size dimen = Application::get()->getDisplaySize();
     // Lock the scene to a reasonable resolution
-    dimen *= SCENE_SIZE / dimen.width;
+    dimen *= CONSTANTS::SCENE_WIDTH / dimen.width;
     if (assets == nullptr) {
         return false;
     }
@@ -50,6 +48,8 @@ bool JoinMenu::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     _layer = assets->get<scene2::SceneNode>("join");
     _layer->setContentSize(dimen);
     _layer->doLayout();
+
+    _gameSettings = gameSettings;
     
     // Room id Input 
     _roomIdInput = std::dynamic_pointer_cast<scene2::TextField>(assets->get<scene2::SceneNode>("join_roomidinput"));
@@ -61,7 +61,9 @@ bool JoinMenu::init(const std::shared_ptr<cugl::AssetManager>& assets) {
         });
     _roomIdInput->addExitListener([&](const std::string& name, const std::string& value) {
         // Set game room id value
-        _joinRoomId = value;
+        if (_gameSettings != nullptr) {
+            _gameSettings->setGameId(value);
+        }
         CULog("Room id set to %s", value.c_str());
         });
 
@@ -109,7 +111,7 @@ void JoinMenu::setDisplay(bool onDisplay) {
  * screen is put on display on states transitioning into JoinRoom.
  * Screen is taken down once menu state exits JoinRoom.
  */
-void JoinMenu::update(MenuState& state, string& joingame) {
+void JoinMenu::update(MenuState& state) {
     if (_layer == nullptr) {
         return;
     }
@@ -119,15 +121,13 @@ void JoinMenu::update(MenuState& state, string& joingame) {
         case MenuState::MainToJoin:
             // handle transitioning into JoinRoom
             setDisplay(true);
-            joingame = "00000";
-            _joinRoomId = "00000";
-            _roomIdInput->setText(_joinRoomId);
+            _gameSettings->setGameId("00000");
+            _roomIdInput->setText(_gameSettings->getGameId());
             state = MenuState::JoinRoom;
             _nextState = MenuState::JoinRoom;
             break;
         case MenuState::JoinRoom:
             // handle roomid input and transition out of JoinRoom
-            joingame = _joinRoomId;
             state = _nextState;
             break;
         default:

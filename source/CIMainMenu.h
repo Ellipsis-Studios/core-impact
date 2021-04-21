@@ -10,7 +10,8 @@
 #define __CI_MAIN_MENU_H__
 #include <cugl/cugl.h>
 
-#include  "CIMenuState.h"
+#include "CIMenuState.h"
+#include "CIGameConstants.h"
 
 /**
  * This class is the Main Menu screen within the Menu Scenes.

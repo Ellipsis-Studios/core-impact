@@ -11,6 +11,7 @@
 #include <cugl/cugl.h>
 
 #include  "CIMenuState.h"
+#include "CIGameConstants.h"
 
 /**
  * Model class representing the Tutorial menu scene.
