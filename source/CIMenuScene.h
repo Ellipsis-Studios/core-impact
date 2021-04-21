@@ -62,11 +62,16 @@ protected:
     // Game settings
     std::shared_ptr<GameSettings> _gameSettings;
 
+    /** Stores the game code for joining as client*/
+    string _joinGame;
     /** Value for other players' names */
     vector<string> _otherNames;
 
     // Menu scene state value
     MenuState _state;
+
+    /** The network message manager for managing connections to other players */
+    std::shared_ptr<NetworkMessageManager> _networkMessageManager;
 
 public:
 #pragma mark -
@@ -112,15 +117,37 @@ public:
      * us to have a non-pointer reference to this controller, reducing our
      * memory allocation.  Instead, allocation happens in this method.
      *
-     * @param assets            The (loaded) assets for this game mode
-     * @param playerSettings    The player's saved settings value
-     * @param gameSettings      The settings for the current game
+     * @param assets                The (loaded) assets for this game mode
+     * @param networkMessageManager The network message manager for the game
+     * @param gameSettings          The settings for the current game
+     * @param playerSettings        The player's saved settings value
      *
      * @return true if the controller is initialized properly, false otherwise.
      */
     bool init(const std::shared_ptr<cugl::AssetManager>& assets,
-        const std::shared_ptr<PlayerSettings>& playerSettings,
-        const std::shared_ptr<GameSettings>& gameSettings);
+        const std::shared_ptr<NetworkMessageManager>& networkMessageManager,
+        const std::shared_ptr<GameSettings>& gameSettings,
+        const std::shared_ptr<PlayerSettings>& playerSettings);
+
+    /**
+     * Initializes the controller contents, making it ready for loading
+     *
+     * The constructor does not allocate any objects or memory.  This allows
+     * us to have a non-pointer reference to this controller, reducing our
+     * memory allocation.  Instead, allocation happens in this method.
+     *
+     * @param assets                The (loaded) assets for this game mode
+     * @param networkMessageManager The network message manager for the game
+     * @param playerName            The player name value
+     * @param volume                The game volume setting value
+     * @param musicOn               The musicOn setting value
+     * @param parallaxOn            The parallax effect setting value
+     *
+     * @return true if the controller is initialized properly, false otherwise.
+     */
+    bool init(const std::shared_ptr<cugl::AssetManager>& assets, 
+        std::shared_ptr<NetworkMessageManager> networkMessageManager,
+        string playerName, float volume, bool musicOn, bool parallaxOn);
 
 #pragma mark -
 #pragma mark Menu Monitoring
@@ -129,7 +156,8 @@ public:
      *
      * This method updates the progress bar amount.
      *
-     * @p6aram timestep  The amount of time (in seconds) since the last frame
+     * @param timestep  The amount of time (in seconds) since the last frame
+     * @param networkMessageManager  The network message manager for managing connections to other players
      */
     void update(float timestep);
 
@@ -196,15 +224,6 @@ public:
     }
 
     /**
-     * Returns the list of other player names in the game lobby.
-     *
-     * @return vector<string> list of other player names
-     */
-    const vector<string>& getOtherPlayerNames() const {
-        return _otherNames;
-    }
-
-    /**
      * Returns the spawn rate for new stardusts set in game lobby.
      *
      * @return float stardust spawn rate (multiplicative)
@@ -232,9 +251,9 @@ public:
     }
 
     /**
-     * Returns the planet mass required to win set in game lobby.
+     * Returns the game win planet condition value set in game lobby.
      *
-     * @return uint16_t planet mass required to win
+     * @return uint16_t win planet condition value (mass/num of layeres)
      */
     const uint16_t getPlanetMassToWinGame() const {
         return (_gameSettings == nullptr) ? CONSTANTS::DEFAULT_WIN_MASS : _gameSettings->getPlanetMassToWin();

@@ -17,7 +17,7 @@
 #include "CIPlanetLayer.h"
 
 #define PLANET_RING_TEXTURE_INNER_SIZE 140
-#define PLANET_OUTER_RING_SCALE 0.7
+#define PLANET_OUTER_RING_SCALE 0.75
 
 /** Number of rows and cols in inner ring film strip */
 #define INNER_RING_ROWS   10
@@ -33,7 +33,7 @@
 #define OUTER_RING_ROWS             24
 #define OUTER_RING_COLS             13
 #define OUTER_RING_UNLOCK_START     0
-#define OUTER_RING_UNLOCK_END       60
+#define OUTER_RING_UNLOCK_END       52
 #define OUTER_RING_PULSE_START      61
 #define OUTER_RING_PULSE_END        87
 #define OUTER_RING_LOCKIN_START     118

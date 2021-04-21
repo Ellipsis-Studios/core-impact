@@ -7,12 +7,12 @@
 //
 
 #include "CIMenuScene.h"
+#include "CINetworkMessageManager.h"
 
 using namespace cugl;
 
 #pragma mark -
 #pragma mark Constructors
-
 
 /**
  * Initializes the controller contents, making it ready for loading
@@ -21,23 +21,24 @@ using namespace cugl;
  * us to have a non-pointer reference to this controller, reducing our
  * memory allocation.  Instead, allocation happens in this method.
  *
- * @param assets            The (loaded) assets for this game mode
- * @param playerSettings    The player's saved settings value
- * @param gameSettings      The settings for the current game
+ * @param assets                The (loaded) assets for this game mode
+ * @param networkMessageManager The network message manager for the game
+ * @param gameSettings          The settings for the current game
+ * @param playerSettings        The player's saved settings value
  *
  * @return true if the controller is initialized properly, false otherwise.
  */
 bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
-    const std::shared_ptr<PlayerSettings>& playerSettings,
-    const std::shared_ptr<GameSettings>& gameSettings) {
+    const std::shared_ptr<NetworkMessageManager>& networkMessageManager,
+    const std::shared_ptr<GameSettings>& gameSettings,
+    const std::shared_ptr<PlayerSettings>& playerSettings) {
     // Initialize the scene to a locked width
     Size dimen = Application::get()->getDisplaySize();
     // Lock the scene to a reasonable resolution
     dimen *= CONSTANTS::SCENE_WIDTH / dimen.width;
     if (assets == nullptr) {
         return false;
-    }
-    else if (!Scene2::init(dimen)) {
+    } else if (!Scene2::init(dimen)) {
         return false;
     }
 
@@ -49,7 +50,7 @@ bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _teamLogo = assets->get<scene2::SceneNode>("menu_teamLogo");
     _gameTitle = assets->get<scene2::SceneNode>("menu_title");
     _gamePlanet = assets->get<scene2::SceneNode>("menu_world");
-    const float rend = dimen.getIWidth() / 4.0f; // Set game title/planet position to one from end of loading scene
+    const float rend = dimen.getIWidth()/ 4.0f; // Set game title/planet position to one from end of loading scene
     _gameTitle->setPositionX(rend);
     _gamePlanet->setPositionX(rend);
 
@@ -57,7 +58,7 @@ bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _backBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_menubackbutton"));
     _backBtn->addListener([=](const std::string& name, bool down) {
         if (!down) {
-            switch (_state)
+            switch (_state) 
             {
                 case MenuState::Setting:
                     _state = MenuState::SettingToMain;
@@ -67,6 +68,7 @@ bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
                     break;
                 case MenuState::GameLobby:
                     _state = MenuState::LobbyToMain;
+                    networkMessageManager->setGameState(GameState::OnMenuScreen);
                     break;
                 case MenuState::Tutorial:
                     _state = MenuState::TutorialToMain;
@@ -103,7 +105,7 @@ bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _join = JoinMenu::alloc(_assets, gameSettings);
     _join->setDisplay(false);
 
-    _lobby = LobbyMenu::alloc(_assets, playerSettings, gameSettings);
+    _lobby = LobbyMenu::alloc(_assets, networkMessageManager, gameSettings, playerSettings);
     _lobby->setDisplay(false);
 
     addChild(_mainmenu->getLayer(), 0);
@@ -121,7 +123,7 @@ bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
  * Meant to be used to re-initialize the menu scene on game reset.
  */
 bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
-    return init(assets, _playerSettings, _gameSettings);
+    return init(assets, _networkMessageManager, _gameSettings, _playerSettings);
 }
 
 /**
@@ -165,6 +167,7 @@ void MenuScene::dispose() {
  * previous screen's assets then activating/setting visible the upcoming screen's assets.
  * 
  * @param timestep  The amount of time (in seconds) since the last frame
+ * @param networkMessageManager  The network message manager for managing connections to other players
  */
 void MenuScene::update(float timestep) {
     if (!isActive() || _backBtn == nullptr) {

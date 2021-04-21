@@ -136,7 +136,12 @@ void CoreImpactApp::update(float timestep) {
         // prepare both settings 
         _playerSettings->setPlayerSettings(prevPlayerSettings);
         _gameSettings->reset(); 
-        _menu.init(_assets, _playerSettings, _gameSettings);
+        
+        // Network manager
+        if (_networkMessageManager == nullptr) {
+            _networkMessageManager = NetworkMessageManager::alloc();
+        }
+        _menu.init(_assets, _networkMessageManager, _gameSettings, _playerSettings);
         _loaded = true;
     }
     else if (!_startGame && _menu.isActive()) {

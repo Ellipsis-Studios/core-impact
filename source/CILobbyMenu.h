@@ -3,7 +3,7 @@
 //  CoreImpact
 //
 //  Created by Richard Yoon on 4/5/21.
-//  Copyright � 2021 Game Design Initiative at Cornell. All rights reserved.
+//  Copyright © 2021 Game Design Initiative at Cornell. All rights reserved.
 //
 
 #ifndef __CI_LOBBY_MENU_H__
@@ -14,6 +14,7 @@
 #include "CIPlayerSettings.h"
 #include "CIGameSettings.h"
 #include "CIGameConstants.h"
+#include "CINetworkMessageManager.h"
 
 /**
  * Model class representing the Game Lobby menu scene.
@@ -35,6 +36,9 @@ private:
     std::shared_ptr<PlayerSettings> _playerSettings;
     /** Reference to the game settings */
     std::shared_ptr<GameSettings> _gameSettings;
+
+    /** The network message manager for managing connections to other players */
+    std::shared_ptr<NetworkMessageManager> _networkMessageManager;
 
     // Asset references
     /** Reference to the node for the group representing this menu scene */
@@ -81,10 +85,6 @@ private:
     std::shared_ptr<cugl::scene2::SceneNode> _winMassBtnLabel;
     const uint16_t _winMass[5] = { 100, 150, 200, 250, 300 };
     uint8_t _currWin;
-    
-    // TODO: replace with calls to network manager
-    /** Value for other players' names */
-    vector<string> _otherNames;
 
     /** Reference to game lobby's button to start gameplay */
     std::shared_ptr<cugl::scene2::Button> _gameStartBtn;
@@ -95,12 +95,7 @@ public:
     /**
      * Creates a new game lobby with default values.
      */
-    LobbyMenu() {
-        _nextState = MenuState::GameLobby;
-        _otherNames = vector<string>{ "N/A", "N/A", "N/A", "N/A" };
-
-        _currSpawn = _currGrav = _currWin = _currColor = 2;
-    }
+    LobbyMenu() : _nextState(MenuState::GameLobby), _currSpawn(2), _currGrav(2), _currWin(2), _currColor(2) {}
 
     /**
      * Disposes of all (non-static) resources allocated to this menu.
@@ -115,30 +110,34 @@ public:
     /**
      * Initializes a new game lobby menu with the state pointer.
      *
-     * @param assets            The (loaded) assets for this game lobby menu
-     * @param playerSettings    The player's saved settings value
-     * @param gameSettings      The settings for the current game
+     * @param assets                The (loaded) assets for this game lobby menu
+     * @param networkMessageManager The network message manager for the game
+     * @param gameSettings          The settings for the current game
+     * @param playerSettings        The player's saved settings value
      *
      * @return true if initialization was successful, false otherwise
      */
-    bool init(const std::shared_ptr<cugl::AssetManager>& assets, 
-        const std::shared_ptr<PlayerSettings>& playerSettings,
-        const std::shared_ptr<GameSettings>& gameSettings);
+    bool init(const std::shared_ptr<cugl::AssetManager>& assets,
+        const std::shared_ptr<NetworkMessageManager>& networkMessageManager,
+        const std::shared_ptr<GameSettings>& gameSettings,
+        const std::shared_ptr<PlayerSettings>& playerSettings);
 
     /**
      * Returns a newly allocated game lobby menu.
      *
      * @param assets        The (loaded) assets for this game lobby menu
-     * @param playerSettings    The player's saved settings value
-     * @param gameSettings      The settings for the current game
+     * @param networkMessageManager The network message manager for the game
+     * @param gameSettings          The settings for the current game
+     * @param playerSettings        The player's saved settings value
      *
      * @return a newly allocated game lobby menu
      */
     static std::shared_ptr<LobbyMenu> alloc(const std::shared_ptr<cugl::AssetManager>& assets, 
-        const std::shared_ptr<PlayerSettings>& playerSettings,
-        const std::shared_ptr<GameSettings>& gameSettings) {
+        const std::shared_ptr<NetworkMessageManager>& networkMessageManager,
+        const std::shared_ptr<GameSettings>& gameSettings,
+        const std::shared_ptr<PlayerSettings>& playerSettings) {
         std::shared_ptr<LobbyMenu> result = std::make_shared<LobbyMenu>();
-        return (result->init(assets, playerSettings, gameSettings) ? result : nullptr);
+        return (result->init(assets, networkMessageManager, gameSettings, playerSettings) ? result : nullptr);
     }
 
 #pragma mark -

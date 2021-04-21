@@ -7,6 +7,7 @@
 //
 
 #include "CILobbyMenu.h"
+#include "CINetworkMessageManager.h"
 
 using namespace cugl;
 
@@ -59,8 +60,10 @@ void LobbyMenu::dispose() {
  *
  * @return true if initialization was successful, false otherwise
  */
-bool LobbyMenu::init(const std::shared_ptr<cugl::AssetManager>& assets, const std::shared_ptr<PlayerSettings>& playerSettings, 
-    const std::shared_ptr<GameSettings>& gameSettings) {
+bool LobbyMenu::init(const std::shared_ptr<cugl::AssetManager>& assets,
+    const std::shared_ptr<NetworkMessageManager>& networkMessageManager,
+    const std::shared_ptr<GameSettings>& gameSettings,
+    const std::shared_ptr<PlayerSettings>& playerSettings) {
     // Initialize the scene to a locked width
     Size dimen = Application::get()->getDisplaySize();
     // Lock the scene to a reasonable resolution
@@ -75,6 +78,8 @@ bool LobbyMenu::init(const std::shared_ptr<cugl::AssetManager>& assets, const st
 
     _playerSettings = playerSettings;
     _gameSettings = gameSettings;
+
+    _networkMessageManager = networkMessageManager;
 
     _lobbyRoomLabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_roomidlabel"));
     _gamelobbyplayerName1 = assets->get<scene2::SceneNode>("lobby_playerlabel1");
@@ -135,14 +140,14 @@ bool LobbyMenu::init(const std::shared_ptr<cugl::AssetManager>& assets, const st
     _gameStartBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("lobby_startgamebutton"));
     _gameStartBtn->addListener([&](const std::string& name, bool down) {
         if (!down) {
+            _networkMessageManager->setGameState(GameState::GameStarted);
+            _networkMessageManager->sendMessages();
             _nextState = MenuState::LobbyToGame;
         }
+        return true;
         });
 
     _nextState = MenuState::GameLobby;
-
-    // TODO: replace with calls to network manager
-    _otherNames = vector<string>{ "N/A", "N/A", "N/A", "N/A" };
     return true;
 }
 
@@ -213,13 +218,19 @@ void LobbyMenu::update(MenuState& state) {
     if (_layer == nullptr) {
         return;
     }
+    vector<string> othernames = { "N/A", "N/A", "N/A", "N/A" };;
     // handle GameLobby menu
     switch (state)
     {
         case MenuState::MainToLobby:
         {
             // handle displaying for Host
-            _gameSettings->setGameId("");
+            _networkMessageManager->createGame();
+            _networkMessageManager->setPlayerName(_playerSettings->getPlayerName());
+            _networkMessageManager->setOtherNames(othernames);
+            _networkMessageManager->sendMessages();
+            _networkMessageManager->receiveMessages();
+            _gameSettings->setGameId(_networkMessageManager->getRoomId());
 
             _nextState = state; // prep to setDisplay
             setDisplay(true);
@@ -233,7 +244,8 @@ void LobbyMenu::update(MenuState& state) {
             _colorCountLabel->setText(cugl::strtool::to_string(_gameSettings->getColorCount()));
             _winMassLabel->setText(cugl::strtool::to_string(_gameSettings->getPlanetMassToWin()));
 
-            state = _nextState = MenuState::GameLobby; // reset 
+            state = MenuState::GameLobby;
+            _nextState = MenuState::GameLobby;
             break;
         }
         case MenuState::JoinToLobby:
@@ -241,9 +253,6 @@ void LobbyMenu::update(MenuState& state) {
             // handle setting up the lobby
             _nextState = state; // prep to setDisplay
             setDisplay(true);
-            _lobbyRoomLabel->setText(_gameSettings->getGameId());
-            _gamelobbyplayerlabel1->setText(_playerSettings->getPlayerName());
-            
             // undo player name label offsets for clients
             const float clientOffset = _layer->getContentHeight() / 6.0f;
             _gamelobbyplayerName1->setPositionY(_gamelobbyplayerName1->getPositionY() - clientOffset);
@@ -252,21 +261,34 @@ void LobbyMenu::update(MenuState& state) {
             _gamelobbyplayerName4->setPositionY(_gamelobbyplayerName4->getPositionY() - clientOffset);
             _gamelobbyplayerName5->setPositionY(_gamelobbyplayerName5->getPositionY() - clientOffset);
 
-            state = _nextState = MenuState::GameLobby; // reset 
+            _networkMessageManager->setPlayerName(_playerSettings->getPlayerName());
+            _networkMessageManager->setOtherNames(othernames);
+            _networkMessageManager->joinGame(_gameSettings->getGameId());
+            _networkMessageManager->setRoomID(_gameSettings->getGameId());
+            _networkMessageManager->sendMessages();
+            _networkMessageManager->receiveMessages();
+            _lobbyRoomLabel->setText(_gameSettings->getGameId());
+            _gamelobbyplayerlabel1->setText(_playerSettings->getPlayerName());
+            
+            state = MenuState::GameLobby;
+            _nextState = MenuState::GameLobby;
             break;
         }
         case MenuState::GameLobby:
         {
+            _networkMessageManager->sendMessages();
+            _networkMessageManager->receiveMessages();
+            _lobbyRoomLabel->setText(_networkMessageManager->getRoomId());
+            othernames = _networkMessageManager->getOtherNames();
+            // update other players' labels
+            _gamelobbyplayerlabel2->setText(othernames.at(0));
+            _gamelobbyplayerlabel3->setText(othernames.at(1));
+            _gamelobbyplayerlabel4->setText(othernames.at(2));
+            _gamelobbyplayerlabel5->setText(othernames.at(3));
+
             // handle room player updates and triggering game start
-            if (_lobbyRoomLabel->getText().empty()) {
-                // TODO: update lobby room label using room id from network connection
-            }
-            if (_otherNames.size() == 4) {
-                // update other players' labels
-                _gamelobbyplayerlabel2->setText(_otherNames.at(0));
-                _gamelobbyplayerlabel3->setText(_otherNames.at(1));
-                _gamelobbyplayerlabel4->setText(_otherNames.at(2));
-                _gamelobbyplayerlabel5->setText(_otherNames.at(3));
+            if (_networkMessageManager->getGameState() == GameState::GameInProgress) {
+                _nextState = MenuState::LobbyToGame;
             }
 
             // Update game setting button labels for the Host

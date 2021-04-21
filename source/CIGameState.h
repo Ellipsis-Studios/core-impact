@@ -16,7 +16,9 @@ enum GameState {
     OnMenuScreen,
     JoiningGameAsHost,
     JoiningGameAsNonHost,
+    NameSent,
     GameStarted,
+    GameInProgress,
     DisconnectedFromGame,
     ReconnectingToGame,
     GameOver
