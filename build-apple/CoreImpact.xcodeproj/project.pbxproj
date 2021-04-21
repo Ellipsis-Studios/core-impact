@@ -222,7 +222,7 @@
 		EB2BE9BA1D7498D2002FE78B /* textures */ = {isa = PBXFileReference; lastKnownFileType = folder; path = textures; sourceTree = "<group>"; };
 		EB42669221F68F6900A9DE61 /* DeviceMargins.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DeviceMargins.plist; sourceTree = "<group>"; };
 		EB4EB19D1E3404F3007BCF09 /* CUGL.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CUGL.xcodeproj; path = "../cugl/build-apple/CUGL.xcodeproj"; sourceTree = "<group>"; };
-		EB74548C1D74D75C002FBAE6 /* Core Impact.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Core Impact.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EB74548C1D74D75C002FBAE6 /* Core Impact (iOS).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Core Impact (iOS).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB7454A61D74D846002FBAE6 /* iOS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "iOS-Info.plist"; sourceTree = "<group>"; };
 		EB7454A71D74D846002FBAE6 /* iOS.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = iOS.xcassets; sourceTree = "<group>"; };
 		EB7454A81D74D846002FBAE6 /* Landscape.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Landscape.storyboard; sourceTree = "<group>"; };
@@ -254,7 +254,7 @@
 		EB97E8B325D1839000753535 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.4.sdk/System/Library/Frameworks/CoreVideo.framework; sourceTree = DEVELOPER_DIR; };
 		EB97E8B425D1839000753535 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.4.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		EB97E8C325D183B000753535 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.4.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		EBBF18911D74904A008E2001 /* Core Impact.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Core Impact.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EBBF18911D74904A008E2001 /* Core Impact (Mac).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Core Impact (Mac).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBBF189A1D74904A008E2001 /* Mac.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Mac.xcassets; sourceTree = "<group>"; };
 		EBBF189F1D74904A008E2001 /* Mac-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Mac-Info.plist"; sourceTree = "<group>"; };
 		EBFA528321FA5AAB00CCC2C5 /* CILoadingScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CILoadingScene.cpp; sourceTree = "<group>"; };
@@ -519,8 +519,8 @@
 		EBBF18921D74904A008E2001 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				EBBF18911D74904A008E2001 /* Core Impact.app */,
-				EB74548C1D74D75C002FBAE6 /* Core Impact.app */,
+				EBBF18911D74904A008E2001 /* Core Impact (Mac).app */,
+				EB74548C1D74D75C002FBAE6 /* Core Impact (iOS).app */,
 				EB0FF5FC2016EF4F00517030 /* Core Impact (Sim).app */,
 			);
 			name = Products;
@@ -590,7 +590,7 @@
 			);
 			name = "Core Impact (iOS)";
 			productName = "HelloWorld (iOS)";
-			productReference = EB74548C1D74D75C002FBAE6 /* Core Impact.app */;
+			productReference = EB74548C1D74D75C002FBAE6 /* Core Impact (iOS).app */;
 			productType = "com.apple.product-type.application";
 		};
 		EBBF18901D74904A008E2001 /* Core Impact (Mac) */ = {
@@ -607,7 +607,7 @@
 			);
 			name = "Core Impact (Mac)";
 			productName = "HelloWorld (Mac)";
-			productReference = EBBF18911D74904A008E2001 /* Core Impact.app */;
+			productReference = EBBF18911D74904A008E2001 /* Core Impact (Mac).app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -621,17 +621,15 @@
 				TargetAttributes = {
 					EB0FF5FB2016EF4F00517030 = {
 						CreatedOnToolsVersion = 9.2;
-						DevelopmentTeam = DRVCJ2J2CR;
+						DevelopmentTeam = B836CXCFQ5;
 						ProvisioningStyle = Automatic;
 					};
 					EB74548B1D74D75C002FBAE6 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 779J4S35TN;
-						ProvisioningStyle = Manual;
+						DevelopmentTeam = PLK746L3X4;
 					};
 					EBBF18901D74904A008E2001 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = DRVCJ2J2CR;
 					};
 				};
 			};
@@ -842,17 +840,16 @@
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = DRVCJ2J2CR;
+				DEVELOPMENT_TEAM = B836CXCFQ5;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(STATIC_LIB)";
-				PRODUCT_BUNDLE_IDENTIFIER = dev.ellipsis.coreimpact;
+				PRODUCT_BUNDLE_IDENTIFIER = com.elipsis.sim.coreimpact;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -876,16 +873,15 @@
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = DRVCJ2J2CR;
+				DEVELOPMENT_TEAM = B836CXCFQ5;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(STATIC_LIB)";
-				PRODUCT_BUNDLE_IDENTIFIER = dev.ellipsis.coreimpact;
+				PRODUCT_BUNDLE_IDENTIFIER = com.elipsis.sim.coreimpact;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -900,21 +896,17 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 779J4S35TN;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = PLK746L3X4;
 				ENABLE_BITCODE = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.ellipsis.coreimpact;
-				PRODUCT_NAME = "Core Impact";
-				PROVISIONING_PROFILE_SPECIFIER = "Core Impact";
+				PRODUCT_BUNDLE_IDENTIFIER = com.elipsis.ios.coreimpact;
 				SDKROOT = iphoneos;
-				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -926,21 +918,17 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 779J4S35TN;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = PLK746L3X4;
 				ENABLE_BITCODE = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.ellipsis.coreimpact;
-				PRODUCT_NAME = "Core Impact";
-				PROVISIONING_PROFILE_SPECIFIER = "Core Impact";
+				PRODUCT_BUNDLE_IDENTIFIER = com.elipsis.ios.coreimpact.jackie;
 				SDKROOT = iphoneos;
-				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -980,7 +968,6 @@
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
 				CUGL_INCLUDES = "\"$(SRCROOT)/../cugl/include\"";
-				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -1006,7 +993,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				VALIDATE_WORKSPACE_SKIPPED_SDK_FRAMEWORKS = "OpenGLES OpenGL";
-				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
@@ -1044,7 +1030,6 @@
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
 				CUGL_INCLUDES = "\"$(SRCROOT)/../cugl/include\"";
-				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1064,7 +1049,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				VALIDATE_WORKSPACE_SKIPPED_SDK_FRAMEWORKS = "OpenGLES OpenGL";
-				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};
@@ -1075,11 +1059,9 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = DRVCJ2J2CR;
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/Mac-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = dev.ellipsis.coreimpact;
-				PRODUCT_NAME = "Core Impact";
+				PRODUCT_BUNDLE_IDENTIFIER = com.elipsis.mac.coreimpact;
 			};
 			name = Debug;
 		};
@@ -1090,11 +1072,9 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = DRVCJ2J2CR;
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/Mac-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = dev.ellipsis.coreimpact;
-				PRODUCT_NAME = "Core Impact";
+				PRODUCT_BUNDLE_IDENTIFIER = com.elipsis.mac.coreimpact;
 			};
 			name = Release;
 		};
