@@ -162,7 +162,7 @@ public:
                      const std::shared_ptr<cugl::Texture>& unlocked,
                      const std::shared_ptr<cugl::Texture>& locked);
    
-    const std::shared_ptr<cugl::scene2::SceneNode> getPlanetNode() const {
+    const std::shared_ptr<PlanetNode> getPlanetNode() const {
         return _planetNode;
     }
 

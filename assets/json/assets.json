@@ -18,6 +18,9 @@
     "unlockedOuterRing": {
         "file":   "textures/outerLayerAnimation_v3.png"
     },
+    "taperedArc": {
+        "file":   "textures/player_progress_tapered_v.1.png"
+    },
     "fog": {
         "file":   "textures/fog.png"
     }

@@ -40,6 +40,12 @@ void PlanetNode::update(float timestep, bool isLockingIn, int numLayers, bool ca
                 advanceOuterLayerFrame(node, isLockedIn, locking, lockingAvaliable);
             }
         }
+        
+        for (int ii = 0; ii < _progressNodes.size(); ii++) {
+            if (_progressNodes[ii] != nullptr) {
+                _progressNodes[ii]->update(timestep);
+            }
+        }
     }
 }
 
@@ -69,6 +75,9 @@ void PlanetNode::setLayers(std::vector<PlanetLayer>* layers) {
     
     if (_layerNodes.size() != layers->size()) {
         _layerNodes.resize(layers->size());
+    }
+    if (_progressNodes.size() != layers->size()) {
+        _progressNodes.resize(layers->size());
     }
     for (int ii = 0; ii < layers->size(); ii++) {
         LayerNode* node = &_layerNodes[ii];
@@ -103,6 +112,14 @@ void PlanetNode::setLayers(std::vector<PlanetLayer>* layers) {
             }
             node->innerRing->setColor(CIColor::getColor4(layers->at(ii).layerColor));
             node->outerRing->setColor(CIColor::getColor4(layers->at(ii).layerColor));
+        }
+        
+        if (_taperedArcTexture != nullptr && getScene() != nullptr) {
+            if (_progressNodes[ii] == nullptr) {
+                _progressNodes[ii] = PlanetProgressNode::alloc(nullptr, nullptr, _taperedArcTexture);
+                getScene()->addChild(_progressNodes[ii]);
+            }
+            _progressNodes[ii]->setLayer(layers->at(ii));
         }
     }
 }
