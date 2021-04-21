@@ -53,22 +53,24 @@ public:
      * Initializes a new win scene.
      *
      * @param assets    The (loaded) assets for this win scene
+     * @param dimen      The size of the screen
      *
      * @return true if initialization was successful, false otherwise
      */
-    bool init(const std::shared_ptr<cugl::AssetManager>& assets);
+    bool init(const std::shared_ptr<cugl::AssetManager>& assets, cugl::Size dimen);
 
 
     /**
      * Returns a newly allocated Win Scene
      *
      * @param assets    The (loaded) assets for this win scene
+     * @param dimen      The size of the screen
      *
      * @return a newly allocated main menu
      */
-    static std::shared_ptr<WinScene> alloc(const std::shared_ptr<cugl::AssetManager>& assets) {
+    static std::shared_ptr<WinScene> alloc(const std::shared_ptr<cugl::AssetManager>& assets, cugl::Size dimen) {
         std::shared_ptr<WinScene> result = std::make_shared<WinScene>();
-        return (result->init(assets) ? result : nullptr);
+        return (result->init(assets, dimen) ? result : nullptr);
     }
 
 #pragma mark -

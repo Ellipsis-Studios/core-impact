@@ -24,7 +24,7 @@ void NetworkMessageManager::dispose() {
     _conn = nullptr;
     _gameUpdateManager = nullptr;
     _timestamp = 0;
-    _winner_player_id = -1;
+    _winnerPlayerId = -1;
 }
 
 /**
@@ -39,7 +39,8 @@ void NetworkMessageManager::dispose() {
 bool NetworkMessageManager::init() {
     _gameState = GameState::OnMenuScreen;
     _timestamp = 0;
-    _winner_player_id = -1;
+    _winnerPlayerId = -1;
+    _otherNames.resize(4);
     return true;
 }
 
@@ -50,13 +51,40 @@ void NetworkMessageManager::sendMessages() {
     if (_conn == nullptr || !_conn->getPlayerID().has_value())
         return;
 
+    // vector containing data bytes for each message
+    std::vector<uint8_t> data;
+
+    if (_gameState == GameState::JoiningGameAsHost || _gameState == GameState::JoiningGameAsNonHost) {
+        NetworkUtils::encodeInt(NetworkUtils::MessageType::NameSent, data);
+        NetworkUtils::encodeString(_playerName, data);
+        NetworkUtils::encodeInt(getPlayerId(), data);
+        NetworkUtils::encodeInt(_timestamp, data);
+        _timestamp++;
+        _conn->send(data);
+        data.clear();
+        CULog("SENT PLAYER NAME MESSAGE> PLAYERNAME[%s], PLAYER[%i]", _playerName.c_str(), getPlayerId());
+        _gameState = GameState::NameSent;
+        return;
+    }
+    if (_gameState == GameState::GameStarted) {
+        NetworkUtils::encodeInt(NetworkUtils::MessageType::StartGame, data);
+        NetworkUtils::encodeInt(_timestamp, data);
+        _timestamp++;
+        _conn->send(data);
+        data.clear();
+        CULog("SENT START GAME MESSAGE");
+        _gameState = GameState::GameInProgress;
+        return;
+    }
+
+    if (_gameUpdateManager == nullptr) {
+        return;
+    }
+
     std::shared_ptr<GameUpdate> gameUpdate = _gameUpdateManager->getGameUpdateToSend();
     if (gameUpdate == nullptr) {
         return;
     }
-    
-    // vector containing data bytes for each message
-    std::vector<uint8_t> data;
         
     int playerId = _conn->getPlayerID().value();
     for (auto const& [key, val] : gameUpdate->getStardustSent()) {
@@ -130,7 +158,7 @@ void NetworkMessageManager::sendMessages() {
     if (gameUpdate->getPlanet()->isWinner()) {
         if (playerId == 0) {
             // if we are the host and win first then we immediately send the won game message
-            _winner_player_id = playerId;
+            _winnerPlayerId = playerId;
             
             NetworkUtils::encodeInt(NetworkUtils::MessageType::WonGame, data);
             NetworkUtils::encodeInt(playerId, data);
@@ -158,8 +186,9 @@ void NetworkMessageManager::sendMessages() {
  * Receives messages sent over the network and adds them to the queue in game update manager.
  */
 void NetworkMessageManager::receiveMessages() {
-    if (_conn == nullptr)
+    if (_conn == nullptr) {
         return;
+    }
 
     _conn->receive([this](const std::vector<uint8_t>& recv) {
         if (!recv.empty()) {
@@ -202,8 +231,8 @@ void NetworkMessageManager::receiveMessages() {
                 
                 CULog("RCVD Attempt To Win> SRC[%i], TS[%i]", srcPlayer, timestamp);
                 
-                if (_winner_player_id == -1) {
-                    _winner_player_id = srcPlayer;
+                if (_winnerPlayerId == -1) {
+                    _winnerPlayerId = srcPlayer;
                     
                     std::vector<uint8_t> data;
                     NetworkUtils::encodeInt(NetworkUtils::MessageType::WonGame, data);
@@ -221,8 +250,48 @@ void NetworkMessageManager::receiveMessages() {
                 
                 CULog("RCVD GAME WON> SRC[%i], TS[%i]", srcPlayer, timestamp);
                 
-                if (_winner_player_id == -1) {
-                    _winner_player_id = srcPlayer;
+                if (_winnerPlayerId == -1) {
+                    _winnerPlayerId = srcPlayer;
+                }
+            }
+            else if (message_type == NetworkUtils::MessageType::StartGame) {
+                int timestamp = NetworkUtils::decodeInt(recv[4], recv[5], recv[6], recv[7]);
+
+                CULog("RCVD STARTGAME> TS[%i]", timestamp);
+
+                _gameState = GameState::GameInProgress;
+            }
+            else if (message_type == NetworkUtils::MessageType::NameSent) {
+                string player_name = NetworkUtils::decodeString(recv[4], recv[5], recv[6], recv[7], recv[8], recv[9], recv[10], recv[11], recv[12], recv[13], recv[14], recv[15]);
+                int playerId = NetworkUtils::decodeInt(recv[16], recv[17], recv[18], recv[19]);
+                int timestamp = NetworkUtils::decodeInt(recv[20], recv[21], recv[22], recv[23]);
+
+                CULog("RCVD PLAYERNAME> PLAYERNAME[%s], PLAYER[%i], TS[%i]", player_name.c_str(), playerId, timestamp);
+
+                _otherNames.insert(_otherNames.begin() + playerId - 1, player_name);
+
+                std::vector<uint8_t> data;
+                NetworkUtils::encodeInt(NetworkUtils::MessageType::NameReceivedResponse, data);
+                NetworkUtils::encodeString(_playerName, data);
+                NetworkUtils::encodeInt(getPlayerId(), data);
+                NetworkUtils::encodeInt(_timestamp, data);
+                _timestamp++;
+                _conn->send(data);
+                data.clear();
+                CULog("SENT PLAYER NAME MESSAGE> PLAYERNAME[%s], PLAYER[%i]", _playerName.c_str(), getPlayerId());
+            }
+            else if (message_type == NetworkUtils::MessageType::NameReceivedResponse) {
+                string player_name = NetworkUtils::decodeString(recv[4], recv[5], recv[6], recv[7], recv[8], recv[9], recv[10], recv[11], recv[12], recv[13], recv[14], recv[15]);
+                int playerId = NetworkUtils::decodeInt(recv[16], recv[17], recv[18], recv[19]);
+                int timestamp = NetworkUtils::decodeInt(recv[20], recv[21], recv[22], recv[23]);
+
+                CULog("RCVD PLAYERNAME> PLAYERNAME[%s], PLAYER[%i], TS[%i]", player_name.c_str(), playerId, timestamp);
+
+                if (playerId > getPlayerId()) {
+                    _otherNames.insert(_otherNames.begin() + playerId - 1, player_name);
+                }
+                else {
+                    _otherNames.insert( _otherNames.begin() + playerId, player_name);
                 }
             }
             else if (message_type == NetworkUtils::MessageType::StardustHit) {

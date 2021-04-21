@@ -79,12 +79,6 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _gameUpdateManager = GameUpdateManager::alloc();
     _networkMessageManager = networkMessageManager;
     _networkMessageManager->setGameuUpdateManager(_gameUpdateManager);
-    if (_networkMessageManager->getPlayerId() == 0 || gameSettings->getGameId().empty()) { // Host
-        _networkMessageManager->createGame();
-    }
-    else {
-        _networkMessageManager->joinGame(gameSettings->getGameId());
-    }
     
     // Acquire the scene built by the asset loader and resize it the scene
     auto scene = _assets->get<scene2::SceneNode>("game");
@@ -98,7 +92,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _massHUD  = std::dynamic_pointer_cast<scene2::Label>(_assets->get<scene2::SceneNode>("game_hud"));
     
     // create the win scene
-    _winScene = WinScene::alloc(assets);
+    _winScene = WinScene::alloc(assets, dimen);
 
     // Create the planet model
     _planet = PlanetModel::alloc(dimen.width / 2, dimen.height / 2, CIColor::getNoneColor(), MAX_PLANET_LAYERS, gameSettings->getGravStrength(), gameSettings->getPlanetMassToWin());

@@ -12,6 +12,28 @@
 #include "CILocation.h"
 
 /**
+ * Decodes 12 bytes into a 12 character string.
+ */
+string NetworkUtils::decodeString(uint8_t c1, uint8_t c2, uint8_t c3, uint8_t c4, uint8_t c5, uint8_t c6,
+    uint8_t c7, uint8_t c8, uint8_t c9, uint8_t c10, uint8_t c11, uint8_t c12) {
+    std::vector<uint8_t> data{ c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12 };
+    std::string s(data.begin(), data.end());
+    //return cugl::marshall(s);
+    return s;
+}
+
+/**
+ * Encodes the string s into 12 bytes and appends those bytes onto out.
+ */
+void NetworkUtils::encodeString(string s, std::vector<uint8_t>& out) {
+    s.resize(12);
+    std::vector<uint8_t> data(s.begin(), s.end());
+    for (int i = 0; i < data.size(); i++) {
+        out.push_back(data[i]);
+    }
+}
+
+/**
  * Decodes 4 bytes into a float.
  */
 float NetworkUtils::decodeFloat(uint8_t m1, uint8_t m2, uint8_t m3, uint8_t m4) {
