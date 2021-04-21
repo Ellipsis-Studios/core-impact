@@ -7,7 +7,7 @@
       "file": "textures/photon.png"
     },
     "opponentProgress": {
-      "file":   "textures/opponentProgress.png"
+      "file":     "textures/opponentProgressAnimation_v1.png"
     },
     "core": {
         "file":   "textures/coreAnimation_v1.png"
@@ -17,7 +17,13 @@
     },
     "unlockedOuterRing": {
         "file":   "textures/outerLayerAnimation_v4.png"
+    },
+    "fog": {
+        "file":   "textures/fog.png"
     }
+  },
+  "widgets": {
+    "backbutton": "widgets/backbutton.json"
   },
   "fonts": {
     "saira32": {
@@ -76,6 +82,68 @@
             "x_offset": 10,
             "y_offset": 10,
             "absolute": true
+          }
+        },
+        "win": {
+          "type": "Node",
+          "format": {
+            "type": "Anchored"
+          },
+          "children": {
+            "gameOutcomeLabel": {
+              "comment": "The text label showing the outcome of the game",
+              "type": "Label",
+              "data": {
+                "font": "saira32",
+                "text": "",
+                "foreground": [255, 255, 255, 255],
+                "background": [0, 0, 0, 0],
+                "size": [200, 80],
+                "anchor": [0.5, 0.5],
+                "halign": "center",
+                "valign": "middle",
+                "visible": false
+              },
+              "layout": {
+                "x_anchor": "center",
+                "y_anchor": "middle",
+                "y_offset": 0.4
+              }
+            },
+            "backToHomeButton": {
+              "comment": "The button that brings a player back to the home screen",
+              "type": "Widget",
+              "data": {
+                  "key": "backbutton",
+                  "variables" : {
+                      "size"  : [200,200],
+                      "text"  : "Back to Home"
+                  }
+              },
+              "layout": {
+                "x_anchor": "center",
+                "y_anchor": "middle",
+                "x_offset": -0.2,
+                "y_offset": 0.2
+              }
+            },
+            "newGameButton": {
+              "comment": "The button that brings a player to the new game screen",
+              "type": "Widget",
+              "data": {
+                "key": "backbutton",
+                "variables" : {
+                  "size"  : [200,200],
+                  "text"  : "New Game"
+                }
+              },
+              "layout": {
+                "x_anchor": "center",
+                "y_anchor": "middle",
+                "x_offset": 0.2,
+                "y_offset": 0.2
+              }
+            }
           }
         }
       }

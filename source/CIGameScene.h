@@ -25,6 +25,14 @@
 #include "CIGameUpdateManager.h"
 #include "CINetworkMessageManager.h"
 #include "CIOpponentPlanet.h"
+#include "CIWinScene.h"
+#include "CIGameSettings.h"
+
+/** Base stardust spawn rate */
+#define BASE_SPAWN_RATE 40
+
+/** Default number of stardust color counts */
+#define DEFAULT_COLOR_COUNTS 4
 
 #define SPF .066 //seconds per frame
 #define BACKGROUND_START 0
@@ -72,12 +80,18 @@ protected:
     StardustModel*  _draggedStardust;
     /** Vector of opponent planets */
     std::vector<std::shared_ptr<OpponentPlanet>> _opponent_planets;
-    
-    /** Countdown to reset the game after winning/losing */
-    float _countdown;
-    
+
+    // Game Settings
+    /** Rate of stardust spawning */
+    float _spawnRate;
+    /** Number of stardust colors available in game */
+    uint8_t _colorCount;
+
     /** Time since last animation frame update */
     float _timeElapsed;
+    
+    /** Pointer to the win scene */
+    std::shared_ptr<WinScene> _winScene;
     
 public:
 #pragma mark -
@@ -88,9 +102,9 @@ public:
      * This constructor does not allocate any objects or start the game.
      * This allows us to use the object without a heap pointer.
      */
-    GameScene() : cugl::Scene2() {
+    GameScene() : cugl::Scene2(), _spawnRate(BASE_SPAWN_RATE), _colorCount(DEFAULT_COLOR_COUNTS) {
         for (int i = 0; i < 6; i++) {
-            _stardustProb[i] = 100;
+            _stardustProb[i] = 0;
         }
     }
     
@@ -116,14 +130,13 @@ public:
      *
      * @param assets                The (loaded) assets for this game mode
      * @param networkMessageManager The reference to network message manager
-     * @param isHost                Whether or not this instance is hosting the game
-     * @param gameId                The gameId for a client game
+     * @param gameSettings  The settings for the current game
      *
      * @return true if the controller is initialized properly, false otherwise.
      */
-    bool init(const std::shared_ptr<cugl::AssetManager>& assets, 
-              const std::shared_ptr<NetworkMessageManager>& networkMessageManager, 
-              bool isHost, std::string gameId);
+    bool init(const std::shared_ptr<cugl::AssetManager>& assets,
+        const std::shared_ptr<NetworkMessageManager>& networkMessageManager,
+        const std::shared_ptr<GameSettings>& gameSettings);
     
 #pragma mark -
 #pragma mark Gameplay Handling

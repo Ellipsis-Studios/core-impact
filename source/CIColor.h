@@ -17,6 +17,10 @@
 
 
 class CIColor {
+private:
+    /** The number of colors in the current game */
+    inline static int _numColors;
+    
 public:
     /**
      * Enum representing the different colors stardust or planet layers can have
@@ -25,9 +29,9 @@ public:
         purple,
         red,
         yellow,
+        blue,
         green,
         turquoise,
-        blue,
         grey,
         lightgrey,
     };
@@ -53,14 +57,14 @@ public:
             case yellow:
                 color = cugl::Color4(252.0f, 244.0f, 63.0f);
                 break;
+            case blue:
+                color = cugl::Color4(25.0f, 50.0f, 255.0f);
+                break;
             case green:
                 color = cugl::Color4(13.0f, 194.0f, 21.0f);
                 break;
             case turquoise:
                 color = cugl::Color4(29.0f, 231.0f, 203.0f);
-                break;
-            case blue:
-                color = cugl::Color4(25.0f, 50.0f, 255.0f);
                 break;
             case grey:
                 color = cugl::Color4(194.0f, 194.0f, 194.0f);
@@ -93,14 +97,14 @@ public:
             case yellow:
                 color = "yellow";
                 break;
+            case blue:
+                color = "blue";
+                break;
             case green:
                 color = "green";
                 break;
             case turquoise:
                 color = "turquoise";
-                break;
-            case blue:
-                color = "blue";
                 break;
             case grey:
                 color = "grey";
@@ -116,15 +120,14 @@ public:
     /**
      * Returns a random CIColor Value for a stardust.
      *
-     * This method picks out of the first 5 CIColor values since they
-     * are valid for stardust color.
+     * This method picks out the number of active colors for this game
      *
      * @return CIColor Value for a stardust
      */
     static Value getRandomColor() {
         std::random_device rd;
         std::mt19937 mt(rd());
-        std::uniform_int_distribution<int> dist(0, 5); // pick out of first 6 colors
+        std::uniform_int_distribution<int> dist(0, _numColors - 1);
         int rand = dist(mt);
         return Value(rand);
     }
@@ -134,6 +137,15 @@ public:
      */
     static Value getNoneColor() {
         return Value::lightgrey;
+    }
+    
+    /**
+     * Sets the number of colors for this game.
+     *
+     * @param numColors The number of colors for this game
+     */
+    static void setNumColors(int numColors) {
+        _numColors = numColors;
     }
 };
 

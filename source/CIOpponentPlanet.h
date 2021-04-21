@@ -32,7 +32,7 @@ public:
      * @param texture  The texture of the progress bar
      * @param bounds    The size of the game screen
      */
-    void setTextures(const std::shared_ptr<cugl::Texture>& texture, cugl::Size bounds);
+    void setTextures(const std::shared_ptr<cugl::Texture>& texture, const std::shared_ptr<cugl::Texture>& fogTexture, cugl::Size bounds);
     
     /**
      * Set the player name associated with this opponent planet
@@ -41,6 +41,11 @@ public:
      * @param font The font to use for the name
      */
     void setName(std::string name, std::shared_ptr<cugl::Font> font);
+    
+    /**
+     * Starts the animation of the progress bar flashing
+     */
+    void startHitAnimation();
     
     /**
      * Set the location of this opponent planet
@@ -63,7 +68,7 @@ public:
     /**
      * Get the OpponentNode associated with this opponent planet
      */
-    const std::shared_ptr<cugl::scene2::SceneNode> getOpponentNode() const {
+    const std::shared_ptr<OpponentNode> getOpponentNode() const {
         return _opponentNode;
     }
     
@@ -84,7 +89,7 @@ public:
     static std::shared_ptr<OpponentPlanet> alloc(float x, float y, CIColor::Value c, CILocation::Value location) {
         std::shared_ptr<OpponentPlanet> result = std::make_shared<OpponentPlanet>();
         result->setLocation(location);
-        return (result->init(x, y, c, 1) ? result : nullptr);
+        return (result->init(x, y, c) ? result : nullptr);
     }
     
 #pragma mark Interactions
@@ -104,6 +109,13 @@ public:
      * @param mass The new mass of this planet
      */
     void setMass(float mass);
+    
+    /**
+     * Updates the animations for this opponent planet.
+     *
+     * @param timestep the amount of time since the last animation frame
+     */
+    void update(float timestep) override;
     
 };
 

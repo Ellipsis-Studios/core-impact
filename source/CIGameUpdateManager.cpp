@@ -144,6 +144,8 @@ void GameUpdateManager::processGameUpdate(std::shared_ptr<StardustQueue> stardus
                 
                 // this player hit another player with a stardust
                 if (stardust->getColor() == CIColor::getNoneColor()) {
+                    opponentPlanets[gameUpdate->getPlayerId()]->startHitAnimation();
+                    
                     CIColor::Value c = planet->getColor() == CIColor::getNoneColor() ? CIColor::getRandomColor() : planet->getColor();
 
                     // add 3 stardust, one is guaranteed to be a helpful color, other 2 are random

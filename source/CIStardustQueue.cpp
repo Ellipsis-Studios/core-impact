@@ -173,6 +173,9 @@ void StardustQueue::addToPowerupQueue(CIColor::Value color, bool addToSendQueue)
         case CIColor::Value::purple:
             stardust->setStardustType(StardustModel::Type::GRAYSCALE);
             break;
+        case CIColor::Value::blue:
+            stardust->setStardustType(StardustModel::Type::FOG);
+            break;
         default:
             break;
     }

@@ -21,6 +21,10 @@
 #define LAYER_LOCKIN_TOTAL_INCREASE     1
 #define LAYER_LOCKIN_TIME               3
 
+/** Initialize PlanetModel's static variables */
+float PlanetModel::_gravStrength = 1.0f;
+uint16_t PlanetModel::_winPlanetMass = 200;
+
 #pragma mark Properties
 /**
  * Sets the textures for this planet.
@@ -60,28 +64,32 @@ void PlanetModel::dispose() {
  * This method does NOT create a scene graph node for this planet.  You
  * must call setTexture for that.
  *
- * @param x The initial x-coordinate of the center
- * @param y The initial y-coordinate of the center
- * @param c The initial color code of the planet
- * @param maxLayers The maximum number of layers the planet can have
+ * @param x                 The initial x-coordinate of the center
+ * @param y                 The initial y-coordinate of the center
+ * @param c                 The initial color code of the planet
+ * @param maxLayers         The max number of layers in the planet  (default to 1)
+ * @param gravStrength      The planet's gravitational strength     (default to 1.0f)
+ * @param winPlanetMass     The mass required for the planet to win (default to 200)
  *
  * @return true if the initialization was successful
  */
-bool PlanetModel::init(float x, float y, CIColor::Value c, int maxLayers) {
+bool PlanetModel::init(float x, float y, CIColor::Value c, int maxLayers, float gravStrength, uint16_t winPlanetMass) {
+    _gravStrength = gravStrength;
+    _winPlanetMass = winPlanetMass;
+
     _position.set(x, y);
     _layers.resize(maxLayers);
-    
+
     _numLayers = 1;
-    _layers[_numLayers-1] = getNewLayer();
+    _layers[_numLayers - 1] = getNewLayer();
     setColor(c);
-    
+
     _layerLockinTotal = INIT_LAYER_LOCKIN_TOTAL;
-    
+
     _radius = INITIAL_PLANET_RADIUS;
     _mass = INITIAL_PLANET_MASS;
     return true;
 }
-
 
 #pragma mark Interactions
 
