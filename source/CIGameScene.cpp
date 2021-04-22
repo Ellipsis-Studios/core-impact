@@ -310,7 +310,7 @@ void GameScene::addStardust(const Size bounds) {
             _stardustProb[i] = max(_stardustProb[i] - CONSTANTS::BASE_SPAWN_RATE, 0);
         } else {
             // Maintains probability state size consistency
-            _stardustProb[i] += (BASE_SPAWN_RATE / (_gameSettings->getColorCount() - 1))
+            _stardustProb[i] += (CONSTANTS::BASE_SPAWN_RATE / (_gameSettings->getColorCount() - 1))
                 + (((BASE_PROBABILITY_SPACE * _gameSettings->getColorCount()) - probSum) / _gameSettings->getColorCount());
         }
     }

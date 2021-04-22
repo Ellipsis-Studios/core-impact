@@ -31,7 +31,6 @@
 #include "CIGameConstants.h"
 
 /** Base stardust spawn rate */
-#define BASE_SPAWN_RATE 40
 #define BASE_PROBABILITY_SPACE 100
 
 /** Default number of stardust color counts */
