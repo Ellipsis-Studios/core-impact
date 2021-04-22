@@ -19,7 +19,10 @@
         "file":   "textures/outerLayerAnimation_v3.png"
     },
     "taperedArc": {
-        "file":   "textures/player_progress_tapered_v.1.png"
+        "file":   "textures/player_progress_tapered_v2.png"
+    },
+    "playerProgress": {
+        "file":   "textures/player_progress_lock_in_v2.png"
     },
     "fog": {
         "file":   "textures/fog.png"

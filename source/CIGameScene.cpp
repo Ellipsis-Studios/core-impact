@@ -109,7 +109,8 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _planet->setTextures(coreTexture, ringTexture, unlockedTexture, lockedTexture);
     
     auto taperedArcTexture = _assets->get<Texture>("taperedArc");
-    _planet->getPlanetNode()->setPlanetProgressTextures(nullptr, nullptr, taperedArcTexture);
+    auto planetProgressTexture = _assets->get<Texture>("playerProgress");
+    _planet->getPlanetNode()->setPlanetProgressTextures(planetProgressTexture, nullptr, taperedArcTexture);
 
     _draggedStardust = NULL;
     _stardustContainer = StardustQueue::alloc(MAX_STARDUST, coreTexture);

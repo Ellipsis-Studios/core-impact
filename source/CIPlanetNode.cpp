@@ -116,7 +116,7 @@ void PlanetNode::setLayers(std::vector<PlanetLayer>* layers) {
         
         if (_taperedArcTexture != nullptr && getScene() != nullptr) {
             if (_progressNodes[ii] == nullptr) {
-                _progressNodes[ii] = PlanetProgressNode::alloc(nullptr, nullptr, _taperedArcTexture);
+                _progressNodes[ii] = PlanetProgressNode::alloc(_canLockInLayerTexture, nullptr, _taperedArcTexture);
                 getScene()->addChild(_progressNodes[ii]);
             }
             _progressNodes[ii]->setLayer(layers->at(ii));
