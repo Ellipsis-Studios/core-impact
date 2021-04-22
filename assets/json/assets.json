@@ -7,7 +7,7 @@
       "file": "textures/photon.png"
     },
     "opponentProgress": {
-      "file":     "textures/opponentProgressAnimation_v1.png"
+      "file":     "textures/opponentProgressAnimation_v2.png"
     },
     "core": {
         "file":   "textures/coreAnimation_v1.png"

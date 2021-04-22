@@ -15,12 +15,12 @@
 #include "CIColor.h"
 #include "CILocation.h"
 
-#define PROGRESS_ROWS           14
-#define PROGRESS_COLS           15
-#define PROGRESS_NORMAL_END    119
+#define PROGRESS_ROWS           13
+#define PROGRESS_COLS           13
+#define PROGRESS_NORMAL_END     64
 #define PROGRESS_NORMAL_START    0
-#define PROGRESS_FLASH_END     209
-#define PROGRESS_FLASH_START   120
+#define PROGRESS_FLASH_END     166
+#define PROGRESS_FLASH_START    65
 
 /** The x offset of the nametag from the corner of the screen */
 #define NAMETAG_X_OFFSET 45
@@ -35,6 +35,8 @@ private:
     std::shared_ptr<cugl::Texture> _fogTexture;
     /** Progress of the opponent towards winning, between 0 and 1 */
     float _progress;
+    /** Progress of the opponent progress bar, used to animate the bar in and out */
+    float _barProgress;
     /** The maximum width of the progress bar */
     float _maxwidth;
     /** The maximum height of the progress bar */
@@ -108,7 +110,7 @@ public:
     /**
      * Creates an opponent node with default values.
      */
-    OpponentNode() : AnimationNode(), _progress(0) {}
+    OpponentNode() : AnimationNode() {}
     
     /**
      * Disposes the opponent node, releasing all resources.
@@ -145,6 +147,8 @@ public:
      * @return bool true if new node initialized successfully else false
      */
     bool init(const std::shared_ptr<cugl::Texture>& texture, float maxwidth, float maxheight) {
+        _progress = 0;
+        _barProgress = 0;
         _texture = texture;
         _maxwidth = maxwidth;
         _maxheight = maxheight;
