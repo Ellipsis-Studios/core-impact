@@ -270,7 +270,11 @@ void NetworkMessageManager::receiveMessages() {
                 int timestamp = NetworkUtils::decodeInt(recv[20], recv[21], recv[22], recv[23]);
 
                 CULog("RCVD START GAME MESSAGE> SPAWNRATE[%f], GRAVSTRENGTH[%f], COLORCOUNT[%i], PLANETMASS[%i], TS[%i]", spawnRate, gravStrength, colorCount, planetMass, timestamp);
-
+                
+                if (_gameSettings == nullptr) {
+                    _gameSettings = GameSettings::alloc();
+                }
+                
                 _gameSettings->setSpawnRate(spawnRate);
                 _gameSettings->setGravStrength(gravStrength);
                 _gameSettings->setColorCount(colorCount);
