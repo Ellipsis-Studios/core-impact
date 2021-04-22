@@ -3,15 +3,18 @@
 //  CoreImpact
 //
 //  Created by Richard Yoon on 4/5/21.
-//  Copyright � 2021 Game Design Initiative at Cornell. All rights reserved.
+//  Copyright © 2021 Game Design Initiative at Cornell. All rights reserved.
 //
 
 #ifndef __CI_LOBBY_MENU_H__
 #define __CI_LOBBY_MENU_H__
 #include <cugl/cugl.h>
 
-#include  "CIMenuState.h"
-#include  "CINetworkMessageManager.h"
+#include "CIMenuState.h"
+#include "CIPlayerSettings.h"
+#include "CIGameSettings.h"
+#include "CIGameConstants.h"
+#include "CINetworkMessageManager.h"
 
 /**
  * Model class representing the Game Lobby menu scene.
@@ -29,14 +32,13 @@ class LobbyMenu {
 private:
     /** Menu state for the upcoming frame */
     MenuState _nextState;
-    /** Game lobby spawn rate value */
-    float _lobbySpawnRate;
-    /** Game lobby gravity strength value */
-    float _lobbyGravityStrength;
-    /** Game lobby stardust color count value */
-    uint8_t _lobbyColorCount;
-    /** Game lobby winning condition for the planet (mass) */
-    uint16_t _lobbyWinPlanetMass;
+    /** Reference to the player settings */
+    std::shared_ptr<PlayerSettings> _playerSettings;
+    /** Reference to the game settings */
+    std::shared_ptr<GameSettings> _gameSettings;
+
+    /** The network message manager for managing connections to other players */
+    std::shared_ptr<NetworkMessageManager> _networkMessageManager;
 
     // Asset references
     /** Reference to the node for the group representing this menu scene */
@@ -86,8 +88,9 @@ private:
 
     /** Reference to game lobby's button to start gameplay */
     std::shared_ptr<cugl::scene2::Button> _gameStartBtn;
-    /** The network message manager for managing connections to other players */
-    std::shared_ptr<NetworkMessageManager> _networkMessageManager;
+    
+    /** Whether host or client */
+    bool _isHost;
 
 public:
 #pragma mark -
@@ -95,8 +98,7 @@ public:
     /**
      * Creates a new game lobby with default values.
      */
-    LobbyMenu() : _nextState(MenuState::GameLobby), _lobbySpawnRate(1.0f), _lobbyGravityStrength(1.0f), _lobbyColorCount(6), _lobbyWinPlanetMass(200),
-        _currSpawn(2), _currGrav(2), _currColor(4), _currWin(2) {}
+    LobbyMenu() : _nextState(MenuState::GameLobby), _currSpawn(2), _currGrav(2), _currWin(2), _currColor(2), _isHost(false){}
 
     /**
      * Disposes of all (non-static) resources allocated to this menu.
@@ -111,23 +113,34 @@ public:
     /**
      * Initializes a new game lobby menu with the state pointer.
      *
-     * @param assets        The (loaded) assets for this game lobby menu
+     * @param assets                The (loaded) assets for this game lobby menu
+     * @param networkMessageManager The network message manager for the game
+     * @param gameSettings          The settings for the current game
+     * @param playerSettings        The player's saved settings value
      *
      * @return true if initialization was successful, false otherwise
      */
-    bool init(const std::shared_ptr<cugl::AssetManager>& assets, std::shared_ptr<NetworkMessageManager> networkMessageManager);
+    bool init(const std::shared_ptr<cugl::AssetManager>& assets,
+        const std::shared_ptr<NetworkMessageManager>& networkMessageManager,
+        const std::shared_ptr<GameSettings>& gameSettings,
+        const std::shared_ptr<PlayerSettings>& playerSettings);
 
     /**
      * Returns a newly allocated game lobby menu.
      *
      * @param assets        The (loaded) assets for this game lobby menu
+     * @param networkMessageManager The network message manager for the game
+     * @param gameSettings          The settings for the current game
+     * @param playerSettings        The player's saved settings value
      *
      * @return a newly allocated game lobby menu
      */
-    static std::shared_ptr<LobbyMenu> alloc(const std::shared_ptr<cugl::AssetManager>& assets,
-        std::shared_ptr<NetworkMessageManager> networkMessageManager) {
+    static std::shared_ptr<LobbyMenu> alloc(const std::shared_ptr<cugl::AssetManager>& assets, 
+        const std::shared_ptr<NetworkMessageManager>& networkMessageManager,
+        const std::shared_ptr<GameSettings>& gameSettings,
+        const std::shared_ptr<PlayerSettings>& playerSettings) {
         std::shared_ptr<LobbyMenu> result = std::make_shared<LobbyMenu>();
-        return (result->init(assets, networkMessageManager) ? result : nullptr);
+        return (result->init(assets, networkMessageManager, gameSettings, playerSettings) ? result : nullptr);
     }
 
 #pragma mark -
@@ -145,8 +158,7 @@ public:
      * This method handles transitions into and out of game lobby menu along
      * with any updates within the game lobby menu scene.
      */
-    void update(MenuState& state, string& joingame, string& playername,
-        float& spawnRate, float& gravStrength, uint8_t& colorCount, uint16_t& winPlayerMass);
+    void update(MenuState& state);
 
     /**
      * Returns the root scene node for the game lobby menu layer.

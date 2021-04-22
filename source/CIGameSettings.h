@@ -2,7 +2,7 @@
 //  CIGameSettings.h
 //  CoreImpact
 //
-// This model class stores game settings that users can change from the menu scene
+//  This model class stores game settings that users can change from the menu scene
 //
 //  Created by William Long on 4/15/21.
 //  Copyright © 2021 Game Design Initiative at Cornell. All rights reserved.
@@ -10,6 +10,9 @@
 
 #ifndef __CI_GAME_SETTINGS_H__
 #define __CI_GAME_SETTINGS_H__
+#include <cugl/cugl.h>
+#include "CIGameConstants.h"
+
 
 class GameSettings {
 private:
@@ -36,11 +39,7 @@ public:
      * @return true if the initialization was successful
      */
     bool init() {
-        _gameId = "";
-        _spawnRate = 1.0f;
-        _gravStrength = 1.0f;
-        _colorCount = 4;
-        _planetMassToWin = 200;
+        reset();
         return true;
     }
 
@@ -55,42 +54,83 @@ public:
     }
 
 #pragma mark Properties
-    std::string getGameId() {
+    /**
+     * Resets the setting values to default. 
+     */
+    void reset() {
+        _gameId = CONSTANTS::DEFAULT_GAME_ID;
+        _spawnRate = CONSTANTS::DEFAULT_SPAWN_RATE;
+        _gravStrength = CONSTANTS::DEFAULT_GRAV_STRENGTH;
+        _colorCount = CONSTANTS::DEFAULT_COLOR_COUNT;
+        _planetMassToWin = CONSTANTS::DEFAULT_WIN_MASS;
+    }
+
+    /** 
+     * Returns the game room id value.
+     */
+    std::string getGameId() const {
         return _gameId;
     }
     
+    /** 
+     * Sets the game room id value.
+     */
     void setGameId(std::string gameId) {
         _gameId = gameId;
     }
     
-    float getSpawnRate() {
+    /** 
+     * Returns the stardust spawn rate value 
+     */
+    float getSpawnRate() const {
         return _spawnRate;
     }
     
+    /**
+     * Sets the stardust spawn rate value.
+     */
     void setSpawnRate(float spawnRate) {
         _spawnRate = spawnRate;
     }
     
-    float getGravStrength() {
+    /** 
+     * Returns the planet gravity strength value.
+     */
+    float getGravStrength() const {
         return _gravStrength;
     }
     
+    /** 
+     * Sets the planet gravity strength value.
+     */
     void setGravStrength(float gravStrength) {
         _gravStrength = gravStrength;
     }
     
-    uint8_t getColorCount() {
+    /** 
+     * Returns the stardust color count value.
+     */
+    uint8_t getColorCount() const {
         return _colorCount;
     }
     
+    /**
+     * Sets the stardust color count value.
+     */
     void setColorCount(uint8_t colorCount) {
         _colorCount = colorCount;
     }
     
-    uint16_t getPlanetMassToWin() {
+    /**
+     * Returns the planet mass required to win the game.
+     */
+    uint16_t getPlanetMassToWin() const {
         return _planetMassToWin;
     }
     
+    /** 
+     * Sets the planet mass required to win the game.
+     */
     void setPlanetMassToWin(uint16_t planetMassToWin) {
         _planetMassToWin = planetMassToWin;
     }

@@ -11,7 +11,7 @@
 #include "CIStardustNode.h"
 #include "CIColor.h"
 
-#define SPF .1 //seconds per frame
+#define STARDUSTNODE_SPF .1 //seconds per frame
 #define GREYSCALE_TIME 5 // number of seconds for greyscale power up
 
 /**
@@ -84,7 +84,7 @@ void StardustNode::applyGreyScale() {
  */
 void StardustNode::update(float timestep) {
     _timeElapsed += timestep;
-    if (_timeElapsed > SPF) {
+    if (_timeElapsed > STARDUSTNODE_SPF) {
       _timeElapsed = 0;
       
       unsigned int coreFrame = getFrame();

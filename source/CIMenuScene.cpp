@@ -11,31 +11,31 @@
 
 using namespace cugl;
 
-/** This is the ideal size of the logo */
-#define SCENE_SIZE  1024
-
 #pragma mark -
 #pragma mark Constructors
 
 /**
- * Initializes the menu scene with the provided menu settings values.
+ * Initializes the controller contents, making it ready for loading
  *
- * Used only as a helper to the other init methods.
+ * The constructor does not allocate any objects or memory.  This allows
+ * us to have a non-pointer reference to this controller, reducing our
+ * memory allocation.  Instead, allocation happens in this method.
  *
- * @param assets        The (loaded) assets for this game mode
- * @param playerName    The player name value
- * @param volume        The game volume setting value
- * @param musicOn       The musicOn setting value
- * @param parallaxOn    The parallax effect setting value
+ * @param assets                The (loaded) assets for this game mode
+ * @param networkMessageManager The network message manager for the game
+ * @param gameSettings          The settings for the current game
+ * @param playerSettings        The player's saved settings value
  *
  * @return true if the controller is initialized properly, false otherwise.
  */
 bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
-    string playerName, float volume, bool musicOn, bool parallaxOn, std::shared_ptr<NetworkMessageManager> networkMessageManager) {
+    const std::shared_ptr<NetworkMessageManager>& networkMessageManager,
+    const std::shared_ptr<GameSettings>& gameSettings,
+    const std::shared_ptr<PlayerSettings>& playerSettings) {
     // Initialize the scene to a locked width
     Size dimen = Application::get()->getDisplaySize();
     // Lock the scene to a reasonable resolution
-    dimen *= SCENE_SIZE / dimen.width;
+    dimen *= CONSTANTS::SCENE_WIDTH / dimen.width;
     if (assets == nullptr) {
         return false;
     } else if (!Scene2::init(dimen)) {
@@ -80,17 +80,13 @@ bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
         });
 
     // TODO: integrate network manager to game lobby
-    
-    /** Player settings */
-    _playerName = playerName;
-    _volume = volume;
-    _musicOn = musicOn;
-    _parallaxOn = parallaxOn;
-    _joinGame = "";
-    _spawnRate = 1.0f;
-    _gravStrength = 1.0f;
-    _colorCount = 6;
-    _winCondition = 200;
+
+    // game settings 
+    _gameSettings = gameSettings;
+    // player settings
+    _playerSettings = playerSettings;
+
+    _otherNames = vector<string>{ "N/A", "N/A", "N/A", "N/A" };
 
     _state = MenuState::LoadToMain;
 
@@ -103,13 +99,13 @@ bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _tutorial = TutorialMenu::alloc(_assets);
     _tutorial->setDisplay(false);
 
-    _settings = SettingsMenu::alloc(_assets);
+    _settings = SettingsMenu::alloc(_assets, playerSettings);
     _settings->setDisplay(false);
 
-    _join = JoinMenu::alloc(_assets);
+    _join = JoinMenu::alloc(_assets, gameSettings);
     _join->setDisplay(false);
 
-    _lobby = LobbyMenu::alloc(_assets, networkMessageManager);
+    _lobby = LobbyMenu::alloc(_assets, networkMessageManager, gameSettings, playerSettings);
     _lobby->setDisplay(false);
 
     addChild(_mainmenu->getLayer(), 0);
@@ -122,48 +118,20 @@ bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 }
 
 /**
- * The method initializes the menu scene using player settings json value.
- *
- * Meant to be used to initialize the menu scene only on initial load
- *
- * @param assets            The (loaded) assets for this game mode
- * @param playerSettings    The player's saved settings value
- *
- * @return true if the controller is initialized properly, false otherwise.
- */
-bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
-    const std::shared_ptr<cugl::JsonValue>& playerSettings, std::shared_ptr<NetworkMessageManager> networkMessageManager) {
-    // Load in saved settings file
-    _playerName = "Player Name";
-    _volume = 0.5f;
-    _musicOn = true;
-    _parallaxOn = true;
-    if (playerSettings != nullptr) {
-        string pname = playerSettings->getString("PlayerName", "Player Name");
-        if (!pname.empty()) {
-            _playerName = pname;
-        }
-        _volume = playerSettings->getFloat("Volume", 0.5f);
-        _musicOn = playerSettings->getBool("MusicOn", true);
-        _parallaxOn = playerSettings->getBool("ParallaxOn", true);
-    }
-
-    return init(assets, _playerName, _volume, _musicOn, _parallaxOn, networkMessageManager);
-}
-
-/**
  * The method initializes the menu scene using its current values.
  *
  * Meant to be used to re-initialize the menu scene on game reset.
  */
 bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
-    return init(assets, _playerName, _volume, _musicOn, _parallaxOn, _networkMessageManager);
+    return init(assets, _networkMessageManager, _gameSettings, _playerSettings);
 }
 
 /**
  * Disposes of all (non-static) resources allocated to this mode.
  */
 void MenuScene::dispose() {
+    removeAllChildren();
+    
     // Deactivate the button (platform dependent)
     if (_backBtn != nullptr && _backBtn->isVisible()) {
         _backBtn->deactivate();
@@ -243,11 +211,10 @@ void MenuScene::update(float timestep) {
             _active = false;
             break;
         default:
-            _lobby->update(_state, _joinGame, _playerName,
-                _spawnRate, _gravStrength, _colorCount, _winCondition);
+            _lobby->update(_state);
             _mainmenu->update(_state);
-            _settings->update(_state, _playerName, _volume, _musicOn, _parallaxOn);
-            _join->update(_state, _joinGame);
+            _settings->update(_state);
+            _join->update(_state);
             _tutorial->update(_state);
             break;
     }
