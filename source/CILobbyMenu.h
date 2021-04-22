@@ -88,6 +88,9 @@ private:
 
     /** Reference to game lobby's button to start gameplay */
     std::shared_ptr<cugl::scene2::Button> _gameStartBtn;
+    
+    /** Whether host or client */
+    bool _isHost;
 
 public:
 #pragma mark -
@@ -95,7 +98,7 @@ public:
     /**
      * Creates a new game lobby with default values.
      */
-    LobbyMenu() : _nextState(MenuState::GameLobby), _currSpawn(2), _currGrav(2), _currWin(2), _currColor(2) {}
+    LobbyMenu() : _nextState(MenuState::GameLobby), _currSpawn(2), _currGrav(2), _currWin(2), _currColor(2), _isHost(false){}
 
     /**
      * Disposes of all (non-static) resources allocated to this menu.

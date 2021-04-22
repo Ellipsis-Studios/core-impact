@@ -51,6 +51,7 @@ void LobbyMenu::dispose() {
     _layer = nullptr;
     _nextState = MenuState::GameLobby;
     _currSpawn = _currGrav = _currWin = _currColor = 2;
+    _isHost = false;
 }
 
 /**
@@ -147,6 +148,7 @@ bool LobbyMenu::init(const std::shared_ptr<cugl::AssetManager>& assets,
         return true;
         });
 
+    _isHost = false;
     _nextState = MenuState::GameLobby;
     return true;
 }
@@ -244,6 +246,7 @@ void LobbyMenu::update(MenuState& state) {
             _colorCountLabel->setText(cugl::strtool::to_string(_gameSettings->getColorCount()));
             _winMassLabel->setText(cugl::strtool::to_string(_gameSettings->getPlanetMassToWin()));
 
+            _isHost = true;
             state = MenuState::GameLobby;
             _nextState = MenuState::GameLobby;
             break;
@@ -270,6 +273,7 @@ void LobbyMenu::update(MenuState& state) {
             _lobbyRoomLabel->setText(_gameSettings->getGameId());
             _gamelobbyplayerlabel1->setText(_playerSettings->getPlayerName());
             
+            _isHost = false;
             state = MenuState::GameLobby;
             _nextState = MenuState::GameLobby;
             break;
@@ -305,7 +309,7 @@ void LobbyMenu::update(MenuState& state) {
             // hide menu screen
             if (_layer != nullptr && _layer->isVisible()) {
                 // undo player name labels offsets for clients
-                if (!_spawnRateLabel->isVisible() && !_gameSettings->getGameId().empty()) {
+                if (!_isHost) {
                     const float clientOffset = _layer->getContentHeight() / 6.0f;
                     _gamelobbyplayerName1->setPositionY(_gamelobbyplayerName1->getPositionY() + clientOffset);
                     _gamelobbyplayerName2->setPositionY(_gamelobbyplayerName2->getPositionY() + clientOffset);
