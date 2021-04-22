@@ -29,9 +29,9 @@ public:
         purple,
         red,
         yellow,
+        turquoise,
         blue,
         green,
-        turquoise,
         grey,
         lightgrey,
     };

@@ -110,7 +110,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     
     // update stardustProb to match colorCount
     for (int i = 0; i < gameSettings->getColorCount(); i++) {
-        _stardustProb[i] = 100;
+        _stardustProb[i] = BASE_PROBABILITY_SPACE;
     }
     CIColor::setNumColors(gameSettings->getColorCount());
 
@@ -293,23 +293,55 @@ void GameScene::addStardust(const Size bounds) {
     
     /** Pity mechanism: The longer you haven't seen a certain color, the more likely it will be to spawn that color */
     CIColor::Value c = CIColor::getRandomColor();
-    int probSum = 0;
+    int probSum = 0, largestProb = 0;
     // Sums up the total probability space of the stardust colors, augmented by a mass correction
+    largestProb = *max_element(_stardustProb, _stardustProb + _gameSettings->getColorCount());
+    massCorrection = min(largestProb, max(-largestProb, massCorrection));
     probSum = accumulate(_stardustProb, _stardustProb + _gameSettings->getColorCount(), probSum) + massCorrection;
+
     // Randomly selects a point in the probability space
     int spawnRand = rand() % max(1, probSum);
     for (int i = 0; i < _gameSettings->getColorCount(); i++) {
         spawnRand -= (CIColor::Value(i) == _planet->getColor()) ? _stardustProb[i] - massCorrection : _stardustProb[i];
+        // Primary Mechanism
         if (spawnRand <= 0){
             c = CIColor::Value(i);
-            spawnRand = probSum;
+            spawnRand = INT_MAX;
             _stardustProb[i] = max(_stardustProb[i] - CONSTANTS::BASE_SPAWN_RATE, 0);
         } else {
-            _stardustProb[i] += 10;
+            // Maintains probability state size consistency
+            _stardustProb[i] += (BASE_SPAWN_RATE / (_gameSettings->getColorCount() - 1))
+                + (((BASE_PROBABILITY_SPACE * _gameSettings->getColorCount()) - probSum) / _gameSettings->getColorCount());
         }
     }
-
-    _stardustContainer->addStardust(c, bounds);
+    
+    while (c > _gameSettings->getColorCount()){
+        // Something has gone terribly wrong
+        CULog("深刻なエラーが発生しました");
+        c = CIColor::getRandomColor();
+    }
+    
+    /** Looparound Mechanism: Tries to make it so that players can't just send it straight back */
+    int cornerProb[] = {10,10,10,10};
+    CILocation::Value spawnCorner = CILocation::Value(0);
+    for (const std::shared_ptr<OpponentPlanet> &op : _opponent_planets){
+        if (op != nullptr){
+            if (op->getColor() == c){
+                cornerProb[op->getLocation()-1] += 60;
+            }
+        }
+    }
+    int cornerSum = 0;
+    cornerSum = accumulate(cornerProb, cornerProb + 4, cornerSum);
+    int cornerRand = rand() % cornerSum;
+    for (int i = 0; i < 4; i++) {
+        cornerRand -= cornerProb[i];
+        if (cornerRand <= 0){
+            spawnCorner = CILocation::Value(i+1);
+            break;
+        }
+    }
+    _stardustContainer->addStardust(c, bounds, spawnCorner);
 }
 
 /**

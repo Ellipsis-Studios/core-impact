@@ -110,9 +110,10 @@ public:
      *
      * @param c the color of the stardust to spawn
      * @param bounds the bounds of the game screen
+     * @param corner the corner to spawn in
      * @param type the type of the stardust to add (defaults to normal)
      */
-    void addStardust(CIColor::Value c, const cugl::Size bounds, StardustModel::Type type = StardustModel::Type::NORMAL);
+    void addStardust(CIColor::Value c, const cugl::Size bounds, const CILocation::Value corner = CILocation::ON_SCREEN, StardustModel::Type type = StardustModel::Type::NORMAL);
     
     /**
      * Adds a stardust that will move fast and be aimed directly at the core.

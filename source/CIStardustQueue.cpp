@@ -62,13 +62,15 @@ bool StardustQueue::init(size_t max, const std::shared_ptr<cugl::Texture>& textu
  *
  * @param c the color of the stardust to spawn
  * @param bounds the bounds of the game screen
+ * @param corner the corner to spawn in
  * @param type the type of the stardust to add (defaults to normal)
  */
-void StardustQueue::addStardust(CIColor::Value c, const Size bounds, StardustModel::Type type) {
+void StardustQueue::addStardust(CIColor::Value c, const Size bounds, const CILocation::Value corner, StardustModel::Type type) {
     // Add a new stardust at the end.
     // Already declared, so just initialize.
-    int posX = ((rand()%2==0) ? bounds.width + 20 : -20) + (rand() % 20 - 10);
-    int posY = ((rand()%2==0) ? bounds.height + 20 : -20) + (rand() % 20 - 10);
+    int spawnCorner = (corner == 0) ? rand() % 4 : corner - 1;
+    int posX = ((spawnCorner % 2 == 0) ? -20 : bounds.width + 20) + (rand() % 20 - 10);
+    int posY = ((spawnCorner / 2 == 0) ? bounds.height + 20 : -20) + (rand() % 20 - 10);
     Vec2 pos = Vec2(posX, posY);
     Vec2 dir = Vec2(bounds.width/2, bounds.height/2) - pos;
     dir.normalize();
@@ -173,7 +175,7 @@ void StardustQueue::addToPowerupQueue(CIColor::Value color, bool addToSendQueue)
         case CIColor::Value::purple:
             stardust->setStardustType(StardustModel::Type::GRAYSCALE);
             break;
-        case CIColor::Value::blue:
+        case CIColor::Value::turquoise:
             stardust->setStardustType(StardustModel::Type::FOG);
             break;
         default:

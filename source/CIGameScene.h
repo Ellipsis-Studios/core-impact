@@ -30,6 +30,16 @@
 #include "CIPlayerSettings.h"
 #include "CIGameConstants.h"
 
+/** Base stardust spawn rate */
+#define BASE_SPAWN_RATE 40
+#define BASE_PROBABILITY_SPACE 100
+
+/** Default number of stardust color counts */
+#define DEFAULT_COLOR_COUNTS 4
+
+#define SPF .066 //seconds per frame
+#define BACKGROUND_START 0
+#define BACKGROUND_END 240
 
 /**
  * This class is the primary gameplay constroller for the demo.
