@@ -1,8 +1,7 @@
 {
   "variables": {
     "size": ["children", "up", "data", "size"],
-    "text": ["children", "up", "children", "label", "data", "text"],
-    "font": ["children", "up", "children", "label", "data", "font"],
+
     "interior": ["children", "up", "children", "patch", "data", "interior"]
   },
   "contents": {
@@ -41,23 +40,14 @@
               "y_anchor": "fill"
             }
           },
-          "label": {
-            "type": "Label",
+          "back": {
+            "type": "Image",
             "format": {
               "type": "Anchored"
             },
             "data": {
-              "font": "saira32",
-              "text": "Back",
-              "foreground": [255, 255, 255, 255],
-              "background": [0, 0, 0, 0],
-              "anchor": [0.5, 0.5],
-              "halign": "center",
-              "valign": "middle"
-            },
-            "layout": {
-              "x_anchor": "fill",
-              "y_anchor": "fill"
+              "texture": "backbutton",
+              "scale": 1.45
             }
           }
         },

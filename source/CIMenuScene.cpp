@@ -175,7 +175,25 @@ void MenuScene::update(float timestep) {
     if (!isActive() || _backBtn == nullptr) {
         return;
     }
-    // handle back button
+
+    // handle background display
+    switch (_state)
+    {
+        case MenuState::Setting:
+        case MenuState::MainMenu:
+        case MenuState::Tutorial:
+            // display
+            _gameTitle->setVisible(true);
+            _gamePlanet->setVisible(true);
+            break;
+        default:
+            // hidden
+            _gameTitle->setVisible(false);
+            _gamePlanet->setVisible(false);
+            break;
+    }
+
+    // handle back button display
     switch (_state) 
     {
         case MenuState::Setting:
@@ -194,6 +212,22 @@ void MenuScene::update(float timestep) {
                 _backBtn->setVisible(false);
                 _backBtn->deactivate();
             }
+            break;
+    }
+
+    // handle back button positioning
+    const float roffset = getChildByName("menuScene")->getContentWidth() * (1.0f - 0.1f);
+    const float loffset = getChildByName("menuScene")->getContentWidth() * (0.1f);
+    switch (_state)
+    {
+        case MenuState::Setting:
+        case MenuState::Tutorial:
+            // right 
+            _backBtn->setPositionX(roffset);
+            break;
+        default:
+            // left
+            _backBtn->setPositionX(loffset);
             break;
     }
 
