@@ -216,7 +216,7 @@ void MenuScene::update(float timestep) {
     }
 
     // handle back button positioning
-    const float roffset = getChildByName("menuScene")->getContentWidth() * (1.0f - 0.1f);
+    const float roffset = getChildByName("menuScene")->getContentWidth() * (0.9f);
     const float loffset = getChildByName("menuScene")->getContentWidth() * (0.1f);
     switch (_state)
     {
