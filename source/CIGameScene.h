@@ -62,8 +62,6 @@ protected:
     std::shared_ptr<NetworkMessageManager> _networkMessageManager;
     
     // VIEW
-    /** Label used to dispslay the planet's mass to the screen */
-    std::shared_ptr<cugl::scene2::Label> _massHUD;
     /** Node to hold all of our graphics. Necesary for resolution indepedence. */
     std::shared_ptr<cugl::scene2::SceneNode> _allSpace;
     /** Background in animation parallax. Stores the field of stars */
