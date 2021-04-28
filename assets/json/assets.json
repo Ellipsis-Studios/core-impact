@@ -7,7 +7,7 @@
       "file": "textures/photon.png"
     },
     "opponentProgress": {
-      "file":     "textures/opponentProgressAnimation_v1.png"
+      "file":     "textures/opponentProgressAnimation_v2.png"
     },
     "core": {
         "file":   "textures/coreAnimation_v1.png"
@@ -16,7 +16,7 @@
         "file":   "textures/innerLayerAnimation_v2.png"
     },
     "unlockedOuterRing": {
-        "file":   "textures/outerLayerAnimation_v3.png"
+        "file":   "textures/outerLayerAnimation_v4.png"
     },
     "playerProgress": {
         "file":   "textures/player_progress_lock_in_v2.png"

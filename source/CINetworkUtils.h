@@ -34,8 +34,21 @@ public:
         AttemptToWin = 4,
         WonGame = 5,
         StardustHit = 6,
-        PowerupApplied = 7
+        PowerupApplied = 7,
+        NameSent = 8,
+        NameReceivedResponse = 9
     };
+
+    /**
+     * Decodes 12 bytes into a 12 character string.
+     */
+    static string decodeString(uint8_t c1, uint8_t c2, uint8_t c3, uint8_t c4, uint8_t c5, uint8_t c6,
+        uint8_t c7, uint8_t c8, uint8_t c9, uint8_t c10, uint8_t c11, uint8_t c12);
+
+    /**
+     * Encodes the string s into 12 bytes and appends those bytes onto out.
+     */
+    static void encodeString(string s, std::vector<uint8_t>& out);
     
     /**
      * Decodes 4 bytes into a float.
@@ -64,7 +77,7 @@ public:
         return {
             SERVER_ADDRESS,
             SERVER_PORT,
-            4,
+            5,
             0
         };
     }

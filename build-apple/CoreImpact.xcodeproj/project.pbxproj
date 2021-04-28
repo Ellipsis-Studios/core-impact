@@ -36,6 +36,53 @@
 		3DCF911E2607B5B600B97FA1 /* CINetworkUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCF911D2607B5B600B97FA1 /* CINetworkUtils.cpp */; };
 		3DCF911F2607B5B600B97FA1 /* CINetworkUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCF911D2607B5B600B97FA1 /* CINetworkUtils.cpp */; };
 		3DCF91202607B5B600B97FA1 /* CINetworkUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCF911D2607B5B600B97FA1 /* CINetworkUtils.cpp */; };
+		3DD6946A26311CD300ABF60F /* CIApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EBFA528421FA5AAB00CCC2C5 /* CIApp.cpp */; };
+		3DD6946B26311CD300ABF60F /* CIMainMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA525023261FEDBF00854B7B /* CIMainMenu.cpp */; };
+		3DD6946C26311CD300ABF60F /* CIOpponentNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA5B0F432617F05200859BEF /* CIOpponentNode.cpp */; };
+		3DD6946D26311CD300ABF60F /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB2BE9B41D74952A002FE78B /* main.cpp */; };
+		3DD6946E26311CD300ABF60F /* CIGameUpdateManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D94040625FFC52400043357 /* CIGameUpdateManager.cpp */; };
+		3DD6946F26311CD300ABF60F /* CILobbyMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA525024261FEDBF00854B7B /* CILobbyMenu.cpp */; };
+		3DD6947026311CD300ABF60F /* CIPlanetModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D563B9C25F0AF01006641B1 /* CIPlanetModel.cpp */; };
+		3DD6947126311CD300ABF60F /* CIStardustModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA9A2DCC25EDBD6A0048D02F /* CIStardustModel.cpp */; };
+		3DD6947226311CD300ABF60F /* CIInputController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EBFA528B21FA5AAC00CCC2C5 /* CIInputController.cpp */; };
+		3DD6947326311CD300ABF60F /* CITutorialMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42B54D46261B854D0097D816 /* CITutorialMenu.cpp */; };
+		3DD6947426311CD300ABF60F /* CINetworkMessageManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCF90D626051C9A00B97FA1 /* CINetworkMessageManager.cpp */; };
+		3DD6947526311CD300ABF60F /* CICollisionController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA68E30625F53BC200B4617D /* CICollisionController.cpp */; };
+		3DD6947626311CD300ABF60F /* CIOpponentPlanet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA80926026123A8300599B99 /* CIOpponentPlanet.cpp */; };
+		3DD6947726311CD300ABF60F /* CIGameUpdate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCE833725FDC3B8007EBA2D /* CIGameUpdate.cpp */; };
+		3DD6947826311CD300ABF60F /* CIStardustNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A5AFAD625F0B5320003669C /* CIStardustNode.cpp */; };
+		3DD6947926311CD300ABF60F /* CISettingsMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42B54D5B261B8C110097D816 /* CISettingsMenu.cpp */; };
+		3DD6947A26311CD300ABF60F /* CIPlanetNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D563BF725F6D5B7006641B1 /* CIPlanetNode.cpp */; };
+		3DD6947B26311CD300ABF60F /* CIStardustQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A5AFAD825F0B5320003669C /* CIStardustQueue.cpp */; };
+		3DD6947C26311CD300ABF60F /* CILoadingScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EBFA528321FA5AAB00CCC2C5 /* CILoadingScene.cpp */; };
+		3DD6947D26311CD300ABF60F /* CIJoinMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42B54D66261B97110097D816 /* CIJoinMenu.cpp */; };
+		3DD6947E26311CD300ABF60F /* CINetworkUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCF911D2607B5B600B97FA1 /* CINetworkUtils.cpp */; };
+		3DD6947F26311CD300ABF60F /* CIGameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EBFA528A21FA5AAC00CCC2C5 /* CIGameScene.cpp */; };
+		3DD6948026311CD300ABF60F /* CIMenuScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 426951EF260FCE5000E675E9 /* CIMenuScene.cpp */; };
+		3DD6948126311CD300ABF60F /* CIWinScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DA35B1B262B56A500A578DF /* CIWinScene.cpp */; };
+		3DD6948326311CD300ABF60F /* libcugl-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EB4EB1A41E3404F3007BCF09 /* libcugl-ios.a */; };
+		3DD6948426311CD300ABF60F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB97E8AA25D1839000753535 /* Foundation.framework */; };
+		3DD6948526311CD300ABF60F /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB97E8A725D1839000753535 /* CoreAudio.framework */; };
+		3DD6948626311CD300ABF60F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB97E8A825D1839000753535 /* CoreGraphics.framework */; };
+		3DD6948726311CD300ABF60F /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB97E8B325D1839000753535 /* CoreVideo.framework */; };
+		3DD6948826311CD300ABF60F /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB97E8B125D1839000753535 /* CoreMotion.framework */; };
+		3DD6948926311CD300ABF60F /* CoreHaptics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB97E8AD25D1839000753535 /* CoreHaptics.framework */; };
+		3DD6948A26311CD300ABF60F /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB97E8AF25D1839000753535 /* CoreBluetooth.framework */; };
+		3DD6948B26311CD300ABF60F /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB97E8AC25D1839000753535 /* CoreServices.framework */; };
+		3DD6948C26311CD300ABF60F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB97E8AE25D1839000753535 /* AudioToolbox.framework */; };
+		3DD6948D26311CD300ABF60F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB97E8B425D1839000753535 /* AVFoundation.framework */; };
+		3DD6948E26311CD300ABF60F /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB97E8B225D1839000753535 /* Metal.framework */; };
+		3DD6948F26311CD300ABF60F /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB97E8B025D1839000753535 /* OpenGLES.framework */; };
+		3DD6949026311CD300ABF60F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB97E8AB25D1839000753535 /* QuartzCore.framework */; };
+		3DD6949126311CD300ABF60F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB97E8C325D183B000753535 /* UIKit.framework */; };
+		3DD6949226311CD300ABF60F /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB97E8A925D1839000753535 /* GameController.framework */; };
+		3DD6949426311CD300ABF60F /* textures in Resources */ = {isa = PBXBuildFile; fileRef = EB2BE9BA1D7498D2002FE78B /* textures */; };
+		3DD6949526311CD300ABF60F /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = EB2BE9B81D7498C9002FE78B /* fonts */; };
+		3DD6949626311CD300ABF60F /* iOS.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB7454A71D74D846002FBAE6 /* iOS.xcassets */; };
+		3DD6949726311CD300ABF60F /* Landscape.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB7454A81D74D846002FBAE6 /* Landscape.storyboard */; };
+		3DD6949826311CD300ABF60F /* json in Resources */ = {isa = PBXBuildFile; fileRef = EBFE7C041E19B496001007C2 /* json */; };
+		3DD6949926311CD300ABF60F /* widgets in Resources */ = {isa = PBXBuildFile; fileRef = 426951F9260FCE9D00E675E9 /* widgets */; };
+		3DD6949A26311CD300ABF60F /* DeviceMargins.plist in Resources */ = {isa = PBXBuildFile; fileRef = EB42669221F68F6900A9DE61 /* DeviceMargins.plist */; };
 		426951F0260FCE5000E675E9 /* CIMenuScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 426951EF260FCE5000E675E9 /* CIMenuScene.cpp */; };
 		426951F1260FCE5000E675E9 /* CIMenuScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 426951EF260FCE5000E675E9 /* CIMenuScene.cpp */; };
 		426951F2260FCE5000E675E9 /* CIMenuScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 426951EF260FCE5000E675E9 /* CIMenuScene.cpp */; };
@@ -196,6 +243,8 @@
 		3DCF9118260657A900B97FA1 /* CIGameState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIGameState.h; sourceTree = "<group>"; };
 		3DCF911C2607B5A100B97FA1 /* CINetworkUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CINetworkUtils.h; sourceTree = "<group>"; };
 		3DCF911D2607B5B600B97FA1 /* CINetworkUtils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CINetworkUtils.cpp; sourceTree = "<group>"; };
+		3DD6949E26311CD300ABF60F /* Core Impact (iOS) Release.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Core Impact (iOS) Release.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3DD694A226311CD400ABF60F /* Core Impact (iOS) copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Core Impact (iOS) copy-Info.plist"; path = "/Users/william/Documents/core-impact/build-apple/Core Impact (iOS) copy-Info.plist"; sourceTree = "<absolute>"; };
 		426951EE260FCE4000E675E9 /* CIMenuScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIMenuScene.h; sourceTree = "<group>"; };
 		426951EF260FCE5000E675E9 /* CIMenuScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CIMenuScene.cpp; sourceTree = "<group>"; };
 		426951F9260FCE9D00E675E9 /* widgets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = widgets; sourceTree = "<group>"; };
@@ -227,7 +276,7 @@
 		EB2BE9BA1D7498D2002FE78B /* textures */ = {isa = PBXFileReference; lastKnownFileType = folder; path = textures; sourceTree = "<group>"; };
 		EB42669221F68F6900A9DE61 /* DeviceMargins.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DeviceMargins.plist; sourceTree = "<group>"; };
 		EB4EB19D1E3404F3007BCF09 /* CUGL.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CUGL.xcodeproj; path = "../cugl/build-apple/CUGL.xcodeproj"; sourceTree = "<group>"; };
-		EB74548C1D74D75C002FBAE6 /* Core Impact (iOS).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Core Impact (iOS).app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EB74548C1D74D75C002FBAE6 /* Core Impact.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Core Impact.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB7454A61D74D846002FBAE6 /* iOS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "iOS-Info.plist"; sourceTree = "<group>"; };
 		EB7454A71D74D846002FBAE6 /* iOS.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = iOS.xcassets; sourceTree = "<group>"; };
 		EB7454A81D74D846002FBAE6 /* Landscape.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Landscape.storyboard; sourceTree = "<group>"; };
@@ -259,7 +308,7 @@
 		EB97E8B325D1839000753535 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.4.sdk/System/Library/Frameworks/CoreVideo.framework; sourceTree = DEVELOPER_DIR; };
 		EB97E8B425D1839000753535 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.4.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		EB97E8C325D183B000753535 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.4.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		EBBF18911D74904A008E2001 /* Core Impact (Mac).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Core Impact (Mac).app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EBBF18911D74904A008E2001 /* Core Impact.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Core Impact.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBBF189A1D74904A008E2001 /* Mac.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Mac.xcassets; sourceTree = "<group>"; };
 		EBBF189F1D74904A008E2001 /* Mac-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Mac-Info.plist"; sourceTree = "<group>"; };
 		EBFA528321FA5AAB00CCC2C5 /* CILoadingScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CILoadingScene.cpp; sourceTree = "<group>"; };
@@ -274,6 +323,29 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		3DD6948226311CD300ABF60F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3DD6948326311CD300ABF60F /* libcugl-ios.a in Frameworks */,
+				3DD6948426311CD300ABF60F /* Foundation.framework in Frameworks */,
+				3DD6948526311CD300ABF60F /* CoreAudio.framework in Frameworks */,
+				3DD6948626311CD300ABF60F /* CoreGraphics.framework in Frameworks */,
+				3DD6948726311CD300ABF60F /* CoreVideo.framework in Frameworks */,
+				3DD6948826311CD300ABF60F /* CoreMotion.framework in Frameworks */,
+				3DD6948926311CD300ABF60F /* CoreHaptics.framework in Frameworks */,
+				3DD6948A26311CD300ABF60F /* CoreBluetooth.framework in Frameworks */,
+				3DD6948B26311CD300ABF60F /* CoreServices.framework in Frameworks */,
+				3DD6948C26311CD300ABF60F /* AudioToolbox.framework in Frameworks */,
+				3DD6948D26311CD300ABF60F /* AVFoundation.framework in Frameworks */,
+				3DD6948E26311CD300ABF60F /* Metal.framework in Frameworks */,
+				3DD6948F26311CD300ABF60F /* OpenGLES.framework in Frameworks */,
+				3DD6949026311CD300ABF60F /* QuartzCore.framework in Frameworks */,
+				3DD6949126311CD300ABF60F /* UIKit.framework in Frameworks */,
+				3DD6949226311CD300ABF60F /* GameController.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EB0FF5F92016EF4F00517030 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -520,15 +592,17 @@
 				EB4880FC1D74AAB600EFC946 /* Frameworks */,
 				EBBF18921D74904A008E2001 /* Products */,
 				EB4EB19D1E3404F3007BCF09 /* CUGL.xcodeproj */,
+				3DD694A226311CD400ABF60F /* Core Impact (iOS) copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
 		EBBF18921D74904A008E2001 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				EBBF18911D74904A008E2001 /* Core Impact (Mac).app */,
-				EB74548C1D74D75C002FBAE6 /* Core Impact (iOS).app */,
+				EBBF18911D74904A008E2001 /* Core Impact.app */,
+				EB74548C1D74D75C002FBAE6 /* Core Impact.app */,
 				EB0FF5FC2016EF4F00517030 /* Core Impact (Sim).app */,
+				3DD6949E26311CD300ABF60F /* Core Impact (iOS) Release.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -566,6 +640,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		3DD6946826311CD300ABF60F /* Core Impact (iOS) Release */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3DD6949B26311CD300ABF60F /* Build configuration list for PBXNativeTarget "Core Impact (iOS) Release" */;
+			buildPhases = (
+				3DD6946926311CD300ABF60F /* Sources */,
+				3DD6948226311CD300ABF60F /* Frameworks */,
+				3DD6949326311CD300ABF60F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Core Impact (iOS) Release";
+			productName = "HelloWorld (iOS)";
+			productReference = 3DD6949E26311CD300ABF60F /* Core Impact (iOS) Release.app */;
+			productType = "com.apple.product-type.application";
+		};
 		EB0FF5FB2016EF4F00517030 /* Core Impact (Sim) */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = EB0FF6162016EF4F00517030 /* Build configuration list for PBXNativeTarget "Core Impact (Sim)" */;
@@ -597,7 +688,7 @@
 			);
 			name = "Core Impact (iOS)";
 			productName = "HelloWorld (iOS)";
-			productReference = EB74548C1D74D75C002FBAE6 /* Core Impact (iOS).app */;
+			productReference = EB74548C1D74D75C002FBAE6 /* Core Impact.app */;
 			productType = "com.apple.product-type.application";
 		};
 		EBBF18901D74904A008E2001 /* Core Impact (Mac) */ = {
@@ -614,7 +705,7 @@
 			);
 			name = "Core Impact (Mac)";
 			productName = "HelloWorld (Mac)";
-			productReference = EBBF18911D74904A008E2001 /* Core Impact (Mac).app */;
+			productReference = EBBF18911D74904A008E2001 /* Core Impact.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -626,17 +717,23 @@
 				LastUpgradeCheck = 1240;
 				ORGANIZATIONNAME = "Game Design Initiative at Cornell";
 				TargetAttributes = {
+					3DD6946826311CD300ABF60F = {
+						DevelopmentTeam = 779J4S35TN;
+						ProvisioningStyle = Manual;
+					};
 					EB0FF5FB2016EF4F00517030 = {
 						CreatedOnToolsVersion = 9.2;
-						DevelopmentTeam = B836CXCFQ5;
+						DevelopmentTeam = DRVCJ2J2CR;
 						ProvisioningStyle = Automatic;
 					};
 					EB74548B1D74D75C002FBAE6 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = PLK746L3X4;
+						DevelopmentTeam = 779J4S35TN;
+						ProvisioningStyle = Automatic;
 					};
 					EBBF18901D74904A008E2001 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = DRVCJ2J2CR;
 					};
 				};
 			};
@@ -662,6 +759,7 @@
 				EBBF18901D74904A008E2001 /* Core Impact (Mac) */,
 				EB74548B1D74D75C002FBAE6 /* Core Impact (iOS) */,
 				EB0FF5FB2016EF4F00517030 /* Core Impact (Sim) */,
+				3DD6946826311CD300ABF60F /* Core Impact (iOS) Release */,
 			);
 		};
 /* End PBXProject section */
@@ -691,6 +789,20 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		3DD6949326311CD300ABF60F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3DD6949426311CD300ABF60F /* textures in Resources */,
+				3DD6949526311CD300ABF60F /* fonts in Resources */,
+				3DD6949626311CD300ABF60F /* iOS.xcassets in Resources */,
+				3DD6949726311CD300ABF60F /* Landscape.storyboard in Resources */,
+				3DD6949826311CD300ABF60F /* json in Resources */,
+				3DD6949926311CD300ABF60F /* widgets in Resources */,
+				3DD6949A26311CD300ABF60F /* DeviceMargins.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EB0FF5FA2016EF4F00517030 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -734,6 +846,37 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		3DD6946926311CD300ABF60F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3DD6946A26311CD300ABF60F /* CIApp.cpp in Sources */,
+				3DD6946B26311CD300ABF60F /* CIMainMenu.cpp in Sources */,
+				3DD6946C26311CD300ABF60F /* CIOpponentNode.cpp in Sources */,
+				3DD6946D26311CD300ABF60F /* main.cpp in Sources */,
+				3DD6946E26311CD300ABF60F /* CIGameUpdateManager.cpp in Sources */,
+				3DD6946F26311CD300ABF60F /* CILobbyMenu.cpp in Sources */,
+				3DD6947026311CD300ABF60F /* CIPlanetModel.cpp in Sources */,
+				3DD6947126311CD300ABF60F /* CIStardustModel.cpp in Sources */,
+				3DD6947226311CD300ABF60F /* CIInputController.cpp in Sources */,
+				3DD6947326311CD300ABF60F /* CITutorialMenu.cpp in Sources */,
+				3DD6947426311CD300ABF60F /* CINetworkMessageManager.cpp in Sources */,
+				3DD6947526311CD300ABF60F /* CICollisionController.cpp in Sources */,
+				3DD6947626311CD300ABF60F /* CIOpponentPlanet.cpp in Sources */,
+				3DD6947726311CD300ABF60F /* CIGameUpdate.cpp in Sources */,
+				3DD6947826311CD300ABF60F /* CIStardustNode.cpp in Sources */,
+				3DD6947926311CD300ABF60F /* CISettingsMenu.cpp in Sources */,
+				3DD6947A26311CD300ABF60F /* CIPlanetNode.cpp in Sources */,
+				3DD6947B26311CD300ABF60F /* CIStardustQueue.cpp in Sources */,
+				3DD6947C26311CD300ABF60F /* CILoadingScene.cpp in Sources */,
+				3DD6947D26311CD300ABF60F /* CIJoinMenu.cpp in Sources */,
+				3DD6947E26311CD300ABF60F /* CINetworkUtils.cpp in Sources */,
+				3DD6947F26311CD300ABF60F /* CIGameScene.cpp in Sources */,
+				3DD6948026311CD300ABF60F /* CIMenuScene.cpp in Sources */,
+				3DD6948126311CD300ABF60F /* CIWinScene.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EB0FF5F82016EF4F00517030 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -833,6 +976,59 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		3DD6949C26311CD300ABF60F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 779J4S35TN;
+				ENABLE_BITCODE = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				INFOPLIST_FILE = "Core Impact (iOS) copy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ellipsis.coreimpact;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Core Impact";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3DD6949D26311CD300ABF60F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 779J4S35TN;
+				ENABLE_BITCODE = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				INFOPLIST_FILE = "Core Impact (iOS) copy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ellipsis.coreimpact;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Core Impact";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		EB0FF60F2016EF4F00517030 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -850,16 +1046,17 @@
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = B836CXCFQ5;
+				DEVELOPMENT_TEAM = DRVCJ2J2CR;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(STATIC_LIB)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.elipsis.sim.coreimpact;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ellipsis.coreimpact;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -883,15 +1080,16 @@
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = B836CXCFQ5;
+				DEVELOPMENT_TEAM = DRVCJ2J2CR;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(STATIC_LIB)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.elipsis.sim.coreimpact;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ellipsis.coreimpact;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -906,17 +1104,21 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = PLK746L3X4;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.elipsis.ios.coreimpact;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ellipsis.coreimpact;
+				PRODUCT_NAME = "Core Impact";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -928,17 +1130,21 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = PLK746L3X4;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.elipsis.ios.coreimpact.jackie;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ellipsis.coreimpact;
+				PRODUCT_NAME = "Core Impact";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -978,6 +1184,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
 				CUGL_INCLUDES = "\"$(SRCROOT)/../cugl/include\"";
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -1003,6 +1210,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				VALIDATE_WORKSPACE_SKIPPED_SDK_FRAMEWORKS = "OpenGLES OpenGL";
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
@@ -1040,6 +1248,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
 				CUGL_INCLUDES = "\"$(SRCROOT)/../cugl/include\"";
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1059,6 +1268,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				VALIDATE_WORKSPACE_SKIPPED_SDK_FRAMEWORKS = "OpenGLES OpenGL";
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};
@@ -1069,9 +1279,11 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = DRVCJ2J2CR;
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/Mac-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.elipsis.mac.coreimpact;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ellipsis.coreimpact;
+				PRODUCT_NAME = "Core Impact";
 			};
 			name = Debug;
 		};
@@ -1082,15 +1294,26 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = DRVCJ2J2CR;
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/Mac-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.elipsis.mac.coreimpact;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ellipsis.coreimpact;
+				PRODUCT_NAME = "Core Impact";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		3DD6949B26311CD300ABF60F /* Build configuration list for PBXNativeTarget "Core Impact (iOS) Release" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3DD6949C26311CD300ABF60F /* Debug */,
+				3DD6949D26311CD300ABF60F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		EB0FF6162016EF4F00517030 /* Build configuration list for PBXNativeTarget "Core Impact (Sim)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

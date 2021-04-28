@@ -18,6 +18,7 @@
 #include "CIMenuScene.h"
 #include "CINetworkMessageManager.h"
 #include "CIGameSettings.h"
+#include "CIPlayerSettings.h"
 
 /**
  * This class represents the application root for the ship demo.
@@ -32,7 +33,9 @@ protected:
     // SHARED MANAGER
     std::shared_ptr<NetworkMessageManager> _networkMessageManager;
     
-    /** The settings for the current game */
+    /** The player settings for the current game */
+    std::shared_ptr<PlayerSettings> _playerSettings;
+    /** The game settings for the current game */
     std::shared_ptr<GameSettings> _gameSettings;
 
     // Player modes

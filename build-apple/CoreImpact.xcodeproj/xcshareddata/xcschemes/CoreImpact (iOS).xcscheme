@@ -15,8 +15,22 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "EB74548B1D74D75C002FBAE6"
-               BuildableName = "Core Impact (iOS).app"
+               BuildableName = "Core Impact.app"
                BlueprintName = "Core Impact (iOS)"
+               ReferencedContainer = "container:CoreImpact.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "NO"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "EBBF18901D74904A008E2001"
+               BuildableName = "Core Impact.app"
+               BlueprintName = "Core Impact (Mac)"
                ReferencedContainer = "container:CoreImpact.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -31,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EB74548B1D74D75C002FBAE6"
-            BuildableName = "Core Impact (iOS).app"
+            BuildableName = "Core Impact.app"
             BlueprintName = "Core Impact (iOS)"
             ReferencedContainer = "container:CoreImpact.xcodeproj">
          </BuildableReference>
@@ -54,7 +68,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EB74548B1D74D75C002FBAE6"
-            BuildableName = "Core Impact (iOS).app"
+            BuildableName = "Core Impact.app"
             BlueprintName = "Core Impact (iOS)"
             ReferencedContainer = "container:CoreImpact.xcodeproj">
          </BuildableReference>
@@ -66,16 +80,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EB74548B1D74D75C002FBAE6"
-            BuildableName = "Core Impact (iOS).app"
+            BuildableName = "Core Impact.app"
             BlueprintName = "Core Impact (iOS)"
             ReferencedContainer = "container:CoreImpact.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

@@ -10,7 +10,9 @@
 #define __CI_JOIN_MENU_H__
 #include <cugl/cugl.h>
 
-#include  "CIMenuState.h"
+#include "CIMenuState.h"
+#include "CIGameSettings.h"
+#include "CIGameConstants.h"
 
 /**
  * Model class representing the Join Game menu scene.
@@ -27,8 +29,8 @@ class JoinMenu {
 private:
     /** Menu state for the upcoming frame */
     MenuState _nextState;
-    /** Join Game room id string */
-    string _joinRoomId;
+    /** Reference to the game settings */
+    std::shared_ptr<GameSettings> _gameSettings;
 
     // Asset references
     /** Reference to the node for the group representing this menu scene */
@@ -60,21 +62,26 @@ public:
      * Initializes a new join game menu with the state pointer.
      *
      * @param assets    The (loaded) assets for this join game menu
+     * @param playerSettings    The player's saved settings value
+     * @param gameSettings      The settings for the current game
      *
      * @return true if initialization was successful, false otherwise
      */
-    bool init(const std::shared_ptr<cugl::AssetManager>& assets);
+    bool init(const std::shared_ptr<cugl::AssetManager>& assets,
+        const std::shared_ptr<GameSettings>& gameSettings);
 
     /**
      * Returns a newly allocated Join Game menu.
      *
      * @param assets    The (loaded) assets for this join game menu
+     * @param playerSettings    The player's saved settings value
+     * @param gameSettings      The settings for the current game
      *
      * @return a newly allocated join game menu
      */
-    static std::shared_ptr<JoinMenu> alloc(const std::shared_ptr<cugl::AssetManager>& assets) {
+    static std::shared_ptr<JoinMenu> alloc(const std::shared_ptr<cugl::AssetManager>& assets, const std::shared_ptr<GameSettings>& gameSettings) {
         std::shared_ptr<JoinMenu> result = std::make_shared<JoinMenu>();
-        return (result->init(assets) ? result : nullptr);
+        return (result->init(assets, gameSettings) ? result : nullptr);
     }
 
 #pragma mark -
@@ -92,7 +99,7 @@ public:
      * This method handles transitions into and out of join game menu along
      * with any updates within the join game menu scene.
      */
-    void update(MenuState& state, string& joingame);
+    void update(MenuState& state);
 
     /**
      * Returns the root scene node for the join game menu layer.
