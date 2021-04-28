@@ -268,7 +268,12 @@ void NetworkMessageManager::receiveMessages() {
 
                 CULog("RCVD PLAYERNAME> PLAYERNAME[%s], PLAYER[%i], TS[%i]", player_name.c_str(), playerId, timestamp);
 
-                _otherNames.insert(_otherNames.begin() + playerId - 1, player_name);
+                if (playerId > getPlayerId()) {
+                    _otherNames[(playerId - 1)] = player_name;
+                }
+                else {
+                    _otherNames[playerId] = player_name;
+                }
 
                 std::vector<uint8_t> data;
                 NetworkUtils::encodeInt(NetworkUtils::MessageType::NameReceivedResponse, data);
