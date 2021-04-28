@@ -59,7 +59,7 @@ bool GameUpdateManager::init() {
  * @param stardustQueue     A reference to the player's stardust queue
  * @param bounds                    The bounds of the screen
  */
-void GameUpdateManager::sendUpdate(const std::shared_ptr<PlanetModel> planet, const std::shared_ptr<StardustQueue> stardustQueue, cugl::Size bounds) {
+void GameUpdateManager::sendUpdate(const std::shared_ptr<PlanetModel> planet, const std::shared_ptr<StardustQueue> stardustQueue) {
     if (getPlayerId() < 0) {
         return;
     }
@@ -130,7 +130,7 @@ void GameUpdateManager::processGameUpdate(std::shared_ptr<StardustQueue> stardus
         std::shared_ptr<GameUpdate> gameUpdate = _game_updates_to_process[ii];
         if (gameUpdate == nullptr) break;
         std::map<int, std::vector<std::shared_ptr<StardustModel>>> stardustSent = gameUpdate->getStardustSent();
-        CILocation::Value opponentLocation = NetworkUtils::getStardustLocation(getPlayerId(), gameUpdate->getPlayerId());
+        CILocation::Value opponentLocation = NetworkUtils::getLocation(getPlayerId(), gameUpdate->getPlayerId());
         if (stardustSent.count(getPlayerId()) > 0) {
             std::vector<std::shared_ptr<StardustModel>> stardustVector = stardustSent[getPlayerId()];
             for (size_t jj = 0; jj < stardustVector.size(); jj++) {
@@ -144,7 +144,7 @@ void GameUpdateManager::processGameUpdate(std::shared_ptr<StardustQueue> stardus
                 
                 // this player hit another player with a stardust
                 if (stardust->getColor() == CIColor::getNoneColor()) {
-                    opponentPlanets[gameUpdate->getPlayerId()]->startHitAnimation();
+                    opponentPlanets[NetworkUtils::getLocation(getPlayerId(), gameUpdate->getPlayerId())-1]->startHitAnimation();
                     
                     CIColor::Value c = planet->getColor() == CIColor::getNoneColor() ? CIColor::getRandomColor() : planet->getColor();
 
@@ -223,12 +223,8 @@ void GameUpdateManager::processGameUpdate(std::shared_ptr<StardustQueue> stardus
         }
         
         int playerId = gameUpdate->getPlayerId();
-        if (opponentPlanets[playerId] == nullptr) {
-            cugl::Vec2 pos = CILocation::getPositionOfLocation(planet->getLocation(), bounds);
-            opponentPlanets[playerId] = OpponentPlanet::alloc(pos.x, pos.y, planet->getColor(), planet->getLocation());
-        }
-        opponentPlanets[playerId]->setColor(planet->getColor());
-        opponentPlanets[playerId]->setMass(planet->getMass());
+        opponentPlanets[NetworkUtils::getLocation(getPlayerId(), playerId)-1]->setColor(planet->getColor());
+        opponentPlanets[NetworkUtils::getLocation(getPlayerId(), playerId)-1]->setMass(planet->getMass());
     }
     
     _game_updates_to_process.clear();

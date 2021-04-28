@@ -64,8 +64,6 @@ protected:
 
     /** Stores the game code for joining as client*/
     string _joinGame;
-    /** Value for other players' names */
-    vector<string> _otherNames;
 
     // Menu scene state value
     MenuState _state;

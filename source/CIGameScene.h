@@ -81,7 +81,7 @@ protected:
     /** Pointer to the model of the stardust that is currently being dragged */
     StardustModel*  _draggedStardust;
     /** Vector of opponent planets */
-    std::vector<std::shared_ptr<OpponentPlanet>> _opponent_planets;
+    std::vector<std::shared_ptr<OpponentPlanet>> _opponentPlanets;
 
     // Game Settings
     std::shared_ptr<GameSettings> _gameSettings;

@@ -29,6 +29,10 @@
     "saira32": {
       "file": "fonts/SairaSemicondensed.ttf",
       "size": 32
+    },
+    "saira20": {
+      "file": "fonts/SairaSemicondensed.ttf",
+      "size": 20
     }
   },
   "scene2s": {

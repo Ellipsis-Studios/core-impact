@@ -23,9 +23,9 @@
 #define PROGRESS_FLASH_START    65
 
 /** The x offset of the nametag from the corner of the screen */
-#define NAMETAG_X_OFFSET 45
+#define NAMETAG_X_OFFSET        40
 /** The y offset of the nametag from the corner of the screen */
-#define NAMETAG_Y_OFFSET 80
+#define NAMETAG_Y_OFFSET        40
 
 class OpponentNode : public cugl::scene2::AnimationNode {
 private:
@@ -103,6 +103,30 @@ private:
                 break;
             case CILocation::Value::ON_SCREEN: //this case should not occur
                 return 0;
+        }
+    }
+    
+    /**
+     * Helper function to get the anchor of the text node
+     *
+     * @param location The location of this opponent node
+     */
+    cugl::Vec2 getTextAnchorFromLocation(CILocation::Value location) {
+        switch (location) {
+            case CILocation::Value::TOP_LEFT:
+                return cugl::Vec2::ANCHOR_TOP_LEFT;
+                break;
+            case CILocation::Value::TOP_RIGHT:
+                return cugl::Vec2::ANCHOR_TOP_RIGHT;
+                break;
+            case CILocation::Value::BOTTOM_LEFT:
+                return cugl::Vec2::ANCHOR_BOTTOM_LEFT;
+                break;
+            case CILocation::Value::BOTTOM_RIGHT:
+                return cugl::Vec2::ANCHOR_BOTTOM_RIGHT;
+                break;
+            case CILocation::Value::ON_SCREEN: //this case should not occur
+                return cugl::Vec2::ANCHOR_CENTER;
         }
     }
     
@@ -225,10 +249,11 @@ public:
     void setName(std::string name, std::shared_ptr<cugl::Font> font) {
         if (_nameLabel == nullptr) {
             _nameLabel = cugl::scene2::Label::alloc(name, font);
+            _nameLabel->setAnchor(getTextAnchorFromLocation(_location));
             cugl::Vec2 pos = getReflectFromLocation(_location) * cugl::Vec2(NAMETAG_X_OFFSET, NAMETAG_Y_OFFSET);
             _nameLabel->setPosition(pos);
             _nameLabel->setRelativeColor(false);
-            _nameLabel->setForeground(cugl::Color4::WHITE);
+            _nameLabel->setForeground(cugl::Color4(192, 192, 192, 192));
             addChild(_nameLabel);
         } else {
             _nameLabel->setText(name);

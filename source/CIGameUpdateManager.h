@@ -124,7 +124,7 @@ public:
      * @param stardustQueue     A reference to the player's stardust queue
      * @param bounds                    The bounds of the screen
      */
-    void sendUpdate(const std::shared_ptr<PlanetModel> planet, const std::shared_ptr<StardustQueue> stardustQueue, cugl::Size bounds);
+    void sendUpdate(const std::shared_ptr<PlanetModel> planet, const std::shared_ptr<StardustQueue> stardustQueue);
     
     /**
      * Processes current game updates from other players if there are any.

@@ -51,11 +51,7 @@ private:
     std::shared_ptr<cugl::scene2::SceneNode> _gamelobbyplayerName3;
     std::shared_ptr<cugl::scene2::SceneNode> _gamelobbyplayerName4;
     std::shared_ptr<cugl::scene2::SceneNode> _gamelobbyplayerName5;
-    std::shared_ptr<cugl::scene2::Label> _gamelobbyplayerlabel1; // top
-    std::shared_ptr<cugl::scene2::Label> _gamelobbyplayerlabel2; // middle left
-    std::shared_ptr<cugl::scene2::Label> _gamelobbyplayerlabel3; // middle right
-    std::shared_ptr<cugl::scene2::Label> _gamelobbyplayerlabel4; // bottom left
-    std::shared_ptr<cugl::scene2::Label> _gamelobbyplayerlabel5; // bottom right
+    std::vector<std::shared_ptr<cugl::scene2::Label>> _gameLobbyPlayerLabels;
 
     // game lobby settings
     /** Reference to stardust spawn rate button + label + value list */
