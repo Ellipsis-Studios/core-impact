@@ -83,13 +83,8 @@ protected:
     /** The texture on the outside of a locked ring */
     std::shared_ptr<cugl::Texture> _lockedTexture;
     
-    // Planet Progress Textures
-    /** Texture for a layer that is able to be locked in. */
-    std::shared_ptr<cugl::Texture> _canLockInLayerTexture;
-    /** Texture for an arc that is untapered. */
-    std::shared_ptr<cugl::Texture> _untaperedArcTexture;
-    /** Texture for an arc that is tapered. */
-    std::shared_ptr<cugl::Texture> _taperedArcTexture;
+    /** Texture for displaying a players progress. */
+    std::shared_ptr<cugl::Texture> _planetProgressTexture;
     
 public:
     PlanetNode() : AnimationNode(), _timeElapsed(0) {}
@@ -101,25 +96,14 @@ public:
     static std::shared_ptr<PlanetNode> alloc(const std::shared_ptr<cugl::Texture>& core,
                                              const std::shared_ptr<cugl::Texture>& ring,
                                              const std::shared_ptr<cugl::Texture>& unlocked,
-                                             const std::shared_ptr<cugl::Texture>& locked) {
+                                             const std::shared_ptr<cugl::Texture>& locked,
+                                             const std::shared_ptr<cugl::Texture>& progressTexture) {
         std::shared_ptr<PlanetNode> node = std::make_shared<PlanetNode>();
         node->_ringTexture = ring;
         node->_unlockedTexture = unlocked;
         node->_lockedTexture = locked;
+        node->_planetProgressTexture = progressTexture;
         return (node->AnimationNode::initWithFilmstrip(core, CORE_ROWS, CORE_COLS) ? node : nullptr);
-    }
-    
-    /** Sets the textures for the planet progress node.
-     *
-     * @param canLockInLayerTexture     Pointer to the texture for being able to lock in a layer
-     * @param untaperedArcTexture         Pointer to the texture for an untapered arc
-     * @param taperedArcTexture             Pointer to the texture for a tapered arc
-     */
-    void setPlanetProgressTextures(const std::shared_ptr<cugl::Texture>& canLockInLayerTexture,
-                                   const std::shared_ptr<cugl::Texture>& untaperedArcTexture, const std::shared_ptr<cugl::Texture>& taperedArcTexture) {
-        _canLockInLayerTexture = canLockInLayerTexture;
-        _untaperedArcTexture = untaperedArcTexture;
-        _taperedArcTexture = taperedArcTexture;
     }
     
     void draw(const std::shared_ptr<cugl::SpriteBatch>& batch,

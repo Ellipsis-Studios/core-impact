@@ -22,6 +22,10 @@ void PlanetNode::draw(const std::shared_ptr<cugl::SpriteBatch>& batch,
 }
 
 void PlanetNode::update(float timestep, bool isLockingIn, int numLayers, bool canLockIn) {
+    if (_progressNodes.size() != _layers->size()) {
+        setLayers(_layers);
+    }
+    
     _timeElapsed += timestep;
     if (_timeElapsed > SPF) {
         _timeElapsed = 0;
@@ -76,9 +80,7 @@ void PlanetNode::setLayers(std::vector<PlanetLayer>* layers) {
     if (_layerNodes.size() != layers->size()) {
         _layerNodes.resize(layers->size());
     }
-    if (_progressNodes.size() != layers->size()) {
-        _progressNodes.resize(layers->size());
-    }
+    
     for (int ii = 0; ii < layers->size(); ii++) {
         LayerNode* node = &_layerNodes[ii];
         if (layers->at(ii).isActive) {
@@ -113,13 +115,18 @@ void PlanetNode::setLayers(std::vector<PlanetLayer>* layers) {
             node->innerRing->setColor(CIColor::getColor4(layers->at(ii).layerColor));
             node->outerRing->setColor(CIColor::getColor4(layers->at(ii).layerColor));
         }
-        
-        if (_taperedArcTexture != nullptr && getScene() != nullptr) {
+
+        if (_planetProgressTexture != nullptr && getScene() != nullptr) {
+            if (_progressNodes.size() != layers->size()) {
+                _progressNodes.resize(layers->size());
+            }
+            
             if (_progressNodes[ii] == nullptr) {
-                _progressNodes[ii] = PlanetProgressNode::alloc(_canLockInLayerTexture, nullptr, _taperedArcTexture);
+                _progressNodes[ii] = PlanetProgressNode::alloc(_planetProgressTexture);
                 getScene()->addChild(_progressNodes[ii]);
             }
             _progressNodes[ii]->setLayer(layers->at(ii));
+            _progressNodes[ii]->setLayerNum(ii);
         }
     }
 }

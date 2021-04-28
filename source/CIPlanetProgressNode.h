@@ -26,17 +26,15 @@ private:
     /** A layer of the player's planet. */
     PlanetLayer _planetLayer;
     
-    /** Texture for a layer that is able to be locked in. */
-    std::shared_ptr<cugl::Texture> _canLockInLayerTexture;
-    /** Texture for an arc that is untapered. */
-    std::shared_ptr<cugl::Texture> _untaperedArcTexture;
-    /** Texture for an arc that is tapered. */
-    std::shared_ptr<cugl::Texture> _taperedArcTexture;
+    /** Texture to display planet progress. */
+    std::shared_ptr<cugl::Texture> _progressTexture;
     
     /** The amount of time since last animation frame change */
     float _timeElapsed;
     
     int _currFrame;
+    
+    int _layerNum;
     
 public:
     /**
@@ -57,32 +55,23 @@ public:
     /**
      * Returns the newly allocated Planet Progress Node
      *
-     * @param canLockInLayerTexture     Pointer to the texture for being able to lock in a layer
-     * @param untaperedArcTexture         Pointer to the texture for an untapered arc
-     * @param taperedArcTexture             Pointer to the texture for a tapered arc
+     * @param progressTexture     Pointer to the texture to display planet progress
      *
      * @return a newly allocated Planet Progress Node
      */
-    static std::shared_ptr<PlanetProgressNode> alloc(const std::shared_ptr<cugl::Texture>& canLockInLayerTexture,
-        const std::shared_ptr<cugl::Texture>& untaperedArcTexture, const std::shared_ptr<cugl::Texture>& taperedArcTexture) {
+    static std::shared_ptr<PlanetProgressNode> alloc(const std::shared_ptr<cugl::Texture>& progressTexture) {
         std::shared_ptr<PlanetProgressNode> node = std::make_shared<PlanetProgressNode>();
-//        return (node->AnimationNode::initWithFilmstrip(taperedArcTexture, PROGRESS_ARC_ROWS, PROGRESS_ARC_COLS) && node->init(canLockInLayerTexture, untaperedArcTexture, taperedArcTexture) ? node : nullptr);
-        return (node->AnimationNode::initWithFilmstrip(canLockInLayerTexture, LOCKIN_ROWS, LOCKIN_COLS) && node->init(canLockInLayerTexture, untaperedArcTexture, taperedArcTexture) ? node : nullptr);
+        return (node->AnimationNode::initWithFilmstrip(progressTexture, LOCKIN_ROWS, LOCKIN_COLS) && node->init(progressTexture) ? node : nullptr);
     }
     
     /** Initializes a new planet progress node.
      *
-     * @param canLockInLayerTexture     Pointer to the texture for being able to lock in a layer
-     * @param untaperedArcTexture         Pointer to the texture for an untapered arc
-     * @param taperedArcTexture             Pointer to the texture for a tapered arc
+     * @param progressTexture     Pointer to the texture to display planet progress
      *
      * @return bool true if new node initialized successfully else false
      */
-    bool init(const std::shared_ptr<cugl::Texture>& canLockInLayerTexture,
-              const std::shared_ptr<cugl::Texture>& untaperedArcTexture, const std::shared_ptr<cugl::Texture>& taperedArcTexture) {
-        _canLockInLayerTexture = canLockInLayerTexture;
-        _untaperedArcTexture = untaperedArcTexture;
-        _taperedArcTexture = taperedArcTexture;
+    bool init(const std::shared_ptr<cugl::Texture>& progressTexture) {
+        _progressTexture = progressTexture;
         _timeElapsed = 0;
         _currFrame = LOCKIN_END;
         setScale(0.25f);
@@ -96,6 +85,10 @@ public:
      */
     void setLayer(PlanetLayer layer) {
         _planetLayer = layer;
+    }
+    
+    void setLayerNum(int layerNum) {
+        _layerNum = layerNum;
     }
     
     /**

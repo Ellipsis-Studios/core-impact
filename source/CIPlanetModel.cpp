@@ -18,7 +18,6 @@
 #define PLANET_MASS_DELTA              10
 #define INITIAL_PLANET_MASS            25
 #define INIT_LAYER_LOCKIN_TOTAL         5
-#define LAYER_LOCKIN_TOTAL_INCREASE     1
 #define LAYER_LOCKIN_TIME               3
 
 /** Initialize PlanetModel's static variables */
@@ -33,12 +32,14 @@ uint16_t PlanetModel::_winPlanetMass = 200;
  * @param ring          The texture of an inner ring
  * @param unlocked The texture on the outside of an unlocked ring
  * @param unlocked The texture on the outside of a locked ring
+ * @param progressTexture The texture to display a players planet progress
  */
 void PlanetModel::setTextures(const std::shared_ptr<cugl::Texture>& core,
                               const std::shared_ptr<cugl::Texture>& ring,
                               const std::shared_ptr<cugl::Texture>& unlocked,
-                              const std::shared_ptr<cugl::Texture>& locked) {
-    _planetNode = PlanetNode::alloc(core, ring, unlocked, locked);
+                              const std::shared_ptr<cugl::Texture>& locked,
+                              const std::shared_ptr<cugl::Texture>& progressTexture) {
+    _planetNode = PlanetNode::alloc(core, ring, unlocked, locked, progressTexture);
     _planetNode->setAnchor(cugl::Vec2::ANCHOR_CENTER);
     _planetNode->setLayers(&_layers);
     _planetNode->setPosition(_position);
@@ -147,7 +148,6 @@ bool PlanetModel::lockInLayer(float timestep) {
     
     _layers[_numLayers-1].isLockedIn = true;
     _numLayers++;
-    _layerLockinTotal += LAYER_LOCKIN_TOTAL_INCREASE;
     _layers[_numLayers-1] = getNewLayer();
     _lockInProgress = 0;
     _radius *= LAYER_RADIUS_MULTIPLIER;
