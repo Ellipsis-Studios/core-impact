@@ -34,6 +34,7 @@ private:
     
     int _currFrame;
     
+    /** The number for planet layer associated with this node. Numbering starts at 0 */
     int _layerNum;
     
 public:
