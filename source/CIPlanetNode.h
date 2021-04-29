@@ -15,6 +15,7 @@
 #include <cugl/cugl.h>
 #include "CIColor.h"
 #include "CIPlanetLayer.h"
+#include "CIPlanetProgressNode.h"
 
 #define PLANET_RING_TEXTURE_INNER_SIZE 140
 #define PLANET_OUTER_RING_SCALE 0.75
@@ -64,6 +65,9 @@ private:
     std::vector<PlanetLayer>* _layers;
     /** The nodes representing the layers of this planet */
     std::vector<LayerNode> _layerNodes;
+    
+    /** The nodes representing planet progress */
+    std::vector<std::shared_ptr<PlanetProgressNode>> _progressNodes;
   
     /* Updates the animation frame for the inner layer */
     void advanceInnerLayerFrame(LayerNode* node);
@@ -79,6 +83,9 @@ protected:
     /** The texture on the outside of a locked ring */
     std::shared_ptr<cugl::Texture> _lockedTexture;
     
+    /** Texture for displaying a players progress. */
+    std::shared_ptr<cugl::Texture> _planetProgressTexture;
+    
 public:
     PlanetNode() : AnimationNode(), _timeElapsed(0) {}
     
@@ -89,11 +96,13 @@ public:
     static std::shared_ptr<PlanetNode> alloc(const std::shared_ptr<cugl::Texture>& core,
                                              const std::shared_ptr<cugl::Texture>& ring,
                                              const std::shared_ptr<cugl::Texture>& unlocked,
-                                             const std::shared_ptr<cugl::Texture>& locked) {
+                                             const std::shared_ptr<cugl::Texture>& locked,
+                                             const std::shared_ptr<cugl::Texture>& progressTexture) {
         std::shared_ptr<PlanetNode> node = std::make_shared<PlanetNode>();
         node->_ringTexture = ring;
         node->_unlockedTexture = unlocked;
         node->_lockedTexture = locked;
+        node->_planetProgressTexture = progressTexture;
         return (node->AnimationNode::initWithFilmstrip(core, CORE_ROWS, CORE_COLS) ? node : nullptr);
     }
     

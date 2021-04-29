@@ -83,7 +83,6 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _allSpace  = _assets->get<scene2::SceneNode>("game_field");
     _farSpace = std::dynamic_pointer_cast<scene2::AnimationNode>(_assets->get<scene2::SceneNode>("game_field_far"));
     _nearSpace = _assets->get<scene2::SceneNode>("game_field_near");
-    _massHUD  = std::dynamic_pointer_cast<scene2::Label>(_assets->get<scene2::SceneNode>("game_hud"));
     
     // create the win scene
     _winScene = WinScene::alloc(assets, dimen);
@@ -95,7 +94,8 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     auto ringTexture = _assets->get<Texture>("innerRing");
     auto unlockedTexture = _assets->get<Texture>("unlockedOuterRing");
     auto lockedTexture = _assets->get<Texture>("lockedOuterRing");
-    _planet->setTextures(coreTexture, ringTexture, unlockedTexture, lockedTexture);
+    auto planetProgressTexture = _assets->get<Texture>("playerProgress");
+    _planet->setTextures(coreTexture, ringTexture, unlockedTexture, lockedTexture, planetProgressTexture);
 
     _draggedStardust = NULL;
     _stardustContainer = StardustQueue::alloc(CONSTANTS::MAX_STARDUSTS, coreTexture);
@@ -132,7 +132,6 @@ void GameScene::dispose() {
     _assets = nullptr;
     _gameUpdateManager = nullptr;
     _networkMessageManager = nullptr;
-    _massHUD = nullptr;
     _allSpace = nullptr;
     _farSpace = nullptr;
     _nearSpace = nullptr;
@@ -158,12 +157,8 @@ void GameScene::dispose() {
 void GameScene::update(float timestep) {
     Size dimen = Application::get()->getDisplaySize();
     dimen *= CONSTANTS::SCENE_WIDTH/dimen.width;
+    
     _input.update(timestep);
-    
-    _massHUD->setText("Room: " + _networkMessageManager->getRoomId()
-        + " / Your Core: " + to_string(_planet->getMass()) + "; "
-        + CIColor::getString(_planet->getColor()));
-    
     // Handle counting down then switching to loading screen
     if (_networkMessageManager->getWinnerPlayerId() != -1) {
         if (!_winScene->displayActive()) {

@@ -18,6 +18,9 @@
     "unlockedOuterRing": {
         "file":   "textures/outerLayerAnimation_v4.png"
     },
+    "playerProgress": {
+        "file":   "textures/player_progress_lock_in_v2.png"
+    },
     "fog": {
         "file":   "textures/fog.png"
     }
@@ -64,24 +67,6 @@
                 "frame": 0
               }
             }
-          }
-        },
-        "hud": {
-          "type": "Label",
-          "data": {
-            "font": "saira32",
-            "text": "Coords: (128, 128)  ",
-            "foreground": [255, 255, 255, 255],
-            "size": [500, 70],
-            "valign": "bottom",
-            "halign": "left"
-          },
-          "layout": {
-            "x_anchor": "left",
-            "y_anchor": "bottom",
-            "x_offset": 10,
-            "y_offset": 10,
-            "absolute": true
           }
         },
         "win": {
