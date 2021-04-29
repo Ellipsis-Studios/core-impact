@@ -3,9 +3,6 @@
     "space": {
       "file": "textures/backgroundAnimation_v5.png"
     },
-    "photon": {
-      "file": "textures/photon.png"
-    },
     "opponentProgress": {
       "file":     "textures/opponentProgressAnimation_v2.png"
     },
