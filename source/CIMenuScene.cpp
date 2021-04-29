@@ -86,8 +86,6 @@ bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     // player settings
     _playerSettings = playerSettings;
 
-    _otherNames = vector<string>{ "N/A", "N/A", "N/A", "N/A" };
-
     _state = MenuState::LoadToMain;
 
     Application::get()->setClearColor(Color4(192, 192, 192, 255));

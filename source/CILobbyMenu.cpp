@@ -32,11 +32,9 @@ void LobbyMenu::dispose() {
     _winMassBtn = nullptr;
 
     _lobbyRoomLabel = nullptr;
-    _gamelobbyplayerlabel1 = nullptr;
-    _gamelobbyplayerlabel2 = nullptr;
-    _gamelobbyplayerlabel3 = nullptr;
-    _gamelobbyplayerlabel4 = nullptr;
-    _gamelobbyplayerlabel5 = nullptr;
+    for (int ii = 0; ii < _gameLobbyPlayerLabels.size(); ii++) {
+        _gameLobbyPlayerLabels[ii] = nullptr;
+    }
 
     _gamelobbyplayerName1 = nullptr;
     _gamelobbyplayerName2 = nullptr;
@@ -88,11 +86,12 @@ bool LobbyMenu::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _gamelobbyplayerName3 = assets->get<scene2::SceneNode>("lobby_playerlabel3");
     _gamelobbyplayerName4 = assets->get<scene2::SceneNode>("lobby_playerlabel4");
     _gamelobbyplayerName5 = assets->get<scene2::SceneNode>("lobby_playerlabel5");
-    _gamelobbyplayerlabel1 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_playerlabel1_label"));
-    _gamelobbyplayerlabel2 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_playerlabel2_label"));
-    _gamelobbyplayerlabel3 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_playerlabel3_label"));
-    _gamelobbyplayerlabel4 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_playerlabel4_label"));
-    _gamelobbyplayerlabel5 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_playerlabel5_label"));
+    _gameLobbyPlayerLabels.resize(5);
+    _gameLobbyPlayerLabels[0] = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_playerlabel1_label"));
+    _gameLobbyPlayerLabels[1] = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_playerlabel2_label"));
+    _gameLobbyPlayerLabels[2] = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_playerlabel3_label"));
+    _gameLobbyPlayerLabels[3] = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_playerlabel4_label"));
+    _gameLobbyPlayerLabels[4] = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_playerlabel5_label"));
 
     // Game lobby settings 
     _spawnRateLabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_spawnratebutton_up_label"));
@@ -220,7 +219,6 @@ void LobbyMenu::update(MenuState& state) {
     if (_layer == nullptr) {
         return;
     }
-    vector<string> othernames = { "N/A", "N/A", "N/A", "N/A" };;
     // handle GameLobby menu
     switch (state)
     {
@@ -229,7 +227,7 @@ void LobbyMenu::update(MenuState& state) {
             // handle displaying for Host
             _networkMessageManager->createGame();
             _networkMessageManager->setPlayerName(_playerSettings->getPlayerName());
-            _networkMessageManager->setOtherNames(othernames);
+            _networkMessageManager->setOtherNames({ "", "", "", "" });
             _networkMessageManager->sendMessages();
             _networkMessageManager->receiveMessages();
             _gameSettings->setGameId(_networkMessageManager->getRoomId());
@@ -238,7 +236,7 @@ void LobbyMenu::update(MenuState& state) {
             setDisplay(true);
 
             _lobbyRoomLabel->setText(_gameSettings->getGameId());
-            _gamelobbyplayerlabel1->setText(_playerSettings->getPlayerName());
+            _gameLobbyPlayerLabels[0]->setText(_playerSettings->getPlayerName());
 
             // handle game lobby settings (only visible to the host)
             _spawnRateLabel->setText(cugl::strtool::to_string(_gameSettings->getSpawnRate(), 1) + "X");
@@ -265,13 +263,13 @@ void LobbyMenu::update(MenuState& state) {
             _gamelobbyplayerName5->setPositionY(_gamelobbyplayerName5->getPositionY() - clientOffset);
 
             _networkMessageManager->setPlayerName(_playerSettings->getPlayerName());
-            _networkMessageManager->setOtherNames(othernames);
+            _networkMessageManager->setOtherNames({ "", "", "", "" });
             _networkMessageManager->joinGame(_gameSettings->getGameId());
             _networkMessageManager->setRoomID(_gameSettings->getGameId());
             _networkMessageManager->sendMessages();
             _networkMessageManager->receiveMessages();
             _lobbyRoomLabel->setText(_gameSettings->getGameId());
-            _gamelobbyplayerlabel1->setText(_playerSettings->getPlayerName());
+            _gameLobbyPlayerLabels[0]->setText(_playerSettings->getPlayerName());
             
             _isHost = false;
             state = MenuState::GameLobby;
@@ -283,13 +281,13 @@ void LobbyMenu::update(MenuState& state) {
             _networkMessageManager->sendMessages();
             _networkMessageManager->receiveMessages();
             _lobbyRoomLabel->setText(_networkMessageManager->getRoomId());
-            othernames = _networkMessageManager->getOtherNames();
+            vector<string> othernames = _networkMessageManager->getOtherNames();
             // update other players' labels
-            _gamelobbyplayerlabel2->setText(othernames.at(0));
-            _gamelobbyplayerlabel3->setText(othernames.at(1));
-            _gamelobbyplayerlabel4->setText(othernames.at(2));
-            _gamelobbyplayerlabel5->setText(othernames.at(3));
-
+            for (int ii = 0; ii < othernames.size(); ii++) {
+                if (othernames[ii] != "") {
+                    _gameLobbyPlayerLabels[ii+1]->setText(othernames[ii]);
+                }
+            }
             // handle room player updates and triggering game start
             if (_networkMessageManager->getGameState() == GameState::GameInProgress) {
                 _nextState = MenuState::LobbyToGame;

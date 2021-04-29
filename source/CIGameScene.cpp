@@ -100,9 +100,6 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _draggedStardust = NULL;
     _stardustContainer = StardustQueue::alloc(CONSTANTS::MAX_STARDUSTS, coreTexture);
 
-    // TODO: resize to number of players in the game and add opponent planet nodes to scene graph
-    _opponent_planets.resize(5);
-
     // Game settings
     _gameSettings = gameSettings;
     // Player settings
@@ -117,6 +114,21 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     addChild(scene);
     addChild(_planet->getPlanetNode());
     addChild(_stardustContainer->getStardustNode());
+    
+    std::vector<string> opponentNames = networkMessageManager->getOtherNames();
+    _opponentPlanets.resize((int) opponentNames.size());
+    for (int ii = 0; ii < _opponentPlanets.size(); ii++) {
+        if (opponentNames[ii] == "") {
+            continue;
+        }
+        CILocation::Value location = CILocation::Value(ii+1);
+        cugl::Vec2 pos = CILocation::getPositionOfLocation(location, dimen);
+        std::shared_ptr<OpponentPlanet> opponent = OpponentPlanet::alloc(pos.x, pos.y, CIColor::getNoneColor(), location);
+        opponent->setTextures(_assets->get<Texture>("opponentProgress"), _assets->get<Texture>("fog"), dimen);
+        opponent->setName(opponentNames[ii], assets->get<Font>("saira20"));
+        addChild(opponent->getOpponentNode());
+        _opponentPlanets[ii] = opponent;
+    }
     return true;
 }
 
@@ -138,7 +150,7 @@ void GameScene::dispose() {
     _stardustContainer = nullptr;
     _planet = nullptr;
     _draggedStardust = NULL;
-    _opponent_planets.clear();
+    _opponentPlanets.clear();
     
     _winScene = nullptr;
 }
@@ -209,18 +221,12 @@ void GameScene::update(float timestep) {
         _gameUpdateManager->setPlayerId(_networkMessageManager->getPlayerId());
     } else {
         // send and receive game updates to other players
-        _gameUpdateManager->sendUpdate(_planet, _stardustContainer, dimen);
+        _gameUpdateManager->sendUpdate(_planet, _stardustContainer);
         _networkMessageManager->receiveMessages();
         _networkMessageManager->sendMessages();
-        _gameUpdateManager->processGameUpdate(_stardustContainer, _planet, _opponent_planets, dimen);
-        for (int ii = 0; ii < _opponent_planets.size() ; ii++) {
-            std::shared_ptr<OpponentPlanet> opponent = _opponent_planets[ii];
-            if (opponent != nullptr && getChildByName(to_string(ii)) == nullptr) {
-                opponent->setTextures(_assets->get<Texture>("opponentProgress"), _assets->get<Texture>("fog"), dimen);
-                //TODO: call opponent->setName with name and font
-                addChildWithName(opponent->getOpponentNode(), to_string(ii));
-            }
-            
+        _gameUpdateManager->processGameUpdate(_stardustContainer, _planet, _opponentPlanets, dimen);
+        for (int ii = 0; ii < _opponentPlanets.size() ; ii++) {
+            std::shared_ptr<OpponentPlanet> opponent = _opponentPlanets[ii];
             if (opponent != nullptr) {
                 opponent->update(timestep);
             }
@@ -277,7 +283,7 @@ void GameScene::addStardust(const Size bounds) {
     /** Finds the average mass of the planets in game */
     int avgMass = _planet->getMass();
     int planetCount = 1;
-    for (const std::shared_ptr<OpponentPlanet> &op : _opponent_planets){
+    for (const std::shared_ptr<OpponentPlanet> &op : _opponentPlanets){
         if (op != nullptr){
             avgMass += op->getMass();
             planetCount++;
@@ -319,7 +325,7 @@ void GameScene::addStardust(const Size bounds) {
     /** Looparound Mechanism: Tries to make it so that players can't just send it straight back */
     int cornerProb[] = {10,10,10,10};
     CILocation::Value spawnCorner = CILocation::Value(0);
-    for (const std::shared_ptr<OpponentPlanet> &op : _opponent_planets){
+    for (const std::shared_ptr<OpponentPlanet> &op : _opponentPlanets){
         if (op != nullptr){
             if (op->getColor() == c){
                 cornerProb[op->getLocation()-1] += 60;
@@ -371,7 +377,7 @@ void GameScene::processSpecialStardust(const cugl::Size bounds, const std::share
                 break;
             case StardustModel::Type::FOG: {
                 CULog("FOG");
-                std::shared_ptr<OpponentPlanet> opponent = _opponent_planets[stardust->getPreviousOwner()];
+                std::shared_ptr<OpponentPlanet> opponent = _opponentPlanets[stardust->getPreviousOwner()];
                 if (opponent != nullptr) {
                     opponent->getOpponentNode()->applyFogPower();
                 }

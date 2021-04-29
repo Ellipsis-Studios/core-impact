@@ -88,7 +88,7 @@ void NetworkUtils::encodeInt(int x, std::vector<uint8_t>& out) {
 /**
  * Gets the stardust location given our player id and the player id of the opponent.
  */
-CILocation::Value NetworkUtils::getStardustLocation(int playerID, int opponentPlayerID) {
+CILocation::Value NetworkUtils::getLocation(int playerID, int opponentPlayerID) {
     int location = (opponentPlayerID < playerID ? opponentPlayerID + 1 : opponentPlayerID);
     return CILocation::Value(location);
 }
