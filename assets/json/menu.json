@@ -39,6 +39,9 @@
     "clearbutton": {
       "file": "textures/clearbutton.png"
     },
+    "backbutton": {
+      "file": "textures/backbutton.png"
+    },
     "toggleOn": {
       "file": "textures/toggleOnButton.png"
     },
