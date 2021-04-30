@@ -75,7 +75,7 @@ public:
         _progressTexture = progressTexture;
         _timeElapsed = 0;
         _currFrame = LOCKIN_END;
-        setScale(0.25f);
+        setScale(0.15f);
         return true;
     }
     

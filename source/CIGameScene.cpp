@@ -22,6 +22,7 @@
 
 #include "CIGameScene.h"
 #include "CICollisionController.h"
+#include "CINetworkUtils.h"
 
 using namespace cugl;
 using namespace std;
@@ -377,7 +378,8 @@ void GameScene::processSpecialStardust(const cugl::Size bounds, const std::share
                 break;
             case StardustModel::Type::FOG: {
                 CULog("FOG");
-                std::shared_ptr<OpponentPlanet> opponent = _opponentPlanets[stardust->getPreviousOwner()];
+                int ii = NetworkUtils::getLocation(_gameUpdateManager->getPlayerId(), stardust->getPreviousOwner())-1;
+                std::shared_ptr<OpponentPlanet> opponent = _opponentPlanets[ii];
                 if (opponent != nullptr) {
                     opponent->getOpponentNode()->applyFogPower();
                 }
