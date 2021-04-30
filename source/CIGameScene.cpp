@@ -168,14 +168,9 @@ void GameScene::dispose() {
     _stardustContainer = nullptr;
     _planet = nullptr;
     _draggedStardust = NULL;
-<<<<<<< bce1c45fe3f36d0f563ab6057593442a982b69d8
     _opponentPlanets.clear();
-    
-=======
-    _opponent_planets.clear();
     _pauseBtn = nullptr;
     _pauseMenu = nullptr;
->>>>>>> working pause menu
     _winScene = nullptr;
 }
 
