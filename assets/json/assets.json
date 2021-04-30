@@ -23,7 +23,7 @@
     }
   },
   "widgets": {
-    "backbutton": "widgets/backbutton.json"
+    "clearbutton": "widgets/clearbutton.json"
   },
   "fonts": {
     "saira32": {
@@ -119,7 +119,7 @@
               "comment": "The button that brings a player back to the home screen",
               "type": "Widget",
               "data": {
-                  "key": "backbutton",
+                  "key": "clearbutton",
                   "variables" : {
                       "size"  : [200,200],
                       "text"  : "Back to Home"
@@ -136,7 +136,7 @@
               "comment": "The button that brings a player to the new game screen",
               "type": "Widget",
               "data": {
-                "key": "backbutton",
+                "key": "clearbutton",
                 "variables" : {
                   "size"  : [200,200],
                   "text"  : "New Game"
