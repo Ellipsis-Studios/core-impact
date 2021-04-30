@@ -79,8 +79,6 @@ bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
         }
         });
 
-    // TODO: integrate network manager to game lobby
-
     // game settings 
     _gameSettings = gameSettings;
     // player settings
@@ -177,12 +175,15 @@ void MenuScene::update(float timestep) {
     // handle background display
     switch (_state)
     {
+        case MenuState::LoadToMain:
         case MenuState::Setting:
         case MenuState::MainMenu:
         case MenuState::Tutorial:
             // display
-            _gameTitle->setVisible(true);
-            _gamePlanet->setVisible(true);
+            if (_gameTitle != nullptr) {
+                _gameTitle->setVisible(true);
+                _gamePlanet->setVisible(true);
+            }
             break;
         default:
             // hidden

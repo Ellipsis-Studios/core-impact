@@ -109,6 +109,14 @@ void CoreImpactApp::onShutdown() {
 }
 
 /**
+ * The method called when application is running out of memory.
+ */
+void CoreImpactApp::onLowMemory() {
+    CULog("Low Memory. Quitting the application.");
+    Application::quit();
+}
+
+/**
  * The method called to update the application data.
  *
  * This is your core loop and should be replaced with your custom implementation.
