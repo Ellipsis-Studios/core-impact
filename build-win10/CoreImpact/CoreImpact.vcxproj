@@ -213,6 +213,7 @@
     <ClInclude Include="..\..\source\CIPlanetLayer.h" />
     <ClInclude Include="..\..\source\CIPlanetModel.h" />
     <ClInclude Include="..\..\source\CIPlanetNode.h" />
+    <ClInclude Include="..\..\source\CIPlanetProgressNode.h" />
     <ClInclude Include="..\..\source\CISettingsMenu.h" />
     <ClInclude Include="..\..\source\CIStardustModel.h" />
     <ClInclude Include="..\..\source\CIStardustNode.h" />
@@ -251,6 +252,7 @@
     <ClCompile Include="..\..\source\CIPauseMenu.cpp" />
     <ClCompile Include="..\..\source\CIPlanetModel.cpp" />
     <ClCompile Include="..\..\source\CIPlanetNode.cpp" />
+    <ClCompile Include="..\..\source\CIPlanetProgressNode.cpp" />
     <ClCompile Include="..\..\source\CISettingsMenu.cpp" />
     <ClCompile Include="..\..\source\CIStardustModel.cpp" />
     <ClCompile Include="..\..\source\CIStardustNode.cpp" />
