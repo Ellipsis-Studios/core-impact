@@ -3,7 +3,7 @@
 //  CoreImpact
 //
 //  Created by Richard Yoon on 4/5/21.
-//  Copyright © 2021 Game Design Initiative at Cornell. All rights reserved.
+//  Copyright ï¿½ 2021 Game Design Initiative at Cornell. All rights reserved.
 //
 
 #include "CIMainMenu.h"
@@ -129,7 +129,6 @@ void MainMenu::update(MenuState& state) {
         case MenuState::SettingToMain:
         case MenuState::JoinToMain:
         case MenuState::LobbyToMain:
-        case MenuState::TutorialToMain:
             // handle transitioning into MainMenu
             setDisplay(true);
             state = MenuState::MainMenu;
