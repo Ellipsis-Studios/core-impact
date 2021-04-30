@@ -23,7 +23,7 @@
           "comment": "White border background for the name labels.",
           "texture": "menubuttonup",
           "anchor": [0.5, 0.5],
-          "interior": [5, 5, 120, 55]
+          "interior": [10, 10, 100, 60]
         },
         "layout": {
           "x_anchor": "fill",

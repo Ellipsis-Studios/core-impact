@@ -17,7 +17,7 @@
         "type": "Image",
         "data": {
           "texture": "settingsbutton",
-          "scale": 0.15
+          "scale": 0.343
         }
       }
     }

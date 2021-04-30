@@ -13,10 +13,10 @@
       "file": "textures/splashArt/splashArtWorld.png"
     },
     "teamlogo": {
-      "file": "textures/EllipsisMiniLogoWhite.png"
+      "file": "textures/EllipsisMiniLogoWhiteSmall.png"
     },
     "settingsbutton": {
-      "file": "textures/settingsButton.png",
+      "file": "textures/settingsButtonSmall.png",
       "wrapS": "clamp",
       "wrapT": "clamp",
       "minfilter": "linear",
@@ -40,7 +40,7 @@
       "file": "textures/clearbutton.png"
     },
     "backbutton": {
-      "file": "textures/backbutton.png"
+      "file": "textures/back.png"
     },
     "toggleOn": {
       "file": "textures/toggleOnButton.png"
@@ -158,7 +158,7 @@
           "data": {
             "texture": "teamlogo",
             "anchor": [0.5, 0.5],
-            "scale": 0.1,
+            "scale": 0.6,
             "visible": true
           },
           "layout": {
