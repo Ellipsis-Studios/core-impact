@@ -793,7 +793,7 @@
         }
       }
     },
-	  "pause": {
+    "pause": {
       "comment": "Pause screen within game",
       "type": "Solid",
       "format": {
@@ -818,7 +818,7 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-			      "x_offset": 0.09,
+	    "x_offset": 0.09,
             "y_offset": 0.35
           }
         },
@@ -907,7 +907,7 @@
             "x_anchor": "center",
             "y_anchor": "middle",
             "x_offset": -0.15,
-			      "y_offset": -0.04
+	    "y_offset": -0.04
           }
         },
         "parallaxinput": {
@@ -923,7 +923,7 @@
             "y_offset": -0.07
           }
         },
-		    "resumebutton": {
+	"resumebutton": {
           "comment": "The resume game button in pause menu.",
           "type": "Widget",
           "data": {
@@ -940,7 +940,7 @@
             "y_offset": -0.27
           }
         },
-		    "exitgamebutton": {
+	"exitgamebutton": {
           "comment": "The exit game button in pause menu.",
           "type": "Widget",
           "data": {
