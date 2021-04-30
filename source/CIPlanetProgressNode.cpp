@@ -35,7 +35,7 @@ void PlanetProgressNode::draw(const std::shared_ptr<cugl::SpriteBatch>& batch,
     float height = _progressTexture->getHeight() / LOCKIN_ROWS;
     float width = _progressTexture->getWidth() / LOCKIN_COLS;
     cugl::Mat4 progressTransform;
-    progressTransform.translate(width, -height * 1.5f, 0);
+    progressTransform.translate(width * 2.36f, -height * 2.75f, 0);
     progressTransform.translate(_layerNum * width, 0, 0);
     progressTransform.multiply(transform);
     CIColor::Value c = (_planetLayer.layerSize == 0) ? CIColor::getNoneColor() : _planetLayer.layerColor;
