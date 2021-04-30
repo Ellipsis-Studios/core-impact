@@ -118,7 +118,6 @@ void LoadingScene::update(float progress) {
         if (_progress >= 1) {
             _progress = 1.0f;
             _bar->setVisible(false);
-
             _gameTitle->setVisible(true);
             _gamePlanet->setVisible(true);
             _teamlogo->setVisible(true);
