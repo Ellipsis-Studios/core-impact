@@ -19,6 +19,7 @@ enum GameState {
     NameSent,
     GameStarted,
     GameInProgress,
+    GamePaused,
     DisconnectedFromGame,
     ReconnectingToGame,
     GameOver

@@ -70,6 +70,18 @@
             }
           }
         },
+		    "pausebutton": {
+          "comment": "The pause button with 3 dots in a circle.",
+          "type": "Widget",
+          "data": {
+            "key": "settingsbutton"
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "top",
+			      "y_offset": -0.1
+          }
+        },
         "win": {
           "type": "Node",
           "format": {

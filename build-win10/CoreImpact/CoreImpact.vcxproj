@@ -209,6 +209,7 @@
     <ClInclude Include="..\..\source\CINetworkUtils.h" />
     <ClInclude Include="..\..\source\CIOpponentNode.h" />
     <ClInclude Include="..\..\source\CIOpponentPlanet.h" />
+    <ClInclude Include="..\..\source\CIPauseMenu.h" />
     <ClInclude Include="..\..\source\CIPlanetLayer.h" />
     <ClInclude Include="..\..\source\CIPlanetModel.h" />
     <ClInclude Include="..\..\source\CIPlanetNode.h" />
@@ -248,6 +249,7 @@
     <ClCompile Include="..\..\source\CINetworkUtils.cpp" />
     <ClCompile Include="..\..\source\CIOpponentNode.cpp" />
     <ClCompile Include="..\..\source\CIOpponentPlanet.cpp" />
+    <ClCompile Include="..\..\source\CIPauseMenu.cpp" />
     <ClCompile Include="..\..\source\CIPlanetModel.cpp" />
     <ClCompile Include="..\..\source\CIPlanetNode.cpp" />
     <ClCompile Include="..\..\source\CIPlanetProgressNode.cpp" />
