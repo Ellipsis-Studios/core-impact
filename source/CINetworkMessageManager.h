@@ -89,7 +89,7 @@ public:
     }
     
 #pragma mark Properties
-    void setGameuUpdateManager(std::shared_ptr<GameUpdateManager> gameUpdateManager) {
+    void setGameUpdateManager(std::shared_ptr<GameUpdateManager> gameUpdateManager) {
         _gameUpdateManager = gameUpdateManager;
     }
 
@@ -107,6 +107,10 @@ public:
 
     void setGameSettings(std::shared_ptr<GameSettings>& gameSettings) {
         _gameSettings = gameSettings;
+    }
+    
+    std::shared_ptr<GameSettings>& getGameSettings() {
+        return _gameSettings;
     }
     
     /**
