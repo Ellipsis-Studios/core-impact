@@ -15,6 +15,7 @@
 #include <string>
 #include "CIGameUpdateManager.h"
 #include "CIGameState.h"
+#include "CINetworkUtils.h"
 
 class NetworkMessageManager {
 private:
@@ -173,6 +174,13 @@ public:
      * @param roomID the roomId of the game to be joined
      */
     void joinGame(std::string roomID);
+    
+private:
+    bool isLobbyMessage(int messageType) {
+        return messageType == NetworkUtils::MessageType::StartGame
+            || messageType == NetworkUtils::MessageType::NameSent
+            || messageType == NetworkUtils::MessageType::NameReceivedResponse;
+    }
     
 };
 

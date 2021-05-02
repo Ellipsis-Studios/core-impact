@@ -230,6 +230,14 @@ void GameScene::update(float timestep) {
             std::shared_ptr<OpponentPlanet> opponent = _opponentPlanets[ii];
             if (opponent != nullptr) {
                 opponent->update(timestep);
+            } else if (opponent == nullptr && _networkMessageManager->getOtherNames()[ii] != "") {
+                CILocation::Value location = CILocation::Value(ii+1);
+                cugl::Vec2 pos = CILocation::getPositionOfLocation(location, dimen);
+                std::shared_ptr<OpponentPlanet> opponent = OpponentPlanet::alloc(pos.x, pos.y, CIColor::getNoneColor(), location);
+                opponent->setTextures(_assets->get<Texture>("opponentProgress"), _assets->get<Texture>("fog"), dimen);
+                opponent->setName(_networkMessageManager->getOtherNames()[ii], _assets->get<Font>("saira20"));
+                addChild(opponent->getOpponentNode());
+                _opponentPlanets[ii] = opponent;
             }
         }
     }
