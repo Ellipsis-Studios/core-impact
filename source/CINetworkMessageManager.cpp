@@ -14,7 +14,6 @@
 #include "CIGameUpdate.h"
 #include "CIStardustModel.h"
 #include "CIOpponentPlanet.h"
-#include "CINetworkUtils.h"
 #include "CILocation.h"
 
 /**
@@ -193,6 +192,10 @@ void NetworkMessageManager::receiveMessages() {
     _conn->receive([this](const std::vector<uint8_t>& recv) {
         if (!recv.empty()) {
             int message_type = NetworkUtils::decodeInt(recv[0], recv[1], recv[2], recv[3]);
+            
+            if (_gameUpdateManager == nullptr && !isLobbyMessage(message_type)) {
+                return;
+            }
 
             if (message_type == NetworkUtils::MessageType::StardustSent) {
                 int srcPlayer = NetworkUtils::decodeInt(recv[4], recv[5], recv[6], recv[7]);

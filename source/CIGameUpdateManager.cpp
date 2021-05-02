@@ -223,6 +223,10 @@ void GameUpdateManager::processGameUpdate(std::shared_ptr<StardustQueue> stardus
         }
         
         int playerId = gameUpdate->getPlayerId();
+        if (opponentPlanets[NetworkUtils::getLocation(getPlayerId(), playerId)-1] == nullptr) {
+            return;
+        }
+        
         opponentPlanets[NetworkUtils::getLocation(getPlayerId(), playerId)-1]->setColor(planet->getColor());
         opponentPlanets[NetworkUtils::getLocation(getPlayerId(), playerId)-1]->setMass(planet->getMass());
     }
