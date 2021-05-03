@@ -17,6 +17,8 @@
 		0A7E0812263BA578001540FB /* CITutorialScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A7E0810263BA578001540FB /* CITutorialScene.cpp */; };
 		0A7E0813263BA578001540FB /* CITutorialScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A7E0810263BA578001540FB /* CITutorialScene.cpp */; };
 		0A7E0814263BA579001540FB /* CITutorialScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A7E0810263BA578001540FB /* CITutorialScene.cpp */; };
+		0A613AFB263F505E0076BA57 /* CIPlanetProgressNode.h in Sources */ = {isa = PBXBuildFile; fileRef = 3DA35B65262E6BFE00A578DF /* CIPlanetProgressNode.h */; };
+		0A613AFC263F505E0076BA57 /* CIPlanetProgressNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DA35B69262E6C1300A578DF /* CIPlanetProgressNode.cpp */; };
 		3D563B9D25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D563B9C25F0AF01006641B1 /* CIPlanetModel.cpp */; };
 		3D563B9E25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D563B9C25F0AF01006641B1 /* CIPlanetModel.cpp */; };
 		3D563B9F25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D563B9C25F0AF01006641B1 /* CIPlanetModel.cpp */; };
@@ -245,7 +247,7 @@
 		3DCF9118260657A900B97FA1 /* CIGameState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIGameState.h; sourceTree = "<group>"; };
 		3DCF911C2607B5A100B97FA1 /* CINetworkUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CINetworkUtils.h; sourceTree = "<group>"; };
 		3DCF911D2607B5B600B97FA1 /* CINetworkUtils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CINetworkUtils.cpp; sourceTree = "<group>"; };
-		3DD6949E26311CD300ABF60F /* Core Impact (iOS) Release.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Core Impact (iOS) Release.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3DD6949E26311CD300ABF60F /* Core Impact.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Core Impact.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DD694A226311CD400ABF60F /* Core Impact (iOS) copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Core Impact (iOS) copy-Info.plist"; path = "/Users/william/Documents/core-impact/build-apple/Core Impact (iOS) copy-Info.plist"; sourceTree = "<absolute>"; };
 		426951EE260FCE4000E675E9 /* CIMenuScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIMenuScene.h; sourceTree = "<group>"; };
 		426951EF260FCE5000E675E9 /* CIMenuScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CIMenuScene.cpp; sourceTree = "<group>"; };
@@ -602,7 +604,7 @@
 				EBBF18911D74904A008E2001 /* Core Impact.app */,
 				EB74548C1D74D75C002FBAE6 /* Core Impact.app */,
 				EB0FF5FC2016EF4F00517030 /* Core Impact (Sim).app */,
-				3DD6949E26311CD300ABF60F /* Core Impact (iOS) Release.app */,
+				3DD6949E26311CD300ABF60F /* Core Impact.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -654,7 +656,7 @@
 			);
 			name = "Core Impact (iOS) Release";
 			productName = "HelloWorld (iOS)";
-			productReference = 3DD6949E26311CD300ABF60F /* Core Impact (iOS) Release.app */;
+			productReference = 3DD6949E26311CD300ABF60F /* Core Impact.app */;
 			productType = "com.apple.product-type.application";
 		};
 		EB0FF5FB2016EF4F00517030 /* Core Impact (Sim) */ = {
@@ -850,6 +852,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A613AFB263F505E0076BA57 /* CIPlanetProgressNode.h in Sources */,
+				0A613AFC263F505E0076BA57 /* CIPlanetProgressNode.cpp in Sources */,
 				3DD6946A26311CD300ABF60F /* CIApp.cpp in Sources */,
 				3DD6946B26311CD300ABF60F /* CIMainMenu.cpp in Sources */,
 				3DD6946C26311CD300ABF60F /* CIOpponentNode.cpp in Sources */,
@@ -986,15 +990,17 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution";
 				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 779J4S35TN;
 				ENABLE_BITCODE = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				INFOPLIST_FILE = "Core Impact (iOS) copy-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 0.9;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.ellipsis.coreimpact;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Core Impact";
 				PROVISIONING_PROFILE_SPECIFIER = "Core Impact";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
@@ -1012,15 +1018,17 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution";
 				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 779J4S35TN;
 				ENABLE_BITCODE = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				INFOPLIST_FILE = "Core Impact (iOS) copy-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 0.9;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.ellipsis.coreimpact;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Core Impact";
 				PROVISIONING_PROFILE_SPECIFIER = "Core Impact";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
