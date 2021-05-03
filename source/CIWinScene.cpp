@@ -63,11 +63,14 @@ bool WinScene::init(const std::shared_ptr<cugl::AssetManager>& assets, cugl::Siz
  * @param winnerPlayerId The player id of the player who won the game
  * @param playerId               The player id of the player playing on this device
  */
-void WinScene::setWinner(int winnerPlayerId, int playerId) {
+void WinScene::setWinner(int winnerPlayerId, int playerId, std::string winningPlayer) {
     if (winnerPlayerId == playerId) {
         _gameOutcomeLabel->setText("Congratulations! You won the game!");
     } else {
-        _gameOutcomeLabel->setText("Sorry! Player " + std::to_string(winnerPlayerId) + " won the game.");
+        winningPlayer.erase(std::find_if(winningPlayer.rbegin(), winningPlayer.rend(), [](unsigned char ch) {
+                return ch != '\0';
+            }).base(), winningPlayer.end());
+        _gameOutcomeLabel->setText("Sorry! " + winningPlayer + " won the game.");
     }
 }
 

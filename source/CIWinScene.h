@@ -82,7 +82,7 @@ public:
      * @param winnerPlayerId The player id of the player who won the game
      * @param playerId               The player id of the player playing on this device
      */
-    void setWinner(int winnerPlayerId, int playerId);
+    void setWinner(int winnerPlayerId, int playerId, std::string winningPlayer);
     
     /**
      * Sets whether the win scene is currently active and visible.

@@ -176,7 +176,9 @@ void GameScene::update(float timestep) {
     if (_networkMessageManager->getWinnerPlayerId() != -1) {
         if (!_winScene->displayActive()) {
             CULog("Game won.");
-            _winScene->setWinner(_networkMessageManager->getWinnerPlayerId(), _networkMessageManager->getPlayerId());
+            int winnerId = _networkMessageManager->getWinnerPlayerId();
+            std::string winningPlayer = _networkMessageManager->getOtherNames()[winnerId > _networkMessageManager->getPlayerId() ? winnerId - 1 : winnerId];
+            _winScene->setWinner(_networkMessageManager->getWinnerPlayerId(), _networkMessageManager->getPlayerId(), winningPlayer);
             _winScene->setDisplay(true);
         }
         else if (_winScene->goBackToHome()) {
