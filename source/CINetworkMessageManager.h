@@ -15,6 +15,7 @@
 #include <string>
 #include "CIGameUpdateManager.h"
 #include "CIGameState.h"
+#include "CINetworkUtils.h"
 #include "CIGameSettings.h"
 
 class NetworkMessageManager {
