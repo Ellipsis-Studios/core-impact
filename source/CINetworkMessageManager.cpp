@@ -79,9 +79,11 @@ void NetworkMessageManager::sendMessages() {
         CULog("SENT START GAME MESSAGE> SPAWNRATE[%f], GRAVSTRENGTH[%f], COLORCOUNT[%i], PLANETMASS[%i]",
             _gameSettings->getSpawnRate(), _gameSettings->getGravStrength(), _gameSettings->getColorCount(), _gameSettings->getPlanetMassToWin());
         _gameState = GameState::GameInProgress;
+        /* TODO: uncomment when startGame works correctly
         if (getPlayerId() == 0) {
             _conn->startGame();
         }
+        */
         return;
     }
 
