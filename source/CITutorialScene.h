@@ -43,7 +43,6 @@ private:
     /** Handles stardust color probability */
     int _stardustProb[6];
     
-    int _tutorialStage;
     int _nextTutorialStage;
     int _tutorialTimer;
 protected:
@@ -91,6 +90,7 @@ protected:
     std::shared_ptr<WinScene> _winScene;
     
 public:
+    int _tutorialStage;
 #pragma mark -
 #pragma mark Constructors
     /**

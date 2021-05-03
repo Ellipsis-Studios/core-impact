@@ -3,7 +3,7 @@
 //  CoreImpact
 //
 //  Created by Richard Yoon on 4/5/21.
-//  Copyright © 2021 Game Design Initiative at Cornell. All rights reserved.
+//  Copyright ï¿½ 2021 Game Design Initiative at Cornell. All rights reserved.
 //
 
 #ifndef __CI_PAUSE_MENU_H__
@@ -52,6 +52,8 @@ private:
     std::shared_ptr<cugl::scene2::Button> _exitBtn;
 
 public:
+    /** Boolean setting request to exit game */
+    bool _exitGame;
 #pragma mark -
 #pragma mark Constructors
     /**

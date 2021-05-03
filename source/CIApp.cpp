@@ -184,9 +184,13 @@ void CoreImpactApp::update(float timestep) {
     }
     else {
         // handle game reset
-        _gameplay.setActive(true);
-        _gameplay.dispose();
-        _tutorial.dispose();
+        if (_tutorial._tutorialStage > 0){
+            _tutorial.setActive(true);
+            _tutorial.dispose();
+        } else {
+            _gameplay.setActive(true);
+            _gameplay.dispose();
+        }
 
         _networkMessageManager = nullptr;
         

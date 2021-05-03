@@ -134,13 +134,11 @@ void MenuScene::dispose() {
     _settings->setDisplay(false);
     _join->setDisplay(false);
     _lobby->setDisplay(false);
-    _tutorial->setDisplay(false);
     
     _mainmenu->dispose();
     _settings->dispose();
     _join->dispose();
     _lobby->dispose();
-    _tutorial->dispose();
 
     _mainmenu = nullptr;
     _settings = nullptr;

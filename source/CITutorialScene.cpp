@@ -252,8 +252,8 @@ void TutorialScene::update(float timestep) {
                 _tutorialText->setText("Let's try out a new power up this time!");
             } break;
             case 12: {
-                _tutorialText->setText("Cool! Finish the third layer win the game");
-                _tutorialText->setPositionY(_tutorialText->getPositionY()+200);
+                _tutorialText->setText("Cool! Finish the third layer to win the game");
+                _tutorialText->setPositionY(_tutorialText->getPositionY()+80);
             } break;
             default:
                 break;
