@@ -3,7 +3,7 @@
 //  CoreImpact
 //
 //  Created by Richard Yoon on 4/5/21.
-//  Copyright © 2021 Game Design Initiative at Cornell. All rights reserved.
+//  Copyright ï¿½ 2021 Game Design Initiative at Cornell. All rights reserved.
 //
 
 #include "CIMainMenu.h"
@@ -22,7 +22,13 @@ void MainMenu::dispose() {
         _joinBtn->deactivate();
         _newBtn->deactivate();
         _tutorialBtn->deactivate();
+    } else if (_settingsBtn != nullptr) {
+        _settingsBtn->clearListeners();
+        _joinBtn->clearListeners();
+        _newBtn->clearListeners();
+        _tutorialBtn->clearListeners();
     }
+    
     _settingsBtn = nullptr;
     _joinBtn = nullptr;
     _newBtn = nullptr;

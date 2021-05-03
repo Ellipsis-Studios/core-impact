@@ -22,7 +22,14 @@ void SettingsMenu::dispose() {
         _musicBtn->deactivate();
         _volumeSlider->deactivate();
         _parallaxBtn->deactivate();
+    } else if (_pnameInput != nullptr) {
+        _pnameInput->clearTypeListeners();
+        _pnameInput->clearExitListeners();
+        _musicBtn->clearListeners();
+        _volumeSlider->clearListeners();
+        _parallaxBtn->clearListeners();
     }
+    
     _settingsTitle = nullptr;
     _pnameLabel = nullptr;
     _musicLabel = nullptr;
