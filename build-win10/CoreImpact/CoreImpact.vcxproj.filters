@@ -141,8 +141,6 @@
     <ClInclude Include="..\..\source\CIWinScene.h">
       <Filter>Header Files\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\source\CIPlanetProgressNode.h">
-      <Filter>Header Files\View</Filter>
     <ClInclude Include="..\..\source\CIPauseMenu.h">
       <Filter>Header Files\Scene\Menu</Filter>
     </ClInclude>
@@ -239,8 +237,6 @@
     <ClCompile Include="..\..\source\CIWinScene.cpp">
       <Filter>Source Files\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\source\CIPlanetProgressNode.cpp">
-      <Filter>Source Files\View</Filter>
     <ClCompile Include="..\..\source\CIPauseMenu.cpp">
       <Filter>Source Files\Scene\Menu</Filter>
     </ClCompile>
