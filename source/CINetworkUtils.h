@@ -18,10 +18,10 @@
 class NetworkUtils {
 private:
     /** IP of the NAT punchthrough server */
-    static constexpr auto SERVER_ADDRESS = "34.86.251.233";
+    static constexpr auto SERVER_ADDRESS = "34.74.68.73";
     
     /** Port of the NAT punchthrough server */
-    static constexpr uint16_t SERVER_PORT = 10032;
+    static constexpr uint16_t SERVER_PORT = 61111;
     
 public:
     /**
