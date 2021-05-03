@@ -17,6 +17,21 @@ using namespace cugl;
  * Disposes of all (non-static) resources allocated to this menu.
  */
 void PauseMenu::dispose() {
+    if (_musicBtn != nullptr && _musicBtn->isVisible()) {
+        _musicBtn->deactivate();
+        _volumeSlider->deactivate();
+        _parallaxBtn->deactivate();
+        _resumeBtn->deactivate();
+        _exitBtn->deactivate();
+    }
+    else if (_musicBtn != nullptr) {
+        _musicBtn->clearListeners();
+        _volumeSlider->clearListeners();
+        _parallaxBtn->clearListeners();
+        _resumeBtn->clearListeners();
+        _exitBtn->clearListeners();
+    }
+
     _settingsTitle = nullptr;
     _musicLabel = nullptr;
     _volumeLabel = nullptr;
