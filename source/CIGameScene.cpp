@@ -73,7 +73,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     // Set the game update manager and network message managers
     _gameUpdateManager = GameUpdateManager::alloc();
     _networkMessageManager = networkMessageManager;
-    _networkMessageManager->setGameuUpdateManager(_gameUpdateManager);
+    _networkMessageManager->setGameUpdateManager(_gameUpdateManager);
     
     // Acquire the scene built by the asset loader and resize it the scene
     auto scene = _assets->get<scene2::SceneNode>("game");

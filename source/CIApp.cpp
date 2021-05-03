@@ -159,9 +159,7 @@ void CoreImpactApp::update(float timestep) {
     else if (!_startGame) {
         /** Transition from menu to game scene */
         _menu.dispose(); // Disables the input listeners to this mode
-        if (_networkMessageManager == nullptr) {
-            _networkMessageManager = NetworkMessageManager::alloc();
-        }
+        _gameSettings = _networkMessageManager->getGameSettings();
         _gameplay.init(_assets, _networkMessageManager, _gameSettings, _playerSettings);
         _startGame = true;
     }
