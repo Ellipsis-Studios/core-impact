@@ -176,7 +176,9 @@ void GameScene::update(float timestep) {
     if (_networkMessageManager->getWinnerPlayerId() != -1) {
         if (!_winScene->displayActive()) {
             CULog("Game won.");
-            _winScene->setWinner(_networkMessageManager->getWinnerPlayerId(), _networkMessageManager->getPlayerId());
+            int winnerId = _networkMessageManager->getWinnerPlayerId();
+            std::string winningPlayer = _networkMessageManager->getOtherNames()[winnerId > _networkMessageManager->getPlayerId() ? winnerId - 1 : winnerId];
+            _winScene->setWinner(_networkMessageManager->getWinnerPlayerId(), _networkMessageManager->getPlayerId(), winningPlayer);
             _winScene->setDisplay(true);
         }
         else if (_winScene->goBackToHome()) {
@@ -230,6 +232,14 @@ void GameScene::update(float timestep) {
             std::shared_ptr<OpponentPlanet> opponent = _opponentPlanets[ii];
             if (opponent != nullptr) {
                 opponent->update(timestep);
+            } else if (opponent == nullptr && _networkMessageManager->getOtherNames()[ii] != "") {
+                CILocation::Value location = CILocation::Value(ii+1);
+                cugl::Vec2 pos = CILocation::getPositionOfLocation(location, dimen);
+                std::shared_ptr<OpponentPlanet> opponent = OpponentPlanet::alloc(pos.x, pos.y, CIColor::getNoneColor(), location);
+                opponent->setTextures(_assets->get<Texture>("opponentProgress"), _assets->get<Texture>("fog"), dimen);
+                opponent->setName(_networkMessageManager->getOtherNames()[ii], _assets->get<Font>("saira20"));
+                addChild(opponent->getOpponentNode());
+                _opponentPlanets[ii] = opponent;
             }
         }
     }

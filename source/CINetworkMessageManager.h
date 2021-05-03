@@ -187,6 +187,13 @@ public:
      */
     void joinGame(std::string roomID);
     
+private:
+    bool isLobbyMessage(int messageType) {
+        return messageType == NetworkUtils::MessageType::StartGame
+            || messageType == NetworkUtils::MessageType::NameSent
+            || messageType == NetworkUtils::MessageType::NameReceivedResponse;
+    }
+    
 };
 
 #endif /* __CI_NETWORK_MESSAGE_MANAGER_H__ */
