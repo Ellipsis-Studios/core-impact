@@ -68,7 +68,7 @@ bool TutorialScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     // Set the game update manager and network message managers
     _gameUpdateManager = GameUpdateManager::alloc();
     _networkMessageManager = networkMessageManager;
-    _networkMessageManager->setGameuUpdateManager(_gameUpdateManager);
+    _networkMessageManager->setGameUpdateManager(_gameUpdateManager);
     
     // Acquire the scene built by the asset loader and resize it the scene
     auto scene = _assets->get<scene2::SceneNode>("game");
@@ -170,6 +170,37 @@ void TutorialScene::update(float timestep) {
     
     _input.update(timestep);
     
+    // Handle counting down then switching to loading screen
+    if (_tutorialStage == 13) {
+        if (!_winScene->displayActive()) {
+            CULog("Game won.");
+            _winScene->setWinner(0, 0, "");
+            _winScene->setDisplay(true);
+        }
+        else if (_winScene->goBackToHome()) {
+            // handle resetting game
+            _winScene->setDisplay(false);
+            setActive(false);
+        }
+        return;
+    }
+
+    _timeElapsed += timestep;
+    if (_timeElapsed > BACKGROUND_SPF) {
+        unsigned int bkgrdFrame = _farSpace->getFrame();
+        _timeElapsed = 0;
+        bkgrdFrame = (bkgrdFrame == BACKGROUND_END) ? BACKGROUND_START : bkgrdFrame + 1;
+        _farSpace->setFrame(bkgrdFrame);
+    }
+    _stardustContainer->update(timestep);
+    addStardust(dimen);
+
+    collisions::checkForCollision(_planet, _stardustContainer, timestep);
+    collisions::checkInBounds(_stardustContainer, dimen);
+    collisions::checkForCollisions(_stardustContainer);
+    updateDraggedStardust();
+    
+    /** Tutorialization Phase */
     // Advance Tutorial Stage
     if (_tutorialStage != _nextTutorialStage){
         _tutorialStage = _nextTutorialStage;
@@ -191,11 +222,38 @@ void TutorialScene::update(float timestep) {
                 break;
             case 5: {
                 _tutorialText->setText("Another planet appeared!");
-                _tutorialTimer = 200;
-                std::shared_ptr<OpponentPlanet> planet = OpponentPlanet::alloc(0, 0, CIColor::Value((_planet->getColor()+2)%4), CILocation::TOP_LEFT);
+                _tutorialTimer = 60;
+                std::shared_ptr<OpponentPlanet> planet = OpponentPlanet::alloc(0, dimen.height, CIColor::Value((_planet->getColor()+2)%4), CILocation::TOP_LEFT);
+                planet->setTextures(_assets->get<Texture>("opponentProgress"), _assets->get<Texture>("fog"), dimen);
+                planet->setName("Opponent", _assets->get<Font>("saira20"));
+                planet->setMass(55);
+                addChild(planet->getOpponentNode());
                 _opponentPlanets[0] = planet;
-                _opponentPlanets[0]->setMass(35);
-                _opponentPlanets[0]->setName("Opponent", _assets->get<Font>("saira20"));
+            } break;
+            case 6: {
+                _tutorialText->setText("Hey, they threw some stardust at you!");
+                _tutorialTimer = 200;
+            } break;
+            case 7: {
+                _tutorialText->setText("Send some back their way!");
+            } break;
+            case 8: {
+                _tutorialText->setText("Nice hit, here's a reward!");
+                _tutorialTimer = 200;
+                _opponentPlanets[0]->startHitAnimation();
+            } break;
+            case 9: {
+                _tutorialText->setText("Keep building up your planet!");
+            } break;
+            case 10: {
+                _tutorialText->setText("When you lock in, there's a power up");
+            } break;
+            case 11: {
+                _tutorialText->setText("Let's try out a new power up this time!");
+            } break;
+            case 12: {
+                _tutorialText->setText("Cool! Finish the third layer win the game");
+                _tutorialText->setPositionY(_tutorialText->getPositionY()+200);
             } break;
             default:
                 break;
@@ -240,44 +298,61 @@ void TutorialScene::update(float timestep) {
             }
             break;
         case 5:
-            // Display a new opponent planet
-            if (_planet->getCurrLayerProgress() < 1) {
+            if (_tutorialTimer == 0 || _stardustContainer->size() < 1){
+                _nextTutorialStage++;
+            } break;
+        case 6:
+            if (_tutorialTimer == 0){
+                _nextTutorialStage++;
+            } break;
+        case 7:
+            // Throw a particle at the other planet
+            for (size_t ii = 0; ii < _stardustContainer->size(); ii++) {
+                // This returns a reference
+                StardustModel* stardust = _stardustContainer->get(ii);
+                if (stardust != nullptr) {
+                    Vec2 stardustPos = stardust->getPosition();
+                    Vec2 stardustVel = stardust->getVelocity();
+                    if ((stardustPos.x < 10 && stardustPos.y > dimen.height + 10) &&
+                        (stardustVel.x < 0 && stardustVel.y > 0)){
+                        _nextTutorialStage++;
+                        break;
+                    }
+                }
+            }
+            break;
+        case 8:
+            if (_tutorialTimer == 0){
+                _nextTutorialStage++;
+            }
+            break;
+        case 9:
+            if (_planet->getCurrLayerProgress() > 3) {
+                _nextTutorialStage++;
+            }
+            break;
+        case 10:
+            if (_planet->getCurrLayerProgress() > 4 && _tutorialTimer == 0) {
+                _nextTutorialStage++;
+            } else if (_planet->getCurrLayerProgress() <= 3) {
                 _nextTutorialStage--;
             }
             break;
+        case 11:
+            if (_planet->getNumLayers() > 2) {
+                _nextTutorialStage++;
+            } break;
+        case 12:
+            if (_planet->getCurrLayerProgress() > 4 && _planet->getNumLayers() > 2){
+                CULog("Tutorial Complete.");
+                _nextTutorialStage++;
+                _tutorialText->setVisible(false);
+                _winScene->setWinner(0, 0, "");
+                _winScene->setDisplay(true);
+            } break;
         default:
             break;
     }
-    
-    // Handle counting down then switching to loading screen
-    if (_networkMessageManager->getWinnerPlayerId() != -1) {
-        if (!_winScene->displayActive()) {
-            CULog("Game won.");
-            _winScene->setWinner(_networkMessageManager->getWinnerPlayerId(), _networkMessageManager->getPlayerId());
-            _winScene->setDisplay(true);
-        }
-        else if (_winScene->goBackToHome()) {
-            // handle resetting game
-            _winScene->setDisplay(false);
-            setActive(false);
-        }
-        return;
-    }
-
-    _timeElapsed += timestep;
-    if (_timeElapsed > BACKGROUND_SPF) {
-        unsigned int bkgrdFrame = _farSpace->getFrame();
-        _timeElapsed = 0;
-        bkgrdFrame = (bkgrdFrame == BACKGROUND_END) ? BACKGROUND_START : bkgrdFrame + 1;
-        _farSpace->setFrame(bkgrdFrame);
-    }
-    _stardustContainer->update(timestep);
-    addStardust(dimen);
-
-    collisions::checkForCollision(_planet, _stardustContainer, timestep);
-    collisions::checkInBounds(_stardustContainer, dimen);
-    collisions::checkForCollisions(_stardustContainer);
-    updateDraggedStardust();
     
     if (collisions::checkForCollision(_planet, _input.getPosition())) {
         CIColor::Value planetColor = _planet->getColor();
@@ -291,23 +366,14 @@ void TutorialScene::update(float timestep) {
     }
     
     _planet->update(timestep);
-  
-    // attempt to set player id of game update manager
-    if (_gameUpdateManager->getPlayerId() < 0) {
-        // need to make this call to attempt to connect to game
-        _networkMessageManager->receiveMessages();
-        _gameUpdateManager->setPlayerId(_networkMessageManager->getPlayerId());
-    } else {
-        // send and receive game updates to other players
-        _gameUpdateManager->sendUpdate(_planet, _stardustContainer);
-        _networkMessageManager->receiveMessages();
-        _networkMessageManager->sendMessages();
-        _gameUpdateManager->processGameUpdate(_stardustContainer, _planet, _opponentPlanets, dimen);
-        for (int ii = 0; ii < _opponentPlanets.size() ; ii++) {
-            std::shared_ptr<OpponentPlanet> opponent = _opponentPlanets[ii];
-            if (opponent != nullptr) {
-                opponent->update(timestep);
+
+    for (int ii = 0; ii < _opponentPlanets.size() ; ii++) {
+        std::shared_ptr<OpponentPlanet> opponent = _opponentPlanets[ii];
+        if (opponent != nullptr) {
+            if (opponent->getMass() < _planet->getMass()*0.6){
+                opponent->setMass(_planet->getMass()*0.6);
             }
+            opponent->update(timestep);
         }
     }
     
@@ -352,6 +418,7 @@ void TutorialScene::addStardust(const Size bounds) {
     }
     
     CIColor::Value c = CIColor::getRandomColor();
+    int cornerProb[] = {10,10,10,10};
     switch (_tutorialStage) {
         case 0:
             if (_stardustContainer->size() > 0 || _tutorialTimer != 0) {
@@ -376,6 +443,26 @@ void TutorialScene::addStardust(const Size bounds) {
             break;
             
         case 3: return;
+        case 6:
+            if (_stardustContainer->size() > 2) {
+                return;
+            }
+            while (c == _planet->getColor()){
+                c = CIColor::getRandomColor();
+            }
+            cornerProb[0] = INT_MAX;
+            break;
+        case 8:
+            if (_stardustContainer->size() > 2) {
+                return;
+            }
+            if (_planet->getColor() == CIColor::getNoneColor()){
+                c = CIColor::yellow;
+            } else {
+                c = _planet->getColor();
+            }
+            cornerProb[0] = INT_MAX;
+            break;
         default:
             size_t spawn_probability = CONSTANTS::BASE_SPAWN_RATE + (_stardustContainer->size() * CONSTANTS::BASE_SPAWN_RATE);
             spawn_probability = spawn_probability / _gameSettings->getSpawnRate();
@@ -428,7 +515,6 @@ void TutorialScene::addStardust(const Size bounds) {
     }
     
     /** Looparound Mechanism: Tries to make it so that players can't just send it straight back */
-    int cornerProb[] = {10,10,10,10};
     CILocation::Value spawnCorner = CILocation::Value(0);
     for (const std::shared_ptr<OpponentPlanet> &op : _opponentPlanets){
         if (op != nullptr){

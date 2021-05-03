@@ -19,7 +19,7 @@
 class CIColor {
 private:
     /** The number of colors in the current game */
-    inline static int _numColors
+    inline static int _numColors;
     
 public:
     /**
