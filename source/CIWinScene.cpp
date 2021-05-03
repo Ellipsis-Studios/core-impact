@@ -62,6 +62,7 @@ bool WinScene::init(const std::shared_ptr<cugl::AssetManager>& assets, cugl::Siz
  *
  * @param winnerPlayerId The player id of the player who won the game
  * @param playerId               The player id of the player playing on this device
+ * @param winningPlayer    The name of the player who won
  */
 void WinScene::setWinner(int winnerPlayerId, int playerId, std::string winningPlayer) {
     if (winnerPlayerId == playerId) {
