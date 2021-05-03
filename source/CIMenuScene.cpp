@@ -68,6 +68,8 @@ bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
                     break;
                 case MenuState::GameLobby:
                     _state = MenuState::LobbyToMain;
+                    networkMessageManager->setOtherNames({ "", "", "", "" });
+                    _lobby->setOtherPlayerLabels({ "N/A", "N/A", "N/A", "N/A" });
                     networkMessageManager->setGameState(GameState::OnMenuScreen);
                     break;
                 case MenuState::Tutorial:
