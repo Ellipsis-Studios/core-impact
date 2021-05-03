@@ -148,6 +148,13 @@ public:
      */
     void setDisplay(bool onDisplay);
 
+    void setOtherPlayerLabels(vector<string> othernames) {
+        // update other players' labels
+        for (int ii = 0; ii < othernames.size(); ii++) {
+            _gameLobbyPlayerLabels[ii + 1]->setText(othernames[ii]);
+        }
+    }
+
     /**
      * The method called to update the game lobby menu.
      *

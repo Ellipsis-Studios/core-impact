@@ -141,6 +141,9 @@
     <ClInclude Include="..\..\source\CIWinScene.h">
       <Filter>Header Files\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\source\CIPlanetProgressNode.h">
+      <Filter>Header Files\View</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="icon1.ico">
@@ -230,6 +233,9 @@
     </ClCompile>
     <ClCompile Include="..\..\source\CIWinScene.cpp">
       <Filter>Source Files\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\CIPlanetProgressNode.cpp">
+      <Filter>Source Files\View</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

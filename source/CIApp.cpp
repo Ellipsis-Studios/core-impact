@@ -110,6 +110,14 @@ void CoreImpactApp::onShutdown() {
 }
 
 /**
+ * The method called when application is running out of memory.
+ */
+void CoreImpactApp::onLowMemory() {
+    CULog("Low Memory. Quitting the application.");
+    Application::quit();
+}
+
+/**
  * The method called to update the application data.
  *
  * This is your core loop and should be replaced with your custom implementation.
@@ -152,9 +160,7 @@ void CoreImpactApp::update(float timestep) {
     else if (!_startGame && (_menu.getState() == MenuState::LobbyToGame)) {
         /** Transition from menu to game scene */
         _menu.dispose(); // Disables the input listeners to this mode
-        if (_networkMessageManager == nullptr) {
-            _networkMessageManager = NetworkMessageManager::alloc();
-        }
+        _gameSettings = _networkMessageManager->getGameSettings();
         _gameplay.init(_assets, _networkMessageManager, _gameSettings, _playerSettings);
         _startGame = true;
     }

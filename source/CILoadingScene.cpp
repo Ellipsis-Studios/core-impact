@@ -58,7 +58,6 @@ bool LoadingScene::init(const std::shared_ptr<AssetManager>& assets) {
     layer->doLayout(); // This rearranges the children to fit the screen
     
     _bar = std::dynamic_pointer_cast<scene2::ProgressBar>(assets->get<scene2::SceneNode>("load_bar"));
-    _brand = assets->get<scene2::SceneNode>("load_name");
     _teamlogo = assets->get<scene2::SceneNode>("load_teamlogo");
     _gameTitle = assets->get<scene2::SceneNode>("load_title");
     _gamePlanet = assets->get<scene2::SceneNode>("load_world");
@@ -77,7 +76,6 @@ void LoadingScene::dispose() {
         _gameTitle->setVisible(false);
         _gamePlanet->setVisible(false);
     }
-    _brand = nullptr;
     _bar = nullptr;
     _assets = nullptr;
     _teamlogo = nullptr;
@@ -120,8 +118,6 @@ void LoadingScene::update(float progress) {
         if (_progress >= 1) {
             _progress = 1.0f;
             _bar->setVisible(false);
-            _brand->setVisible(false);
-
             _gameTitle->setVisible(true);
             _gamePlanet->setVisible(true);
             _teamlogo->setVisible(true);

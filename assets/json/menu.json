@@ -13,10 +13,10 @@
       "file": "textures/splashArt/splashArtWorld.png"
     },
     "teamlogo": {
-      "file": "textures/EllipsisMiniLogoWhite.png"
+      "file": "textures/EllipsisMiniLogoWhiteSmall.png"
     },
     "settingsbutton": {
-      "file": "textures/settingsButton.png",
+      "file": "textures/settingsButtonSmall.png",
       "wrapS": "clamp",
       "wrapT": "clamp",
       "minfilter": "linear",
@@ -40,13 +40,19 @@
       "file": "textures/clearbutton.png"
     },
     "backbutton": {
-      "file": "textures/backbutton.png"
+      "file": "textures/back.png"
     },
     "toggleOn": {
       "file": "textures/toggleOnButton.png"
     },
     "toggleOff": {
       "file": "textures/toggleOffButton.png"
+    },
+    "volumeBarKnob": {
+        "file": "textures/volumeBarKnob.png"
+    },
+    "volumeBarPath": {
+        "file": "textures/volumeBarPath.png"
     }
   },
   "fonts": {
@@ -158,7 +164,7 @@
           "data": {
             "texture": "teamlogo",
             "anchor": [0.5, 0.5],
-            "scale": 0.1,
+            "scale": 0.6,
             "visible": true
           },
           "layout": {
@@ -680,17 +686,76 @@
           "comment": "The volume slider in Settings.",
           "type": "Slider",
           "data": {
-            "bounds": [40, 0, 300, 0],
+            "bounds": [50, 50, 255, 0],
             "range": [0, 1],
             "value": 0.5,
             "anchor": [0.5, 0.5],
-            "scale": 0.75,
-            "visible": false
+            "scale": 0.70,
+            "visible": false,
+            "knob": {
+              "type": "Button",
+              "format": {
+                "type": "Anchored"
+              },
+              "data": {
+                "anchor": [0.5, 0.5],
+                "upnode": "up",
+                "visible": true
+              },
+              "children": {
+                "up": {
+                  "type": "Node",
+                  "format": {
+                    "type": "Anchored"
+                  },
+                  "data": {
+                    "size": [35, 35],
+                    "anchor": [0.5, 0.5]
+                  },
+                  "children": {
+                    "knob": {
+                      "type": "Image",
+                      "format": {
+                        "type": "Anchored"
+                      },
+                      "data": {
+                        "anchor": [0.5, 0.5],
+                        "texture": "volumeBarKnob",
+                        "scale": 1.2
+                      }
+                    }
+                  },
+                  "layout": {
+                    "x_anchor": "fill",
+                    "y_anchor": "fill"
+                  }
+                }
+              }
+            },
+            "path": {
+              "type": "Path",
+              "format": {
+                "type": "Anchored"
+              },
+              "data": {
+                "texture": "volumeBarPath",
+                "anchor": [0.5, 0.5],
+                "scale": 1.25,
+                "stroke": 27,
+                "cap": "round",
+                "visible": true
+              },
+              "layout": {
+                "x_anchor": "center",
+                "y_anchor": "middle",
+                "absolute": true
+              }
+            }
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.3,
+            "x_offset": 0.327,
             "y_offset": -0.09
           }
         },

@@ -114,6 +114,11 @@ public:
     virtual void onSuspend() override;
     
     /**
+     * The method called when application is running out of memory.
+     */
+    virtual void onLowMemory() override;
+
+    /**
      * The method called to update the application data.
      *
      * This is your core loop and should be replaced with your custom implementation.
