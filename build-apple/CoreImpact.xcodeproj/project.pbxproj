@@ -118,6 +118,10 @@
 		CA9A2DD125EDBD6A0048D02F /* CIStardustModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA9A2DCC25EDBD6A0048D02F /* CIStardustModel.cpp */; };
 		CA9A2DD225EDBD6A0048D02F /* CIStardustModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA9A2DCC25EDBD6A0048D02F /* CIStardustModel.cpp */; };
 		CA9A2DD325EDBD6A0048D02F /* CIStardustModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA9A2DCC25EDBD6A0048D02F /* CIStardustModel.cpp */; };
+		CACFA9E8263CA9D8000236C4 /* CIPauseMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CACFA9E3263CA9D8000236C4 /* CIPauseMenu.cpp */; };
+		CACFA9E9263CA9D8000236C4 /* CIPauseMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CACFA9E3263CA9D8000236C4 /* CIPauseMenu.cpp */; };
+		CACFA9EA263CA9D8000236C4 /* CIPauseMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CACFA9E3263CA9D8000236C4 /* CIPauseMenu.cpp */; };
+		CACFA9EB263CA9D8000236C4 /* CIPauseMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CACFA9E3263CA9D8000236C4 /* CIPauseMenu.cpp */; };
 		CADCA31225FE9AEE0048FCA1 /* CIPlanetNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D563BF725F6D5B7006641B1 /* CIPlanetNode.cpp */; };
 		EB0FF6172016EFB200517030 /* iOS.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB7454A71D74D846002FBAE6 /* iOS.xcassets */; };
 		EB0FF6182016EFB200517030 /* Landscape.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB7454A81D74D846002FBAE6 /* Landscape.storyboard */; };
@@ -272,6 +276,9 @@
 		CA9A2DCC25EDBD6A0048D02F /* CIStardustModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CIStardustModel.cpp; sourceTree = "<group>"; };
 		CA9A2DCD25EDBD6A0048D02F /* CIColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIColor.h; sourceTree = "<group>"; };
 		CAC0C81A26002EDA003B3F42 /* CIPlanetLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIPlanetLayer.h; sourceTree = "<group>"; };
+		CACFA9E3263CA9D8000236C4 /* CIPauseMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CIPauseMenu.cpp; sourceTree = "<group>"; };
+		CACFA9E7263CA9D8000236C4 /* CIPauseMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIPauseMenu.h; sourceTree = "<group>"; };
+		CACFA9F4263CAA00000236C4 /* CIPlayerSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIPlayerSettings.h; sourceTree = "<group>"; };
 		EB0FF5FC2016EF4F00517030 /* Core Impact (Sim).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Core Impact (Sim).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB2BE9B41D74952A002FE78B /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		EB2BE9B81D7498C9002FE78B /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
@@ -431,6 +438,7 @@
 				0A5AFAD825F0B5320003669C /* CIStardustQueue.cpp */,
 				0A5AFAD725F0B5320003669C /* CIStardustQueue.h */,
 				3DA35AE2262929B300A578DF /* CIGameSettings.h */,
+				CACFA9F4263CAA00000236C4 /* CIPlayerSettings.h */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -466,6 +474,8 @@
 				426951EF260FCE5000E675E9 /* CIMenuScene.cpp */,
 				426951EE260FCE4000E675E9 /* CIMenuScene.h */,
 				CA525026261FEDBF00854B7B /* CIMenuState.h */,
+				CACFA9E3263CA9D8000236C4 /* CIPauseMenu.cpp */,
+				CACFA9E7263CA9D8000236C4 /* CIPauseMenu.h */,
 				42B54D5B261B8C110097D816 /* CISettingsMenu.cpp */,
 				42B54D5A261B8C000097D816 /* CISettingsMenu.h */,
 				3DA35B17262B569400A578DF /* CIWinScene.h */,
@@ -866,6 +876,7 @@
 				0A7E0814263BA579001540FB /* CITutorialScene.cpp in Sources */,
 				3DD6947426311CD300ABF60F /* CINetworkMessageManager.cpp in Sources */,
 				3DD6947526311CD300ABF60F /* CICollisionController.cpp in Sources */,
+				CACFA9EB263CA9D8000236C4 /* CIPauseMenu.cpp in Sources */,
 				3DD6947626311CD300ABF60F /* CIOpponentPlanet.cpp in Sources */,
 				3DD6947726311CD300ABF60F /* CIGameUpdate.cpp in Sources */,
 				3DD6947826311CD300ABF60F /* CIStardustNode.cpp in Sources */,
@@ -895,6 +906,7 @@
 				EB0FF61D2016F06000517030 /* main.cpp in Sources */,
 				3DA35B6C262E6C1300A578DF /* CIPlanetProgressNode.cpp in Sources */,
 				3D563B9F25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */,
+				CACFA9EA263CA9D8000236C4 /* CIPauseMenu.cpp in Sources */,
 				CA9A2DD325EDBD6A0048D02F /* CIStardustModel.cpp in Sources */,
 				3DCF910C2606538300B97FA1 /* CINetworkMessageManager.cpp in Sources */,
 				3DCE833A25FDC3B8007EBA2D /* CIGameUpdate.cpp in Sources */,
@@ -927,6 +939,7 @@
 				3D563B9E25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */,
 				3DA35B6B262E6C1300A578DF /* CIPlanetProgressNode.cpp in Sources */,
 				CA9A2DD225EDBD6A0048D02F /* CIStardustModel.cpp in Sources */,
+				CACFA9E9263CA9D8000236C4 /* CIPauseMenu.cpp in Sources */,
 				EBFA52A121FA5D1700CCC2C5 /* CIInputController.cpp in Sources */,
 				3DCF910B2606538300B97FA1 /* CINetworkMessageManager.cpp in Sources */,
 				CA68E30C25F53BC200B4617D /* CICollisionController.cpp in Sources */,
@@ -959,6 +972,7 @@
 				3D563B9D25F0AF01006641B1 /* CIPlanetModel.cpp in Sources */,
 				3DA35B6A262E6C1300A578DF /* CIPlanetProgressNode.cpp in Sources */,
 				CA9A2DD125EDBD6A0048D02F /* CIStardustModel.cpp in Sources */,
+				CACFA9E8263CA9D8000236C4 /* CIPauseMenu.cpp in Sources */,
 				EBFA528D21FA5AAC00CCC2C5 /* CIApp.cpp in Sources */,
 				3DCF910A2606538200B97FA1 /* CINetworkMessageManager.cpp in Sources */,
 				CA68E30B25F53BC200B4617D /* CICollisionController.cpp in Sources */,

@@ -126,11 +126,21 @@ void MenuScene::dispose() {
     // Deactivate the button (platform dependent)
     if (_backBtn != nullptr && _backBtn->isVisible()) {
         _backBtn->deactivate();
+    } else if (_backBtn != nullptr) {
+        _backBtn->clearListeners();
     }
+    
     _mainmenu->setDisplay(false);
     _settings->setDisplay(false);
     _join->setDisplay(false);
     _lobby->setDisplay(false);
+    _tutorial->setDisplay(false);
+    
+    _mainmenu->dispose();
+    _settings->dispose();
+    _join->dispose();
+    _lobby->dispose();
+    _tutorial->dispose();
 
     _mainmenu = nullptr;
     _settings = nullptr;

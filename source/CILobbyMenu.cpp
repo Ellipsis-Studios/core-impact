@@ -24,7 +24,14 @@ void LobbyMenu::dispose() {
         _gravStrengthBtn->deactivate();
         _colorCountBtn->deactivate();
         _winMassBtn->deactivate();
+    } else if (_gameStartBtn != nullptr) {
+        _gameStartBtn->clearListeners();
+        _spawnRateBtn->clearListeners();
+        _gravStrengthBtn->clearListeners();
+        _colorCountBtn->clearListeners();
+        _winMassBtn->clearListeners();
     }
+    
     _gameStartBtn = nullptr;
     _spawnRateBtn = nullptr;
     _gravStrengthBtn = nullptr;
@@ -232,6 +239,7 @@ void LobbyMenu::update(MenuState& state) {
             _networkMessageManager->sendMessages();
             _networkMessageManager->receiveMessages();
             _gameSettings->setGameId(_networkMessageManager->getRoomId());
+            setOtherPlayerLabels({ "N/A", "N/A", "N/A", "N/A" });
 
             _nextState = state; // prep to setDisplay
             setDisplay(true);
@@ -271,6 +279,7 @@ void LobbyMenu::update(MenuState& state) {
             _networkMessageManager->receiveMessages();
             _lobbyRoomLabel->setText(_gameSettings->getGameId());
             _gameLobbyPlayerLabels[0]->setText(_playerSettings->getPlayerName());
+            setOtherPlayerLabels({ "N/A", "N/A", "N/A", "N/A" });
             
             _isHost = false;
             state = MenuState::GameLobby;

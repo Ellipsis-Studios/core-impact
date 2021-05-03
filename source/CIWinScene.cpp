@@ -17,6 +17,9 @@ void WinScene::dispose() {
     if (_backToHomeButton != nullptr && _backToHomeButton->isActive()) {
         _backToHomeButton->deactivate();
         _newGameButton->deactivate();
+    } else if (_backToHomeButton != nullptr) {
+        _backToHomeButton->clearListeners();
+        _newGameButton->clearListeners();
     }
     
     _gameOutcomeLabel = nullptr;
