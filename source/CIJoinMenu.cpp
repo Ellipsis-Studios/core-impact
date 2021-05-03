@@ -20,7 +20,12 @@ void JoinMenu::dispose() {
     if (_roomIdInput != nullptr && _roomIdInput->isActive()) {
         _roomIdInput->deactivate();
         _roomJoinBtn->deactivate();
-    }    
+    } else if (_roomIdInput != nullptr) {
+        _roomIdInput->clearExitListeners();
+        _roomIdInput->clearTypeListeners();
+        _roomJoinBtn->clearListeners();
+    }
+    
     _roomJoinBtn = nullptr;
     _roomIdInput = nullptr;
     _layer = nullptr;

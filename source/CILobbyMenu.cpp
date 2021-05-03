@@ -24,7 +24,14 @@ void LobbyMenu::dispose() {
         _gravStrengthBtn->deactivate();
         _colorCountBtn->deactivate();
         _winMassBtn->deactivate();
+    } else if (_gameStartBtn != nullptr) {
+        _gameStartBtn->clearListeners();
+        _spawnRateBtn->clearListeners();
+        _gravStrengthBtn->clearListeners();
+        _colorCountBtn->clearListeners();
+        _winMassBtn->clearListeners();
     }
+    
     _gameStartBtn = nullptr;
     _spawnRateBtn = nullptr;
     _gravStrengthBtn = nullptr;

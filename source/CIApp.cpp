@@ -149,6 +149,7 @@ void CoreImpactApp::update(float timestep) {
         if (_networkMessageManager == nullptr) {
             _networkMessageManager = NetworkMessageManager::alloc();
         }
+        
         _menu.init(_assets, _networkMessageManager, _gameSettings, _playerSettings);
         _loaded = true;
     }
