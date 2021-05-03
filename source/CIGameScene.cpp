@@ -159,6 +159,14 @@ void GameScene::dispose() {
         _input.dispose();
         _active = false;
     }
+    if (_pauseBtn != nullptr && _pauseBtn->isVisible()) {
+        _pauseBtn->deactivate();
+    }
+    else if (_pauseBtn != nullptr) {
+        _pauseBtn->clearListeners();
+    }
+    _pauseMenu->dispose();
+
     _assets = nullptr;
     _gameUpdateManager = nullptr;
     _networkMessageManager = nullptr;
