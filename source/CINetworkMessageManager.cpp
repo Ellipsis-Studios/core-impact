@@ -70,13 +70,13 @@ void NetworkMessageManager::sendMessages() {
         NetworkUtils::encodeFloat(_gameSettings->getSpawnRate(), data);
         NetworkUtils::encodeFloat(_gameSettings->getGravStrength(), data);
         NetworkUtils::encodeInt(_gameSettings->getColorCount(), data);
-        NetworkUtils::encodeInt(_gameSettings->getPlanetDustPerLayer(), data);
+        NetworkUtils::encodeInt(_gameSettings->getPlanetStardustPerLayer(), data);
         NetworkUtils::encodeInt(_timestamp, data);
         _timestamp++;
         _conn->send(data);
         data.clear();
         CULog("SENT START GAME MESSAGE> SPAWNRATE[%f], GRAVSTRENGTH[%f], COLORCOUNT[%i], PLANETMASS[%i]",
-            _gameSettings->getSpawnRate(), _gameSettings->getGravStrength(), _gameSettings->getColorCount(), _gameSettings->getPlanetDustPerLayer());
+            _gameSettings->getSpawnRate(), _gameSettings->getGravStrength(), _gameSettings->getColorCount(), _gameSettings->getPlanetStardustPerLayer());
         _gameState = GameState::GameInProgress;
         /* TODO: uncomment when startGame works correctly
         if (getPlayerId() == 0) {
@@ -283,7 +283,7 @@ void NetworkMessageManager::receiveMessages() {
                 _gameSettings->setSpawnRate(spawnRate);
                 _gameSettings->setGravStrength(gravStrength);
                 _gameSettings->setColorCount(colorCount);
-                _gameSettings->setPlanetDustPerLayer(layerSize);
+                _gameSettings->setPlanetStardustPerLayer(layerSize);
 
                 _gameState = GameState::GameInProgress;
             }

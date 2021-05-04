@@ -141,7 +141,7 @@ bool LobbyMenu::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _layerSizeBtn->addListener([&](const std::string& name, bool down) {
         if (!down) {
             _currWin = (_currWin + 1) % 5;
-            _gameSettings->setPlanetDustPerLayer(_layerSize[_currWin]);
+            _gameSettings->setPlanetStardustPerLayer(_layerSize[_currWin]);
         }
         });
 
@@ -252,7 +252,7 @@ void LobbyMenu::update(MenuState& state) {
             _spawnRateLabel->setText(cugl::strtool::to_string(_gameSettings->getSpawnRate(), 1) + "X");
             _gravStrengthLabel->setText(cugl::strtool::to_string(_gameSettings->getGravStrength(), 1) + "X");
             _colorCountLabel->setText(cugl::strtool::to_string(_gameSettings->getColorCount()));
-            _layerSizeLabel->setText(cugl::strtool::to_string(_gameSettings->getPlanetDustPerLayer()));
+            _layerSizeLabel->setText(cugl::strtool::to_string(_gameSettings->getPlanetStardustPerLayer()));
 
             _isHost = true;
             state = MenuState::GameLobby;
@@ -308,7 +308,7 @@ void LobbyMenu::update(MenuState& state) {
             _spawnRateLabel->setText(cugl::strtool::to_string(_gameSettings->getSpawnRate(), 1) + "X");
             _gravStrengthLabel->setText(cugl::strtool::to_string(_gameSettings->getGravStrength(), 1) + "X");
             _colorCountLabel->setText(cugl::strtool::to_string(_gameSettings->getColorCount()));
-            _layerSizeLabel->setText(cugl::strtool::to_string(_gameSettings->getPlanetDustPerLayer()));
+            _layerSizeLabel->setText(cugl::strtool::to_string(_gameSettings->getPlanetStardustPerLayer()));
 
             state = _nextState;
             break;

@@ -56,7 +56,7 @@ void PlanetProgressNode::update(float timestep, int lockinLayerSize) {
     if (_timeElapsed > SPF) {
         _timeElapsed = 0;
         unsigned int frame = getFrame();
-        if (_planetLayer.layerSize > (lockinLayerSize - 1) && _layerNum != 2) {
+        if (_planetLayer.layerSize > (lockinLayerSize - 1)) {
             if (frame == CANLOCKIN_END) {
                 setFrame(PROGRESS_ARC_END);
             } else {

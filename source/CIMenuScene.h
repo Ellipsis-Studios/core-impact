@@ -254,7 +254,7 @@ public:
      * @return uint16_t win planet condition value (mass/num of layeres)
      */
     const uint16_t getPlanetLayerSize() const {
-        return (_gameSettings == nullptr) ? CONSTANTS::DEFAULT_LAYER_SIZE: _gameSettings->getPlanetDustPerLayer();
+        return (_gameSettings == nullptr) ? CONSTANTS::DEFAULT_LAYER_SIZE: _gameSettings->getPlanetStardustPerLayer();
     }
 
 };
