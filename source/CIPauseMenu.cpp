@@ -3,7 +3,7 @@
 //  CoreImpact
 //
 //  Created by Richard Yoon on 4/5/21.
-//  Copyright © 2021 Game Design Initiative at Cornell. All rights reserved.
+//  Copyright ï¿½ 2021 Game Design Initiative at Cornell. All rights reserved.
 //
 
 #include "CIPauseMenu.h"
@@ -100,14 +100,13 @@ bool PauseMenu::init(const std::shared_ptr<cugl::AssetManager>& assets,
         }
         });
 
-    /*
-    * TODO: EXIT GAME HERE
+    _exitGame = false;
+    _exitBtn->setDown(false);
     _exitBtn->addListener([&](const std::string& name, bool down) {
-        if (!down) {
-            _nextState = MenuState::MainToLobby;
+        if (down) {
+            _exitGame = true;
         }
         });
-    */
 
     return true;
 }

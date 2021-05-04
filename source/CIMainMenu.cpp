@@ -135,7 +135,6 @@ void MainMenu::update(MenuState& state) {
         case MenuState::SettingToMain:
         case MenuState::JoinToMain:
         case MenuState::LobbyToMain:
-        case MenuState::TutorialToMain:
             // handle transitioning into MainMenu
             setDisplay(true);
             state = MenuState::MainMenu;
