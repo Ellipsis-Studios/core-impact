@@ -111,7 +111,8 @@ bool LobbyMenu::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _colorCountBtnLabel = assets->get<scene2::SceneNode>("lobby_colorcountbuttonlabel");
     _winMassBtnLabel = assets->get<scene2::SceneNode>("lobby_wincondbuttonlabel");
 
-    _currSpawn = _currGrav = _currWin = _currColor = 2;
+    _currSpawn = _currGrav = _currColor = 2;
+    _currWin = 1;
 
     // Setting buttons 
     _spawnRateBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("lobby_spawnratebutton"));
@@ -140,7 +141,7 @@ bool LobbyMenu::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _winMassBtn->addListener([&](const std::string& name, bool down) {
         if (!down) {
             _currWin = (_currWin + 1) % 5;
-            _gameSettings->setPlanetMassToWin(_winMass[_currWin]);
+            _gameSettings->setPlanetDustPerLayer(_winMass[_currWin]);
         }
         });
 
@@ -251,7 +252,7 @@ void LobbyMenu::update(MenuState& state) {
             _spawnRateLabel->setText(cugl::strtool::to_string(_gameSettings->getSpawnRate(), 1) + "X");
             _gravStrengthLabel->setText(cugl::strtool::to_string(_gameSettings->getGravStrength(), 1) + "X");
             _colorCountLabel->setText(cugl::strtool::to_string(_gameSettings->getColorCount()));
-            _winMassLabel->setText(cugl::strtool::to_string(_gameSettings->getPlanetMassToWin()));
+            _winMassLabel->setText(cugl::strtool::to_string(_gameSettings->getPlanetDustPerLayer()));
 
             _isHost = true;
             state = MenuState::GameLobby;
@@ -307,7 +308,7 @@ void LobbyMenu::update(MenuState& state) {
             _spawnRateLabel->setText(cugl::strtool::to_string(_gameSettings->getSpawnRate(), 1) + "X");
             _gravStrengthLabel->setText(cugl::strtool::to_string(_gameSettings->getGravStrength(), 1) + "X");
             _colorCountLabel->setText(cugl::strtool::to_string(_gameSettings->getColorCount()));
-            _winMassLabel->setText(cugl::strtool::to_string(_gameSettings->getPlanetMassToWin()));
+            _winMassLabel->setText(cugl::strtool::to_string(_gameSettings->getPlanetDustPerLayer()));
 
             state = _nextState;
             break;

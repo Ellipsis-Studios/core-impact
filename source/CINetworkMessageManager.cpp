@@ -70,13 +70,13 @@ void NetworkMessageManager::sendMessages() {
         NetworkUtils::encodeFloat(_gameSettings->getSpawnRate(), data);
         NetworkUtils::encodeFloat(_gameSettings->getGravStrength(), data);
         NetworkUtils::encodeInt(_gameSettings->getColorCount(), data);
-        NetworkUtils::encodeInt(_gameSettings->getPlanetMassToWin(), data);
+        NetworkUtils::encodeInt(_gameSettings->getPlanetDustPerLayer(), data);
         NetworkUtils::encodeInt(_timestamp, data);
         _timestamp++;
         _conn->send(data);
         data.clear();
         CULog("SENT START GAME MESSAGE> SPAWNRATE[%f], GRAVSTRENGTH[%f], COLORCOUNT[%i], PLANETMASS[%i]",
-            _gameSettings->getSpawnRate(), _gameSettings->getGravStrength(), _gameSettings->getColorCount(), _gameSettings->getPlanetMassToWin());
+            _gameSettings->getSpawnRate(), _gameSettings->getGravStrength(), _gameSettings->getColorCount(), _gameSettings->getPlanetDustPerLayer());
         _gameState = GameState::GameInProgress;
         /* TODO: uncomment when startGame works correctly
         if (getPlayerId() == 0) {
@@ -271,10 +271,10 @@ void NetworkMessageManager::receiveMessages() {
                 float spawnRate = NetworkUtils::decodeFloat(recv[4], recv[5], recv[6], recv[7]);
                 float gravStrength = NetworkUtils::decodeFloat(recv[8], recv[9], recv[10], recv[11]);
                 int colorCount = NetworkUtils::decodeInt(recv[12], recv[13], recv[14], recv[15]);
-                int planetMass = NetworkUtils::decodeInt(recv[16], recv[17], recv[18], recv[19]);
+                int layerSize = NetworkUtils::decodeInt(recv[16], recv[17], recv[18], recv[19]);
                 int timestamp = NetworkUtils::decodeInt(recv[20], recv[21], recv[22], recv[23]);
 
-                CULog("RCVD START GAME MESSAGE> SPAWNRATE[%f], GRAVSTRENGTH[%f], COLORCOUNT[%i], PLANETMASS[%i], TS[%i]", spawnRate, gravStrength, colorCount, planetMass, timestamp);
+                CULog("RCVD START GAME MESSAGE> SPAWNRATE[%f], GRAVSTRENGTH[%f], COLORCOUNT[%i], PLANETMASS[%i], TS[%i]", spawnRate, gravStrength, colorCount, layerSize, timestamp);
                 
                 if (_gameSettings == nullptr) {
                     _gameSettings = GameSettings::alloc();
@@ -283,7 +283,7 @@ void NetworkMessageManager::receiveMessages() {
                 _gameSettings->setSpawnRate(spawnRate);
                 _gameSettings->setGravStrength(gravStrength);
                 _gameSettings->setColorCount(colorCount);
-                _gameSettings->setPlanetMassToWin(planetMass);
+                _gameSettings->setPlanetDustPerLayer(layerSize);
 
                 _gameState = GameState::GameInProgress;
             }

@@ -29,7 +29,7 @@ private:
     uint8_t _colorCount;
     
     /** The amount of planet mass needed to win the game */
-    uint16_t _planetMassToWin;
+    uint16_t _planetDustPerLayer;
     
 public:
 #pragma mark Constructors
@@ -62,7 +62,7 @@ public:
         _spawnRate = CONSTANTS::DEFAULT_SPAWN_RATE;
         _gravStrength = CONSTANTS::DEFAULT_GRAV_STRENGTH;
         _colorCount = CONSTANTS::DEFAULT_COLOR_COUNT;
-        _planetMassToWin = CONSTANTS::DEFAULT_WIN_MASS;
+        _planetDustPerLayer = CONSTANTS::DEFAULT_LAYER_SIZE;
     }
 
     /** 
@@ -124,15 +124,15 @@ public:
     /**
      * Returns the planet mass required to win the game.
      */
-    uint16_t getPlanetMassToWin() const {
-        return _planetMassToWin;
+    uint16_t getPlanetDustPerLayer() const {
+        return _planetDustPerLayer;
     }
     
     /** 
      * Sets the planet mass required to win the game.
      */
-    void setPlanetMassToWin(uint16_t planetMassToWin) {
-        _planetMassToWin = planetMassToWin;
+    void setPlanetDustPerLayer(uint16_t planetDustPerLayer) {
+        _planetDustPerLayer = planetDustPerLayer;
     }
     
 };

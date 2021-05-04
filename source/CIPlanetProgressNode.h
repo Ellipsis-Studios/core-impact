@@ -101,7 +101,7 @@ public:
     /**
      * Updates the frame of the planet progress animation
      */
-    void update(float timestep);
+    void update(float timestep, int lockinLayerSize);
 };
 
 #endif /* __CI_PLANET_PROGRESS_NODE_H__ */

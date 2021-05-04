@@ -21,7 +21,7 @@ void PlanetNode::draw(const std::shared_ptr<cugl::SpriteBatch>& batch,
     AnimationNode::draw(batch,transform, tint);
 }
 
-void PlanetNode::update(float timestep, bool isLockingIn, int numLayers, bool canLockIn) {
+void PlanetNode::update(float timestep, bool isLockingIn, int numLayers, bool canLockIn, int lockinLayerSize) {
     if (_progressNodes.size() != _layers->size()) {
         setLayers(_layers);
     }
@@ -47,7 +47,7 @@ void PlanetNode::update(float timestep, bool isLockingIn, int numLayers, bool ca
         
         for (int ii = 0; ii < _progressNodes.size(); ii++) {
             if (_progressNodes[ii] != nullptr) {
-                _progressNodes[ii]->update(timestep);
+                _progressNodes[ii]->update(timestep, lockinLayerSize);
             }
         }
     }

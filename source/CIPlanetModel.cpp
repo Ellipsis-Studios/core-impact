@@ -47,7 +47,7 @@ void PlanetModel::setTextures(const std::shared_ptr<cugl::Texture>& core,
 }
  
 void PlanetModel::update(float timestep) {
-    _planetNode->update(timestep, isLockingIn(), _numLayers, canLockIn());
+    _planetNode->update(timestep, isLockingIn(), _numLayers, canLockIn(), _layerLockinTotal);
 }
 
 #pragma mark Constructors
@@ -74,9 +74,8 @@ void PlanetModel::dispose() {
  *
  * @return true if the initialization was successful
  */
-bool PlanetModel::init(float x, float y, CIColor::Value c, int maxLayers, float gravStrength, uint16_t winPlanetLayers) {
+bool PlanetModel::init(float x, float y, CIColor::Value c, int maxLayers, float gravStrength, uint16_t planetLayerSize) {
     _gravStrength = gravStrength;
-    _winPlanetLayers = winPlanetLayers;
 
     _position.set(x, y);
     _layers.resize(maxLayers);
@@ -85,7 +84,7 @@ bool PlanetModel::init(float x, float y, CIColor::Value c, int maxLayers, float 
     _layers[_numLayers-1] = getNewLayer();
     setColor(c);
 
-    _layerLockinTotal = INIT_LAYER_LOCKIN_TOTAL;
+    _layerLockinTotal = planetLayerSize;
 
     _radius = INITIAL_PLANET_RADIUS;
     _mass = INITIAL_PLANET_MASS;

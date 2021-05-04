@@ -180,8 +180,8 @@ public:
 
     /** 
      * Returns the win condition (game length) for the planet.
-     * 
-     * @return uint16_t planet's win condition (planet mass)
+     *
+     * @return uint16_t planet's win condition (layer size)
      */
     uint16_t getWinPlanetLayers() const {
         return _winPlanetLayers;
@@ -217,12 +217,12 @@ public:
      * @param c                 The initial color code of the planet
      * @param maxLayers         The max number of layers in the planet  (default to 1)
      * @param gravStrength      The planet's gravitational strength     (default to 1.0f)
-     * @param winPlanetMass     The mass required for the planet to win (default to 200)
+     * @param planetLayerSize     The layer size required for the planet to win (default to 5)
      *
      * @return true if the initialization was successful
      */
     bool init(float x, float y, CIColor::Value c, 
-        int maxLayers = 1, float gravStrength = 1.0f, uint16_t winPlanetLayers = 3);
+        int maxLayers = 1, float gravStrength = 1.0f, uint16_t planetLayerSize = 5);
 
     /**
      * Returns a newly allocated planet with the given color
@@ -235,13 +235,13 @@ public:
      * @param c The initial color code of the planet
      * @param maxLayers The maximum number of layers the planet can have
      * @param gravStrength The planet's gravitational strength factor
-     * @param winPlanetMass The planet mass for winning the game
+     * @param planetLayerSize The planet layer size for winning the game
      *
      * @return a newly allocated planet at the given location with the given color.
      */
-    static std::shared_ptr<PlanetModel> alloc(float x, float y, CIColor::Value c, int maxLayers, float gravStrength, uint16_t winPlanetLayers) {
+    static std::shared_ptr<PlanetModel> alloc(float x, float y, CIColor::Value c, int maxLayers, float gravStrength, uint16_t planetLayerSize) {
         std::shared_ptr<PlanetModel> result = std::make_shared<PlanetModel>();
-        return (result->init(x, y, c, maxLayers, gravStrength, winPlanetLayers) ? result : nullptr);
+        return (result->init(x, y, c, maxLayers, gravStrength, planetLayerSize) ? result : nullptr);
     }
 
 #pragma mark Interactions

@@ -91,7 +91,7 @@ public:
     
     ~PlanetNode() { dispose(); }
 
-    void update(float timestep, bool isLockingIn, int numLayers, bool canLockIn);
+    void update(float timestep, bool isLockingIn, int numLayers, bool canLockIn, int layerSize);
   
     static std::shared_ptr<PlanetNode> alloc(const std::shared_ptr<cugl::Texture>& core,
                                              const std::shared_ptr<cugl::Texture>& ring,

@@ -79,7 +79,7 @@ private:
     std::shared_ptr<cugl::scene2::Button> _winMassBtn;
     std::shared_ptr<cugl::scene2::Label> _winMassLabel;
     std::shared_ptr<cugl::scene2::SceneNode> _winMassBtnLabel;
-    const uint16_t _winMass[5] = { 100, 150, 200, 250, 300 };
+    const uint16_t _winMass[5] = { 4, 5, 6, 7, 8 };
     uint8_t _currWin;
 
     /** Reference to game lobby's button to start gameplay */
