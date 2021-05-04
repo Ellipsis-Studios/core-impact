@@ -50,10 +50,10 @@ private:
     std::shared_ptr<cugl::scene2::Button> _resumeBtn;
     /** Reference to the exit game button in pause menu */
     std::shared_ptr<cugl::scene2::Button> _exitBtn;
-
-public:
+    
     /** Boolean setting request to exit game */
     bool _exitGame;
+public:
 #pragma mark -
 #pragma mark Constructors
     /**
@@ -124,6 +124,12 @@ public:
         return _layer;
     }
 
+    /**
+     * Gets whether exitGame has been requested.
+     */
+    bool getExitGame() const {
+        return _exitGame;
+    }
 };
 
 #endif /* __CI_PAUSE_MENU_H__ */
