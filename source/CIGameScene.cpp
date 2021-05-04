@@ -271,8 +271,14 @@ void GameScene::update(float timestep) {
     }
     
     processSpecialStardust(dimen, _stardustContainer);
+    
+    /** Handle pause menu requests*/
     togglePause(_networkMessageManager->getGameState() == GameState::GamePaused);
     _pauseMenu->update();
+    if (_pauseMenu->getExitGame()){
+        _winScene->setDisplay(false);
+        setActive(false);
+    }
 }
 
 /**

@@ -70,7 +70,26 @@
             }
           }
         },
-	"pausebutton": {
+        "tutorial": {
+          "type": "Label",
+          "data": {
+            "font": "saira20",
+            "text": "",
+            "foreground": [255, 255, 255, 255],
+            "background": [0, 0, 0, 0],
+            "size": [200, 80],
+            "anchor": [0.5, 0.5],
+            "halign": "center",
+            "valign": "middle",
+            "visible": false
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "y_offset": 0.2
+          }
+        },
+	      "pausebutton": {
           "comment": "The pause button with 3 dots in a circle.",
           "type": "Widget",
           "data": {
@@ -79,7 +98,7 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "top",
-	    "y_offset": -0.1
+	          "y_offset": -0.1
           }
         },
         "win": {
