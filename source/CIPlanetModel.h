@@ -38,9 +38,10 @@ protected:
 
     /** Gravitational strength factor */
     static float _gravStrength;
-    /** Planet mass to win the game */
+    
+    /** Planet layers to win the game */
     /** Win condition value */
-    static uint16_t _winPlanetMass;
+    static uint16_t _winPlanetLayers;
     
     /** Scene graph node for the planet */
     std::shared_ptr<PlanetNode> _planetNode;
@@ -182,8 +183,8 @@ public:
      * 
      * @return uint16_t planet's win condition (planet mass)
      */
-    uint16_t getWinPlanetMass() const {
-        return _winPlanetMass;
+    uint16_t getWinPlanetLayers() const {
+        return _winPlanetLayers;
     }
 
 #pragma mark Constructors
@@ -221,7 +222,7 @@ public:
      * @return true if the initialization was successful
      */
     bool init(float x, float y, CIColor::Value c, 
-        int maxLayers = 1, float gravStrength = 1.0f, uint16_t winPlanetMass = 200);
+        int maxLayers = 1, float gravStrength = 1.0f, uint16_t winPlanetLayers = 3);
 
     /**
      * Returns a newly allocated planet with the given color
@@ -238,9 +239,9 @@ public:
      *
      * @return a newly allocated planet at the given location with the given color.
      */
-    static std::shared_ptr<PlanetModel> alloc(float x, float y, CIColor::Value c, int maxLayers, float gravStrength, uint16_t winPlanetMass) {
+    static std::shared_ptr<PlanetModel> alloc(float x, float y, CIColor::Value c, int maxLayers, float gravStrength, uint16_t winPlanetLayers) {
         std::shared_ptr<PlanetModel> result = std::make_shared<PlanetModel>();
-        return (result->init(x, y, c, maxLayers, gravStrength, winPlanetMass) ? result : nullptr);
+        return (result->init(x, y, c, maxLayers, gravStrength, winPlanetLayers) ? result : nullptr);
     }
 
 #pragma mark Interactions
@@ -273,8 +274,7 @@ public:
      * @return bool whether current planet satisfies winning conditions.
      */
     bool isWinner() const {
-        // TODO: switch to number of layers
-        return (_mass >= _winPlanetMass);
+        return (_layers[_winPlanetLayers-1].isLockedIn);
     }
 };
 

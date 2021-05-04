@@ -22,7 +22,7 @@
 
 /** Initialize PlanetModel's static variables */
 float PlanetModel::_gravStrength = 1.0f;
-uint16_t PlanetModel::_winPlanetMass = 200;
+uint16_t PlanetModel::_winPlanetLayers = 3;
 
 #pragma mark Properties
 /**
@@ -70,19 +70,19 @@ void PlanetModel::dispose() {
  * @param c                 The initial color code of the planet
  * @param maxLayers         The max number of layers in the planet  (default to 1)
  * @param gravStrength      The planet's gravitational strength     (default to 1.0f)
- * @param winPlanetMass     The mass required for the planet to win (default to 200)
+ * @param winPlanetLayers     The mass required for the planet to win (default to 200)
  *
  * @return true if the initialization was successful
  */
-bool PlanetModel::init(float x, float y, CIColor::Value c, int maxLayers, float gravStrength, uint16_t winPlanetMass) {
+bool PlanetModel::init(float x, float y, CIColor::Value c, int maxLayers, float gravStrength, uint16_t winPlanetLayers) {
     _gravStrength = gravStrength;
-    _winPlanetMass = winPlanetMass;
+    _winPlanetLayers = winPlanetLayers;
 
     _position.set(x, y);
     _layers.resize(maxLayers);
 
     _numLayers = 1;
-    _layers[_numLayers - 1] = getNewLayer();
+    _layers[_numLayers-1] = getNewLayer();
     setColor(c);
 
     _layerLockinTotal = INIT_LAYER_LOCKIN_TOTAL;
@@ -115,12 +115,15 @@ void PlanetModel::decreaseLayerSize() {
  * Increases the size of the current layer
  */
 void PlanetModel::increaseLayerSize() {
-    _layers[_numLayers-1].layerSize++;
-    _radius += PLANET_RADIUS_DELTA;
-    _mass += PLANET_MASS_DELTA;
+    PlanetLayer* currentLayer = &_layers[_numLayers-1];
+    if (currentLayer->layerSize < _layerLockinTotal){
+        currentLayer->layerSize++;
+        _radius += PLANET_RADIUS_DELTA;
+        _mass += PLANET_MASS_DELTA;
 
-    _planetNode->setRadius(_radius);
-    _planetNode->setLayers(&_layers);
+        _planetNode->setRadius(_radius);
+        _planetNode->setLayers(&_layers);
+    }
 }
 
 /** Stops any current progress towards locking in a layer */
@@ -136,7 +139,7 @@ void PlanetModel::stopLockIn() {
  */
 bool PlanetModel::lockInLayer(float timestep) {
     // do not lock in if there is not enough stardust to do a lock in or the planet already has the max number of layers
-    if (getCurrLayerProgress() < _layerLockinTotal || _numLayers >= _layers.size()) {
+    if (getCurrLayerProgress() < _layerLockinTotal || _numLayers > _layers.size()) {
         stopLockIn();
         return false;
     }
@@ -147,12 +150,15 @@ bool PlanetModel::lockInLayer(float timestep) {
     }
     
     _layers[_numLayers-1].isLockedIn = true;
-    _numLayers++;
-    _layers[_numLayers-1] = getNewLayer();
-    _lockInProgress = 0;
-    _radius *= LAYER_RADIUS_MULTIPLIER;
-    _planetNode->setLayers(&_layers);
-    _planetNode->setRadius(_radius);
+    
+    if (_numLayers < _layers.size()){
+        _numLayers++;
+        _layers[_numLayers-1] = getNewLayer();
+        _lockInProgress = 0;
+        _radius *= LAYER_RADIUS_MULTIPLIER;
+        _planetNode->setLayers(&_layers);
+        _planetNode->setRadius(_radius);
+    }
     return true;
 }
 

@@ -14,6 +14,9 @@
 #include "CIOpponentNode.h"
 #include "CIColor.h"
 
+#define INITIAL_PLANET_MASS            25
+#define PLANET_MASS_DELTA              10
+
 /**
  * Sets the textures for this opponent planet.
  *
@@ -25,7 +28,7 @@ void OpponentPlanet::setTextures(const std::shared_ptr<cugl::Texture>& texture, 
     _opponentNode->setAnchor(cugl::Vec2::ANCHOR_BOTTOM_LEFT);
     _opponentNode->setPosition(_position);
     _opponentNode->setLocation(_location);
-    _opponentNode->setProgress(_mass / _winPlanetMass, getColor());
+    _opponentNode->setProgress(_mass / (_layerLockinTotal * _winPlanetLayers * PLANET_MASS_DELTA + INITIAL_PLANET_MASS), getColor());
     _opponentNode->setFogTexture(fogTexture);
 }
 
@@ -75,7 +78,7 @@ void OpponentPlanet::increaseLayerSize() {
 void OpponentPlanet::setMass(float mass) {
     _mass = mass;
     if (_opponentNode != nullptr) {
-        _opponentNode->setProgress(mass / _winPlanetMass, getColor());
+        _opponentNode->setProgress(mass / (_layerLockinTotal * _winPlanetLayers * PLANET_MASS_DELTA + INITIAL_PLANET_MASS), getColor());
     }
 }
 
