@@ -82,6 +82,17 @@ void OpponentPlanet::setMass(float mass) {
     }
 }
 
+void OpponentPlanet::setCurrLayerProgress(int currLayerProgress) {
+    _currLayerProgress = currLayerProgress;
+    if (_opponentNode != nullptr) {
+        _opponentNode->setProgress(((_numLayers - 1) * _layerLockinTotal + currLayerProgress) / (_layerLockinTotal * _winPlanetLayers), getColor());
+    }
+}
+
+const int OpponentPlanet::getCurrLayerProgress() const {
+    return _currLayerProgress;
+}
+
 /**
  * Updates the animations for this opponent planet.
  *

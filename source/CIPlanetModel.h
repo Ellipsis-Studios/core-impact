@@ -23,7 +23,7 @@ protected:
     
     /** The number of layers this planet has */
     int _numLayers;
-    /** The total amount of stardust the player need to put in to lock in the current layer  */
+    /** The total amount of stardust the player needs to put in to lock in the current layer  */
     int _layerLockinTotal;
     /** The amount of time for which this planet is being held down on to lock in
         This is equal to 0 if the planet is not currently being locked in */
@@ -83,7 +83,7 @@ public:
      *
      * @return the amount of stardust added to the current layer
      */
-    const int getCurrLayerProgress() const {
+    virtual const int getCurrLayerProgress() const {
         return _layers[_numLayers-1].layerSize;
     }
     

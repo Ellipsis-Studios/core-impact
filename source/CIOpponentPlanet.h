@@ -23,6 +23,9 @@ private:
     std::shared_ptr<OpponentNode> _opponentNode;
     /** The corner that this opponent planet is in */
     CILocation::Value _location;
+    
+    /** The progress of the current layer */
+    int _currLayerProgress;
 
 public:
 #pragma mark Properties
@@ -109,6 +112,14 @@ public:
      * @param mass The new mass of this planet
      */
     void setMass(float mass);
+    
+    void setCurrLayerProgress(int currLayerProgress);
+    
+    const int getCurrLayerProgress() const override;
+    
+    void setNumLayers(int numLayers) {
+        _numLayers = numLayers;
+    }
     
     /**
      * Updates the animations for this opponent planet.

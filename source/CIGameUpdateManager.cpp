@@ -228,7 +228,8 @@ void GameUpdateManager::processGameUpdate(std::shared_ptr<StardustQueue> stardus
         }
         
         opponentPlanets[NetworkUtils::getLocation(getPlayerId(), playerId)-1]->setColor(planet->getColor());
-        opponentPlanets[NetworkUtils::getLocation(getPlayerId(), playerId)-1]->setMass(planet->getMass());
+        opponentPlanets[NetworkUtils::getLocation(getPlayerId(), playerId)-1]->setNumLayers(planet->getNumLayers());
+        opponentPlanets[NetworkUtils::getLocation(getPlayerId(), playerId)-1]->setCurrLayerProgress(planet->getCurrLayerProgress());
     }
     
     _game_updates_to_process.clear();
