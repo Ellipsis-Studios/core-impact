@@ -131,6 +131,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     addChild(_planet->getPlanetNode());
     addChild(_stardustContainer->getStardustNode());
     addChild(_pauseMenu->getLayer(), 1);
+    addChild(_winScene->getLayer(), 1);
     
     std::vector<string> opponentNames = networkMessageManager->getOtherNames();
     _opponentPlanets.resize((int) opponentNames.size());
@@ -165,7 +166,10 @@ void GameScene::dispose() {
     else if (_pauseBtn != nullptr) {
         _pauseBtn->clearListeners();
     }
-    _pauseMenu->dispose();
+    
+    if (_pauseMenu != nullptr) {
+        _pauseMenu->dispose();
+    }
 
     _assets = nullptr;
     _gameUpdateManager = nullptr;
@@ -202,6 +206,10 @@ void GameScene::update(float timestep) {
     if (_networkMessageManager->getWinnerPlayerId() != -1) {
         if (!_winScene->displayActive()) {
             CULog("Game won.");
+            Color4 color = CIColor::getColor4(_planet->getColor());
+            color.a = 75;
+            _planet->getPlanetNode()->setColor(color);
+            _pauseBtn->setVisible(false);
             int winnerId = _networkMessageManager->getWinnerPlayerId();
             std::string winningPlayer = _networkMessageManager->getOtherNames()[winnerId > _networkMessageManager->getPlayerId() ? winnerId - 1 : winnerId];
             _winScene->setWinner(_networkMessageManager->getWinnerPlayerId(), _networkMessageManager->getPlayerId(), winningPlayer);
@@ -276,7 +284,7 @@ void GameScene::update(float timestep) {
     togglePause(_networkMessageManager->getGameState() == GameState::GamePaused);
     _pauseMenu->update();
     if (_pauseMenu->getExitGame()){
-        _winScene->setDisplay(false);
+        _pauseMenu->setDisplay(false);
         setActive(false);
     }
 }
