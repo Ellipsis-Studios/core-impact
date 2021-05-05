@@ -23,7 +23,7 @@
     }
   },
   "sounds": {
-      "background": {
+      "game": {
           "type":     "sample",
           "file":     "sounds/background_music_v1.ogg",
           "stream":   true,

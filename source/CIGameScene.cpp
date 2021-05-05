@@ -36,6 +36,12 @@ using namespace std;
 /** Game Scene background animation end frame */
 #define BACKGROUND_END 240
 
+/** Keys for sounds and music */
+#define GAME_MUSIC            "game"
+#define FOG_SOUND             "fog"
+#define GRAYSCALE_SOUND       "grayscale"
+#define METEOR_SOUND          "meteor"
+#define SHOOTING_STAR_SOUND   "shootingStar"
 
 #pragma mark -
 #pragma mark Constructors
@@ -126,6 +132,13 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
         _stardustProb[i] = BASE_PROBABILITY_SPACE;
     }
     CIColor::setNumColors(gameSettings->getColorCount());
+    
+    if (_playerSettings->getMusicOn()) {
+        std::shared_ptr<AudioQueue> musicQueue = AudioEngine::get()->getMusicQueue();
+        musicQueue->resume(); // needed to allow music to play after being paused
+        std::shared_ptr<Sound> source = _assets->get<Sound>(GAME_MUSIC);
+        musicQueue->play(source, true, _playerSettings->getVolume());
+    }
 
     addChild(scene);
     addChild(_planet->getPlanetNode());
@@ -184,6 +197,8 @@ void GameScene::dispose() {
     _pauseBtn = nullptr;
     _pauseMenu = nullptr;
     _winScene = nullptr;
+    
+    AudioEngine::get()->getMusicQueue()->pause();
 }
 
 
@@ -408,10 +423,12 @@ void GameScene::processSpecialStardust(const cugl::Size bounds, const std::share
     std::vector<std::shared_ptr<StardustModel>> powerupQueue = stardustQueue->getPowerupQueue();
     for (size_t ii = 0; ii < powerupQueue.size(); ii++) {
         std::shared_ptr<StardustModel> stardust = powerupQueue[ii];
+        std::string sound = "";
 
         switch (stardust->getStardustType()) {
             case StardustModel::Type::METEOR:
                 CULog("METEOR SHOWER!");
+                sound = METEOR_SOUND;
                 stardustQueue->addStardust(stardust->getColor(), bounds);
                 stardustQueue->addStardust(stardust->getColor(), bounds);
                 stardustQueue->addStardust(stardust->getColor(), bounds);
@@ -421,15 +438,18 @@ void GameScene::processSpecialStardust(const cugl::Size bounds, const std::share
                 break;
             case StardustModel::Type::SHOOTING_STAR:
                 CULog("SHOOTING STAR");
+                sound = SHOOTING_STAR_SOUND;
                 stardustQueue->addShootingStardust(stardust->getColor(), bounds);
                 stardustQueue->addShootingStardust(stardust->getColor(), bounds);
                 break;
             case StardustModel::Type::GRAYSCALE:
                 CULog("GRAYSCALE");
+                sound = GRAYSCALE_SOUND;
                 stardustQueue->getStardustNode()->applyGreyScale();
                 break;
             case StardustModel::Type::FOG: {
                 CULog("FOG");
+                sound = FOG_SOUND;
                 int ii = NetworkUtils::getLocation(_gameUpdateManager->getPlayerId(), stardust->getPreviousOwner())-1;
                 std::shared_ptr<OpponentPlanet> opponent = _opponentPlanets[ii];
                 if (opponent != nullptr) {
@@ -439,6 +459,11 @@ void GameScene::processSpecialStardust(const cugl::Size bounds, const std::share
             }
             default:
                 break;
+        }
+        
+        if (sound != "" && _playerSettings->getMusicOn()) {
+            std::shared_ptr<Sound> source = _assets->get<Sound>(sound);
+            AudioEngine::get()->play(sound,source,false,_playerSettings->getVolume());
         }
     }
     
