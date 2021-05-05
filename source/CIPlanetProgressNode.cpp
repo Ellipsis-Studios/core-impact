@@ -10,11 +10,6 @@
 
 #define SPF .01 //seconds per frame
 
-#define LOCKIN_ONE      12
-#define LOCKIN_TWO      22
-#define LOCKIN_THREE    33
-#define LOCKIN_FOUR     46
-#define LOCKIN_FIVE     59
 #define CANLOCKIN_END   155
 
 /**
@@ -45,7 +40,7 @@ void PlanetProgressNode::draw(const std::shared_ptr<cugl::SpriteBatch>& batch,
 /**
  * Updates the frame of the planet progress animation
  */
-void PlanetProgressNode::update(float timestep) {
+void PlanetProgressNode::update(float timestep, int lockinLayerSize) {
     if (_planetLayer.isLockedIn) {
         setFrame(CANLOCKIN_END);
         return;
@@ -53,25 +48,17 @@ void PlanetProgressNode::update(float timestep) {
     
     if (_planetLayer.layerSize == 0) {
         _currFrame = LOCKIN_END;
-    } else if (_planetLayer.layerSize == 1) {
-        _currFrame = LOCKIN_ONE;
-    } else if (_planetLayer.layerSize == 2) {
-        _currFrame = LOCKIN_TWO;
-    } else if (_planetLayer.layerSize == 3) {
-        _currFrame = LOCKIN_THREE;
-    } else if (_planetLayer.layerSize == 4) {
-        _currFrame = LOCKIN_FOUR;
     } else {
-        _currFrame = LOCKIN_FIVE;
+        _currFrame = round(((float) _planetLayer.layerSize / (float) lockinLayerSize) * PROGRESS_ARC_END);
     }
     
     _timeElapsed += timestep;
     if (_timeElapsed > SPF) {
         _timeElapsed = 0;
         unsigned int frame = getFrame();
-        if (_planetLayer.layerSize > 4 && _layerNum != 2) {
+        if (_planetLayer.layerSize > (lockinLayerSize - 1)) {
             if (frame == CANLOCKIN_END) {
-                setFrame(LOCKIN_FIVE);
+                setFrame(PROGRESS_ARC_END);
             } else {
                 setFrame(frame + 1);
             }
@@ -94,8 +81,8 @@ void PlanetProgressNode::update(float timestep) {
         
         if (frame == LOCKIN_END) {
             setFrame(LOCKIN_START);
-        } else if (frame > LOCKIN_FIVE && _planetLayer.layerSize <= 4) {
-            setFrame(LOCKIN_FIVE);
+        } else if (frame > PROGRESS_ARC_END && _planetLayer.layerSize <= (lockinLayerSize - 1)) {
+            setFrame(PROGRESS_ARC_END);
         } else if (_currFrame > frame) {
             setFrame(frame + 1);
         } else {

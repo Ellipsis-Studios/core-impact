@@ -23,20 +23,20 @@ void LobbyMenu::dispose() {
         _spawnRateBtn->deactivate();
         _gravStrengthBtn->deactivate();
         _colorCountBtn->deactivate();
-        _winMassBtn->deactivate();
+        _layerSizeBtn->deactivate();
     } else if (_gameStartBtn != nullptr) {
         _gameStartBtn->clearListeners();
         _spawnRateBtn->clearListeners();
         _gravStrengthBtn->clearListeners();
         _colorCountBtn->clearListeners();
-        _winMassBtn->clearListeners();
+        _layerSizeBtn->clearListeners();
     }
     
     _gameStartBtn = nullptr;
     _spawnRateBtn = nullptr;
     _gravStrengthBtn = nullptr;
     _colorCountBtn = nullptr;
-    _winMassBtn = nullptr;
+    _layerSizeBtn = nullptr;
 
     _lobbyRoomLabel = nullptr;
     for (int ii = 0; ii < _gameLobbyPlayerLabels.size(); ii++) {
@@ -51,7 +51,7 @@ void LobbyMenu::dispose() {
     _spawnRateLabel = nullptr;
     _gravStrengthLabel = nullptr;
     _colorCountLabel = nullptr;
-    _winMassLabel = nullptr;
+    _layerSizeLabel = nullptr;
 
     _layer = nullptr;
     _nextState = MenuState::GameLobby;
@@ -104,20 +104,21 @@ bool LobbyMenu::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _spawnRateLabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_spawnratebutton_up_label"));
     _gravStrengthLabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_gravstrengthbutton_up_label"));
     _colorCountLabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_colorcountbutton_up_label"));
-    _winMassLabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_wincondbutton_up_label"));
+    _layerSizeLabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_wincondbutton_up_label"));
 
     _spawnRateBtnLabel = assets->get<scene2::SceneNode>("lobby_spawnratebuttonlabel");
     _gravStrengthBtnLabel = assets->get<scene2::SceneNode>("lobby_gravstrengthbuttonlabel");
     _colorCountBtnLabel = assets->get<scene2::SceneNode>("lobby_colorcountbuttonlabel");
-    _winMassBtnLabel = assets->get<scene2::SceneNode>("lobby_wincondbuttonlabel");
+    _layerSizeBtnLabel = assets->get<scene2::SceneNode>("lobby_wincondbuttonlabel");
 
-    _currSpawn = _currGrav = _currWin = _currColor = 2;
+    _currSpawn = _currGrav = _currColor = 2;
+    _currWin = 1;
 
     // Setting buttons 
     _spawnRateBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("lobby_spawnratebutton"));
     _gravStrengthBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("lobby_gravstrengthbutton"));
     _colorCountBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("lobby_colorcountbutton"));
-    _winMassBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("lobby_wincondbutton"));
+    _layerSizeBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("lobby_wincondbutton"));
 
     _spawnRateBtn->addListener([&](const std::string& name, bool down) {
         if (!down) {
@@ -137,10 +138,10 @@ bool LobbyMenu::init(const std::shared_ptr<cugl::AssetManager>& assets,
             _gameSettings->setColorCount(_colorCounts[_currColor]);
         }
         });
-    _winMassBtn->addListener([&](const std::string& name, bool down) {
+    _layerSizeBtn->addListener([&](const std::string& name, bool down) {
         if (!down) {
             _currWin = (_currWin + 1) % 5;
-            _gameSettings->setPlanetMassToWin(_winMass[_currWin]);
+            _gameSettings->setPlanetStardustPerLayer(_layerSize[_currWin]);
         }
         });
 
@@ -173,17 +174,17 @@ void LobbyMenu::setDisplay(bool onDisplay) {
             _spawnRateBtnLabel->setVisible(onDisplay);
             _gravStrengthBtnLabel->setVisible(onDisplay);
             _colorCountBtnLabel->setVisible(onDisplay);
-            _winMassBtnLabel->setVisible(onDisplay);
+            _layerSizeBtnLabel->setVisible(onDisplay);
 
             _spawnRateLabel->setVisible(onDisplay);
             _gravStrengthLabel->setVisible(onDisplay);
             _colorCountLabel->setVisible(onDisplay);
-            _winMassLabel->setVisible(onDisplay);
+            _layerSizeLabel->setVisible(onDisplay);
 
             _spawnRateBtn->setVisible(onDisplay);
             _gravStrengthBtn->setVisible(onDisplay);
             _colorCountBtn->setVisible(onDisplay);
-            _winMassBtn->setVisible(onDisplay);
+            _layerSizeBtn->setVisible(onDisplay);
         }
         _gamelobbyplayerName1->setVisible(onDisplay);
         _gamelobbyplayerName2->setVisible(onDisplay);
@@ -199,14 +200,14 @@ void LobbyMenu::setDisplay(bool onDisplay) {
             _spawnRateBtn->deactivate();
             _gravStrengthBtn->deactivate();
             _colorCountBtn->deactivate();
-            _winMassBtn->deactivate();
+            _layerSizeBtn->deactivate();
         } else {
             _gameStartBtn->activate();
             if (_nextState == MenuState::MainToLobby) {
                 _spawnRateBtn->activate();
                 _gravStrengthBtn->activate();
                 _colorCountBtn->activate();
-                _winMassBtn->activate();
+                _layerSizeBtn->activate();
             }
         }
     }
@@ -251,7 +252,7 @@ void LobbyMenu::update(MenuState& state) {
             _spawnRateLabel->setText(cugl::strtool::to_string(_gameSettings->getSpawnRate(), 1) + "X");
             _gravStrengthLabel->setText(cugl::strtool::to_string(_gameSettings->getGravStrength(), 1) + "X");
             _colorCountLabel->setText(cugl::strtool::to_string(_gameSettings->getColorCount()));
-            _winMassLabel->setText(cugl::strtool::to_string(_gameSettings->getPlanetMassToWin()));
+            _layerSizeLabel->setText(cugl::strtool::to_string(_gameSettings->getPlanetStardustPerLayer()));
 
             _isHost = true;
             state = MenuState::GameLobby;
@@ -307,7 +308,7 @@ void LobbyMenu::update(MenuState& state) {
             _spawnRateLabel->setText(cugl::strtool::to_string(_gameSettings->getSpawnRate(), 1) + "X");
             _gravStrengthLabel->setText(cugl::strtool::to_string(_gameSettings->getGravStrength(), 1) + "X");
             _colorCountLabel->setText(cugl::strtool::to_string(_gameSettings->getColorCount()));
-            _winMassLabel->setText(cugl::strtool::to_string(_gameSettings->getPlanetMassToWin()));
+            _layerSizeLabel->setText(cugl::strtool::to_string(_gameSettings->getPlanetStardustPerLayer()));
 
             state = _nextState;
             break;

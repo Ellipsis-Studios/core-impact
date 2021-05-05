@@ -75,11 +75,11 @@ private:
     const uint8_t _colorCounts[5] = { 2, 3, 4, 5, 6 };
     uint8_t _currColor;
     
-    /** Reference to win condition button + label + value list */
-    std::shared_ptr<cugl::scene2::Button> _winMassBtn;
-    std::shared_ptr<cugl::scene2::Label> _winMassLabel;
-    std::shared_ptr<cugl::scene2::SceneNode> _winMassBtnLabel;
-    const uint16_t _winMass[5] = { 100, 150, 200, 250, 300 };
+    /** Reference to layer size button + label + value list */
+    std::shared_ptr<cugl::scene2::Button> _layerSizeBtn;
+    std::shared_ptr<cugl::scene2::Label> _layerSizeLabel;
+    std::shared_ptr<cugl::scene2::SceneNode> _layerSizeBtnLabel;
+    const uint16_t _layerSize[5] = { 4, 5, 6, 7, 8 };
     uint8_t _currWin;
 
     /** Reference to game lobby's button to start gameplay */

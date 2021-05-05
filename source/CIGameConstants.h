@@ -3,7 +3,7 @@
 //  CoreImpact
 //
 //  Created by Richard Yoon on 4/17/21.
-//  Copyright © 2021 Game Design Initiative at Cornell. All rights reserved.
+//  Copyright ï¿½ 2021 Game Design Initiative at Cornell. All rights reserved.
 //
 
 #ifndef __CI_GAME_CONSTANTS_H__ 
@@ -41,7 +41,7 @@ namespace CONSTANTS {
     inline constexpr float DEFAULT_SPAWN_RATE = 1.0f;
     inline constexpr float DEFAULT_GRAV_STRENGTH = 1.0f;
     inline constexpr int   DEFAULT_COLOR_COUNT = 4;
-    inline constexpr int   DEFAULT_WIN_MASS = 200;
+    inline constexpr int   DEFAULT_LAYER_SIZE = 5;
 
 }
 

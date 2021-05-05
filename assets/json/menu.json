@@ -472,8 +472,8 @@
           "data": {
             "key": "lobbybtnlabel",
             "variables": {
-              "text": "Game",
-              "text2": "Length"
+              "text": "Layer",
+              "text2": "Size"
             }
           },
           "layout": {
