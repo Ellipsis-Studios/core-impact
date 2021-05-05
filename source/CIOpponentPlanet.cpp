@@ -28,7 +28,7 @@ void OpponentPlanet::setTextures(const std::shared_ptr<cugl::Texture>& texture, 
     _opponentNode->setAnchor(cugl::Vec2::ANCHOR_BOTTOM_LEFT);
     _opponentNode->setPosition(_position);
     _opponentNode->setLocation(_location);
-    _opponentNode->setProgress(_mass / (_layerLockinTotal * _winPlanetLayers * PLANET_MASS_DELTA + INITIAL_PLANET_MASS), getColor());
+    _opponentNode->setProgress(0, getColor());
     _opponentNode->setFogTexture(fogTexture);
 }
 
