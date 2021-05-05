@@ -136,7 +136,7 @@ bool TutorialScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 void TutorialScene::dispose() {
     if (_active) {
         removeAllChildren();
-        _input.dispose();
+        //TODO refactor _input so we can dispose it 
         _active = false;
     }
     _assets = nullptr;
