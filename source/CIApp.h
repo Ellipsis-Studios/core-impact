@@ -119,6 +119,18 @@ public:
     virtual void onLowMemory() override;
 
     /**
+     * The method called when the application resumes and put in the foreground.
+     *
+     * If you saved any state before going into the background, now is the time
+     * to restore it. This guarantees that the application looks the same as
+     * when it was suspended.
+     *
+     * If you are using audio, you should use this method to resume any audio
+     * paused before app suspension.
+     */
+    virtual void onResume() override;
+    
+    /**
      * The method called to update the application data.
      *
      * This is your core loop and should be replaced with your custom implementation.

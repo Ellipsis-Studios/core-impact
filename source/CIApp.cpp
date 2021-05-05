@@ -49,6 +49,7 @@ void CoreImpactApp::onStartup() {
     
     _assets->attach<Font>(FontLoader::alloc()->getHook());
     _assets->attach<Texture>(TextureLoader::alloc()->getHook());
+    _assets->attach<Sound>(SoundLoader::alloc()->getHook());
     _assets->attach<WidgetValue>(WidgetLoader::alloc()->getHook());
     _assets->attach<scene2::SceneNode>(Scene2Loader::alloc()->getHook());
 
@@ -56,6 +57,8 @@ void CoreImpactApp::onStartup() {
     _loaded = false;
     _loading.init(_assets);
     _startGame = false;
+    
+    AudioEngine::start();
     
     // Queue up the other assets
     _assets->loadDirectoryAsync("json/menu.json",nullptr);
@@ -106,6 +109,8 @@ void CoreImpactApp::onShutdown() {
     _gameSettings = nullptr;
     _playerSettings = nullptr;
 
+    AudioEngine::stop();
+    
     Application::onShutdown();  // YOU MUST END with call to parent
 }
 
@@ -218,6 +223,22 @@ void CoreImpactApp::onSuspend() {
     _playerSettings->appendSettings(_settings);
     _writer->writeJson(_settings);
     CULog("Saving current player settings.");
+    
+    AudioEngine::get()->pause();
+}
+
+/**
+ * The method called when the application resumes and put in the foreground.
+ *
+ * If you saved any state before going into the background, now is the time
+ * to restore it. This guarantees that the application looks the same as
+ * when it was suspended.
+ *
+ * If you are using audio, you should use this method to resume any audio
+ * paused before app suspension.
+ */
+void CoreImpactApp::onResume() {
+    AudioEngine::get()->resume();
 }
 
 /**
