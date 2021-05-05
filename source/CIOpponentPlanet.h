@@ -113,10 +113,25 @@ public:
      */
     void setMass(float mass);
     
+    /**
+     * Sets the current layer progress for this opponent node
+     *
+     * @param currLayerProgress the current layer progress
+     */
     void setCurrLayerProgress(int currLayerProgress);
     
+    /**
+     * Returns the current layer progress
+     *
+     * @return the current layer progress
+     */
     const int getCurrLayerProgress() const override;
     
+    /**
+     * Sets the num layers field
+     *
+     * @param numLayers The number of layers this planet has
+     */
     void setNumLayers(int numLayers) {
         _numLayers = numLayers;
     }

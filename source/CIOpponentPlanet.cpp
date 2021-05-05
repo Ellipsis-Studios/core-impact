@@ -82,13 +82,23 @@ void OpponentPlanet::setMass(float mass) {
     }
 }
 
+/**
+ * Sets the current layer progress for this opponent node
+ *
+ * @param currLayerProgress the current layer progress
+ */
 void OpponentPlanet::setCurrLayerProgress(int currLayerProgress) {
     _currLayerProgress = currLayerProgress;
     if (_opponentNode != nullptr) {
-        _opponentNode->setProgress(((_numLayers - 1) * _layerLockinTotal + currLayerProgress) / (_layerLockinTotal * _winPlanetLayers), getColor());
+        _opponentNode->setProgress((float) ((_numLayers - 1) * _layerLockinTotal + currLayerProgress) / (_layerLockinTotal * _winPlanetLayers), getColor());
     }
 }
 
+/**
+ * Returns the current layer progress
+ *
+ * @return the current layer progress
+ */
 const int OpponentPlanet::getCurrLayerProgress() const {
     return _currLayerProgress;
 }
