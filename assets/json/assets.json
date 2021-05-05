@@ -89,7 +89,7 @@
             "y_offset": 0.2
           }
         },
-	      "pausebutton": {
+          "pausebutton": {
           "comment": "The pause button with 3 dots in a circle.",
           "type": "Widget",
           "data": {
@@ -98,69 +98,69 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "top",
-	          "y_offset": -0.1
+              "y_offset": -0.1
+          }
+        }
+      }
+    },
+    "win": {
+      "type": "Node",
+      "format": {
+        "type": "Anchored"
+      },
+      "children": {
+        "gameOutcomeLabel": {
+          "comment": "The text label showing the outcome of the game",
+          "type": "Label",
+          "data": {
+            "font": "saira32",
+            "text": "",
+            "foreground": [255, 255, 255, 255],
+            "background": [0, 0, 0, 0],
+            "size": [200, 80],
+            "anchor": [0.5, 0.5],
+            "halign": "center",
+            "valign": "middle",
+            "visible": false
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "y_offset": 0.4
           }
         },
-        "win": {
-          "type": "Node",
-          "format": {
-            "type": "Anchored"
-          },
-          "children": {
-            "gameOutcomeLabel": {
-              "comment": "The text label showing the outcome of the game",
-              "type": "Label",
-              "data": {
-                "font": "saira32",
-                "text": "",
-                "foreground": [255, 255, 255, 255],
-                "background": [0, 0, 0, 0],
-                "size": [200, 80],
-                "anchor": [0.5, 0.5],
-                "halign": "center",
-                "valign": "middle",
-                "visible": false
-              },
-              "layout": {
-                "x_anchor": "center",
-                "y_anchor": "middle",
-                "y_offset": 0.4
-              }
-            },
-            "backToHomeButton": {
-              "comment": "The button that brings a player back to the home screen",
-              "type": "Widget",
-              "data": {
-                  "key": "clearbutton",
-                  "variables" : {
-                      "size"  : [200,200],
-                      "text"  : "Back to Home"
-                  }
-              },
-              "layout": {
-                "x_anchor": "center",
-                "y_anchor": "middle",
-                "x_offset": -0.2,
-                "y_offset": 0.2
-              }
-            },
-            "newGameButton": {
-              "comment": "The button that brings a player to the new game screen",
-              "type": "Widget",
-              "data": {
-                "key": "clearbutton",
-                "variables" : {
+        "backToHomeButton": {
+          "comment": "The button that brings a player back to the home screen",
+          "type": "Widget",
+          "data": {
+              "key": "clearbutton",
+              "variables" : {
                   "size"  : [200,200],
-                  "text"  : "New Game"
-                }
-              },
-              "layout": {
-                "x_anchor": "center",
-                "y_anchor": "middle",
-                "x_offset": 0.2,
-                "y_offset": 0.2
+                  "text"  : "Back to Home"
               }
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": -0.2,
+            "y_offset": 0.2
+          }
+        },
+        "newGameButton": {
+          "comment": "The button that brings a player to the new game screen",
+          "type": "Widget",
+          "data": {
+            "key": "clearbutton",
+            "variables" : {
+              "size"  : [200,200],
+              "text"  : "New Game"
             }
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": 0.2,
+            "y_offset": 0.2
           }
         }
       }

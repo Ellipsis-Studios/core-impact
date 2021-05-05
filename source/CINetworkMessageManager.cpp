@@ -289,6 +289,9 @@ void NetworkMessageManager::receiveMessages() {
             }
             else if (message_type == NetworkUtils::MessageType::NameSent) {
                 string player_name = NetworkUtils::decodeString(recv[4], recv[5], recv[6], recv[7], recv[8], recv[9], recv[10], recv[11], recv[12], recv[13], recv[14], recv[15]);
+                player_name.erase(std::find_if(player_name.rbegin(), player_name.rend(), [](unsigned char ch) {
+                        return ch != '\0';
+                    }).base(), player_name.end());
                 int playerId = NetworkUtils::decodeInt(recv[16], recv[17], recv[18], recv[19]);
                 int timestamp = NetworkUtils::decodeInt(recv[20], recv[21], recv[22], recv[23]);
 
