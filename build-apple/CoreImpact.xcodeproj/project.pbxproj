@@ -599,7 +599,6 @@
 				EB4880FC1D74AAB600EFC946 /* Frameworks */,
 				EBBF18921D74904A008E2001 /* Products */,
 				EB4EB19D1E3404F3007BCF09 /* CUGL.xcodeproj */,
-				3DD694A226311CD400ABF60F /* Core Impact (iOS) copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
