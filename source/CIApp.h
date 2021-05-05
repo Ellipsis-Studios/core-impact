@@ -19,6 +19,7 @@
 #include "CINetworkMessageManager.h"
 #include "CIGameSettings.h"
 #include "CIPlayerSettings.h"
+#include "CITutorialScene.h"
 
 /**
  * This class represents the application root for the ship demo.
@@ -45,6 +46,8 @@ protected:
     LoadingScene _loading;
     /** The controller for the menu screen */
     MenuScene _menu;
+    /** The controller for the tutorial world */
+    TutorialScene _tutorial;
     
     /** Whether or not we have finished loading all assets */
     bool _loaded;
@@ -110,6 +113,11 @@ public:
      */
     virtual void onSuspend() override;
     
+    /**
+     * The method called when application is running out of memory.
+     */
+    virtual void onLowMemory() override;
+
     /**
      * The method called to update the application data.
      *

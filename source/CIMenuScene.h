@@ -15,7 +15,6 @@
 #include "CISettingsMenu.h"
 #include "CIJoinMenu.h"
 #include "CILobbyMenu.h"
-#include "CITutorialMenu.h"
 #include "CIGameSettings.h"
 #include "CIPlayerSettings.h"
 #include "CIGameConstants.h"
@@ -54,7 +53,6 @@ protected:
     std::shared_ptr<SettingsMenu> _settings;
     std::shared_ptr<JoinMenu> _join;
     std::shared_ptr<LobbyMenu> _lobby;
-    std::shared_ptr<TutorialMenu> _tutorial;
 
     // Player settings (preserved over game reset)
     std::shared_ptr<PlayerSettings> _playerSettings;
@@ -64,8 +62,6 @@ protected:
 
     /** Stores the game code for joining as client*/
     string _joinGame;
-    /** Value for other players' names */
-    vector<string> _otherNames;
 
     // Menu scene state value
     MenuState _state;
@@ -160,6 +156,13 @@ public:
      * @param networkMessageManager  The network message manager for managing connections to other players
      */
     void update(float timestep);
+    
+    /**
+     * The method called to get the state of the menu.
+     */
+    MenuState getState() const {
+        return _state;
+    }
 
     /**
      * Returns the room id value of game to join.

@@ -89,6 +89,7 @@ void CoreImpactApp::onShutdown() {
     if (_menu.isActive())
         _menu.dispose();
     _gameplay.dispose();
+    _tutorial.dispose();
     _assets = nullptr;
     _batch = nullptr;
     
@@ -106,6 +107,14 @@ void CoreImpactApp::onShutdown() {
     _playerSettings = nullptr;
 
     Application::onShutdown();  // YOU MUST END with call to parent
+}
+
+/**
+ * The method called when application is running out of memory.
+ */
+void CoreImpactApp::onLowMemory() {
+    CULog("Low Memory. Quitting the application.");
+    Application::quit();
 }
 
 /**
@@ -141,6 +150,7 @@ void CoreImpactApp::update(float timestep) {
         if (_networkMessageManager == nullptr) {
             _networkMessageManager = NetworkMessageManager::alloc();
         }
+        
         _menu.init(_assets, _networkMessageManager, _gameSettings, _playerSettings);
         _loaded = true;
     }
@@ -148,22 +158,39 @@ void CoreImpactApp::update(float timestep) {
         /** Handle menu scene updates */
         _menu.update(timestep);
     }
-    else if (!_startGame) {
+    else if (!_startGame && (_menu.getState() == MenuState::LobbyToGame)) {
+        /** Transition from menu to game scene */
+        _menu.dispose(); // Disables the input listeners to this mode
+        _gameSettings = _networkMessageManager->getGameSettings();
+        _gameplay.init(_assets, _networkMessageManager, _gameSettings, _playerSettings);
+        _startGame = true;
+    }
+    else if (!_startGame && (_menu.getState() == MenuState::MainToTutorial)) {
         /** Transition from menu to game scene */
         _menu.dispose(); // Disables the input listeners to this mode
         if (_networkMessageManager == nullptr) {
             _networkMessageManager = NetworkMessageManager::alloc();
         }
-        _gameplay.init(_assets, _networkMessageManager, _gameSettings, _playerSettings);
+        _tutorial.init(_assets, _networkMessageManager, _gameSettings, _playerSettings);
         _startGame = true;
     }
     else if (_gameplay.isActive()) {
         /** Handle game play updates */
         _gameplay.update(timestep);
-    } else {
+    }
+    else if (_tutorial.isActive()) {
+        /** Handle tutorial updates */
+        _tutorial.update(timestep);
+    }
+    else {
         // handle game reset
-        _gameplay.setActive(true);
-        _gameplay.dispose();
+        if (_tutorial._tutorialStage > 0){
+            _tutorial.setActive(true);
+            _tutorial.dispose();
+        } else {
+            _gameplay.setActive(true);
+            _gameplay.dispose();
+        }
 
         _networkMessageManager = nullptr;
         
@@ -207,7 +234,11 @@ void CoreImpactApp::draw() {
         _loading.render(_batch);
     } else if (!_startGame) {
         _menu.render(_batch);
-    } else {
+    } else if (_gameplay.isActive()) {
+        /** Handle game play drawing */
         _gameplay.render(_batch);
+    } else if (_tutorial.isActive()) {
+        /** Handle tutorial drawing */
+        _tutorial.render(_batch);
     }
 }

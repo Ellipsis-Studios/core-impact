@@ -156,13 +156,15 @@ public:
      * @param ring          The texture of an innner ring
      * @param unlocked The texture on the outside of an unlocked ring
      * @param unlocked The texture on the outside of a locked ring
+     * @param progressTexture The texture to display a players planet progress
      */
     void setTextures(const std::shared_ptr<cugl::Texture>& core,
                      const std::shared_ptr<cugl::Texture>& ring,
                      const std::shared_ptr<cugl::Texture>& unlocked,
-                     const std::shared_ptr<cugl::Texture>& locked);
+                     const std::shared_ptr<cugl::Texture>& locked,
+                     const std::shared_ptr<cugl::Texture>& progressTexture);
    
-    const std::shared_ptr<cugl::scene2::SceneNode> getPlanetNode() const {
+    const std::shared_ptr<PlanetNode> getPlanetNode() const {
         return _planetNode;
     }
 

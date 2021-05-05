@@ -17,6 +17,9 @@ void WinScene::dispose() {
     if (_backToHomeButton != nullptr && _backToHomeButton->isActive()) {
         _backToHomeButton->deactivate();
         _newGameButton->deactivate();
+    } else if (_backToHomeButton != nullptr) {
+        _backToHomeButton->clearListeners();
+        _newGameButton->clearListeners();
     }
     
     _gameOutcomeLabel = nullptr;
@@ -34,12 +37,13 @@ void WinScene::dispose() {
  * @return true if initialization was successful, false otherwise
  */
 bool WinScene::init(const std::shared_ptr<cugl::AssetManager>& assets, cugl::Size dimen) {
-    auto win = assets->get<cugl::scene2::SceneNode>("game_win");
+    auto win = assets->get<cugl::scene2::SceneNode>("win");
+    _layer = win;
     win->setContentSize(dimen);
     win->doLayout();
     
-    _gameOutcomeLabel = std::dynamic_pointer_cast<cugl::scene2::Label>(assets->get<cugl::scene2::SceneNode>("game_win_gameOutcomeLabel"));
-    _backToHomeButton = std::dynamic_pointer_cast<cugl::scene2::Button>(assets->get<cugl::scene2::SceneNode>("game_win_backToHomeButton"));
+    _gameOutcomeLabel = std::dynamic_pointer_cast<cugl::scene2::Label>(assets->get<cugl::scene2::SceneNode>("win_gameOutcomeLabel"));
+    _backToHomeButton = std::dynamic_pointer_cast<cugl::scene2::Button>(assets->get<cugl::scene2::SceneNode>("win_backToHomeButton"));
     _backToHomeButton->addListener([&](const std::string& name, bool down) {
         if (!down) {
             _goBackToHome = true;
@@ -47,7 +51,7 @@ bool WinScene::init(const std::shared_ptr<cugl::AssetManager>& assets, cugl::Siz
     });
     
     // TODO: change this listener
-    _newGameButton = std::dynamic_pointer_cast<cugl::scene2::Button>(assets->get<cugl::scene2::SceneNode>("game_win_newGameButton"));
+    _newGameButton = std::dynamic_pointer_cast<cugl::scene2::Button>(assets->get<cugl::scene2::SceneNode>("win_newGameButton"));
     _newGameButton->addListener([&](const std::string& name, bool down) {
         if (!down) {
             _goBackToHome = true;
@@ -62,12 +66,13 @@ bool WinScene::init(const std::shared_ptr<cugl::AssetManager>& assets, cugl::Siz
  *
  * @param winnerPlayerId The player id of the player who won the game
  * @param playerId               The player id of the player playing on this device
+ * @param winningPlayer    The name of the player who won
  */
-void WinScene::setWinner(int winnerPlayerId, int playerId) {
+void WinScene::setWinner(int winnerPlayerId, int playerId, std::string winningPlayer) {
     if (winnerPlayerId == playerId) {
         _gameOutcomeLabel->setText("Congratulations! You won the game!");
     } else {
-        _gameOutcomeLabel->setText("Sorry! Player " + std::to_string(winnerPlayerId) + " won the game.");
+        _gameOutcomeLabel->setText("Sorry! " + winningPlayer + " won the game.");
     }
 }
 

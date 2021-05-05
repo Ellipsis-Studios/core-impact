@@ -26,7 +26,7 @@
       "file": "textures/splashArt/splashArtWorld.png"
     },
     "teamlogo": {
-      "file": "textures/EllipsisMiniLogoWhite.png"
+      "file": "textures/EllipsisMiniLogoWhiteSmall.png"
     }
   },
   "scene2s": {
@@ -105,23 +105,6 @@
             "absolute": true
           }
         },
-        "name": {
-          "type": "Image",
-          "format": {
-            "type": "Anchored"
-          },
-          "data": {
-            "texture": "teamlogo",
-            "anchor": [0.5, 0.5],
-            "scale": 0.45
-          },
-          "layout": {
-            "x_anchor": "center",
-            "y_anchor": "middle",
-            "y_offset": -55,
-            "absolute": true
-          }
-        },
         "bar": {
           "type": "Progress",
           "data": {
@@ -134,7 +117,7 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "y_offset": -175,
+            "y_offset": -45,
             "absolute": true
           }
         },
@@ -147,7 +130,7 @@
           "data": {
             "texture": "teamlogo",
             "anchor": [0.5, 0.5],
-            "scale": 0.1,
+            "scale": 0.6,
             "visible": true
           },
           "layout": {

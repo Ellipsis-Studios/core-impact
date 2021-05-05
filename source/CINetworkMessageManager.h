@@ -15,6 +15,8 @@
 #include <string>
 #include "CIGameUpdateManager.h"
 #include "CIGameState.h"
+#include "CINetworkUtils.h"
+#include "CIGameSettings.h"
 
 class NetworkMessageManager {
 private:
@@ -41,6 +43,9 @@ private:
 
     /* string containing room ID for non-hosts */
     string _roomId;
+
+    /** Reference to the game settings */
+    std::shared_ptr<GameSettings> _gameSettings;
     
 public:
 #pragma mark -
@@ -85,7 +90,7 @@ public:
     }
     
 #pragma mark Properties
-    void setGameuUpdateManager(std::shared_ptr<GameUpdateManager> gameUpdateManager) {
+    void setGameUpdateManager(std::shared_ptr<GameUpdateManager> gameUpdateManager) {
         _gameUpdateManager = gameUpdateManager;
     }
 
@@ -99,6 +104,14 @@ public:
 
     void setOtherNames(std::vector<string> otherNames) {
         _otherNames = otherNames;
+    }
+
+    void setGameSettings(std::shared_ptr<GameSettings>& gameSettings) {
+        _gameSettings = gameSettings;
+    }
+    
+    std::shared_ptr<GameSettings>& getGameSettings() {
+        return _gameSettings;
     }
     
     /**
@@ -173,6 +186,13 @@ public:
      * @param roomID the roomId of the game to be joined
      */
     void joinGame(std::string roomID);
+    
+private:
+    bool isLobbyMessage(int messageType) {
+        return messageType == NetworkUtils::MessageType::StartGame
+            || messageType == NetworkUtils::MessageType::NameSent
+            || messageType == NetworkUtils::MessageType::NameReceivedResponse;
+    }
     
 };
 

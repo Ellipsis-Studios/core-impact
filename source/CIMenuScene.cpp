@@ -68,10 +68,9 @@ bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
                     break;
                 case MenuState::GameLobby:
                     _state = MenuState::LobbyToMain;
+                    networkMessageManager->setOtherNames({ "", "", "", "" });
+                    _lobby->setOtherPlayerLabels({ "N/A", "N/A", "N/A", "N/A" });
                     networkMessageManager->setGameState(GameState::OnMenuScreen);
-                    break;
-                case MenuState::Tutorial:
-                    _state = MenuState::TutorialToMain;
                     break;
                 default:
                     break;
@@ -79,14 +78,10 @@ bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
         }
         });
 
-    // TODO: integrate network manager to game lobby
-
     // game settings 
     _gameSettings = gameSettings;
     // player settings
     _playerSettings = playerSettings;
-
-    _otherNames = vector<string>{ "N/A", "N/A", "N/A", "N/A" };
 
     _state = MenuState::LoadToMain;
 
@@ -95,9 +90,6 @@ bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 
     _mainmenu = MainMenu::alloc(_assets);
     _mainmenu->setDisplay(false);
-
-    _tutorial = TutorialMenu::alloc(_assets);
-    _tutorial->setDisplay(false);
 
     _settings = SettingsMenu::alloc(_assets, playerSettings);
     _settings->setDisplay(false);
@@ -109,7 +101,6 @@ bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _lobby->setDisplay(false);
 
     addChild(_mainmenu->getLayer(), 0);
-    addChild(_tutorial->getLayer(), 1);
     addChild(_settings->getLayer(), 1);
     addChild(_join->getLayer(), 2);
     addChild(_lobby->getLayer(), 3);
@@ -135,18 +126,24 @@ void MenuScene::dispose() {
     // Deactivate the button (platform dependent)
     if (_backBtn != nullptr && _backBtn->isVisible()) {
         _backBtn->deactivate();
+    } else if (_backBtn != nullptr) {
+        _backBtn->clearListeners();
     }
+    
     _mainmenu->setDisplay(false);
     _settings->setDisplay(false);
     _join->setDisplay(false);
-    _tutorial->setDisplay(false);
     _lobby->setDisplay(false);
+    
+    _mainmenu->dispose();
+    _settings->dispose();
+    _join->dispose();
+    _lobby->dispose();
 
     _mainmenu = nullptr;
     _settings = nullptr;
     _join = nullptr;
     _lobby = nullptr;
-    _tutorial = nullptr;
 
     _teamLogo = nullptr;
     _gameTitle = nullptr;
@@ -175,13 +172,32 @@ void MenuScene::update(float timestep) {
     if (!isActive() || _backBtn == nullptr) {
         return;
     }
-    // handle back button
+
+    // handle background display
+    switch (_state)
+    {
+        case MenuState::LoadToMain:
+        case MenuState::Setting:
+        case MenuState::MainMenu:
+            // display
+            if (_gameTitle != nullptr) {
+                _gameTitle->setVisible(true);
+                _gamePlanet->setVisible(true);
+            }
+            break;
+        default:
+            // hidden
+            _gameTitle->setVisible(false);
+            _gamePlanet->setVisible(false);
+            break;
+    }
+
+    // handle back button display
     switch (_state) 
     {
         case MenuState::Setting:
         case MenuState::JoinRoom:
         case MenuState::GameLobby:
-        case MenuState::Tutorial:
             // display back button
             if (!_backBtn->isVisible()) {
                 _backBtn->setVisible(true);
@@ -197,6 +213,21 @@ void MenuScene::update(float timestep) {
             break;
     }
 
+    // handle back button positioning
+    const float roffset = getChildByName("menuScene")->getContentWidth() * (0.9f);
+    const float loffset = getChildByName("menuScene")->getContentWidth() * (0.1f);
+    switch (_state)
+    {
+        case MenuState::Setting:
+            // right
+            _backBtn->setPositionX(roffset);
+            break;
+        default:
+            // left
+            _backBtn->setPositionX(loffset);
+            break;
+    }
+
     // handle menu screens 
     switch (_state) 
     {
@@ -206,6 +237,7 @@ void MenuScene::update(float timestep) {
             _state = MenuState::MainMenu;
             break;
         case MenuState::LobbyToGame:
+        case MenuState::MainToTutorial:
             // menu scene end
             _lobby->setDisplay(false);
             _active = false;
@@ -215,7 +247,6 @@ void MenuScene::update(float timestep) {
             _mainmenu->update(_state);
             _settings->update(_state);
             _join->update(_state);
-            _tutorial->update(_state);
             break;
     }
 }

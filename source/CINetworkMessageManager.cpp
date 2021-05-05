@@ -14,7 +14,6 @@
 #include "CIGameUpdate.h"
 #include "CIStardustModel.h"
 #include "CIOpponentPlanet.h"
-#include "CINetworkUtils.h"
 #include "CILocation.h"
 
 /**
@@ -68,12 +67,22 @@ void NetworkMessageManager::sendMessages() {
     }
     if (_gameState == GameState::GameStarted) {
         NetworkUtils::encodeInt(NetworkUtils::MessageType::StartGame, data);
+        NetworkUtils::encodeFloat(_gameSettings->getSpawnRate(), data);
+        NetworkUtils::encodeFloat(_gameSettings->getGravStrength(), data);
+        NetworkUtils::encodeInt(_gameSettings->getColorCount(), data);
+        NetworkUtils::encodeInt(_gameSettings->getPlanetMassToWin(), data);
         NetworkUtils::encodeInt(_timestamp, data);
         _timestamp++;
         _conn->send(data);
         data.clear();
-        CULog("SENT START GAME MESSAGE");
+        CULog("SENT START GAME MESSAGE> SPAWNRATE[%f], GRAVSTRENGTH[%f], COLORCOUNT[%i], PLANETMASS[%i]",
+            _gameSettings->getSpawnRate(), _gameSettings->getGravStrength(), _gameSettings->getColorCount(), _gameSettings->getPlanetMassToWin());
         _gameState = GameState::GameInProgress;
+        /* TODO: uncomment when startGame works correctly
+        if (getPlayerId() == 0) {
+            _conn->startGame();
+        }
+        */
         return;
     }
 
@@ -193,6 +202,10 @@ void NetworkMessageManager::receiveMessages() {
     _conn->receive([this](const std::vector<uint8_t>& recv) {
         if (!recv.empty()) {
             int message_type = NetworkUtils::decodeInt(recv[0], recv[1], recv[2], recv[3]);
+            
+            if (_gameUpdateManager == nullptr && !isLobbyMessage(message_type)) {
+                return;
+            }
 
             if (message_type == NetworkUtils::MessageType::StardustSent) {
                 int srcPlayer = NetworkUtils::decodeInt(recv[4], recv[5], recv[6], recv[7]);
@@ -217,7 +230,7 @@ void NetworkMessageManager::receiveMessages() {
                 
                 CULog("RCVD PU> SRC[%i], CLR[%i], SIZE[%f]", srcPlayer, planetColor, planetSize);
                 
-                CILocation::Value corner = NetworkUtils::getStardustLocation(getPlayerId(), srcPlayer);
+                CILocation::Value corner = NetworkUtils::getLocation(getPlayerId(), srcPlayer);
                 std::shared_ptr<OpponentPlanet> planet = OpponentPlanet::alloc(0, 0, CIColor::Value(planetColor), corner);
                 planet->setMass(planetSize);
                 std::map<int, std::vector<std::shared_ptr<StardustModel>>> map = {};
@@ -255,20 +268,41 @@ void NetworkMessageManager::receiveMessages() {
                 }
             }
             else if (message_type == NetworkUtils::MessageType::StartGame) {
-                int timestamp = NetworkUtils::decodeInt(recv[4], recv[5], recv[6], recv[7]);
+                float spawnRate = NetworkUtils::decodeFloat(recv[4], recv[5], recv[6], recv[7]);
+                float gravStrength = NetworkUtils::decodeFloat(recv[8], recv[9], recv[10], recv[11]);
+                int colorCount = NetworkUtils::decodeInt(recv[12], recv[13], recv[14], recv[15]);
+                int planetMass = NetworkUtils::decodeInt(recv[16], recv[17], recv[18], recv[19]);
+                int timestamp = NetworkUtils::decodeInt(recv[20], recv[21], recv[22], recv[23]);
 
-                CULog("RCVD STARTGAME> TS[%i]", timestamp);
+                CULog("RCVD START GAME MESSAGE> SPAWNRATE[%f], GRAVSTRENGTH[%f], COLORCOUNT[%i], PLANETMASS[%i], TS[%i]", spawnRate, gravStrength, colorCount, planetMass, timestamp);
+                
+                if (_gameSettings == nullptr) {
+                    _gameSettings = GameSettings::alloc();
+                }
+                
+                _gameSettings->setSpawnRate(spawnRate);
+                _gameSettings->setGravStrength(gravStrength);
+                _gameSettings->setColorCount(colorCount);
+                _gameSettings->setPlanetMassToWin(planetMass);
 
                 _gameState = GameState::GameInProgress;
             }
             else if (message_type == NetworkUtils::MessageType::NameSent) {
                 string player_name = NetworkUtils::decodeString(recv[4], recv[5], recv[6], recv[7], recv[8], recv[9], recv[10], recv[11], recv[12], recv[13], recv[14], recv[15]);
+                player_name.erase(std::find_if(player_name.rbegin(), player_name.rend(), [](unsigned char ch) {
+                        return ch != '\0';
+                    }).base(), player_name.end());
                 int playerId = NetworkUtils::decodeInt(recv[16], recv[17], recv[18], recv[19]);
                 int timestamp = NetworkUtils::decodeInt(recv[20], recv[21], recv[22], recv[23]);
 
                 CULog("RCVD PLAYERNAME> PLAYERNAME[%s], PLAYER[%i], TS[%i]", player_name.c_str(), playerId, timestamp);
 
-                _otherNames.insert(_otherNames.begin() + playerId - 1, player_name);
+                if (playerId > getPlayerId()) {
+                    _otherNames[(playerId - 1)] = player_name;
+                }
+                else {
+                    _otherNames[playerId] = player_name;
+                }
 
                 std::vector<uint8_t> data;
                 NetworkUtils::encodeInt(NetworkUtils::MessageType::NameReceivedResponse, data);
@@ -288,7 +322,7 @@ void NetworkMessageManager::receiveMessages() {
                 CULog("RCVD PLAYERNAME> PLAYERNAME[%s], PLAYER[%i], TS[%i]", player_name.c_str(), playerId, timestamp);
 
                 if (playerId > getPlayerId()) {
-                    _otherNames[(playerId - 1)] = player_name;
+                    _otherNames[playerId - 1] = player_name;
                 }
                 else {
                     _otherNames[playerId] = player_name;

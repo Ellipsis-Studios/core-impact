@@ -22,6 +22,7 @@
 
 #include "CIGameScene.h"
 #include "CICollisionController.h"
+#include "CINetworkUtils.h"
 
 using namespace cugl;
 using namespace std;
@@ -72,7 +73,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     // Set the game update manager and network message managers
     _gameUpdateManager = GameUpdateManager::alloc();
     _networkMessageManager = networkMessageManager;
-    _networkMessageManager->setGameuUpdateManager(_gameUpdateManager);
+    _networkMessageManager->setGameUpdateManager(_gameUpdateManager);
     
     // Acquire the scene built by the asset loader and resize it the scene
     auto scene = _assets->get<scene2::SceneNode>("game");
@@ -83,10 +84,24 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _allSpace  = _assets->get<scene2::SceneNode>("game_field");
     _farSpace = std::dynamic_pointer_cast<scene2::AnimationNode>(_assets->get<scene2::SceneNode>("game_field_far"));
     _nearSpace = _assets->get<scene2::SceneNode>("game_field_near");
-    _massHUD  = std::dynamic_pointer_cast<scene2::Label>(_assets->get<scene2::SceneNode>("game_hud"));
     
     // create the win scene
     _winScene = WinScene::alloc(assets, dimen);
+
+    // create the pause menu
+    _pauseMenu = PauseMenu::alloc(_assets, networkMessageManager, playerSettings);
+    _pauseMenu->setDisplay(false);
+
+    _pauseBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("game_pausebutton"));
+    _pauseBtn->setColor(Color4::GRAY);
+    _pauseBtn->setVisible(true);
+    _pauseBtn->activate();
+
+    _pauseBtn->addListener([&](const std::string& name, bool down) {
+        if (!down) {
+            _networkMessageManager->setGameState(GameState::GamePaused);
+        }
+        });
 
     // Create the planet model
     _planet = PlanetModel::alloc(dimen.width / 2, dimen.height / 2, CIColor::getNoneColor(), 
@@ -95,13 +110,11 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     auto ringTexture = _assets->get<Texture>("innerRing");
     auto unlockedTexture = _assets->get<Texture>("unlockedOuterRing");
     auto lockedTexture = _assets->get<Texture>("lockedOuterRing");
-    _planet->setTextures(coreTexture, ringTexture, unlockedTexture, lockedTexture);
+    auto planetProgressTexture = _assets->get<Texture>("playerProgress");
+    _planet->setTextures(coreTexture, ringTexture, unlockedTexture, lockedTexture, planetProgressTexture);
 
     _draggedStardust = NULL;
     _stardustContainer = StardustQueue::alloc(CONSTANTS::MAX_STARDUSTS, coreTexture);
-
-    // TODO: resize to number of players in the game and add opponent planet nodes to scene graph
-    _opponent_planets.resize(5);
 
     // Game settings
     _gameSettings = gameSettings;
@@ -117,6 +130,24 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     addChild(scene);
     addChild(_planet->getPlanetNode());
     addChild(_stardustContainer->getStardustNode());
+    addChild(_pauseMenu->getLayer(), 1);
+    addChild(_winScene->getLayer(), 1);
+    
+    std::vector<string> opponentNames = networkMessageManager->getOtherNames();
+    _opponentPlanets.resize((int) opponentNames.size());
+    for (int ii = 0; ii < _opponentPlanets.size(); ii++) {
+        if (opponentNames[ii] == "") {
+            continue;
+        }
+        CILocation::Value location = CILocation::Value(ii+1);
+        cugl::Vec2 pos = CILocation::getPositionOfLocation(location, dimen);
+        std::shared_ptr<OpponentPlanet> opponent = OpponentPlanet::alloc(pos.x, pos.y, CIColor::getNoneColor(), location);
+        opponent->setTextures(_assets->get<Texture>("opponentProgress"), _assets->get<Texture>("fog"), dimen);
+        opponent->setName(opponentNames[ii], assets->get<Font>("saira20"));
+        addChild(opponent->getOpponentNode());
+        _opponentPlanets[ii] = opponent;
+    }
+
     return true;
 }
 
@@ -129,18 +160,29 @@ void GameScene::dispose() {
         _input.dispose();
         _active = false;
     }
+    if (_pauseBtn != nullptr && _pauseBtn->isVisible()) {
+        _pauseBtn->deactivate();
+    }
+    else if (_pauseBtn != nullptr) {
+        _pauseBtn->clearListeners();
+    }
+    
+    if (_pauseMenu != nullptr) {
+        _pauseMenu->dispose();
+    }
+
     _assets = nullptr;
     _gameUpdateManager = nullptr;
     _networkMessageManager = nullptr;
-    _massHUD = nullptr;
     _allSpace = nullptr;
     _farSpace = nullptr;
     _nearSpace = nullptr;
     _stardustContainer = nullptr;
     _planet = nullptr;
     _draggedStardust = NULL;
-    _opponent_planets.clear();
-    
+    _opponentPlanets.clear();
+    _pauseBtn = nullptr;
+    _pauseMenu = nullptr;
     _winScene = nullptr;
 }
 
@@ -158,17 +200,19 @@ void GameScene::dispose() {
 void GameScene::update(float timestep) {
     Size dimen = Application::get()->getDisplaySize();
     dimen *= CONSTANTS::SCENE_WIDTH/dimen.width;
+    
     _input.update(timestep);
-    
-    _massHUD->setText("Room: " + _networkMessageManager->getRoomId()
-        + " / Your Core: " + to_string(_planet->getMass()) + "; "
-        + CIColor::getString(_planet->getColor()));
-    
     // Handle counting down then switching to loading screen
     if (_networkMessageManager->getWinnerPlayerId() != -1) {
         if (!_winScene->displayActive()) {
             CULog("Game won.");
-            _winScene->setWinner(_networkMessageManager->getWinnerPlayerId(), _networkMessageManager->getPlayerId());
+            Color4 color = CIColor::getColor4(_planet->getColor());
+            color.a = 75;
+            _planet->getPlanetNode()->setColor(color);
+            _pauseBtn->setVisible(false);
+            int winnerId = _networkMessageManager->getWinnerPlayerId();
+            std::string winningPlayer = _networkMessageManager->getOtherNames()[winnerId > _networkMessageManager->getPlayerId() ? winnerId - 1 : winnerId];
+            _winScene->setWinner(_networkMessageManager->getWinnerPlayerId(), _networkMessageManager->getPlayerId(), winningPlayer);
             _winScene->setDisplay(true);
         }
         else if (_winScene->goBackToHome()) {
@@ -214,25 +258,35 @@ void GameScene::update(float timestep) {
         _gameUpdateManager->setPlayerId(_networkMessageManager->getPlayerId());
     } else {
         // send and receive game updates to other players
-        _gameUpdateManager->sendUpdate(_planet, _stardustContainer, dimen);
+        _gameUpdateManager->sendUpdate(_planet, _stardustContainer);
         _networkMessageManager->receiveMessages();
         _networkMessageManager->sendMessages();
-        _gameUpdateManager->processGameUpdate(_stardustContainer, _planet, _opponent_planets, dimen);
-        for (int ii = 0; ii < _opponent_planets.size() ; ii++) {
-            std::shared_ptr<OpponentPlanet> opponent = _opponent_planets[ii];
-            if (opponent != nullptr && getChildByName(to_string(ii)) == nullptr) {
-                opponent->setTextures(_assets->get<Texture>("opponentProgress"), _assets->get<Texture>("fog"), dimen);
-                //TODO: call opponent->setName with name and font
-                addChildWithName(opponent->getOpponentNode(), to_string(ii));
-            }
-            
+        _gameUpdateManager->processGameUpdate(_stardustContainer, _planet, _opponentPlanets, dimen);
+        for (int ii = 0; ii < _opponentPlanets.size() ; ii++) {
+            std::shared_ptr<OpponentPlanet> opponent = _opponentPlanets[ii];
             if (opponent != nullptr) {
                 opponent->update(timestep);
+            } else if (opponent == nullptr && _networkMessageManager->getOtherNames()[ii] != "") {
+                CILocation::Value location = CILocation::Value(ii+1);
+                cugl::Vec2 pos = CILocation::getPositionOfLocation(location, dimen);
+                std::shared_ptr<OpponentPlanet> opponent = OpponentPlanet::alloc(pos.x, pos.y, CIColor::getNoneColor(), location);
+                opponent->setTextures(_assets->get<Texture>("opponentProgress"), _assets->get<Texture>("fog"), dimen);
+                opponent->setName(_networkMessageManager->getOtherNames()[ii], _assets->get<Font>("saira20"));
+                addChild(opponent->getOpponentNode());
+                _opponentPlanets[ii] = opponent;
             }
         }
     }
     
     processSpecialStardust(dimen, _stardustContainer);
+    
+    /** Handle pause menu requests*/
+    togglePause(_networkMessageManager->getGameState() == GameState::GamePaused);
+    _pauseMenu->update();
+    if (_pauseMenu->getExitGame()){
+        _pauseMenu->setDisplay(false);
+        setActive(false);
+    }
 }
 
 /**
@@ -282,7 +336,7 @@ void GameScene::addStardust(const Size bounds) {
     /** Finds the average mass of the planets in game */
     int avgMass = _planet->getMass();
     int planetCount = 1;
-    for (const std::shared_ptr<OpponentPlanet> &op : _opponent_planets){
+    for (const std::shared_ptr<OpponentPlanet> &op : _opponentPlanets){
         if (op != nullptr){
             avgMass += op->getMass();
             planetCount++;
@@ -324,7 +378,7 @@ void GameScene::addStardust(const Size bounds) {
     /** Looparound Mechanism: Tries to make it so that players can't just send it straight back */
     int cornerProb[] = {10,10,10,10};
     CILocation::Value spawnCorner = CILocation::Value(0);
-    for (const std::shared_ptr<OpponentPlanet> &op : _opponent_planets){
+    for (const std::shared_ptr<OpponentPlanet> &op : _opponentPlanets){
         if (op != nullptr){
             if (op->getColor() == c){
                 cornerProb[op->getLocation()-1] += 60;
@@ -376,7 +430,8 @@ void GameScene::processSpecialStardust(const cugl::Size bounds, const std::share
                 break;
             case StardustModel::Type::FOG: {
                 CULog("FOG");
-                std::shared_ptr<OpponentPlanet> opponent = _opponent_planets[stardust->getPreviousOwner()];
+                int ii = NetworkUtils::getLocation(_gameUpdateManager->getPlayerId(), stardust->getPreviousOwner())-1;
+                std::shared_ptr<OpponentPlanet> opponent = _opponentPlanets[ii];
                 if (opponent != nullptr) {
                     opponent->getOpponentNode()->applyFogPower();
                 }
@@ -388,4 +443,21 @@ void GameScene::processSpecialStardust(const cugl::Size bounds, const std::share
     }
     
     stardustQueue->clearPowerupQueue();
+}
+
+/**
+ * Sets whether the pause menu is currently active and visible.
+ *
+ * @param onDisplay     Whether the pause menu is currently active and visible
+ */
+void GameScene::togglePause(bool onDisplay) {
+    _pauseMenu->setDisplay(onDisplay);
+    _pauseBtn->setVisible(!onDisplay);
+
+    if (onDisplay) {
+        _pauseBtn->deactivate();
+    }
+    else {
+        _pauseBtn->activate();
+    }
 }

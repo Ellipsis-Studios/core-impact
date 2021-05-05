@@ -13,10 +13,10 @@
       "file": "textures/splashArt/splashArtWorld.png"
     },
     "teamlogo": {
-      "file": "textures/EllipsisMiniLogoWhite.png"
+      "file": "textures/EllipsisMiniLogoWhiteSmall.png"
     },
     "settingsbutton": {
-      "file": "textures/settingsButton.png",
+      "file": "textures/settingsButtonSmall.png",
       "wrapS": "clamp",
       "wrapT": "clamp",
       "minfilter": "linear",
@@ -39,11 +39,20 @@
     "clearbutton": {
       "file": "textures/clearbutton.png"
     },
+    "backbutton": {
+      "file": "textures/back.png"
+    },
     "toggleOn": {
       "file": "textures/toggleOnButton.png"
     },
     "toggleOff": {
       "file": "textures/toggleOffButton.png"
+    },
+    "volumeBarKnob": {
+        "file": "textures/volumeBarKnob.png"
+    },
+    "volumeBarPath": {
+        "file": "textures/volumeBarPath.png"
     }
   },
   "fonts": {
@@ -155,7 +164,7 @@
           "data": {
             "texture": "teamlogo",
             "anchor": [0.5, 0.5],
-            "scale": 0.1,
+            "scale": 0.6,
             "visible": true
           },
           "layout": {
@@ -677,17 +686,76 @@
           "comment": "The volume slider in Settings.",
           "type": "Slider",
           "data": {
-            "bounds": [40, 0, 300, 0],
+            "bounds": [50, 50, 255, 0],
             "range": [0, 1],
             "value": 0.5,
             "anchor": [0.5, 0.5],
-            "scale": 0.75,
-            "visible": false
+            "scale": 0.70,
+            "visible": false,
+            "knob": {
+              "type": "Button",
+              "format": {
+                "type": "Anchored"
+              },
+              "data": {
+                "anchor": [0.5, 0.5],
+                "upnode": "up",
+                "visible": true
+              },
+              "children": {
+                "up": {
+                  "type": "Node",
+                  "format": {
+                    "type": "Anchored"
+                  },
+                  "data": {
+                    "size": [35, 35],
+                    "anchor": [0.5, 0.5]
+                  },
+                  "children": {
+                    "knob": {
+                      "type": "Image",
+                      "format": {
+                        "type": "Anchored"
+                      },
+                      "data": {
+                        "anchor": [0.5, 0.5],
+                        "texture": "volumeBarKnob",
+                        "scale": 1.2
+                      }
+                    }
+                  },
+                  "layout": {
+                    "x_anchor": "fill",
+                    "y_anchor": "fill"
+                  }
+                }
+              }
+            },
+            "path": {
+              "type": "Path",
+              "format": {
+                "type": "Anchored"
+              },
+              "data": {
+                "texture": "volumeBarPath",
+                "anchor": [0.5, 0.5],
+                "scale": 1.25,
+                "stroke": 27,
+                "cap": "round",
+                "visible": true
+              },
+              "layout": {
+                "x_anchor": "center",
+                "y_anchor": "middle",
+                "absolute": true
+              }
+            }
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.3,
+            "x_offset": 0.327,
             "y_offset": -0.09
           }
         },
@@ -721,6 +789,172 @@
             "y_anchor": "middle",
             "x_offset": 0.4,
             "y_offset": -0.22
+          }
+        }
+      }
+    },
+    "pause": {
+      "comment": "Pause screen within game",
+      "type": "Solid",
+      "format": {
+        "type": "Anchored"
+      },
+      "data": {
+        "color": [26, 19, 35, 204]
+      },
+      "children": {
+        "title": {
+          "comment": "Static text label for Setting page heading.",
+          "type": "Label",
+          "data": {
+            "font": "saira32",
+            "text": "Settings",
+            "foreground": [255, 255, 255, 255],
+            "background": [0, 0, 0, 0],
+            "size": [300, 80],
+            "anchor": [0.5, 0.5],
+            "visible": false
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+	    "x_offset": 0.09,
+            "y_offset": 0.35
+          }
+        },
+        "musiclabel": {
+          "comment": "The 'Music' label for the toggle music section.",
+          "type": "Label",
+          "data": {
+            "font": "saira32",
+            "text": "Music",
+            "foreground": [255, 255, 255, 255],
+            "background": [0, 0, 0, 0],
+            "size": [300, 80],
+            "anchor": [0.5, 0.5],
+            "visible": false
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": -0.15,
+            "y_offset": 0.2
+          }
+        },
+        "musicinput": {
+          "comment": "The music toggle button in Settings.",
+          "type": "Widget",
+          "data": {
+            "key": "togglebutton"
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": 0.25,
+            "y_offset": 0.17
+          }
+        },
+        "volumelabel": {
+          "comment": "The 'Volume' label for the volume slider section.",
+          "type": "Label",
+          "data": {
+            "font": "saira32",
+            "text": "Volume",
+            "foreground": [255, 255, 255, 255],
+            "background": [0, 0, 0, 0],
+            "size": [300, 80],
+            "anchor": [0.5, 0.5],
+            "visible": false
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": -0.15,
+            "y_offset": 0.08
+          }
+        },
+        "volumeinput": {
+          "comment": "The volume slider in Settings.",
+          "type": "Slider",
+          "data": {
+            "bounds": [40, 0, 300, 0],
+            "range": [0, 1],
+            "value": 0.5,
+            "anchor": [0.5, 0.5],
+            "scale": 0.75,
+            "visible": false
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": 0.15,
+            "y_offset": 0.05
+          }
+        },
+        "parallaxlabel": {
+          "comment": "The 'Parallax Effect' label for the parallax toggle section.",
+          "type": "Label",
+          "data": {
+            "font": "saira32",
+            "text": "Parallax Effect",
+            "foreground": [255, 255, 255, 255],
+            "background": [0, 0, 0, 0],
+            "size": [300, 80],
+            "anchor": [0.5, 0.5],
+            "visible": false
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": -0.15,
+	    "y_offset": -0.04
+          }
+        },
+        "parallaxinput": {
+          "comment": "The parallax effect toggle button in Settings.",
+          "type": "Widget",
+          "data": {
+            "key": "togglebutton"
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": 0.25,
+            "y_offset": -0.07
+          }
+        },
+	"resumebutton": {
+          "comment": "The resume game button in pause menu.",
+          "type": "Widget",
+          "data": {
+            "key": "menubutton",
+            "variables": {
+              "text": "Resume",
+              "text2": "Resume"
+            }
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": -0.2,
+            "y_offset": -0.27
+          }
+        },
+	"exitgamebutton": {
+          "comment": "The exit game button in pause menu.",
+          "type": "Widget",
+          "data": {
+            "key": "menubutton",
+            "variables": {
+              "text": "Exit Game",
+              "text2": "Exit Game"
+            }
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": 0.2,
+            "y_offset": -0.27
           }
         }
       }

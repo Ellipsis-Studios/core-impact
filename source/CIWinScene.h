@@ -15,6 +15,8 @@
 
 class WinScene {
 private:
+    /** Reference to the node for the group representing this win scene */
+    std::shared_ptr<cugl::scene2::SceneNode> _layer;
     /** Label that displays the outcome of the game. */
     std::shared_ptr<cugl::scene2::Label> _gameOutcomeLabel;
     /** Button that brings a player back to the home screen. */
@@ -81,8 +83,9 @@ public:
      *
      * @param winnerPlayerId The player id of the player who won the game
      * @param playerId               The player id of the player playing on this device
+     * @param winningPlayer    The name of the player who won
      */
-    void setWinner(int winnerPlayerId, int playerId);
+    void setWinner(int winnerPlayerId, int playerId, std::string winningPlayer);
     
     /**
      * Sets whether the win scene is currently active and visible.
@@ -108,6 +111,16 @@ public:
     bool goBackToHome() {
         return _goBackToHome;
     }
+    
+    /**
+     * Returns the root scene node for the win screen layer.
+     *
+     * @return a shared pointer to the win screen layer root scene node
+     */
+    const std::shared_ptr<cugl::scene2::SceneNode>& getLayer() const {
+        return _layer;
+    }
+
 };
 
 #endif /* __CI_WIN_SCENE_H__ */

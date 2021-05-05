@@ -85,7 +85,7 @@ public:
     /**
      * Gets the stardust location given our player id and the player id of the opponent.
      */
-    static CILocation::Value getStardustLocation(int playerID, int opponentPlayerID);
+    static CILocation::Value getLocation(int playerID, int opponentPlayerID);
     
     /**
      * Returns an opponents player id given this player's id and a location

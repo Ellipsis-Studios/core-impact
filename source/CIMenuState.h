@@ -18,7 +18,6 @@ enum class MenuState {
     Setting,
     JoinRoom,
     GameLobby,
-    Tutorial,
 
     /** Transition between menu scenes */
     LoadToMain,    // Starts menu scene. After initial loading or reset.
@@ -27,7 +26,6 @@ enum class MenuState {
     MainToJoin,
     MainToLobby,   // Player = HOST 
     SettingToMain,
-    TutorialToMain,
     JoinToMain,
     JoinToLobby,   // Player = CLIENT
     LobbyToMain,
