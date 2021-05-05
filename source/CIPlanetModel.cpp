@@ -117,12 +117,13 @@ void PlanetModel::increaseLayerSize() {
     PlanetLayer* currentLayer = &_layers[_numLayers-1];
     if (currentLayer->layerSize < _layerLockinTotal){
         currentLayer->layerSize++;
-        _radius += PLANET_RADIUS_DELTA;
-        _mass += PLANET_MASS_DELTA;
-
-        _planetNode->setRadius(_radius);
-        _planetNode->setLayers(&_layers);
     }
+    
+    _radius += PLANET_RADIUS_DELTA;
+    _mass += PLANET_MASS_DELTA;
+
+    _planetNode->setRadius(_radius);
+    _planetNode->setLayers(&_layers);
 }
 
 /** Stops any current progress towards locking in a layer */

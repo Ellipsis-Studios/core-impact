@@ -28,7 +28,7 @@ void OpponentPlanet::setTextures(const std::shared_ptr<cugl::Texture>& texture, 
     _opponentNode->setAnchor(cugl::Vec2::ANCHOR_BOTTOM_LEFT);
     _opponentNode->setPosition(_position);
     _opponentNode->setLocation(_location);
-    _opponentNode->setProgress(0, getColor());
+    _opponentNode->setProgress((float) ((_numLayers - 1) * _layerLockinTotal + currLayerProgress) / (_layerLockinTotal * _winPlanetLayers), getColor());
     _opponentNode->setFogTexture(fogTexture);
 }
 
@@ -90,6 +90,8 @@ void OpponentPlanet::setMass(float mass) {
 void OpponentPlanet::setCurrLayerProgress(int currLayerProgress) {
     _currLayerProgress = currLayerProgress;
     if (_opponentNode != nullptr) {
+        CULog("NUMERATOR: %u", (_numLayers - 1) * _layerLockinTotal + currLayerProgress);
+        CULog("DENOMINATOR: %u", _layerLockinTotal * _winPlanetLayers);
         _opponentNode->setProgress((float) ((_numLayers - 1) * _layerLockinTotal + currLayerProgress) / (_layerLockinTotal * _winPlanetLayers), getColor());
     }
 }

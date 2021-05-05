@@ -227,6 +227,7 @@ public:
      * @param color The color of the opponent's planet
      */
     void setProgress(float progress, CIColor::Value color) {
+        CULog("SETTING PROGRESS: %f", progress);
         _progress = progress;
         setColor(CIColor::getColor4(color));
     }
