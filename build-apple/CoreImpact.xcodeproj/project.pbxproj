@@ -99,6 +99,9 @@
 		42B54D67261B97110097D816 /* CIJoinMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42B54D66261B97110097D816 /* CIJoinMenu.cpp */; };
 		42B54D68261B97110097D816 /* CIJoinMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42B54D66261B97110097D816 /* CIJoinMenu.cpp */; };
 		42B54D69261B97110097D816 /* CIJoinMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42B54D66261B97110097D816 /* CIJoinMenu.cpp */; };
+		CA15B608262EFDCF000F6E8E /* sounds in Resources */ = {isa = PBXBuildFile; fileRef = CA15B607262EFDCF000F6E8E /* sounds */; };
+		CA15B609262EFDCF000F6E8E /* sounds in Resources */ = {isa = PBXBuildFile; fileRef = CA15B607262EFDCF000F6E8E /* sounds */; };
+		CA15B60A262EFDCF000F6E8E /* sounds in Resources */ = {isa = PBXBuildFile; fileRef = CA15B607262EFDCF000F6E8E /* sounds */; };
 		CA525027261FEDBF00854B7B /* CIMainMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA525023261FEDBF00854B7B /* CIMainMenu.cpp */; };
 		CA525028261FEDBF00854B7B /* CIMainMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA525023261FEDBF00854B7B /* CIMainMenu.cpp */; };
 		CA525029261FEDBF00854B7B /* CIMainMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA525023261FEDBF00854B7B /* CIMainMenu.cpp */; };
@@ -258,6 +261,8 @@
 		42B54D5B261B8C110097D816 /* CISettingsMenu.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CISettingsMenu.cpp; sourceTree = "<group>"; };
 		42B54D65261B97020097D816 /* CIJoinMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIJoinMenu.h; sourceTree = "<group>"; };
 		42B54D66261B97110097D816 /* CIJoinMenu.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CIJoinMenu.cpp; sourceTree = "<group>"; };
+		CA15B607262EFDCF000F6E8E /* sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sounds; sourceTree = "<group>"; };
+		CA15B60E262F09AF000F6E8E /* CIPlayerSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIPlayerSettings.h; sourceTree = "<group>"; };
 		CA525022261FEDBF00854B7B /* CILobbyMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CILobbyMenu.h; sourceTree = "<group>"; };
 		CA525023261FEDBF00854B7B /* CIMainMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CIMainMenu.cpp; sourceTree = "<group>"; };
 		CA525024261FEDBF00854B7B /* CILobbyMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CILobbyMenu.cpp; sourceTree = "<group>"; };
@@ -523,6 +528,7 @@
 		EB2BE9B71D749870002FE78B /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				CA15B607262EFDCF000F6E8E /* sounds */,
 				EBFE7C041E19B496001007C2 /* json */,
 				426951F9260FCE9D00E675E9 /* widgets */,
 				EB2BE9BA1D7498D2002FE78B /* textures */,
@@ -818,6 +824,7 @@
 			files = (
 				EB0FF61A2016EFC500517030 /* json in Resources */,
 				EB0FF61B2016EFC500517030 /* textures in Resources */,
+				CA15B60A262EFDCF000F6E8E /* sounds in Resources */,
 				EB0FF61C2016EFC500517030 /* fonts in Resources */,
 				EB0FF6172016EFB200517030 /* iOS.xcassets in Resources */,
 				EB0FF6182016EFB200517030 /* Landscape.storyboard in Resources */,
@@ -832,6 +839,7 @@
 			files = (
 				EB7454D01D750623002FBAE6 /* textures in Resources */,
 				EB7454D11D750623002FBAE6 /* fonts in Resources */,
+				CA15B609262EFDCF000F6E8E /* sounds in Resources */,
 				EB7454AB1D74D846002FBAE6 /* iOS.xcassets in Resources */,
 				EB7454AC1D74D846002FBAE6 /* Landscape.storyboard in Resources */,
 				EBFE7C051E19B496001007C2 /* json in Resources */,
@@ -846,6 +854,7 @@
 			files = (
 				EBFE7C091E19B4AC001007C2 /* json in Resources */,
 				EB2BE9BB1D7498D2002FE78B /* textures in Resources */,
+				CA15B608262EFDCF000F6E8E /* sounds in Resources */,
 				EB2BE9B91D7498C9002FE78B /* fonts in Resources */,
 				EBBF189B1D74904A008E2001 /* Mac.xcassets in Resources */,
 				426951FA260FCE9D00E675E9 /* widgets in Resources */,
