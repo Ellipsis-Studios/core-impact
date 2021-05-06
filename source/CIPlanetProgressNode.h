@@ -35,7 +35,7 @@ private:
     int _layerNum;
     
     /** Vector of opacities. Used when a player is able to lock in a layer. *  */
-    std::vector<float> _opacities{ 1.0f, 1.0f, 0.98f, 0.98f, 0.95f, 0.95f, 0.90f, 0.90f, 0.82f, 0.82f, 0.75f, 0.75f, 0.82f, 0.82f, 0.90f, 0.90f, 0.95f, 0.95f, 0.98f, 0.98f, 1.0f, 1.0f };
+    std::vector<float> _opacities{ 1.0f, 1.0f, 0.98f, 0.98f, 0.95f, 0.95f, 0.90f, 0.90f, 0.82f, 0.82f, 0.75f, 0.75f, 0.65f, 0.65f, 0.75f, 0.75f, 0.82f, 0.82f, 0.90f, 0.90f, 0.95f, 0.95f, 0.98f, 0.98f, 1.0f, 1.0f };
     /** Current index in opacities vector. */
     int _opacitiesIndex;
     
