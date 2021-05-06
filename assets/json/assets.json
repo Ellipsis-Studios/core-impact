@@ -16,7 +16,7 @@
         "file":   "textures/outerLayerAnimation_v4.png"
     },
     "playerProgress": {
-        "file":   "textures/player_progress_lock_in_v2.png"
+        "file":   "textures/playerProgressAnimation_v2.png"
     },
     "fog": {
         "file":   "textures/fog.png"

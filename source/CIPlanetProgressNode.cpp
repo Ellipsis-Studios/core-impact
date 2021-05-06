@@ -10,8 +10,6 @@
 
 #define SPF .01 //seconds per frame
 
-#define CANLOCKIN_END   155
-
 /**
  * Disposes the planet progress node, releasing all resources.
  */
@@ -20,6 +18,8 @@ void PlanetProgressNode::dispose() {
     _progressTexture = nullptr;
     _timeElapsed = 0;
     _currFrame = 0;
+    _opacities.clear();
+    _opacitiesIndex = 0;
 }
 
 /**
@@ -30,11 +30,13 @@ void PlanetProgressNode::draw(const std::shared_ptr<cugl::SpriteBatch>& batch,
     float height = _progressTexture->getHeight() / LOCKIN_ROWS;
     float width = _progressTexture->getWidth() / LOCKIN_COLS;
     cugl::Mat4 progressTransform;
-    progressTransform.translate(width * 2.36f, -height * 2.75f, 0);
+    progressTransform.translate(width * 5.0f, -height * 1.3f, 0);
     progressTransform.translate(_layerNum * width, 0, 0);
     progressTransform.multiply(transform);
     CIColor::Value c = (_planetLayer.layerSize == 0) ? CIColor::getNoneColor() : _planetLayer.layerColor;
-    AnimationNode::draw(batch, progressTransform, CIColor::getColor4(c));
+    cugl::Color4 color = CIColor::getColor4(c);
+    color.a = 255 * _opacities[_opacitiesIndex];
+    AnimationNode::draw(batch, progressTransform, color);
 }
 
 /**
@@ -42,7 +44,8 @@ void PlanetProgressNode::draw(const std::shared_ptr<cugl::SpriteBatch>& batch,
  */
 void PlanetProgressNode::update(float timestep, int lockinLayerSize) {
     if (_planetLayer.isLockedIn) {
-        setFrame(CANLOCKIN_END);
+        _opacitiesIndex = 0;
+        setFrame(PROGRESS_ARC_END);
         return;
     }
     
@@ -56,14 +59,21 @@ void PlanetProgressNode::update(float timestep, int lockinLayerSize) {
     if (_timeElapsed > SPF) {
         _timeElapsed = 0;
         unsigned int frame = getFrame();
+        // layer can be locked in
         if (_planetLayer.layerSize > (lockinLayerSize - 1)) {
-            if (frame == CANLOCKIN_END) {
-                setFrame(PROGRESS_ARC_END);
-            } else {
+            if (frame != PROGRESS_ARC_END) {
                 setFrame(frame + 1);
+            }
+            
+            if (_opacitiesIndex == _opacities.size() - 1) {
+                _opacitiesIndex = 0;
+            } else {
+                _opacitiesIndex++;
             }
             return;
         }
+        
+        _opacitiesIndex = 0;
         
         if (frame == _currFrame) {
             return;
