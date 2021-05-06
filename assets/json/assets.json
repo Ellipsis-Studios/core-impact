@@ -1,7 +1,7 @@
 {
   "textures": {
     "space": {
-      "file": "textures/backgroundAnimation_v5.png"
+      "file": "textures/backgroundAnimation_v6.png"
     },
     "opponentProgress": {
       "file":     "textures/opponentProgressAnimation_v2.png"
@@ -91,8 +91,8 @@
                 "scale": 1.6,
                 "position": [1280, 1280],
                 "anchor": [0.5, 0.5],
-                "span": 241,
-                "cols": 13,
+                "span": 121,
+                "cols": 12,
                 "frame": 0
               }
             }

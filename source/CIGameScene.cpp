@@ -34,7 +34,7 @@ using namespace std;
 /** Game Scene background animation start frame */
 #define BACKGROUND_START 0
 /** Game Scene background animation end frame */
-#define BACKGROUND_END 240
+#define BACKGROUND_END 120
 
 /** Keys for sounds and music */
 #define GAME_MUSIC            "game"
