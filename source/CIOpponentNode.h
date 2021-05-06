@@ -15,12 +15,14 @@
 #include "CIColor.h"
 #include "CILocation.h"
 
-#define PROGRESS_ROWS           13
-#define PROGRESS_COLS           13
-#define PROGRESS_NORMAL_END     64
-#define PROGRESS_NORMAL_START    0
-#define PROGRESS_FLASH_END     166
-#define PROGRESS_FLASH_START    65
+#define PROGRESS_ROWS                   10
+#define PROGRESS_COLS                   10
+#define PROGRESS_NORMAL_LOOP1_START     0
+#define PROGRESS_NORMAL_LOOP1_END       29
+#define PROGRESS_FLASH_START            30
+#define PROGRESS_FLASH_END              59
+#define PROGRESS_NORMAL_LOOP2_START     60
+#define PROGRESS_NORMAL_LOOP2_END       90
 
 /** The x offset of the nametag from the corner of the screen */
 #define NAMETAG_X_OFFSET        40
@@ -215,7 +217,7 @@ public:
      * Starts the animation of the progress bar flashing
      */
     void startHitAnimation() {
-        if (getFrame() < PROGRESS_FLASH_START) {
+        if (getFrame() < PROGRESS_FLASH_START || getFrame() > PROGRESS_FLASH_END) {
             setFrame(PROGRESS_FLASH_START);
         }
     }
