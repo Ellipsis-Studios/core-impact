@@ -24,7 +24,7 @@ using namespace std;
 /** Game Scene background animation start frame */
 #define BACKGROUND_START 0
 /** Game Scene background animation end frame */
-#define BACKGROUND_END 240
+#define BACKGROUND_END 120
 
 
 #pragma mark -
@@ -84,6 +84,21 @@ bool TutorialScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     
     // create the win scene
     _winScene = WinScene::alloc(assets, dimen);
+    
+    // create the pause menu
+    _pauseMenu = PauseMenu::alloc(_assets, networkMessageManager, playerSettings);
+    _pauseMenu->setDisplay(false);
+
+    _pauseBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("game_pausebutton"));
+    _pauseBtn->setColor(Color4::GRAY);
+    _pauseBtn->setVisible(true);
+    _pauseBtn->activate();
+
+    _pauseBtn->addListener([&](const std::string& name, bool down) {
+        if (!down) {
+            _networkMessageManager->setGameState(GameState::GamePaused);
+        }
+        });
 
     // Create the planet model
     _planet = PlanetModel::alloc(dimen.width / 2, dimen.height / 2, CIColor::getNoneColor(),
@@ -112,6 +127,8 @@ bool TutorialScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     addChild(scene);
     addChild(_planet->getPlanetNode());
     addChild(_stardustContainer->getStardustNode());
+    addChild(_pauseMenu->getLayer(), 1);
+    addChild(_winScene->getLayer(), 1);
     
     std::vector<string> opponentNames = networkMessageManager->getOtherNames();
     _opponentPlanets.resize((int) opponentNames.size());
@@ -139,6 +156,19 @@ void TutorialScene::dispose() {
         //TODO refactor _input so we can dispose it 
         _active = false;
     }
+    
+    if (_pauseBtn != nullptr && _pauseBtn->isVisible()) {
+        _pauseBtn->deactivate();
+    }
+    else if (_pauseBtn != nullptr) {
+        _pauseBtn->clearListeners();
+    }
+    
+    if (_pauseMenu != nullptr) {
+        _pauseMenu->dispose();
+    }
+    
+    _tutorialStage = 0;
     _assets = nullptr;
     _gameUpdateManager = nullptr;
     _networkMessageManager = nullptr;
@@ -150,6 +180,8 @@ void TutorialScene::dispose() {
     _planet = nullptr;
     _draggedStardust = NULL;
     _opponentPlanets.clear();
+    _pauseBtn = nullptr;
+    _pauseMenu = nullptr;
     _winScene = nullptr;
 }
 
@@ -378,6 +410,15 @@ void TutorialScene::update(float timestep) {
     }
     
     processSpecialStardust(dimen, _stardustContainer);
+    
+    /** Handle pause menu requests*/
+    togglePause(_networkMessageManager->getGameState() == GameState::GamePaused);
+    _pauseMenu->update();
+    if (_pauseMenu->getExitGame()){
+        _tutorialStage = 13;
+        _pauseMenu->setDisplay(false);
+        setActive(false);
+    }
 }
 
 /**
@@ -580,4 +621,21 @@ void TutorialScene::processSpecialStardust(const cugl::Size bounds, const std::s
     }
     
     stardustQueue->clearPowerupQueue();
+}
+
+/**
+ * Sets whether the pause menu is currently active and visible.
+ *
+ * @param onDisplay     Whether the pause menu is currently active and visible
+ */
+void TutorialScene::togglePause(bool onDisplay) {
+    _pauseMenu->setDisplay(onDisplay);
+    _pauseBtn->setVisible(!onDisplay);
+
+    if (onDisplay) {
+        _pauseBtn->deactivate();
+    }
+    else {
+        _pauseBtn->activate();
+    }
 }

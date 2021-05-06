@@ -20,16 +20,13 @@
 #include "CIGameSettings.h"
 #include "CIPlayerSettings.h"
 #include "CIGameConstants.h"
+#include "CIPauseMenu.h"
 
 /** Base stardust spawn rate */
 #define BASE_PROBABILITY_SPACE 100
 
 /** Default number of stardust color counts */
 #define DEFAULT_COLOR_COUNTS 4
-
-#define SPF .066 //seconds per frame
-#define BACKGROUND_START 0
-#define BACKGROUND_END 240
 
 /**
  * This class is the primary gameplay constroller for the demo.
@@ -68,6 +65,9 @@ protected:
     std::shared_ptr<cugl::scene2::SceneNode> _nearSpace;
     /** Shared memory pool for stardust. (MODEL CLASS) */
     std::shared_ptr<StardustQueue> _stardustContainer;
+    /** Reference to the pause button */
+    std::shared_ptr<cugl::scene2::Button> _pauseBtn;
+    std::shared_ptr<PauseMenu> _pauseMenu;
 
     // MODEL
     /** The model representing the planet */
@@ -173,6 +173,13 @@ public:
      * @param stardustQueue the stardustQueue
      */
     void processSpecialStardust(const cugl::Size bounds, const std::shared_ptr<StardustQueue> stardustQueue);
+    
+    /**
+     * Sets whether the pause menu is currently active and visible.
+     *
+     * @param onDisplay     Whether the pause menu is currently active and visible
+     */
+    void togglePause(bool onDisplay);
 
 };
 
