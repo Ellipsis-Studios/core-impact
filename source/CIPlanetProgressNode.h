@@ -11,14 +11,11 @@
 #include <cugl/cugl.h>
 #include "CIPlanetLayer.h"
 
-#define PROGRESS_ARC_ROWS   5
-#define PROGRESS_ARC_COLS   13
 #define PROGRESS_ARC_END    60
-#define PROGRESS_ARC_START  0
 
-#define LOCKIN_ROWS         14
-#define LOCKIN_COLS         13
-#define LOCKIN_END          173
+#define LOCKIN_ROWS         8
+#define LOCKIN_COLS         8
+#define LOCKIN_END          61
 #define LOCKIN_START        0
 
 class PlanetProgressNode : public cugl::scene2::AnimationNode {
@@ -36,6 +33,11 @@ private:
     
     /** The number for planet layer associated with this node. Numbering starts at 0 */
     int _layerNum;
+    
+    /** Vector of opacities. Used when a player is able to lock in a layer. *  */
+    std::vector<float> _opacities{ 1.0f, 1.0f, 0.98f, 0.98f, 0.95f, 0.95f, 0.90f, 0.90f, 0.82f, 0.82f, 0.75f, 0.75f, 0.82f, 0.82f, 0.90f, 0.90f, 0.95f, 0.95f, 0.98f, 0.98f, 1.0f, 1.0f };
+    /** Current index in opacities vector. */
+    int _opacitiesIndex;
     
 public:
     /**
@@ -75,7 +77,8 @@ public:
         _progressTexture = progressTexture;
         _timeElapsed = 0;
         _currFrame = LOCKIN_END;
-        setScale(0.15f);
+        _opacitiesIndex = 0;
+        setScale(0.25f);
         return true;
     }
     
