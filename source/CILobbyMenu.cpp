@@ -201,6 +201,11 @@ void LobbyMenu::update(MenuState& state) {
         }
         case MenuState::GameLobby:
         {
+            if (_gameSettingsBtn != nullptr && !_gameSettingsBtn->isActive()) {
+                _gameSettingsBtn->activate();
+                _gameStartBtn->deactivate();
+            }
+
             if (_networkMessageManager->getPlayerId() == 0) {
                 _gameStartBtn->setVisible(true);
                 _gameReadyBtn->setVisible(false);
@@ -275,6 +280,14 @@ void LobbyMenu::update(MenuState& state) {
             }
 
             state = _nextState;
+            break;
+        }
+        case MenuState::ReconnectingGame:
+        case MenuState::MenuToReconnect:
+        {
+            _gameReadyBtn->deactivate();
+            _gameStartBtn->deactivate();
+            _gameSettingsBtn->deactivate();
             break;
         }
         default:

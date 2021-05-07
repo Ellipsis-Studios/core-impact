@@ -48,7 +48,7 @@ bool PopupMenu::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _errorLabel1 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("popup_errorscreen_label1"));
     _errorLabel2 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("popup_errorscreen_label2"));
 
-    _timer = 8.0f;
+    _timer = 9.0f;
     return true;
 }
 
@@ -74,7 +74,7 @@ void PopupMenu::update(MenuState& state, float timestep) {
             _networkMessageManager->sendMessages();
             _networkMessageManager->receiveMessages();
 
-            _timer = 8.0f;
+            _timer = 9.0f;
             setDisplay(true);
             _window->setVisible(true);
             _windowLabel->setText("Creating game...");
@@ -94,7 +94,7 @@ void PopupMenu::update(MenuState& state, float timestep) {
             _networkMessageManager->sendMessages();
             _networkMessageManager->receiveMessages();
 
-            _timer = 8.0f;
+            _timer = 9.0f;
             setDisplay(true);
             _window->setVisible(true);
             _windowLabel->setText("Joining game...");
@@ -114,7 +114,7 @@ void PopupMenu::update(MenuState& state, float timestep) {
             _networkMessageManager->sendMessages();
             _networkMessageManager->receiveMessages();
 
-            _timer = 8.0f;
+            _timer = 9.0f;
             setDisplay(true);
             _window->setVisible(true);
             _windowLabel->setText("Reconnecting game...");
@@ -194,21 +194,22 @@ void PopupMenu::update(MenuState& state, float timestep) {
                 _networkMessageManager->receiveMessages();
 
                 if (_networkMessageManager->getNetworkStatus() == CUNetworkConnection::NetStatus::Reconnecting) {
+                    CULog("Reconnecting %i", std::to_string(_networkMessageManager->getPlayerId()));
                     break;
                 }
                 else if (_networkMessageManager->getNetworkStatus() == CUNetworkConnection::NetStatus::Disconnected) {
+                    CULog("Disconnected %i", std::to_string(_networkMessageManager->getPlayerId()));
                     _timer = 2.9f;
                     break;
                 }
                 else if (_networkMessageManager->getNetworkStatus() == CUNetworkConnection::NetStatus::Connected) {
                     CULog("Successfully reconnected game.");
-                    state = MenuState::GameLobby;
-                    //if (_networkMessageManager->getPlayerId() == 0) {
-                    //    state = MenuState::MainToLobby;
-                    //}
-                    //else {
-                    //    state = MenuState::JoinToLobby;
-                    //}
+                    if (_networkMessageManager->getPlayerId() == 0) {
+                        state = MenuState::GameLobby;
+                    }
+                    else {
+                        state = MenuState::JoinToLobby;
+                    }
                 }
             }
             else if (_timer > 0.0f) {
@@ -218,7 +219,7 @@ void PopupMenu::update(MenuState& state, float timestep) {
             }
             else {
                 // return to join menu
-                state = MenuState::MainToJoin;
+                state = MenuState::LobbyToMain;
             }
             break;
         }
