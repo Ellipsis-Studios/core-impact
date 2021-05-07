@@ -84,26 +84,20 @@ bool GameSettingsMenu::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _layerSizeBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("gamesettings_wincondbutton"));
 
     _spawnRateBtn->addListener([&](const std::string& name, bool down) {
-        if (down) {
+        if (!down) {
             _currSpawn = (_currSpawn + 1) % 7;
-        }
-        else {
             _gameSettings->setSpawnRate(_spawnRates[_currSpawn]);
         }
         });
     _gravStrengthBtn->addListener([&](const std::string& name, bool down) {
-        if (down) {
+        if (!down) {
             _currGrav = (_currGrav + 1) % 7;
-        }
-        else {
             _gameSettings->setGravStrength(_gravStrengths[_currGrav]);
         }
         });
     _layerSizeBtn->addListener([&](const std::string& name, bool down) {
-        if (down) {
+        if (!down) {
             _currWin = (_currWin + 1) % 5;
-        }
-        else {
             _gameSettings->setPlanetStardustPerLayer(_layerSize[_currWin]);
         }
         });
@@ -190,7 +184,8 @@ void GameSettingsMenu::update(MenuState& state) {
         }
         case MenuState::GameSetting:
         {
-            if (_networkMessageManager->getPlayerId() == 0) {
+            // handle displaying and updating game settings
+            if (_networkMessageManager->isPlayerHost()) {
                 _applySettingsBtn->setVisible(true);
                 _subTitle->setVisible(false);
 
@@ -207,13 +202,12 @@ void GameSettingsMenu::update(MenuState& state) {
                 _spawnRateBtn->deactivate();
                 _gravStrengthBtn->deactivate();
                 _layerSizeBtn->deactivate();
-            }
 
-            if (!_networkMessageManager->getPlayerId() == 0) {
+                // Receiving state update notice from host 
                 _networkMessageManager->receiveMessages();
             }
 
-            // Update game setting button labels for the Host
+            // Update game setting button labels
             _spawnRateLabel->setText(cugl::strtool::to_string(_gameSettings->getSpawnRate(), 1) + "X");
             _gravStrengthLabel->setText(cugl::strtool::to_string(_gameSettings->getGravStrength(), 1) + "X");
             _layerSizeLabel->setText(cugl::strtool::to_string(_gameSettings->getPlanetStardustPerLayer()));
@@ -222,8 +216,26 @@ void GameSettingsMenu::update(MenuState& state) {
             if (_networkMessageManager->getGameState() == GameState::GameInProgress) {
                 _nextState = MenuState::LobbyToGame;
             }
+            // handle room player reconnecting
+            if (_networkMessageManager->getGameState() == GameState::ReconnectingToGame) {
+                _nextState = MenuState::MenuToReconnect;
+            }
+            // handle room player disconnect
+            if (_networkMessageManager->getGameState() == GameState::DisconnectedFromGame) {
+                _nextState = MenuState::LobbyToMain;
+            }
 
             state = _nextState;
+            break;
+        }
+        case MenuState::ReconnectingGame:
+        case MenuState::MenuToReconnect:
+        {
+            // Deactivate inputs if popup menu is displayed
+            _applySettingsBtn->deactivate();
+            _spawnRateBtn->deactivate();
+            _gravStrengthBtn->deactivate();
+            _layerSizeBtn->deactivate();
             break;
         }
         default:

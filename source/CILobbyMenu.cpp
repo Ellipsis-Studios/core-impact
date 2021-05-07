@@ -206,12 +206,12 @@ void LobbyMenu::update(MenuState& state) {
                 _gameStartBtn->deactivate();
             }
 
-            if (_networkMessageManager->getPlayerId() == 0) {
+            if (_networkMessageManager->isPlayerHost()) {
                 _gameStartBtn->setVisible(true);
                 _gameReadyBtn->setVisible(false);
                 _gameReadyBtn->deactivate();
             }
-            else if (_networkMessageManager->getPlayerId() > 0) {
+            else {
                 _gameStartBtn->setVisible(false);
                 _gameReadyBtn->setVisible(true);
                 _gameReadyBtn->activate();
@@ -251,7 +251,7 @@ void LobbyMenu::update(MenuState& state) {
                 _gameLobbyPlayerNames[pindex]->setVisible(false);
             }
 
-            if (isReady && _networkMessageManager->getPlayerId() == 0) {
+            if (isReady && _networkMessageManager->isPlayerHost()) {
                 _isReadyToStart = true;
                 _gameStartBtn->setDown(false);
                 _gameStartBtn->activate();
@@ -276,7 +276,7 @@ void LobbyMenu::update(MenuState& state) {
             }
             // handle room player disconnect
             if (_networkMessageManager->getGameState() == GameState::DisconnectedFromGame) {
-                _nextState = MenuState::LobbyToGame;
+                _nextState = MenuState::LobbyToMain;
             }
 
             state = _nextState;

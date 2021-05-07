@@ -99,6 +99,13 @@ public:
         _gameUpdateManager = gameUpdateManager;
     }
 
+    /** 
+     * Returns whether current player is the host.
+     */
+    const bool isPlayerHost() const {
+        return (getPlayerId() == 0);
+    }
+    
     /**
      * Returns the names of the players in the game excluding the current player.
      *
