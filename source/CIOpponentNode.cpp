@@ -66,10 +66,13 @@ void OpponentNode::update(float timestep) {
     _timeElapsed += timestep;
     if (_timeElapsed > SPF) {
         _timeElapsed = 0;
-        if (getFrame() == PROGRESS_NORMAL_END || getFrame() == PROGRESS_FLASH_END) {
-            setFrame(PROGRESS_NORMAL_START);
+        int frame = getFrame();
+        if (frame == PROGRESS_NORMAL_LOOP1_END) {
+            setFrame(PROGRESS_NORMAL_LOOP2_START);
+        } else if (frame == PROGRESS_NORMAL_LOOP2_END) {
+            setFrame(PROGRESS_NORMAL_LOOP1_START);
         } else {
-            setFrame(getFrame() + 1);
+            setFrame(frame + 1);
         }
     }
     
