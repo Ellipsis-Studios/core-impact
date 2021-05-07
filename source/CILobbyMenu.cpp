@@ -194,7 +194,6 @@ void LobbyMenu::update(MenuState& state) {
         }
         case MenuState::GameSettingToLobby:
         {
-            _gameReadyBtn->setDown(false);
             setDisplay(true);
             state = _nextState = MenuState::GameLobby;
             break;
@@ -214,11 +213,7 @@ void LobbyMenu::update(MenuState& state) {
             else {
                 _gameStartBtn->setVisible(false);
                 _gameReadyBtn->setVisible(true);
-                if (get<1>(_networkMessageManager->getPlayerMap()[_networkMessageManager->getPlayerId()])) {
-                    _gameReadyBtn->deactivate();
-                    _gameReadyBtn->clearListeners();
-                    _gameReadyBtn->setDown(true);
-                }
+                _gameReadyBtn->activate();
             }
 
             if (_isReadyToStart && _gameStartBtn->isActive() && _gameStartBtn->isDown()) {
