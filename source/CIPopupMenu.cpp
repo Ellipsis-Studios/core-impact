@@ -48,7 +48,7 @@ bool PopupMenu::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _errorLabel1 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("popup_errorscreen_label1"));
     _errorLabel2 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("popup_errorscreen_label2"));
 
-    _timer = 10.0f;
+    _timer = 8.0f;
     return true;
 }
 
@@ -74,7 +74,7 @@ void PopupMenu::update(MenuState& state, float timestep) {
             _networkMessageManager->sendMessages();
             _networkMessageManager->receiveMessages();
 
-            _timer = 10.0f;
+            _timer = 8.0f;
             setDisplay(true);
             _window->setVisible(true);
             _windowLabel->setText("Creating game...");
@@ -94,7 +94,7 @@ void PopupMenu::update(MenuState& state, float timestep) {
             _networkMessageManager->sendMessages();
             _networkMessageManager->receiveMessages();
 
-            _timer = 10.0f;
+            _timer = 8.0f;
             setDisplay(true);
             _window->setVisible(true);
             _windowLabel->setText("Joining game...");
@@ -106,13 +106,33 @@ void PopupMenu::update(MenuState& state, float timestep) {
             state = MenuState::JoiningGame;
             break;
         }
+        case MenuState::MenuToReconnect:
+        {
+            _networkMessageManager->setPlayerName(_playerSettings->getPlayerName());
+            _networkMessageManager->joinGame(_gameSettings->getGameId());
+            _networkMessageManager->setRoomID(_gameSettings->getGameId());
+            _networkMessageManager->sendMessages();
+            _networkMessageManager->receiveMessages();
+
+            _timer = 8.0f;
+            setDisplay(true);
+            _window->setVisible(true);
+            _windowLabel->setText("Reconnecting game...");
+
+            _error->setVisible(false);
+            _errorLabel1->setText("Unable to reconnect game.");
+            _errorLabel2->setText("Connection to game lost.");
+
+            state = MenuState::ReconnectingGame;
+            break;
+        }
         case MenuState::CreatingGame:
         {
             _timer -= timestep;
 
             // TODO: make this circle rotate properly
             //_windowCircle->setAngle(_windowCircle->getAngle() + ((timestep / 0.5f) * 6.28319));
-            if (_timer > 5.0f) {
+            if (_timer > 7.0f && _timer > 3.0f) {
                 _networkMessageManager->sendMessages();
                 _networkMessageManager->receiveMessages();
 
@@ -138,13 +158,13 @@ void PopupMenu::update(MenuState& state, float timestep) {
 
             // TODO: make this circle rotate properly
             //_windowCircle->setAngle(_windowCircle->getAngle() + ((timestep / 0.5f) * 6.28319));
-            if (_timer > 8.0f && _timer > 5.0f) {
+            if (_timer > 7.0f && _timer > 3.0f) {
                 _networkMessageManager->sendMessages();
                 _networkMessageManager->receiveMessages();
 
                 if (_networkMessageManager->getNetworkStatus() == CUNetworkConnection::NetStatus::RoomNotFound) {
                     CULog("Invalid room id.");
-                    _timer = 4.9f;
+                    _timer = 2.9f; // skip to displaying error message
                     break;
                 }
                 else if (_networkMessageManager->getNetworkStatus() == CUNetworkConnection::NetStatus::Connected) {
@@ -153,13 +173,51 @@ void PopupMenu::update(MenuState& state, float timestep) {
                 }
             }
             else if (_timer > 0.0f) {
-                // display error 
+                // display error message
                 _window->setVisible(false);
                 _error->setVisible(true);
             }
             else {
                 // return to join menu
-                CULog("Return to join room");
+                state = MenuState::MainToJoin;
+            }
+            break;
+        }
+        case MenuState::ReconnectingGame:
+        {
+            _timer -= timestep;
+
+            // TODO: make this circle rotate properly
+            //_windowCircle->setAngle(_windowCircle->getAngle() + ((timestep / 0.5f) * 6.28319));
+            if (_timer > 7.0f && _timer > 3.0f) {
+                _networkMessageManager->sendMessages();
+                _networkMessageManager->receiveMessages();
+
+                if (_networkMessageManager->getNetworkStatus() == CUNetworkConnection::NetStatus::Reconnecting) {
+                    break;
+                }
+                else if (_networkMessageManager->getNetworkStatus() == CUNetworkConnection::NetStatus::Disconnected) {
+                    _timer = 2.9f;
+                    break;
+                }
+                else if (_networkMessageManager->getNetworkStatus() == CUNetworkConnection::NetStatus::Connected) {
+                    CULog("Successfully reconnected game.");
+                    state = MenuState::GameLobby;
+                    //if (_networkMessageManager->getPlayerId() == 0) {
+                    //    state = MenuState::MainToLobby;
+                    //}
+                    //else {
+                    //    state = MenuState::JoinToLobby;
+                    //}
+                }
+            }
+            else if (_timer > 0.0f) {
+                // display error message
+                _window->setVisible(false);
+                _error->setVisible(true);
+            }
+            else {
+                // return to join menu
                 state = MenuState::MainToJoin;
             }
             break;

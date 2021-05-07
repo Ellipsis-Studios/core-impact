@@ -258,6 +258,20 @@ void NetworkMessageManager::receiveMessages() {
         return;
     }
 
+    // check if network connection lost
+    if (_conn->getStatus() == cugl::CUNetworkConnection::NetStatus::Reconnecting) {
+        CULog("Attempting to reconnect.");
+        _gameState = GameState::ReconnectingToGame;
+        return;
+    }
+    else if (_conn->getStatus() == cugl::CUNetworkConnection::NetStatus::Disconnected) {
+        CULog("Disconnected from game. Returning to Main Menu.");
+        if (!_conn->isPlayerActive(0) || getPlayerId() <= 0) {
+            _gameState = GameState::DisconnectedFromGame;
+            _playerMap.clear();
+            return;
+        }
+    }
     // Check game room members
     if (getPlayerId() == 0) {
         std::vector<int> eraseId;
@@ -281,20 +295,6 @@ void NetworkMessageManager::receiveMessages() {
         }
         for (int id : eraseId) {
             _playerMap.erase(id);
-        }
-    }
-    else if (getPlayerId() > 0) {
-        // check if network connection lost
-        if (_conn->getStatus() == cugl::CUNetworkConnection::NetStatus::Reconnecting) {
-            CULog("Attempting to reconnect.");
-            return;
-        } else if (_conn->getStatus() == cugl::CUNetworkConnection::NetStatus::Disconnected) {
-            CULog("Disconnected from game. Returning to Main Menu.");
-            if (!_conn->isPlayerActive(0)) {
-                _gameState = GameState::DisconnectedFromGame;
-                _playerMap.clear();
-                return;
-            }
         }
     }
     

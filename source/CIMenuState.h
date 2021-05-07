@@ -23,6 +23,7 @@ enum class MenuState {
 
     CreatingGame,
     JoiningGame,
+    ReconnectingGame,
 
     /** Transition between menu scenes */
     LoadToMain,    // Starts menu scene. After initial loading or reset.
@@ -34,6 +35,7 @@ enum class MenuState {
     NameToMain,
     MenuToCreate,
     MenuToJoin,
+    MenuToReconnect,
 
     MainToLobby,   // Player = HOST
     SettingToMain,
