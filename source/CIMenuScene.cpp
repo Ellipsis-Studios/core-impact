@@ -50,27 +50,27 @@ bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _teamLogo = assets->get<scene2::SceneNode>("menu_teamLogo");
     _gameTitle = assets->get<scene2::SceneNode>("menu_title");
     _gamePlanet = assets->get<scene2::SceneNode>("menu_world");
-    const float rend = dimen.getIWidth()/ 4.0f; // Set game title/planet position to one from end of loading scene
-    _gameTitle->setPositionX(rend);
-    _gamePlanet->setPositionX(rend);
 
     /** Back button to return to main menu */
     _backBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("menu_menubackbutton"));
-    _backBtn->addListener([=](const std::string& name, bool down) {
+    _backBtn->addListener([&](const std::string& name, bool down) {
         if (!down) {
-            switch (_state) 
+            switch (_state)
             {
                 case MenuState::Setting:
                     _state = MenuState::SettingToMain;
+                    break;
+                case MenuState::NameMenu:
+                    _state = MenuState::NameToMain;
                     break;
                 case MenuState::JoinRoom:
                     _state = MenuState::JoinToMain;
                     break;
                 case MenuState::GameLobby:
                     _state = MenuState::LobbyToMain;
-                    networkMessageManager->setOtherNames({ "", "", "", "" });
-                    _lobby->setOtherPlayerLabels({ "N/A", "N/A", "N/A", "N/A" });
-                    networkMessageManager->setGameState(GameState::OnMenuScreen);
+                    break;
+                case MenuState::GameSetting:
+                    _state = MenuState::GameSettingToLobby;
                     break;
                 default:
                     break;
@@ -83,6 +83,8 @@ bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     // player settings
     _playerSettings = playerSettings;
 
+    _networkMessageManager = networkMessageManager;
+
     _state = MenuState::LoadToMain;
 
     Application::get()->setClearColor(Color4(192, 192, 192, 255));
@@ -94,16 +96,28 @@ bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _settings = SettingsMenu::alloc(_assets, playerSettings);
     _settings->setDisplay(false);
 
+    _namemenu = NameMenu::alloc(_assets, playerSettings);
+    _namemenu->setDisplay(false);
+
     _join = JoinMenu::alloc(_assets, gameSettings);
     _join->setDisplay(false);
 
     _lobby = LobbyMenu::alloc(_assets, networkMessageManager, gameSettings, playerSettings);
     _lobby->setDisplay(false);
 
+    _gsettingsmenu = GameSettingsMenu::alloc(_assets, networkMessageManager, gameSettings);
+    _gsettingsmenu->setDisplay(false);
+
+    _popupMenu = PopupMenu::alloc(_assets, networkMessageManager, gameSettings, playerSettings);
+    _popupMenu->setDisplay(false);
+
     addChild(_mainmenu->getLayer(), 0);
     addChild(_settings->getLayer(), 1);
+    addChild(_namemenu->getLayer(), 1);
     addChild(_join->getLayer(), 2);
     addChild(_lobby->getLayer(), 3);
+    addChild(_gsettingsmenu->getLayer(), 4);
+    addChild(_popupMenu->getLayer(), 5);
 
     return true;
 }
@@ -132,18 +146,27 @@ void MenuScene::dispose() {
     
     _mainmenu->setDisplay(false);
     _settings->setDisplay(false);
+    _namemenu->setDisplay(false);
     _join->setDisplay(false);
     _lobby->setDisplay(false);
-    
+    _gsettingsmenu->setDisplay(false);
+    _popupMenu->setDisplay(false);
+
     _mainmenu->dispose();
     _settings->dispose();
+    _namemenu->dispose();
     _join->dispose();
     _lobby->dispose();
+    _gsettingsmenu->dispose();
+    _popupMenu->dispose();
 
     _mainmenu = nullptr;
     _settings = nullptr;
+    _namemenu = nullptr;
     _join = nullptr;
     _lobby = nullptr;
+    _gsettingsmenu = nullptr;
+    _popupMenu = nullptr;
 
     _teamLogo = nullptr;
     _gameTitle = nullptr;
@@ -177,7 +200,6 @@ void MenuScene::update(float timestep) {
     switch (_state)
     {
         case MenuState::LoadToMain:
-        case MenuState::Setting:
         case MenuState::MainMenu:
             // display
             if (_gameTitle != nullptr) {
@@ -196,8 +218,10 @@ void MenuScene::update(float timestep) {
     switch (_state) 
     {
         case MenuState::Setting:
+        case MenuState::NameMenu:
         case MenuState::JoinRoom:
         case MenuState::GameLobby:
+        case MenuState::GameSetting:
             // display back button
             if (!_backBtn->isVisible()) {
                 _backBtn->setVisible(true);
@@ -214,19 +238,8 @@ void MenuScene::update(float timestep) {
     }
 
     // handle back button positioning
-    const float roffset = getChildByName("menuScene")->getContentWidth() * (0.9f);
     const float loffset = getChildByName("menuScene")->getContentWidth() * (0.1f);
-    switch (_state)
-    {
-        case MenuState::Setting:
-            // right
-            _backBtn->setPositionX(roffset);
-            break;
-        default:
-            // left
-            _backBtn->setPositionX(loffset);
-            break;
-    }
+    _backBtn->setPositionX(loffset);
 
     // handle menu screens 
     switch (_state) 
@@ -240,12 +253,16 @@ void MenuScene::update(float timestep) {
         case MenuState::MainToTutorial:
             // menu scene end
             _lobby->setDisplay(false);
+            _gsettingsmenu->setDisplay(false);
             _active = false;
             break;
         default:
+            _popupMenu->update(_state, timestep);
             _lobby->update(_state);
+            _gsettingsmenu->update(_state);
             _mainmenu->update(_state);
             _settings->update(_state);
+            _namemenu->update(_state);
             _join->update(_state);
             break;
     }

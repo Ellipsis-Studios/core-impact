@@ -16,19 +16,32 @@ enum class MenuState {
     /** Display menu scene */
     MainMenu,
     Setting,
+    NameMenu,
     JoinRoom,
     GameLobby,
+    GameSetting,
+
+    CreatingGame,
+    JoiningGame,
 
     /** Transition between menu scenes */
     LoadToMain,    // Starts menu scene. After initial loading or reset.
     MainToSetting,
     MainToTutorial,
     MainToJoin,
-    MainToLobby,   // Player = HOST 
+    MainToName,
+    NameToJoin,
+    NameToMain,
+    MenuToCreate,
+    MenuToJoin,
+
+    MainToLobby,   // Player = HOST
     SettingToMain,
     JoinToMain,
     JoinToLobby,   // Player = CLIENT
     LobbyToMain,
+    LobbyToGameSetting,
+    GameSettingToLobby,
     LobbyToGame    // Ends menu scene. Triggers gameplay to begin. 
 };
 

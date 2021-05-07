@@ -18,45 +18,32 @@ using namespace cugl;
  * Disposes of all (non-static) resources allocated to this menu.
  */
 void LobbyMenu::dispose() {
-    if (_gameStartBtn != nullptr && _gameStartBtn->isActive()) {
+    if (_gameSettingsBtn != nullptr && _gameSettingsBtn->isActive()) {
         _gameStartBtn->deactivate();
-        _spawnRateBtn->deactivate();
-        _gravStrengthBtn->deactivate();
-        _colorCountBtn->deactivate();
-        _layerSizeBtn->deactivate();
-    } else if (_gameStartBtn != nullptr) {
-        _gameStartBtn->clearListeners();
-        _spawnRateBtn->clearListeners();
-        _gravStrengthBtn->clearListeners();
-        _colorCountBtn->clearListeners();
-        _layerSizeBtn->clearListeners();
+        _gameSettingsBtn->deactivate();
+        _gameReadyBtn->deactivate();
     }
-    
+    else if (_gameSettingsBtn != nullptr) {
+        _gameStartBtn->clearListeners();
+        _gameSettingsBtn->clearListeners();
+        _gameReadyBtn->clearListeners();
+    }
+
     _gameStartBtn = nullptr;
-    _spawnRateBtn = nullptr;
-    _gravStrengthBtn = nullptr;
-    _colorCountBtn = nullptr;
-    _layerSizeBtn = nullptr;
+    _gameReadyBtn = nullptr;
+    _gameSettingsBtn = nullptr;
 
     _lobbyRoomLabel = nullptr;
     for (int ii = 0; ii < _gameLobbyPlayerLabels.size(); ii++) {
         _gameLobbyPlayerLabels[ii] = nullptr;
     }
+    for (int ii = 0; ii < _gameLobbyPlayerNames.size(); ii++) {
+        _gameLobbyPlayerNames[ii] = nullptr;
+    }
 
-    _gamelobbyplayerName1 = nullptr;
-    _gamelobbyplayerName2 = nullptr;
-    _gamelobbyplayerName3 = nullptr;
-    _gamelobbyplayerName4 = nullptr;
-    _gamelobbyplayerName5 = nullptr;
-    _spawnRateLabel = nullptr;
-    _gravStrengthLabel = nullptr;
-    _colorCountLabel = nullptr;
-    _layerSizeLabel = nullptr;
-
+    _title = nullptr;
     _layer = nullptr;
     _nextState = MenuState::GameLobby;
-    _currSpawn = _currGrav = _currWin = _currColor = 2;
-    _isHost = false;
 }
 
 /**
@@ -87,12 +74,16 @@ bool LobbyMenu::init(const std::shared_ptr<cugl::AssetManager>& assets,
 
     _networkMessageManager = networkMessageManager;
 
+    _title = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_title"));
     _lobbyRoomLabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_roomidlabel"));
-    _gamelobbyplayerName1 = assets->get<scene2::SceneNode>("lobby_playerlabel1");
-    _gamelobbyplayerName2 = assets->get<scene2::SceneNode>("lobby_playerlabel2");
-    _gamelobbyplayerName3 = assets->get<scene2::SceneNode>("lobby_playerlabel3");
-    _gamelobbyplayerName4 = assets->get<scene2::SceneNode>("lobby_playerlabel4");
-    _gamelobbyplayerName5 = assets->get<scene2::SceneNode>("lobby_playerlabel5");
+
+    _gameLobbyPlayerNames.resize(5);
+    _gameLobbyPlayerNames[0] = std::dynamic_pointer_cast<scene2::NinePatch>(assets->get<scene2::SceneNode>("lobby_playerlabel1_pnamelabelbackground"));
+    _gameLobbyPlayerNames[1] = std::dynamic_pointer_cast<scene2::NinePatch>(assets->get<scene2::SceneNode>("lobby_playerlabel2_pnamelabelbackground"));
+    _gameLobbyPlayerNames[2] = std::dynamic_pointer_cast<scene2::NinePatch>(assets->get<scene2::SceneNode>("lobby_playerlabel3_pnamelabelbackground"));
+    _gameLobbyPlayerNames[3] = std::dynamic_pointer_cast<scene2::NinePatch>(assets->get<scene2::SceneNode>("lobby_playerlabel4_pnamelabelbackground"));
+    _gameLobbyPlayerNames[4] = std::dynamic_pointer_cast<scene2::NinePatch>(assets->get<scene2::SceneNode>("lobby_playerlabel5_pnamelabelbackground"));
+
     _gameLobbyPlayerLabels.resize(5);
     _gameLobbyPlayerLabels[0] = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_playerlabel1_label"));
     _gameLobbyPlayerLabels[1] = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_playerlabel2_label"));
@@ -100,63 +91,27 @@ bool LobbyMenu::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _gameLobbyPlayerLabels[3] = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_playerlabel4_label"));
     _gameLobbyPlayerLabels[4] = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_playerlabel5_label"));
 
-    // Game lobby settings 
-    _spawnRateLabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_spawnratebutton_up_label"));
-    _gravStrengthLabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_gravstrengthbutton_up_label"));
-    _colorCountLabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_colorcountbutton_up_label"));
-    _layerSizeLabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("lobby_wincondbutton_up_label"));
-
-    _spawnRateBtnLabel = assets->get<scene2::SceneNode>("lobby_spawnratebuttonlabel");
-    _gravStrengthBtnLabel = assets->get<scene2::SceneNode>("lobby_gravstrengthbuttonlabel");
-    _colorCountBtnLabel = assets->get<scene2::SceneNode>("lobby_colorcountbuttonlabel");
-    _layerSizeBtnLabel = assets->get<scene2::SceneNode>("lobby_wincondbuttonlabel");
-
-    _currSpawn = _currGrav = _currColor = 2;
-    _currWin = 1;
-
-    // Setting buttons 
-    _spawnRateBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("lobby_spawnratebutton"));
-    _gravStrengthBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("lobby_gravstrengthbutton"));
-    _colorCountBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("lobby_colorcountbutton"));
-    _layerSizeBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("lobby_wincondbutton"));
-
-    _spawnRateBtn->addListener([&](const std::string& name, bool down) {
-        if (!down) {
-            _currSpawn = (_currSpawn + 1) % 7;
-            _gameSettings->setSpawnRate(_spawnRates[_currSpawn]);
-        }
-        });
-    _gravStrengthBtn->addListener([&](const std::string& name, bool down) {
-        if (!down) {
-            _currGrav = (_currGrav + 1) % 7;
-            _gameSettings->setGravStrength(_gravStrengths[_currGrav]);
-        }
-        });
-    _colorCountBtn->addListener([&](const std::string& name, bool down) {
-        if (!down) {
-            _currColor = (_currColor + 1) % 5;
-            _gameSettings->setColorCount(_colorCounts[_currColor]);
-        }
-        });
-    _layerSizeBtn->addListener([&](const std::string& name, bool down) {
-        if (!down) {
-            _currWin = (_currWin + 1) % 5;
-            _gameSettings->setPlanetStardustPerLayer(_layerSize[_currWin]);
-        }
-        });
-
     _gameStartBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("lobby_startgamebutton"));
-    _gameStartBtn->addListener([&](const std::string& name, bool down) {
-        if (!down) {
+    _gameStartBtn->setToggle(true);
+    _gameStartBtn->setDown(true);
+
+    _gameReadyBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("lobby_readygamebutton"));
+    _gameReadyBtn->addListener([&](const std::string& name, bool down) {
+        if (down) {
             _networkMessageManager->setGameState(GameState::GameStarted);
-            _networkMessageManager->setGameSettings(_gameSettings);
             _networkMessageManager->sendMessages();
-            _nextState = MenuState::LobbyToGame;
         }
-        return true;
+        });
+    _gameReadyBtn->setToggle(true);
+
+    _gameSettingsBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("lobby_gamesettingsbutton"));
+    _gameSettingsBtn->addListener([&](const std::string& name, bool down) {
+        if (!down) {
+            _nextState = MenuState::LobbyToGameSetting;
+        }
         });
 
-    _isHost = false;
+    _isReadyToStart = false;
     _nextState = MenuState::GameLobby;
     return true;
 }
@@ -170,45 +125,27 @@ bool LobbyMenu::init(const std::shared_ptr<cugl::AssetManager>& assets,
  */
 void LobbyMenu::setDisplay(bool onDisplay) {
     if (_layer != nullptr) {
-        if (!onDisplay || _nextState == MenuState::MainToLobby) {
-            _spawnRateBtnLabel->setVisible(onDisplay);
-            _gravStrengthBtnLabel->setVisible(onDisplay);
-            _colorCountBtnLabel->setVisible(onDisplay);
-            _layerSizeBtnLabel->setVisible(onDisplay);
-
-            _spawnRateLabel->setVisible(onDisplay);
-            _gravStrengthLabel->setVisible(onDisplay);
-            _colorCountLabel->setVisible(onDisplay);
-            _layerSizeLabel->setVisible(onDisplay);
-
-            _spawnRateBtn->setVisible(onDisplay);
-            _gravStrengthBtn->setVisible(onDisplay);
-            _colorCountBtn->setVisible(onDisplay);
-            _layerSizeBtn->setVisible(onDisplay);
-        }
-        _gamelobbyplayerName1->setVisible(onDisplay);
-        _gamelobbyplayerName2->setVisible(onDisplay);
-        _gamelobbyplayerName3->setVisible(onDisplay);
-        _gamelobbyplayerName4->setVisible(onDisplay);
-        _gamelobbyplayerName5->setVisible(onDisplay);
-        _gameStartBtn->setVisible(onDisplay);
+        _gameSettingsBtn->setVisible(onDisplay);
         _lobbyRoomLabel->setVisible(onDisplay);
+        _title->setVisible(onDisplay);
         _layer->setVisible(onDisplay);
 
+        _gameLobbyPlayerNames[0]->setVisible(onDisplay);
+        _gameLobbyPlayerNames[1]->setVisible(false);
+        _gameLobbyPlayerNames[2]->setVisible(false);
+        _gameLobbyPlayerNames[3]->setVisible(false);
+        _gameLobbyPlayerNames[4]->setVisible(false);
+
         if (!onDisplay) {
+            _gameStartBtn->setVisible(false);
+            _gameReadyBtn->setVisible(false);
+            _gameReadyBtn->deactivate();
             _gameStartBtn->deactivate();
-            _spawnRateBtn->deactivate();
-            _gravStrengthBtn->deactivate();
-            _colorCountBtn->deactivate();
-            _layerSizeBtn->deactivate();
-        } else {
-            _gameStartBtn->activate();
-            if (_nextState == MenuState::MainToLobby) {
-                _spawnRateBtn->activate();
-                _gravStrengthBtn->activate();
-                _colorCountBtn->activate();
-                _layerSizeBtn->activate();
-            }
+            _gameSettingsBtn->deactivate();
+        }
+        else {
+            _gameSettingsBtn->activate();
+            _gameStartBtn->deactivate();
         }
     }
 }
@@ -234,98 +171,102 @@ void LobbyMenu::update(MenuState& state) {
         case MenuState::MainToLobby:
         {
             // handle displaying for Host
-            _networkMessageManager->createGame();
-            _networkMessageManager->setPlayerName(_playerSettings->getPlayerName());
-            _networkMessageManager->setOtherNames({ "", "", "", "" });
-            _networkMessageManager->sendMessages();
-            _networkMessageManager->receiveMessages();
             _gameSettings->setGameId(_networkMessageManager->getRoomId());
-            setOtherPlayerLabels({ "N/A", "N/A", "N/A", "N/A" });
+            setPlayerLabels({ "N/A", "N/A", "N/A", "N/A", "N/A" });
 
-            _nextState = state; // prep to setDisplay
+            _lobbyRoomLabel->setText("Code: " + _gameSettings->getGameId());
+
             setDisplay(true);
 
-            _lobbyRoomLabel->setText(_gameSettings->getGameId());
-            _gameLobbyPlayerLabels[0]->setText(_playerSettings->getPlayerName());
-
-            // handle game lobby settings (only visible to the host)
-            _spawnRateLabel->setText(cugl::strtool::to_string(_gameSettings->getSpawnRate(), 1) + "X");
-            _gravStrengthLabel->setText(cugl::strtool::to_string(_gameSettings->getGravStrength(), 1) + "X");
-            _colorCountLabel->setText(cugl::strtool::to_string(_gameSettings->getColorCount()));
-            _layerSizeLabel->setText(cugl::strtool::to_string(_gameSettings->getPlanetStardustPerLayer()));
-
-            _isHost = true;
-            state = MenuState::GameLobby;
-            _nextState = MenuState::GameLobby;
+            state = _nextState = MenuState::GameLobby;
             break;
         }
         case MenuState::JoinToLobby:
-        {          
+        {
             // handle setting up the lobby
-            _nextState = state; // prep to setDisplay
-            setDisplay(true);
-            // undo player name label offsets for clients
-            const float clientOffset = _layer->getContentHeight() / 6.0f;
-            _gamelobbyplayerName1->setPositionY(_gamelobbyplayerName1->getPositionY() - clientOffset);
-            _gamelobbyplayerName2->setPositionY(_gamelobbyplayerName2->getPositionY() - clientOffset);
-            _gamelobbyplayerName3->setPositionY(_gamelobbyplayerName3->getPositionY() - clientOffset);
-            _gamelobbyplayerName4->setPositionY(_gamelobbyplayerName4->getPositionY() - clientOffset);
-            _gamelobbyplayerName5->setPositionY(_gamelobbyplayerName5->getPositionY() - clientOffset);
+            setPlayerLabels({ "N/A", "N/A", "N/A", "N/A", "N/A" });
+            _lobbyRoomLabel->setText("Code: " + _gameSettings->getGameId());
 
-            _networkMessageManager->setPlayerName(_playerSettings->getPlayerName());
-            _networkMessageManager->setOtherNames({ "", "", "", "" });
-            _networkMessageManager->joinGame(_gameSettings->getGameId());
-            _networkMessageManager->setRoomID(_gameSettings->getGameId());
-            _networkMessageManager->sendMessages();
-            _networkMessageManager->receiveMessages();
-            _lobbyRoomLabel->setText(_gameSettings->getGameId());
-            _gameLobbyPlayerLabels[0]->setText(_playerSettings->getPlayerName());
-            setOtherPlayerLabels({ "N/A", "N/A", "N/A", "N/A" });
-            
-            _isHost = false;
-            state = MenuState::GameLobby;
-            _nextState = MenuState::GameLobby;
+            setDisplay(true);
+
+            state = _nextState = MenuState::GameLobby;
+            break;
+        }
+        case MenuState::GameSettingToLobby:
+        {
+            setDisplay(true);
+            state = _nextState = MenuState::GameLobby;
             break;
         }
         case MenuState::GameLobby:
         {
+            if (_networkMessageManager->getPlayerId() == 0) {
+                _gameStartBtn->setVisible(true);
+                _gameReadyBtn->setVisible(false);
+                _gameReadyBtn->deactivate();
+            }
+            else if (_networkMessageManager->getPlayerId() > 0) {
+                _gameStartBtn->setVisible(false);
+                _gameReadyBtn->setVisible(true);
+                _gameReadyBtn->activate();
+            }
+
+            if (_isReadyToStart && _gameStartBtn->isActive() && _gameStartBtn->isDown()) {
+                _networkMessageManager->setGameState(GameState::GameStarted);
+                _networkMessageManager->sendMessages();
+                _nextState = MenuState::LobbyToGame;
+            }
+
             _networkMessageManager->sendMessages();
             _networkMessageManager->receiveMessages();
-            _lobbyRoomLabel->setText(_networkMessageManager->getRoomId());
-            vector<string> othernames = _networkMessageManager->getOtherNames();
-            // update other players' labels
-            for (int ii = 0; ii < othernames.size(); ii++) {
-                if (othernames[ii] != "") {
-                    _gameLobbyPlayerLabels[ii+1]->setText(othernames[ii]);
+            _lobbyRoomLabel->setText("Code: " + _networkMessageManager->getRoomId());
+
+            bool isReady = true;
+            int pindex = 0;
+            for (const auto& p : _networkMessageManager->getPlayerMap()) {
+                if (get<1>(p.second) == false || p.first < 0) { // ready 
+                    isReady = false;
+                }
+                if (p.first == 0) {
+                    _gameLobbyPlayerLabels[0]->setText(get<0>(p.second));
+                    _gameLobbyPlayerNames[0]->setVisible(get<1>(p.second));
+                    pindex++;
+                }
+                else if (pindex < 5) {
+                    _gameLobbyPlayerLabels[pindex]->setText(get<0>(p.second));
+                    _gameLobbyPlayerNames[pindex]->setVisible(get<1>(p.second));
+                    pindex++;
                 }
             }
+
+            if (isReady && _networkMessageManager->getPlayerId() == 0) {
+                _isReadyToStart = true;
+                _gameStartBtn->setDown(false);
+                _gameStartBtn->activate();
+            }
+            else {
+                _isReadyToStart = false;
+                _gameStartBtn->setDown(true);
+                _gameStartBtn->deactivate();
+            }
+
+            if (_gameReadyBtn->isActive() && _gameReadyBtn->isDown()) { // handle non-host press
+                _gameReadyBtn->deactivate();
+            }
+
             // handle room player updates and triggering game start
             if (_networkMessageManager->getGameState() == GameState::GameInProgress) {
                 _nextState = MenuState::LobbyToGame;
             }
 
-            // Update game setting button labels for the Host
-            _spawnRateLabel->setText(cugl::strtool::to_string(_gameSettings->getSpawnRate(), 1) + "X");
-            _gravStrengthLabel->setText(cugl::strtool::to_string(_gameSettings->getGravStrength(), 1) + "X");
-            _colorCountLabel->setText(cugl::strtool::to_string(_gameSettings->getColorCount()));
-            _layerSizeLabel->setText(cugl::strtool::to_string(_gameSettings->getPlanetStardustPerLayer()));
-
             state = _nextState;
             break;
         }
         default:
-        {            
+        {
             // hide menu screen
             if (_layer != nullptr && _layer->isVisible()) {
-                // undo player name labels offsets for clients
-                if (!_isHost) {
-                    const float clientOffset = _layer->getContentHeight() / 6.0f;
-                    _gamelobbyplayerName1->setPositionY(_gamelobbyplayerName1->getPositionY() + clientOffset);
-                    _gamelobbyplayerName2->setPositionY(_gamelobbyplayerName2->getPositionY() + clientOffset);
-                    _gamelobbyplayerName3->setPositionY(_gamelobbyplayerName3->getPositionY() + clientOffset);
-                    _gamelobbyplayerName4->setPositionY(_gamelobbyplayerName4->getPositionY() + clientOffset);
-                    _gamelobbyplayerName5->setPositionY(_gamelobbyplayerName5->getPositionY() + clientOffset);
-                }
+                _isReadyToStart = false;
                 setDisplay(false);
                 _nextState = MenuState::GameLobby;
             }

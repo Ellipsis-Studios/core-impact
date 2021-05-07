@@ -82,7 +82,6 @@ void LoadingScene::dispose() {
     _gameTitle = nullptr;
     _gamePlanet = nullptr;
     _progress = 0.0f;
-    _isLoaded = false;
 }
 
 #pragma mark -
@@ -95,34 +94,14 @@ void LoadingScene::dispose() {
  * @param timestep  The amount of time (in seconds) since the last frame
  */
 void LoadingScene::update(float progress) {
-    if (_isLoaded) {
-        // move game title/planet
-        auto root = getChildByName("loadingScene");
-        float rend = root->getContentWidth() / 4.0f;
-
-        if (_gamePlanet->getPositionX() > rend) {
-            /** Move game planet/title to the left */
-            auto newx = _gamePlanet->getPositionX() - (rend / 60.0f);
-            _gamePlanet->setPositionX(newx);
-            _gameTitle->setPositionX(newx);
-        }
-        else {
-            /** Completed movement. Trigger main menu scene. */
-            _gamePlanet->setPositionX(rend);
-            _gameTitle->setPositionX(rend);
-            _active = false;
-        }
+    _progress = _assets->progress();
+    if (_progress >= 1) {
+        _progress = 1.0f;
+        _bar->setVisible(false);
+        _gameTitle->setVisible(true);
+        _gamePlanet->setVisible(true);
+        _teamlogo->setVisible(true);
+        _active = false;
     }
-    else if (_progress < 1) {
-        _progress = _assets->progress();
-        if (_progress >= 1) {
-            _progress = 1.0f;
-            _bar->setVisible(false);
-            _gameTitle->setVisible(true);
-            _gamePlanet->setVisible(true);
-            _teamlogo->setVisible(true);
-            _isLoaded = true;
-        }
-        _bar->setProgress(_progress);
-    }
+    _bar->setProgress(_progress);
 }

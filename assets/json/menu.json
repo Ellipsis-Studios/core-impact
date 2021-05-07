@@ -49,13 +49,26 @@
       "file": "textures/toggleOffButton.png"
     },
     "volumeBarKnob": {
-        "file": "textures/volumeBarKnob.png"
+      "file": "textures/volumeBarKnob.png"
     },
     "volumeBarPath": {
-        "file": "textures/volumeBarPath.png"
+      "file": "textures/volumeBarPath.png"
+    },
+    "delbutton": {
+      "file": "textures/deleteKeyPad.png"
+    },
+    "joinbutton": {
+      "file": "textures/joinCheck.png"
+    },
+    "loadingcircle": {
+      "file": "textures/loadingCircle.png"
     }
   },
   "fonts": {
+    "saira40": {
+      "file": "fonts/SairaSemicondensed.ttf",
+      "size": 40
+    },
     "saira32": {
       "file": "fonts/SairaSemicondensed.ttf",
       "size": 32
@@ -73,7 +86,11 @@
     "nameinput": "widgets/nameinput.json",
     "lobbybutton": "widgets/lobbybutton.json",
     "lobbybtnlabel": "widgets/lobbylabel.json",
-    "pnamelabel": "widgets/pnamelabel.json"
+    "pnamelabel": "widgets/pnamelabel.json",
+    "lobbyimagebutton": "widgets/lobbyimagebutton.json",
+    "submenubutton": "widgets/submenubutton.json",
+    "popuplabel": "widgets/popuplabel.json",
+    "popuperror": "widgets/popuperror.json"
   },
   "scene2s": {
     "menu": {
@@ -210,8 +227,8 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.2,
-            "y_offset": 0.25
+            "x_offset": -0.3,
+            "y_offset": -0.05
           }
         },
         "settingsbutton": {
@@ -240,7 +257,8 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.2
+            "x_offset": 0.0,
+            "y_offset": -0.05
           }
         },
         "tutorialbutton": {
@@ -256,8 +274,8 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.2,
-            "y_offset": -0.25
+            "x_offset": 0.3,
+            "y_offset": -0.05
           }
         }
       }
@@ -272,11 +290,31 @@
         "color": [0, 0, 0, 0]
       },
       "children": {
+        "title": {
+          "type": "Label",
+          "data": {
+            "font": "saira40",
+            "text": "Lobby",
+            "foreground": [255, 255, 255, 255],
+            "background": [0, 0, 0, 0],
+            "size": [300, 80],
+            "anchor": [0.5, 0.5],
+            "halign": "center",
+            "valign": "middle",
+            "visible": false
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": 0.0,
+            "y_offset": 0.38
+          }
+        },
         "roomidlabel": {
           "comment": "The text label showing the current game room id",
           "type": "Label",
           "data": {
-            "font": "saira32",
+            "font": "saira24",
             "text": "",
             "foreground": [255, 255, 255, 255],
             "background": [0, 0, 0, 0],
@@ -289,8 +327,8 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.425,
-            "y_offset": 0.4
+            "x_offset": 0.0,
+            "y_offset": 0.3
           }
         },
         "playerlabel1": {
@@ -302,8 +340,8 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.245,
-            "y_offset": 0.365
+            "x_offset": -0.3,
+            "y_offset": 0.1
           }
         },
         "playerlabel2": {
@@ -318,8 +356,8 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.125,
-            "y_offset": 0.2
+            "x_offset": 0.0,
+            "y_offset": 0.1
           }
         },
         "playerlabel3": {
@@ -334,8 +372,8 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.37,
-            "y_offset": 0.2
+            "x_offset": 0.3,
+            "y_offset": 0.1
           }
         },
         "playerlabel4": {
@@ -350,8 +388,8 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.125,
-            "y_offset": 0.05
+            "x_offset": -0.16,
+            "y_offset": -0.1
           }
         },
         "playerlabel5": {
@@ -366,24 +404,131 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.37,
-            "y_offset": 0.05
+            "x_offset": 0.16,
+            "y_offset": -0.1
           }
         },
-        "spawnratebuttonlabel": {
+        "gamesettingsbutton": {
           "type": "Widget",
           "data": {
-            "key": "lobbybtnlabel",
+            "key": "submenubutton",
             "variables": {
-              "text": "Stardust",
-              "text2": "Spawn"
+              "text": "Game Settings",
+              "size": [200, 50],
+              "nodeSize": [240, 80],
+              "font": "saira24"
             }
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.07,
-            "y_offset": -0.2
+            "x_offset": 0.32,
+            "y_offset": 0.34
+          }
+        },
+        "startgamebutton": {
+          "comment": "The start game button to launch game from the game lobby",
+          "type": "Widget",
+          "data": {
+            "key": "submenubutton",
+            "variables": {
+              "text": "Start",
+              "size": [200, 50],
+              "nodeSize": [240, 80]
+            }
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": 0.0,
+            "y_offset": -0.38
+          }
+        },
+        "readygamebutton": {
+          "type": "Widget",
+          "data": {
+            "key": "submenubutton",
+            "variables": {
+              "text": "Ready",
+              "size": [200, 50],
+              "nodeSize": [240, 80]
+            }
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": 0.0,
+            "y_offset": -0.38
+          }
+        }
+      }
+    },
+    "gamesettings": {
+      "type": "Solid",
+      "format": {
+        "type": "Anchored"
+      },
+      "data": {
+        "color": [0, 0, 0, 0]
+      },
+      "children": {
+        "title": {
+          "type": "Label",
+          "data": {
+            "font": "saira32",
+            "text": "Game Settings",
+            "foreground": [255, 255, 255, 255],
+            "background": [0, 0, 0, 0],
+            "size": [300, 80],
+            "anchor": [0.5, 0.5],
+            "halign": "center",
+            "valign": "middle",
+            "visible": false
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": 0.0,
+            "y_offset": 0.38
+          }
+        },
+        "subtitle": {
+          "type": "Label",
+          "data": {
+            "font": "saira24",
+            "text": "Only game host can change the settings.",
+            "foreground": [255, 255, 255, 255],
+            "background": [0, 0, 0, 0],
+            "size": [300, 80],
+            "anchor": [0.5, 0.5],
+            "halign": "center",
+            "valign": "middle",
+            "visible": false
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": 0.0,
+            "y_offset": 0.32
+          }
+        },
+        "spawnratebuttonlabel": {
+          "type": "Label",
+          "data": {
+            "font": "saira24",
+            "text": "Stardust Spawn Rate",
+            "foreground": [255, 255, 255, 255],
+            "background": [0, 0, 0, 0],
+            "size": [300, 80],
+            "anchor": [0.5, 0.5],
+            "valign": "middle",
+            "visible": false
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": -0.05,
+            "y_offset": 0.16
           }
         },
         "spawnratebutton": {
@@ -392,30 +537,35 @@
           "data": {
             "key": "lobbybutton",
             "variables": {
-              "text": "1.0X"
+              "text": "1.0X",
+              "font": "saira24",
+              "size": [80, 60]
             }
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.07,
-            "y_offset": -0.2
+            "x_offset": 0.12,
+            "y_offset": 0.16
           }
         },
         "gravstrengthbuttonlabel": {
-          "type": "Widget",
+          "type": "Label",
           "data": {
-            "key": "lobbybtnlabel",
-            "variables": {
-              "text": "Planet",
-              "text2": "Gravity"
-            }
+            "font": "saira24",
+            "text": "Planet Gravity",
+            "foreground": [255, 255, 255, 255],
+            "background": [0, 0, 0, 0],
+            "size": [300, 80],
+            "anchor": [0.5, 0.5],
+            "valign": "middle",
+            "visible": false
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.19,
-            "y_offset": -0.2
+            "x_offset": -0.05,
+            "y_offset": 0.0
           }
         },
         "gravstrengthbutton": {
@@ -424,62 +574,35 @@
           "data": {
             "key": "lobbybutton",
             "variables": {
-              "text": "1.0X"
+              "text": "1.0X",
+              "font": "saira24",
+              "size": [80, 60]
             }
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.19,
-            "y_offset": -0.2
-          }
-        },
-        "colorcountbuttonlabel": {
-          "type": "Widget",
-          "data": {
-            "key": "lobbybtnlabel",
-            "variables": {
-              "text": "Available",
-              "text2": "Colors"
-            }
-          },
-          "layout": {
-            "x_anchor": "center",
-            "y_anchor": "middle",
-            "x_offset": 0.31,
-            "y_offset": -0.2
-          }
-        },
-        "colorcountbutton": {
-          "comment": "Button to edit the game stardust color count",
-          "type": "Widget",
-          "data": {
-            "key": "lobbybutton",
-            "variables": {
-              "text": "6"
-            }
-          },
-          "layout": {
-            "x_anchor": "center",
-            "y_anchor": "middle",
-            "x_offset": 0.31,
-            "y_offset": -0.2
+            "x_offset": 0.12,
+            "y_offset": 0.0
           }
         },
         "wincondbuttonlabel": {
-          "type": "Widget",
+          "type": "Label",
           "data": {
-            "key": "lobbybtnlabel",
-            "variables": {
-              "text": "Layer",
-              "text2": "Size"
-            }
+            "font": "saira24",
+            "text": "Layer Size",
+            "foreground": [255, 255, 255, 255],
+            "background": [0, 0, 0, 0],
+            "size": [300, 80],
+            "anchor": [0.5, 0.5],
+            "valign": "middle",
+            "visible": false
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.43,
-            "y_offset": -0.2
+            "x_offset": -0.05,
+            "y_offset": -0.16
           }
         },
         "wincondbutton": {
@@ -488,33 +611,120 @@
           "data": {
             "key": "lobbybutton",
             "variables": {
-              "text": "200"
+              "text": "200",
+              "font": "saira24",
+              "size": [80, 60]
             }
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.43,
-            "y_offset": -0.2
+            "x_offset": 0.12,
+            "y_offset": -0.16
           }
         },
-        "startgamebutton": {
-          "comment": "The start game button to launch game from the game lobby",
+        "applybutton": {
           "type": "Widget",
           "data": {
             "key": "menubutton",
             "variables": {
-              "text": "Start",
-              "text2": "Start",
-              "size": [240, 50],
-              "size2": [240, 50]
+              "text": "Apply",
+              "text2": "Apply",
+              "size": [200, 50],
+              "size2": [200, 50],
+              "nodeSize": [240, 80]
             }
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.25,
-            "y_offset": -0.4
+            "x_offset": 0.0,
+            "y_offset": -0.38
+          }
+        }
+      }
+    },
+    "namemenu": {
+      "comment": "Name menu screen",
+      "type": "Solid",
+      "format": {
+        "type": "Anchored"
+      },
+      "data": {
+        "color": [0, 0, 0, 0]
+      },
+      "children": {
+        "title": {
+          "type": "Label",
+          "data": {
+            "font": "saira32",
+            "text": "Enter Name",
+            "foreground": [255, 255, 255, 255],
+            "background": [0, 0, 0, 0],
+            "size": [300, 80],
+            "anchor": [0.5, 0.5],
+            "halign": "center",
+            "valign": "middle",
+            "visible": false
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": 0.0,
+            "y_offset": 0.38
+          }
+        },
+        "subtitle": {
+          "type": "Label",
+          "data": {
+            "font": "saira24",
+            "text": "Your name will be saved for future games.",
+            "foreground": [255, 255, 255, 255],
+            "background": [0, 0, 0, 0],
+            "size": [300, 80],
+            "anchor": [0.5, 0.5],
+            "halign": "center",
+            "valign": "middle",
+            "visible": false
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": 0.0,
+            "y_offset": 0.28
+          }
+        },
+        "nameinput": {
+          "comment": "The player name text input in Settings.",
+          "type": "Widget",
+          "data": {
+            "key": "nameinput"
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": 0.0,
+            "y_offset": 0.05
+          }
+        },
+        "submitbutton": {
+          "comment": "Number pad Join",
+          "type": "Widget",
+          "data": {
+            "key": "lobbyimagebutton",
+            "variables": {
+              "size": [75, 75],
+              "texture": "joinbutton",
+              "scale": 1.4,
+              "xoffset": -0.2,
+              "yoffset": -0.15
+            }
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": 0.34,
+            "y_offset": 0.05
           }
         }
       }
@@ -529,42 +739,314 @@
         "color": [0, 0, 0, 0]
       },
       "children": {
-        "joingamebutton": {
-          "comment": "The 'Join Game' button to join the game lobby.",
+        "title": {
+          "comment": "The 'Enter Code' page heading.",
+          "type": "Label",
+          "format": {
+            "type": "Anchored"
+          },
+          "data": {
+            "font": "saira32",
+            "text": "Enter Code",
+            "foreground": [255, 255, 255, 255],
+            "background": [0, 0, 0, 0],
+            "size": [300, 80],
+            "anchor": [0.5, 0.5],
+            "halign": "center",
+            "valign": "middle"
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": 0.0,
+            "y_offset": 0.3
+          }
+        },
+        "roomid1": {
+          "comment": "The 1st room id label.",
           "type": "Widget",
           "data": {
-            "key": "menubutton",
+            "key": "pnamelabel",
             "variables": {
-              "text": "Join Game",
-              "text2": "Join Game"
+              "size": [54, 80]
             }
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.25,
-            "y_offset": -0.15
+            "x_offset": -0.32,
+            "y_offset": 0.0
           }
         },
-        "roomidinput": {
-          "comment": "The Game Room Id text input in Join Game page",
-          "type": "TextField",
+        "roomid2": {
+          "comment": "The 2nd room id label.",
+          "type": "Widget",
           "data": {
-            "font": "saira32",
-            "text": "",
-            "foreground": [255, 255, 255, 255],
-            "background": [0, 0, 0, 255],
-            "size": [300, 80],
-            "anchor": [0.5, 0.5],
-            "halign": "center",
-            "valign": "middle",
-            "visible": false
+            "key": "pnamelabel",
+            "variables": {
+              "size": [54, 80]
+            }
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.25,
-            "y_offset": 0.05
+            "x_offset": -0.25,
+            "y_offset": 0.0
+          }
+        },
+        "roomid3": {
+          "comment": "The 3rd room id label.",
+          "type": "Widget",
+          "data": {
+            "key": "pnamelabel",
+            "variables": {
+              "size": [54, 80]
+            }
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": -0.18,
+            "y_offset": 0.0
+          }
+        },
+        "roomid4": {
+          "comment": "The 4th room id label.",
+          "type": "Widget",
+          "data": {
+            "key": "pnamelabel",
+            "variables": {
+              "size": [54, 80]
+            }
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": -0.11,
+            "y_offset": 0.0
+          }
+        },
+        "roomid5": {
+          "comment": "The 5th room id label.",
+          "type": "Widget",
+          "data": {
+            "key": "pnamelabel",
+            "variables": {
+              "size": [54, 80]
+            }
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": -0.04,
+            "y_offset": 0.0
+          }
+        },
+        "numpad1": {
+          "comment": "Number pad 1",
+          "type": "Widget",
+          "data": {
+            "key": "lobbybutton",
+            "variables": {
+              "text": "1",
+              "size": [75, 75]
+            }
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": 0.14,
+            "y_offset": 0.17
+          }
+        },
+        "numpad2": {
+          "comment": "Number pad 2",
+          "type": "Widget",
+          "data": {
+            "key": "lobbybutton",
+            "variables": {
+              "text": "2",
+              "size": [75, 75]
+            }
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": 0.24,
+            "y_offset": 0.17
+          }
+        },
+        "numpad3": {
+          "comment": "Number pad 3",
+          "type": "Widget",
+          "data": {
+            "key": "lobbybutton",
+            "variables": {
+              "text": "3",
+              "size": [75, 75]
+            }
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": 0.34,
+            "y_offset": 0.17
+          }
+        },
+        "numpad4": {
+          "comment": "Number pad 4",
+          "type": "Widget",
+          "data": {
+            "key": "lobbybutton",
+            "variables": {
+              "text": "4",
+              "size": [75, 75]
+            }
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": 0.14,
+            "y_offset": 0.01
+          }
+        },
+        "numpad5": {
+          "comment": "Number pad 5",
+          "type": "Widget",
+          "data": {
+            "key": "lobbybutton",
+            "variables": {
+              "text": "5",
+              "size": [75, 75]
+            }
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": 0.24,
+            "y_offset": 0.01
+          }
+        },
+        "numpad6": {
+          "comment": "Number pad 6",
+          "type": "Widget",
+          "data": {
+            "key": "lobbybutton",
+            "variables": {
+              "text": "6",
+              "size": [75, 75]
+            }
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": 0.34,
+            "y_offset": 0.01
+          }
+        },
+        "numpad7": {
+          "comment": "Number pad 7",
+          "type": "Widget",
+          "data": {
+            "key": "lobbybutton",
+            "variables": {
+              "text": "7",
+              "size": [75, 75]
+            }
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": 0.14,
+            "y_offset": -0.15
+          }
+        },
+        "numpad8": {
+          "comment": "Number pad 8",
+          "type": "Widget",
+          "data": {
+            "key": "lobbybutton",
+            "variables": {
+              "text": "8",
+              "size": [75, 75]
+            }
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": 0.24,
+            "y_offset": -0.15
+          }
+        },
+        "numpad9": {
+          "comment": "Number pad 9",
+          "type": "Widget",
+          "data": {
+            "key": "lobbybutton",
+            "variables": {
+              "text": "9",
+              "size": [75, 75]
+            }
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": 0.34,
+            "y_offset": -0.15
+          }
+        },
+        "numpaddel": {
+          "comment": "Number pad Del",
+          "type": "Widget",
+          "data": {
+            "key": "lobbyimagebutton",
+            "variables": {
+              "size": [75, 75],
+              "scale": 0.1
+            }
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": 0.14,
+            "y_offset": -0.31
+          }
+        },
+        "numpad0": {
+          "comment": "Number pad 0",
+          "type": "Widget",
+          "data": {
+            "key": "lobbybutton",
+            "variables": {
+              "text": "0",
+              "size": [75, 75]
+            }
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": 0.24,
+            "y_offset": -0.31
+          }
+        },
+        "numpadjoin": {
+          "comment": "Number pad Join",
+          "type": "Widget",
+          "data": {
+            "key": "lobbyimagebutton",
+            "variables": {
+              "size": [75, 75],
+              "texture": "joinbutton",
+              "scale": 1.4,
+              "xoffset": -0.2,
+              "yoffset": -0.15
+            }
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": 0.34,
+            "y_offset": -0.31
           }
         }
       }
@@ -589,12 +1071,14 @@
             "background": [0, 0, 0, 0],
             "size": [300, 80],
             "anchor": [0.5, 0.5],
+            "halign": "center",
+            "valign": "middle",
             "visible": false
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.35,
+            "x_offset": 0.0,
             "y_offset": 0.35
           }
         },
@@ -608,13 +1092,14 @@
             "background": [0, 0, 0, 0],
             "size": [300, 80],
             "anchor": [0.5, 0.5],
+            "valign": "middle",
             "visible": false
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.2,
-            "y_offset": 0.21
+            "x_offset": -0.1,
+            "y_offset": 0.18
           }
         },
         "nameinput": {
@@ -626,7 +1111,7 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.3,
+            "x_offset": 0.1,
             "y_offset": 0.18
           }
         },
@@ -640,13 +1125,14 @@
             "background": [0, 0, 0, 0],
             "size": [300, 80],
             "anchor": [0.5, 0.5],
+            "valign": "middle",
             "visible": false
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.2,
-            "y_offset": 0.07
+            "x_offset": -0.1,
+            "y_offset": 0.04
           }
         },
         "musicinput": {
@@ -658,7 +1144,7 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.4,
+            "x_offset": 0.1,
             "y_offset": 0.04
           }
         },
@@ -672,13 +1158,14 @@
             "background": [0, 0, 0, 0],
             "size": [300, 80],
             "anchor": [0.5, 0.5],
+            "valign": "middle",
             "visible": false
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.2,
-            "y_offset": -0.06
+            "x_offset": -0.1,
+            "y_offset": -0.09
           }
         },
         "volumeinput": {
@@ -689,7 +1176,7 @@
             "range": [0, 1],
             "value": 0.5,
             "anchor": [0.5, 0.5],
-            "scale": 0.70,
+            "scale": 0.7,
             "visible": false,
             "knob": {
               "type": "Button",
@@ -754,7 +1241,7 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.327,
+            "x_offset": 0.1,
             "y_offset": -0.09
           }
         },
@@ -768,13 +1255,14 @@
             "background": [0, 0, 0, 0],
             "size": [300, 80],
             "anchor": [0.5, 0.5],
+            "valign": "middle",
             "visible": false
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.2,
-            "y_offset": -0.2
+            "x_offset": -0.1,
+            "y_offset": -0.22
           }
         },
         "parallaxinput": {
@@ -786,10 +1274,51 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.4,
+            "x_offset": 0.1,
             "y_offset": -0.22
           }
         }
+      }
+    },
+    "popup": {
+      "type": "Solid",
+      "format": {
+        "type": "Anchored"
+      },
+      "data": {
+        "color": [0, 0, 0, 0]
+      },
+      "children": {
+        "subscreen": {
+          "type": "Widget",
+          "data": {
+            "key": "popuplabel",
+            "variables": {
+              "size": [300, 200]
+            }
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle"
+          }
+        },
+        "errorscreen": {
+          "type": "Widget",
+          "data": {
+            "key": "popuperror",
+            "variables": {
+              "size": [300, 200]
+            }
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle"
+          }
+        }
+      },
+      "layout": {
+        "x_anchor": "center",
+        "y_anchor": "middle"
       }
     },
     "pause": {
@@ -817,7 +1346,7 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-	    "x_offset": 0.09,
+            "x_offset": 0.09,
             "y_offset": 0.35
           }
         },
@@ -906,7 +1435,7 @@
             "x_anchor": "center",
             "y_anchor": "middle",
             "x_offset": -0.15,
-	    "y_offset": -0.04
+            "y_offset": -0.04
           }
         },
         "parallaxinput": {
@@ -922,7 +1451,7 @@
             "y_offset": -0.07
           }
         },
-	"resumebutton": {
+        "resumebutton": {
           "comment": "The resume game button in pause menu.",
           "type": "Widget",
           "data": {
@@ -939,7 +1468,7 @@
             "y_offset": -0.27
           }
         },
-	"exitgamebutton": {
+        "exitgamebutton": {
           "comment": "The exit game button in pause menu.",
           "type": "Widget",
           "data": {

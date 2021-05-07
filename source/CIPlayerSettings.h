@@ -1,11 +1,11 @@
-//
+﻿//
 //  CIPlayerSettings.h
 //  CoreImpact
 //
 //  This model class stores player settings that users can change from the menu scene
 //
 //  Created by Richard Yoon on 4/18/21.
-//  Copyright � 2021 Game Design Initiative at Cornell. All rights reserved.
+//  Copyright © 2021 Game Design Initiative at Cornell. All rights reserved.
 //
 
 #ifndef __CI_PLAYER_SETTINGS_H__
@@ -27,6 +27,8 @@ private:
     bool _musicOn;
     /** Whether game parallax effect is turned on/off */
     bool _parallaxOn;
+    /** Whether player is new */
+    bool _isNew;
 
 public:
 #pragma mark Constructors
@@ -40,6 +42,7 @@ public:
         _volume = CONSTANTS::DEFAULT_VOLUME;
         _musicOn = CONSTANTS::DEFAULT_MUSIC_ON;
         _parallaxOn = CONSTANTS::DEFAULT_PARALLAX_ON;
+        _isNew = false;
         return true;
     }
 
@@ -138,6 +141,20 @@ public:
      */
     void setParallaxOn(bool parallaxOn) {
         _parallaxOn = parallaxOn;
+    }
+
+    /**
+     * Sets whether the player is new.
+     */
+    void setIsNew(bool isNew) {
+        _isNew = isNew;
+    }
+
+    /**
+     * Returns whether the player is new.
+     */
+    bool getIsNew() const {
+        return _isNew;
     }
 
 };
