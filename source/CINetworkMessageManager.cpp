@@ -261,7 +261,6 @@ void NetworkMessageManager::receiveMessages() {
     // Check game room members
     if (getPlayerId() == 0) {
         std::vector<int> eraseId;
-        bool isRemove = false;
 
         for (const auto& p : _playerMap) {
             if (p.first > 0) {
@@ -277,17 +276,14 @@ void NetworkMessageManager::receiveMessages() {
                     _conn->send(data);
                     data.clear();
                     CULog("SENT DISCONNECT PLAYER MESSAGE> PLAYER[%i]", p.first);
-                    isRemove = true;
                 }
             }
         }
         for (int id : eraseId) {
             _playerMap.erase(id);
         }
-        if (isRemove)
-            return;
     }
-    else {
+    else if (getPlayerId() > 0) {
         // check if network connection lost 
         if (_conn->getStatus() == cugl::CUNetworkConnection::NetStatus::Disconnected 
             || !_conn->isPlayerActive(0)) {

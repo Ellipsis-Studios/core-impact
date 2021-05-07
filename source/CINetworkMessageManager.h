@@ -257,7 +257,8 @@ private:
             || messageType == NetworkUtils::MessageType::NameSent
             || messageType == NetworkUtils::MessageType::NameReceivedResponse
             || messageType == NetworkUtils::MessageType::UpdateSetting
-            || messageType == NetworkUtils::MessageType::ReadyGame;
+            || messageType == NetworkUtils::MessageType::ReadyGame
+            || messageType == NetworkUtils::MessageType::DisconnectGame;
     }
 
 };
