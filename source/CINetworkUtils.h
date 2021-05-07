@@ -38,7 +38,8 @@ public:
         NameSent = 8,
         NameReceivedResponse = 9,
         UpdateSetting = 10,
-        ReadyGame = 11
+        ReadyGame = 11,
+        DisconnectGame = 12
     };
 
     /**

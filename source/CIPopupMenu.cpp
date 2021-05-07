@@ -138,7 +138,7 @@ void PopupMenu::update(MenuState& state, float timestep) {
 
             // TODO: make this circle rotate properly
             //_windowCircle->setAngle(_windowCircle->getAngle() + ((timestep / 0.5f) * 6.28319));
-            if (_timer > 5.0f) {
+            if (_timer > 8.0f && _timer > 5.0f) {
                 _networkMessageManager->sendMessages();
                 _networkMessageManager->receiveMessages();
 

@@ -40,7 +40,8 @@ void GameSettingsMenu::dispose() {
     _title = nullptr;
     _layer = nullptr;
     _nextState = MenuState::GameSetting;
-    _currSpawn = _currGrav = _currWin = 2;
+    _currSpawn = _currGrav = 2;
+    _currWin = 1;
 }
 
 bool GameSettingsMenu::init(const std::shared_ptr<cugl::AssetManager>& assets,
@@ -74,7 +75,8 @@ bool GameSettingsMenu::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _gravStrengthBtnLabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("gamesettings_gravstrengthbuttonlabel"));
     _layerSizeBtnLabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("gamesettings_wincondbuttonlabel"));
 
-    _currSpawn = _currGrav = _currWin = 2;
+    _currSpawn = _currGrav = 2;
+    _currWin = 1;
 
     // Setting buttons
     _spawnRateBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("gamesettings_spawnratebutton"));

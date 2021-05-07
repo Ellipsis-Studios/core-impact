@@ -259,6 +259,10 @@ void LobbyMenu::update(MenuState& state) {
             if (_networkMessageManager->getGameState() == GameState::GameInProgress) {
                 _nextState = MenuState::LobbyToGame;
             }
+            // handle room player disconnect
+            if (_networkMessageManager->getGameState() == GameState::DisconnectedFromGame) {
+                _nextState = MenuState::LobbyToGame;
+            }
 
             state = _nextState;
             break;
