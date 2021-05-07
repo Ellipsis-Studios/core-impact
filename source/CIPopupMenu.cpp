@@ -48,7 +48,7 @@ bool PopupMenu::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _errorLabel1 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("popup_errorscreen_label1"));
     _errorLabel2 = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("popup_errorscreen_label2"));
 
-    _timer = 9.0f;
+    _timer = 10.0f;
     return true;
 }
 
@@ -74,7 +74,7 @@ void PopupMenu::update(MenuState& state, float timestep) {
             _networkMessageManager->sendMessages();
             _networkMessageManager->receiveMessages();
 
-            _timer = 9.0f;
+            _timer = 10.0f;
             setDisplay(true);
             _window->setVisible(true);
             _windowLabel->setText("Creating game...");
@@ -94,7 +94,7 @@ void PopupMenu::update(MenuState& state, float timestep) {
             _networkMessageManager->sendMessages();
             _networkMessageManager->receiveMessages();
 
-            _timer = 9.0f;
+            _timer = 10.0f;
             setDisplay(true);
             _window->setVisible(true);
             _windowLabel->setText("Joining game...");
@@ -114,7 +114,7 @@ void PopupMenu::update(MenuState& state, float timestep) {
             _networkMessageManager->sendMessages();
             _networkMessageManager->receiveMessages();
 
-            _timer = 9.0f;
+            _timer = 10.0f;
             setDisplay(true);
             _window->setVisible(true);
             _windowLabel->setText("Reconnecting game...");
@@ -132,7 +132,7 @@ void PopupMenu::update(MenuState& state, float timestep) {
 
             // TODO: make this circle rotate properly
             //_windowCircle->setAngle(_windowCircle->getAngle() + ((timestep / 0.5f) * 6.28319));
-            if (_timer > 7.0f && _timer > 3.0f) {
+            if (_timer > 8.5f && _timer > 3.0f) {
                 _networkMessageManager->sendMessages();
                 _networkMessageManager->receiveMessages();
 
@@ -158,7 +158,7 @@ void PopupMenu::update(MenuState& state, float timestep) {
 
             // TODO: make this circle rotate properly
             //_windowCircle->setAngle(_windowCircle->getAngle() + ((timestep / 0.5f) * 6.28319));
-            if (_timer > 7.0f && _timer > 3.0f) {
+            if (_timer > 8.5f && _timer > 3.0f) {
                 _networkMessageManager->sendMessages();
                 _networkMessageManager->receiveMessages();
 
@@ -189,16 +189,14 @@ void PopupMenu::update(MenuState& state, float timestep) {
 
             // TODO: make this circle rotate properly
             //_windowCircle->setAngle(_windowCircle->getAngle() + ((timestep / 0.5f) * 6.28319));
-            if (_timer > 7.0f && _timer > 3.0f) {
+            if (_timer > 8.5f && _timer > 3.0f) {
                 _networkMessageManager->sendMessages();
                 _networkMessageManager->receiveMessages();
 
                 if (_networkMessageManager->getNetworkStatus() == CUNetworkConnection::NetStatus::Reconnecting) {
-                    CULog("Reconnecting %i", std::to_string(_networkMessageManager->getPlayerId()));
                     break;
                 }
                 else if (_networkMessageManager->getNetworkStatus() == CUNetworkConnection::NetStatus::Disconnected) {
-                    CULog("Disconnected %i", std::to_string(_networkMessageManager->getPlayerId()));
                     _timer = 2.9f;
                     break;
                 }
