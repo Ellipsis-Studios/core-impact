@@ -93,12 +93,11 @@
           },
           "data": {
             "texture": "nebula",
-            "anchor": [0.5, 1],
-            "scale": 0.75
+            "anchor": [0.5, 1]
           },
           "layout": {
-            "x_anchor": "center",
-            "y_anchor": "top"
+            "x_anchor": "fill",
+            "y_anchor": "fill"
           }
         },
         "title": {
