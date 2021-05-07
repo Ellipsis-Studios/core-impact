@@ -31,16 +31,16 @@
 #define CORE_END    151
 #define CORE_START  0
 
-#define OUTER_RING_ROWS             24
-#define OUTER_RING_COLS             13
+#define OUTER_RING_ROWS             14
+#define OUTER_RING_COLS             14
 #define OUTER_RING_UNLOCK_START     0
-#define OUTER_RING_UNLOCK_END       52
-#define OUTER_RING_PULSE_START      61
-#define OUTER_RING_PULSE_END        87
-#define OUTER_RING_LOCKIN_START     118
-#define OUTER_RING_LOCKIN_END       221
-#define OUTER_RING_LOCK_START       222
-#define OUTER_RING_LOCK_END         299
+#define OUTER_RING_UNLOCK_END       27
+#define OUTER_RING_PULSE_START      28
+#define OUTER_RING_PULSE_END        59
+#define OUTER_RING_LOCKIN_START     70
+#define OUTER_RING_LOCKIN_END       170
+#define OUTER_RING_LOCK_START       171
+#define OUTER_RING_LOCK_END         191
 
 class PlanetNode : public cugl::scene2::AnimationNode {
 private:
