@@ -285,11 +285,12 @@ void NetworkMessageManager::receiveMessages() {
     }
     else if (getPlayerId() > 0) {
         // check if network connection lost 
-        if (_conn->getStatus() == cugl::CUNetworkConnection::NetStatus::Disconnected 
-            || !_conn->isPlayerActive(0)) {
-            _gameState = GameState::DisconnectedFromGame;
-            _playerMap.clear();
-            return;
+        if (_conn->getStatus() == cugl::CUNetworkConnection::NetStatus::Disconnected) {
+            if (!_conn->isPlayerActive(0)) {
+                _gameState = GameState::DisconnectedFromGame;
+                _playerMap.clear();
+                return;
+            }
         }
     }
     
