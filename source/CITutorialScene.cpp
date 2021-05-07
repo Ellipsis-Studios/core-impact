@@ -416,6 +416,7 @@ void TutorialScene::update(float timestep) {
     _pauseMenu->update();
     if (_pauseMenu->getExitGame()){
         _tutorialStage = 13;
+        _tutorialText->setVisible(false);
         _pauseMenu->setDisplay(false);
         setActive(false);
     }

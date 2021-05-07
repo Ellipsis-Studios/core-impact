@@ -90,7 +90,7 @@ protected:
     std::shared_ptr<WinScene> _winScene;
     
 public:
-    int _tutorialStage;
+    int _tutorialStage = -1;
 #pragma mark -
 #pragma mark Constructors
     /**
