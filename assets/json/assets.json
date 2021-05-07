@@ -13,7 +13,7 @@
         "file":   "textures/innerLayerAnimation_v2.png"
     },
     "unlockedOuterRing": {
-        "file":   "textures/outerLayerAnimation_v4.png"
+        "file":   "textures/smallOuterLayerAnimation_v4.png"
     },
     "playerProgress": {
         "file":   "textures/playerProgressAnimation_v2.png"
