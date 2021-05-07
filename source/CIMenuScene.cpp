@@ -241,6 +241,12 @@ void MenuScene::update(float timestep) {
     const float loffset = getChildByName("menuScene")->getContentWidth() * (0.1f);
     _backBtn->setPositionX(loffset);
 
+    // handle network manager disconnect/reset    
+    if (_state == MenuState::LobbyToMain) {
+        CULog("Resetting network connection.");
+        _networkMessageManager->reset();
+    }
+
     // handle menu screens 
     switch (_state) 
     {
