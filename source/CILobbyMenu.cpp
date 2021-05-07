@@ -214,7 +214,11 @@ void LobbyMenu::update(MenuState& state) {
             else {
                 _gameStartBtn->setVisible(false);
                 _gameReadyBtn->setVisible(true);
-                _gameReadyBtn->activate();
+                if (get<1>(_networkMessageManager->getPlayerMap()[_networkMessageManager->getPlayerId()])) {
+                    _gameReadyBtn->deactivate();
+                    _gameReadyBtn->clearListeners();
+                    _gameReadyBtn->setDown(true);
+                }
             }
 
             if (_isReadyToStart && _gameStartBtn->isActive() && _gameStartBtn->isDown()) {
