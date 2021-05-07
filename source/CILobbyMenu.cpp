@@ -194,6 +194,7 @@ void LobbyMenu::update(MenuState& state) {
         }
         case MenuState::GameSettingToLobby:
         {
+            _gameReadyBtn->setDown(false);
             setDisplay(true);
             state = _nextState = MenuState::GameLobby;
             break;
@@ -267,6 +268,7 @@ void LobbyMenu::update(MenuState& state) {
             // hide menu screen
             if (_layer != nullptr && _layer->isVisible()) {
                 _isReadyToStart = false;
+                _gameReadyBtn->setDown(false);
                 setDisplay(false);
                 _nextState = MenuState::GameLobby;
             }
