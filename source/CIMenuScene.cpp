@@ -201,6 +201,8 @@ void MenuScene::update(float timestep) {
     {
         case MenuState::LoadToMain:
         case MenuState::MainMenu:
+        case MenuState::CreatingGame:
+        case MenuState::MenuToCreate:
             // display
             if (_gameTitle != nullptr) {
                 _gameTitle->setVisible(true);
