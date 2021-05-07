@@ -239,6 +239,12 @@ void LobbyMenu::update(MenuState& state) {
                     pindex++;
                 }
             }
+            
+            // handle disconnected players
+            for (; pindex < 5; pindex++) {
+                _gameLobbyPlayerLabels[pindex]->setText("N/A");
+                _gameLobbyPlayerNames[pindex]->setVisible(false);
+            }
 
             if (isReady && _networkMessageManager->getPlayerId() == 0) {
                 _isReadyToStart = true;

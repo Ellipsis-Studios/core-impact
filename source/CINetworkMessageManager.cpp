@@ -284,8 +284,12 @@ void NetworkMessageManager::receiveMessages() {
         }
     }
     else if (getPlayerId() > 0) {
-        // check if network connection lost 
-        if (_conn->getStatus() == cugl::CUNetworkConnection::NetStatus::Disconnected) {
+        // check if network connection lost
+        if (_conn->getStatus() == cugl::CUNetworkConnection::NetStatus::Reconnecting) {
+            CULog("Attempting to reconnect.");
+            return;
+        } else if (_conn->getStatus() == cugl::CUNetworkConnection::NetStatus::Disconnected) {
+            CULog("Disconnected from game. Returning to Main Menu.");
             if (!_conn->isPlayerActive(0)) {
                 _gameState = GameState::DisconnectedFromGame;
                 _playerMap.clear();

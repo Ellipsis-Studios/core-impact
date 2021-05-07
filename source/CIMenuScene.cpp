@@ -243,7 +243,7 @@ void MenuScene::update(float timestep) {
 
     // handle network manager disconnect/reset    
     if (_state == MenuState::LobbyToMain) {
-        CULog("Resetting network connection.");
+        CULog("Disconnecting/Resetting game network connection.");
         _networkMessageManager->reset();
     }
 
