@@ -57,7 +57,7 @@ public:
 	/**
 	 * Creates a new popup menu
 	 */
-	PopupMenu() : _timer(0.1f) {}
+	PopupMenu() : _timer(0.0f) {}
 
 	~PopupMenu() { dispose(); }
 

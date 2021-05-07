@@ -132,7 +132,12 @@ void PopupMenu::update(MenuState& state, float timestep) {
 
             // TODO: make this circle rotate properly
             //_windowCircle->setAngle(_windowCircle->getAngle() + ((timestep / 0.5f) * 6.28319));
-            if (_timer > 10.5f && _timer > 2.5f) {
+            if (_timer > 10.5f) {
+                _networkMessageManager->sendMessages();
+                _networkMessageManager->receiveMessages();
+                break;
+            } 
+            else if (_timer > 2.5f) {
                 _networkMessageManager->sendMessages();
                 _networkMessageManager->receiveMessages();
 
@@ -158,7 +163,12 @@ void PopupMenu::update(MenuState& state, float timestep) {
 
             // TODO: make this circle rotate properly
             //_windowCircle->setAngle(_windowCircle->getAngle() + ((timestep / 0.5f) * 6.28319));
-            if (_timer > 10.5f && _timer > 2.5f) {
+            if (_timer > 10.5f) {
+                _networkMessageManager->sendMessages();
+                _networkMessageManager->receiveMessages();
+                break;
+            }
+            else if (_timer > 2.5f) {
                 _networkMessageManager->sendMessages();
                 _networkMessageManager->receiveMessages();
 
@@ -189,7 +199,12 @@ void PopupMenu::update(MenuState& state, float timestep) {
 
             // TODO: make this circle rotate properly
             //_windowCircle->setAngle(_windowCircle->getAngle() + ((timestep / 0.5f) * 6.28319));
-            if (_timer > 10.5f && _timer > 2.5f) {
+            if (_timer > 10.5f) {
+                _networkMessageManager->sendMessages();
+                _networkMessageManager->receiveMessages();
+                break;
+            }
+            else if (_timer > 2.5f) {
                 _networkMessageManager->sendMessages();
                 _networkMessageManager->receiveMessages();
 
