@@ -82,9 +82,10 @@ protected:
     std::shared_ptr<cugl::Texture> _unlockedTexture;
     /** The texture on the outside of a locked ring */
     std::shared_ptr<cugl::Texture> _lockedTexture;
-    
     /** Texture for displaying a players progress. */
     std::shared_ptr<cugl::Texture> _planetProgressTexture;
+    /** Texture for displaying a players progress. */
+    std::vector<std::shared_ptr<cugl::Texture>> _powerupTextures;
     
 public:
     PlanetNode() : AnimationNode(), _timeElapsed(0) {}
@@ -97,12 +98,14 @@ public:
                                              const std::shared_ptr<cugl::Texture>& ring,
                                              const std::shared_ptr<cugl::Texture>& unlocked,
                                              const std::shared_ptr<cugl::Texture>& locked,
-                                             const std::shared_ptr<cugl::Texture>& progressTexture) {
+                                             const std::shared_ptr<cugl::Texture>& progressTexture,
+                                             const std::vector<std::shared_ptr<cugl::Texture>> powerupTextures) {
         std::shared_ptr<PlanetNode> node = std::make_shared<PlanetNode>();
         node->_ringTexture = ring;
         node->_unlockedTexture = unlocked;
         node->_lockedTexture = locked;
         node->_planetProgressTexture = progressTexture;
+        node->_powerupTextures = powerupTextures;
         return (node->AnimationNode::initWithFilmstrip(core, CORE_ROWS, CORE_COLS) ? node : nullptr);
     }
     

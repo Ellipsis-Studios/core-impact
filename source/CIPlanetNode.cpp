@@ -122,7 +122,7 @@ void PlanetNode::setLayers(std::vector<PlanetLayer>* layers) {
             }
             
             if (_progressNodes[ii] == nullptr) {
-                _progressNodes[ii] = PlanetProgressNode::alloc(_planetProgressTexture);
+                _progressNodes[ii] = PlanetProgressNode::alloc(_planetProgressTexture, _powerupTextures);
                 getScene()->addChild(_progressNodes[ii]);
             }
             _progressNodes[ii]->setLayer(layers->at(ii));

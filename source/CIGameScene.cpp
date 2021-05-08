@@ -117,7 +117,12 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     auto unlockedTexture = _assets->get<Texture>("unlockedOuterRing");
     auto lockedTexture = _assets->get<Texture>("lockedOuterRing");
     auto planetProgressTexture = _assets->get<Texture>("playerProgress");
-    _planet->setTextures(coreTexture, ringTexture, unlockedTexture, lockedTexture, planetProgressTexture);
+    std::vector<std::shared_ptr<cugl::Texture>> powerupTextures;
+    powerupTextures.push_back(_assets->get<Texture>("greyscale_standalone"));
+    powerupTextures.push_back(_assets->get<Texture>("meteor_shower_standalone"));
+    powerupTextures.push_back(_assets->get<Texture>("shooting_star_standalone"));
+    powerupTextures.push_back(_assets->get<Texture>("fog_standalone"));
+    _planet->setTextures(coreTexture, ringTexture, unlockedTexture, lockedTexture, planetProgressTexture, powerupTextures);
 
     _draggedStardust = NULL;
     _stardustContainer = StardustQueue::alloc(CONSTANTS::MAX_STARDUSTS, coreTexture);

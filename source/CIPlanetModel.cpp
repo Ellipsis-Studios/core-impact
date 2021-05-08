@@ -33,13 +33,15 @@ uint16_t PlanetModel::_winPlanetLayers = 3;
  * @param unlocked The texture on the outside of an unlocked ring
  * @param unlocked The texture on the outside of a locked ring
  * @param progressTexture The texture to display a players planet progress
+ * @param powerupTextures The list of textures to display powerups
  */
 void PlanetModel::setTextures(const std::shared_ptr<cugl::Texture>& core,
                               const std::shared_ptr<cugl::Texture>& ring,
                               const std::shared_ptr<cugl::Texture>& unlocked,
                               const std::shared_ptr<cugl::Texture>& locked,
-                              const std::shared_ptr<cugl::Texture>& progressTexture) {
-    _planetNode = PlanetNode::alloc(core, ring, unlocked, locked, progressTexture);
+                              const std::shared_ptr<cugl::Texture>& progressTexture,
+                              const std::vector<std::shared_ptr<cugl::Texture>> powerupTextures) {
+    _planetNode = PlanetNode::alloc(core, ring, unlocked, locked, progressTexture, powerupTextures);
     _planetNode->setAnchor(cugl::Vec2::ANCHOR_CENTER);
     _planetNode->setLayers(&_layers);
     _planetNode->setPosition(_position);
