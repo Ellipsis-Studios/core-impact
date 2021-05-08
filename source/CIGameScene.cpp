@@ -91,6 +91,11 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _farSpace = std::dynamic_pointer_cast<scene2::AnimationNode>(_assets->get<scene2::SceneNode>("game_field_far"));
     _nearSpace = _assets->get<scene2::SceneNode>("game_field_near");
     
+    // If height is exceeded by the screen size, fix the height by screen size
+    if ((dimen.height / _farSpace->getHeight()) > 1){
+        _farSpace->setScale(dimen.height / _farSpace->getContentHeight());
+    }
+    
     // create the win scene
     _winScene = WinScene::alloc(assets, dimen);
 
