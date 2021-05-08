@@ -16,6 +16,7 @@
 void PlanetProgressNode::dispose() {
     _planetLayer = {};
     _progressTexture = nullptr;
+    _powerupTextures.clear();
     _timeElapsed = 0;
     _currFrame = 0;
     _opacities.clear();
@@ -37,6 +38,23 @@ void PlanetProgressNode::draw(const std::shared_ptr<cugl::SpriteBatch>& batch,
     cugl::Color4 color = CIColor::getColor4(c);
     color.a = 255 * _opacities[_opacitiesIndex];
     AnimationNode::draw(batch, progressTransform, color);
+    
+    if (_currFrame != 0 && c < 4) {
+        float powerupHeight = _powerupTextures.at(c)->getHeight();
+        float powerupWidth = _powerupTextures.at(c)->getWidth();
+        cugl::Mat4 powerupTransform;
+        cugl::Vec2 powerupOrigin = cugl::Vec2(0,0);
+        powerupTransform.translate(width * 5.0f, -height * 1.3f, 0);
+        powerupTransform.translate(_layerNum * width, 0, 0);
+        powerupTransform.translate(powerupWidth * 0.5f, powerupHeight * 0.5f, 0);
+        powerupTransform.multiply(transform);
+        
+        if (_currFrame < PROGRESS_ARC_END){
+            color.a = 128;
+        }
+        
+        batch->draw(_powerupTextures.at(c), color, powerupOrigin, powerupTransform);
+    }
 }
 
 /**
