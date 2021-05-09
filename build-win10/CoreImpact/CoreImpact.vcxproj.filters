@@ -147,6 +147,9 @@
     <ClInclude Include="..\..\source\CIPlanetProgressNode.h">
       <Filter>Header Files\View</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\source\CITutorialScene.h">
+      <Filter>Header Files\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="icon1.ico">
@@ -228,9 +231,6 @@
     <ClCompile Include="..\..\source\CISettingsMenu.cpp">
       <Filter>Source Files\Scene\Menu</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\source\CITutorialMenu.cpp">
-      <Filter>Source Files\Scene\Menu</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\source\CIMenuScene.cpp">
       <Filter>Source Files\Scene</Filter>
     </ClCompile>
@@ -242,6 +242,9 @@
     </ClCompile>
     <ClCompile Include="..\..\source\CIPlanetProgressNode.cpp">
       <Filter>Source Files\View</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\CITutorialScene.cpp">
+      <Filter>Source Files\Scene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -219,6 +219,7 @@
     <ClInclude Include="..\..\source\CIStardustNode.h" />
     <ClInclude Include="..\..\source\CIStardustQueue.h" />
     <ClInclude Include="..\..\source\CITutorialMenu.h" />
+    <ClInclude Include="..\..\source\CITutorialScene.h" />
     <ClInclude Include="..\..\source\CIWinScene.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
@@ -257,7 +258,7 @@
     <ClCompile Include="..\..\source\CIStardustModel.cpp" />
     <ClCompile Include="..\..\source\CIStardustNode.cpp" />
     <ClCompile Include="..\..\source\CIStardustQueue.cpp" />
-    <ClCompile Include="..\..\source\CITutorialMenu.cpp" />
+    <ClCompile Include="..\..\source\CITutorialScene.cpp" />
     <ClCompile Include="..\..\source\CIWinScene.cpp" />
     <ClCompile Include="..\..\source\main.cpp" />
   </ItemGroup>
