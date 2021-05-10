@@ -12,7 +12,7 @@
 #include "CIPlanetNode.h"
 #include "CIColor.h"
 
-#define PLANET_RADIUS_DELTA           1.5
+#define PLANET_RADIUS_DELTA             1
 #define INITIAL_PLANET_RADIUS          32
 #define LAYER_RADIUS_MULTIPLIER      1.85
 #define PLANET_MASS_DELTA              10

@@ -13,7 +13,7 @@
 #include "CIPlanetNode.h"
 #include <cugl/cugl.h>
 
-#define LOCK_IN_SCALE_DOWN  .75
+#define LOCK_IN_SCALE_DOWN  .90
 #define PLANETNODE_SPF .033 //seconds per frame
 
 void PlanetNode::draw(const std::shared_ptr<cugl::SpriteBatch>& batch,
@@ -87,10 +87,6 @@ void PlanetNode::setLayers(std::vector<PlanetLayer>* layers) {
             if (node->innerRing == nullptr) {
                 if (ii > 0) {
                     // decrease size of locked in layer slightly
-                    if (ii == 1) {
-                        _coreScale *= .8;
-                        setScale(_coreScale);
-                    }
                     LayerNode* prev = &_layerNodes[ii-1];
                     prev->innerRing->setScale(_layerScale*LOCK_IN_SCALE_DOWN/_coreScale);
                     prev->outerRing->setScale(PLANET_OUTER_RING_SCALE*_layerScale*LOCK_IN_SCALE_DOWN/_coreScale);
