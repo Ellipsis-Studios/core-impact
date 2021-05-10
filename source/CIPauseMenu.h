@@ -26,8 +26,6 @@
  */
 class PauseMenu {
 private:
-    /** Reference to the player settings */
-    std::shared_ptr<PlayerSettings> _playerSettings;
 
     // Asset references
     /** Reference to the node for the group representing this menu scene */
@@ -112,8 +110,10 @@ public:
      *
      * This method handles transitions into and out of pause menu along
      * with any updates within the pause menu scene.
+     * 
+     * @param playerSettings    The player's saved settings value
      */
-    void update();
+    void update(const std::shared_ptr<PlayerSettings>& playerSettings);
 
     /**
      * Returns the root scene node for the pause menu layer.

@@ -181,11 +181,11 @@ void CoreImpactApp::update(float timestep) {
     }
     else if (_gameplay.isActive()) {
         /** Handle game play updates */
-        _gameplay.update(timestep);
+        _gameplay.update(timestep, _playerSettings);
     }
     else if (_tutorial.isActive()) {
         /** Handle tutorial updates */
-        _tutorial.update(timestep);
+        _tutorial.update(timestep, _playerSettings);
     }
     else {
         // handle game reset

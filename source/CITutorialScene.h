@@ -145,8 +145,9 @@ public:
      * This method contains any gameplay code that is not an OpenGL call.
      *
      * @param timestep  The amount of time (in seconds) since the last frame
+     * @param playerSettings    The player's saved settings value
      */
-    void update(float timestep);
+    void update(float timestep, const std::shared_ptr<PlayerSettings>& playerSettings);
     
     /**
      * This method updates the dragged stardust.
