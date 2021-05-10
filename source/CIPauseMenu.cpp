@@ -69,8 +69,6 @@ bool PauseMenu::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _layer->setContentSize(dimen);
     _layer->doLayout();
 
-    _playerSettings = playerSettings;
-
     _settingsTitle = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("pause_title"));
     _musicLabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("pause_musiclabel"));
     _volumeLabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("pause_volumelabel"));
@@ -79,16 +77,16 @@ bool PauseMenu::init(const std::shared_ptr<cugl::AssetManager>& assets,
     // Music toggle button
     _musicBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("pause_musicinput"));
     _musicBtn->setToggle(true);
-    _musicBtn->setDown(!_playerSettings->getMusicOn());
+    _musicBtn->setDown(!playerSettings->getMusicOn());
 
     // Parallax toggle button
     _parallaxBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("pause_parallaxinput"));
     _parallaxBtn->setToggle(true);
-    _parallaxBtn->setDown(!_playerSettings->getParallaxOn());
+    _parallaxBtn->setDown(!playerSettings->getParallaxOn());
 
     // Volume slider 
     _volumeSlider = std::dynamic_pointer_cast<scene2::Slider>(assets->get<scene2::SceneNode>("pause_volumeinput"));
-    _volumeSlider->setValue(_playerSettings->getVolume());
+    _volumeSlider->setValue(playerSettings->getVolume());
 
     // Resume and exit game buttons
     _resumeBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("pause_resumebutton"));
@@ -151,15 +149,24 @@ void PauseMenu::setDisplay(bool onDisplay) {
 /**
  * The method called to update this menu.
  */
-void PauseMenu::update() {
+void PauseMenu::update(const std::shared_ptr<PlayerSettings>& playerSettings) {
     if (_layer == nullptr) {
         return;
     }
 
-    _playerSettings->setVolume(_volumeSlider->getValue());
-    _playerSettings->setMusicOn(!_musicBtn->isDown());
-    _playerSettings->setParallaxOn(!_parallaxBtn->isDown());
-    _volumeSlider->setValue(_playerSettings->getVolume());
-    _musicBtn->setDown(!_playerSettings->getMusicOn());
-    _parallaxBtn->setDown(!_playerSettings->getParallaxOn());
+    playerSettings->setVolume(_volumeSlider->getValue());
+    playerSettings->setMusicOn(!_musicBtn->isDown());
+    playerSettings->setParallaxOn(!_parallaxBtn->isDown());
+
+    _volumeSlider->setValue(playerSettings->getVolume());
+    _musicBtn->setDown(!playerSettings->getMusicOn());
+    _parallaxBtn->setDown(!playerSettings->getParallaxOn());
+
+    AudioEngine::get()->getMusicQueue()->setVolume(playerSettings->getVolume());
+    if (!playerSettings->getMusicOn()) {
+        AudioEngine::get()->getMusicQueue()->pause();
+    }
+    else {
+        AudioEngine::get()->getMusicQueue()->resume();
+    }
 }

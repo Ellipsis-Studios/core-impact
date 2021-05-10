@@ -221,8 +221,9 @@ void GameScene::dispose() {
  * This method contains any gameplay code that is not an OpenGL call.
  *
  * @param timestep  The amount of time (in seconds) since the last frame
+ * @param playerSettings    The player's saved settings value
  */
-void GameScene::update(float timestep) {
+void GameScene::update(float timestep, const std::shared_ptr<PlayerSettings>& playerSettings) {
     Size dimen = Application::get()->getDisplaySize();
     dimen *= CONSTANTS::SCENE_WIDTH/dimen.width;
     
@@ -307,7 +308,7 @@ void GameScene::update(float timestep) {
     
     /** Handle pause menu requests*/
     togglePause(_networkMessageManager->getGameState() == GameState::GamePaused);
-    _pauseMenu->update();
+    _pauseMenu->update(playerSettings);
     if (_pauseMenu->getExitGame()){
         _pauseMenu->setDisplay(false);
         setActive(false);
