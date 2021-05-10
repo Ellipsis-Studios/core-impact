@@ -26,6 +26,9 @@ private:
     /** Texture to display planet progress. */
     std::shared_ptr<cugl::Texture> _progressTexture;
     
+    /** Graphic asset used to display the  power up */
+    std::vector<std::shared_ptr<cugl::Texture>> _powerupTextures;
+    
     /** The amount of time since last animation frame change */
     float _timeElapsed;
     
@@ -59,12 +62,13 @@ public:
      * Returns the newly allocated Planet Progress Node
      *
      * @param progressTexture     Pointer to the texture to display planet progress
+     * @param powerupTextures The list of textures to display powerups
      *
      * @return a newly allocated Planet Progress Node
      */
-    static std::shared_ptr<PlanetProgressNode> alloc(const std::shared_ptr<cugl::Texture>& progressTexture) {
+    static std::shared_ptr<PlanetProgressNode> alloc(const std::shared_ptr<cugl::Texture>& progressTexture, const std::vector<std::shared_ptr<cugl::Texture>> powerupTextures) {
         std::shared_ptr<PlanetProgressNode> node = std::make_shared<PlanetProgressNode>();
-        return (node->AnimationNode::initWithFilmstrip(progressTexture, LOCKIN_ROWS, LOCKIN_COLS) && node->init(progressTexture) ? node : nullptr);
+        return (node->AnimationNode::initWithFilmstrip(progressTexture, LOCKIN_ROWS, LOCKIN_COLS) && node->init(progressTexture, powerupTextures) ? node : nullptr);
     }
     
     /** Initializes a new planet progress node.
@@ -73,8 +77,9 @@ public:
      *
      * @return bool true if new node initialized successfully else false
      */
-    bool init(const std::shared_ptr<cugl::Texture>& progressTexture) {
+    bool init(const std::shared_ptr<cugl::Texture>& progressTexture, const std::vector<std::shared_ptr<cugl::Texture>> powerupTextures) {
         _progressTexture = progressTexture;
+        _powerupTextures = powerupTextures;
         _timeElapsed = 0;
         _currFrame = LOCKIN_END;
         _opacitiesIndex = 0;

@@ -158,12 +158,14 @@ public:
      * @param unlocked The texture on the outside of an unlocked ring
      * @param unlocked The texture on the outside of a locked ring
      * @param progressTexture The texture to display a players planet progress
+     * @param powerupTextures The list of textures to display powerups
      */
     void setTextures(const std::shared_ptr<cugl::Texture>& core,
                      const std::shared_ptr<cugl::Texture>& ring,
                      const std::shared_ptr<cugl::Texture>& unlocked,
                      const std::shared_ptr<cugl::Texture>& locked,
-                     const std::shared_ptr<cugl::Texture>& progressTexture);
+                     const std::shared_ptr<cugl::Texture>& progressTexture,
+                     const std::vector<std::shared_ptr<cugl::Texture>> powerupTextures);
    
     const std::shared_ptr<PlanetNode> getPlanetNode() const {
         return _planetNode;

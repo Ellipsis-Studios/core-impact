@@ -4,7 +4,7 @@
       "file": "textures/backgroundAnimation_v6.png"
     },
     "opponentProgress": {
-      "file":     "textures/opponentProgressAnimation_v2.png"
+      "file":     "textures/smallOpponentProgressBarAnimation_v1.png"
     },
     "core": {
         "file":   "textures/coreAnimation_v1.png"
@@ -20,6 +20,18 @@
     },
     "fog": {
         "file":   "textures/fog.png"
+    },
+    "meteor_shower_standalone": {
+        "file":   "textures/meteor_shower_standalone.png"
+    },
+    "shooting_star_standalone": {
+        "file":   "textures/shooting_star_standalone.png"
+    },
+    "fog_standalone": {
+        "file":   "textures/fog_standalone.png"
+    },
+    "greyscale_standalone": {
+        "file":   "textures/greyscale_standalone.png"
     }
   },
   "sounds": {
