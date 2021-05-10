@@ -162,6 +162,7 @@ void MainMenu::update(MenuState& state) {
             if (_layer != nullptr && _layer->isVisible()) {
                 setDisplay(false);
             }
+            _nextState = MenuState::MainMenu;
             break;
     }
 }
