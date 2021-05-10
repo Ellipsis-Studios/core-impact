@@ -1172,7 +1172,7 @@
           "comment": "The volume slider in Settings.",
           "type": "Slider",
           "data": {
-            "bounds": [50, 50, 255, 0],
+            "bounds": [33, 33, 255, 0],
             "range": [0, 1],
             "value": 0.5,
             "anchor": [0.5, 0.5],
@@ -1205,7 +1205,7 @@
                         "type": "Anchored"
                       },
                       "data": {
-                        "anchor": [0.5, 0.5],
+                        "anchor": [0, 0],
                         "texture": "volumeBarKnob",
                         "scale": 1.2
                       }
@@ -1405,7 +1405,7 @@
           "comment": "The volume slider in Settings.",
           "type": "Slider",
           "data": {
-            "bounds": [50, 50, 255, 0],
+            "bounds": [33, 33, 255, 0],
             "range": [0, 1],
             "value": 0.5,
             "anchor": [0.5, 0.5],
@@ -1438,7 +1438,7 @@
                         "type": "Anchored"
                       },
                       "data": {
-                        "anchor": [0.5, 0.5],
+                        "anchor": [0, 0],
                         "texture": "volumeBarKnob",
                         "scale": 1.2
                       }
