@@ -135,9 +135,6 @@
     <ClInclude Include="..\..\source\CISettingsMenu.h">
       <Filter>Header Files\Scene\Menu</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\source\CITutorialMenu.h">
-      <Filter>Header Files\Scene\Menu</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\source\CIWinScene.h">
       <Filter>Header Files\Scene</Filter>
     </ClInclude>
@@ -146,6 +143,18 @@
     </ClInclude>
     <ClInclude Include="..\..\source\CIPlanetProgressNode.h">
       <Filter>Header Files\View</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\CITutorialScene.h">
+      <Filter>Header Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\CINameMenu.h">
+      <Filter>Header Files\Scene\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\CIPopupMenu.h">
+      <Filter>Header Files\Scene\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\CIGameSettingsMenu.h">
+      <Filter>Header Files\Scene\Menu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -228,9 +237,6 @@
     <ClCompile Include="..\..\source\CISettingsMenu.cpp">
       <Filter>Source Files\Scene\Menu</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\source\CITutorialMenu.cpp">
-      <Filter>Source Files\Scene\Menu</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\source\CIMenuScene.cpp">
       <Filter>Source Files\Scene</Filter>
     </ClCompile>
@@ -242,6 +248,18 @@
     </ClCompile>
     <ClCompile Include="..\..\source\CIPlanetProgressNode.cpp">
       <Filter>Source Files\View</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\CITutorialScene.cpp">
+      <Filter>Source Files\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\CINameMenu.cpp">
+      <Filter>Source Files\Scene\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\CIPopupMenu.cpp">
+      <Filter>Source Files\Scene\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\CIGameSettingsMenu.cpp">
+      <Filter>Source Files\Scene\Menu</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

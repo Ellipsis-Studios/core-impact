@@ -113,8 +113,8 @@ void SettingsMenu::setDisplay(bool onDisplay) {
         _musicBtn->setVisible(onDisplay);
         _volumeLabel->setVisible(onDisplay);
         _volumeSlider->setVisible(onDisplay);
-        _parallaxLabel->setVisible(onDisplay);
-        _parallaxBtn->setVisible(onDisplay);
+        _parallaxLabel->setVisible(false);
+        _parallaxBtn->setVisible(false);
         _layer->setVisible(onDisplay);
         
         if (onDisplay) {
@@ -152,7 +152,6 @@ void SettingsMenu::update(MenuState& state) {
             _pnameInput->setText(_playerSettings->getPlayerName());
             _volumeSlider->setValue(_playerSettings->getVolume());
             _musicBtn->setDown(!_playerSettings->getMusicOn());
-            _parallaxBtn->setDown(!_playerSettings->getParallaxOn());
 
             state = MenuState::Setting;
             _nextState = MenuState::Setting;
@@ -162,7 +161,6 @@ void SettingsMenu::update(MenuState& state) {
             _playerSettings->setPlayerName(_pnameInput->getText());
             _playerSettings->setVolume(_volumeSlider->getValue());
             _playerSettings->setMusicOn(!_musicBtn->isDown());
-            _playerSettings->setParallaxOn(!_parallaxBtn->isDown());
 
             state = _nextState;
             break;

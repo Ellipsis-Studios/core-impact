@@ -1,0 +1,76 @@
+{
+  "variables": {
+    "nodeSize": ["data", "size"],
+    "size": ["children", "up", "data", "size"],
+    "text": ["children", "up", "children", "label", "data", "text"],
+    "font": ["children", "up", "children", "label", "data", "font"],
+    "texture": ["children", "up", "children", "menuup", "data", "texture"],
+    "interior1": ["children", "up", "children", "menuup", "data", "interior"],
+    "labelSize1": ["children", "up", "children", "label", "data", "size"]
+  },
+  "contents": {
+    "type": "Button",
+    "format": {
+      "type": "Anchored"
+    },
+    "data": {
+      "anchor": [0.5, 0.5],
+      "upnode": "up",
+      "size": [300, 80],
+      "visible": false
+    },
+    "children": {
+      "up": {
+        "type": "Node",
+        "format": {
+          "type": "Anchored"
+        },
+        "data": {
+          "size": [240, 80],
+          "anchor": [0.5, 0.5]
+        },
+        "children": {
+          "menuup": {
+            "type": "NinePatch",
+            "format": {
+              "type": "Anchored"
+            },
+            "data": {
+              "texture": "menubuttonup",
+              "anchor": [0.5, 0.5],
+              "interior": [10, 10, 100, 60]
+            },
+            "layout": {
+              "x_anchor": "fill",
+              "y_anchor": "fill"
+            }
+          },
+          "label": {
+            "type": "Label",
+            "format": {
+              "type": "Anchored"
+            },
+            "data": {
+              "font": "saira32",
+              "text": "text",
+              "foreground": [255, 255, 255, 255],
+              "background": [0, 0, 0, 0],
+              "size": [200, 60],
+              "anchor": [0.5, 0.5],
+              "halign": "center",
+              "valign": "middle"
+            },
+            "layout": {
+              "x_anchor": "fill",
+              "y_anchor": "fill"
+            }
+          }
+        },
+        "layout": {
+          "x_anchor": "fill",
+          "y_anchor": "fill"
+        }
+      }
+    }
+  }
+}

@@ -17,6 +17,7 @@ enum GameState {
     JoiningGameAsHost,
     JoiningGameAsNonHost,
     NameSent,
+    SettingSent,
     GameStarted,
     GameInProgress,
     GamePaused,

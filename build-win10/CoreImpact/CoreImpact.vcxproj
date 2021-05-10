@@ -194,6 +194,7 @@
     <ClInclude Include="..\..\source\CICollisionController.h" />
     <ClInclude Include="..\..\source\CIColor.h" />
     <ClInclude Include="..\..\source\CIGameScene.h" />
+    <ClInclude Include="..\..\source\CIGameSettingsMenu.h" />
     <ClInclude Include="..\..\source\CIGameState.h" />
     <ClInclude Include="..\..\source\CIGameUpdate.h" />
     <ClInclude Include="..\..\source\CIGameUpdateManager.h" />
@@ -205,6 +206,7 @@
     <ClInclude Include="..\..\source\CIMainMenu.h" />
     <ClInclude Include="..\..\source\CIMenuScene.h" />
     <ClInclude Include="..\..\source\CIMenuState.h" />
+    <ClInclude Include="..\..\source\CINameMenu.h" />
     <ClInclude Include="..\..\source\CINetworkMessageManager.h" />
     <ClInclude Include="..\..\source\CINetworkUtils.h" />
     <ClInclude Include="..\..\source\CIOpponentNode.h" />
@@ -214,11 +216,12 @@
     <ClInclude Include="..\..\source\CIPlanetModel.h" />
     <ClInclude Include="..\..\source\CIPlanetNode.h" />
     <ClInclude Include="..\..\source\CIPlanetProgressNode.h" />
+    <ClInclude Include="..\..\source\CIPopupMenu.h" />
     <ClInclude Include="..\..\source\CISettingsMenu.h" />
     <ClInclude Include="..\..\source\CIStardustModel.h" />
     <ClInclude Include="..\..\source\CIStardustNode.h" />
     <ClInclude Include="..\..\source\CIStardustQueue.h" />
-    <ClInclude Include="..\..\source\CITutorialMenu.h" />
+    <ClInclude Include="..\..\source\CITutorialScene.h" />
     <ClInclude Include="..\..\source\CIWinScene.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
@@ -237,6 +240,7 @@
     <ClCompile Include="..\..\source\CIApp.cpp" />
     <ClCompile Include="..\..\source\CICollisionController.cpp" />
     <ClCompile Include="..\..\source\CIGameScene.cpp" />
+    <ClCompile Include="..\..\source\CIGameSettingsMenu.cpp" />
     <ClCompile Include="..\..\source\CIGameUpdate.cpp" />
     <ClCompile Include="..\..\source\CIGameUpdateManager.cpp" />
     <ClCompile Include="..\..\source\CIInputController.cpp" />
@@ -245,6 +249,7 @@
     <ClCompile Include="..\..\source\CILobbyMenu.cpp" />
     <ClCompile Include="..\..\source\CIMainMenu.cpp" />
     <ClCompile Include="..\..\source\CIMenuScene.cpp" />
+    <ClCompile Include="..\..\source\CINameMenu.cpp" />
     <ClCompile Include="..\..\source\CINetworkMessageManager.cpp" />
     <ClCompile Include="..\..\source\CINetworkUtils.cpp" />
     <ClCompile Include="..\..\source\CIOpponentNode.cpp" />
@@ -253,11 +258,12 @@
     <ClCompile Include="..\..\source\CIPlanetModel.cpp" />
     <ClCompile Include="..\..\source\CIPlanetNode.cpp" />
     <ClCompile Include="..\..\source\CIPlanetProgressNode.cpp" />
+    <ClCompile Include="..\..\source\CIPopupMenu.cpp" />
     <ClCompile Include="..\..\source\CISettingsMenu.cpp" />
     <ClCompile Include="..\..\source\CIStardustModel.cpp" />
     <ClCompile Include="..\..\source\CIStardustNode.cpp" />
     <ClCompile Include="..\..\source\CIStardustQueue.cpp" />
-    <ClCompile Include="..\..\source\CITutorialMenu.cpp" />
+    <ClCompile Include="..\..\source\CITutorialScene.cpp" />
     <ClCompile Include="..\..\source\CIWinScene.cpp" />
     <ClCompile Include="..\..\source\main.cpp" />
   </ItemGroup>

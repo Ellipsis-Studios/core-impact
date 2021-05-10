@@ -13,24 +13,27 @@
 #include "CIMenuState.h"
 #include "CIMainMenu.h"
 #include "CISettingsMenu.h"
+#include "CINameMenu.h"
 #include "CIJoinMenu.h"
 #include "CILobbyMenu.h"
+#include "CIPopupMenu.h"
+#include "CIGameSettingsMenu.h"
 #include "CIGameSettings.h"
 #include "CIPlayerSettings.h"
 #include "CIGameConstants.h"
 
 
 /**
- * This class is the menu screens before the actual game play. 
- * 
+ * This class is the menu screens before the actual game play.
+ *
  * There are 5 total menu scenes (Main Menu, Settings, Join Game, Game Lobby, and Tutorial).
- * The MenuStatus value shows which scene to display. In addition to the 5 pages, MenuStatus 
- * also handles transition from/to each of the pages. Page transitions work by clearing out 
- * the previous screen's assets before activating and displaying the new screen's assets. 
- * 
- * Many of the scenes possess inputs to configure the gameplay setting by the user. Game Lobby 
+ * The MenuStatus value shows which scene to display. In addition to the 5 pages, MenuStatus
+ * also handles transition from/to each of the pages. Page transitions work by clearing out
+ * the previous screen's assets before activating and displaying the new screen's assets.
+ *
+ * Many of the scenes possess inputs to configure the gameplay setting by the user. Game Lobby
  * is always the last scene before launching gameplay. Clicking the start game button in Game
- * Lobby will inform the application root to switch to the gameplay mode. 
+ * Lobby will inform the application root to switch to the gameplay mode.
  */
 class MenuScene : public cugl::Scene2 {
 protected:
@@ -51,17 +54,17 @@ protected:
     // References to menu screens 
     std::shared_ptr<MainMenu> _mainmenu;
     std::shared_ptr<SettingsMenu> _settings;
+    std::shared_ptr<NameMenu> _namemenu;
     std::shared_ptr<JoinMenu> _join;
     std::shared_ptr<LobbyMenu> _lobby;
+    std::shared_ptr<GameSettingsMenu> _gsettingsmenu;
+    std::shared_ptr<PopupMenu> _popupMenu;
 
     // Player settings (preserved over game reset)
     std::shared_ptr<PlayerSettings> _playerSettings;
 
     // Game settings
     std::shared_ptr<GameSettings> _gameSettings;
-
-    /** Stores the game code for joining as client*/
-    string _joinGame;
 
     // Menu scene state value
     MenuState _state;
@@ -125,26 +128,6 @@ public:
         const std::shared_ptr<GameSettings>& gameSettings,
         const std::shared_ptr<PlayerSettings>& playerSettings);
 
-    /**
-     * Initializes the controller contents, making it ready for loading
-     *
-     * The constructor does not allocate any objects or memory.  This allows
-     * us to have a non-pointer reference to this controller, reducing our
-     * memory allocation.  Instead, allocation happens in this method.
-     *
-     * @param assets                The (loaded) assets for this game mode
-     * @param networkMessageManager The network message manager for the game
-     * @param playerName            The player name value
-     * @param volume                The game volume setting value
-     * @param musicOn               The musicOn setting value
-     * @param parallaxOn            The parallax effect setting value
-     *
-     * @return true if the controller is initialized properly, false otherwise.
-     */
-    bool init(const std::shared_ptr<cugl::AssetManager>& assets, 
-        std::shared_ptr<NetworkMessageManager> networkMessageManager,
-        string playerName, float volume, bool musicOn, bool parallaxOn);
-
 #pragma mark -
 #pragma mark Menu Monitoring
     /**
@@ -156,7 +139,7 @@ public:
      * @param networkMessageManager  The network message manager for managing connections to other players
      */
     void update(float timestep);
-    
+
     /**
      * The method called to get the state of the menu.
      */
@@ -219,7 +202,7 @@ public:
      *
      * @param playerSettings reference to the json value for player settings from App
      */
-    void appendPlayerSettings(std::shared_ptr<cugl::JsonValue>& playerSettings) {
+    void appendPlayerSettings(std::shared_ptr<cugl::JsonValue>& playerSettings) const {
         playerSettings->appendValue("PlayerName", getPlayerName());
         playerSettings->appendValue("Volume", getVolume());
         playerSettings->appendValue("MusicOn", isMusicOn());
@@ -259,7 +242,7 @@ public:
      * @return uint16_t win planet condition value (mass/num of layeres)
      */
     const uint16_t getPlanetLayerSize() const {
-        return (_gameSettings == nullptr) ? CONSTANTS::DEFAULT_LAYER_SIZE: _gameSettings->getPlanetStardustPerLayer();
+        return (_gameSettings == nullptr) ? CONSTANTS::DEFAULT_LAYER_SIZE : _gameSettings->getPlanetStardustPerLayer();
     }
 
 };

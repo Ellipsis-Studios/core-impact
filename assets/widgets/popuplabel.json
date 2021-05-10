@@ -1,0 +1,79 @@
+{
+  "variables": {
+    "size": ["data", "size"],
+    "text": ["children", "label", "data", "text"],
+    "font": ["children", "label", "data", "font"],
+    "texture": ["children", "patch", "data", "texture"],
+    "interior": ["children", "patch", "data", "interior"]
+  },
+  "contents": {
+    "type": "Solid",
+    "format": {
+      "type": "Anchored"
+    },
+    "data": {
+      "size": [300, 200],
+      "anchor": [0.5, 0.5],
+      "color": [26, 19, 35, 220],
+      "visible": false
+    },
+    "children": {
+      "patch": {
+        "type": "NinePatch",
+        "format": {
+          "type": "Anchored"
+        },
+        "data": {
+          "texture": "clearbutton",
+          "anchor": [0.5, 0.5],
+          "interior": [48, 40, 160, 101]
+        },
+        "layout": {
+          "x_anchor": "fill",
+          "y_anchor": "fill"
+        }
+      },
+      "label": {
+        "type": "Label",
+        "format": {
+          "type": "Anchored"
+        },
+        "data": {
+          "font": "saira24",
+          "text": "row1",
+          "foreground": [255, 255, 255, 255],
+          "anchor": [0.5, 0.5],
+          "halign": "center",
+          "valign": "middle"
+        },
+        "layout": {
+          "x_anchor": "fill",
+          "y_anchor": "top",
+          "y_offset": -0.25
+        }
+      },
+      "circle": {
+        "type": "Image",
+        "format": {
+          "type": "Anchored"
+        },
+        "data": {
+          "texture": "loadingcircle",
+          "scale": 1.6,
+          "halign": "center",
+          "valign": "middle"
+        },
+        "layout": {
+          "x_anchor": "center",
+          "y_anchor": "middle",
+          "y_offset": -0.3,
+          "x_offset": -0.08
+        }
+      }
+    },
+    "layout": {
+      "x_anchor": "center",
+      "y_anchor": "middle"
+    }
+  }
+}

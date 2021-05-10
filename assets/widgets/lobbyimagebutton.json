@@ -1,0 +1,70 @@
+{
+  "variables": {
+    "size": ["children", "up", "data", "size"],
+    "texture": ["children", "up", "children", "image", "data", "texture"],
+    "scale": ["children", "up", "children", "image", "data", "scale"],
+    "xoffset": ["children", "up", "children", "image", "layout", "x_offset"],
+    "yoffset": ["children", "up", "children", "image", "layout", "y_offset"]
+  },
+  "contents": {
+    "type": "Button",
+    "format": {
+      "type": "Anchored"
+    },
+    "data": {
+      "anchor": [0.5, 0.5],
+      "upnode": "up"
+    },
+    "children": {
+      "up": {
+        "type": "Node",
+        "format": {
+          "type": "Anchored"
+        },
+        "data": {
+          "comment": "Without this size, the up button fills the screen (because that is default)",
+          "size": [80, 80],
+          "anchor": [0.5, 0.5]
+        },
+        "children": {
+          "comment": "The children fit snug to the up button and do not need sizes",
+          "patch": {
+            "type": "NinePatch",
+            "format": {
+              "type": "Anchored"
+            },
+            "data": {
+              "texture": "menubuttonup",
+              "anchor": [0.5, 0.5],
+              "interior": [10, 10, 60, 60]
+            },
+            "layout": {
+              "x_anchor": "fill",
+              "y_anchor": "fill"
+            }
+          },
+          "image": {
+            "type": "Image",
+            "format": {
+              "type": "Anchored"
+            },
+            "data": {
+              "texture": "delbutton",
+              "scale": 0.8
+            },
+            "layout": {
+              "x_anchor": "center",
+              "y_anchor": "middle",
+              "x_offset": -0.36,
+              "y_offset": -0.24
+            }
+          }
+        },
+        "layout": {
+          "x_anchor": "fill",
+          "y_anchor": "fill"
+        }
+      }
+    }
+  }
+}

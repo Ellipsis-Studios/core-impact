@@ -119,6 +119,7 @@ void CoreImpactApp::onShutdown() {
  */
 void CoreImpactApp::onLowMemory() {
     CULog("Low Memory. Quitting the application.");
+    AudioEngine::stop();
     Application::quit();
 }
 
@@ -143,17 +144,24 @@ void CoreImpactApp::update(float timestep) {
         
         // Load in saved settings file
         std::shared_ptr<cugl::JsonReader> _reader = JsonReader::alloc(Application::getSaveDirectory().append("playersettings.json"));
-        std::shared_ptr<cugl::JsonValue> prevPlayerSettings = JsonValue::allocObject();
-        if (_reader != nullptr && _reader->ready()) {
-            prevPlayerSettings = _reader->readJson();
-        }
         // prepare both settings 
-        _playerSettings->setPlayerSettings(prevPlayerSettings);
-        _gameSettings->reset(); 
+        std::shared_ptr<cugl::JsonValue> prevPlayerSettings = JsonValue::allocObject();
+        if (_reader == nullptr) {
+            // save file not found 
+            _playerSettings->setIsNew(true);
+        }
+        else {
+            _playerSettings->setIsNew(false);
+            if (_reader->ready()) {
+                prevPlayerSettings = _reader->readJson();
+            }
+            _playerSettings->setPlayerSettings(prevPlayerSettings); // does this reset playerSettings
+        }
+        _gameSettings->reset();
         
         // Network manager
         if (_networkMessageManager == nullptr) {
-            _networkMessageManager = NetworkMessageManager::alloc();
+            _networkMessageManager = NetworkMessageManager::alloc(_gameSettings);
         }
         
         _menu.init(_assets, _networkMessageManager, _gameSettings, _playerSettings);
@@ -166,7 +174,6 @@ void CoreImpactApp::update(float timestep) {
     else if (!_startGame && (_menu.getState() == MenuState::LobbyToGame)) {
         /** Transition from menu to game scene */
         _menu.dispose(); // Disables the input listeners to this mode
-        _gameSettings = _networkMessageManager->getGameSettings();
         _gameplay.init(_assets, _networkMessageManager, _gameSettings, _playerSettings);
         _startGame = true;
     }
@@ -174,7 +181,7 @@ void CoreImpactApp::update(float timestep) {
         /** Transition from menu to game scene */
         _menu.dispose(); // Disables the input listeners to this mode
         if (_networkMessageManager == nullptr) {
-            _networkMessageManager = NetworkMessageManager::alloc();
+            _networkMessageManager = NetworkMessageManager::alloc(_gameSettings);
         }
         _tutorial.init(_assets, _networkMessageManager, _gameSettings, _playerSettings);
         _startGame = true;
@@ -197,11 +204,19 @@ void CoreImpactApp::update(float timestep) {
             _gameplay.dispose();
         }
 
-        _networkMessageManager = nullptr;
-        
+        _networkMessageManager->reset();
+
         _menu.removeAllChildren();
         _loaded = false;
         _startGame = false;
+
+        // save settings file
+        std::shared_ptr<cugl::JsonWriter> _writer = JsonWriter::alloc(Application::getSaveDirectory().append("playersettings.json"));
+
+        std::shared_ptr<cugl::JsonValue> _settings = JsonValue::allocObject();
+        _playerSettings->appendSettings(_settings);
+        _writer->writeJson(_settings);
+        CULog("Saving current player settings.");
     }
 }
 

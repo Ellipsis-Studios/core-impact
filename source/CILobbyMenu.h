@@ -43,50 +43,24 @@ private:
     // Asset references
     /** Reference to the node for the group representing this menu scene */
     std::shared_ptr<cugl::scene2::SceneNode> _layer;
+    /** Reference to the title label */
+    std::shared_ptr<cugl::scene2::Label> _title;
     /** Reference to the game lobby's label for game room id */
     std::shared_ptr<cugl::scene2::Label> _lobbyRoomLabel;
     /** References to the game lobby's labels for player name */
-    std::shared_ptr<cugl::scene2::SceneNode> _gamelobbyplayerName1;
-    std::shared_ptr<cugl::scene2::SceneNode> _gamelobbyplayerName2;
-    std::shared_ptr<cugl::scene2::SceneNode> _gamelobbyplayerName3;
-    std::shared_ptr<cugl::scene2::SceneNode> _gamelobbyplayerName4;
-    std::shared_ptr<cugl::scene2::SceneNode> _gamelobbyplayerName5;
+    std::vector<std::shared_ptr<cugl::scene2::NinePatch>> _gameLobbyPlayerNames;
+    /** References to the game lobby's player labels */
     std::vector<std::shared_ptr<cugl::scene2::Label>> _gameLobbyPlayerLabels;
 
-    // game lobby settings
-    /** Reference to stardust spawn rate button + label + value list */
-    std::shared_ptr<cugl::scene2::Button> _spawnRateBtn; // button
-    std::shared_ptr<cugl::scene2::Label> _spawnRateLabel; // rate value label
-    std::shared_ptr<cugl::scene2::SceneNode> _spawnRateBtnLabel; // button label
-    const float _spawnRates[7] = { 0.1f, 0.5f, 1.0f, 1.5f, 2.0f, 5.0f, 9.9f }; // rate value list
-    uint8_t _currSpawn; // index to cycle the value list
-    
-    /** Reference to planet gravity strength button + label + value list */
-    std::shared_ptr<cugl::scene2::Button> _gravStrengthBtn;
-    std::shared_ptr<cugl::scene2::Label> _gravStrengthLabel;
-    std::shared_ptr<cugl::scene2::SceneNode> _gravStrengthBtnLabel;
-    const float _gravStrengths[7] = { 0.1f, 0.5f, 1.0f, 1.5f, 2.0f, 5.0f, 9.9f };
-    uint8_t _currGrav;
-    
-    /** Reference to stardust color count button + label + value list */
-    std::shared_ptr<cugl::scene2::Button> _colorCountBtn;
-    std::shared_ptr<cugl::scene2::Label> _colorCountLabel;
-    std::shared_ptr<cugl::scene2::SceneNode> _colorCountBtnLabel;
-    const uint8_t _colorCounts[5] = { 2, 3, 4, 5, 6 };
-    uint8_t _currColor;
-    
-    /** Reference to layer size button + label + value list */
-    std::shared_ptr<cugl::scene2::Button> _layerSizeBtn;
-    std::shared_ptr<cugl::scene2::Label> _layerSizeLabel;
-    std::shared_ptr<cugl::scene2::SceneNode> _layerSizeBtnLabel;
-    const uint16_t _layerSize[5] = { 4, 5, 6, 7, 8 };
-    uint8_t _currWin;
-
+    /** Reference to game lobby's button for game settings */
+    std::shared_ptr<cugl::scene2::Button> _gameSettingsBtn;
     /** Reference to game lobby's button to start gameplay */
     std::shared_ptr<cugl::scene2::Button> _gameStartBtn;
-    
-    /** Whether host or client */
-    bool _isHost;
+    /** Reference to game lobby's ready button for non-hosts  */
+    std::shared_ptr<cugl::scene2::Button> _gameReadyBtn;
+
+    /** Whether the game is ready to start by the host */
+    bool _isReadyToStart;
 
 public:
 #pragma mark -
@@ -94,7 +68,7 @@ public:
     /**
      * Creates a new game lobby with default values.
      */
-    LobbyMenu() : _nextState(MenuState::GameLobby), _currSpawn(2), _currGrav(2), _currWin(2), _currColor(2), _isHost(false){}
+    LobbyMenu() : _nextState(MenuState::GameLobby), _isReadyToStart(false) {}
 
     /**
      * Disposes of all (non-static) resources allocated to this menu.
@@ -131,7 +105,7 @@ public:
      *
      * @return a newly allocated game lobby menu
      */
-    static std::shared_ptr<LobbyMenu> alloc(const std::shared_ptr<cugl::AssetManager>& assets, 
+    static std::shared_ptr<LobbyMenu> alloc(const std::shared_ptr<cugl::AssetManager>& assets,
         const std::shared_ptr<NetworkMessageManager>& networkMessageManager,
         const std::shared_ptr<GameSettings>& gameSettings,
         const std::shared_ptr<PlayerSettings>& playerSettings) {
@@ -148,10 +122,22 @@ public:
      */
     void setDisplay(bool onDisplay);
 
+    /**
+     * Sets the other players labels
+     */
     void setOtherPlayerLabels(vector<string> othernames) {
         // update other players' labels
         for (int ii = 0; ii < othernames.size(); ii++) {
             _gameLobbyPlayerLabels[ii + 1]->setText(othernames[ii]);
+        }
+    }
+
+    /**
+     * Sets all the players labels
+     */
+    void setPlayerLabels(vector<string> playernames) {
+        for (int ii = 0; ii < playernames.size(); ii++) {
+            _gameLobbyPlayerLabels[ii]->setText(playernames[ii]);
         }
     }
 

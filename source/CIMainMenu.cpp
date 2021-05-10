@@ -70,12 +70,12 @@ bool MainMenu::init(const std::shared_ptr<cugl::AssetManager>& assets) {
         });
     _joinBtn->addListener([&](const std::string& name, bool down) {
         if (!down) {
-            _nextState = MenuState::MainToJoin;
+            _nextState = MenuState::MainToName;
         }
         });
     _newBtn->addListener([&](const std::string& name, bool down) {
         if (!down) {
-            _nextState = MenuState::MainToLobby;
+            _nextState = MenuState::MenuToCreate;
         }
         });
     _tutorialBtn->addListener([&](const std::string& name, bool down) {
@@ -142,7 +142,20 @@ void MainMenu::update(MenuState& state) {
             break;
         case MenuState::MainMenu:
             // handle transitioning out of MainMenu
+            if (_settingsBtn != nullptr && !_settingsBtn->isActive()) {
+                _settingsBtn->activate();
+                _joinBtn->activate();
+                _newBtn->activate();
+                _tutorialBtn->activate();
+            }
             state = _nextState;
+            break;
+        case MenuState::CreatingGame:
+        case MenuState::MenuToCreate:
+            _settingsBtn->deactivate();
+            _joinBtn->deactivate();
+            _newBtn->deactivate();
+            _tutorialBtn->deactivate();
             break;
         default:
             // hide menu screen

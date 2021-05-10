@@ -35,10 +35,59 @@ private:
     // Asset references
     /** Reference to the node for the group representing this menu scene */
     std::shared_ptr<cugl::scene2::SceneNode> _layer;
-    /** Reference to the join menu's input for game room id */
-    std::shared_ptr<cugl::scene2::TextField> _roomIdInput;
-    /** Reference to the join menu's button to join game room */
-    std::shared_ptr<cugl::scene2::Button> _roomJoinBtn;
+    
+    // 5 digit room id 
+    std::vector<string> _roomIds;
+    /** Room Ids Index */
+    int _roomInd;
+
+    /** Reference to the 1st room id label node */
+    std::shared_ptr<cugl::scene2::SceneNode> _roomIdLabelNode1;
+    /** Reference to the 2nd room id label node */
+    std::shared_ptr<cugl::scene2::SceneNode> _roomIdLabelNode2;
+    /** Reference to the 3rd room id label node */
+    std::shared_ptr<cugl::scene2::SceneNode> _roomIdLabelNode3;
+    /** Reference to the 4th room id label node */
+    std::shared_ptr<cugl::scene2::SceneNode> _roomIdLabelNode4;
+    /** Reference to the 5th room id label node */
+    std::shared_ptr<cugl::scene2::SceneNode> _roomIdLabelNode5;
+
+    /** Reference to the 1st room id label */
+    std::shared_ptr<cugl::scene2::Label> _roomIdLabel1;
+    /** Reference to the 2nd room id label */
+    std::shared_ptr<cugl::scene2::Label> _roomIdLabel2;
+    /** Reference to the 3rd room id label */
+    std::shared_ptr<cugl::scene2::Label> _roomIdLabel3;
+    /** Reference to the 4th room id label */
+    std::shared_ptr<cugl::scene2::Label> _roomIdLabel4;
+    /** Reference to the 5th room id label */
+    std::shared_ptr<cugl::scene2::Label> _roomIdLabel5;
+
+    // number pad 
+    /** Reference to the number pad 1 */
+    std::shared_ptr<cugl::scene2::Button> _numberpad1;
+    /** Reference to the number pad 2 */
+    std::shared_ptr<cugl::scene2::Button> _numberpad2;
+    /** Reference to the number pad 3 */
+    std::shared_ptr<cugl::scene2::Button> _numberpad3;
+    /** Reference to the number pad 4 */
+    std::shared_ptr<cugl::scene2::Button> _numberpad4;
+    /** Reference to the number pad 5 */
+    std::shared_ptr<cugl::scene2::Button> _numberpad5;
+    /** Reference to the number pad 6 */
+    std::shared_ptr<cugl::scene2::Button> _numberpad6;
+    /** Reference to the number pad 7 */
+    std::shared_ptr<cugl::scene2::Button> _numberpad7;
+    /** Reference to the number pad 8 */
+    std::shared_ptr<cugl::scene2::Button> _numberpad8;
+    /** Reference to the number pad 9 */
+    std::shared_ptr<cugl::scene2::Button> _numberpad9;
+    /** Reference to the number pad delete */
+    std::shared_ptr<cugl::scene2::Button> _numberpaddel;
+    /** Reference to the number pad 0 */
+    std::shared_ptr<cugl::scene2::Button> _numberpad0;
+    /** Reference to the number pad join */
+    std::shared_ptr<cugl::scene2::Button> _numberpadjoin;
 
 public:
 #pragma mark -

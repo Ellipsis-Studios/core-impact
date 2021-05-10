@@ -25,7 +25,7 @@
  * The screen will display a very minimal progress bar that displays the
  * status of the asset manager.  Make sure that all asychronous load requests
  * are issued BEFORE calling update for the first time, or else this screen
- * will think that asset loading is complete. 
+ * will think that asset loading is complete.
  *
  * Once asset loading is completed, it will display a play button.  Clicking
  * this button will inform the application root to switch to the gameplay mode.
@@ -36,7 +36,7 @@ protected:
     std::shared_ptr<cugl::AssetManager> _assets;
 
     // NO CONTROLLER (ALL IN SEPARATE THREAD)
-    
+
     // VIEW
     /** The animated progress bar */
     std::shared_ptr<cugl::scene2::ProgressBar>  _bar;
@@ -50,9 +50,7 @@ protected:
     // MODEL
     /** The progress displayed on the screen */
     float _progress;
-    /** Whether the progress is filled */
-    bool _isLoaded;
-    
+
 public:
 #pragma mark -
 #pragma mark Constructors
@@ -62,8 +60,8 @@ public:
      * This constructor does not allocate any objects or start the game.
      * This allows us to use the object without a heap pointer.
      */
-    LoadingScene() : cugl::Scene2(), _progress(0.0f), _isLoaded(false) {}
-    
+    LoadingScene() : cugl::Scene2(), _progress(0.0f) {}
+
     /**
      * Disposes of all (non-static) resources allocated to this mode.
      *
@@ -71,7 +69,7 @@ public:
      * static resources, like the input controller.
      */
     ~LoadingScene() { dispose(); }
-    
+
     /**
      * Disposes of all (non-static) resources allocated to this mode.
      */
@@ -90,7 +88,7 @@ public:
      */
     bool init(const std::shared_ptr<cugl::AssetManager>& assets);
 
-    
+
 #pragma mark -
 #pragma mark Progress Monitoring
     /**
@@ -101,7 +99,7 @@ public:
      * @param timestep  The amount of time (in seconds) since the last frame
      */
     void update(float timestep);
-    
+
 };
 
 #endif /* __CI_LOADING_SCENE_H__ */
