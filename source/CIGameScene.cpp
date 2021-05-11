@@ -227,7 +227,6 @@ void GameScene::update(float timestep, const std::shared_ptr<PlayerSettings>& pl
     Size dimen = Application::get()->getDisplaySize();
     dimen *= CONSTANTS::SCENE_WIDTH/dimen.width;
     
-    _input.update(timestep);
     // Handle counting down then switching to loading screen
     if (_networkMessageManager->getWinnerPlayerId() != -1) {
         if (!_winScene->displayActive()) {
@@ -276,6 +275,7 @@ void GameScene::update(float timestep, const std::shared_ptr<PlayerSettings>& pl
     }
     
     _planet->update(timestep);
+    _input.update(timestep);
   
     // attempt to set player id of game update manager
     if (_gameUpdateManager->getPlayerId() < 0) {
