@@ -122,8 +122,6 @@ void InputController::update(float dt) {
     //remove any touchInstances that have ended
     for (auto it = _touchInstances.cbegin(); it != _touchInstances.cend(); ) {
         if (!it->second.fingerDown) {
-            Uint64 id = it->second.touchid;
-            _touchIds.remove_if([id](Uint64 touchId){ return touchId == id; });
             _touchInstances.erase(it++);
         } else {
             ++it;
@@ -135,7 +133,6 @@ void InputController::update(float dt) {
  * Clears any buffered inputs so that we may start fresh.
  */
 void InputController::clear() {
-    _touchIds.clear();
     _touchInstances.clear();
 }
 
@@ -236,7 +233,6 @@ void InputController::processBegan(cugl::Vec2 pos, Uint64 id) {
         newTouch.timestamp.mark();
         newTouch.touchid = id;
         
-        _touchIds.push_back(id);
         _touchInstances.insert(std::pair<Uint64, TouchInstance>(id, newTouch));
     }
 }

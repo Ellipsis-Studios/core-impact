@@ -39,8 +39,6 @@ private:
     cugl::Touchscreen* _touch;
     cugl::Mouse* _mouse;
     
-    /** The touchIds of all active touch instances, in order of oldest to newest */
-    std::list<Uint64> _touchIds;
     /** All active touch instances */
     std::map<Uint64, TouchInstance> _touchInstances;
     
@@ -120,42 +118,13 @@ public:
 #pragma mark -
 #pragma mark Input Results
     /**
-     * Returns the position of a user swipe.
+     * Returns a pointer to the active touch instances
      *
-     * @return position of a user swipe
+     * @return a pointer to the touch instances
      */
-    cugl::Vec2 getPosition() {
-        if (fingerDown()) {
-            return _touchInstances.find(_touchIds.front())->second.position;
-        }
-        return cugl::Vec2::ZERO;
-    }
-    
-    /**
-     * Returns the velocity of a user swipe from the previous frame.
-     *
-     * @return velocity of a user swipe 
-     */
-    cugl::Vec2 getPrevVelocity() {
-        if (fingerDown()) {
-            return _touchInstances.find(_touchIds.front())->second.velocity;
-        }
-        return cugl::Vec2::ZERO;
-    }
-    
     std::map<Uint64, TouchInstance>* getTouchInstances() {
         return &_touchInstances;
     }
-    
-    /**
-     * Returns whether the user's finger is down or not
-     *
-     * @return whether the user's finger is down or not
-     */
-    bool fingerDown() {
-        return _touchIds.size() > 0;
-    }
-    
     
 #pragma mark -
 #pragma mark Touch Callbacks
