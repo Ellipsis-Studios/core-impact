@@ -257,6 +257,7 @@
 		42B54D65261B97020097D816 /* CIJoinMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIJoinMenu.h; sourceTree = "<group>"; };
 		42B54D66261B97110097D816 /* CIJoinMenu.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CIJoinMenu.cpp; sourceTree = "<group>"; };
 		CA15B607262EFDCF000F6E8E /* sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sounds; sourceTree = "<group>"; };
+		CA2E27BD264C4BD9003E42FF /* CITouchInstance.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CITouchInstance.h; sourceTree = "<group>"; };
 		CA525022261FEDBF00854B7B /* CILobbyMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CILobbyMenu.h; sourceTree = "<group>"; };
 		CA525023261FEDBF00854B7B /* CIMainMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CIMainMenu.cpp; sourceTree = "<group>"; };
 		CA525024261FEDBF00854B7B /* CILobbyMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CILobbyMenu.cpp; sourceTree = "<group>"; };
@@ -273,7 +274,6 @@
 		CA9A2DCC25EDBD6A0048D02F /* CIStardustModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CIStardustModel.cpp; sourceTree = "<group>"; };
 		CA9A2DCD25EDBD6A0048D02F /* CIColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIColor.h; sourceTree = "<group>"; };
 		CAC0C81A26002EDA003B3F42 /* CIPlanetLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIPlanetLayer.h; sourceTree = "<group>"; };
-		CACAAECA264B032500F2A8EE /* CITouchInstance.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CITouchInstance.h; sourceTree = "<group>"; };
 		CACFA9E3263CA9D8000236C4 /* CIPauseMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CIPauseMenu.cpp; sourceTree = "<group>"; };
 		CACFA9E7263CA9D8000236C4 /* CIPauseMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIPauseMenu.h; sourceTree = "<group>"; };
 		CACFA9F4263CAA00000236C4 /* CIPlayerSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIPlayerSettings.h; sourceTree = "<group>"; };
@@ -512,7 +512,7 @@
 				CA68E30A25F53BC200B4617D /* CICollisionController.h */,
 				EBFA528B21FA5AAC00CCC2C5 /* CIInputController.cpp */,
 				EBFA528721FA5AAB00CCC2C5 /* CIInputController.h */,
-				CACAAECA264B032500F2A8EE /* CITouchInstance.h */,
+				CA2E27BD264C4BD9003E42FF /* CITouchInstance.h */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -747,7 +747,7 @@
 					};
 					EB74548B1D74D75C002FBAE6 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = B836CXCFQ5;
+						DevelopmentTeam = 779J4S35TN;
 						ProvisioningStyle = Automatic;
 					};
 					EBBF18901D74904A008E2001 = {
@@ -1125,14 +1125,14 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = B836CXCFQ5;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.ellipsis.coreimpact2;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ellipsis.coreimpact;
 				PRODUCT_NAME = "Core Impact";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
@@ -1151,14 +1151,14 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = B836CXCFQ5;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.ellipsis.coreimpact2;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ellipsis.coreimpact;
 				PRODUCT_NAME = "Core Impact";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
