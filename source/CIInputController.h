@@ -13,6 +13,8 @@
 #ifndef __CI_INPUT_CONTROLLER_H__
 #define __CI_INPUT_CONTROLLER_H__
 #include <cugl/cugl.h>
+#include <map>
+#include "CITouchInstance.h" 
 
 /**
  * This class represents player input
@@ -33,32 +35,12 @@
 class InputController {
 private:
     
-    /** Postion and velocity of the finger */
-    cugl::Vec2 _position;
-    cugl::Vec2 _velocity;
-    
-    /** Position and velocity of the finger in the previous frame */
-    cugl::Vec2 _prevPosition;
-    cugl::Vec2 _prevVelocity;
-
-    /** Flag that tells whether the user's finger is currently down or not */
-    bool _fingerDown;
-    
     /** Pointers to the touchscreen and mouse */
     cugl::Touchscreen* _touch;
     cugl::Mouse* _mouse;
     
-protected:
-    struct TouchInstance {
-        /** The anchor touch position (on start) */
-        cugl::Vec2 position;
-        /** The current touch time */
-        cugl::Timestamp timestamp;
-        /** The touch id(s) for future reference */
-        std::unordered_set<Uint64> touchids;
-    };
-    
-    TouchInstance _touchInstance;
+    /** All active touch instances */
+    std::map<Uint64, TouchInstance> _touchInstances;
     
     /** The bounds of the entire game screen (in touch coordinates) */
     cugl::Rect _tbounds;
@@ -101,11 +83,6 @@ public:
     bool init(const cugl::Rect bounds);
     
     /**
-     * Populates the initial values of the TouchInstances
-     */
-    void clearTouchInstance(TouchInstance& touchInstance);
-    
-    /**
      * Returns the scene location of a touch
      *
      * Touch coordinates are inverted, with y origin in the top-left
@@ -125,7 +102,7 @@ public:
      *
      * This method is used to to poll the current input state.  This will poll 
      * the keyboad and accelerometer.
-     * 
+     *
      * This method also gathers the delta difference in the touches. Depending 
      * on the OS, we may see multiple updates of the same touch in a single 
      * animation frame, so we need to accumulate all of the data together.
@@ -141,50 +118,13 @@ public:
 #pragma mark -
 #pragma mark Input Results
     /**
-     * Returns the position of a user swipe.
+     * Returns a pointer to the active touch instances
      *
-     * @return position of a user swipe
+     * @return a pointer to the touch instances
      */
-    cugl::Vec2 getPosition() {
-        return _position;
+    std::map<Uint64, TouchInstance>* getTouchInstances() {
+        return &_touchInstances;
     }
-    
-    /**
-     * Returns the velocity of a user swipe
-     *
-     * @return velocity of a user swipe
-     */
-    cugl::Vec2 getVelocity() {
-        return _velocity;
-    }
-    
-    /**
-     * Returns the position of a user swipe from the previous frame.
-     *
-     * @return position of a user swipe
-     */
-    cugl::Vec2 getPrevPosition() {
-        return _prevPosition;
-    }
-    
-    /**
-     * Returns the velocity of a user swipe from the previous frame.
-     *
-     * @return velocity of a user swipe 
-     */
-    cugl::Vec2 getPrevVelocity() {
-        return _prevVelocity;
-    }
-    
-    /**
-     * Returns whether the user's finger is down or not
-     *
-     * @return whether the user's finger is down or not
-     */
-    bool fingerDown() {
-        return _fingerDown;
-    }
-    
     
 #pragma mark -
 #pragma mark Touch Callbacks
@@ -242,21 +182,25 @@ public:
      * Process the start of a touch or click
      *
      * @param pos The screen coordinates of the touch or click
+     * @param id The id of the touch or click to start
      */
-    void processBegan(cugl::Vec2 pos);
+    void processBegan(cugl::Vec2 pos, Uint64 id);
     
     /**
      * Process movement during a touch or click
      *
      * @param pos The screen coordinates of the touch or click
      * @param prev The screen coordinates of the previous touch or click
+     * @param id The id of the touch of click to move
      */
-    void processMoved(cugl::Vec2 pos, cugl::Vec2 prev);
+    void processMoved(cugl::Vec2 pos, cugl::Vec2 prev, Uint64 id);
     
     /**
      * Process the end of a touch or click
+     *
+     * @param id The id of the touch of click to end
      */
-    void processEnded();
+    void processEnded(Uint64 id);
 };
 
 #endif /* __CI_INPUT_CONTROLLER_H__ */

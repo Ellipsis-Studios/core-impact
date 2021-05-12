@@ -26,6 +26,7 @@
 #include <cugl/cugl.h>
 #include "CIPlanetModel.h"
 #include "CIStardustQueue.h"
+#include "CITouchInstance.h"
 
 /**
  * Namespace of functions implementing simple game physics.
@@ -64,6 +65,21 @@ void checkForCollisions(const std::shared_ptr<StardustQueue>& queue);
  *  @return true if inputPos is inside the planet
  */
 bool checkForCollision(const std::shared_ptr<PlanetModel>& planet, cugl::Vec2 inputPos);
+
+/**
+ *  Checks for a collision between a planet and any touch on the screen. If there is a collision,
+ *  it updates holdingPlanetTouchId to contain the touch id of the colliding touch.
+ *
+ *  @param planet The planet in the candidate collision
+ *  @param touchInstances The locations of touches on the screen, mapped by touch id
+ *  @param draggedStardust The stardusts that are being dragged, mapped by touch id
+ *  @param holdingPlanetTouchId The touch id of the touch that was last holding on the planet
+ *  @return true if any touch that is not holding a stardust is inside the planet
+ */
+bool checkForCollision(const std::shared_ptr<PlanetModel>& planet,
+                       std::map<Uint64, TouchInstance>* touchInstances,
+                       std::map<Uint64, StardustModel*>* draggedStardust,
+                       Uint64 &holdingPlanetTouchId);
 
 /**
  * Finds the closest stardust that collides with the input position

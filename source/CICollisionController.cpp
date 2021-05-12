@@ -21,6 +21,7 @@
 //  Based on original GameX Ship Demo by Rama C. Hoetzlein, 2002
 //  Version: 2/21/21
 //
+#include <map>
 #include "CICollisionController.h"
 #include "CILocation.h"
 
@@ -151,6 +152,43 @@ bool collisions::checkForCollision(const std::shared_ptr<PlanetModel>& planet, V
 }
 
 /**
+ *  Checks for a collision between a planet and any touch on the screen. If there is a collision,
+ *  it updates holdingPlanetTouchId to contain the touch id of the colliding touch.
+ *
+ *  @param planet The planet in the candidate collision
+ *  @param touchInstances The locations of touches on the screen, mapped by touch id
+ *  @param draggedStardust The stardusts that are being dragged, mapped by touch id
+ *  @param holdingPlanetTouchId The touch id of the touch that was last holding on the planet
+ *  @return true if any touch that is not holding a stardust is inside the planet
+ */
+bool collisions::checkForCollision(const std::shared_ptr<PlanetModel>& planet,
+                                   std::map<Uint64, TouchInstance>* touchInstances,
+                                   std::map<Uint64, StardustModel*>* draggedStardust,
+                                   Uint64 &holdingPlanetTouchId) {
+    // check if finger that was holding planet is still holding
+    if (holdingPlanetTouchId != 0 && touchInstances->count(holdingPlanetTouchId) > 0) {
+        if (draggedStardust->count(holdingPlanetTouchId) == 0 && checkForCollision(planet, touchInstances->find(holdingPlanetTouchId)->second.position)) {
+            return true;
+        } else {
+            holdingPlanetTouchId = 0;
+        }
+    } else {
+        holdingPlanetTouchId = 0;
+    }
+    
+    // check other instances
+    for (auto it = touchInstances->begin(); it != touchInstances->end(); it++) {
+        if (draggedStardust->count(it->first) == 0 && checkForCollision(planet, it->second.position)) {
+            holdingPlanetTouchId = it->first;
+            return true;
+        }
+    }
+    holdingPlanetTouchId = 0;
+    
+    return false;
+}
+
+/**
  * Finds the closest stardust that collides with the input position
  *
  * @param inputPos     The input position of the finger
@@ -164,7 +202,7 @@ StardustModel* collisions::getNearestStardust(Vec2 inputPos, const std::shared_p
     for (size_t ii = 0; ii < queue->size(); ii++) {
         // This returns a reference
         StardustModel* stardust = queue->get(ii);
-        if (stardust != nullptr) {
+        if (stardust != nullptr && !stardust->isDragged()) {
             Vec2 norm = inputPos - stardust->getPosition();
             float distance = norm.length();
 
