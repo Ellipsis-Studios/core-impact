@@ -57,7 +57,6 @@ bool LoadingScene::init(const std::shared_ptr<AssetManager>& assets) {
     layer->setContentSize(dimen);
     layer->doLayout(); // This rearranges the children to fit the screen
     
-    _bar = std::dynamic_pointer_cast<scene2::ProgressBar>(assets->get<scene2::SceneNode>("load_bar"));
     _teamlogo = assets->get<scene2::SceneNode>("load_teamlogo");
     _gameTitle = assets->get<scene2::SceneNode>("load_title");
     _gamePlanet = assets->get<scene2::SceneNode>("load_world");
@@ -76,12 +75,12 @@ void LoadingScene::dispose() {
         _gameTitle->setVisible(false);
         _gamePlanet->setVisible(false);
     }
-    _bar = nullptr;
     _assets = nullptr;
     _teamlogo = nullptr;
     _gameTitle = nullptr;
     _gamePlanet = nullptr;
     _progress = 0.0f;
+    _opacitiesIndex = 0;
 }
 
 #pragma mark -
@@ -97,11 +96,19 @@ void LoadingScene::update(float progress) {
     _progress = _assets->progress();
     if (_progress >= 1) {
         _progress = 1.0f;
-        _bar->setVisible(false);
         _gameTitle->setVisible(true);
         _gamePlanet->setVisible(true);
         _teamlogo->setVisible(true);
         _active = false;
+        _opacitiesIndex = 0;
     }
-    _bar->setProgress(_progress);
+    Color4 color = _gameTitle->getColor();
+    if (_progress < 1) {
+        color.a = 255 * _opacities[_opacitiesIndex];
+        _opacitiesIndex++;
+        if (_opacitiesIndex >= _opacities.size()) {
+            _opacitiesIndex = 0;
+        }
+    }
+    _gameTitle->setColor(color);
 }

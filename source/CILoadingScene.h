@@ -38,8 +38,6 @@ protected:
     // NO CONTROLLER (ALL IN SEPARATE THREAD)
 
     // VIEW
-    /** The animated progress bar */
-    std::shared_ptr<cugl::scene2::ProgressBar>  _bar;
     /** Team logo */
     std::shared_ptr<cugl::scene2::SceneNode> _teamlogo;
     /** Game Title */
@@ -50,6 +48,11 @@ protected:
     // MODEL
     /** The progress displayed on the screen */
     float _progress;
+    
+    /** Vector of opacities. Used when a player is able to lock in a layer. *  */
+    std::vector<float> _opacities{ 0.08f, 0.25f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.5f, 0.35f, 0.7f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 1.0f, 1.0f };
+    /** Current index in opacities vector. */
+    int _opacitiesIndex = 0;
 
 public:
 #pragma mark -

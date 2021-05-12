@@ -1,26 +1,10 @@
 {
   "textures": {
-    "progress": {
-      "file": "textures/progress.png",
-      "wrapS": "clamp",
-      "wrapT": "clamp",
-      "minfilter": "linear",
-      "magfilter": "linear",
-      "atlas": {
-        "background": [0, 0, 320, 45],
-        "foreground": [24, 45, 296, 90],
-        "leftcap": [0, 45, 24, 90],
-        "rightcap": [296, 45, 320, 90]
-      }
-    },
     "nebula": {
       "file": "textures/splashArt/splashArtBackground.png"
     },
     "title": {
-      "file": "textures/splashArt/splashArtTitle.png"
-    },
-    "stardust": {
-      "file": "textures/splashArt/splashArtStardust.png"
+      "file": "textures/menu_logo.png"
     },
     "world": {
       "file": "textures/splashArt/splashArtWorld.png"
@@ -68,23 +52,6 @@
             "y_anchor": "middle",
             "y_offset": 120,
             "absolute": true
-          },
-          "children": {
-            "stardust": {
-              "type": "Image",
-              "data": {
-                "texture": "stardust",
-                "anchor": [0.5, 0.2],
-                "scale": 1
-              },
-              "layout": {
-                "x_anchor": "center",
-                "y_anchor": "middle",
-                "x_offset": -60,
-                "y_offset": 50,
-                "absolute": true
-              }
-            }
           }
         },
         "world": {
@@ -101,22 +68,6 @@
             "x_anchor": "center",
             "y_anchor": "bottom",
             "y_offset": 5,
-            "absolute": true
-          }
-        },
-        "bar": {
-          "type": "Progress",
-          "data": {
-            "anchor": [0.5, 0.5],
-            "background": "progress_background",
-            "foreground": "progress_foreground",
-            "left_cap": "progress_leftcap",
-            "right_cap": "progress_rightcap"
-          },
-          "layout": {
-            "x_anchor": "center",
-            "y_anchor": "middle",
-            "y_offset": -45,
             "absolute": true
           }
         },
