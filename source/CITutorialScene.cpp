@@ -115,7 +115,6 @@ bool TutorialScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     powerupTextures.push_back(_assets->get<Texture>("fog_standalone"));
     _planet->setTextures(coreTexture, ringTexture, unlockedTexture, lockedTexture, planetProgressTexture, powerupTextures);
 
-    _draggedStardust = NULL;
     _stardustContainer = StardustQueue::alloc(CONSTANTS::MAX_STARDUSTS, coreTexture);
 
     // Game settings
@@ -183,7 +182,8 @@ void TutorialScene::dispose() {
     _tutorialText = nullptr;
     _stardustContainer = nullptr;
     _planet = nullptr;
-    _draggedStardust = NULL;
+    _draggedStardust.clear();
+    _holdingPlanetTouchId = 0;
     _opponentPlanets.clear();
     _pauseBtn = nullptr;
     _pauseMenu = nullptr;
@@ -205,8 +205,6 @@ void TutorialScene::dispose() {
 void TutorialScene::update(float timestep, const std::shared_ptr<PlayerSettings>& playerSettings) {
     Size dimen = Application::get()->getDisplaySize();
     dimen *= CONSTANTS::SCENE_WIDTH/dimen.width;
-    
-    _input.update(timestep);
     
     // Handle counting down then switching to loading screen
     if (_tutorialStage == 13) {
@@ -232,11 +230,27 @@ void TutorialScene::update(float timestep, const std::shared_ptr<PlayerSettings>
     }
     _stardustContainer->update(timestep);
     addStardust(dimen);
+    
+    std::map<Uint64, TouchInstance>* touchInstances = _input.getTouchInstances();
 
     collisions::checkForCollision(_planet, _stardustContainer, timestep);
     collisions::checkInBounds(_stardustContainer, dimen);
     collisions::checkForCollisions(_stardustContainer);
-    updateDraggedStardust();
+    updateDraggedStardust(touchInstances);
+    
+    if (collisions::checkForCollision(_planet, touchInstances, &_draggedStardust, _holdingPlanetTouchId)) {
+        CIColor::Value planetColor = _planet->getColor();
+        if (_planet->lockInLayer(timestep)) {
+            // Layer Locked In
+            CULog("LAYER LOCKED IN");
+            _stardustContainer->addToPowerupQueue(planetColor, true);
+        }
+    } else if (_planet->isLockingIn()) {
+        _planet->stopLockIn();
+    }
+    
+    _planet->update(timestep);
+    _input.update(timestep);
     
     /** Tutorialization Phase */
     // Advance Tutorial Stage
@@ -391,19 +405,6 @@ void TutorialScene::update(float timestep, const std::shared_ptr<PlayerSettings>
         default:
             break;
     }
-    
-    if (collisions::checkForCollision(_planet, _input.getPosition())) {
-        CIColor::Value planetColor = _planet->getColor();
-        if (_planet->lockInLayer(timestep)) {
-            // Layer Locked In
-            CULog("LAYER LOCKED IN");
-            _stardustContainer->addToPowerupQueue(planetColor, true);
-        }
-    } else if (_planet->isLockingIn()) {
-        _planet->stopLockIn();
-    }
-    
-    _planet->update(timestep);
 
     for (int ii = 0; ii < _opponentPlanets.size() ; ii++) {
         std::shared_ptr<OpponentPlanet> opponent = _opponentPlanets[ii];
@@ -433,22 +434,32 @@ void TutorialScene::update(float timestep, const std::shared_ptr<PlayerSettings>
  *
  * It selects or deselects a dragged stardust stardust if applicable,
  * and updates the velocity a selected stardust if there is one.
+ *
+ * @param touchInstances The touchInstances of fingers on the screen
  */
-void TutorialScene::updateDraggedStardust() {
-    if (_input.fingerDown()) {
-        if (_draggedStardust == NULL) {
-            _draggedStardust = collisions::getNearestStardust(_input.getPosition(), _stardustContainer);
+void TutorialScene::updateDraggedStardust(std::map<Uint64, TouchInstance>* touchInstances) {
+    for (auto it = touchInstances->begin(); it != touchInstances->end(); it++) {
+        if (it->second.fingerDown) {
+            if (_draggedStardust.count(it->first) == 0) {
+                StardustModel* stardust = collisions::getNearestStardust(it->second.position, _stardustContainer);
+                if (stardust != NULL) {
+                    stardust->setIsDragged(true);
+                    _draggedStardust.insert(std::pair<Uint64, StardustModel*>(it->first, stardust));
+                }
+            }
+            if (_draggedStardust.count(it->first) > 0) {
+                StardustModel* stardust = _draggedStardust.find(it->first)->second;
+                float sdRadius = _stardustContainer->getStardustRadius();
+                collisions::moveDraggedStardust(it->second.position, stardust, sdRadius);
+            }
+        } else if (_draggedStardust.count(it->first) > 0) {
+            // finger just released, flick dragged stardust
+            StardustModel* stardust = _draggedStardust.find(it->first)->second;
+            Vec2 newVelocity = stardust->getVelocity() + it->second.velocity;
+            stardust->setVelocity(newVelocity);
+            stardust->setIsDragged(false);
+            _draggedStardust.erase(it->first);
         }
-        // this is structured like this to update a recently dragged stardust
-        if (_draggedStardust != NULL) {
-            float sdRadius = _stardustContainer->getStardustRadius();
-            collisions::moveDraggedStardust(_input.getPosition(), _draggedStardust, sdRadius);
-        }
-    } else if (!_input.fingerDown() && _draggedStardust != NULL) {
-        // finger just released, flick dragged stardust
-        Vec2 newVelocity = _draggedStardust->getVelocity() + _input.getPrevVelocity();
-        _draggedStardust->setVelocity(newVelocity);
-        _draggedStardust = NULL;
     }
 }
 

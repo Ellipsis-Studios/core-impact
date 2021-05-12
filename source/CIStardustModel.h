@@ -34,13 +34,13 @@ private:
     float _radius;
     /** Mass/weight of the stardust. Used in collisions and physics. */
     float _mass;
+    /** Whether this stardust is being dragged */
+    bool _isDragged;
     
     /** The location of the stardust */
     CILocation::Value _stardust_location;
-    
     /** The player id of the last player to own this stardust. -1 if this stardust does not have a previous owner */
     int _previous_owner;
-    
     /** The type of stardust this is. By default it will be a normal stardust. */
     Type _stardust_type;
 
@@ -177,6 +177,24 @@ public:
      */
     void setStardustType(Type type) {
         _stardust_type = type;
+    }
+    
+    /**
+     * Returns whether this stardust is being dragged
+     *
+     * @return whether this stardust is being dragged
+     */
+    bool isDragged() {
+        return _isDragged;
+    }
+    
+    /**
+     * Sets whether this stardust is being dragged
+     *
+     * @param value  whether this stardust is being dragged
+     */
+    void setIsDragged(bool value) {
+        _isDragged = value;
     }
 
 #pragma mark Constructors

@@ -14,6 +14,7 @@
 #define __CI_INPUT_CONTROLLER_H__
 #include <cugl/cugl.h>
 #include <map>
+#include "CITouchInstance.h" 
 
 /**
  * This class represents player input
@@ -37,20 +38,6 @@ private:
     /** Pointers to the touchscreen and mouse */
     cugl::Touchscreen* _touch;
     cugl::Mouse* _mouse;
-    
-protected:
-    struct TouchInstance {
-        /** Whether this touch is still active */
-        bool fingerDown;
-        /** The touch position */
-        cugl::Vec2 position;
-        /** The touch velocity */
-        cugl::Vec2 velocity;
-        /** The current touch time */
-        cugl::Timestamp timestamp;
-        /** The touch id for future reference */
-        Uint64 touchid;
-    };
     
     /** The touchIds of all active touch instances, in order of oldest to newest */
     std::list<Uint64> _touchIds;
@@ -154,6 +141,10 @@ public:
             return _touchInstances.find(_touchIds.front())->second.velocity;
         }
         return cugl::Vec2::ZERO;
+    }
+    
+    std::map<Uint64, TouchInstance>* getTouchInstances() {
+        return &_touchInstances;
     }
     
     /**

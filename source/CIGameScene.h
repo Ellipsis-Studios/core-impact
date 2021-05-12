@@ -19,6 +19,7 @@
 #define __CI_GAME_SCENE_H__
 #include <cugl/cugl.h>
 #include <vector>
+#include <map>
 #include "CIPlanetModel.h"
 #include "CIInputController.h"
 #include "CIStardustQueue.h"
@@ -67,8 +68,6 @@ protected:
     std::shared_ptr<cugl::scene2::AnimationNode> _farSpace;
     /** Foreground in animation parallax. Stores the planets. */
     std::shared_ptr<cugl::scene2::SceneNode> _nearSpace;
-    /** Shared memory pool for stardust. (MODEL CLASS) */
-    std::shared_ptr<StardustQueue> _stardustContainer;
     /** Reference to the pause button */
     std::shared_ptr<cugl::scene2::Button> _pauseBtn;
     std::shared_ptr<PauseMenu> _pauseMenu;
@@ -76,8 +75,12 @@ protected:
     // MODEL
     /** The model representing the planet */
     std::shared_ptr<PlanetModel>  _planet;
-    /** Pointer to the model of the stardust that is currently being dragged */
-    StardustModel*  _draggedStardust;
+    /** Shared memory pool for stardust */
+    std::shared_ptr<StardustQueue> _stardustContainer;
+    /** Map from touch ids to which stardust they are dragging */
+    std::map<Uint64, StardustModel*> _draggedStardust;
+    /** The touch id of the touch instance that is holding on the planet */
+    Uint64 _holdingPlanetTouchId;
     /** Vector of opponent planets */
     std::vector<std::shared_ptr<OpponentPlanet>> _opponentPlanets;
 
@@ -158,8 +161,10 @@ public:
      *
      * It selects or deselects a dragged stardust stardust if applicable,
      * and updates the velocity a selected stardust if there is one.
+     *
+     * @param touchInstances The touchInstances of fingers on the screen
      */
-    void updateDraggedStardust();
+    void updateDraggedStardust(std::map<Uint64, TouchInstance>* touchInstances);
     
     /**
      * This method attempts to add a stardust to the players screen.

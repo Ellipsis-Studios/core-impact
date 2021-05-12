@@ -24,7 +24,7 @@ using namespace cugl;
 /** How far we must swipe up for a move gesture */
 #define SWIPE_LENGTH                10
 /** Id to use with mouse events */
-#define MOUSE_ID                    0
+#define MOUSE_ID                    1
 
 #pragma mark -
 #pragma mark Input
