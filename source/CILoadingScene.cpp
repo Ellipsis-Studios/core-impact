@@ -80,6 +80,7 @@ void LoadingScene::dispose() {
     _gameTitle = nullptr;
     _gamePlanet = nullptr;
     _progress = 0.0f;
+    _opacities.clear();
     _opacitiesIndex = 0;
 }
 
