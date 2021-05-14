@@ -4,7 +4,10 @@
       "file": "textures/splashArt/splashArtBackground.png"
     },
     "title": {
-      "file": "textures/menu_logo.png"
+      "file": "textures/splashArt/logo_design.png"
+    },
+    "stardust": {
+      "file": "textures/splashArt/splashArtStardust.png"
     },
     "world": {
       "file": "textures/splashArt/splashArtWorld.png"
@@ -13,14 +16,14 @@
       "file": "textures/EllipsisMiniLogoWhiteSmall.png"
     },
     "settingsbutton": {
-      "file": "textures/settingsButtonSmall.png",
+      "file": "textures/settings_icon.png",
       "wrapS": "clamp",
       "wrapT": "clamp",
       "minfilter": "linear",
       "magfilter": "linear"
     },
     "menubuttonup": {
-      "file": "textures/buttonUp.png",
+      "file": "textures/nine_patch.png",
       "wrapS": "clamp",
       "wrapT": "clamp",
       "minfilter": "linear",
@@ -63,15 +66,15 @@
   },
   "fonts": {
     "saira40": {
-      "file": "fonts/SairaSemicondensed.ttf",
+      "file": "fonts/gillsans.ttf",
       "size": 40
     },
     "saira32": {
-      "file": "fonts/SairaSemicondensed.ttf",
+      "file": "fonts/gillsans.ttf",
       "size": 32
     },
     "saira24": {
-      "file": "fonts/SairaSemicondensed.ttf",
+      "file": "fonts/gillsans.ttf",
       "size": 24
     }
   },
@@ -150,25 +153,6 @@
             "absolute": true
           }
         },
-        "teamlogo": {
-          "comment": "The scene graph for team logo in bottom right corner.",
-          "type": "Image",
-          "format": {
-            "type": "Anchored"
-          },
-          "data": {
-            "texture": "teamlogo",
-            "anchor": [0.5, 0.5],
-            "scale": 0.6,
-            "visible": true
-          },
-          "layout": {
-            "x_anchor": "right",
-            "y_anchor": "bottom",
-            "x_offset": -0.05,
-            "y_offset": 0.05
-          }
-        },
         "menubackbutton": {
           "comment": "The back button to return to main menu.",
           "type": "Widget",
@@ -199,8 +183,7 @@
           "data": {
             "key": "menubutton",
             "variables": {
-              "text": "Join Game",
-              "text2": "Join Game"
+              "text": "Join Game"
             }
           },
           "layout": {
@@ -218,9 +201,9 @@
           },
           "layout": {
             "x_anchor": "right",
-            "y_anchor": "top",
+            "y_anchor": "bottom",
             "x_offset": -0.05,
-            "y_offset": -0.08
+            "y_offset": 0.07
           }
         },
         "newbutton": {
@@ -229,8 +212,7 @@
           "data": {
             "key": "menubutton",
             "variables": {
-              "text": "New Game",
-              "text2": "New Game"
+              "text": "New Game"
             }
           },
           "layout": {
@@ -246,8 +228,7 @@
           "data": {
             "key": "menubutton",
             "variables": {
-              "text": "How to Play",
-              "text2": "How to Play"
+              "text": "How to Play"
             }
           },
           "layout": {
@@ -608,7 +589,6 @@
             "key": "menubutton",
             "variables": {
               "text": "Apply",
-              "text2": "Apply",
               "size": [200, 50],
               "size2": [200, 50],
               "nodeSize": [240, 80]
@@ -1494,8 +1474,7 @@
           "data": {
             "key": "menubutton",
             "variables": {
-              "text": "Resume",
-              "text2": "Resume"
+              "text": "Resume"
             }
           },
           "layout": {
@@ -1511,8 +1490,7 @@
           "data": {
             "key": "menubutton",
             "variables": {
-              "text": "Exit Game",
-              "text2": "Exit Game"
+              "text": "Exit Game"
             }
           },
           "layout": {

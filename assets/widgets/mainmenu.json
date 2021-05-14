@@ -4,7 +4,7 @@
     "settingsbutton_yoffset": ["children", "settingsbutton", "layout", "y_offset"]
   },
   "contents": {
-              "type": "Node",
+          "type": "Node",
           "format": {
             "type": "Anchored"
           },
@@ -28,8 +28,7 @@
               "data": {
                 "key": "menubutton",
                 "variables": {
-                  "text": "Join Game",
-                  "text2": "Join Game"
+                  "text": "Join Game"
                 }
               },
               "layout": {
@@ -45,8 +44,7 @@
               "data": {
                 "key": "menubutton",
                 "variables": {
-                  "text": "New Game",
-                  "text2": "New Game"
+                  "text": "New Game"
                 }
               },
               "layout": {
@@ -61,8 +59,7 @@
               "data": {
                 "key": "menubutton",
                 "variables": {
-                  "text": "How to Play",
-                  "text2": "How to Play"
+                  "text": "How to Play"
                 }
               },
               "layout": {
