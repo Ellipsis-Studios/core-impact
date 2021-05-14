@@ -17,7 +17,7 @@
 
 #define PROGRESS_ROWS                   10
 #define PROGRESS_COLS                   10
-#define PROGRESS_NORMAL_LOOP1_START     0
+#define PROGRESS_NORMAL_LOOP1_START     5
 #define PROGRESS_NORMAL_LOOP1_END       29
 #define PROGRESS_FLASH_START            30
 #define PROGRESS_FLASH_END              59
@@ -50,6 +50,8 @@ private:
     
     /** The amount of time since last animation frame change */
     float _timeElapsed;
+    /** Whether the animation frames are currently going up. */
+    bool _animationFramesGoingUp;
     
     /** The amount of time the full fog texture has be on the screen */
     float _fogTimeOnScreen;
@@ -182,6 +184,7 @@ public:
         _fogTimeOnScreen = 0;
         _fogAnimationProgress = 0;
         _fogOngoing = false;
+        setFrame(PROGRESS_NORMAL_LOOP1_START);
         return true;
     }
     
@@ -219,6 +222,7 @@ public:
     void startHitAnimation() {
         if (getFrame() < PROGRESS_FLASH_START || getFrame() > PROGRESS_FLASH_END) {
             setFrame(PROGRESS_FLASH_START);
+            _animationFramesGoingUp = true;
         }
     }
     
