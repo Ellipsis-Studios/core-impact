@@ -17,7 +17,7 @@
       "file": "textures/splashArt/splashArtBackground.png"
     },
     "title": {
-      "file": "textures/splashArt/logo_design.png"
+      "file": "textures/splashArt/splashArtTitle.png"
     },
     "stardust": {
       "file": "textures/splashArt/splashArtStardust.png"
@@ -68,6 +68,23 @@
             "y_anchor": "middle",
             "y_offset": 120,
             "absolute": true
+          },
+          "children": {
+            "stardust": {
+              "type": "Image",
+              "data": {
+                "texture": "stardust",
+                "anchor": [0.5, 0.2],
+                "scale": 1
+              },
+              "layout": {
+                "x_anchor": "center",
+                "y_anchor": "middle",
+                "x_offset": -60,
+                "y_offset": 50,
+                "absolute": true
+              }
+            }
           }
         },
         "world": {
@@ -112,13 +129,14 @@
           "data": {
             "texture": "teamlogo",
             "anchor": [0.5, 0.5],
-            "scale": 0.7,
+            "scale": 0.6,
             "visible": true
           },
           "layout": {
-            "x_anchor": "center",
-            "y_anchor": "middle",
-            "y_offset": 0.02
+            "x_anchor": "right",
+            "y_anchor": "bottom",
+            "x_offset": -0.05,
+            "y_offset": 0.05
           }
         }
       }
