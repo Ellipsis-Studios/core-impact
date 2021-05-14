@@ -38,8 +38,6 @@ protected:
     // NO CONTROLLER (ALL IN SEPARATE THREAD)
 
     // VIEW
-    /** The animated progress bar */
-    std::shared_ptr<cugl::scene2::ProgressBar>  _bar;
     /** Team logo */
     std::shared_ptr<cugl::scene2::SceneNode> _teamlogo;
     /** Game Title */
@@ -50,6 +48,11 @@ protected:
     // MODEL
     /** The progress displayed on the screen */
     float _progress;
+    
+    /** Vector of opacities. Used for displaying the logo.  */
+    std::vector<float> _opacities{ 1.0f, 1.0f, 0.98f, 0.98f, 0.95f, 0.95f, 0.90f, 0.90f, 0.82f, 0.82f, 0.75f, 0.75f, 0.65f, 0.65f, 0.5f, 0.5f, 0.3f, 0.3f, 0.08f, 0.08f, 0.3f, 0.3f, 0.5f, 0.5f, 0.65f, 0.65f, 0.75f, 0.75f, 0.82f, 0.82f, 0.90f, 0.90f, 0.95f, 0.95f, 0.98f, 0.98f, 1.0f, 1.0f };
+    /** Current index in opacities vector. */
+    int _opacitiesIndex = 0;
 
 public:
 #pragma mark -

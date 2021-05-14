@@ -12,7 +12,7 @@
 #include "CIOpponentNode.h"
 
 #define BAR_PROGRESS_DELTA  .003
-#define SPF                 .033 //seconds per frame
+#define SPF                 .045 //seconds per frame
 #define FOG_SEC_ON_SCREEN     10
 #define FOG_FRAMES            60
 
@@ -68,12 +68,15 @@ void OpponentNode::update(float timestep) {
         _timeElapsed = 0;
         int frame = getFrame();
         if (frame == PROGRESS_NORMAL_LOOP1_END) {
-            setFrame(PROGRESS_NORMAL_LOOP2_START);
+            _animationFramesGoingUp = false;
+        } else if (frame == PROGRESS_NORMAL_LOOP1_START) {
+            _animationFramesGoingUp = true;
         } else if (frame == PROGRESS_NORMAL_LOOP2_END) {
             setFrame(PROGRESS_NORMAL_LOOP1_START);
-        } else {
-            setFrame(frame + 1);
+            return;
         }
+        
+        setFrame(frame + (_animationFramesGoingUp ? 1 : -1));
     }
     
     float progressDifference = _progress - _barProgress;
