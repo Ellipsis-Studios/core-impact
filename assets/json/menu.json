@@ -4,10 +4,7 @@
       "file": "textures/splashArt/splashArtBackground.png"
     },
     "title": {
-      "file": "textures/splashArt/splashArtTitle.png"
-    },
-    "stardust": {
-      "file": "textures/splashArt/splashArtStardust.png"
+      "file": "textures/menu_logo.png"
     },
     "world": {
       "file": "textures/splashArt/splashArtWorld.png"
@@ -133,24 +130,6 @@
             "y_anchor": "middle",
             "y_offset": 120,
             "absolute": true
-          },
-          "children": {
-            "stardust": {
-              "type": "Image",
-              "data": {
-                "texture": "stardust",
-                "anchor": [0.5, 0.2],
-                "scale": 1,
-                "visible": true
-              },
-              "layout": {
-                "x_anchor": "center",
-                "y_anchor": "middle",
-                "x_offset": -60,
-                "y_offset": 50,
-                "absolute": true
-              }
-            }
           }
         },
         "world": {
