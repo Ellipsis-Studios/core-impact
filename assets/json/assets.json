@@ -4,7 +4,7 @@
       "file": "textures/backgroundAnimation_v6.png"
     },
     "opponentProgress": {
-      "file":     "textures/smallOpponentProgressBarAnimation_v1.png"
+      "file":     "textures/smallOpponentProgressAnimation_v4.png"
     },
     "core": {
         "file":   "textures/coreAnimation_v1.png"
