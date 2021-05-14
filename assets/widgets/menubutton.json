@@ -2,8 +2,6 @@
   "variables": {
     "size": ["children", "up", "data", "size"],
     "text": ["children", "up", "children", "label", "data", "text"],
-    "size2": ["children", "down", "data", "size"],
-    "text2": ["children", "down", "children", "label", "data", "text"],
     "font": ["children", "up", "children", "label", "data", "font"],
     "texture": ["children", "up", "children", "menuup", "data", "texture"],
     "interior": ["children", "up", "children", "menuup", "data", "interior"]
@@ -16,8 +14,7 @@
     "data": {
       "anchor": [0.5, 0.5],
       "upnode": "up",
-      "downnode": "down",
-      "size": [300, 80],
+      "size": [250, 80],
       "visible": false
     },
     "children": {
@@ -39,7 +36,7 @@
             "data": {
               "texture": "menubuttonup",
               "anchor": [0.5, 0.5],
-              "interior": [10, 10, 100, 60]
+              "interior": [17, 13, 31, 18]
             },
             "layout": {
               "x_anchor": "fill",
@@ -55,59 +52,6 @@
               "font": "saira32",
               "text": "text",
               "foreground": [255, 255, 255, 255],
-              "background": [0, 0, 0, 0],
-              "size": [200, 60],
-              "anchor": [0.5, 0.5],
-              "halign": "center",
-              "valign": "middle"
-            },
-            "layout": {
-              "x_anchor": "fill",
-              "y_anchor": "fill"
-            }
-          }
-        },
-        "layout": {
-          "x_anchor": "fill",
-          "y_anchor": "fill"
-        }
-      },
-      "down": {
-        "type": "Node",
-        "format": {
-          "type": "Anchored"
-        },
-        "data": {
-          "comment": "Without this size, the up button fills the screen (because that is default)",
-          "size": [300, 80],
-          "anchor": [0.5, 0.5]
-        },
-        "children": {
-          "comment": "The children fit snug to the up button and do not need sizes",
-          "menudownpatch": {
-            "type": "NinePatch",
-            "format": {
-              "type": "Anchored"
-            },
-            "data": {
-              "texture": "menubuttondown",
-              "anchor": [0.5, 0.5],
-              "interior": [10, 10, 100, 60]
-            },
-            "layout": {
-              "x_anchor": "fill",
-              "y_anchor": "fill"
-            }
-          },
-          "label": {
-            "type": "Label",
-            "format": {
-              "type": "Anchored"
-            },
-            "data": {
-              "font": "saira32",
-              "text": "text",
-              "foreground": [0, 0, 0, 255],
               "background": [0, 0, 0, 0],
               "size": [200, 60],
               "anchor": [0.5, 0.5],
