@@ -121,6 +121,28 @@ void StardustQueue::addStardust(const std::shared_ptr<StardustModel> stardust) {
 }
 
 /**
+ * Adds a blast of stardust particles to the active queue
+ *
+ * @param position The initial position of the particle
+ * @param velocity The initial velocity of the particle
+ * @param c1 The color code of the stardust
+ * @param c2 The color code of the planet
+ */
+
+void StardustQueue::createStardustParticleBlast(cugl::Vec2 position, cugl::Vec2 velocity, CIColor::Value c1, CIColor::Value c2){
+    int blastSize = min((int)(velocity.length() * 3 + 8), 64);
+    for (int i=0;i<blastSize;i++){
+        Vec2 particleVel = Vec2(velocity.x, velocity.y);
+        particleVel.x += (rand() % 10)/2.0 - 2.5;
+        particleVel.y += (rand() % 10)/2.0 - 2.5;
+        float size = ((rand() % 6) + 7) / 50.0;
+        float lifespan = ((rand() % 8) + 14);
+        std::shared_ptr<StardustModel> particle = StardustModel::allocParticle(position, particleVel, ((rand() % 2 == 0) ? c1 : c2), size, lifespan);
+        addStardust(particle);
+    }
+}
+
+/**
  * Returns the (reference to the) stardust at the given position.
  *
  * If the position is not a valid stardust, then the result is null.
