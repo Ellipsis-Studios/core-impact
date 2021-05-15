@@ -59,12 +59,13 @@ void StardustNode::draw(const std::shared_ptr<cugl::SpriteBatch>& batch,
             if (_grayScaleTime > 0) {
                 stardustColor = cugl::Color4::GRAY;
             }
-            
+            if (!_queue->at(idx).isInteractable()) {
+                stardustColor.a = (min((int)_queue->at(idx).getMass()*25, 200) / 255.0);
+            }
             AnimationNode::draw(batch, stardustTransform, stardustColor);
-            
             // draw tail
             cugl::Color4 tailColor = cugl::Color4(stardustColor);
-            tailColor.a = 125;
+            tailColor.a = min((int)stardustColor.a, 125);
             stardustTransform.translate(-_queue->at(idx).getVelocity().x * 2, -_queue->at(idx).getVelocity().y * 2, 0);
             AnimationNode::draw(batch, stardustTransform, tailColor);
         }

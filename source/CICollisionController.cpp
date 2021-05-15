@@ -45,7 +45,7 @@ void collisions::checkForCollision(const std::shared_ptr<PlanetModel>& planet, c
     for(size_t ii = 0; ii < queue->size(); ii++) {
         // This returns a reference
         StardustModel* stardust = queue->get(ii);
-        if (stardust != nullptr) {
+        if (stardust != nullptr && stardust->isInteractable()) {
             Vec2 norm = planet->getPosition() - stardust->getPosition();
             float distance = norm.length();
             //TODO update with planet radius
@@ -71,7 +71,14 @@ void collisions::checkForCollision(const std::shared_ptr<PlanetModel>& planet, c
                         queue->addToSendQueue(stardust);
                     }
                 }
+                
+                Vec2 vel = stardust->getVelocity();
+                // Compute the impulse (see Essential Math for Game Programmers)
+                float impulse = (-(1 + COLLISION_COEFF) * norm.dot(vel)) /
+                    (norm.dot(norm) * (1 / stardust->getMass() + 1 / planet->getMass()));
 
+                Vec2 temp = 1.4 * norm * (impulse/stardust->getMass());
+                queue->createStardustParticleBlast(stardust->getPosition() + stardust->getVelocity(), (stardust->getVelocity()+temp) * 0.6, stardust->getColor(), planet->getColor());
                 // Destroy the stardust
                 stardust->destroy();
             } else {
@@ -106,7 +113,8 @@ void collisions::checkForCollisions(const std::shared_ptr<StardustQueue>& queue)
         StardustModel* stardust1 = queue->get(ii);
         for (size_t jj = ii+1; jj < queue->size(); jj++) {
             StardustModel* stardust2 = queue->get(jj);
-            if (stardust1 != nullptr && stardust2 != nullptr) {
+            if (stardust1 != nullptr && stardust2 != nullptr &&
+                stardust1->isInteractable() && stardust2->isInteractable()) {
                 Vec2 norm = stardust1->getPosition() - stardust2->getPosition();
                 float distance = norm.length();
                 float impactDistance = 1.8 * sdRadius;
@@ -132,6 +140,13 @@ void collisions::checkForCollisions(const std::shared_ptr<StardustQueue>& queue)
 
                     temp = norm * (impulse/stardust2->getMass());
                     stardust2->setVelocity(stardust2->getVelocity()-temp);
+                    
+                    queue->createStardustParticleBlast(stardust1->getPosition().getMidpoint(stardust2->getPosition()), stardust1->getVelocity().getMidpoint(stardust2->getVelocity()), stardust1->getColor(), stardust2->getColor());
+                    
+                    stardust1->setMass(stardust1->getMass() - 0.18);
+                    stardust2->setMass(stardust2->getMass() - 0.18);
+                    stardust1->setRadius(stardust1->getRadius() - 0.08);
+                    stardust2->setRadius(stardust2->getRadius() - 0.08);
                 }
             }
         }
@@ -202,7 +217,7 @@ StardustModel* collisions::getNearestStardust(Vec2 inputPos, const std::shared_p
     for (size_t ii = 0; ii < queue->size(); ii++) {
         // This returns a reference
         StardustModel* stardust = queue->get(ii);
-        if (stardust != nullptr && !stardust->isDragged()) {
+        if (stardust != nullptr && !stardust->isDragged() && stardust->isInteractable()) {
             Vec2 norm = inputPos - stardust->getPosition();
             float distance = norm.length();
 
@@ -247,7 +262,7 @@ void collisions::checkInBounds(const std::shared_ptr<StardustQueue>& queue, cons
     for (size_t ii = 0; ii < queue->size(); ii++) {
         // This returns a reference
         StardustModel* stardust = queue->get(ii);
-        if (stardust != nullptr) {
+        if (stardust != nullptr && stardust->isInteractable()) {
             Vec2 stardustPos = stardust->getPosition();
             Vec2 center = Vec2(bounds.width/2, bounds.height/2);
             Vec2 longest = Vec2(bounds.width, bounds.height) - center;

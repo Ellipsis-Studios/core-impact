@@ -49,7 +49,8 @@ protected:
     cugl::Vec2 _position;
     /** Current stardust velocity */
     cugl::Vec2 _velocity;
-    
+    /** Determines if this stardust is interactable */
+    bool _isInteractable;
 public:
 #pragma mark Properties
     /**
@@ -95,6 +96,17 @@ public:
     void setVelocity(cugl::Vec2 value);
     
     /**
+     * Sets the mass of the stardust.
+     *
+     * This value is necessary to resolve collisions.
+     *
+     * @param mass the stardust's mass
+     */
+    void setMass(float mass) {
+        _mass = mass;
+    }
+    
+    /**
      * Returns the mass of the stardust.
      *
      * This value is necessary to resolve collisions.
@@ -103,6 +115,17 @@ public:
      */
     float getMass() const {
         return _mass;
+    }
+    
+    /**
+     * Sets the radius of the stardust.
+     *
+     * This value is necessary to resolve collisions.
+     *
+     * @param radius the stardust's radius
+     */
+    void setRadius(float radius) {
+        _radius = radius;
     }
 
     /**
@@ -196,6 +219,15 @@ public:
     void setIsDragged(bool value) {
         _isDragged = value;
     }
+    
+    /**
+     * Returns whether this stardust is interactable
+     *
+     * @return whether this stardust is interactable
+     */
+    bool isInteractable() {
+        return _isInteractable;
+    }
 
 #pragma mark Constructors
     /**
@@ -222,13 +254,29 @@ public:
      * This method does NOT create a scene graph node for this stardust.  You
      * must call setTexture for that.
      *
-     * @param x The initial x-coordinate of the center
-     * @param y The initial y-coordinate of the center
+     * @param position The initial position of the stardust
+     * @param velocity The initial velocity of the stardust
      * @param c The color code of the stardust
      *
      * @return true if the initialization was successful
      */
     bool init(cugl::Vec2 position, cugl::Vec2 velocity, CIColor::Value c);
+    
+    /**
+     * Initializes a new stardust at the given location
+     *
+     * This method does NOT create a scene graph node for this stardust.  You
+     * must call setTexture for that.
+     *
+     * @param position The initial position of the particle
+     * @param velocity The initial velocity of the particle
+     * @param c The color code of the particle
+     * @param size The size of the particle
+     * @param lifespan Time to live of the particle
+     *
+     * @return true if the initialization was successful
+     */
+    bool initParticle(cugl::Vec2 position, cugl::Vec2 velocity, CIColor::Value c, float size, float lifespan);
         
     /**
      * Returns a newly allocated stardust at the given location
@@ -245,6 +293,25 @@ public:
     static std::shared_ptr<StardustModel> alloc(cugl::Vec2 position, cugl::Vec2 velocity, CIColor::Value c) {
         std::shared_ptr<StardustModel> result = std::make_shared<StardustModel>();
         return (result->init(position, velocity, c) ? result : nullptr);
+    }
+    
+    /**
+     * Returns a newly allocated stardust particle at the given location
+     *
+     * This method does NOT create a scene graph node for this stardust.  You
+     * must call setTextures for that.
+     *
+     * @param position The initial position of the particle
+     * @param velocity The initial velocity of the particle
+     * @param c The color code of the particle
+     * @param size The size of the particle
+     * @param lifespan Time to live of the particle
+     *
+     * @return a newly allocated stardust at the given location with the given color.
+     */
+    static std::shared_ptr<StardustModel> allocParticle(cugl::Vec2 position, cugl::Vec2 velocity, CIColor::Value c, float size, float lifespan) {
+        std::shared_ptr<StardustModel> result = std::make_shared<StardustModel>();
+        return (result->initParticle(position, velocity, c, size, lifespan) ? result : nullptr);
     }
 
     /**

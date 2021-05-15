@@ -132,6 +132,17 @@ public:
     void addStardust(const std::shared_ptr<StardustModel> stardust);
     
     /**
+     * Adds a blast of stardust particles to the active queue
+     *
+     * @param position The initial position of the particle
+     * @param velocity The initial velocity of the particle
+     * @param c The color code of the particle
+     * @param size The size of the particle
+     * @param lifespan Time to live of the particle
+     */
+    void createStardustParticleBlast(cugl::Vec2 position, cugl::Vec2 velocity, CIColor::Value c1, CIColor::Value c2);
+    
+    /**
      * Returns the number of active stardust
      *
      * @return the number of active stardust
