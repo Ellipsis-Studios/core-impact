@@ -38,7 +38,7 @@
             "data": {
               "texture": "menubuttonup",
               "anchor": [0.5, 0.5],
-              "interior": [10, 10, 100, 60]
+              "interior": [17, 13, 25, 18]
             },
             "layout": {
               "x_anchor": "fill",
