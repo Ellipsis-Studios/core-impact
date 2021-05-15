@@ -12,6 +12,8 @@
 
 using namespace cugl;
 
+#define STARDUST_BUFFER     64
+
 #pragma mark The Queue
 /**
  * Creates a stardust queue with the default values.
@@ -111,8 +113,14 @@ void StardustQueue::addStardust(const std::shared_ptr<StardustModel> stardust) {
     // Check if any room in queue.
     // If maximum is reached, remove the oldest stardust.
     if (_qsize == _queue.size()) {
-        _qhead = ((_qhead + 1) % _queue.size());
-        _qsize--;
+        // If not a particle, bump the oldest item in the queue
+        if (stardust->isInteractable()){
+            _qhead = ((_qhead + 1) % _queue.size());
+            _qsize--;
+        } else {
+            // If it is a particle, ignore the spawning
+            return;
+        }
     }
     
     _qtail = ((_qtail + 1) % _queue.size());
@@ -130,8 +138,13 @@ void StardustQueue::addStardust(const std::shared_ptr<StardustModel> stardust) {
  */
 
 void StardustQueue::createStardustParticleBlast(cugl::Vec2 position, cugl::Vec2 velocity, CIColor::Value c1, CIColor::Value c2){
-    int blastSize = min((int)(velocity.length() * 3 + 8), 64);
+    int blastSize = min((int)(velocity.length() * 3 + 8), 32);
     for (int i=0;i<blastSize;i++){
+        // If queue is close to full, ignore spawning
+        if (_qsize > _queue.size() - STARDUST_BUFFER){
+            break;
+        }
+        
         Vec2 particleVel = Vec2(velocity.x, velocity.y);
         particleVel.x += (rand() % 10)/2.0 - 2.5;
         particleVel.y += (rand() % 10)/2.0 - 2.5;

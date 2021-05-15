@@ -143,8 +143,8 @@ void collisions::checkForCollisions(const std::shared_ptr<StardustQueue>& queue)
                     
                     queue->createStardustParticleBlast(stardust1->getPosition().getMidpoint(stardust2->getPosition()), stardust1->getVelocity().getMidpoint(stardust2->getVelocity()), stardust1->getColor(), stardust2->getColor());
                     
-                    stardust1->setMass(stardust1->getMass() - 0.2);
-                    stardust2->setMass(stardust2->getMass() - 0.2);
+                    stardust1->setMass(stardust1->getMass() - 0.18);
+                    stardust2->setMass(stardust2->getMass() - 0.18);
                     stardust1->setRadius(stardust1->getRadius() - 0.08);
                     stardust2->setRadius(stardust2->getRadius() - 0.08);
                 }
