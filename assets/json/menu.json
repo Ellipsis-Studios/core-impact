@@ -6,9 +6,6 @@
     "title": {
       "file": "textures/splashArt/logo_design.png"
     },
-    "stardust": {
-      "file": "textures/splashArt/splashArtStardust.png"
-    },
     "world": {
       "file": "textures/splashArt/splashArtWorld.png"
     },
