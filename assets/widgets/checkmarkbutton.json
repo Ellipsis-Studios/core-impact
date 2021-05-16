@@ -28,35 +28,19 @@
         },
         "children": {
           "comment": "The children fit snug to the up button and do not need sizes",
-          "patch": {
-            "type": "NinePatch",
-            "format": {
-              "type": "Anchored"
-            },
-            "data": {
-              "texture": "menubuttonup",
-              "anchor": [0.5, 0.5],
-              "interior": [17, 13, 25, 18]
-            },
-            "layout": {
-              "x_anchor": "fill",
-              "y_anchor": "fill"
-            }
-          },
           "image": {
             "type": "Image",
             "format": {
               "type": "Anchored"
             },
             "data": {
-              "texture": "delbutton",
-              "scale": 0.8
+              "texture": "joinbutton",
+              "scale": 0.8,
+              "anchor": [0.5,0.5]
             },
             "layout": {
               "x_anchor": "center",
-              "y_anchor": "middle",
-              "x_offset": -0.25,
-              "y_offset": -0.15
+              "y_anchor": "middle"
             }
           }
         },
@@ -68,3 +52,4 @@
     }
   }
 }
+

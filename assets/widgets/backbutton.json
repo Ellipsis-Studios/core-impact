@@ -19,7 +19,7 @@
           "type": "Anchored"
         },
         "data": {
-          "size": [80, 35],
+          "size": [120, 55],
           "anchor": [0.5, 0.5]
         },
         "children": {
@@ -30,7 +30,7 @@
             },
             "data": {
               "texture": "backbutton",
-              "scale": 1.45
+              "scale": 1
             }
           }
         },
