@@ -37,7 +37,7 @@
       "file": "textures/clearbutton.png"
     },
     "backbutton": {
-      "file": "textures/back.png"
+      "file": "textures/back_solid.png"
     },
     "toggleOn": {
       "file": "textures/toggleOnButton.png"
@@ -55,7 +55,7 @@
       "file": "textures/deleteKeyPad.png"
     },
     "joinbutton": {
-      "file": "textures/joinCheck.png"
+      "file": "textures/check_mark.png"
     },
     "loadingcircle": {
       "file": "textures/loadingCircle.png"
@@ -78,6 +78,7 @@
   "widgets": {
     "menubutton": "widgets/menubutton.json",
     "backbutton": "widgets/backbutton.json",
+    "checkmarkbutton": "widgets/checkmarkbutton.json",
     "settingsbutton": "widgets/settingsbutton.json",
     "togglebutton": "widgets/togglebutton.json",
     "nameinput": "widgets/nameinput.json",
@@ -724,14 +725,14 @@
           "data": {
             "key": "pnamelabel",
             "variables": {
-              "size": [54, 80]
+              "size": [71, 80]
             }
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": -0.32,
-            "y_offset": 0.0
+            "x_offset": -0.2,
+            "y_offset": 0.1
           }
         },
         "roomid2": {
@@ -740,14 +741,14 @@
           "data": {
             "key": "pnamelabel",
             "variables": {
-              "size": [54, 80]
+              "size": [71, 80]
             }
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": -0.25,
-            "y_offset": 0.0
+            "x_offset": -0.1,
+            "y_offset": 0.1
           }
         },
         "roomid3": {
@@ -756,14 +757,13 @@
           "data": {
             "key": "pnamelabel",
             "variables": {
-              "size": [54, 80]
+              "size": [71, 80]
             }
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": -0.18,
-            "y_offset": 0.0
+            "y_offset": 0.1
           }
         },
         "roomid4": {
@@ -772,14 +772,14 @@
           "data": {
             "key": "pnamelabel",
             "variables": {
-              "size": [54, 80]
+              "size": [71, 80]
             }
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": -0.11,
-            "y_offset": 0.0
+            "x_offset": 0.1,
+            "y_offset": 0.1
           }
         },
         "roomid5": {
@@ -788,14 +788,14 @@
           "data": {
             "key": "pnamelabel",
             "variables": {
-              "size": [54, 80]
+              "size": [71, 80]
             }
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": -0.04,
-            "y_offset": 0.0
+            "x_offset": 0.2,
+            "y_offset": 0.1
           }
         },
         "numpad1": {
@@ -805,14 +805,14 @@
             "key": "lobbybutton",
             "variables": {
               "text": "1",
-              "size": [75, 75]
+              "size": [60, 60]
             }
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.14,
-            "y_offset": 0.17
+            "x_offset": -0.075,
+            "y_offset": -0.1
           }
         },
         "numpad2": {
@@ -822,14 +822,13 @@
             "key": "lobbybutton",
             "variables": {
               "text": "2",
-              "size": [75, 75]
+              "size": [60, 60]
             }
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.24,
-            "y_offset": 0.17
+            "y_offset": -0.1
           }
         },
         "numpad3": {
@@ -839,14 +838,14 @@
             "key": "lobbybutton",
             "variables": {
               "text": "3",
-              "size": [75, 75]
+              "size": [60, 60]
             }
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.34,
-            "y_offset": 0.17
+            "x_offset": 0.075,
+            "y_offset": -0.1
           }
         },
         "numpad4": {
@@ -856,14 +855,14 @@
             "key": "lobbybutton",
             "variables": {
               "text": "4",
-              "size": [75, 75]
+              "size": [60, 60]
             }
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.14,
-            "y_offset": 0.01
+            "x_offset": 0.15,
+            "y_offset": -0.1
           }
         },
         "numpad5": {
@@ -873,14 +872,14 @@
             "key": "lobbybutton",
             "variables": {
               "text": "5",
-              "size": [75, 75]
+              "size": [60, 60]
             }
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.24,
-            "y_offset": 0.01
+            "x_offset": -0.15,
+            "y_offset": -0.2
           }
         },
         "numpad6": {
@@ -890,14 +889,14 @@
             "key": "lobbybutton",
             "variables": {
               "text": "6",
-              "size": [75, 75]
+              "size": [60, 60]
             }
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.34,
-            "y_offset": 0.01
+            "x_offset": -0.075,
+            "y_offset": -0.2
           }
         },
         "numpad7": {
@@ -907,14 +906,13 @@
             "key": "lobbybutton",
             "variables": {
               "text": "7",
-              "size": [75, 75]
+              "size": [60, 60]
             }
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.14,
-            "y_offset": -0.15
+            "y_offset": -0.2
           }
         },
         "numpad8": {
@@ -924,14 +922,14 @@
             "key": "lobbybutton",
             "variables": {
               "text": "8",
-              "size": [75, 75]
+              "size": [60, 60]
             }
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.24,
-            "y_offset": -0.15
+            "x_offset": 0.075,
+            "y_offset": -0.2
           }
         },
         "numpad9": {
@@ -941,14 +939,14 @@
             "key": "lobbybutton",
             "variables": {
               "text": "9",
-              "size": [75, 75]
+              "size": [60, 60]
             }
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.34,
-            "y_offset": -0.15
+            "x_offset": 0.15,
+            "y_offset": -0.2
           }
         },
         "numpaddel": {
@@ -957,15 +955,15 @@
           "data": {
             "key": "lobbyimagebutton",
             "variables": {
-              "size": [75, 75],
-              "scale": 0.1
+              "size": [60, 60],
+              "scale": 0.055
             }
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.14,
-            "y_offset": -0.31
+            "x_offset": 0.225,
+            "y_offset": -0.15
           }
         },
         "numpad0": {
@@ -975,34 +973,32 @@
             "key": "lobbybutton",
             "variables": {
               "text": "0",
-              "size": [75, 75]
+              "size": [60, 60]
             }
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.24,
-            "y_offset": -0.31
+            "x_offset": -0.15,
+            "y_offset": -0.1
           }
         },
         "numpadjoin": {
           "comment": "Number pad Join",
           "type": "Widget",
           "data": {
-            "key": "lobbyimagebutton",
+            "key": "checkmarkbutton",
             "variables": {
-              "size": [75, 75],
+              "size": [60, 60],
               "texture": "joinbutton",
-              "scale": 1.4,
-              "xoffset": -0.2,
-              "yoffset": -0.15
+              "scale": 1
             }
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.34,
-            "y_offset": -0.31
+            "x_offset": 0.275,
+            "y_offset": 0.095
           }
         }
       }
