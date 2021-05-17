@@ -30,7 +30,21 @@ void JoinMenu::dispose() {
         _numberpaddel->deactivate();
         _numberpad0->deactivate();
         _numberpadjoin->deactivate();
+    } else if (_numberpad1 != nullptr) {
+        _numberpad1->clearListeners();
+        _numberpad2->clearListeners();
+        _numberpad3->clearListeners();
+        _numberpad4->clearListeners();
+        _numberpad5->clearListeners();
+        _numberpad6->clearListeners();
+        _numberpad7->clearListeners();
+        _numberpad8->clearListeners();
+        _numberpad9->clearListeners();
+        _numberpaddel->clearListeners();
+        _numberpad0->clearListeners();
+        _numberpadjoin->clearListeners();
     }
+    
     _numberpad1 = nullptr;
     _numberpad2 = nullptr;
     _numberpad3 = nullptr;
