@@ -174,7 +174,7 @@ void LobbyMenu::update(MenuState& state) {
             _gameSettings->setGameId(_networkMessageManager->getRoomId());
             setPlayerLabels({ "N/A", "N/A", "N/A", "N/A", "N/A" });
 
-            _lobbyRoomLabel->setText("Code: " + _gameSettings->getGameId());
+            _lobbyRoomLabel->setText(_gameSettings->getGameId());
 
             setDisplay(true);
 
@@ -185,7 +185,7 @@ void LobbyMenu::update(MenuState& state) {
         {
             // handle setting up the lobby
             setPlayerLabels({ "N/A", "N/A", "N/A", "N/A", "N/A" });
-            _lobbyRoomLabel->setText("Code: " + _gameSettings->getGameId());
+            _lobbyRoomLabel->setText(_gameSettings->getGameId());
 
             setDisplay(true);
 
@@ -224,7 +224,7 @@ void LobbyMenu::update(MenuState& state) {
 
             _networkMessageManager->sendMessages();
             _networkMessageManager->receiveMessages();
-            _lobbyRoomLabel->setText("Code: " + _networkMessageManager->getRoomId());
+            _lobbyRoomLabel->setText(_networkMessageManager->getRoomId());
 
             bool isReady = true;
             int pindex = 0;

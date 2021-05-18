@@ -1,0 +1,18 @@
+{
+  "contents": {
+    "type": "Image",
+    "format": {
+      "type": "Anchored"
+    },
+    "data": {
+      "anchor": [0.5, 0.5],
+      "texture": "lobbycodeborder",
+      "size": [400,70]
+    },
+    "layout": {
+      "x_anchor": "fill",
+      "y_anchor": "fill"
+    }
+  }
+}
+
