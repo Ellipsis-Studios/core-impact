@@ -394,6 +394,12 @@ void NetworkMessageManager::receiveMessages() {
             case NetworkUtils::MessageType::ReadyGame:
             {
                 string player_name = NetworkUtils::decodeString(recv[4], recv[5], recv[6], recv[7], recv[8], recv[9], recv[10], recv[11], recv[12], recv[13], recv[14], recv[15]);
+                player_name.erase(player_name.begin(), std::find_if(player_name.begin(), player_name.end(), [](unsigned char ch) {
+                        return ch != '\0';
+                    }));
+                player_name.erase(std::find_if(player_name.rbegin(), player_name.rend(), [](unsigned char ch) {
+                    return ch != '\0';
+                    }).base(), player_name.end());
                 int srcPlayer = NetworkUtils::decodeInt(recv[16], recv[17], recv[18], recv[19]);
                 int timestamp = NetworkUtils::decodeInt(recv[20], recv[21], recv[22], recv[23]);
                 CULog("RCVD NON-HOST READY MESSAGE> PLAYERNAME[%s], PLAYER[%i], TS[%i]", player_name.c_str(), srcPlayer, timestamp);
@@ -442,6 +448,9 @@ void NetworkMessageManager::receiveMessages() {
             case NetworkUtils::MessageType::NameSent:
             {
                 string player_name = NetworkUtils::decodeString(recv[4], recv[5], recv[6], recv[7], recv[8], recv[9], recv[10], recv[11], recv[12], recv[13], recv[14], recv[15]);
+                player_name.erase(player_name.begin(), std::find_if(player_name.begin(), player_name.end(), [](unsigned char ch) {
+                        return ch != '\0';
+                    }));
                 player_name.erase(std::find_if(player_name.rbegin(), player_name.rend(), [](unsigned char ch) {
                     return ch != '\0';
                     }).base(), player_name.end());
@@ -449,13 +458,17 @@ void NetworkMessageManager::receiveMessages() {
                 int timestamp = NetworkUtils::decodeInt(recv[20], recv[21], recv[22], recv[23]);
 
                 CULog("RCVD PLAYERNAME> PLAYERNAME[%s], PLAYER[%i], TS[%i]", player_name.c_str(), playerId, timestamp);
-
-                _playerMap[playerId] = std::make_pair(player_name, (playerId == 0));
+                
+                if (_playerMap.count(playerId) == 0)
+                    _playerMap[playerId] = std::make_pair(player_name, (playerId == 0));
 
                 std::vector<uint8_t> data;
                 NetworkUtils::encodeInt(NetworkUtils::MessageType::NameReceivedResponse, data);
                 NetworkUtils::encodeString(_playerName, data);
                 NetworkUtils::encodeInt(getPlayerId(), data);
+                
+                int ready = _playerMap[getPlayerId()].second ? 1 : 0;
+                NetworkUtils::encodeInt(ready, data);
                 if (getPlayerId() == 0) {
                     NetworkUtils::encodeFloat(_gameSettings->getSpawnRate(), data);
                     NetworkUtils::encodeFloat(_gameSettings->getGravStrength(), data);
@@ -472,23 +485,29 @@ void NetworkMessageManager::receiveMessages() {
             case NetworkUtils::MessageType::NameReceivedResponse:
             {
                 string player_name = NetworkUtils::decodeString(recv[4], recv[5], recv[6], recv[7], recv[8], recv[9], recv[10], recv[11], recv[12], recv[13], recv[14], recv[15]);
+                player_name.erase(player_name.begin(), std::find_if(player_name.begin(), player_name.end(), [](unsigned char ch) {
+                        return ch != '\0';
+                    }));
                 player_name.erase(std::find_if(player_name.rbegin(), player_name.rend(), [](unsigned char ch) {
                     return ch != '\0';
                     }).base(), player_name.end());
                 int playerId = NetworkUtils::decodeInt(recv[16], recv[17], recv[18], recv[19]);
-                _playerMap[playerId] = std::make_pair(player_name, (playerId == 0));
+                bool ready = NetworkUtils::decodeInt(recv[20], recv[21], recv[22], recv[23]) == 1;
+                
+                if (_playerMap.count(playerId) == 0)
+                    _playerMap[playerId] = std::make_pair(player_name, ready);
 
                 if (playerId != 0) {
-                    int timestamp = NetworkUtils::decodeInt(recv[20], recv[21], recv[22], recv[23]);
+                    int timestamp = NetworkUtils::decodeInt(recv[24], recv[25], recv[26], recv[27]);
 
                     CULog("RCVD PLAYERNAME> PLAYERNAME[%s], PLAYER[%i], TS[%i]", player_name.c_str(), playerId, timestamp);
                 }
                 else {
-                    float spawnRate = NetworkUtils::decodeFloat(recv[20], recv[21], recv[22], recv[23]);
-                    float gravStrength = NetworkUtils::decodeFloat(recv[24], recv[25], recv[26], recv[27]);
-                    int colorCount = NetworkUtils::decodeInt(recv[28], recv[29], recv[30], recv[31]);
-                    int layerSize = NetworkUtils::decodeInt(recv[32], recv[33], recv[34], recv[35]);
-                    int timestamp = NetworkUtils::decodeInt(recv[36], recv[37], recv[38], recv[39]);
+                    float spawnRate = NetworkUtils::decodeFloat(recv[24], recv[25], recv[26], recv[27]);
+                    float gravStrength = NetworkUtils::decodeFloat(recv[28], recv[29], recv[30], recv[31]);
+                    int colorCount = NetworkUtils::decodeInt(recv[32], recv[33], recv[34], recv[35]);
+                    int layerSize = NetworkUtils::decodeInt(recv[36], recv[37], recv[38], recv[39]);
+                    int timestamp = NetworkUtils::decodeInt(recv[40], recv[41], recv[42], recv[43]);
 
                     CULog("RCVD RESPONSE PLAYERNAME> PLAYERNAME[%s], PLAYER[%i], TS[%i]", player_name.c_str(), playerId, timestamp);
                     CULog("RCVD UPDATE GAMESETTINGS MESSAGE> SPAWNRATE[%f], GRAVSTRENGTH[%f], COLORCOUNT[%i], PLANETMASS[%i], TS[%i]", spawnRate, gravStrength, colorCount, layerSize, timestamp);
