@@ -19,15 +19,12 @@
       "minfilter": "linear",
       "magfilter": "linear"
     },
+    "gamesettingsbutton":{
+        "file": "textures/more_options.png",
+        "wrapS": "clamp"
+    },
     "menubuttonup": {
       "file": "textures/nine_patch.png",
-      "wrapS": "clamp",
-      "wrapT": "clamp",
-      "minfilter": "linear",
-      "magfilter": "linear"
-    },
-    "menubuttondown": {
-      "file": "textures/buttonDown.png",
       "wrapS": "clamp",
       "wrapT": "clamp",
       "minfilter": "linear",
@@ -57,6 +54,9 @@
     "joinbutton": {
       "file": "textures/check_mark.png"
     },
+    "lobbycodeborder": {
+      "file": "textures/lobbyCodeDeco.png"
+    },
     "loadingcircle": {
       "file": "textures/loadingCircle.png"
     }
@@ -84,6 +84,7 @@
     "nameinput": "widgets/nameinput.json",
     "lobbybutton": "widgets/lobbybutton.json",
     "lobbybtnlabel": "widgets/lobbylabel.json",
+    "lobbycode": "widgets/lobbycode.json",
     "pnamelabel": "widgets/pnamelabel.json",
     "lobbyimagebutton": "widgets/lobbyimagebutton.json",
     "submenubutton": "widgets/submenubutton.json",
@@ -286,7 +287,20 @@
             "x_anchor": "center",
             "y_anchor": "middle",
             "x_offset": 0.0,
-            "y_offset": 0.3
+            "y_offset": 0.28
+          }
+        },
+        "roomidborder": {
+          "comment": "The border around the current game room id",
+          "type": "Widget",
+          "data": {
+              "key": "lobbycode"
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "x_offset": 0.0,
+            "y_offset": 0.28
           }
         },
         "playerlabel1": {
@@ -299,7 +313,7 @@
             "x_anchor": "center",
             "y_anchor": "middle",
             "x_offset": -0.3,
-            "y_offset": 0.1
+            "y_offset": 0
           }
         },
         "playerlabel2": {
@@ -346,7 +360,7 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": -0.16,
+            "x_offset": 0,
             "y_offset": -0.1
           }
         },
@@ -362,19 +376,18 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.16,
+            "x_offset": 0.3,
             "y_offset": -0.1
           }
         },
         "gamesettingsbutton": {
           "type": "Widget",
           "data": {
-            "key": "submenubutton",
+            "key": "checkmarkbutton",
             "variables": {
-              "text": "Game Settings",
-              "size": [200, 50],
-              "nodeSize": [240, 80],
-              "font": "saira24"
+              "texture": "gamesettingsbutton",
+              "scale": 0.7,
+              "size": [40,40]
             }
           },
           "layout": {
