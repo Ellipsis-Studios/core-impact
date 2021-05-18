@@ -265,7 +265,6 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.0,
             "y_offset": 0.38
           }
         },
@@ -286,7 +285,6 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.0,
             "y_offset": 0.28
           }
         },
@@ -299,7 +297,6 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.0,
             "y_offset": 0.28
           }
         },
@@ -312,8 +309,7 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": -0.3,
-            "y_offset": 0
+            "x_offset": -0.3
           }
         },
         "playerlabel2": {
@@ -328,7 +324,6 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.0,
             "y_offset": 0.1
           }
         },
@@ -360,7 +355,6 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0,
             "y_offset": -0.1
           }
         },
@@ -411,7 +405,6 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.0,
             "y_offset": -0.38
           }
         },
@@ -428,7 +421,6 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.0,
             "y_offset": -0.38
           }
         }
@@ -459,7 +451,6 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.0,
             "y_offset": 0.38
           }
         },
@@ -479,7 +470,6 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.0,
             "y_offset": 0.32
           }
         },
@@ -535,8 +525,7 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": -0.05,
-            "y_offset": 0.0
+            "x_offset": -0.05
           }
         },
         "gravstrengthbutton": {
@@ -553,8 +542,7 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.12,
-            "y_offset": 0.0
+            "x_offset": 0.12
           }
         },
         "wincondbuttonlabel": {
@@ -608,7 +596,6 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.0,
             "y_offset": -0.38
           }
         }
@@ -640,7 +627,6 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.0,
             "y_offset": 0.38
           }
         },
@@ -660,7 +646,6 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.0,
             "y_offset": 0.28
           }
         },
@@ -673,7 +658,6 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.0,
             "y_offset": 0.05
           }
         },
@@ -728,7 +712,6 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.0,
             "y_offset": 0.3
           }
         },
