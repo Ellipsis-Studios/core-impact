@@ -137,6 +137,16 @@ public:
         return _isNew;
     }
 
+    /**
+     * Returns whether the player is new or player name is invalid.
+     * 
+     * Used to check player name when transitioning from main menu screen to
+     * the join or create menu screens. 
+     */
+    bool getSkipNameMenu() const {
+        return !(_isNew || _playerName.empty() || _playerName.size() > 12);
+    }
+
 };
 
 #endif /* __CI_PLAYER_SETTINGS_H__ */
