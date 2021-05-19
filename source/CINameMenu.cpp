@@ -125,9 +125,8 @@ void NameMenu::update(MenuState& state) {
     switch (state)
     {
         case MenuState::MainToName:
-            if (!_playerSettings->getIsNeedName()) {
+            if (_playerSettings->getSkipNameMenu()) {
                 // skip to join menu
-                CULog("SKip to join menu");
                 state = _nextState = MenuState::MainToJoin;
                 break;
             }

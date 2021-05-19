@@ -143,8 +143,8 @@ public:
      * Used to check player name when transitioning from main menu screen to
      * the join or create menu screens. 
      */
-    bool getIsNeedName() const {
-        return (_isNew || _playerName.empty() || _playerName.size() > 12);
+    bool getSkipNameMenu() const {
+        return !(_isNew || _playerName.empty() || _playerName.size() > 12);
     }
 
 };
