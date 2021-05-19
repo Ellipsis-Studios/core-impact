@@ -12,7 +12,6 @@
       "upnode": "up",
       "downnode": "down",
       "visible": false,
-      "scale": 0.5
     },
     "children": {
       "up": {

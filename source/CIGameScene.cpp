@@ -142,11 +142,12 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     }
     CIColor::setNumColors(gameSettings->getColorCount());
     
-    if (_playerSettings->getMusicOn()) {
-        std::shared_ptr<AudioQueue> musicQueue = AudioEngine::get()->getMusicQueue();
-        musicQueue->resume(); // needed to allow music to play after being paused
-        std::shared_ptr<Sound> source = _assets->get<Sound>(GAME_MUSIC);
-        musicQueue->play(source, true, _playerSettings->getVolume());
+    std::shared_ptr<AudioQueue> musicQueue = AudioEngine::get()->getMusicQueue();
+    musicQueue->resume(); // needed to allow music to play after being paused
+    std::shared_ptr<Sound> source = _assets->get<Sound>(GAME_MUSIC);
+    musicQueue->play(source, true, _playerSettings->getVolume());
+    if (!_playerSettings->getMusicOn()) {
+        musicQueue->pause();
     }
 
     addChild(scene);

@@ -40,16 +40,16 @@
       "file": "textures/back_solid.png"
     },
     "toggleOn": {
-      "file": "textures/toggleOnButton.png"
+      "file": "textures/toggleOnButton_v2.png"
     },
     "toggleOff": {
-      "file": "textures/toggleOffButton.png"
+      "file": "textures/toggleOffButton_v2.png"
     },
     "volumeBarKnob": {
-      "file": "textures/volumeBarKnob.png"
+      "file": "textures/volumeBarKnob_v2.png"
     },
     "volumeBarPath": {
-      "file": "textures/volumeBarPath.png"
+      "file": "textures/volumeBarPath_v2.png"
     },
     "delbutton": {
       "file": "textures/deleteKeyPad.png"
@@ -1096,7 +1096,7 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.1,
+            "x_offset": 0.146,
             "y_offset": 0.04
           }
         },
@@ -1124,7 +1124,7 @@
           "comment": "The volume slider in Settings.",
           "type": "Slider",
           "data": {
-            "bounds": [33, 33, 255, 0],
+            "bounds": [46, 46, 230, 0],
             "range": [0, 1],
             "value": 0.5,
             "anchor": [0.5, 0.5],
@@ -1159,7 +1159,7 @@
                       "data": {
                         "anchor": [0, 0],
                         "texture": "volumeBarKnob",
-                        "scale": 1.2
+                        "scale": 1.3
                       }
                     }
                   },
@@ -1179,7 +1179,7 @@
                 "texture": "volumeBarPath",
                 "anchor": [0.5, 0.5],
                 "scale": 1.25,
-                "stroke": 27,
+                "stroke": 35.5,
                 "cap": "round",
                 "visible": true
               },
@@ -1195,39 +1195,6 @@
             "y_anchor": "middle",
             "x_offset": 0.1,
             "y_offset": -0.09
-          }
-        },
-        "parallaxlabel": {
-          "comment": "The 'Parallax Effect' label for the parallax toggle section.",
-          "type": "Label",
-          "data": {
-            "font": "saira32",
-            "text": "Parallax Effect",
-            "foreground": [255, 255, 255, 255],
-            "background": [0, 0, 0, 0],
-            "size": [300, 80],
-            "anchor": [0.5, 0.5],
-            "valign": "middle",
-            "visible": false
-          },
-          "layout": {
-            "x_anchor": "center",
-            "y_anchor": "middle",
-            "x_offset": -0.1,
-            "y_offset": -0.22
-          }
-        },
-        "parallaxinput": {
-          "comment": "The parallax effect toggle button in Settings.",
-          "type": "Widget",
-          "data": {
-            "key": "togglebutton"
-          },
-          "layout": {
-            "x_anchor": "center",
-            "y_anchor": "middle",
-            "x_offset": 0.1,
-            "y_offset": -0.22
           }
         }
       }
@@ -1356,7 +1323,7 @@
           "comment": "The volume slider in Settings.",
           "type": "Slider",
           "data": {
-            "bounds": [33, 33, 255, 0],
+            "bounds": [46, 46, 230, 0],
             "range": [0, 1],
             "value": 0.5,
             "anchor": [0.5, 0.5],
@@ -1391,7 +1358,7 @@
                       "data": {
                         "anchor": [0, 0],
                         "texture": "volumeBarKnob",
-                        "scale": 1.2
+                        "scale": 1.3
                       }
                     }
                   },
@@ -1411,7 +1378,7 @@
                 "texture": "volumeBarPath",
                 "anchor": [0.5, 0.5],
                 "scale": 1.25,
-                "stroke": 27,
+                "stroke": 35.5,
                 "cap": "round",
                 "visible": true
               },
@@ -1425,40 +1392,8 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.17,
+            "x_offset": 0.204,
             "y_offset": 0.05
-          }
-        },
-        "parallaxlabel": {
-          "comment": "The 'Parallax Effect' label for the parallax toggle section.",
-          "type": "Label",
-          "data": {
-            "font": "saira32",
-            "text": "Parallax Effect",
-            "foreground": [255, 255, 255, 255],
-            "background": [0, 0, 0, 0],
-            "size": [300, 80],
-            "anchor": [0.5, 0.5],
-            "visible": false
-          },
-          "layout": {
-            "x_anchor": "center",
-            "y_anchor": "middle",
-            "x_offset": -0.15,
-            "y_offset": -0.04
-          }
-        },
-        "parallaxinput": {
-          "comment": "The parallax effect toggle button in Settings.",
-          "type": "Widget",
-          "data": {
-            "key": "togglebutton"
-          },
-          "layout": {
-            "x_anchor": "center",
-            "y_anchor": "middle",
-            "x_offset": 0.25,
-            "y_offset": -0.07
           }
         },
         "resumebutton": {
