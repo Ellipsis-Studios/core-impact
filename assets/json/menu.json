@@ -19,9 +19,9 @@
       "minfilter": "linear",
       "magfilter": "linear"
     },
-    "gamesettingsbutton":{
-        "file": "textures/more_options.png",
-        "wrapS": "clamp"
+    "gamesettingsbutton": {
+      "file": "textures/more_options.png",
+      "wrapS": "clamp"
     },
     "menubuttonup": {
       "file": "textures/nine_patch.png",
@@ -292,7 +292,7 @@
           "comment": "The border around the current game room id",
           "type": "Widget",
           "data": {
-              "key": "lobbycode"
+            "key": "lobbycode"
           },
           "layout": {
             "x_anchor": "center",
@@ -381,7 +381,7 @@
             "variables": {
               "texture": "gamesettingsbutton",
               "scale": 0.7,
-              "size": [40,40]
+              "size": [40, 40]
             }
           },
           "layout": {
@@ -630,25 +630,6 @@
             "y_offset": 0.38
           }
         },
-        "subtitle": {
-          "type": "Label",
-          "data": {
-            "font": "saira24",
-            "text": "Your name will be saved for future games.",
-            "foreground": [255, 255, 255, 255],
-            "background": [0, 0, 0, 0],
-            "size": [300, 80],
-            "anchor": [0.5, 0.5],
-            "halign": "center",
-            "valign": "middle",
-            "visible": false
-          },
-          "layout": {
-            "x_anchor": "center",
-            "y_anchor": "middle",
-            "y_offset": 0.28
-          }
-        },
         "nameinput": {
           "comment": "The player name text input in Settings.",
           "type": "Widget",
@@ -665,11 +646,11 @@
           "comment": "Number pad Join",
           "type": "Widget",
           "data": {
-            "key": "lobbyimagebutton",
+            "key": "checkmarkbutton",
             "variables": {
               "size": [75, 75],
               "texture": "joinbutton",
-              "scale": 1.4,
+              "scale": 1,
               "xoffset": -0.2,
               "yoffset": -0.15
             }
@@ -677,8 +658,27 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.34,
+            "x_offset": 0.2,
             "y_offset": 0.05
+          }
+        },
+        "subtitle": {
+          "type": "Label",
+          "data": {
+            "font": "saira24",
+            "text": "Your name will be saved for future games.",
+            "foreground": [255, 255, 255, 255],
+            "background": [0, 0, 0, 0],
+            "size": [300, 80],
+            "anchor": [0.5, 0.5],
+            "halign": "center",
+            "valign": "middle",
+            "visible": false
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "y_offset": -0.15
           }
         }
       }
@@ -1326,7 +1326,7 @@
             "range": [0, 1],
             "value": 0.5,
             "anchor": [0.5, 0.5],
-            "scale": 0.70,
+            "scale": 0.7,
             "visible": false,
             "knob": {
               "type": "Button",

@@ -132,6 +132,7 @@ void MainMenu::update(MenuState& state) {
     // handle MainMenu
     switch (state) 
     {
+        case MenuState::NameToMain:
         case MenuState::SettingToMain:
         case MenuState::JoinToMain:
         case MenuState::LobbyToMain:
