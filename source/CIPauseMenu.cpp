@@ -20,14 +20,12 @@ void PauseMenu::dispose() {
     if (_musicBtn != nullptr && _musicBtn->isVisible()) {
         _musicBtn->deactivate();
         _volumeSlider->deactivate();
-        _parallaxBtn->deactivate();
         _resumeBtn->deactivate();
         _exitBtn->deactivate();
     }
     else if (_musicBtn != nullptr) {
         _musicBtn->clearListeners();
         _volumeSlider->clearListeners();
-        _parallaxBtn->clearListeners();
         _resumeBtn->clearListeners();
         _exitBtn->clearListeners();
     }
@@ -35,11 +33,9 @@ void PauseMenu::dispose() {
     _settingsTitle = nullptr;
     _musicLabel = nullptr;
     _volumeLabel = nullptr;
-    _parallaxLabel = nullptr;
 
     _musicBtn = nullptr;
     _volumeSlider = nullptr;
-    _parallaxBtn = nullptr;
 
     _resumeBtn = nullptr;
     _exitBtn = nullptr;
@@ -72,17 +68,11 @@ bool PauseMenu::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _settingsTitle = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("pause_title"));
     _musicLabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("pause_musiclabel"));
     _volumeLabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("pause_volumelabel"));
-    _parallaxLabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("pause_parallaxlabel"));
 
     // Music toggle button
     _musicBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("pause_musicinput"));
     _musicBtn->setToggle(true);
     _musicBtn->setDown(!playerSettings->getMusicOn());
-
-    // Parallax toggle button
-    _parallaxBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("pause_parallaxinput"));
-    _parallaxBtn->setToggle(true);
-    _parallaxBtn->setDown(!playerSettings->getParallaxOn());
 
     // Volume slider 
     _volumeSlider = std::dynamic_pointer_cast<scene2::Slider>(assets->get<scene2::SceneNode>("pause_volumeinput"));
@@ -123,8 +113,6 @@ void PauseMenu::setDisplay(bool onDisplay) {
         _musicBtn->setVisible(onDisplay);
         _volumeLabel->setVisible(onDisplay);
         _volumeSlider->setVisible(onDisplay);
-        _parallaxLabel->setVisible(onDisplay);
-        _parallaxBtn->setVisible(onDisplay);
         _resumeBtn->setVisible(onDisplay);
         _exitBtn->setVisible(onDisplay);
         _layer->setVisible(onDisplay);
@@ -132,14 +120,12 @@ void PauseMenu::setDisplay(bool onDisplay) {
         if (onDisplay) {
             _musicBtn->activate();
             _volumeSlider->activate();
-            _parallaxBtn->activate();
             _resumeBtn->activate();
             _exitBtn->activate();
         }
         else {
             _musicBtn->deactivate();
             _volumeSlider->deactivate();
-            _parallaxBtn->deactivate();
             _resumeBtn->deactivate();
             _exitBtn->deactivate();
         }
@@ -156,11 +142,9 @@ void PauseMenu::update(const std::shared_ptr<PlayerSettings>& playerSettings) {
 
     playerSettings->setVolume(_volumeSlider->getValue());
     playerSettings->setMusicOn(!_musicBtn->isDown());
-    playerSettings->setParallaxOn(!_parallaxBtn->isDown());
 
     _volumeSlider->setValue(playerSettings->getVolume());
     _musicBtn->setDown(!playerSettings->getMusicOn());
-    _parallaxBtn->setDown(!playerSettings->getParallaxOn());
 
     AudioEngine::get()->getMusicQueue()->setVolume(playerSettings->getVolume());
     if (!playerSettings->getMusicOn()) {

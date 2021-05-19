@@ -18,7 +18,7 @@
  * Model class representing a Settings menu scene.
  *
  * The scene contains inputs for player name, volume,
- * music and parallax effect toggles to edit the gameplay
+ * and music effect toggles to edit the gameplay
  * settings. All these values are not located inside this class
  * (in parent MenuScene class) while this class only contains
  * pointers.
@@ -41,16 +41,12 @@ private:
     std::shared_ptr<cugl::scene2::Label> _musicLabel;
     /** Reference to the volume slider label */
     std::shared_ptr<cugl::scene2::Label> _volumeLabel;
-    /** Reference to the parallax toggle button label */
-    std::shared_ptr<cugl::scene2::Label> _parallaxLabel;
     /** Reference to player name input */
     std::shared_ptr<cugl::scene2::TextField> _pnameInput;
     /** Reference to music toggle button */
     std::shared_ptr<cugl::scene2::Button> _musicBtn;
     /** Reference to volume slider */
     std::shared_ptr<cugl::scene2::Slider> _volumeSlider;
-    /** Reference to parallax toggle button */
-    std::shared_ptr<cugl::scene2::Button> _parallaxBtn;
 
 public:
 #pragma mark -

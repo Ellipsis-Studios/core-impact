@@ -185,18 +185,8 @@ public:
     }
 
     /**
-     * Returns the parallax toggle value set in settings.
-     * Whether parallax effect is on/off.
-     *
-     * @return bool parallax toggle value set in settings
-     */
-    const bool isParallaxOn() const {
-        return (_playerSettings == nullptr) ? CONSTANTS::DEFAULT_PARALLAX_ON : _playerSettings->getParallaxOn();
-    }
-
-    /**
      * Returns the player settings value. The player settings value contains
-     * 4 fields (PlayerName, Volume, MusicOn, ParallaxOn).
+     * 3 fields (PlayerName, Volume, MusicOn).
      *
      * The method is used to retrieve and save the player settings.
      *
@@ -206,7 +196,6 @@ public:
         playerSettings->appendValue("PlayerName", getPlayerName());
         playerSettings->appendValue("Volume", getVolume());
         playerSettings->appendValue("MusicOn", isMusicOn());
-        playerSettings->appendValue("ParallaxOn", isParallaxOn());
     }
 
     /**

@@ -11,8 +11,7 @@
       "anchor": [0.5, 0.5],
       "upnode": "up",
       "downnode": "down",
-      "visible": false,
-      "scale": 0.5
+      "visible": false
     },
     "children": {
       "up": {

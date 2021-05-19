@@ -21,25 +21,21 @@ void SettingsMenu::dispose() {
         _pnameInput->deactivate();
         _musicBtn->deactivate();
         _volumeSlider->deactivate();
-        _parallaxBtn->deactivate();
     } else if (_pnameInput != nullptr) {
         _pnameInput->clearTypeListeners();
         _pnameInput->clearExitListeners();
         _musicBtn->clearListeners();
         _volumeSlider->clearListeners();
-        _parallaxBtn->clearListeners();
     }
     
     _settingsTitle = nullptr;
     _pnameLabel = nullptr;
     _musicLabel = nullptr;
     _volumeLabel = nullptr;
-    _parallaxLabel = nullptr;
     
     _pnameInput = nullptr;
     _musicBtn = nullptr;
     _volumeSlider = nullptr;
-    _parallaxBtn = nullptr;
     
     _layer = nullptr;
     _nextState = MenuState::Setting;
@@ -71,15 +67,10 @@ bool SettingsMenu::init(const std::shared_ptr<cugl::AssetManager>& assets, const
     _pnameLabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("settings_namelabel"));
     _musicLabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("settings_musiclabel"));
     _volumeLabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("settings_volumelabel"));
-    _parallaxLabel = std::dynamic_pointer_cast<scene2::Label>(assets->get<scene2::SceneNode>("settings_parallaxlabel"));
     
     // Music toggle button
     _musicBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("settings_musicinput"));
     _musicBtn->setToggle(true);
-
-    // Parallax toggle button
-    _parallaxBtn = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("settings_parallaxinput"));
-    _parallaxBtn->setToggle(true);
 
     // Player name input
     _pnameInput = std::dynamic_pointer_cast<scene2::TextField>(assets->get<scene2::SceneNode>("settings_nameinput"));
@@ -113,20 +104,16 @@ void SettingsMenu::setDisplay(bool onDisplay) {
         _musicBtn->setVisible(onDisplay);
         _volumeLabel->setVisible(onDisplay);
         _volumeSlider->setVisible(onDisplay);
-        _parallaxLabel->setVisible(false);
-        _parallaxBtn->setVisible(false);
         _layer->setVisible(onDisplay);
         
         if (onDisplay) {
             _pnameInput->activate();
             _musicBtn->activate();
             _volumeSlider->activate();
-            _parallaxBtn->activate();
         } else {
             _pnameInput->deactivate();
             _musicBtn->deactivate();
             _volumeSlider->deactivate();
-            _parallaxBtn->deactivate();
         }
     }
 }
