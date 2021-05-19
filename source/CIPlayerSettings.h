@@ -1,4 +1,4 @@
-﻿//
+//
 //  CIPlayerSettings.h
 //  CoreImpact
 //
@@ -25,8 +25,6 @@ private:
     float _volume;
     /** Whether game music is turned on/off */
     bool _musicOn;
-    /** Whether game parallax effect is turned on/off */
-    bool _parallaxOn;
     /** Whether player is new */
     bool _isNew;
 
@@ -41,7 +39,6 @@ public:
         _playerName = CONSTANTS::DEFAULT_PLAYER_NAME;
         _volume = CONSTANTS::DEFAULT_VOLUME;
         _musicOn = CONSTANTS::DEFAULT_MUSIC_ON;
-        _parallaxOn = CONSTANTS::DEFAULT_PARALLAX_ON;
         _isNew = false;
         return true;
     }
@@ -64,7 +61,6 @@ public:
         playerSettings->appendValue("PlayerName", _playerName);
         playerSettings->appendValue("Volume", _volume);
         playerSettings->appendValue("MusicOn", _musicOn);
-        playerSettings->appendValue("ParallaxOn", _parallaxOn);
     }
 
     /**
@@ -74,7 +70,6 @@ public:
         _playerName = CONSTANTS::DEFAULT_PLAYER_NAME;
         _volume = CONSTANTS::DEFAULT_VOLUME;
         _musicOn = CONSTANTS::DEFAULT_MUSIC_ON;
-        _parallaxOn = CONSTANTS::DEFAULT_PARALLAX_ON;
 
         if (playerSettings != nullptr) {
             string pname = playerSettings->getString("PlayerName", "Player Name");
@@ -83,7 +78,6 @@ public:
             }
             _volume = playerSettings->getFloat("Volume", 0.5f);
             _musicOn = playerSettings->getBool("MusicOn", true);
-            _parallaxOn = playerSettings->getBool("ParallaxOn", true);
         }
     }
 
@@ -127,20 +121,6 @@ public:
      */
     void setMusicOn(bool musicOn) {
         _musicOn = musicOn;
-    }
-
-    /** 
-     * Returns the parallax toggle setting value.
-     */
-    bool getParallaxOn() const {
-        return _parallaxOn;
-    }
-
-    /** 
-     * Sets the parallax toggle setting value.
-     */
-    void setParallaxOn(bool parallaxOn) {
-        _parallaxOn = parallaxOn;
     }
 
     /**

@@ -26,14 +26,12 @@ namespace CONSTANTS {
 
     /** Base values for the game scene */
     inline constexpr int   BASE_SPAWN_RATE = 40;
-    inline constexpr float BASE_PARALLAX_AMT = 0.1f;
 
 #pragma mark PlayerSettings
     /** Default values for Player Setting */
     inline constexpr auto  DEFAULT_PLAYER_NAME = "Player Name";
     inline constexpr float DEFAULT_VOLUME = 0.5f;
     inline constexpr bool  DEFAULT_MUSIC_ON = true;
-    inline constexpr bool  DEFAULT_PARALLAX_ON = true;
 
 #pragma mark GameSettings
     /** Default values for Game Setting */
