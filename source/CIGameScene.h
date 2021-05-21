@@ -49,6 +49,7 @@ class GameScene : public cugl::Scene2 {
 private:
     /** Handles stardust color probability */
     int _stardustProb[6];
+    int _gameEndTimer;
 protected:
     /** The asset manager for this game mode. */
     std::shared_ptr<cugl::AssetManager> _assets;

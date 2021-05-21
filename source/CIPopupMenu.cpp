@@ -3,7 +3,7 @@
 //  CoreImpact
 //
 //  Created by Richard Yoon on 5/5/21.
-//  Copyright © 2021 Game Design Initiative at Cornell. All rights reserved.
+//  Copyright ï¿½ 2021 Game Design Initiative at Cornell. All rights reserved.
 //
 
 #include "CIPopupMenu.h"
@@ -129,9 +129,7 @@ void PopupMenu::update(MenuState& state, float timestep) {
         case MenuState::CreatingGame:
         {
             _timer -= timestep;
-
-            // TODO: make this circle rotate properly
-            //_windowCircle->setAngle(_windowCircle->getAngle() + ((timestep / 0.5f) * 6.28319));
+            _windowCircle->setAngle(_windowCircle->getAngle() + ((timestep / 0.5f) * 6.28319));
             if (_timer > 11.0f) {
                 _networkMessageManager->sendMessages();
                 _networkMessageManager->receiveMessages();
@@ -160,9 +158,7 @@ void PopupMenu::update(MenuState& state, float timestep) {
         case MenuState::JoiningGame:
         {
             _timer -= timestep;
-
-            // TODO: make this circle rotate properly
-            //_windowCircle->setAngle(_windowCircle->getAngle() + ((timestep / 0.5f) * 6.28319));
+            _windowCircle->setAngle(_windowCircle->getAngle() + ((timestep / 0.5f) * 6.28319));
             if (_timer > 11.0f) {
                 _networkMessageManager->sendMessages();
                 _networkMessageManager->receiveMessages();
@@ -196,9 +192,7 @@ void PopupMenu::update(MenuState& state, float timestep) {
         case MenuState::ReconnectingGame:
         {
             _timer -= timestep;
-
-            // TODO: make this circle rotate properly
-            //_windowCircle->setAngle(_windowCircle->getAngle() + ((timestep / 0.5f) * 6.28319));
+            _windowCircle->setAngle(_windowCircle->getAngle() + ((timestep / 0.5f) * 6.28319));
             if (_timer > 11.0f) {
                 _networkMessageManager->sendMessages();
                 _networkMessageManager->receiveMessages();

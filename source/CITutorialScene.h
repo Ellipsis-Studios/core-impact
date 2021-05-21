@@ -40,6 +40,7 @@ class TutorialScene : public cugl::Scene2 {
 private:
     /** Handles stardust color probability */
     int _stardustProb[6];
+    int _gameEndTimer;
     
     int _nextTutorialStage;
     int _tutorialTimer;

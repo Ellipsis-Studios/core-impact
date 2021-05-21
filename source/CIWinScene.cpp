@@ -25,6 +25,7 @@ void WinScene::dispose() {
     _gameOutcomeLabel = nullptr;
     _backToHomeButton = nullptr;
     _newGameButton = nullptr;
+    _flareExplosion = nullptr;
     _goBackToHome = false;
 }
 
@@ -44,6 +45,7 @@ bool WinScene::init(const std::shared_ptr<cugl::AssetManager>& assets, cugl::Siz
     
     _gameOutcomeLabel = std::dynamic_pointer_cast<cugl::scene2::Label>(assets->get<cugl::scene2::SceneNode>("win_gameOutcomeLabel"));
     _backToHomeButton = std::dynamic_pointer_cast<cugl::scene2::Button>(assets->get<cugl::scene2::SceneNode>("win_backToHomeButton"));
+    _flareExplosion = std::dynamic_pointer_cast<cugl::scene2::SceneNode>(assets->get<cugl::scene2::SceneNode>("win_flare"));
     _backToHomeButton->addListener([&](const std::string& name, bool down) {
         if (!down) {
             _goBackToHome = true;

@@ -24,6 +24,8 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>This is just a permission our engine doesn't let us remove. We don't actually use this, so feel free to turn it off.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>Landscape</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -38,8 +40,6 @@
 	<array>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>This is just a permission our engine doesn&apos;t let us remove. We don&apos;t actually use this, so feel free to turn it off.</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationLandscapeRight</string>
