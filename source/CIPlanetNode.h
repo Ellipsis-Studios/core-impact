@@ -28,7 +28,7 @@
 
 #define CORE_ROWS   12
 #define CORE_COLS   13
-#define CORE_END    151
+#define CORE_END    150
 #define CORE_START  0
 
 #define OUTER_RING_ROWS             14
