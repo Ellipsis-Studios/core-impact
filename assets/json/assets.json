@@ -7,7 +7,7 @@
       "file":     "textures/smallOpponentProgressAnimation_v4.png"
     },
     "core": {
-        "file":   "textures/coreAnimation_v1.png"
+        "file":   "textures/coreAnimation_v2.png"
     },
     "innerRing": {
         "file":   "textures/innerLayerAnimation_v2.png"

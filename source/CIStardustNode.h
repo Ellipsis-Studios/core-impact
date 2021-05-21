@@ -15,7 +15,7 @@
 
 #define STARDUST_ROWS   12
 #define STARDUST_COLS   13
-#define STARDUST_END    151
+#define STARDUST_END    150
 #define STARDUST_START  0
 
 
