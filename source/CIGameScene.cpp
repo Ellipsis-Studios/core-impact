@@ -257,6 +257,7 @@ void GameScene::update(float timestep, const std::shared_ptr<PlayerSettings>& pl
                     std::shared_ptr<StardustModel> particle = StardustModel::allocParticle(particlePos, particleVel, CIColor::getRandomColor(), size, lifespan);
                     _stardustContainer->addStardust(particle);
                     _stardustContainer->update(timestep);
+                    collisions::checkForCollision(_planet, _stardustContainer, timestep);
                     _winScene->_flareExplosion->setVisible(true);
                     _winScene->_flareExplosion->setScale(((360.0f/_gameEndTimer)-1) * 0.4);
                 } else if (_gameEndTimer == 220){
