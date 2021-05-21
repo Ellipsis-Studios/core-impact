@@ -21,6 +21,9 @@
     "fog": {
         "file":   "textures/fog.png"
     },
+    "lens_flare": {
+        "file":   "textures/flare.png"
+    },
     "meteor_shower_standalone": {
         "file":   "textures/meteor_shower_standalone.png"
     },
@@ -63,6 +66,7 @@
       }
   },
   "widgets": {
+    "menubutton": "widgets/menubutton.json",
     "clearbutton": "widgets/clearbutton.json"
   },
   "fonts": {
@@ -173,9 +177,8 @@
           "comment": "The button that brings a player back to the home screen",
           "type": "Widget",
           "data": {
-              "key": "clearbutton",
+              "key": "menubutton",
               "variables" : {
-                  "size"  : [200,200],
                   "text"  : "Back to Home"
               }
           },
@@ -190,9 +193,8 @@
           "comment": "The button that brings a player to the new game screen",
           "type": "Widget",
           "data": {
-            "key": "clearbutton",
+            "key": "menubutton",
             "variables" : {
-              "size"  : [200,200],
               "text"  : "New Game"
             }
           },
@@ -201,6 +203,23 @@
             "y_anchor": "middle",
             "x_offset": 0.2,
             "y_offset": 0.2
+          }
+        },
+        "flare": {
+          "type": "Image",
+          "format": {
+            "type": "Anchored"
+          },
+          "data": {
+            "texture": "lens_flare",
+            "anchor": [0.5, 0.5],
+            "scale": 1,
+            "visible": false
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "absolute": true
           }
         }
       }

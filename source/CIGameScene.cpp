@@ -76,6 +76,8 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _assets = assets;
     _input.init(getBounds());
     srand(time(NULL));
+    _gameEndTimer = 360;
+
     // Set the game update manager and network message managers
     _gameUpdateManager = GameUpdateManager::alloc();
     _networkMessageManager = networkMessageManager;
@@ -242,13 +244,43 @@ void GameScene::update(float timestep, const std::shared_ptr<PlayerSettings>& pl
                 std::string winningPlayer = _networkMessageManager->getOtherNames()[winnerId > _networkMessageManager->getPlayerId() ? winnerId - 1 : winnerId];
             }
             _winScene->setWinner(_networkMessageManager->getWinnerPlayerId(), _networkMessageManager->getPlayerId(), winningPlayer);
-            _winScene->setDisplay(true);
+            if (_gameEndTimer > 0){
+                _gameEndTimer--;
+                if (_gameEndTimer > 220){
+                    Vec2 particlePos = Vec2(rand() % (int) dimen.width, rand() % (int) dimen.height);
+                    Vec2 particleVel = _planet->getPosition() - particlePos;
+                    float distance = particleVel.length();
+                    particleVel.normalize();
+                    float force = timestep * 60 * 98.1f * _planet->getMass() / distance;
+                    // handle game settings
+                    force *= _planet->getGravStrength();
+                    particleVel *= (force * 1.0f);
+                    float size = ((rand() % 6) + 7) / 50.0;
+                    float lifespan = ((rand() % 8) + 14);
+                    std::shared_ptr<StardustModel> particle = StardustModel::allocParticle(particlePos, particleVel, CIColor::getRandomColor(), size, lifespan);
+                    _stardustContainer->addStardust(particle);
+                    _stardustContainer->update(timestep);
+                    collisions::checkForCollision(_planet, _stardustContainer, timestep);
+                    _winScene->_flareExplosion->setVisible(true);
+                    _winScene->_flareExplosion->setScale(((360.0f/_gameEndTimer)-1) * 0.4);
+                } else if (_gameEndTimer == 220){
+                    _winScene->_flareExplosion->setScale(1);
+                } else if (_gameEndTimer > 180){
+                    _winScene->_flareExplosion->setScale(_winScene->_flareExplosion->getScale() * 1.2);
+                } else {
+                    _winScene->_flareExplosion->setScale(_gameEndTimer / 5.0f);
+                }
+            } else {
+                _winScene->setDisplay(true);
+                _pauseBtn->setVisible(false);
+            }
         }
         else if (_winScene->goBackToHome()) {
             // handle resetting game
             _winScene->setDisplay(false);
             setActive(false);
         }
+        _planet->update(timestep);
         return;
     }
 

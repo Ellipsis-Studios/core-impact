@@ -151,11 +151,10 @@ bool PlanetModel::lockInLayer(float timestep) {
     }
     
     _layers[_numLayers-1].isLockedIn = true;
-    
+    _lockInProgress = 0;
     if (_numLayers < _layers.size()){
         _numLayers++;
         _layers[_numLayers-1] = getNewLayer();
-        _lockInProgress = 0;
         _radius *= LAYER_RADIUS_MULTIPLIER;
         _planetNode->setLayers(&_layers);
         _planetNode->setRadius(_radius);

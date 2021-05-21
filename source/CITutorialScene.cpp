@@ -60,6 +60,7 @@ bool TutorialScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _assets = assets;
     _input.init(getBounds());
     srand(time(NULL));
+    _gameEndTimer = 360;
     
     // Set up tutorial system
     _tutorialStage = -1;
@@ -79,6 +80,12 @@ bool TutorialScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _allSpace  = _assets->get<scene2::SceneNode>("game_field");
     _farSpace = std::dynamic_pointer_cast<scene2::AnimationNode>(_assets->get<scene2::SceneNode>("game_field_far"));
     _nearSpace = _assets->get<scene2::SceneNode>("game_field_near");
+    
+    // If height is exceeded by the screen size, fix the height by screen size
+    if ((dimen.height / _farSpace->getHeight()) > 1){
+        _farSpace->setScale(dimen.height / _farSpace->getContentHeight());
+    }
+    
     _tutorialText  = std::dynamic_pointer_cast<scene2::Label>(_assets->get<scene2::SceneNode>("game_tutorial"));
     _tutorialText->setVisible(true);
     
@@ -211,13 +218,43 @@ void TutorialScene::update(float timestep, const std::shared_ptr<PlayerSettings>
         if (!_winScene->displayActive()) {
             CULog("Game won.");
             _winScene->setWinner(0, 0, "");
-            _winScene->setDisplay(true);
+            if (_gameEndTimer > 0){
+                _gameEndTimer--;
+                if (_gameEndTimer > 220){
+                    Vec2 particlePos = Vec2(rand() % (int) dimen.width, rand() % (int) dimen.height);
+                    Vec2 particleVel = _planet->getPosition() - particlePos;
+                    float distance = particleVel.length();
+                    particleVel.normalize();
+                    float force = timestep * 60 * 98.1f * _planet->getMass() / distance;
+                    // handle game settings
+                    force *= _planet->getGravStrength();
+                    particleVel *= (force * 1.0f);
+                    float size = ((rand() % 6) + 7) / 50.0;
+                    float lifespan = ((rand() % 8) + 14);
+                    std::shared_ptr<StardustModel> particle = StardustModel::allocParticle(particlePos, particleVel, CIColor::getRandomColor(), size, lifespan);
+                    _stardustContainer->addStardust(particle);
+                    _stardustContainer->update(timestep);
+                    collisions::checkForCollision(_planet, _stardustContainer, timestep);
+                    _winScene->_flareExplosion->setVisible(true);
+                    _winScene->_flareExplosion->setScale(((360.0f/_gameEndTimer)-1) * 0.4);
+                } else if (_gameEndTimer == 220){
+                    _winScene->_flareExplosion->setScale(1);
+                } else if (_gameEndTimer > 180){
+                    _winScene->_flareExplosion->setScale(_winScene->_flareExplosion->getScale() * 1.2);
+                } else {
+                    _winScene->_flareExplosion->setScale(_gameEndTimer / 5.0f);
+                }
+            } else {
+                _winScene->setDisplay(true);
+                _pauseBtn->setVisible(false);
+            }
         }
         else if (_winScene->goBackToHome()) {
             // handle resetting game
             _winScene->setDisplay(false);
             setActive(false);
         }
+        _planet->update(timestep);
         return;
     }
 
@@ -395,12 +432,11 @@ void TutorialScene::update(float timestep, const std::shared_ptr<PlayerSettings>
                 _nextTutorialStage++;
             } break;
         case 12:
-            if (_planet->getCurrLayerProgress() > 4 && _planet->getNumLayers() > 2){
+            if (_planet->isWinner()){
                 CULog("Tutorial Complete.");
                 _nextTutorialStage++;
                 _tutorialText->setVisible(false);
                 _winScene->setWinner(0, 0, "");
-                _winScene->setDisplay(true);
             } break;
         default:
             break;

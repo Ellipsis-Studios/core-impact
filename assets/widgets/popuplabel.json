@@ -60,14 +60,14 @@
         "data": {
           "texture": "loadingcircle",
           "scale": 1.6,
+          "anchor": [0.5, 0.5],
           "halign": "center",
           "valign": "middle"
         },
         "layout": {
           "x_anchor": "center",
           "y_anchor": "middle",
-          "y_offset": -0.3,
-          "x_offset": -0.08
+          "y_offset": -0.15
         }
       }
     },

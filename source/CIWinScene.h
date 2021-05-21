@@ -28,6 +28,8 @@ private:
     bool _goBackToHome;
     
 public:
+    /** Flare that ends the game. */
+    std::shared_ptr<cugl::scene2::SceneNode> _flareExplosion;
 #pragma mark -
 #pragma mark Constructors
     /**
