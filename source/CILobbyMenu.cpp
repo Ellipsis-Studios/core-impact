@@ -27,6 +27,7 @@ void LobbyMenu::dispose() {
         _gameStartBtn->clearListeners();
         _gameSettingsBtn->clearListeners();
         _gameReadyBtn->clearListeners();
+        _gameReadyBtn->setDown(false);
     }
 
     _gameStartBtn = nullptr;

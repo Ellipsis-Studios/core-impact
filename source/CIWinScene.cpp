@@ -71,8 +71,10 @@ bool WinScene::init(const std::shared_ptr<cugl::AssetManager>& assets, cugl::Siz
 void WinScene::setWinner(int winnerPlayerId, int playerId, std::string winningPlayer) {
     if (winnerPlayerId == playerId) {
         _gameOutcomeLabel->setText("Congratulations! You won the game!");
+    } else if (winnerPlayerId == -2) {
+        _gameOutcomeLabel->setText("Host disconnected! Please start a new game!");
     } else {
-        _gameOutcomeLabel->setText("Sorry! " + winningPlayer + " won the game.");
+        _gameOutcomeLabel->setText("Sorry! " + winningPlayer + " won the game!");
     }
 }
 

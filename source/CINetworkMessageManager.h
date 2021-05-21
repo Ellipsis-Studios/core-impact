@@ -46,6 +46,9 @@ private:
 
     /** map from player id to player name and whether player is ready */
     std::map<int, std::pair<string, bool>> _playerMap;
+    
+    /** The number of frames that have gone by since the last message received from each player */
+    std::vector<int> _framesSinceLastMessage;
 
 public:
 #pragma mark -
