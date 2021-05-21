@@ -16,6 +16,9 @@
 #include "CIOpponentPlanet.h"
 #include "CILocation.h"
 
+#define  FRAMES_UNTIL_TIMEOUT   600     // 10 seconds
+#define  FRAMES_UNTIL_PING      120     // 2 seconds
+
 /**
  * Disposes of all (non-static) resources allocated to this network message manager.
  */
@@ -24,6 +27,7 @@ void NetworkMessageManager::dispose() {
     _gameUpdateManager = nullptr;
     _timestamp = 0;
     _winnerPlayerId = -1;
+    _framesSinceLastMessage.clear();
 }
 
 /**
@@ -38,6 +42,7 @@ void NetworkMessageManager::dispose() {
 bool NetworkMessageManager::init(const shared_ptr<GameSettings>& gameSettings) {
     _gameSettings = gameSettings;
     reset();
+    _framesSinceLastMessage.resize(5);
     return true;
 }
 
@@ -54,6 +59,7 @@ void NetworkMessageManager::reset() {
     _roomId = "00000";
     _playerName = "N/A";
     _gameSettings->reset();
+    _framesSinceLastMessage.clear();
 }
 
 /**
@@ -147,8 +153,22 @@ void NetworkMessageManager::sendMessages() {
 
             std::shared_ptr<GameUpdate> gameUpdate = _gameUpdateManager->getGameUpdateToSend();
             if (gameUpdate == nullptr) {
+                if (_framesSinceLastMessage[playerId] >= FRAMES_UNTIL_PING) {
+                    NetworkUtils::encodeInt(NetworkUtils::MessageType::Ping, data);
+                    NetworkUtils::encodeInt(playerId, data);
+                    NetworkUtils::encodeInt(_timestamp, data);
+                    _timestamp++;
+
+                    _conn->send(data);
+                    data.clear();
+                    CULog("SENT Ping> SRC[%i], TS[%i]", playerId, _timestamp);
+                    
+                    _framesSinceLastMessage[playerId] = 0;
+                }
                 return;
             }
+            
+            _framesSinceLastMessage[getPlayerId()] = 0;
 
             for (auto const& [key, val] : gameUpdate->getStardustSent()) {
                 int dstPlayerId = key;
@@ -258,20 +278,6 @@ void NetworkMessageManager::receiveMessages() {
         return;
     }
 
-    // check if network connection lost
-    if (_conn->getStatus() == cugl::CUNetworkConnection::NetStatus::Reconnecting) {
-        CULog("Attempting to reconnect.");
-        _gameState = GameState::ReconnectingToGame;
-        return;
-    }
-    else if (_conn->getStatus() == cugl::CUNetworkConnection::NetStatus::Disconnected) {
-        CULog("Disconnected from game. Returning to Main Menu.");
-        if (!_conn->isPlayerActive(0) || getPlayerId() <= 0) {
-            _gameState = GameState::DisconnectedFromGame;
-            _playerMap.clear();
-            return;
-        }
-    }
     // Check game room members
     if (getPlayerId() == 0) {
         std::vector<int> eraseId;
@@ -311,6 +317,16 @@ void NetworkMessageManager::receiveMessages() {
 
         switch (message_type)
         {
+            case NetworkUtils::MessageType::Ping:
+            {
+                int srcPlayer = NetworkUtils::decodeInt(recv[4], recv[5], recv[6], recv[7]);
+                int timestamp = NetworkUtils::decodeInt(recv[8], recv[9], recv[10], recv[11]);
+
+                CULog("RCVD Ping> SRC[%i], TS[%i]", srcPlayer, timestamp);
+                
+                _framesSinceLastMessage[srcPlayer] = 0;
+                break;
+            }
             case NetworkUtils::MessageType::DisconnectGame:
             {
                 int srcPlayer = NetworkUtils::decodeInt(recv[4], recv[5], recv[6], recv[7]);
@@ -331,6 +347,7 @@ void NetworkMessageManager::receiveMessages() {
                 int timestamp = NetworkUtils::decodeInt(recv[24], recv[25], recv[26], recv[27]);
 
                 CULog("RCVD SU> SRC[%i], DST[%i], CLR[%i], VEL[%f,%f]", srcPlayer, dstPlayer, stardustColor, xVel, yVel);
+                _framesSinceLastMessage[srcPlayer] = 0;
 
                 std::shared_ptr<StardustModel> stardust = StardustModel::alloc(cugl::Vec2(0, 0), cugl::Vec2(xVel, yVel), static_cast<CIColor::Value>(stardustColor));
                 std::map<int, std::vector<std::shared_ptr<StardustModel>>> map = { { dstPlayer, std::vector<std::shared_ptr<StardustModel>> { stardust } } };
@@ -346,6 +363,7 @@ void NetworkMessageManager::receiveMessages() {
                 int timestamp = NetworkUtils::decodeInt(recv[16], recv[17], recv[18], recv[19]);
 
                 CULog("RCVD PU> SRC[%i], CLR[%i], SIZE[%f]", srcPlayer, planetColor, planetSize);
+                _framesSinceLastMessage[srcPlayer] = 0;
 
                 CILocation::Value corner = NetworkUtils::getLocation(getPlayerId(), srcPlayer);
                 std::shared_ptr<OpponentPlanet> planet = OpponentPlanet::alloc(0, 0, CIColor::Value(planetColor), corner);
@@ -363,6 +381,7 @@ void NetworkMessageManager::receiveMessages() {
                     int timestamp = NetworkUtils::decodeInt(recv[8], recv[9], recv[10], recv[11]);
 
                     CULog("RCVD Attempt To Win> SRC[%i], TS[%i]", srcPlayer, timestamp);
+                    _framesSinceLastMessage[srcPlayer] = 0;
 
                     if (_winnerPlayerId == -1) {
                         _winnerPlayerId = srcPlayer;
@@ -385,6 +404,7 @@ void NetworkMessageManager::receiveMessages() {
                 int timestamp = NetworkUtils::decodeInt(recv[8], recv[9], recv[10], recv[11]);
 
                 CULog("RCVD GAME WON> SRC[%i], TS[%i]", srcPlayer, timestamp);
+                _framesSinceLastMessage[srcPlayer] = 0;
 
                 if (_winnerPlayerId == -1) {
                     _winnerPlayerId = srcPlayer;
@@ -526,6 +546,7 @@ void NetworkMessageManager::receiveMessages() {
                 int timestamp = NetworkUtils::decodeInt(recv[12], recv[13], recv[14], recv[15]);
 
                 CULog("RCVD Stardust Hit> SRC[%i], DST[%i], TS[%i]", srcPlayer, dstPlayer, timestamp);
+                _framesSinceLastMessage[srcPlayer] = 0;
 
                 if (dstPlayer == getPlayerId()) {
                     // put a grey stardust on the queue to indicate it is a reward stardust
@@ -544,6 +565,7 @@ void NetworkMessageManager::receiveMessages() {
                 int timestamp = NetworkUtils::decodeInt(recv[16], recv[17], recv[18], recv[19]);
 
                 CULog("RCVD Powerup Applied> SRC[%i], POWERUP[%i], CLR[%i], TS[%i]", srcPlayer, powerup, stardustColor, timestamp);
+                _framesSinceLastMessage[srcPlayer] = 0;
 
                 std::shared_ptr<StardustModel> stardust = StardustModel::alloc(cugl::Vec2(0, 0), cugl::Vec2(0, 0), CIColor::Value(stardustColor));
                 stardust->setStardustType(StardustModel::Type(powerup));
@@ -560,6 +582,26 @@ void NetworkMessageManager::receiveMessages() {
             }
         }
         });
+    
+    if (_gameState == GameState::GameInProgress) {
+        int minFrame = FRAMES_UNTIL_TIMEOUT;
+        for (auto ii = 0; ii < _framesSinceLastMessage.size(); ii++) {
+            _framesSinceLastMessage[ii]++;
+            if (ii != getPlayerId())
+                minFrame = min(minFrame, _framesSinceLastMessage[ii]);
+            
+            if (_framesSinceLastMessage[ii] == FRAMES_UNTIL_TIMEOUT) {
+                CULog("Player %i has disconnected.", ii);
+                if (ii == 0) {
+                    _winnerPlayerId = -2;
+                }
+            }
+        }
+        
+        if (minFrame == FRAMES_UNTIL_TIMEOUT) {
+            CULog("Player Has Disconnected from the game.");
+        }
+    }
 }
 
 /**

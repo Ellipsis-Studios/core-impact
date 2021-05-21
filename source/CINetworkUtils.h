@@ -39,7 +39,8 @@ public:
         NameReceivedResponse = 9,
         UpdateSetting = 10,
         ReadyGame = 11,
-        DisconnectGame = 12
+        DisconnectGame = 12,
+        Ping = 13
     };
 
     /**

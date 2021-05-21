@@ -237,7 +237,10 @@ void GameScene::update(float timestep, const std::shared_ptr<PlayerSettings>& pl
             _planet->getPlanetNode()->setColor(color);
             _pauseBtn->setVisible(false);
             int winnerId = _networkMessageManager->getWinnerPlayerId();
-            std::string winningPlayer = _networkMessageManager->getOtherNames()[winnerId > _networkMessageManager->getPlayerId() ? winnerId - 1 : winnerId];
+            std::string winningPlayer = "";
+            if (winnerId >= 0) {
+                std::string winningPlayer = _networkMessageManager->getOtherNames()[winnerId > _networkMessageManager->getPlayerId() ? winnerId - 1 : winnerId];
+            }
             _winScene->setWinner(_networkMessageManager->getWinnerPlayerId(), _networkMessageManager->getPlayerId(), winningPlayer);
             _winScene->setDisplay(true);
         }
