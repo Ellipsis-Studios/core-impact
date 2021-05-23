@@ -132,10 +132,10 @@ void LobbyMenu::setDisplay(bool onDisplay) {
         _layer->setVisible(onDisplay);
 
         _gameLobbyPlayerNames[0]->setVisible(onDisplay);
-        _gameLobbyPlayerNames[1]->setVisible(false);
-        _gameLobbyPlayerNames[2]->setVisible(false);
-        _gameLobbyPlayerNames[3]->setVisible(false);
-        _gameLobbyPlayerNames[4]->setVisible(false);
+        _gameLobbyPlayerNames[1]->setVisible(onDisplay);
+        _gameLobbyPlayerNames[2]->setVisible(onDisplay);
+        _gameLobbyPlayerNames[3]->setVisible(onDisplay);
+        _gameLobbyPlayerNames[4]->setVisible(onDisplay);
 
         if (!onDisplay) {
             _gameStartBtn->setVisible(false);
@@ -225,26 +225,27 @@ void LobbyMenu::update(MenuState& state) {
                     isReady = false;
                 }
                 if (p.first == 0 || pindex < 5) {
-                    //_gameLobbyPlayerLabels[0]->setText(get<0>(p.second));
-                    //_gameLobbyPlayerNames[0]->setVisible(get<1>(p.second));
-                    //pindex++;
                     _gameLobbyPlayerLabels[pindex]->setText(get<0>(p.second));
-                    _gameLobbyPlayerNames[pindex]->setVisible(get<1>(p.second));
+                    if (get<1>(p.second)) { // set is ready 
+                        _gameLobbyPlayerLabels[pindex]->setColor(cugl::Color4::WHITE);
+                        _gameLobbyPlayerNames[pindex]->setColor(cugl::Color4::WHITE);
+                    }
+                    else { // set is not ready 
+                        _gameLobbyPlayerLabels[pindex]->setColor(cugl::Color4::GRAY);
+                        _gameLobbyPlayerNames[pindex]->setColor(cugl::Color4::GRAY);
+                    }
                     pindex++;
                 }
-              /*  else if (pindex < 5) {
-                    _gameLobbyPlayerLabels[pindex]->setText(get<0>(p.second));
-                    _gameLobbyPlayerNames[pindex]->setVisible(get<1>(p.second));
-                    pindex++;
-                }*/
             }
             
             // handle disconnected players
             for (; pindex < 5; pindex++) {
                 _gameLobbyPlayerLabels[pindex]->setText("Waiting...");
-                _gameLobbyPlayerNames[pindex]->setVisible(false);
+                _gameLobbyPlayerLabels[pindex]->setColor(cugl::Color4::GRAY);
+                _gameLobbyPlayerNames[pindex]->setColor(cugl::Color4::GRAY);
             }
 
+            // whether game room ready to start game (host)
             if (isReady && _networkMessageManager->isPlayerHost()) {
                 _isReadyToStart = true;
                 _gameStartBtn->setDown(false);
@@ -256,7 +257,8 @@ void LobbyMenu::update(MenuState& state) {
                 _gameStartBtn->deactivate();
             }
 
-            if (_gameReadyBtn->isActive() && _gameReadyBtn->isDown()) { // handle non-host press
+            // handle non-host press
+            if (_gameReadyBtn->isActive() && _gameReadyBtn->isDown()) { 
                 _gameReadyBtn->deactivate();
             }
 
