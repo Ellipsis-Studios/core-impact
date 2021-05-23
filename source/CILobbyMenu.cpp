@@ -173,7 +173,7 @@ void LobbyMenu::update(MenuState& state) {
         {
             // handle displaying for Host
             _gameSettings->setGameId(_networkMessageManager->getRoomId());
-            setPlayerLabels({ "N/A", "N/A", "N/A", "N/A", "N/A" });
+            setPlayerLabels({ "Waiting...", "Waiting...", "Waiting...", "Waiting...", "Waiting..." });
 
             _lobbyRoomLabel->setText(_gameSettings->getGameId());
 
@@ -185,7 +185,7 @@ void LobbyMenu::update(MenuState& state) {
         case MenuState::JoinToLobby:
         {
             // handle setting up the lobby
-            setPlayerLabels({ "N/A", "N/A", "N/A", "N/A", "N/A" });
+            setPlayerLabels({ "Waiting...", "Waiting...", "Waiting...", "Waiting...", "Waiting..." });
             _lobbyRoomLabel->setText(_gameSettings->getGameId());
 
             setDisplay(true);
@@ -247,7 +247,7 @@ void LobbyMenu::update(MenuState& state) {
             
             // handle disconnected players
             for (; pindex < 5; pindex++) {
-                _gameLobbyPlayerLabels[pindex]->setText("N/A");
+                _gameLobbyPlayerLabels[pindex]->setText("Waiting...");
                 _gameLobbyPlayerNames[pindex]->setVisible(false);
             }
 

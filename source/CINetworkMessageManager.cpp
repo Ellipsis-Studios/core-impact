@@ -57,7 +57,7 @@ void NetworkMessageManager::reset() {
     _winnerPlayerId = -1;
     _playerMap.clear();
     _roomId = "00000";
-    _playerName = "N/A";
+    _playerName = "Waiting...";
     _gameSettings->reset();
     _framesSinceLastMessage.clear();
 }
