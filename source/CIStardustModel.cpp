@@ -69,6 +69,7 @@ bool StardustModel::init(cugl::Vec2 position, cugl::Vec2 velocity, CIColor::Valu
     _stardust_location = CILocation::Value::ON_SCREEN;
     _previous_owner = -1;
     _stardust_type = Type::NORMAL;
+    _hitCooldown = 0;
     return true;
 }
 
@@ -97,6 +98,7 @@ bool StardustModel::initParticle(cugl::Vec2 position, cugl::Vec2 velocity, CICol
     _stardust_location = CILocation::Value::ON_SCREEN;
     _previous_owner = -1;
     _stardust_type = Type::NORMAL;
+    _hitCooldown = 0;
     return true;
 }
 
@@ -116,12 +118,20 @@ void StardustModel::destroy() {
  * Updates the state of the model
  *
  * This method moves the stardust in accordance with the forces applied.
+ * It also steps the hit cooldown timer if it is active.
  *
  * @param timestep  Time elapsed since last called.
  */
 void StardustModel::update(float timestep) {
     _position += _velocity;
-    if (!_isInteractable){
+    if (_hitCooldown > 0) {
+        _hitCooldown -= timestep;
+        CULog("Hit cooldown is %f", _hitCooldown);
+        if (_hitCooldown < 0) {
+            _hitCooldown = 0;
+        }
+    }
+    if (!_isInteractable) {
         _mass -= 1;
     }
 }

@@ -63,6 +63,11 @@
           "type":     "sample",
           "file":     "sounds/shooting_star_sound_v1.wav",
           "volume":   0.5
+      },
+      "stardustHit": {
+          "type":     "sample",
+          "file":     "sounds/stardust_hit_sound_v1.wav",
+          "volume":   0.5
       }
   },
   "widgets": {
