@@ -37,7 +37,7 @@
         },
         "data": {
           "comment": "Player name label.",
-          "font": "gillsans32",
+          "font": "gillsans28",
           "text": "",
           "foreground": [255, 255, 255, 255],
           "background": [0, 0, 0, 0],
