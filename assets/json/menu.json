@@ -227,7 +227,6 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.0,
             "y_offset": -0.05
           }
         },
@@ -444,7 +443,7 @@
           "data": {
             "key": "submenubutton",
             "variables": {
-              "text": "START",
+              "text": "Start",
               "size": [200, 50],
               "nodeSize": [240, 80]
             }
@@ -461,7 +460,7 @@
           "data": {
             "key": "submenubutton",
             "variables": {
-              "text": "READY",
+              "text": "Ready",
               "size": [200, 50],
               "nodeSize": [240, 80]
             }
@@ -1074,7 +1073,6 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.0,
             "y_offset": 0.35
           }
         },
