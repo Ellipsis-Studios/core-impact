@@ -76,7 +76,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     // Start up the input handler and managers
     _assets = assets;
     _input.init(getBounds());
-    srand(time(NULL));
+    srand(time(NULL) + networkMessageManager->getPlayerId());
     _gameEndTimer = 360;
 
     // Set the game update manager and network message managers
