@@ -126,7 +126,6 @@ void StardustModel::update(float timestep) {
     _position += _velocity;
     if (_hitCooldown > 0) {
         _hitCooldown -= timestep;
-        CULog("Hit cooldown is %f", _hitCooldown);
         if (_hitCooldown < 0) {
             _hitCooldown = 0;
         }
