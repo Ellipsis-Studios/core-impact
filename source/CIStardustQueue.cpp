@@ -248,7 +248,7 @@ void StardustQueue::update(float timestep) {
         size_t idx = ((_qhead+ii) % _queue.size());
 
         // Move the stardust according to velocity.
-        _queue[idx].update();
+        _queue[idx].update(timestep);
     }
     
     _stardustNode->update(timestep);

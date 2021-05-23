@@ -43,8 +43,9 @@ namespace collisions {
  *
  *  @param planet     The planet in the candidate collision
  *  @param queue       The stardust queue
+ *  @return true if any stardust collided with the planet
  */
-void checkForCollision(const std::shared_ptr<PlanetModel>& planet, const std::shared_ptr<StardustQueue>& queue, float timestep);
+bool checkForCollision(const std::shared_ptr<PlanetModel>& planet, const std::shared_ptr<StardustQueue>& queue, float timestep);
 
 /**
  *  Handles collisions between stardusts, causing them to bounce off one another.
@@ -54,8 +55,9 @@ void checkForCollision(const std::shared_ptr<PlanetModel>& planet, const std::sh
  *  stardusts, not both. Otherwise, you are processing the same collisions twice.
  *
  *  @param queue    The stardust queue
+ *  @return true if there were any collisions outside of the cooldown period
  */
-void checkForCollisions(const std::shared_ptr<StardustQueue>& queue);
+bool checkForCollisions(const std::shared_ptr<StardustQueue>& queue);
 
 /**
  *  Checks for a collision between a planet and the input position

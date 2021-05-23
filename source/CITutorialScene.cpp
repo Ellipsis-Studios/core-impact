@@ -26,6 +26,13 @@ using namespace std;
 /** Game Scene background animation end frame */
 #define BACKGROUND_END 120
 
+/** Keys for sounds and music */
+#define GAME_MUSIC            "game"
+#define FOG_SOUND             "fog"
+#define GRAYSCALE_SOUND       "grayscale"
+#define METEOR_SOUND          "meteor"
+#define SHOOTING_STAR_SOUND   "shootingStar"
+#define STARDUST_HIT_SOUND    "stardustHit"
 
 #pragma mark -
 #pragma mark Constructors
@@ -134,6 +141,14 @@ bool TutorialScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
         _stardustProb[i] = BASE_PROBABILITY_SPACE;
     }
     CIColor::setNumColors(gameSettings->getColorCount());
+    
+    std::shared_ptr<AudioQueue> musicQueue = AudioEngine::get()->getMusicQueue();
+    musicQueue->resume(); // needed to allow music to play after being paused
+    std::shared_ptr<Sound> source = _assets->get<Sound>(GAME_MUSIC);
+    musicQueue->play(source, true, _playerSettings->getVolume());
+    if (!_playerSettings->getMusicOn()) {
+        musicQueue->pause();
+    }
 
     addChild(scene);
     addChild(_planet->getPlanetNode());
@@ -195,6 +210,8 @@ void TutorialScene::dispose() {
     _pauseBtn = nullptr;
     _pauseMenu = nullptr;
     _winScene = nullptr;
+    
+    AudioEngine::get()->getMusicQueue()->pause();
 }
 
 
@@ -271,9 +288,14 @@ void TutorialScene::update(float timestep, const std::shared_ptr<PlayerSettings>
     
     std::map<Uint64, TouchInstance>* touchInstances = _input.getTouchInstances();
 
-    collisions::checkForCollision(_planet, _stardustContainer, timestep);
     collisions::checkInBounds(_stardustContainer, dimen);
-    collisions::checkForCollisions(_stardustContainer);
+    std::shared_ptr<Sound> source = _assets->get<Sound>(STARDUST_HIT_SOUND);
+    if (collisions::checkForCollision(_planet, _stardustContainer, timestep) && _playerSettings->getMusicOn()) {
+        AudioEngine::get()->play(STARDUST_HIT_SOUND,source,false,_playerSettings->getVolume());
+    }
+    if (collisions::checkForCollisions(_stardustContainer) && _playerSettings->getMusicOn()) {
+        AudioEngine::get()->play(STARDUST_HIT_SOUND,source,false,_playerSettings->getVolume());
+    }
     updateDraggedStardust(touchInstances);
     
     if (collisions::checkForCollision(_planet, touchInstances, &_draggedStardust, _holdingPlanetTouchId)) {
@@ -639,13 +661,19 @@ void TutorialScene::addStardust(const Size bounds) {
  * @param stardustQueue the stardustQueue
  */
 void TutorialScene::processSpecialStardust(const cugl::Size bounds, const std::shared_ptr<StardustQueue> stardustQueue) {
+    // avoid processing powerups after game is over
+    if (_tutorialStage == 13) {
+        return;
+    }
     std::vector<std::shared_ptr<StardustModel>> powerupQueue = stardustQueue->getPowerupQueue();
     for (size_t ii = 0; ii < powerupQueue.size(); ii++) {
         std::shared_ptr<StardustModel> stardust = powerupQueue[ii];
+        std::string sound = "";
 
         switch (stardust->getStardustType()) {
             case StardustModel::Type::METEOR:
                 CULog("METEOR SHOWER!");
+                sound = METEOR_SOUND;
                 stardustQueue->addStardust(stardust->getColor(), bounds);
                 stardustQueue->addStardust(stardust->getColor(), bounds);
                 stardustQueue->addStardust(stardust->getColor(), bounds);
@@ -655,15 +683,18 @@ void TutorialScene::processSpecialStardust(const cugl::Size bounds, const std::s
                 break;
             case StardustModel::Type::SHOOTING_STAR:
                 CULog("SHOOTING STAR");
+                sound = SHOOTING_STAR_SOUND;
                 stardustQueue->addShootingStardust(stardust->getColor(), bounds);
                 stardustQueue->addShootingStardust(stardust->getColor(), bounds);
                 break;
             case StardustModel::Type::GRAYSCALE:
                 CULog("GRAYSCALE");
+                sound = GRAYSCALE_SOUND;
                 stardustQueue->getStardustNode()->applyGreyScale();
                 break;
             case StardustModel::Type::FOG: {
                 CULog("FOG");
+                sound = FOG_SOUND;
                 std::shared_ptr<OpponentPlanet> opponent = _opponentPlanets[stardust->getPreviousOwner()];
                 if (opponent != nullptr) {
                     opponent->getOpponentNode()->applyFogPower();
@@ -672,6 +703,10 @@ void TutorialScene::processSpecialStardust(const cugl::Size bounds, const std::s
             }
             default:
                 break;
+        }
+        if (sound != "" && _playerSettings->getMusicOn()) {
+            std::shared_ptr<Sound> source = _assets->get<Sound>(sound);
+            AudioEngine::get()->play(sound,source,false,_playerSettings->getVolume());
         }
     }
     

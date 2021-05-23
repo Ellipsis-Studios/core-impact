@@ -37,10 +37,12 @@ using namespace cugl;
  *
  *  @param planet     The planet in the candidate collision
  *  @param queue       The stardust queue
+ *  @return true if any stardust collided with the planet
  */
-void collisions::checkForCollision(const std::shared_ptr<PlanetModel>& planet, const std::shared_ptr<StardustQueue>& queue, float timestep) {
+bool collisions::checkForCollision(const std::shared_ptr<PlanetModel>& planet, const std::shared_ptr<StardustQueue>& queue, float timestep) {
     // Get the stardust size from the texture
     float sdRadius = queue->getStardustRadius();
+    bool wasCollision = false;
     
     for(size_t ii = 0; ii < queue->size(); ii++) {
         // This returns a reference
@@ -79,6 +81,7 @@ void collisions::checkForCollision(const std::shared_ptr<PlanetModel>& planet, c
 
                 Vec2 temp = 1.4 * norm * (impulse/stardust->getMass());
                 queue->createStardustParticleBlast(stardust->getPosition() + stardust->getVelocity(), (stardust->getVelocity()+temp) * 0.6, stardust->getColor(), planet->getColor());
+                wasCollision = true;
                 // Destroy the stardust
                 stardust->destroy();
             } else {
@@ -93,6 +96,7 @@ void collisions::checkForCollision(const std::shared_ptr<PlanetModel>& planet, c
             }
         }
     }
+    return wasCollision;
 }
 
 /**
@@ -103,10 +107,12 @@ void collisions::checkForCollision(const std::shared_ptr<PlanetModel>& planet, c
  *  stardusts, not both. Otherwise, you are processing the same collisions twice.
  *
  *  @param queue    The stardust queue
+ *  @return true if there were any collisions outside of the cooldown period
  */
-void collisions::checkForCollisions(const std::shared_ptr<StardustQueue>& queue) {
+bool collisions::checkForCollisions(const std::shared_ptr<StardustQueue>& queue) {
     // Get the stardust size from the texture
     float sdRadius = queue->getStardustRadius();
+    bool wasCollision = false;
 
     for (size_t ii = 0; ii < queue->size(); ii++) {
         // This returns a reference
@@ -141,16 +147,17 @@ void collisions::checkForCollisions(const std::shared_ptr<StardustQueue>& queue)
                     temp = norm * (impulse/stardust2->getMass());
                     stardust2->setVelocity(stardust2->getVelocity()-temp);
                     
-                    queue->createStardustParticleBlast(stardust1->getPosition().getMidpoint(stardust2->getPosition()), stardust1->getVelocity().getMidpoint(stardust2->getVelocity()), stardust1->getColor(), stardust2->getColor());
-                    
-                    stardust1->setMass(stardust1->getMass() - 0.18);
-                    stardust2->setMass(stardust2->getMass() - 0.18);
-                    stardust1->setRadius(stardust1->getRadius() - 0.08);
-                    stardust2->setRadius(stardust2->getRadius() - 0.08);
+                    if (stardust1->getHitCooldown() == 0 && stardust2->getHitCooldown() == 0) {
+                        queue->createStardustParticleBlast(stardust1->getPosition().getMidpoint(stardust2->getPosition()), stardust1->getVelocity().getMidpoint(stardust2->getVelocity()), stardust1->getColor(), stardust2->getColor());
+                        wasCollision = true;
+                        stardust1->triggerHit();
+                        stardust2->triggerHit();
+                    }
                 }
             }
         }
     }
+    return wasCollision;
 }
 
 /**
