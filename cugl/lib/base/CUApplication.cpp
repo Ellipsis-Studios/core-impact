@@ -724,9 +724,13 @@ std::string Application::getAssetDirectory() {
  */
 std::string Application::getSaveDirectory() {
     if (_savesdir.empty()) {
+#if defined (__WINDOWS__)
+        _savesdir.append(SDL_GetPrefPath(_org.c_str(),_name.c_str()));
+#else
         char* s = SDL_GetPrefPath(_org.c_str(),_name.c_str());
-		_savesdir.append(s);
+        _savesdir.append(s);
         free(s);
+#endif
     }
     return _savesdir;
 }
