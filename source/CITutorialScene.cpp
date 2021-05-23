@@ -64,7 +64,7 @@ bool TutorialScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     
     // Set up tutorial system
     _tutorialStage = -1;
-    _nextTutorialStage = 0;
+    _nextTutorialStage = 13;
     _tutorialTimer = 0;
     // Set the game update manager and network message managers
     _gameUpdateManager = GameUpdateManager::alloc();
@@ -216,7 +216,6 @@ void TutorialScene::update(float timestep, const std::shared_ptr<PlayerSettings>
     // Handle counting down then switching to loading screen
     if (_tutorialStage == 13) {
         if (!_winScene->displayActive()) {
-            CULog("Game won.");
             _winScene->setWinner(0, 0, "");
             if (_gameEndTimer > 0){
                 _gameEndTimer--;
@@ -239,6 +238,7 @@ void TutorialScene::update(float timestep, const std::shared_ptr<PlayerSettings>
                     _winScene->_flareExplosion->setScale(((360.0f/_gameEndTimer)-1) * 0.4);
                 } else if (_gameEndTimer == 220){
                     _winScene->_flareExplosion->setScale(1);
+                    _stardustContainer->dispose();
                 } else if (_gameEndTimer > 180){
                     _winScene->_flareExplosion->setScale(_winScene->_flareExplosion->getScale() * 1.2);
                 } else {
@@ -247,6 +247,7 @@ void TutorialScene::update(float timestep, const std::shared_ptr<PlayerSettings>
             } else {
                 _winScene->setDisplay(true);
                 _pauseBtn->setVisible(false);
+                CULog("Game won.");
             }
         }
         else if (_winScene->goBackToHome()) {
@@ -508,7 +509,7 @@ void TutorialScene::updateDraggedStardust(std::map<Uint64, TouchInstance>* touch
  *  @param bounds the bounds of the game screen
  */
 void TutorialScene::addStardust(const Size bounds) {
-    if (_stardustContainer->size() == CONSTANTS::MAX_STARDUSTS) {
+    if (_stardustContainer->size() == CONSTANTS::MAX_STARDUSTS || _planet->isLockingIn()) {
         return;
     }
     

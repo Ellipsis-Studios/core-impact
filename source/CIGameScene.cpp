@@ -233,13 +233,12 @@ void GameScene::update(float timestep, const std::shared_ptr<PlayerSettings>& pl
     // Handle counting down then switching to loading screen
     if (_networkMessageManager->getWinnerPlayerId() != -1) {
         if (!_winScene->displayActive()) {
-            CULog("Game won.");
             Color4 color = CIColor::getColor4(_planet->getColor());
             color.a = 75;
             _planet->getPlanetNode()->setColor(color);
             _pauseBtn->setVisible(false);
             int winnerId = _networkMessageManager->getWinnerPlayerId();
-            std::string winningPlayer = "";
+            std::string winningPlayer = "A player";
             if (winnerId >= 0) {
                 winningPlayer = _networkMessageManager->getOtherNames()[winnerId > _networkMessageManager->getPlayerId() ? winnerId - 1 : winnerId];
             }
@@ -265,6 +264,7 @@ void GameScene::update(float timestep, const std::shared_ptr<PlayerSettings>& pl
                     _winScene->_flareExplosion->setScale(((360.0f/_gameEndTimer)-1) * 0.4);
                 } else if (_gameEndTimer == 220){
                     _winScene->_flareExplosion->setScale(1);
+                    _stardustContainer->dispose();
                 } else if (_gameEndTimer > 180){
                     _winScene->_flareExplosion->setScale(_winScene->_flareExplosion->getScale() * 1.2);
                 } else {
@@ -273,6 +273,7 @@ void GameScene::update(float timestep, const std::shared_ptr<PlayerSettings>& pl
             } else {
                 _winScene->setDisplay(true);
                 _pauseBtn->setVisible(false);
+                CULog("Game won.");
             }
         }
         else if (_winScene->goBackToHome()) {
@@ -396,7 +397,7 @@ void GameScene::updateDraggedStardust(std::map<Uint64, TouchInstance>* touchInst
  *  @param bounds the bounds of the game screen
  */
 void GameScene::addStardust(const Size bounds) {
-    if (_stardustContainer->size() == CONSTANTS::MAX_STARDUSTS) {
+    if (_stardustContainer->size() == CONSTANTS::MAX_STARDUSTS || _planet->isLockingIn()) {
         return;
     }
     
