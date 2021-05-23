@@ -71,7 +71,7 @@ bool TutorialScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     
     // Set up tutorial system
     _tutorialStage = -1;
-    _nextTutorialStage = 13;
+    _nextTutorialStage = 0;
     _tutorialTimer = 0;
     // Set the game update manager and network message managers
     _gameUpdateManager = GameUpdateManager::alloc();
