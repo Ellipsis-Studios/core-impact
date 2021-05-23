@@ -39,7 +39,7 @@
           "type": "Anchored"
         },
         "data": {
-          "font": "saira24",
+          "font": "gillsans24",
           "text": "row1",
           "foreground": [255, 255, 255, 255],
           "anchor": [0.5, 0.5],

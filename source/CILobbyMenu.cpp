@@ -171,25 +171,16 @@ void LobbyMenu::update(MenuState& state) {
     {
         case MenuState::MainToLobby:
         {
-            // handle displaying for Host
+            // handle game id display 
             _gameSettings->setGameId(_networkMessageManager->getRoomId());
-            setPlayerLabels({ "Waiting...", "Waiting...", "Waiting...", "Waiting...", "Waiting..." });
-
-            _lobbyRoomLabel->setText(_gameSettings->getGameId());
-
-            setDisplay(true);
-
-            state = _nextState = MenuState::GameLobby;
-            break;
+            [[fallthrough]];
         }
         case MenuState::JoinToLobby:
         {
             // handle setting up the lobby
             setPlayerLabels({ "Waiting...", "Waiting...", "Waiting...", "Waiting...", "Waiting..." });
             _lobbyRoomLabel->setText(_gameSettings->getGameId());
-
             setDisplay(true);
-
             state = _nextState = MenuState::GameLobby;
             break;
         }
@@ -233,16 +224,19 @@ void LobbyMenu::update(MenuState& state) {
                 if (get<1>(p.second) == false || p.first < 0) { // ready 
                     isReady = false;
                 }
-                if (p.first == 0) {
-                    _gameLobbyPlayerLabels[0]->setText(get<0>(p.second));
-                    _gameLobbyPlayerNames[0]->setVisible(get<1>(p.second));
-                    pindex++;
-                }
-                else if (pindex < 5) {
+                if (p.first == 0 || pindex < 5) {
+                    //_gameLobbyPlayerLabels[0]->setText(get<0>(p.second));
+                    //_gameLobbyPlayerNames[0]->setVisible(get<1>(p.second));
+                    //pindex++;
                     _gameLobbyPlayerLabels[pindex]->setText(get<0>(p.second));
                     _gameLobbyPlayerNames[pindex]->setVisible(get<1>(p.second));
                     pindex++;
                 }
+              /*  else if (pindex < 5) {
+                    _gameLobbyPlayerLabels[pindex]->setText(get<0>(p.second));
+                    _gameLobbyPlayerNames[pindex]->setVisible(get<1>(p.second));
+                    pindex++;
+                }*/
             }
             
             // handle disconnected players
@@ -266,17 +260,23 @@ void LobbyMenu::update(MenuState& state) {
                 _gameReadyBtn->deactivate();
             }
 
-            // handle room player updates and triggering game start
-            if (_networkMessageManager->getGameState() == GameState::GameInProgress) {
-                _nextState = MenuState::LobbyToGame;
-            }
-            // handle room player reconnecting
-            if (_networkMessageManager->getGameState() == GameState::ReconnectingToGame) {
-                _nextState = MenuState::MenuToReconnect;
-            }
-            // handle room player disconnect
-            if (_networkMessageManager->getGameState() == GameState::DisconnectedFromGame) {
-                _nextState = MenuState::LobbyToMain;
+            // handle exit transitions in upcoming frame 
+            switch (_networkMessageManager->getGameState())
+            {
+                case GameState::GameInProgress:
+                    // handle room player updates and triggering game start
+                    _nextState = MenuState::LobbyToGame;
+                    break;
+                case GameState::ReconnectingToGame:
+                    // handle room player reconnecting
+                    _nextState = MenuState::MenuToReconnect;
+                    break;
+                case GameState::DisconnectedFromGame:
+                    // handle room player disconnect
+                    _nextState = MenuState::LobbyToMain;
+                    break;
+                default:
+                    break;                    
             }
 
             state = _nextState;

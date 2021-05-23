@@ -151,7 +151,7 @@ bool TutorialScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
         cugl::Vec2 pos = CILocation::getPositionOfLocation(location, dimen);
         std::shared_ptr<OpponentPlanet> opponent = OpponentPlanet::alloc(pos.x, pos.y, CIColor::getNoneColor(), location);
         opponent->setTextures(_assets->get<Texture>("opponentProgress"), _assets->get<Texture>("fog"), dimen);
-        opponent->setName(opponentNames[ii], assets->get<Font>("saira20"));
+        opponent->setName(opponentNames[ii], assets->get<Font>("gillsans20"));
         addChild(opponent->getOpponentNode());
         _opponentPlanets[ii] = opponent;
     }
@@ -314,7 +314,7 @@ void TutorialScene::update(float timestep, const std::shared_ptr<PlayerSettings>
                 _tutorialTimer = 60;
                 std::shared_ptr<OpponentPlanet> planet = OpponentPlanet::alloc(0, dimen.height, CIColor::Value((_planet->getColor()+2)%4), CILocation::TOP_LEFT);
                 planet->setTextures(_assets->get<Texture>("opponentProgress"), _assets->get<Texture>("fog"), dimen);
-                planet->setName("Opponent", _assets->get<Font>("saira20"));
+                planet->setName("Opponent", _assets->get<Font>("gillsans20"));
                 planet->setMass(55);
                 addChild(planet->getOpponentNode());
                 _opponentPlanets[0] = planet;

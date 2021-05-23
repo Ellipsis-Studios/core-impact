@@ -4,78 +4,78 @@
       "file": "textures/backgroundAnimation_v6.png"
     },
     "opponentProgress": {
-      "file":     "textures/smallOpponentProgressAnimation_v4.png"
+      "file": "textures/smallOpponentProgressAnimation_v4.png"
     },
     "core": {
-        "file":   "textures/coreAnimation_v2.png"
+      "file": "textures/coreAnimation_v2.png"
     },
     "innerRing": {
-        "file":   "textures/innerLayerAnimation_v2.png"
+      "file": "textures/innerLayerAnimation_v2.png"
     },
     "unlockedOuterRing": {
-        "file":   "textures/smallOuterLayerAnimation_v4.png"
+      "file": "textures/smallOuterLayerAnimation_v4.png"
     },
     "playerProgress": {
-        "file":   "textures/playerProgressAnimation_v2.png"
+      "file": "textures/playerProgressAnimation_v2.png"
     },
     "fog": {
-        "file":   "textures/fog.png"
+      "file": "textures/fog.png"
     },
     "lens_flare": {
-        "file":   "textures/flare.png"
+      "file": "textures/flare.png"
     },
     "meteor_shower_standalone": {
-        "file":   "textures/meteor_shower_standalone.png"
+      "file": "textures/meteor_shower_standalone.png"
     },
     "shooting_star_standalone": {
-        "file":   "textures/shooting_star_standalone.png"
+      "file": "textures/shooting_star_standalone.png"
     },
     "fog_standalone": {
-        "file":   "textures/fog_standalone.png"
+      "file": "textures/fog_standalone.png"
     },
     "greyscale_standalone": {
-        "file":   "textures/greyscale_standalone.png"
+      "file": "textures/greyscale_standalone.png"
     }
   },
   "sounds": {
-      "game": {
-          "type":     "sample",
-          "file":     "sounds/background_music_v1.ogg",
-          "stream":   true,
-          "volume":   0.5
-      },
-      "fog": {
-          "type":     "sample",
-          "file":     "sounds/fog_sound_v1.wav",
-          "volume":   0.5
-      },
-      "grayscale": {
-          "type":     "sample",
-          "file":     "sounds/grayscale_sound_v1.wav",
-          "volume":   0.5
-      },
-      "meteor": {
-          "type":     "sample",
-          "file":     "sounds/meteor_sound_v1.wav",
-          "volume":   0.5
-      },
-      "shootingStar": {
-          "type":     "sample",
-          "file":     "sounds/shooting_star_sound_v1.wav",
-          "volume":   0.5
-      }
+    "game": {
+      "type": "sample",
+      "file": "sounds/background_music_v1.ogg",
+      "stream": true,
+      "volume": 0.5
+    },
+    "fog": {
+      "type": "sample",
+      "file": "sounds/fog_sound_v1.wav",
+      "volume": 0.5
+    },
+    "grayscale": {
+      "type": "sample",
+      "file": "sounds/grayscale_sound_v1.wav",
+      "volume": 0.5
+    },
+    "meteor": {
+      "type": "sample",
+      "file": "sounds/meteor_sound_v1.wav",
+      "volume": 0.5
+    },
+    "shootingStar": {
+      "type": "sample",
+      "file": "sounds/shooting_star_sound_v1.wav",
+      "volume": 0.5
+    }
   },
   "widgets": {
     "menubutton": "widgets/menubutton.json",
     "clearbutton": "widgets/clearbutton.json"
   },
   "fonts": {
-    "saira32": {
-      "file": "fonts/SairaSemicondensed.ttf",
+    "gillsans32": {
+      "file": "fonts/gillsans.ttf",
       "size": 32
     },
-    "saira20": {
-      "file": "fonts/SairaSemicondensed.ttf",
+    "gillsans20": {
+      "file": "fonts/gillsans.ttf",
       "size": 20
     }
   },
@@ -117,7 +117,7 @@
         "tutorial": {
           "type": "Label",
           "data": {
-            "font": "saira20",
+            "font": "gillsans20",
             "text": "",
             "foreground": [255, 255, 255, 255],
             "background": [0, 0, 0, 0],
@@ -133,7 +133,7 @@
             "y_offset": 0.2
           }
         },
-          "pausebutton": {
+        "pausebutton": {
           "comment": "The pause button with 3 dots in a circle.",
           "type": "Widget",
           "data": {
@@ -142,7 +142,7 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "top",
-              "y_offset": -0.1
+            "y_offset": -0.1
           }
         }
       }
@@ -157,7 +157,7 @@
           "comment": "The text label showing the outcome of the game",
           "type": "Label",
           "data": {
-            "font": "saira32",
+            "font": "gillsans32",
             "text": "",
             "foreground": [255, 255, 255, 255],
             "background": [0, 0, 0, 0],
@@ -177,10 +177,10 @@
           "comment": "The button that brings a player back to the home screen",
           "type": "Widget",
           "data": {
-              "key": "menubutton",
-              "variables" : {
-                  "text"  : "Back to Home"
-              }
+            "key": "menubutton",
+            "variables": {
+              "text": "Back to Home"
+            }
           },
           "layout": {
             "x_anchor": "center",
@@ -194,8 +194,8 @@
           "type": "Widget",
           "data": {
             "key": "menubutton",
-            "variables" : {
-              "text"  : "New Game"
+            "variables": {
+              "text": "New Game"
             }
           },
           "layout": {

@@ -54,23 +54,33 @@
     "joinbutton": {
       "file": "textures/check_mark.png"
     },
-    "lobbycodeborder": {
-      "file": "textures/lobbyCodeDeco.png"
+    "lobbycodebordercenter": {
+      "file": "textures/lobbyCodeDecoCenter.png"
+    },
+    "lobbycodeborderleft": {
+      "file": "textures/lobbyCodeDecoLeft.png"
+    },
+    "lobbycodeborderright": {
+      "file": "textures/lobbyCodeDecoRight.png"
     },
     "loadingcircle": {
       "file": "textures/loadingCircle.png"
     }
   },
   "fonts": {
-    "saira40": {
+    "gillsans40": {
       "file": "fonts/gillsans.ttf",
       "size": 40
     },
-    "saira32": {
+    "gillsans32": {
+      "file": "fonts/gillsans.ttf",
+      "size": 32
+    },
+    "gillsans28": {
       "file": "fonts/gillsans.ttf",
       "size": 28
     },
-    "saira24": {
+    "gillsans24": {
       "file": "fonts/gillsans.ttf",
       "size": 24
     }
@@ -252,8 +262,8 @@
         "title": {
           "type": "Label",
           "data": {
-            "font": "saira40",
-            "text": "Lobby",
+            "font": "gillsans24",
+            "text": "Room Number",
             "foreground": [255, 255, 255, 255],
             "background": [0, 0, 0, 0],
             "size": [300, 80],
@@ -272,7 +282,7 @@
           "comment": "The text label showing the current game room id",
           "type": "Label",
           "data": {
-            "font": "saira24",
+            "font": "gillsans24",
             "text": "",
             "foreground": [255, 255, 255, 255],
             "background": [0, 0, 0, 0],
@@ -288,16 +298,53 @@
             "y_offset": 0.28
           }
         },
+        "roomidborderleft": {
+          "comment": "Left-edge of border around game room id",
+          "type": "Widget",
+          "data": {
+            "key": "lobbycode",
+            "variables": {
+              "texture": "lobbycodeborderleft",
+              "size": [300, 70]
+            }
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "y_offset": 0.2815,
+            "x_offset": -0.4396
+          }
+        },
         "roomidborder": {
           "comment": "The border around the current game room id",
           "type": "Widget",
           "data": {
-            "key": "lobbycode"
+            "key": "lobbycode",
+            "variables": {
+              "size": [600, 70]
+            }
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
             "y_offset": 0.28
+          }
+        },
+        "roomidborderright": {
+          "comment": "Right-edge of border around game room id",
+          "type": "Widget",
+          "data": {
+            "key": "lobbycode",
+            "variables": {
+              "texture": "lobbycodeborderright",
+              "size": [300, 70]
+            }
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "y_offset": 0.28,
+            "x_offset": 0.4396
           }
         },
         "playerlabel1": {
@@ -387,8 +434,8 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.32,
-            "y_offset": 0.34
+            "x_offset": 0.45,
+            "y_offset": 0.41
           }
         },
         "startgamebutton": {
@@ -397,7 +444,7 @@
           "data": {
             "key": "submenubutton",
             "variables": {
-              "text": "Start",
+              "text": "START",
               "size": [200, 50],
               "nodeSize": [240, 80]
             }
@@ -409,11 +456,12 @@
           }
         },
         "readygamebutton": {
+          "comment": "The ready game button to trigger ready to start by non-host from the game lobby",
           "type": "Widget",
           "data": {
             "key": "submenubutton",
             "variables": {
-              "text": "Ready",
+              "text": "READY",
               "size": [200, 50],
               "nodeSize": [240, 80]
             }
@@ -438,7 +486,7 @@
         "title": {
           "type": "Label",
           "data": {
-            "font": "saira32",
+            "font": "gillsans28",
             "text": "Game Settings",
             "foreground": [255, 255, 255, 255],
             "background": [0, 0, 0, 0],
@@ -457,7 +505,7 @@
         "subtitle": {
           "type": "Label",
           "data": {
-            "font": "saira24",
+            "font": "gillsans24",
             "text": "Only game host can change the settings.",
             "foreground": [255, 255, 255, 255],
             "background": [0, 0, 0, 0],
@@ -476,7 +524,7 @@
         "spawnratebuttonlabel": {
           "type": "Label",
           "data": {
-            "font": "saira24",
+            "font": "gillsans24",
             "text": "Stardust Spawn Rate",
             "foreground": [255, 255, 255, 255],
             "background": [0, 0, 0, 0],
@@ -499,7 +547,7 @@
             "key": "lobbybutton",
             "variables": {
               "text": "1.0X",
-              "font": "saira24",
+              "font": "gillsans24",
               "size": [80, 60]
             }
           },
@@ -513,7 +561,7 @@
         "gravstrengthbuttonlabel": {
           "type": "Label",
           "data": {
-            "font": "saira24",
+            "font": "gillsans24",
             "text": "Planet Gravity",
             "foreground": [255, 255, 255, 255],
             "background": [0, 0, 0, 0],
@@ -535,7 +583,7 @@
             "key": "lobbybutton",
             "variables": {
               "text": "1.0X",
-              "font": "saira24",
+              "font": "gillsans24",
               "size": [80, 60]
             }
           },
@@ -548,7 +596,7 @@
         "wincondbuttonlabel": {
           "type": "Label",
           "data": {
-            "font": "saira24",
+            "font": "gillsans24",
             "text": "Layer Size",
             "foreground": [255, 255, 255, 255],
             "background": [0, 0, 0, 0],
@@ -571,7 +619,7 @@
             "key": "lobbybutton",
             "variables": {
               "text": "200",
-              "font": "saira24",
+              "font": "gillsans24",
               "size": [80, 60]
             }
           },
@@ -614,7 +662,7 @@
         "title": {
           "type": "Label",
           "data": {
-            "font": "saira32",
+            "font": "gillsans28",
             "text": "Enter Name",
             "foreground": [255, 255, 255, 255],
             "background": [0, 0, 0, 0],
@@ -665,7 +713,7 @@
         "subtitle": {
           "type": "Label",
           "data": {
-            "font": "saira24",
+            "font": "gillsans24",
             "text": "Your name will be saved for future games.",
             "foreground": [255, 255, 255, 255],
             "background": [0, 0, 0, 0],
@@ -700,7 +748,7 @@
             "type": "Anchored"
           },
           "data": {
-            "font": "saira32",
+            "font": "gillsans28",
             "text": "Enter Code",
             "foreground": [255, 255, 255, 255],
             "background": [0, 0, 0, 0],
@@ -1013,7 +1061,7 @@
           "comment": "Static text label for Setting page heading.",
           "type": "Label",
           "data": {
-            "font": "saira32",
+            "font": "gillsans28",
             "text": "Settings",
             "foreground": [255, 255, 255, 255],
             "background": [0, 0, 0, 0],
@@ -1034,7 +1082,7 @@
           "comment": "The 'Name' label for the player name section.",
           "type": "Label",
           "data": {
-            "font": "saira32",
+            "font": "gillsans28",
             "text": "Name",
             "foreground": [255, 255, 255, 255],
             "background": [0, 0, 0, 0],
@@ -1067,7 +1115,7 @@
           "comment": "The 'Music' label for the toggle music section.",
           "type": "Label",
           "data": {
-            "font": "saira32",
+            "font": "gillsans28",
             "text": "Music",
             "foreground": [255, 255, 255, 255],
             "background": [0, 0, 0, 0],
@@ -1100,7 +1148,7 @@
           "comment": "The 'Volume' label for the volume slider section.",
           "type": "Label",
           "data": {
-            "font": "saira32",
+            "font": "gillsans28",
             "text": "Volume",
             "foreground": [255, 255, 255, 255],
             "background": [0, 0, 0, 0],
@@ -1250,7 +1298,7 @@
           "comment": "Static text label for Setting page heading.",
           "type": "Label",
           "data": {
-            "font": "saira32",
+            "font": "gillsans28",
             "text": "Settings",
             "foreground": [255, 255, 255, 255],
             "background": [0, 0, 0, 0],
@@ -1271,7 +1319,7 @@
           "comment": "The 'Music' label for the toggle music section.",
           "type": "Label",
           "data": {
-            "font": "saira32",
+            "font": "gillsans28",
             "text": "Music",
             "foreground": [255, 255, 255, 255],
             "background": [0, 0, 0, 0],
@@ -1303,7 +1351,7 @@
           "comment": "The 'Volume' label for the volume slider section.",
           "type": "Label",
           "data": {
-            "font": "saira32",
+            "font": "gillsans28",
             "text": "Volume",
             "foreground": [255, 255, 255, 255],
             "background": [0, 0, 0, 0],
@@ -1446,7 +1494,7 @@
             "type": "Anchored"
           },
           "data": {
-            "font": "saira32",
+            "font": "gillsans28",
             "text": "How to Play",
             "foreground": [255, 255, 255, 255],
             "background": [0, 0, 0, 0],

@@ -47,9 +47,9 @@ private:
     std::shared_ptr<cugl::scene2::Label> _title;
     /** Reference to the game lobby's label for game room id */
     std::shared_ptr<cugl::scene2::Label> _lobbyRoomLabel;
-    /** References to the game lobby's labels for player name */
+    /** References to the game lobby's player names */
     std::vector<std::shared_ptr<cugl::scene2::NinePatch>> _gameLobbyPlayerNames;
-    /** References to the game lobby's player labels */
+    /** References to the game lobby's player name labels */
     std::vector<std::shared_ptr<cugl::scene2::Label>> _gameLobbyPlayerLabels;
 
     /** Reference to game lobby's button for game settings */

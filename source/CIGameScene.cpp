@@ -168,7 +168,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
         cugl::Vec2 pos = CILocation::getPositionOfLocation(location, dimen);
         std::shared_ptr<OpponentPlanet> opponent = OpponentPlanet::alloc(pos.x, pos.y, CIColor::getNoneColor(), location);
         opponent->setTextures(_assets->get<Texture>("opponentProgress"), _assets->get<Texture>("fog"), dimen);
-        opponent->setName(opponentNames[ii], assets->get<Font>("saira20"));
+        opponent->setName(opponentNames[ii], assets->get<Font>("gillsans20"));
         addChild(opponent->getOpponentNode());
         _opponentPlanets[ii] = opponent;
     }
@@ -335,7 +335,7 @@ void GameScene::update(float timestep, const std::shared_ptr<PlayerSettings>& pl
                 cugl::Vec2 pos = CILocation::getPositionOfLocation(location, dimen);
                 std::shared_ptr<OpponentPlanet> opponent = OpponentPlanet::alloc(pos.x, pos.y, CIColor::getNoneColor(), location);
                 opponent->setTextures(_assets->get<Texture>("opponentProgress"), _assets->get<Texture>("fog"), dimen);
-                opponent->setName(_networkMessageManager->getOtherNames()[ii], _assets->get<Font>("saira20"));
+                opponent->setName(_networkMessageManager->getOtherNames()[ii], _assets->get<Font>("gillsans20"));
                 addChild(opponent->getOpponentNode());
                 _opponentPlanets[ii] = opponent;
             }

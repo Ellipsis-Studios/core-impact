@@ -47,7 +47,7 @@
               "type": "Anchored"
             },
             "data": {
-              "font": "saira32",
+              "font": "gillsans32",
               "text": "Back",
               "foreground": [255, 255, 255, 255],
               "background": [0, 0, 0, 0],
