@@ -241,7 +241,7 @@ void GameScene::update(float timestep, const std::shared_ptr<PlayerSettings>& pl
             int winnerId = _networkMessageManager->getWinnerPlayerId();
             std::string winningPlayer = "";
             if (winnerId >= 0) {
-                std::string winningPlayer = _networkMessageManager->getOtherNames()[winnerId > _networkMessageManager->getPlayerId() ? winnerId - 1 : winnerId];
+                winningPlayer = _networkMessageManager->getOtherNames()[winnerId > _networkMessageManager->getPlayerId() ? winnerId - 1 : winnerId];
             }
             _winScene->setWinner(_networkMessageManager->getWinnerPlayerId(), _networkMessageManager->getPlayerId(), winningPlayer);
             if (_gameEndTimer > 0){
