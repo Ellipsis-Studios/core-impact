@@ -226,12 +226,11 @@ void LobbyMenu::update(MenuState& state) {
                 }
                 if (p.first == 0 || pindex < 5) {
                     _gameLobbyPlayerLabels[pindex]->setText(get<0>(p.second));
+                    _gameLobbyPlayerLabels[pindex]->setColor(cugl::Color4::WHITE);
                     if (get<1>(p.second)) { // set is ready 
-                        _gameLobbyPlayerLabels[pindex]->setColor(cugl::Color4::WHITE);
                         _gameLobbyPlayerNames[pindex]->setColor(cugl::Color4::WHITE);
                     }
                     else { // set is not ready 
-                        _gameLobbyPlayerLabels[pindex]->setColor(cugl::Color4::GRAY);
                         _gameLobbyPlayerNames[pindex]->setColor(cugl::Color4::GRAY);
                     }
                     pindex++;
