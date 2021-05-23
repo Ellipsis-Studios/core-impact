@@ -694,10 +694,6 @@ std::string Application::getAssetDirectory() {
 	}
 #else
     if (_assetdir.empty()) {
-        #ifdef _WIN32
-        _assetdir.append(SDL_GetBasePath());
-        return _assetdir;
-        #endif
         char* s = SDL_GetBasePath();
 		_assetdir.append(s);
         free(s);
