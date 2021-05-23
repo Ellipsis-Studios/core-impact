@@ -39,30 +39,35 @@
   },
   "sounds": {
     "game": {
-      "type": "sample",
-      "file": "sounds/background_music_v1.ogg",
-      "stream": true,
-      "volume": 0.5
+        "type":     "sample",
+        "file":     "sounds/background_music_v1.ogg",
+        "stream":   true,
+        "volume":   0.5
     },
     "fog": {
-      "type": "sample",
-      "file": "sounds/fog_sound_v1.wav",
-      "volume": 0.5
+        "type":     "sample",
+        "file":     "sounds/fog_sound_v1.wav",
+        "volume":   0.5
     },
     "grayscale": {
-      "type": "sample",
-      "file": "sounds/grayscale_sound_v1.wav",
-      "volume": 0.5
+        "type":     "sample",
+        "file":     "sounds/grayscale_sound_v1.wav",
+        "volume":   0.5
     },
     "meteor": {
-      "type": "sample",
-      "file": "sounds/meteor_sound_v1.wav",
-      "volume": 0.5
+        "type":     "sample",
+        "file":     "sounds/meteor_sound_v1.wav",
+        "volume":   0.5
     },
     "shootingStar": {
-      "type": "sample",
-      "file": "sounds/shooting_star_sound_v1.wav",
-      "volume": 0.5
+        "type":     "sample",
+        "file":     "sounds/shooting_star_sound_v1.wav",
+        "volume":   0.5
+    },
+    "stardustHit": {
+        "type":     "sample",
+        "file":     "sounds/stardust_hit_sound_v1.wav",
+        "volume":   0.5
     }
   },
   "widgets": {

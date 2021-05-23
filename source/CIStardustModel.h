@@ -13,6 +13,10 @@
 #include "CIColor.h"
 #include "CILocation.h"
 
+#define HIT_COOLDOWN_TIME   0.5f
+#define HIT_MASS_DELTA      0.18f
+#define HIT_RADIUS_DELTA    0.08f
+
 class StardustModel {
 public:
     /**
@@ -36,6 +40,8 @@ private:
     float _mass;
     /** Whether this stardust is being dragged */
     bool _isDragged;
+    /** The cooldown until this stardust can be hit again */
+    float _hitCooldown;
     
     /** The location of the stardust */
     CILocation::Value _stardust_location;
@@ -227,6 +233,24 @@ public:
      */
     bool isInteractable() {
         return _isInteractable;
+    }
+    
+    /**
+     * Returns the hit cooldown of this stardust
+     *
+     * @return the amount of time until this stardust can be hit again
+     */
+    bool getHitCooldown() {
+        return _hitCooldown;
+    }
+    
+    /** Trigger a hit on this stardust, starting the cooldown timer and
+     *  reducing its mass and radius.
+     */
+    void triggerHit() {
+        _hitCooldown = HIT_COOLDOWN_TIME;
+        _mass -= HIT_MASS_DELTA;
+        _radius -= HIT_RADIUS_DELTA;
     }
 
 #pragma mark Constructors

@@ -42,6 +42,7 @@ using namespace std;
 #define GRAYSCALE_SOUND       "grayscale"
 #define METEOR_SOUND          "meteor"
 #define SHOOTING_STAR_SOUND   "shootingStar"
+#define STARDUST_HIT_SOUND    "stardustHit"
 
 #pragma mark -
 #pragma mark Constructors
@@ -241,7 +242,7 @@ void GameScene::update(float timestep, const std::shared_ptr<PlayerSettings>& pl
             int winnerId = _networkMessageManager->getWinnerPlayerId();
             std::string winningPlayer = "";
             if (winnerId >= 0) {
-                std::string winningPlayer = _networkMessageManager->getOtherNames()[winnerId > _networkMessageManager->getPlayerId() ? winnerId - 1 : winnerId];
+                winningPlayer = _networkMessageManager->getOtherNames()[winnerId > _networkMessageManager->getPlayerId() ? winnerId - 1 : winnerId];
             }
             _winScene->setWinner(_networkMessageManager->getWinnerPlayerId(), _networkMessageManager->getPlayerId(), winningPlayer);
             if (_gameEndTimer > 0){
@@ -296,9 +297,14 @@ void GameScene::update(float timestep, const std::shared_ptr<PlayerSettings>& pl
     
     std::map<Uint64, TouchInstance>* touchInstances = _input.getTouchInstances();
 
-    collisions::checkForCollision(_planet, _stardustContainer, timestep);
     collisions::checkInBounds(_stardustContainer, dimen);
-    collisions::checkForCollisions(_stardustContainer);
+    std::shared_ptr<Sound> source = _assets->get<Sound>(STARDUST_HIT_SOUND);
+    if (collisions::checkForCollision(_planet, _stardustContainer, timestep) && _playerSettings->getMusicOn()) {
+        AudioEngine::get()->play(STARDUST_HIT_SOUND,source,false,_playerSettings->getVolume());
+    }
+    if (collisions::checkForCollisions(_stardustContainer) && _playerSettings->getMusicOn()) {
+        AudioEngine::get()->play(STARDUST_HIT_SOUND,source,false,_playerSettings->getVolume());
+    }
     updateDraggedStardust(touchInstances);
     
     if (collisions::checkForCollision(_planet, touchInstances, &_draggedStardust, _holdingPlanetTouchId)) {
@@ -479,6 +485,10 @@ void GameScene::addStardust(const Size bounds) {
  * @param stardustQueue the stardustQueue
  */
 void GameScene::processSpecialStardust(const cugl::Size bounds, const std::shared_ptr<StardustQueue> stardustQueue) {
+    // avoid processing powerups after game is over
+    if (_networkMessageManager->getWinnerPlayerId() != -1) {
+        return;
+    }
     std::vector<std::shared_ptr<StardustModel>> powerupQueue = stardustQueue->getPowerupQueue();
     for (size_t ii = 0; ii < powerupQueue.size(); ii++) {
         std::shared_ptr<StardustModel> stardust = powerupQueue[ii];

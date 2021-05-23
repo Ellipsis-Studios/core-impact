@@ -591,15 +591,10 @@ void NetworkMessageManager::receiveMessages() {
                 minFrame = min(minFrame, _framesSinceLastMessage[ii]);
             
             if (_framesSinceLastMessage[ii] == FRAMES_UNTIL_TIMEOUT) {
-                CULog("Player %i has disconnected.", ii);
                 if (ii == 0) {
                     _winnerPlayerId = -2;
                 }
             }
-        }
-        
-        if (minFrame == FRAMES_UNTIL_TIMEOUT) {
-            CULog("Player Has Disconnected from the game.");
         }
     }
 }

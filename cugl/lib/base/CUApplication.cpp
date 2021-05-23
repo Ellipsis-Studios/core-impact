@@ -694,7 +694,9 @@ std::string Application::getAssetDirectory() {
 	}
 #else
     if (_assetdir.empty()) {
-		_assetdir.append(SDL_GetBasePath());
+        char* s = SDL_GetBasePath();
+		_assetdir.append(s);
+        free(s);
     }
 #endif
     return _assetdir;
@@ -722,7 +724,9 @@ std::string Application::getAssetDirectory() {
  */
 std::string Application::getSaveDirectory() {
     if (_savesdir.empty()) {
-		_savesdir.append(SDL_GetPrefPath(_org.c_str(),_name.c_str()));
+        char* s = SDL_GetPrefPath(_org.c_str(),_name.c_str());
+		_savesdir.append(s);
+        free(s);
     }
     return _savesdir;
 }

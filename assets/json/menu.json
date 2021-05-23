@@ -922,7 +922,7 @@
             "x_anchor": "center",
             "y_anchor": "middle",
             "x_offset": -0.15,
-            "y_offset": -0.2
+            "y_offset": -0.25
           }
         },
         "numpad6": {
@@ -939,7 +939,7 @@
             "x_anchor": "center",
             "y_anchor": "middle",
             "x_offset": -0.075,
-            "y_offset": -0.2
+            "y_offset": -0.25
           }
         },
         "numpad7": {
@@ -955,7 +955,7 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "y_offset": -0.2
+            "y_offset": -0.25
           }
         },
         "numpad8": {
@@ -972,7 +972,7 @@
             "x_anchor": "center",
             "y_anchor": "middle",
             "x_offset": 0.075,
-            "y_offset": -0.2
+            "y_offset": -0.25
           }
         },
         "numpad9": {
@@ -989,7 +989,7 @@
             "x_anchor": "center",
             "y_anchor": "middle",
             "x_offset": 0.15,
-            "y_offset": -0.2
+            "y_offset": -0.25
           }
         },
         "numpaddel": {
@@ -999,14 +999,14 @@
             "key": "lobbyimagebutton",
             "variables": {
               "size": [60, 60],
-              "scale": 0.055
+              "scale": 0.05
             }
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
             "x_offset": 0.225,
-            "y_offset": -0.15
+            "y_offset": -0.159
           }
         },
         "numpad0": {
