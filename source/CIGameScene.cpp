@@ -494,20 +494,14 @@ void GameScene::processSpecialStardust(const cugl::Size bounds, const std::share
     for (size_t ii = 0; ii < powerupQueue.size(); ii++) {
         std::shared_ptr<StardustModel> stardust = powerupQueue[ii];
         std::string sound = "";
-        
-        // Ensure that powerups from players are not accidentally helpful
-        CIColor::Value c = stardust->getColor();
-        while (c == _planet->getColor()){
-            c = CIColor::getRandomColor();
-        }
 
         switch (stardust->getStardustType()) {
             case StardustModel::Type::METEOR:
                 CULog("METEOR SHOWER!");
                 sound = METEOR_SOUND;
-                stardustQueue->addStardust(c, bounds);
-                stardustQueue->addStardust(c, bounds);
-                stardustQueue->addStardust(c, bounds);
+                stardustQueue->addStardust(stardust->getColor(), bounds);
+                stardustQueue->addStardust(stardust->getColor(), bounds);
+                stardustQueue->addStardust(stardust->getColor(), bounds);
                 stardustQueue->addStardust(CIColor::getRandomColor(), bounds);
                 stardustQueue->addStardust(CIColor::getRandomColor(), bounds);
                 stardustQueue->addStardust(CIColor::getRandomColor(), bounds);
@@ -515,8 +509,8 @@ void GameScene::processSpecialStardust(const cugl::Size bounds, const std::share
             case StardustModel::Type::SHOOTING_STAR:
                 CULog("SHOOTING STAR");
                 sound = SHOOTING_STAR_SOUND;
-                stardustQueue->addShootingStardust(c, bounds);
-                stardustQueue->addShootingStardust(c, bounds);
+                stardustQueue->addShootingStardust(stardust->getColor(), bounds);
+                stardustQueue->addShootingStardust(stardust->getColor(), bounds);
                 break;
             case StardustModel::Type::GRAYSCALE:
                 CULog("GRAYSCALE");

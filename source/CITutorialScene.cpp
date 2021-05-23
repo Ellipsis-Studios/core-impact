@@ -669,7 +669,7 @@ void TutorialScene::processSpecialStardust(const cugl::Size bounds, const std::s
     for (size_t ii = 0; ii < powerupQueue.size(); ii++) {
         std::shared_ptr<StardustModel> stardust = powerupQueue[ii];
         std::string sound = "";
-
+        
         switch (stardust->getStardustType()) {
             case StardustModel::Type::METEOR:
                 CULog("METEOR SHOWER!");
