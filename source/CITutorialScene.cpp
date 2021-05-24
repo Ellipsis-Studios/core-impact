@@ -572,6 +572,12 @@ void TutorialScene::addStardust(const Size bounds) {
             break;
             
         case 3: return;
+                break;
+        case 4:
+            // add a slight bias towards red, but still random
+            if (c != CIColor::red) {
+                c = CIColor::getRandomColor();
+            }
         case 6:
             if (_stardustContainer->size() > 2) {
                 return;
