@@ -75,6 +75,8 @@ void WinScene::setWinner(int winnerPlayerId, int playerId, std::string winningPl
         _gameOutcomeLabel->setText("Congratulations! You won the game!");
     } else if (winnerPlayerId == -2) {
         _gameOutcomeLabel->setText("Host disconnected! Please start a new game!");
+    } else if (winnerPlayerId == -3) {
+        _gameOutcomeLabel->setText("Disconnected from game! Please check network connection!");
     } else {
         _gameOutcomeLabel->setText("Sorry! " + winningPlayer + " won the game!");
     }

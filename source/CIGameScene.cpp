@@ -235,22 +235,30 @@ void GameScene::update(float timestep, const std::shared_ptr<PlayerSettings>& pl
     // Handle counting down then switching to loading screen
     if (_networkMessageManager->getWinnerPlayerId() != -1) {
         if (!_winScene->displayActive()) {
+            int winnerId = _networkMessageManager->getWinnerPlayerId();
+            std::string winningPlayer = "A player";
+            if (winnerId >= 0) {
+                winningPlayer = _networkMessageManager->getOtherNames()[winnerId > _networkMessageManager->getPlayerId() ? winnerId - 1 : winnerId];
+            }
+            if (winnerId < 0) {
+                _winScene->setWinner(_networkMessageManager->getWinnerPlayerId(), _networkMessageManager->getPlayerId(), winningPlayer);
+                _winScene->setDisplay(true);
+                _pauseBtn->setVisible(false);
+                return;
+            }
+          
             if (_gameEndTimer == 360) {
                 CULog("Game won.");
+                _winScene->setWinner(_networkMessageManager->getWinnerPlayerId(), _networkMessageManager->getPlayerId(), winningPlayer);
                 _pauseBtn->setVisible(false);
                 _planet->stopLockIn();
-                int winnerId = _networkMessageManager->getWinnerPlayerId();
-                std::string winningPlayer = "A player";
-                if (winnerId >= 0) {
-                    winningPlayer = _networkMessageManager->getOtherNames()[winnerId > _networkMessageManager->getPlayerId() ? winnerId - 1 : winnerId];
-                }
-                _winScene->setWinner(_networkMessageManager->getWinnerPlayerId(), _networkMessageManager->getPlayerId(), winningPlayer);
                 AudioEngine::get()->getMusicQueue()->pause();
                 if (_playerSettings->getMusicOn()) {
                     std::shared_ptr<Sound> source = _assets->get<Sound>(EXPLOSION_SOUND);
                     AudioEngine::get()->play(EXPLOSION_SOUND,source,false,_playerSettings->getVolume());
                 }
             }
+
             if (_gameEndTimer > 0){
                 _gameEndTimer--;
                 if (_gameEndTimer > 220){
@@ -502,7 +510,7 @@ void GameScene::addStardust(const Size bounds) {
  */
 void GameScene::processSpecialStardust(const cugl::Size bounds, const std::shared_ptr<StardustQueue> stardustQueue) {
     // avoid processing powerups after game is over
-    if (_networkMessageManager->getWinnerPlayerId() != -1) {
+    if (_networkMessageManager->getWinnerPlayerId() != -1 || _planet->isWinner()) {
         return;
     }
     std::vector<std::shared_ptr<StardustModel>> powerupQueue = stardustQueue->getPowerupQueue();
