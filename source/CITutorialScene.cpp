@@ -238,6 +238,7 @@ void TutorialScene::update(float timestep, const std::shared_ptr<PlayerSettings>
                 CULog("Game won.");
                 _pauseBtn->setVisible(false);
                 _winScene->setWinner(0, 0, "");
+                AudioEngine::get()->getMusicQueue()->pause();
                 if (_playerSettings->getMusicOn()) {
                     std::shared_ptr<Sound> source = _assets->get<Sound>(EXPLOSION_SOUND);
                     AudioEngine::get()->play(EXPLOSION_SOUND,source,false,_playerSettings->getVolume());
