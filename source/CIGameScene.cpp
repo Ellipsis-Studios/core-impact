@@ -238,6 +238,7 @@ void GameScene::update(float timestep, const std::shared_ptr<PlayerSettings>& pl
             if (_gameEndTimer == 360) {
                 CULog("Game won.");
                 _pauseBtn->setVisible(false);
+                _planet->stopLockIn();
                 int winnerId = _networkMessageManager->getWinnerPlayerId();
                 std::string winningPlayer = "A player";
                 if (winnerId >= 0) {
