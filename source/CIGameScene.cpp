@@ -43,6 +43,7 @@ using namespace std;
 #define METEOR_SOUND          "meteor"
 #define SHOOTING_STAR_SOUND   "shootingStar"
 #define STARDUST_HIT_SOUND    "stardustHit"
+#define EXPLOSION_SOUND       "explosion"
 
 #pragma mark -
 #pragma mark Constructors
@@ -234,16 +235,20 @@ void GameScene::update(float timestep, const std::shared_ptr<PlayerSettings>& pl
     // Handle counting down then switching to loading screen
     if (_networkMessageManager->getWinnerPlayerId() != -1) {
         if (!_winScene->displayActive()) {
-            Color4 color = CIColor::getColor4(_planet->getColor());
-            color.a = 75;
-            _planet->getPlanetNode()->setColor(color);
-            _pauseBtn->setVisible(false);
-            int winnerId = _networkMessageManager->getWinnerPlayerId();
-            std::string winningPlayer = "A player";
-            if (winnerId >= 0) {
-                winningPlayer = _networkMessageManager->getOtherNames()[winnerId > _networkMessageManager->getPlayerId() ? winnerId - 1 : winnerId];
+            if (_gameEndTimer == 360) {
+                CULog("Game won.");
+                _pauseBtn->setVisible(false);
+                int winnerId = _networkMessageManager->getWinnerPlayerId();
+                std::string winningPlayer = "A player";
+                if (winnerId >= 0) {
+                    winningPlayer = _networkMessageManager->getOtherNames()[winnerId > _networkMessageManager->getPlayerId() ? winnerId - 1 : winnerId];
+                }
+                _winScene->setWinner(_networkMessageManager->getWinnerPlayerId(), _networkMessageManager->getPlayerId(), winningPlayer);
+                if (_playerSettings->getMusicOn()) {
+                    std::shared_ptr<Sound> source = _assets->get<Sound>(EXPLOSION_SOUND);
+                    AudioEngine::get()->play(EXPLOSION_SOUND,source,false,_playerSettings->getVolume());
+                }
             }
-            _winScene->setWinner(_networkMessageManager->getWinnerPlayerId(), _networkMessageManager->getPlayerId(), winningPlayer);
             if (_gameEndTimer > 0){
                 _gameEndTimer--;
                 if (_gameEndTimer > 220){

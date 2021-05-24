@@ -68,6 +68,11 @@
           "type":     "sample",
           "file":     "sounds/stardust_hit_sound_v1.wav",
           "volume":   0.5
+      },
+      "explosion": {
+          "type":     "sample",
+          "file":     "sounds/explosion_sound_v1.wav",
+          "volume":   0.5
       }
   },
   "widgets": {

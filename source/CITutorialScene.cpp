@@ -33,6 +33,7 @@ using namespace std;
 #define METEOR_SOUND          "meteor"
 #define SHOOTING_STAR_SOUND   "shootingStar"
 #define STARDUST_HIT_SOUND    "stardustHit"
+#define EXPLOSION_SOUND       "explosion"
 
 #pragma mark -
 #pragma mark Constructors
@@ -233,7 +234,15 @@ void TutorialScene::update(float timestep, const std::shared_ptr<PlayerSettings>
     // Handle counting down then switching to loading screen
     if (_tutorialStage == 13) {
         if (!_winScene->displayActive()) {
-            _winScene->setWinner(0, 0, "");
+            if (_gameEndTimer == 360) {
+                CULog("Game won.");
+                _pauseBtn->setVisible(false);
+                _winScene->setWinner(0, 0, "");
+                if (_playerSettings->getMusicOn()) {
+                    std::shared_ptr<Sound> source = _assets->get<Sound>(EXPLOSION_SOUND);
+                    AudioEngine::get()->play(EXPLOSION_SOUND,source,false,_playerSettings->getVolume());
+                }
+            }
             if (_gameEndTimer > 0){
                 _gameEndTimer--;
                 if (_gameEndTimer > 220){
