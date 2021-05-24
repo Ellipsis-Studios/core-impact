@@ -16,6 +16,7 @@
 #include "CIOpponentPlanet.h"
 #include "CILocation.h"
 
+#define  NO_MSG_RECV_FRAMES_UNTIL_TIMEOUT   360     // 6 seconds
 #define  FRAMES_UNTIL_TIMEOUT   600     // 10 seconds
 #define  FRAMES_UNTIL_PING      120     // 2 seconds
 
@@ -43,6 +44,7 @@ bool NetworkMessageManager::init(const shared_ptr<GameSettings>& gameSettings) {
     _gameSettings = gameSettings;
     reset();
     _framesSinceLastMessage.resize(5);
+    _framesSinceLastMessageReceived = 0;
     return true;
 }
 
@@ -59,7 +61,10 @@ void NetworkMessageManager::reset() {
     _roomId = "00000";
     _playerName = "N/A";
     _gameSettings->reset();
-    _framesSinceLastMessage.clear();
+    for (auto ii = 0; ii < _framesSinceLastMessage.size(); ii++) {
+        _framesSinceLastMessage[ii] = 0;
+    }
+    _framesSinceLastMessageReceived = 0;
 }
 
 /**
@@ -304,6 +309,7 @@ void NetworkMessageManager::receiveMessages() {
         }
     }
     
+    _framesSinceLastMessageReceived++;
     _conn->receive([this](const std::vector<uint8_t>& recv) {
         if (recv.empty()) {
             return;
@@ -314,6 +320,8 @@ void NetworkMessageManager::receiveMessages() {
         if (_gameUpdateManager == nullptr && !isLobbyMessage(message_type)) {
             return;
         }
+        
+        _framesSinceLastMessageReceived = 0;
 
         switch (message_type)
         {
@@ -595,6 +603,10 @@ void NetworkMessageManager::receiveMessages() {
                     _winnerPlayerId = -2;
                 }
             }
+        }
+        
+        if (_conn->getNumPlayers() > 1 && _framesSinceLastMessageReceived >= NO_MSG_RECV_FRAMES_UNTIL_TIMEOUT) {
+            _winnerPlayerId = -3;
         }
     }
 }

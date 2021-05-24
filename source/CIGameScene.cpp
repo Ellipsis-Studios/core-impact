@@ -244,6 +244,11 @@ void GameScene::update(float timestep, const std::shared_ptr<PlayerSettings>& pl
                 winningPlayer = _networkMessageManager->getOtherNames()[winnerId > _networkMessageManager->getPlayerId() ? winnerId - 1 : winnerId];
             }
             _winScene->setWinner(_networkMessageManager->getWinnerPlayerId(), _networkMessageManager->getPlayerId(), winningPlayer);
+            if (winnerId < 0) {
+                _winScene->setDisplay(true);
+                _pauseBtn->setVisible(false);
+                return;
+            }
             if (_gameEndTimer > 0){
                 _gameEndTimer--;
                 if (_gameEndTimer > 220){

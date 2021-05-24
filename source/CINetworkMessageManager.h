@@ -49,6 +49,8 @@ private:
     
     /** The number of frames that have gone by since the last message received from each player */
     std::vector<int> _framesSinceLastMessage;
+    
+    int _framesSinceLastMessageReceived;
 
 public:
 #pragma mark -
