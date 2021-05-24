@@ -132,10 +132,10 @@ void LobbyMenu::setDisplay(bool onDisplay) {
         _layer->setVisible(onDisplay);
 
         _gameLobbyPlayerNames[0]->setVisible(onDisplay);
-        _gameLobbyPlayerNames[1]->setVisible(false);
-        _gameLobbyPlayerNames[2]->setVisible(false);
-        _gameLobbyPlayerNames[3]->setVisible(false);
-        _gameLobbyPlayerNames[4]->setVisible(false);
+        _gameLobbyPlayerNames[1]->setVisible(onDisplay);
+        _gameLobbyPlayerNames[2]->setVisible(onDisplay);
+        _gameLobbyPlayerNames[3]->setVisible(onDisplay);
+        _gameLobbyPlayerNames[4]->setVisible(onDisplay);
 
         if (!onDisplay) {
             _gameStartBtn->setVisible(false);
@@ -173,14 +173,6 @@ void LobbyMenu::update(MenuState& state) {
         {
             // handle displaying for Host
             _gameSettings->setGameId(_networkMessageManager->getRoomId());
-            setPlayerLabels({ "N/A", "N/A", "N/A", "N/A", "N/A" });
-
-            _lobbyRoomLabel->setText(_gameSettings->getGameId());
-
-            setDisplay(true);
-
-            state = _nextState = MenuState::GameLobby;
-            break;
         }
         case MenuState::JoinToLobby:
         {
@@ -233,14 +225,15 @@ void LobbyMenu::update(MenuState& state) {
                 if (get<1>(p.second) == false || p.first < 0) { // ready 
                     isReady = false;
                 }
-                if (p.first == 0) {
-                    _gameLobbyPlayerLabels[0]->setText(get<0>(p.second));
-                    _gameLobbyPlayerNames[0]->setVisible(get<1>(p.second));
-                    pindex++;
-                }
-                else if (pindex < 5) {
+                if (p.first == 0 || pindex < 5) {
                     _gameLobbyPlayerLabels[pindex]->setText(get<0>(p.second));
-                    _gameLobbyPlayerNames[pindex]->setVisible(get<1>(p.second));
+                    _gameLobbyPlayerLabels[pindex]->setColor(cugl::Color4::WHITE);
+                    if (get<1>(p.second)) { // set is ready
+                        _gameLobbyPlayerNames[pindex]->setColor(cugl::Color4::WHITE);
+                    }
+                    else { // set is not ready
+                        _gameLobbyPlayerNames[pindex]->setColor(cugl::Color4::GRAY);
+                    }
                     pindex++;
                 }
             }
@@ -248,7 +241,8 @@ void LobbyMenu::update(MenuState& state) {
             // handle disconnected players
             for (; pindex < 5; pindex++) {
                 _gameLobbyPlayerLabels[pindex]->setText("N/A");
-                _gameLobbyPlayerNames[pindex]->setVisible(false);
+                _gameLobbyPlayerLabels[pindex]->setColor(cugl::Color4::GRAY);
+                _gameLobbyPlayerNames[pindex]->setColor(cugl::Color4::GRAY);
             }
 
             if (isReady && _networkMessageManager->isPlayerHost()) {
