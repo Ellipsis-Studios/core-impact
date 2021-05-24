@@ -431,6 +431,9 @@ void NetworkMessageManager::receiveMessages() {
                 player_name.erase(std::find_if(player_name.rbegin(), player_name.rend(), [](unsigned char ch) {
                     return ch != '\0';
                     }).base(), player_name.end());
+                if (player_name == "") {
+                    player_name = " ";
+                }
                 int srcPlayer = NetworkUtils::decodeInt(recv[16], recv[17], recv[18], recv[19]);
                 int timestamp = NetworkUtils::decodeInt(recv[20], recv[21], recv[22], recv[23]);
                 CULog("RCVD NON-HOST READY MESSAGE> PLAYERNAME[%s], PLAYER[%i], TS[%i]", player_name.c_str(), srcPlayer, timestamp);
@@ -485,6 +488,9 @@ void NetworkMessageManager::receiveMessages() {
                 player_name.erase(std::find_if(player_name.rbegin(), player_name.rend(), [](unsigned char ch) {
                     return ch != '\0';
                     }).base(), player_name.end());
+                if (player_name == "") {
+                    player_name = " ";
+                }
                 int playerId = NetworkUtils::decodeInt(recv[16], recv[17], recv[18], recv[19]);
                 int timestamp = NetworkUtils::decodeInt(recv[20], recv[21], recv[22], recv[23]);
 
@@ -522,6 +528,9 @@ void NetworkMessageManager::receiveMessages() {
                 player_name.erase(std::find_if(player_name.rbegin(), player_name.rend(), [](unsigned char ch) {
                     return ch != '\0';
                     }).base(), player_name.end());
+                if (player_name == "") {
+                    player_name = " ";
+                }
                 int playerId = NetworkUtils::decodeInt(recv[16], recv[17], recv[18], recv[19]);
                 bool ready = NetworkUtils::decodeInt(recv[20], recv[21], recv[22], recv[23]) == 1;
                 
