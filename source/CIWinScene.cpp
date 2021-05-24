@@ -16,15 +16,12 @@
 void WinScene::dispose() {
     if (_backToHomeButton != nullptr && _backToHomeButton->isActive()) {
         _backToHomeButton->deactivate();
-        _newGameButton->deactivate();
     } else if (_backToHomeButton != nullptr) {
         _backToHomeButton->clearListeners();
-        _newGameButton->clearListeners();
     }
     
     _gameOutcomeLabel = nullptr;
     _backToHomeButton = nullptr;
-    _newGameButton = nullptr;
     _flareExplosion = nullptr;
     _goBackToHome = false;
 }
@@ -47,14 +44,6 @@ bool WinScene::init(const std::shared_ptr<cugl::AssetManager>& assets, cugl::Siz
     _backToHomeButton = std::dynamic_pointer_cast<cugl::scene2::Button>(assets->get<cugl::scene2::SceneNode>("win_backToHomeButton"));
     _flareExplosion = std::dynamic_pointer_cast<cugl::scene2::SceneNode>(assets->get<cugl::scene2::SceneNode>("win_flare"));
     _backToHomeButton->addListener([&](const std::string& name, bool down) {
-        if (!down) {
-            _goBackToHome = true;
-        }
-    });
-    
-    // TODO: change this listener
-    _newGameButton = std::dynamic_pointer_cast<cugl::scene2::Button>(assets->get<cugl::scene2::SceneNode>("win_newGameButton"));
-    _newGameButton->addListener([&](const std::string& name, bool down) {
         if (!down) {
             _goBackToHome = true;
         }
@@ -90,13 +79,10 @@ void WinScene::setWinner(int winnerPlayerId, int playerId, std::string winningPl
 void WinScene::setDisplay(bool onDisplay) {
     _gameOutcomeLabel->setVisible(onDisplay);
     _backToHomeButton->setVisible(onDisplay);
-    _newGameButton->setVisible(onDisplay);
     
     if (onDisplay) {
         _backToHomeButton->activate();
-        _newGameButton->activate();
     } else {
         _backToHomeButton->deactivate();
-        _newGameButton->deactivate();
     }
 }

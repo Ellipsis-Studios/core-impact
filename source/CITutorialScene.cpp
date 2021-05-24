@@ -679,7 +679,7 @@ void TutorialScene::addStardust(const Size bounds) {
  */
 void TutorialScene::processSpecialStardust(const cugl::Size bounds, const std::shared_ptr<StardustQueue> stardustQueue) {
     // avoid processing powerups after game is over
-    if (_tutorialStage == 13) {
+    if (_tutorialStage == 13 || _planet->isWinner()) {
         return;
     }
     std::vector<std::shared_ptr<StardustModel>> powerupQueue = stardustQueue->getPowerupQueue();
