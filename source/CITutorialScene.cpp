@@ -237,6 +237,7 @@ void TutorialScene::update(float timestep, const std::shared_ptr<PlayerSettings>
             if (_gameEndTimer == 360) {
                 CULog("Game won.");
                 _pauseBtn->setVisible(false);
+                _planet->stopLockIn();
                 _winScene->setWinner(0, 0, "");
                 AudioEngine::get()->getMusicQueue()->pause();
                 if (_playerSettings->getMusicOn()) {
