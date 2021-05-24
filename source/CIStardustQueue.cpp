@@ -197,7 +197,12 @@ void StardustQueue::addToPowerupQueue(StardustModel* stardust) {
  * @param addToSendQueue whether to add the stardust to the send queue
  */
 void StardustQueue::addToPowerupQueue(CIColor::Value color, bool addToSendQueue) {
-    std::shared_ptr<StardustModel> stardust = StardustModel::alloc(cugl::Vec2(), cugl::Vec2(), CIColor::getRandomColor());
+    // Favor variability in powerups
+    CIColor::Value c = CIColor::getRandomColor();
+    while (c == color){
+        c = CIColor::getRandomColor();
+    }
+    std::shared_ptr<StardustModel> stardust = StardustModel::alloc(cugl::Vec2(), cugl::Vec2(), c);
     switch (color) {
         case CIColor::Value::red:
             stardust->setStardustType(StardustModel::Type::METEOR);
