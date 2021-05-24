@@ -194,15 +194,16 @@ void StardustQueue::addToPowerupQueue(StardustModel* stardust) {
  * Adds a powerup to the powerup queue.
  *
  * @param color the color of layer that was just locked in
- * @param addToSendQueue whether to add the stardust to the send queue
+ * @param id the source player of the powerup
  */
-void StardustQueue::addToPowerupQueue(CIColor::Value color, bool addToSendQueue) {
+void StardustQueue::addToPowerupQueue(CIColor::Value color, int id) {
     // Favor variability in powerups
     CIColor::Value c = CIColor::getRandomColor();
     while (c == color){
         c = CIColor::getRandomColor();
     }
     std::shared_ptr<StardustModel> stardust = StardustModel::alloc(cugl::Vec2(), cugl::Vec2(), c);
+    stardust->setPreviousOwner(id);
     switch (color) {
         case CIColor::Value::red:
             stardust->setStardustType(StardustModel::Type::METEOR);
@@ -214,15 +215,17 @@ void StardustQueue::addToPowerupQueue(CIColor::Value color, bool addToSendQueue)
             break;
         case CIColor::Value::purple:
             stardust->setStardustType(StardustModel::Type::GRAYSCALE);
+            _stardust_powerups.push_back(stardust);
             break;
         case CIColor::Value::turquoise:
             stardust->setStardustType(StardustModel::Type::FOG);
+            _stardust_powerups.push_back(stardust);
             break;
         default:
             break;
     }
     
-    if (addToSendQueue && stardust->getStardustType() != StardustModel::Type::NORMAL) {
+    if (stardust->getStardustType() != StardustModel::Type::NORMAL) {
         _stardust_to_send.push_back(stardust);
     }
     

@@ -301,10 +301,10 @@ void TutorialScene::update(float timestep, const std::shared_ptr<PlayerSettings>
     collisions::checkInBounds(_stardustContainer, dimen);
     std::shared_ptr<Sound> source = _assets->get<Sound>(STARDUST_HIT_SOUND);
     if (collisions::checkForCollision(_planet, _stardustContainer, timestep) && _playerSettings->getMusicOn()) {
-        AudioEngine::get()->play(STARDUST_HIT_SOUND,source,false,_playerSettings->getVolume());
+        AudioEngine::get()->play(STARDUST_HIT_SOUND,source,false,_playerSettings->getVolume(), true);
     }
     if (collisions::checkForCollisions(_stardustContainer) && _playerSettings->getMusicOn()) {
-        AudioEngine::get()->play(STARDUST_HIT_SOUND,source,false,_playerSettings->getVolume());
+        AudioEngine::get()->play(STARDUST_HIT_SOUND,source,false,_playerSettings->getVolume(), true);
     }
     updateDraggedStardust(touchInstances);
     
@@ -313,7 +313,7 @@ void TutorialScene::update(float timestep, const std::shared_ptr<PlayerSettings>
         if (_planet->lockInLayer(timestep)) {
             // Layer Locked In
             CULog("LAYER LOCKED IN");
-            _stardustContainer->addToPowerupQueue(planetColor, true);
+            _stardustContainer->addToPowerupQueue(planetColor, _gameUpdateManager->getPlayerId());
         }
     } else if (_planet->isLockingIn()) {
         _planet->stopLockIn();
@@ -700,14 +700,18 @@ void TutorialScene::processSpecialStardust(const cugl::Size bounds, const std::s
             case StardustModel::Type::GRAYSCALE:
                 CULog("GRAYSCALE");
                 sound = GRAYSCALE_SOUND;
-                stardustQueue->getStardustNode()->applyGreyScale();
+                if (stardust->getPreviousOwner() != _gameUpdateManager->getPlayerId()) {
+                    stardustQueue->getStardustNode()->applyGreyScale();
+                }
                 break;
             case StardustModel::Type::FOG: {
                 CULog("FOG");
                 sound = FOG_SOUND;
-                std::shared_ptr<OpponentPlanet> opponent = _opponentPlanets[stardust->getPreviousOwner()];
-                if (opponent != nullptr) {
-                    opponent->getOpponentNode()->applyFogPower();
+                if (stardust->getPreviousOwner() != _gameUpdateManager->getPlayerId()) {
+                    std::shared_ptr<OpponentPlanet> opponent = _opponentPlanets[stardust->getPreviousOwner()];
+                    if (opponent != nullptr) {
+                        opponent->getOpponentNode()->applyFogPower();
+                    }
                 }
                 break;
             }
