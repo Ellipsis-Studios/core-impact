@@ -1,4 +1,8 @@
 {
+  "variables": {
+    "size": ["data", "size"],
+    "texture": ["data", "texture"]
+  },
   "contents": {
     "type": "Image",
     "format": {
@@ -6,8 +10,8 @@
     },
     "data": {
       "anchor": [0.5, 0.5],
-      "texture": "lobbycodeborder",
-      "size": [400,70]
+      "texture": "lobbycodebordercenter",
+      "size": [400, 70]
     },
     "layout": {
       "x_anchor": "fill",
@@ -15,4 +19,3 @@
     }
   }
 }
-

@@ -54,8 +54,14 @@
     "joinbutton": {
       "file": "textures/check_mark.png"
     },
-    "lobbycodeborder": {
-      "file": "textures/lobbyCodeDeco.png"
+    "lobbycodebordercenter": {
+      "file": "textures/lobbyCodeDecoCenter.png"
+    },
+    "lobbycodeborderleft": {
+      "file": "textures/lobbyCodeDecoLeft.png"
+    },
+    "lobbycodeborderright": {
+      "file": "textures/lobbyCodeDecoRight.png"
     },
     "loadingcircle": {
       "file": "textures/loadingCircle.png"
@@ -252,7 +258,7 @@
         "title": {
           "type": "Label",
           "data": {
-            "font": "saira40",
+            "font": "saira24",
             "text": "Lobby",
             "foreground": [255, 255, 255, 255],
             "background": [0, 0, 0, 0],
@@ -288,16 +294,53 @@
             "y_offset": 0.28
           }
         },
+        "roomidborderleft": {
+          "comment": "Left-edge of border around game room id",
+          "type": "Widget",
+          "data": {
+            "key": "lobbycode",
+            "variables": {
+              "texture": "lobbycodeborderleft",
+              "size": [300, 70]
+            }
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "y_offset": 0.2815,
+            "x_offset": -0.4396
+          }
+        },
         "roomidborder": {
           "comment": "The border around the current game room id",
           "type": "Widget",
           "data": {
-            "key": "lobbycode"
+              "key": "lobbycode",
+              "variables": {
+                "size": [600, 70]
+              }
           },
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
             "y_offset": 0.28
+          }
+        },
+        "roomidborderright": {
+          "comment": "Right-edge of border around game room id",
+          "type": "Widget",
+          "data": {
+            "key": "lobbycode",
+            "variables": {
+              "texture": "lobbycodeborderright",
+              "size": [300, 70]
+            }
+          },
+          "layout": {
+            "x_anchor": "center",
+            "y_anchor": "middle",
+            "y_offset": 0.28,
+            "x_offset": 0.4396
           }
         },
         "playerlabel1": {
@@ -387,8 +430,8 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": 0.32,
-            "y_offset": 0.34
+            "x_offset": 0.45,
+            "y_offset": 0.41
           }
         },
         "startgamebutton": {

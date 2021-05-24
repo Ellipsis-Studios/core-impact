@@ -407,8 +407,16 @@ void GameScene::addStardust(const Size bounds) {
         return;
     }
     
-    // handle game settings
-    size_t spawn_probability = CONSTANTS::BASE_SPAWN_RATE + (_stardustContainer->size() * CONSTANTS::BASE_SPAWN_RATE);
+    // Counts true stardust number in circular queue
+    int numTrueStardust = 0;
+    for(size_t ii = 0; ii < _stardustContainer->size(); ii++) {
+        // This returns a reference
+        StardustModel* stardust = _stardustContainer->get(ii);
+        if (stardust != nullptr && stardust->isInteractable()) {
+            numTrueStardust++;
+        }
+    }
+    size_t spawn_probability = CONSTANTS::BASE_SPAWN_RATE + (numTrueStardust * CONSTANTS::BASE_SPAWN_RATE);
     spawn_probability = spawn_probability / _gameSettings->getSpawnRate();
     if (rand() % spawn_probability != 0) {
         return;
