@@ -510,7 +510,7 @@ void GameScene::addStardust(const Size bounds) {
  */
 void GameScene::processSpecialStardust(const cugl::Size bounds, const std::shared_ptr<StardustQueue> stardustQueue) {
     // avoid processing powerups after game is over
-    if (_networkMessageManager->getWinnerPlayerId() != -1) {
+    if (_networkMessageManager->getWinnerPlayerId() != -1 || _planet->isWinner()) {
         return;
     }
     std::vector<std::shared_ptr<StardustModel>> powerupQueue = stardustQueue->getPowerupQueue();
