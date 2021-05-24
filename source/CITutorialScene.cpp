@@ -165,7 +165,7 @@ bool TutorialScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
         }
         CILocation::Value location = CILocation::Value(ii+1);
         cugl::Vec2 pos = CILocation::getPositionOfLocation(location, dimen);
-        std::shared_ptr<OpponentPlanet> opponent = OpponentPlanet::alloc(pos.x, pos.y, CIColor::getNoneColor(), location);
+        std::shared_ptr<OpponentPlanet> opponent = OpponentPlanet::alloc(pos.x, pos.y, CIColor::getNoneColor(), CONSTANTS::MAX_PLANET_LAYERS, gameSettings->getGravStrength(), gameSettings->getPlanetStardustPerLayer(), location);
         opponent->setTextures(_assets->get<Texture>("opponentProgress"), _assets->get<Texture>("fog"), dimen);
         opponent->setName(opponentNames[ii], assets->get<Font>("saira20"));
         addChild(opponent->getOpponentNode());
@@ -346,7 +346,7 @@ void TutorialScene::update(float timestep, const std::shared_ptr<PlayerSettings>
             case 5: {
                 _tutorialText->setText("Another planet appeared!");
                 _tutorialTimer = 60;
-                std::shared_ptr<OpponentPlanet> planet = OpponentPlanet::alloc(0, dimen.height, CIColor::Value((_planet->getColor()+2)%4), CILocation::TOP_LEFT);
+                std::shared_ptr<OpponentPlanet> planet = OpponentPlanet::alloc(0, dimen.height, CIColor::Value((_planet->getColor()+2)%4), CONSTANTS::MAX_PLANET_LAYERS, _gameSettings->getGravStrength(), _gameSettings->getPlanetStardustPerLayer(), CILocation::TOP_LEFT);
                 planet->setTextures(_assets->get<Texture>("opponentProgress"), _assets->get<Texture>("fog"), dimen);
                 planet->setName("Opponent", _assets->get<Font>("saira20"));
                 planet->setMass(55);

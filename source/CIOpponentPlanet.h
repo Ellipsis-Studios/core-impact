@@ -82,14 +82,17 @@ public:
      * @param x The initial x-coordinate of the center
      * @param y The initial y-coordinate of the center
      * @param c The initial color code of the opponent planet
+     * @param maxLayers The maximum number of layers the planet can have
+     * @param gravStrength The planet's gravitational strength factor
+     * @param planetLayerSize The planet layer size for winning the game
      * @param location The location of the opponent planet
      *
      * @return a newly allocated opponent planet at the given location with the given color.
      */
-    static std::shared_ptr<OpponentPlanet> alloc(float x, float y, CIColor::Value c, CILocation::Value location) {
+    static std::shared_ptr<OpponentPlanet> alloc(float x, float y, CIColor::Value c, int maxLayers, float gravStrength, uint16_t planetLayerSize, CILocation::Value location) {
         std::shared_ptr<OpponentPlanet> result = std::make_shared<OpponentPlanet>();
         result->setLocation(location);
-        return (result->init(x, y, c) ? result : nullptr);
+        return (result->init(x, y, c, maxLayers, gravStrength, planetLayerSize) ? result : nullptr);
     }
     
 #pragma mark Interactions

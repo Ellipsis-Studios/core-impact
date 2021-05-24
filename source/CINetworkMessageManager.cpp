@@ -377,7 +377,7 @@ void NetworkMessageManager::receiveMessages() {
                 _framesSinceLastMessage[srcPlayer] = 0;
 
                 CILocation::Value corner = NetworkUtils::getLocation(getPlayerId(), srcPlayer);
-                std::shared_ptr<OpponentPlanet> planet = OpponentPlanet::alloc(0, 0, CIColor::Value(planetColor), corner);
+                std::shared_ptr<OpponentPlanet> planet = OpponentPlanet::alloc(0, 0, CIColor::Value(planetColor), CONSTANTS::MAX_PLANET_LAYERS, _gameSettings->getGravStrength(), _gameSettings->getPlanetStardustPerLayer(), corner);
                 planet->setMass(planetSize);
                 std::map<int, std::vector<std::shared_ptr<StardustModel>>> map = {};
                 std::shared_ptr<GameUpdate> gameUpdate = GameUpdate::alloc(_conn->getRoomID(), srcPlayer, map, planet, timestamp);
