@@ -195,24 +195,8 @@
           "layout": {
             "x_anchor": "center",
             "y_anchor": "middle",
-            "x_offset": -0.2,
-            "y_offset": 0.2
-          }
-        },
-        "newGameButton": {
-          "comment": "The button that brings a player to the new game screen",
-          "type": "Widget",
-          "data": {
-            "key": "menubutton",
-            "variables" : {
-              "text"  : "New Game"
-            }
-          },
-          "layout": {
-            "x_anchor": "center",
-            "y_anchor": "middle",
-            "x_offset": 0.2,
-            "y_offset": 0.2
+            "x_offset": 0.0,
+            "y_offset": 0.3
           }
         },
         "flare": {

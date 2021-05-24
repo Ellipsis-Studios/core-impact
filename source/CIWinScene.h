@@ -21,8 +21,6 @@ private:
     std::shared_ptr<cugl::scene2::Label> _gameOutcomeLabel;
     /** Button that brings a player back to the home screen. */
     std::shared_ptr<cugl::scene2::Button> _backToHomeButton;
-    /** Button that starts a new game. */
-    std::shared_ptr<cugl::scene2::Button> _newGameButton;
     
     /** Flag variable to indicated whether to bring the user back to the home screen. */
     bool _goBackToHome;
