@@ -43,6 +43,7 @@ using namespace std;
 #define METEOR_SOUND          "meteor"
 #define SHOOTING_STAR_SOUND   "shootingStar"
 #define STARDUST_HIT_SOUND    "stardustHit"
+#define EXPLOSION_SOUND       "explosion"
 
 #pragma mark -
 #pragma mark Constructors
@@ -234,16 +235,21 @@ void GameScene::update(float timestep, const std::shared_ptr<PlayerSettings>& pl
     // Handle counting down then switching to loading screen
     if (_networkMessageManager->getWinnerPlayerId() != -1) {
         if (!_winScene->displayActive()) {
-            Color4 color = CIColor::getColor4(_planet->getColor());
-            color.a = 75;
-            _planet->getPlanetNode()->setColor(color);
-            _pauseBtn->setVisible(false);
-            int winnerId = _networkMessageManager->getWinnerPlayerId();
-            std::string winningPlayer = "A player";
-            if (winnerId >= 0) {
-                winningPlayer = _networkMessageManager->getOtherNames()[winnerId > _networkMessageManager->getPlayerId() ? winnerId - 1 : winnerId];
+            if (_gameEndTimer == 360) {
+                CULog("Game won.");
+                _pauseBtn->setVisible(false);
+                int winnerId = _networkMessageManager->getWinnerPlayerId();
+                std::string winningPlayer = "A player";
+                if (winnerId >= 0) {
+                    winningPlayer = _networkMessageManager->getOtherNames()[winnerId > _networkMessageManager->getPlayerId() ? winnerId - 1 : winnerId];
+                }
+                _winScene->setWinner(_networkMessageManager->getWinnerPlayerId(), _networkMessageManager->getPlayerId(), winningPlayer);
+                AudioEngine::get()->getMusicQueue()->pause();
+                if (_playerSettings->getMusicOn()) {
+                    std::shared_ptr<Sound> source = _assets->get<Sound>(EXPLOSION_SOUND);
+                    AudioEngine::get()->play(EXPLOSION_SOUND,source,false,_playerSettings->getVolume());
+                }
             }
-            _winScene->setWinner(_networkMessageManager->getWinnerPlayerId(), _networkMessageManager->getPlayerId(), winningPlayer);
             if (_gameEndTimer > 0){
                 _gameEndTimer--;
                 if (_gameEndTimer > 220){
@@ -301,10 +307,10 @@ void GameScene::update(float timestep, const std::shared_ptr<PlayerSettings>& pl
     collisions::checkInBounds(_stardustContainer, dimen);
     std::shared_ptr<Sound> source = _assets->get<Sound>(STARDUST_HIT_SOUND);
     if (collisions::checkForCollision(_planet, _stardustContainer, timestep) && _playerSettings->getMusicOn()) {
-        AudioEngine::get()->play(STARDUST_HIT_SOUND,source,false,_playerSettings->getVolume());
+        AudioEngine::get()->play(STARDUST_HIT_SOUND,source,false,_playerSettings->getVolume(), true);
     }
     if (collisions::checkForCollisions(_stardustContainer) && _playerSettings->getMusicOn()) {
-        AudioEngine::get()->play(STARDUST_HIT_SOUND,source,false,_playerSettings->getVolume());
+        AudioEngine::get()->play(STARDUST_HIT_SOUND,source,false,_playerSettings->getVolume(), true);
     }
     updateDraggedStardust(touchInstances);
     
@@ -313,7 +319,7 @@ void GameScene::update(float timestep, const std::shared_ptr<PlayerSettings>& pl
         if (_planet->lockInLayer(timestep)) {
             // Layer Locked In
             CULog("LAYER LOCKED IN");
-            _stardustContainer->addToPowerupQueue(planetColor, true);
+            _stardustContainer->addToPowerupQueue(planetColor, _gameUpdateManager->getPlayerId());
         }
     } else if (_planet->isLockingIn()) {
         _planet->stopLockIn();
@@ -515,15 +521,18 @@ void GameScene::processSpecialStardust(const cugl::Size bounds, const std::share
             case StardustModel::Type::GRAYSCALE:
                 CULog("GRAYSCALE");
                 sound = GRAYSCALE_SOUND;
-                stardustQueue->getStardustNode()->applyGreyScale();
+                if (stardust->getPreviousOwner() != _gameUpdateManager->getPlayerId()) {
+                    stardustQueue->getStardustNode()->applyGreyScale();
+                }
                 break;
             case StardustModel::Type::FOG: {
                 CULog("FOG");
                 sound = FOG_SOUND;
-                int ii = NetworkUtils::getLocation(_gameUpdateManager->getPlayerId(), stardust->getPreviousOwner())-1;
-                std::shared_ptr<OpponentPlanet> opponent = _opponentPlanets[ii];
-                if (opponent != nullptr) {
-                    opponent->getOpponentNode()->applyFogPower();
+                if (stardust->getPreviousOwner() != _gameUpdateManager->getPlayerId()) {
+                    std::shared_ptr<OpponentPlanet> opponent = _opponentPlanets[stardust->getPreviousOwner()];
+                    if (opponent != nullptr) {
+                        opponent->getOpponentNode()->applyFogPower();
+                    }
                 }
                 break;
             }

@@ -223,9 +223,9 @@ public:
      * Adds a powerup to the powerup queue.
      *
      * @param color the color of layer that was just locked in
-     * @param addToSendQueue whether to add the stardust to the send queue
+     * @param id the source player of the powerup
      */
-    void addToPowerupQueue(CIColor::Value color, bool addToSendQueue);
+    void addToPowerupQueue(CIColor::Value color, int id);
     
     /**
      * Returns the powerup queue
