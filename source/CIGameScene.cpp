@@ -249,7 +249,7 @@ void GameScene::update(float timestep, const std::shared_ptr<PlayerSettings>& pl
           
             if (_gameEndTimer == 360) {
                 CULog("Game won.");
-                winScene->setWinner(_networkMessageManager->getWinnerPlayerId(), _networkMessageManager->getPlayerId(), winningPlayer);
+                _winScene->setWinner(_networkMessageManager->getWinnerPlayerId(), _networkMessageManager->getPlayerId(), winningPlayer);
                 _pauseBtn->setVisible(false);
                 _planet->stopLockIn();
                 AudioEngine::get()->getMusicQueue()->pause();
