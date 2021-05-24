@@ -309,7 +309,10 @@ void NetworkMessageManager::receiveMessages() {
         }
     }
     
-    _framesSinceLastMessageReceived++;
+    if (_gameState == GameState::GameInProgress) {
+        _framesSinceLastMessageReceived++;
+    }
+    
     _conn->receive([this](const std::vector<uint8_t>& recv) {
         if (recv.empty()) {
             return;
