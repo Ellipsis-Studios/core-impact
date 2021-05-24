@@ -178,7 +178,7 @@ void LobbyMenu::update(MenuState& state) {
         case MenuState::JoinToLobby:
         {
             // handle setting up the lobby
-            setPlayerLabels({ "Waiting...", "Waiting...", "Waiting...", "Waiting...", "Waiting..." });
+            setPlayerLabels({ "N/A", "N/A", "N/A", "N/A", "N/A" });
             _lobbyRoomLabel->setText(_gameSettings->getGameId());
             setDisplay(true);
             state = _nextState = MenuState::GameLobby;
@@ -239,7 +239,7 @@ void LobbyMenu::update(MenuState& state) {
             
             // handle disconnected players
             for (; pindex < 5; pindex++) {
-                _gameLobbyPlayerLabels[pindex]->setText("Waiting...");
+                _gameLobbyPlayerLabels[pindex]->setText("N/A");
                 _gameLobbyPlayerLabels[pindex]->setColor(cugl::Color4::GRAY);
                 _gameLobbyPlayerNames[pindex]->setColor(cugl::Color4::GRAY);
             }
