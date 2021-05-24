@@ -168,7 +168,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
         }
         CILocation::Value location = CILocation::Value(ii+1);
         cugl::Vec2 pos = CILocation::getPositionOfLocation(location, dimen);
-        std::shared_ptr<OpponentPlanet> opponent = OpponentPlanet::alloc(pos.x, pos.y, CIColor::getNoneColor(), location);
+        std::shared_ptr<OpponentPlanet> opponent = OpponentPlanet::alloc(pos.x, pos.y, CIColor::getNoneColor(), CONSTANTS::MAX_PLANET_LAYERS, gameSettings->getGravStrength(), gameSettings->getPlanetStardustPerLayer(), location);
         opponent->setTextures(_assets->get<Texture>("opponentProgress"), _assets->get<Texture>("fog"), dimen);
         opponent->setName(opponentNames[ii], assets->get<Font>("saira20"));
         addChild(opponent->getOpponentNode());
@@ -355,7 +355,7 @@ void GameScene::update(float timestep, const std::shared_ptr<PlayerSettings>& pl
             } else if (opponent == nullptr && _networkMessageManager->getOtherNames()[ii] != "") {
                 CILocation::Value location = CILocation::Value(ii+1);
                 cugl::Vec2 pos = CILocation::getPositionOfLocation(location, dimen);
-                std::shared_ptr<OpponentPlanet> opponent = OpponentPlanet::alloc(pos.x, pos.y, CIColor::getNoneColor(), location);
+                std::shared_ptr<OpponentPlanet> opponent = OpponentPlanet::alloc(pos.x, pos.y, CIColor::getNoneColor(), CONSTANTS::MAX_PLANET_LAYERS, _gameSettings->getGravStrength(), _gameSettings->getPlanetStardustPerLayer(), location);
                 opponent->setTextures(_assets->get<Texture>("opponentProgress"), _assets->get<Texture>("fog"), dimen);
                 opponent->setName(_networkMessageManager->getOtherNames()[ii], _assets->get<Font>("saira20"));
                 addChild(opponent->getOpponentNode());

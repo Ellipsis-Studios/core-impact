@@ -3,7 +3,7 @@
 //  CoreImpact
 //
 //  Created by Richard Yoon on 5/4/21.
-//  Copyright © 2021 Game Design Initiative at Cornell. All rights reserved.
+//  Copyright ï¿½ 2021 Game Design Initiative at Cornell. All rights reserved.
 //
 
 #include "CIGameSettingsMenu.h"
@@ -19,6 +19,10 @@ void GameSettingsMenu::dispose() {
         _spawnRateBtn->deactivate();
         _gravStrengthBtn->deactivate();
         _layerSizeBtn->deactivate();
+        _applySettingsBtn->clearListeners();
+        _spawnRateBtn->clearListeners();
+        _gravStrengthBtn->clearListeners();
+        _layerSizeBtn->clearListeners();
     }
     else if (_applySettingsBtn != nullptr) {
         _applySettingsBtn->clearListeners();
@@ -178,7 +182,15 @@ void GameSettingsMenu::update(MenuState& state) {
             _spawnRateLabel->setText(cugl::strtool::to_string(_gameSettings->getSpawnRate(), 1) + "X");
             _gravStrengthLabel->setText(cugl::strtool::to_string(_gameSettings->getGravStrength(), 1) + "X");
             _layerSizeLabel->setText(cugl::strtool::to_string(_gameSettings->getPlanetStardustPerLayer()));
-
+            if (_gameSettings->getSpawnRate() == CONSTANTS::DEFAULT_SPAWN_RATE) {
+                _currSpawn = 2;
+            }
+            if (_gameSettings->getGravStrength() == CONSTANTS::DEFAULT_GRAV_STRENGTH) {
+                _currGrav = 2;
+            }
+            if (_gameSettings->getPlanetStardustPerLayer() == CONSTANTS::DEFAULT_LAYER_SIZE) {
+                _currWin = 1;
+            }
             state = _nextState = MenuState::GameSetting;
             break;
         }
